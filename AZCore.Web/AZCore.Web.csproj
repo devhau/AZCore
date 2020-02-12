@@ -19,4 +19,9 @@
     <Folder Include="Identity\" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\AZCore\AZCore.csproj" />
+  </ItemGroup>
+
 </Project>

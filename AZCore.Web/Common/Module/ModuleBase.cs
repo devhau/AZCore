@@ -7,6 +7,9 @@ namespace AZCore.Web.Common.Module
 {
     public class ModuleBase : IModule
     {
+        public string m { get; set; }
+        public string v { get; set; }
+        public string h { get; set; }
         private static Regex regexModule = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+).([A-Za-z0-9]+)", RegexOptions.IgnoreCase);
 
         public HttpContext httpContext { get; private set; }
@@ -14,11 +17,10 @@ namespace AZCore.Web.Common.Module
         public ModuleBase InitModule(HttpContext httpContext)
         {
             this.httpContext = httpContext;
+            this.httpContext.BindRequestTo(this);
             return this;
         }
-
-        public virtual string RenderHtml(object mode) {
-            
+        public virtual string RenderHtml(object mode) {            
             return RenderHtml(null,mode);
         }
         public virtual string RenderHtml(string viewName=null,object mode=null)
@@ -37,7 +39,7 @@ namespace AZCore.Web.Common.Module
 
             return new ModuleResult()
             {
-                Html = this.RenderHtml()
+                Html = this.ToString()
             };
         }
 

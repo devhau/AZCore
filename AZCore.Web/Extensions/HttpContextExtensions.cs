@@ -12,6 +12,8 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using AZCore.Web.Common.Module;
+using AZCore.Web.Utilities;
 
 namespace AZCore.Web.Extensions
 {
@@ -65,8 +67,32 @@ namespace AZCore.Web.Extensions
                     
                 }
              }
-            
+        }
+        public static bool IsAjax(this HttpContext httpContext) {
 
+            if (httpContext == null)
+                throw new ArgumentNullException(nameof(httpContext));
+            return httpContext.Request.IsAjax();
+
+        }
+        /// <summary>
+        /// Determines whether the specified HTTP request is an AJAX request.
+        /// </summary>
+        /// 
+        /// <returns>
+        /// true if the specified HTTP request is an AJAX request; otherwise, false.
+        /// </returns>
+        /// <param name="request">The HTTP request.</param><exception cref="T:System.ArgumentNullException">The <paramref name="request"/> parameter is null (Nothing in Visual Basic).</exception>
+        public static bool IsAjax(this HttpRequest request)
+        {
+            if (request == null)
+                throw new ArgumentNullException(nameof(request));
+            if (request.Headers != null)
+                return request.Headers["X-Requested-With"] == "XMLHttpRequest";
+            return false;
+        }
+        public static IModuleResult GetContetModule(this HttpContext httpContext) { 
+            return httpContext.Items[AZCoreWeb.KeyHtmlModule] as IModuleResult;
         }
     }
 }

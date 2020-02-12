@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{6CAE87FE-2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AZCore.Web", "AZCore.Web\AZCore.Web.csproj", "{C9E18126-7AE0-4C0D-BA39-E18732799A09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AZCore.App", "AZCore.App\AZCore.App.csproj", "{9804F065-33D3-4CBC-ADF1-AC2AF20310A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AZCore.App", "AZCore.App\AZCore.App.csproj", "{9804F065-33D3-4CBC-ADF1-AC2AF20310A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

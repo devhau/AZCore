@@ -21,7 +21,6 @@ E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\AZCore.HRM.AssemblyInfo.cs
 E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\AZCore.HRM.TagHelpers.input.cache
 E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\AZCore.HRM.TagHelpers.output.cache
 E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\AZCore.HRM.RazorCoreGenerate.cache
-E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Pages\Index.cshtml.g.cs
 E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\_Layout.cshtml.g.cs
 E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
 E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Pages\_ViewImports.cshtml.g.cs
@@ -126,3 +125,7 @@ E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformA
 E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
 E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\AZCore.dll
 E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\AZCore.pdb
+E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\Web\Configs\Setting.config
+E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Pages\PageIndex.cshtml.g.cs
+E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Register\FormRegister.cshtml.g.cs
+E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Pages\PageAjax.cshtml.g.cs

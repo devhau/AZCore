@@ -10,3 +10,6 @@ E:\Projects\AZCore\AZCore.Web\bin\Debug\netcoreapp3.1\AZCore.Web.pdb
 E:\Projects\AZCore\AZCore.Web\obj\Debug\netcoreapp3.1\AZCore.Web.RazorTargetAssemblyInfo.cache
 E:\Projects\AZCore\AZCore.Web\obj\Debug\netcoreapp3.1\AZCore.Web.dll
 E:\Projects\AZCore\AZCore.Web\obj\Debug\netcoreapp3.1\AZCore.Web.pdb
+E:\Projects\AZCore\AZCore.Web\bin\Debug\netcoreapp3.1\AZCore.dll
+E:\Projects\AZCore\AZCore.Web\bin\Debug\netcoreapp3.1\AZCore.pdb
+E:\Projects\AZCore\AZCore.Web\obj\Debug\netcoreapp3.1\AZCore.Web.csproj.CopyComplete
