@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 
 namespace AZCore.Web.Extensions
 {
@@ -35,6 +36,15 @@ namespace AZCore.Web.Extensions
         public static IModuleResult LoadModuleFromUrl(this AZPage page)
         {
             return page.HttpContext.RequestServices.GetRequiredService<ModulePortal>().GetResult();
+        }
+        public static string LoadTextFile(this string path)
+        {
+            var file= AZCoreWeb.env.ContentRootFileProvider.GetFileInfo(path);
+
+            if (file.Exists) {
+                return File.ReadAllText(file.PhysicalPath);
+            }
+            return "";
         }
         public static string MapPath(this string path) {
            return AZCoreWeb.env.ContentRootFileProvider.GetFileInfo(path).PhysicalPath;

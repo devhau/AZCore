@@ -17,7 +17,6 @@
   <ItemGroup>
     <Folder Include="Web\Components\" />
     <Folder Include="Web\Errors\" />
-    <Folder Include="Web\Themes\" />
   </ItemGroup>
 
 

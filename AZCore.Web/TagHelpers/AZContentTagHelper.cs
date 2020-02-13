@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace AZCore.Web.TagHelpers
 {
-    [HtmlTargetElement("az-body")]
-    public class AZBodyTagHelper: AZTagHelper
+    [HtmlTargetElement("az-content")]
+    public class AZContentTagHelper : AZTagHelper
     {
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "body";          
+            output.TagName = "";
+
+            output.Content.SetHtmlContent(this.ViewContext.HttpContext.GetContetModule().Html.ToString() + "<br/>" + this.ViewContext.HttpContext.Items[AZCoreWeb.KeyUrlVirtual]);
         }
     }
 }
-

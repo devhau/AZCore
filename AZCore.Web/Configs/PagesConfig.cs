@@ -30,6 +30,11 @@ namespace AZCore.Web.Configs
         /// </summary>        
         [XmlElement("page")]
         public List<PageTag> Pages { set; get; }
+        /// <summary>
+        /// Định nghĩa các pageTag
+        /// </summary>        
+        [XmlElement("head")]
+        public HeadTag Head { set; get; }
 
         public string GetMatchingRewrite(string url)
         {

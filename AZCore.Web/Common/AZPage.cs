@@ -15,7 +15,7 @@ namespace AZCore.Web.Common
         protected virtual void InitData() { }
         protected virtual void RenderView(HttpContext HttpContext)
         {
-            // HttpContext.Response.WriteAsync((HttpContext.Items[AZCoreWeb.KeyHtmlModule] as IModuleResult).Html);
+          //  HttpContext.Response.WriteAsync(HttpContext.RenderToHtml("~/Web/Themes/Admin", "Layout.cshtml", null));
         }
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {

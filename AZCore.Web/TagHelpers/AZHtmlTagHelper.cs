@@ -1,6 +1,4 @@
 ﻿using AZCore.Web.Common;
-using AZCore.Web.Extensions;
-using AZCore.Web.Utilities;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections.Generic;
@@ -9,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace AZCore.Web.TagHelpers
 {
-    [HtmlTargetElement("az-body")]
-    public class AZBodyTagHelper: AZTagHelper
+    [HtmlTargetElement("az-html")]
+    public class AZHtmlTagHelper : AZTagHelper
     {
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "body";          
+            output.TagName = "html";
         }
     }
 }
-
