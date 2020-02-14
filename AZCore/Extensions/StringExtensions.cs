@@ -11,7 +11,7 @@ namespace AZCore.Extensions
             str = str.Trim();
             if (str.Length > 0) {
 
-                return str[0].ToString().ToUpper() + str.Substring(1);
+                return str[0].ToString().ToUpper() + str.Substring(1).ToLower();
             }
             return "";
         }

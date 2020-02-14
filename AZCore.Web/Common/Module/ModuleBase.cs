@@ -1,6 +1,8 @@
-﻿using AZCore.Web.Extensions;
+﻿using AZCore.Extensions;
+using AZCore.Web.Extensions;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace AZCore.Web.Common.Module
@@ -20,6 +22,20 @@ namespace AZCore.Web.Common.Module
             this.httpContext.BindRequestTo(this);
             return this;
         }
+        public IModuleResult View(){
+            return View(this);
+        }
+        public IModuleResult View(object mode)
+        {
+            return View(null, mode);
+        }
+        public IModuleResult View(string viewName, object mode)
+        {
+            return new ModuleResult()
+            {
+                Html = RenderHtml(viewName, mode)
+            };
+        }
         public virtual string RenderHtml(object mode) {            
             return RenderHtml(null,mode);
         }
@@ -35,12 +51,34 @@ namespace AZCore.Web.Common.Module
             }
             return string.Empty;
         }
-        public virtual IModuleResult GetResult() {
+        internal virtual IModuleResult GetResult() {
+            var methodFunction = this.GetType().GetMethod(string.Format("{0}{1}", this.httpContext.Request.Method.ToUpperFirstChart(), this.h.ToUpperFirstChart()));
+         var paras=   methodFunction.GetParameters();
+            List<object> paraValues = new List<object>();
+            foreach (var item in paras) {
+                if (false && this.httpContext.Request.Query.ContainsKey(item.Name)) {
+                    paraValues.Add(Convert.ChangeType(this.httpContext.Request.Query[item.Name], item.ParameterType));
+                } else {
+                    if(item.HasDefaultValue)
+                    paraValues.Add(item.RawDefaultValue);
+                    else
+                        paraValues.Add(null);
+                }
+            }
+           var rsObj= methodFunction.Invoke(this,paraValues.ToArray());
 
-            return new ModuleResult()
+            if (methodFunction.ReturnType == typeof(ModuleResult))
             {
-                Html = this.ToString()
-            };
+                return (ModuleResult)rsObj;
+            }
+            else {
+                return new ModuleResult()
+                {
+                    Html = rsObj.ToString()
+                };
+            }
+
+          
         }
 
         public override string ToString()
