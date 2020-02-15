@@ -17,12 +17,14 @@
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\nguon\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\nguon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -43,6 +45,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.11.18, )"
+            },
             "Microsoft.AspNetCore.Components": {
               "target": "Package",
               "version": "[3.1.0, )"
@@ -54,6 +60,10 @@
             "Microsoft.AspNetCore.Routing.Abstractions": {
               "target": "Package",
               "version": "[2.2.0, )"
+            },
+            "YUICompressor.NET": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             }
           },
           "imports": [
@@ -91,12 +101,14 @@
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\nguon\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\nguon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

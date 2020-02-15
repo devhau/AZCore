@@ -44,19 +44,24 @@ using AZCore.HRM;
             }
         }
         private global::AZCore.Web.TagHelpers.AZHtmlTagHelper __AZCore_Web_TagHelpers_AZHtmlTagHelper;
+        private global::AZCore.Web.TagHelpers.AZHtml.AZHtml __AZCore_Web_TagHelpers_AZHtml_AZHtml;
         private global::AZCore.Web.TagHelpers.AZHeadTagHelper __AZCore_Web_TagHelpers_AZHeadTagHelper;
+        private global::AZCore.Web.TagHelpers.AZHtml.AZHead __AZCore_Web_TagHelpers_AZHtml_AZHead;
         private global::AZCore.Web.TagHelpers.AZBodyTagHelper __AZCore_Web_TagHelpers_AZBodyTagHelper;
+        private global::AZCore.Web.TagHelpers.AZHtml.AZBody __AZCore_Web_TagHelpers_AZHtml_AZBody;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-html", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ee86e26b43c76799cca942f14cfd799788ade36a3018", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-html", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ee86e26b43c76799cca942f14cfd799788ade36a3318", async() => {
                 WriteLiteral("\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ee86e26b43c76799cca942f14cfd799788ade36a3283", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ee86e26b43c76799cca942f14cfd799788ade36a3583", async() => {
                     WriteLiteral("\r\n\r\n    ");
                 }
                 );
                 __AZCore_Web_TagHelpers_AZHeadTagHelper = CreateTagHelper<global::AZCore.Web.TagHelpers.AZHeadTagHelper>();
                 __tagHelperExecutionContext.Add(__AZCore_Web_TagHelpers_AZHeadTagHelper);
+                __AZCore_Web_TagHelpers_AZHtml_AZHead = CreateTagHelper<global::AZCore.Web.TagHelpers.AZHtml.AZHead>();
+                __tagHelperExecutionContext.Add(__AZCore_Web_TagHelpers_AZHtml_AZHead);
                 await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
                 if (!__tagHelperExecutionContext.Output.IsContentModified)
                 {
@@ -65,7 +70,7 @@ using AZCore.HRM;
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ee86e26b43c76799cca942f14cfd799788ade36a4266", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ee86e26b43c76799cca942f14cfd799788ade36a4776", async() => {
                     WriteLiteral("\r\n        ");
 #nullable restore
 #line 6 "E:\Projects\AZCore\AZCore.HRM\Pages\Shared\_Layout.cshtml"
@@ -79,6 +84,8 @@ using AZCore.HRM;
                 );
                 __AZCore_Web_TagHelpers_AZBodyTagHelper = CreateTagHelper<global::AZCore.Web.TagHelpers.AZBodyTagHelper>();
                 __tagHelperExecutionContext.Add(__AZCore_Web_TagHelpers_AZBodyTagHelper);
+                __AZCore_Web_TagHelpers_AZHtml_AZBody = CreateTagHelper<global::AZCore.Web.TagHelpers.AZHtml.AZBody>();
+                __tagHelperExecutionContext.Add(__AZCore_Web_TagHelpers_AZHtml_AZBody);
                 await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
                 if (!__tagHelperExecutionContext.Output.IsContentModified)
                 {
@@ -91,6 +98,8 @@ using AZCore.HRM;
             );
             __AZCore_Web_TagHelpers_AZHtmlTagHelper = CreateTagHelper<global::AZCore.Web.TagHelpers.AZHtmlTagHelper>();
             __tagHelperExecutionContext.Add(__AZCore_Web_TagHelpers_AZHtmlTagHelper);
+            __AZCore_Web_TagHelpers_AZHtml_AZHtml = CreateTagHelper<global::AZCore.Web.TagHelpers.AZHtml.AZHtml>();
+            __tagHelperExecutionContext.Add(__AZCore_Web_TagHelpers_AZHtml_AZHtml);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {

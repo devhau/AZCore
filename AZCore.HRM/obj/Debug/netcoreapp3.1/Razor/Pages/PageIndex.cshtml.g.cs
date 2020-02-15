@@ -44,14 +44,17 @@ using AZCore.HRM;
             }
         }
         private global::AZCore.Web.TagHelpers.AZContentTagHelper __AZCore_Web_TagHelpers_AZContentTagHelper;
+        private global::AZCore.Web.TagHelpers.AZHtml.AZContent __AZCore_Web_TagHelpers_AZHtml_AZContent;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-content", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c5c2e3a1cb0b5079999599e8bd8e2c8034fe30af2774", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-content", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c5c2e3a1cb0b5079999599e8bd8e2c8034fe30af2880", async() => {
             }
             );
             __AZCore_Web_TagHelpers_AZContentTagHelper = CreateTagHelper<global::AZCore.Web.TagHelpers.AZContentTagHelper>();
             __tagHelperExecutionContext.Add(__AZCore_Web_TagHelpers_AZContentTagHelper);
+            __AZCore_Web_TagHelpers_AZHtml_AZContent = CreateTagHelper<global::AZCore.Web.TagHelpers.AZHtml.AZContent>();
+            __tagHelperExecutionContext.Add(__AZCore_Web_TagHelpers_AZHtml_AZContent);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {

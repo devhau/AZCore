@@ -66,19 +66,22 @@ namespace AZCore.Web.Common.Module
                 }
             }
            var rsObj= methodFunction.Invoke(this,paraValues.ToArray());
-
-            if (methodFunction.ReturnType == typeof(ModuleResult))
-            {
-                return (ModuleResult)rsObj;
-            }
-            else {
-                return new ModuleResult()
+            if (rsObj != null) {
+                if (rsObj.GetType() == typeof(ModuleResult)) {
+                    return (ModuleResult)rsObj;
+                }
+                else
                 {
-                    Html = rsObj.ToString()
-                };
+                    return new ModuleResult()
+                    {
+                        Html = rsObj.ToString()
+                    };
+                }
             }
-
-          
+            return new ModuleResult()
+            {
+                
+            };
         }
 
         public override string ToString()

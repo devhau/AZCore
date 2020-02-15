@@ -129,3 +129,8 @@ E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\Web\Configs\Setting.config
 E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Pages\PageIndex.cshtml.g.cs
 E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Register\FormRegister.cshtml.g.cs
 E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Pages\PageAjax.cshtml.g.cs
+E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Web\_ViewImports.cshtml.g.cs
+E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\EcmaScript.NET.dll
+E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\HtmlAgilityPack.dll
+E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
+E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\Yahoo.Yui.Compressor.dll

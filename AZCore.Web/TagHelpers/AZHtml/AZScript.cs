@@ -5,14 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AZCore.Web.TagHelpers
+namespace AZCore.Web.TagHelpers.AZHtml
 {
-    [HtmlTargetElement("az-html")]
-    public class AZHtmlTagHelper : AZTagHelper
+    [HtmlTargetElement("az-script")]
+    public class AZScript : AZTagHelper
     {
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "html";
+            output.TagName = "";
+
         }
     }
 }
