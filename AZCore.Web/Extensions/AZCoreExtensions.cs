@@ -4,6 +4,7 @@ using AZCore.Web.Common.Module;
 using AZCore.Web.Configs;
 using AZCore.Web.Middleware;
 using AZCore.Web.Utilities;
+using HtmlAgilityPack;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +29,7 @@ namespace AZCore.Web.Extensions
             services.AddHttpContextAccessor();
             services.AddSingleton<IPagesConfig>(PagesConfig);
             services.AddSingleton<IStartup>(startup);
-            services.AddSingleton<ModulePortal>((t1) => new ModulePortal(t1.GetRequiredService<IStartup>(), t1.GetRequiredService<IHttpContextAccessor>())) ; 
+            services.AddSingleton<ModulePortal>((t1) => new ModulePortal(t1.GetRequiredService<IStartup>(), t1.GetRequiredService<IHttpContextAccessor>(), t1.GetRequiredService<IPagesConfig>())) ; 
             // services.AddSingleton();
         }
         public static IObject CreateInstance<IObject>(this Type obj) where IObject:class => Activator.CreateInstance(obj) as IObject;
@@ -36,6 +37,10 @@ namespace AZCore.Web.Extensions
         public static IModuleResult LoadModuleFromUrl(this AZPage page)
         {
             return page.HttpContext.RequestServices.GetRequiredService<ModulePortal>().GetResult();
+        }
+        public static string LoadThemeFromUrl(this AZPage page)
+        {
+            return page.HttpContext.RequestServices.GetRequiredService<ModulePortal>().GetTheme().GetHtml();
         }
         public static string LoadTextFile(this string path)
         {
@@ -49,6 +54,11 @@ namespace AZCore.Web.Extensions
         public static string MapPath(this string path) {
            return AZCoreWeb.env.ContentRootFileProvider.GetFileInfo(path).PhysicalPath;
         }
-        
+        public static HtmlDocument LoadHtml(this string content) {
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(content);
+            return htmlDoc;
+        } 
+
     }
 }

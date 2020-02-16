@@ -134,3 +134,4 @@ E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\EcmaScript.NET.dll
 E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\HtmlAgilityPack.dll
 E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
 E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\Yahoo.Yui.Compressor.dll
+E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Web\Themes\Admin\LayoutTheme.cshtml.g.cs

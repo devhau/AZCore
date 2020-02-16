@@ -1,4 +1,5 @@
 ﻿using AZCore.Extensions;
+using AZCore.Web.Configs;
 using AZCore.Web.Extensions;
 using AZCore.Web.Utilities;
 using Microsoft.AspNetCore.Http;
@@ -16,15 +17,27 @@ namespace AZCore.Web.Common.Module
         public string v { get; set; }
         public string h { get; set; }
         public IHttpContextAccessor httpContext { get; set; }
+        public IPagesConfig pageConfigs { get; set; }
+
         string AssemblyName { get; set; }
-        public ModulePortal(IStartup startup, IHttpContextAccessor httpContext) {
-            dicModule= startup.GetType().Assembly.GetTypes().Where(t => t.BaseType==typeof(ModuleBase)).Select((t)=>t.CreateInstance<ModuleBase>()).ToDictionary((t)=> t.GetType().FullName);
+        public ModulePortal(IStartup startup, IHttpContextAccessor httpContext, IPagesConfig pageConfigs) {
+            this.pageConfigs = pageConfigs;
+            dicModule = startup.GetType().Assembly.GetTypes().Where(t => t.BaseType==typeof(ModuleBase)|| t.BaseType == typeof(ThemeBase)).Select((t)=>t.CreateInstance<ModuleBase>()).ToDictionary((t)=> t.GetType().FullName);
             AssemblyName = startup.AssemblyName;
             this.httpContext = httpContext;
         }
         private void BindQueryToThis()
         {
             this.httpContext.HttpContext.BindRequestTo(this);
+        }
+        public ThemeBase GetTheme()
+        {
+            string module = AssemblyName + ".Web.Themes."+this.pageConfigs.Theme+".LayoutTheme";          
+            if (dicModule.ContainsKey(module)) return (ThemeBase)dicModule[module].InitModule(this.httpContext.HttpContext);
+            var _module = module.CreateInstance<ThemeBase>(module);
+            _module.InitModule(this.httpContext.HttpContext);
+            dicModule.Add(module, _module);
+            return _module;
         }
         public ModuleBase GetModule()
         {

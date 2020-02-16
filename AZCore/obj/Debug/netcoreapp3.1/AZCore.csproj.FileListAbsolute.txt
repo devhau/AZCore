@@ -1,4 +1,3 @@
-E:\Projects\AZCore\AZCore\obj\Debug\netcoreapp3.1\AZCore.csprojAssemblyReference.cache
 E:\Projects\AZCore\AZCore\obj\Debug\netcoreapp3.1\AZCore.AssemblyInfoInputs.cache
 E:\Projects\AZCore\AZCore\obj\Debug\netcoreapp3.1\AZCore.AssemblyInfo.cs
 E:\Projects\AZCore\AZCore\bin\Debug\netcoreapp3.1\AZCore.deps.json

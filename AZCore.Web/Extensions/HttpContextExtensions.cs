@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AZCore.Web.Common.Module;
 using AZCore.Web.Utilities;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AZCore.Web.Extensions
 {
@@ -22,8 +23,8 @@ namespace AZCore.Web.Extensions
         public static string RenderToHtml(this HttpContext httpContext,string path,string viewName, object model) {
 
             var actionContext = new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
-            var _razorViewEngine = httpContext.RequestServices.GetService(typeof(IRazorViewEngine)) as IRazorViewEngine;
-            var _tempDataProvider= httpContext.RequestServices.GetService(typeof(ITempDataProvider)) as ITempDataProvider;
+            var _razorViewEngine = httpContext.GetService<IRazorViewEngine>();
+            var _tempDataProvider= httpContext.GetService<ITempDataProvider>();
             
             using (var sw = new StringWriter())
             {
@@ -93,6 +94,9 @@ namespace AZCore.Web.Extensions
         }
         public static IModuleResult GetContetModule(this HttpContext httpContext) { 
             return httpContext.Items[AZCoreWeb.KeyHtmlModule] as IModuleResult;
+        }
+        public static TClass GetService<TClass>(this HttpContext httpContext) {
+            return httpContext.RequestServices.GetRequiredService<TClass>();
         }
     }
 }

@@ -6,9 +6,11 @@ namespace AZCore.Web.Configs
 {
     public interface IPagesConfig {
         List<PageTag> Pages { set; get; }
+        HeadTag Head { set; get; }
         string GetMatchingRewrite(string url);
         string extenstion { get; set; }
-        string UrlRealDefault { get; set; } 
+        string UrlRealDefault { get; set; }
+        string Theme { get; set; }
 
     }
     /// <summary>
@@ -25,6 +27,8 @@ namespace AZCore.Web.Configs
         public string extenstion { get; set; } = ".az";
         [XmlElement("web-default")]
         public string UrlRealDefault { get; set; } = "m=home";
+        [XmlElement("web-theme")]
+        public string Theme { get; set; } = "Admin";
         /// <summary>
         /// Định nghĩa các pageTag
         /// </summary>        

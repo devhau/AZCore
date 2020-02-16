@@ -15,6 +15,10 @@ namespace AZCore.Web.Common.Module
         private static Regex regexModule = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+).([A-Za-z0-9]+)", RegexOptions.IgnoreCase);
 
         public HttpContext httpContext { get; private set; }
+        public string Title { get; set; } = "Hệ thống quản lý nhân sự";
+        public string Description { get; set; }
+        public string Author { get; set; }
+        public string Keywords { get; set; }
 
         public ModuleBase InitModule(HttpContext httpContext)
         {
@@ -33,6 +37,10 @@ namespace AZCore.Web.Common.Module
         {
             return new ModuleResult()
             {
+                Title = this.Title,
+                Description = this.Description,
+                Author = this.Author,
+                Keywords = this.Keywords,
                 Html = RenderHtml(viewName, mode)
             };
         }
@@ -74,13 +82,20 @@ namespace AZCore.Web.Common.Module
                 {
                     return new ModuleResult()
                     {
+                        Title=this.Title,
+                        Description = this.Description,
+                        Author = this.Author,
+                        Keywords = this.Keywords,
                         Html = rsObj.ToString()
                     };
                 }
             }
             return new ModuleResult()
             {
-                
+                Title = this.Title,
+                Description = this.Description,
+                Author = this.Author,
+                Keywords = this.Keywords,
             };
         }
 

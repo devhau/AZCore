@@ -12,7 +12,7 @@ namespace AZCore.Web.TagHelpers.AZHtml
     {
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "";
+            output.TagName = "body";
 
         }
     }
