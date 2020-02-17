@@ -19,8 +19,8 @@ namespace AZCore.Web.Common.Module
     public class ModuleResult : IModuleResult
     {
         public string Html { get; set; }
-        public List<ContentTag> JS { get; set; }
-        public List<ContentTag> CSS { get; set; }
+        public List<ContentTag> JS { get; set; } = new List<ContentTag>();
+        public List<ContentTag> CSS { get; set; } = new List<ContentTag>();
         public string Title { get; set; }
         public string Description { get; set; }
         public string Author { get; set; }

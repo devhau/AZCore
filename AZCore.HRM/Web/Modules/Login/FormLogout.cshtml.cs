@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace AZCore.HRM.Web.Modules.Login
 {
-    public class FormLogin:ModuleBase
+    public class FormLogout : ModuleBase
     {
-        public IModuleResult Get() {
+        public IModuleResult Get()
+        {
             return View();
         }
     }

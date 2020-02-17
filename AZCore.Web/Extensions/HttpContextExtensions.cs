@@ -92,7 +92,8 @@ namespace AZCore.Web.Extensions
                 return request.Headers["X-Requested-With"] == "XMLHttpRequest";
             return false;
         }
-        public static IModuleResult GetContetModule(this HttpContext httpContext) { 
+        public static IModuleResult GetContetModule(this HttpContext httpContext) {
+            if (httpContext.Items[AZCoreWeb.KeyHtmlModule] == null) { httpContext.Items[AZCoreWeb.KeyHtmlModule] = new ModuleResult(); }
             return httpContext.Items[AZCoreWeb.KeyHtmlModule] as IModuleResult;
         }
         public static TClass GetService<TClass>(this HttpContext httpContext) {

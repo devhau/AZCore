@@ -10,10 +10,15 @@ namespace AZCore.Web.TagHelpers.AZHtml
     [HtmlTargetElement("az-script")]
     public class AZScript : AZTagHelper
     {
-        public override void Process(TagHelperContext context, TagHelperOutput output)
+        [HtmlAttributeName("link")]
+        public string Link { get; set; }
+        [HtmlAttributeName("cdn")]
+        public string CDN { get; set; }
+        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "";
-
+            var content = await output.GetChildContentAsync();
+            this.HtmlResult.JS.Add(new Configs.ContentTag() { Code = content.GetContent(),CDN=this.CDN,Link=this.Link });
+            output.SuppressOutput();
         }
     }
 }

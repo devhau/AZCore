@@ -15,6 +15,7 @@ namespace AZCore.Web.Common.Module
         private static Regex regexModule = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+).([A-Za-z0-9]+)", RegexOptions.IgnoreCase);
 
         public HttpContext httpContext { get; private set; }
+        public IModuleResult HtmlResult { get => this.httpContext.GetContetModule(); }
         public string Title { get; set; } = "Hệ thống quản lý nhân sự";
         public string Description { get; set; }
         public string Author { get; set; }
@@ -35,14 +36,17 @@ namespace AZCore.Web.Common.Module
         }
         public IModuleResult View(string viewName, object mode)
         {
-            return new ModuleResult()
-            {
-                Title = this.Title,
-                Description = this.Description,
-                Author = this.Author,
-                Keywords = this.Keywords,
-                Html = RenderHtml(viewName, mode)
-            };
+            return GetView(RenderHtml(viewName, mode));
+        }
+        private IModuleResult GetView(string html)
+        {
+            this.HtmlResult.Html = html;
+            this.HtmlResult.Title = this.Title;
+            this.HtmlResult.Description = this.Description;
+            this.HtmlResult.Author = this.Author;
+            this.HtmlResult.Keywords = this.Keywords;
+            return this.HtmlResult;
+
         }
         public virtual string RenderHtml(object mode) {            
             return RenderHtml(null,mode);
@@ -59,44 +63,38 @@ namespace AZCore.Web.Common.Module
             }
             return string.Empty;
         }
-        internal virtual IModuleResult GetResult() {
+        internal virtual IModuleResult GetResult()
+        {
             var methodFunction = this.GetType().GetMethod(string.Format("{0}{1}", this.httpContext.Request.Method.ToUpperFirstChart(), this.h.ToUpperFirstChart()));
-         var paras=   methodFunction.GetParameters();
+            var paras = methodFunction.GetParameters();
             List<object> paraValues = new List<object>();
-            foreach (var item in paras) {
-                if (false && this.httpContext.Request.Query.ContainsKey(item.Name)) {
+            foreach (var item in paras)
+            {
+                if (false && this.httpContext.Request.Query.ContainsKey(item.Name))
+                {
                     paraValues.Add(Convert.ChangeType(this.httpContext.Request.Query[item.Name], item.ParameterType));
-                } else {
-                    if(item.HasDefaultValue)
-                    paraValues.Add(item.RawDefaultValue);
+                }
+                else
+                {
+                    if (item.HasDefaultValue)
+                        paraValues.Add(item.RawDefaultValue);
                     else
                         paraValues.Add(null);
                 }
             }
-           var rsObj= methodFunction.Invoke(this,paraValues.ToArray());
-            if (rsObj != null) {
-                if (rsObj.GetType() == typeof(ModuleResult)) {
+            var rsObj = methodFunction.Invoke(this, paraValues.ToArray());
+            if (rsObj != null)
+            {
+                if (rsObj.GetType() == typeof(ModuleResult))
+                {
                     return (ModuleResult)rsObj;
                 }
                 else
                 {
-                    return new ModuleResult()
-                    {
-                        Title=this.Title,
-                        Description = this.Description,
-                        Author = this.Author,
-                        Keywords = this.Keywords,
-                        Html = rsObj.ToString()
-                    };
+                    return GetView(rsObj.ToString());
                 }
             }
-            return new ModuleResult()
-            {
-                Title = this.Title,
-                Description = this.Description,
-                Author = this.Author,
-                Keywords = this.Keywords,
-            };
+            return GetView("");
         }
 
         public override string ToString()

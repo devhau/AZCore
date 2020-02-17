@@ -21,15 +21,19 @@ namespace AZCore.Web.Common
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
             InitData();
-            var configs = context.HttpContext.GetService<IPagesConfig>();
             var ModuleContent = this.LoadModuleFromUrl();
             if (ModuleContent.CSS == null) ModuleContent.CSS = new System.Collections.Generic.List<Configs.ContentTag>();
             if (ModuleContent.JS == null) ModuleContent.JS = new System.Collections.Generic.List<Configs.ContentTag>();
-            if (configs.Head!=null)
+            if (!typeof(IAjax).IsAssignableFrom(this.GetType()))
             {
-                ModuleContent.CSS.AddRange(configs.Head.Stypes);
-                ModuleContent.JS.AddRange(configs.Head.Scripts);
+                var configs = context.HttpContext.GetService<IPagesConfig>();
+                if (configs.Head != null)
+                {
+                    ModuleContent.CSS.AddRange(configs.Head.Stypes);
+                    ModuleContent.JS.AddRange(configs.Head.Scripts);
+                }
             }
+           
             context.HttpContext.Items[AZCoreWeb.KeyHtmlModule] = ModuleContent;
             base.OnPageHandlerExecuting(context);
         }
