@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AZCore.Web.Common.Module;
 using AZCore.Web.Utilities;
 using Microsoft.Extensions.DependencyInjection;
+using System.Text;
+using AZCore.Extensions;
 
 namespace AZCore.Web.Extensions
 {
@@ -98,6 +100,26 @@ namespace AZCore.Web.Extensions
         }
         public static TClass GetService<TClass>(this HttpContext httpContext) {
             return httpContext.RequestServices.GetRequiredService<TClass>();
+        }
+        public static string GetAssemblyName(this HttpContext httpContext,string AssemblyName) {
+            StringBuilder assembly = new StringBuilder(AssemblyName);
+            assembly.Append(".Web.");
+            string FormView = "Errors.NotFoundModule";
+            if (httpContext.Request.Query.ContainsKey("m"))
+            {
+                string m = httpContext.Request.Query["m"].ToString().ToUpperFirstChart();
+                string FormViewCache = string.Format("Modules.{0}.Form{0}",m);
+                if (httpContext.Request.Query.ContainsKey("v") && httpContext.Request.Query["v"].ToString() != "")
+                {
+                    FormViewCache = string.Format("Modules.{0}.Form{1}", m, httpContext.Request.Query["v"].ToString().ToUpperFirstChart());
+                }
+                if (httpContext.GetService<ModulePortal>().dicModule.ContainsKey(string.Format("{0}{1}", assembly, FormViewCache))) {
+                    FormView = FormViewCache;
+                }
+            }
+            assembly.Append(FormView);
+            return assembly.ToString();
+
         }
     }
 }

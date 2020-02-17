@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Web\Components\" />
-    <Folder Include="Web\Errors\" />
+    <Folder Include="wwwroot\lib\pathchange\" />
   </ItemGroup>
 
 

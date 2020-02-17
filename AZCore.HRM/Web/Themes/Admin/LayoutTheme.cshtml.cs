@@ -1,4 +1,5 @@
 ﻿using AZCore.Web.Common.Module;
+using AZCore.Web.Configs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,5 +9,11 @@ namespace AZCore.HRM.Web.Themes.Admin
 {
     public class LayoutTheme: ThemeBase
     {
+        public List<MenuItemTag> Menus { get; set; }
+
+        protected override void IntData()
+        {
+            this.Menus = PagesConfig.Menu[0].MenuItem;
+        }
     }
 }

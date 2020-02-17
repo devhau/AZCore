@@ -7,7 +7,9 @@ namespace AZCore.Web.Common.Module
 {
     public class ThemeBase:ModuleBase
     {
+        protected virtual void IntData() { }
         public string GetHtml() {
+            IntData();
             return View().Html;
         }
     }

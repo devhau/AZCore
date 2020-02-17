@@ -22,15 +22,13 @@ namespace AZCore.Web.Common
         {
             InitData();
             var ModuleContent = this.LoadModuleFromUrl();
-            if (ModuleContent.CSS == null) ModuleContent.CSS = new System.Collections.Generic.List<Configs.ContentTag>();
-            if (ModuleContent.JS == null) ModuleContent.JS = new System.Collections.Generic.List<Configs.ContentTag>();
             if (!typeof(IAjax).IsAssignableFrom(this.GetType()))
             {
                 var configs = context.HttpContext.GetService<IPagesConfig>();
                 if (configs.Head != null)
                 {
-                    ModuleContent.CSS.AddRange(configs.Head.Stypes);
-                    ModuleContent.JS.AddRange(configs.Head.Scripts);
+                    ModuleContent.CSS.InsertRange(0,configs.Head.Stypes);
+                    ModuleContent.JS.InsertRange(0,configs.Head.Scripts);
                 }
             }
            

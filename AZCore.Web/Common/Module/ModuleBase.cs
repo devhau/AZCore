@@ -1,4 +1,5 @@
 ﻿using AZCore.Extensions;
+using AZCore.Web.Configs;
 using AZCore.Web.Extensions;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -12,10 +13,12 @@ namespace AZCore.Web.Common.Module
         public string m { get; set; }
         public string v { get; set; }
         public string h { get; set; }
-        private static Regex regexModule = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+).([A-Za-z0-9]+)", RegexOptions.IgnoreCase);
+        private static Regex regexModule = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+).([A-Za-z0-9]+)$", RegexOptions.IgnoreCase);
+        private static Regex regexError = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+)$", RegexOptions.IgnoreCase);
 
         public HttpContext httpContext { get; private set; }
         public IModuleResult HtmlResult { get => this.httpContext.GetContetModule(); }
+        public PagesConfig PagesConfig { get => this.httpContext.GetService<PagesConfig>(); }
         public string Title { get; set; } = "Hệ thống quản lý nhân sự";
         public string Description { get; set; }
         public string Author { get; set; }
@@ -54,7 +57,14 @@ namespace AZCore.Web.Common.Module
         public virtual string RenderHtml(string viewName=null,object mode=null)
         {
             Type type = this.GetType();
-            if (regexModule.IsMatch(type.FullName))
+            if (regexError.IsMatch(type.FullName))
+            {
+                var m = regexError.Match(type.FullName);
+                if (mode == null) mode = this;
+                if (string.IsNullOrEmpty(viewName)) viewName = m.Groups[2].Value;
+                return this.httpContext.RenderToHtml(string.Format("~/Web/{0}", m.Groups[1].Value), viewName + ".cshtml", mode);
+            }
+            else if (regexModule.IsMatch(type.FullName))
             {
                 var m = regexModule.Match(type.FullName);
                 if (mode == null) mode = this;

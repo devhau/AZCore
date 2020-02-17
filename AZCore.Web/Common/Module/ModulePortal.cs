@@ -26,10 +26,6 @@ namespace AZCore.Web.Common.Module
             AssemblyName = startup.AssemblyName;
             this.httpContext = httpContext;
         }
-        private void BindQueryToThis()
-        {
-            this.httpContext.HttpContext.BindRequestTo(this);
-        }
         public ThemeBase GetTheme()
         {
             string module = AssemblyName + ".Web.Themes."+this.pageConfigs.Theme+".LayoutTheme";          
@@ -41,23 +37,7 @@ namespace AZCore.Web.Common.Module
         }
         public ModuleBase GetModule()
         {
-            BindQueryToThis();
-            string module = AssemblyName + ".Web.Modules." + m.ToUpperFirstChart();
-            string FormView = "";
-            if (string.IsNullOrEmpty(v))
-            {
-                 FormView = "Form" + m.ToUpperFirstChart();
-            }
-            else
-            {
-                 FormView = "Form" + v.ToUpperFirstChart();
-            }
-            module += "." + FormView;
-            if (dicModule.ContainsKey(module)) return dicModule[module].InitModule(this.httpContext.HttpContext);
-            var _module= module.CreateInstance<ModuleBase>(FormView);
-            _module.InitModule(this.httpContext.HttpContext);
-            dicModule.Add(module, _module);
-            return _module;
+           return  dicModule[this.httpContext.HttpContext.GetAssemblyName(AssemblyName)].InitModule(this.httpContext.HttpContext);
         }
         public IModuleResult GetResult()
         {

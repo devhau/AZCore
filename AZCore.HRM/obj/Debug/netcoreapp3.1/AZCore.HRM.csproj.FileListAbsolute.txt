@@ -136,3 +136,4 @@ E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocume
 E:\Projects\AZCore\AZCore.HRM\bin\Debug\netcoreapp3.1\Yahoo.Yui.Compressor.dll
 E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Web\Themes\Admin\LayoutTheme.cshtml.g.cs
 E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Login\FormLogout.cshtml.g.cs
+E:\Projects\AZCore\AZCore.HRM\obj\Debug\netcoreapp3.1\Razor\Web\Errors\NotFoundModule.cshtml.g.cs

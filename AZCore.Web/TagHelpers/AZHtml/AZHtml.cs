@@ -12,7 +12,7 @@ namespace AZCore.Web.TagHelpers.AZHtml
     public class AZHtml : AZTagHelper
     {
         [HtmlAttributeName("class")]
-        public string ClassHtml { get; set; } = "theme-light-blue";
+        public string ClassHtml { get; set; } = "hold-transition sidebar-mini layout-navbar-fixed";
         [HtmlAttributeName("lang")]
         public string LangHtml { get; set; } = "en";
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
