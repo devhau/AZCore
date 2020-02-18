@@ -1,7 +1,12 @@
 ﻿<az-html>
     <az-head>
 
-        <az-script>$(function(){new AZUrl().init();})</az-script>
+        <az-script>
+            $(function() {
+            // Handler for .ready() called.
+            (new AZUrl()).Init();
+            });
+        </az-script>
     </az-head>
     <az-body>
         <!-- Site wrapper -->
