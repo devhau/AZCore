@@ -1,14 +1,15 @@
 ﻿using AZCore.Web.Common.Module;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace AZCore.HRM.Web.Errors
 {
     public class NotFoundModule: ModuleBase
     {
-        public IModuleResult Get() {
+        public NotFoundModule(IHttpContextAccessor httpContext) : base(httpContext)
+        {
+        }
+
+        public IViewResult Get() {
             this.Title = "Không tìm thấy module";
             return View();
         }

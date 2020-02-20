@@ -14,6 +14,6 @@ namespace AZCore.Web.Common
     {
         [ViewContext]
         public ViewContext ViewContext { get; set; }
-        public IModuleResult HtmlResult { get => this.ViewContext.HttpContext.GetContetModule(); } 
+        public IViewResult HtmlResult { get => this.ViewContext.HttpContext.GetContetModule(); } 
     }
 }

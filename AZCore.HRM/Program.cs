@@ -14,7 +14,6 @@ namespace AZCore.HRM
     {
         public static void Main(string[] args)
         {
-            //    var a = "1".To<Boolean>();
             CreateHostBuilder(args).Build().Run();
         }
 

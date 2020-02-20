@@ -7,6 +7,6 @@ namespace AZCore.Web.Utilities
 {
     public interface IStartup
     {
-        string AssemblyName {get;set;}
+        string AssemblyName {get;}
     }
 }

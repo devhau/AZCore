@@ -11,6 +11,7 @@ namespace AZCore.Web.Configs
         string extenstion { get; set; }
         string UrlRealDefault { get; set; }
         string Theme { get; set; }
+        public List<MenuTag> Menu { set; get; }
 
     }
     /// <summary>

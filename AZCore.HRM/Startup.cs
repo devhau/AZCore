@@ -1,6 +1,7 @@
 using AZCore.Utility.Xml;
 using AZCore.Web.Configs;
 using AZCore.Web.Extensions;
+using AZCore.Web.Middleware;
 using AZCore.Web.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,11 +13,12 @@ namespace AZCore.HRM
 {
     public class Startup: AZCore.Web.Utilities.IStartup
     {
-        public string AssemblyName {get;set;}
+        public string AssemblyName {get;private set;}
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             AZCoreWeb.env = env;
+            this.AssemblyName = this.GetType().Assembly.GetName().Name;
         }
 
         public IConfiguration Configuration { get; }
@@ -40,8 +42,7 @@ namespace AZCore.HRM
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseAZCore();
-           
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -51,6 +52,7 @@ namespace AZCore.HRM
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                app.UseAZCore();
             });
           
         }

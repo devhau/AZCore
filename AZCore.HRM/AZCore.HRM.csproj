@@ -15,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Web\Components\" />
+    <Folder Include="Pages\" />
+    <Folder Include="Web\Components\Inputs\" />
     <Folder Include="wwwroot\lib\pathchange\" />
   </ItemGroup>
 

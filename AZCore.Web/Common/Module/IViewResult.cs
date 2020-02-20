@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AZCore.Web.Common.Module
 {
-    public interface IModuleResult
+    public interface IViewResult
     {
         string Title { get; set; }
         string Description { get; set; }
@@ -14,9 +14,11 @@ namespace AZCore.Web.Common.Module
         string Keywords { get; set; }
         string Html { get; set; }
          List<ContentTag> JS { get; set; }
-         List<ContentTag> CSS { get; set; }
+        List<ContentTag> CSS { get; set; }
+        bool IsTheme { get; set; }
+        IViewResult DoResult(Action<IViewResult> ac);
     }
-    public class ModuleResult : IModuleResult
+    public class ViewResult : IViewResult
     {
         public string Html { get; set; }
         public List<ContentTag> JS { get; set; } = new List<ContentTag>();
@@ -25,5 +27,15 @@ namespace AZCore.Web.Common.Module
         public string Description { get; set; }
         public string Author { get; set; }
         public string Keywords { get; set; }
+        public Action<IViewResult> ActionResult { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool IsTheme { get; set; } = true;
+
+        public IViewResult DoResult(Action<IViewResult> ac)
+        {
+            if (ac!=null) {
+                ac(this);
+            }
+            return this;
+        }
     }
 }

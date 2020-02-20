@@ -68,7 +68,7 @@ namespace AZCore.Web.TagHelpers.AZHtml
                 }
             }
             htmlBuilder.Append("</head>");
-            htmlBuilder.Append($"<body class=\"{ClassHtml}\">");
+            htmlBuilder.Append($"<body class=\"{ClassHtml}\" onhashchange=\"return;\">");
             foreach (var item in bodyHtml)
             {
                 htmlBuilder.Append(item.InnerHtml.ToString());

@@ -13,6 +13,5 @@ namespace AZCore.Web.Common.Module
         string Author { get; set; }
         string Keywords { get; set; }
         HttpContext httpContext { get; }
-        ModuleBase InitModule(HttpContext httpContext);
     }
 }

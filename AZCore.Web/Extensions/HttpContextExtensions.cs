@@ -94,32 +94,13 @@ namespace AZCore.Web.Extensions
                 return request.Headers["X-Requested-With"] == "XMLHttpRequest";
             return false;
         }
-        public static IModuleResult GetContetModule(this HttpContext httpContext) {
-            if (httpContext.Items[AZCoreWeb.KeyHtmlModule] == null) { httpContext.Items[AZCoreWeb.KeyHtmlModule] = new ModuleResult(); }
-            return httpContext.Items[AZCoreWeb.KeyHtmlModule] as IModuleResult;
+        public static IViewResult GetContetModule(this HttpContext httpContext) {
+            if (httpContext.Items[AZCoreWeb.KeyHtmlModule] == null) { httpContext.Items[AZCoreWeb.KeyHtmlModule] = new Common.Module.ViewResult(); }
+            return httpContext.Items[AZCoreWeb.KeyHtmlModule] as IViewResult;
         }
         public static TClass GetService<TClass>(this HttpContext httpContext) {
             return httpContext.RequestServices.GetRequiredService<TClass>();
         }
-        public static string GetAssemblyName(this HttpContext httpContext,string AssemblyName) {
-            StringBuilder assembly = new StringBuilder(AssemblyName);
-            assembly.Append(".Web.");
-            string FormView = "Errors.NotFoundModule";
-            if (httpContext.Request.Query.ContainsKey("m"))
-            {
-                string m = httpContext.Request.Query["m"].ToString().ToUpperFirstChart();
-                string FormViewCache = string.Format("Modules.{0}.Form{0}",m);
-                if (httpContext.Request.Query.ContainsKey("v") && httpContext.Request.Query["v"].ToString() != "")
-                {
-                    FormViewCache = string.Format("Modules.{0}.Form{1}", m, httpContext.Request.Query["v"].ToString().ToUpperFirstChart());
-                }
-                if (httpContext.GetService<ModulePortal>().dicModule.ContainsKey(string.Format("{0}{1}", assembly, FormViewCache))) {
-                    FormView = FormViewCache;
-                }
-            }
-            assembly.Append(FormView);
-            return assembly.ToString();
-
-        }
+      
     }
 }

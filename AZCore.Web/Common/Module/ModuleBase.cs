@@ -10,51 +10,50 @@ namespace AZCore.Web.Common.Module
 {
     public class ModuleBase : IModule
     {
-        public string m { get; set; }
-        public string v { get; set; }
         public string h { get; set; }
         private static Regex regexModule = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+).([A-Za-z0-9]+)$", RegexOptions.IgnoreCase);
         private static Regex regexError = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+)$", RegexOptions.IgnoreCase);
 
         public HttpContext httpContext { get; private set; }
-        public IModuleResult HtmlResult { get => this.httpContext.GetContetModule(); }
-        public PagesConfig PagesConfig { get => this.httpContext.GetService<PagesConfig>(); }
+        public IViewResult HtmlResult { get => this.httpContext.GetContetModule(); }
+        public IPagesConfig PagesConfig { get => this.httpContext.GetService<IPagesConfig>(); }
         public string Title { get; set; } = "Hệ thống quản lý nhân sự";
         public string Description { get; set; }
         public string Author { get; set; }
         public string Keywords { get; set; }
-
-        public ModuleBase InitModule(HttpContext httpContext)
-        {
-            this.httpContext = httpContext;
+        public bool IsTheme { get; set; } = true;
+        public string LayoutTheme { get; set; } = "LayoutTheme";
+        public ModuleBase(IHttpContextAccessor httpContext) {
+            this.httpContext = httpContext.HttpContext;
             this.httpContext.BindRequestTo(this);
-            return this;
         }
-        public IModuleResult View(){
+
+        protected IViewResult View(){
             return View(this);
         }
-        public IModuleResult View(object mode)
+        protected IViewResult View(object mode)
         {
             return View(null, mode);
         }
-        public IModuleResult View(string viewName, object mode)
+        protected IViewResult View(string viewName, object mode)
         {
             return GetView(RenderHtml(viewName, mode));
         }
-        private IModuleResult GetView(string html)
+        protected IViewResult GetView(string html)
         {
             this.HtmlResult.Html = html;
             this.HtmlResult.Title = this.Title;
             this.HtmlResult.Description = this.Description;
             this.HtmlResult.Author = this.Author;
             this.HtmlResult.Keywords = this.Keywords;
+            this.HtmlResult.IsTheme = this.IsTheme;
             return this.HtmlResult;
 
         }
-        public virtual string RenderHtml(object mode) {            
+        protected virtual string RenderHtml(object mode) {            
             return RenderHtml(null,mode);
         }
-        public virtual string RenderHtml(string viewName=null,object mode=null)
+        protected virtual string RenderHtml(string viewName=null,object mode=null)
         {
             Type type = this.GetType();
             if (regexError.IsMatch(type.FullName))
@@ -73,7 +72,7 @@ namespace AZCore.Web.Common.Module
             }
             return string.Empty;
         }
-        internal virtual IModuleResult GetResult()
+        internal virtual IViewResult GetView()
         {
             var methodFunction = this.GetType().GetMethod(string.Format("{0}{1}", this.httpContext.Request.Method.ToUpperFirstChart(), this.h.ToUpperFirstChart()));
             var paras = methodFunction.GetParameters();
@@ -95,9 +94,9 @@ namespace AZCore.Web.Common.Module
             var rsObj = methodFunction.Invoke(this, paraValues.ToArray());
             if (rsObj != null)
             {
-                if (rsObj.GetType() == typeof(ModuleResult))
+                if (rsObj.GetType() == typeof(ViewResult))
                 {
-                    return (ModuleResult)rsObj;
+                    return (IViewResult)rsObj;
                 }
                 else
                 {
