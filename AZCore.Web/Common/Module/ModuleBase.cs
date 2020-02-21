@@ -8,6 +8,14 @@ using System.Text.RegularExpressions;
 
 namespace AZCore.Web.Common.Module
 {
+    public interface IModule
+    {
+        string Title { get; set; }
+        string Description { get; set; }
+        string Author { get; set; }
+        string Keywords { get; set; }
+        HttpContext httpContext { get; }
+    }
     public class ModuleBase : IModule
     {
         public string h { get; set; }
@@ -16,7 +24,7 @@ namespace AZCore.Web.Common.Module
 
         public HttpContext httpContext { get; private set; }
         public IViewResult HtmlResult { get => this.httpContext.GetContetModule(); }
-        public IPagesConfig PagesConfig { get => this.httpContext.GetService<IPagesConfig>(); }
+        public IPagesConfig PagesConfig { get; }
         public string Title { get; set; } = "Hệ thống quản lý nhân sự";
         public string Description { get; set; }
         public string Author { get; set; }
@@ -25,6 +33,7 @@ namespace AZCore.Web.Common.Module
         public string LayoutTheme { get; set; } = "LayoutTheme";
         public ModuleBase(IHttpContextAccessor httpContext) {
             this.httpContext = httpContext.HttpContext;
+            PagesConfig = this.httpContext.GetService<IPagesConfig>();
             this.httpContext.BindRequestTo(this);
         }
 
@@ -94,7 +103,7 @@ namespace AZCore.Web.Common.Module
             var rsObj = methodFunction.Invoke(this, paraValues.ToArray());
             if (rsObj != null)
             {
-                if (rsObj.GetType() == typeof(ViewResult))
+                if (rsObj.GetType() == typeof(IViewResult))
                 {
                     return (IViewResult)rsObj;
                 }

@@ -16,8 +16,14 @@ namespace AZCore.Web.Common.Module
         IViewResult ModuleContent { get { return (IViewResult)httpContext.Items[AZCoreWeb.KeyHtmlModule]; } set { httpContext.Items[AZCoreWeb.KeyHtmlModule] = value; } }
 
         HttpContext httpContext;
+        IStartup startup;
+        IPagesConfig pageConfigs;
+        string AssemblyName;
         private ModuleStore(HttpContext _httpContext) {
             httpContext = _httpContext;
+            startup = httpContext.GetService<IStartup>();
+            pageConfigs = this.httpContext.GetService<IPagesConfig>();
+            AssemblyName = startup.AssemblyName;
         }
         public string m { get; set; }
         public string v { get; set; }
@@ -25,11 +31,10 @@ namespace AZCore.Web.Common.Module
 
         private bool DoCheckRouter() {
             string path = this.httpContext.Request.Path.Value;
-            IPagesConfig pageConfigs = this.httpContext.GetService<IPagesConfig>();
+
             if (path == "/")
             {
-                DoModule(pageConfigs.UrlRealDefault, pageConfigs);
-                return true;
+                DoModule(pageConfigs.UrlRealDefault);
             }
             else {
                 foreach (var item1 in pageConfigs.Pages)
@@ -44,91 +49,17 @@ namespace AZCore.Web.Common.Module
                                 paraObject.Add(mPath.Groups[i].Value);
                             }
                             var RealPath = string.Format(item2.Real, paraObject.ToArray());
-                            DoModule(RealPath, pageConfigs);
-                            return true;
+                            DoModule(RealPath);
                         }
-
                     }
                 }
             }
+            string AssemblyModule;
+            if (ModuleContent == null) {
 
-            return false;
-        }
-        private void DoModule(string RealPath, IPagesConfig pageConfigs) {
-
-            foreach (var key in httpContext.Request.Query.Keys)
-            {
-                RealPath = string.Format("{0}&{1}={2}", RealPath, key, httpContext.Request.Query[key]);
-            }
-            if (!RealPath.StartsWith("?")) {
-                RealPath = "?"+ RealPath;
-            }
-            httpContext.Request.Path = "/";
-            httpContext.Request.QueryString = new QueryString(RealPath);
-            httpContext.BindRequestTo(this);
-
-            var startup = httpContext.GetService<IStartup>();
-            string AssemblyName = startup.AssemblyName;
-            string AssemblyModule = "";
-            if (!string.IsNullOrEmpty(m))
-            {
-                if (string.IsNullOrEmpty(v))
+                AssemblyModule = string.Format("{0}.Web.Errors.NotFound", AssemblyName);
+                if (!LoadModule(AssemblyModule))
                 {
-                    AssemblyModule = string.Format("{0}.Web.Modules.{1}.Form{1}", AssemblyName, m.ToUpperFirstChart());
-                }
-                else
-                {
-                    AssemblyModule = string.Format("{0}.Web.Modules.{1}.Form{2}", AssemblyName, m.ToUpperFirstChart(), v.ToUpperFirstChart());
-                }
-                var typeModule = startup.GetType().Assembly.GetType(AssemblyModule);
-                if (typeModule != null)
-                {
-                    var Module = httpContext.RequestServices.GetService(typeModule) as ModuleBase;
-                    if (Module != null)
-                    {
-                        ModuleContent = Module.GetView().DoResult((mdo) =>
-                        {
-                            if (!httpContext.IsAjax() && pageConfigs != null)
-                            {
-                                if (pageConfigs.Head != null)
-                                {
-                                    mdo.CSS.InsertRange(0, pageConfigs.Head.Stypes);
-                                    mdo.JS.InsertRange(0, pageConfigs.Head.Scripts);
-                                }
-                            }
-                        });
-                    }
-                    else {
-                        AssemblyModule = "";
-                    }
-                }
-                else
-                {
-                    AssemblyModule = "";
-                }
-            }
-
-            if (string.IsNullOrEmpty(AssemblyModule))
-            {
-                AssemblyModule = string.Format("{0}.Web.Errors.NotFoundModule", AssemblyName);
-                var typeModule = startup.GetType().Assembly.GetType(AssemblyModule);
-                if (typeModule != null)
-                {
-                    var Module = httpContext.RequestServices.GetService(typeModule) as ModuleBase;
-                    if (Module != null)
-                    {
-                        ModuleContent = Module.GetView().DoResult((mdo) =>
-                        {
-                            if (!httpContext.IsAjax() && pageConfigs != null)
-                            {
-                                if (pageConfigs.Head != null)
-                                {
-                                    mdo.CSS.InsertRange(0, pageConfigs.Head.Stypes);
-                                    mdo.JS.InsertRange(0, pageConfigs.Head.Scripts);
-                                }
-                            }
-                        });
-                    }
                 }
             }
             if (ModuleContent.IsTheme)
@@ -144,14 +75,77 @@ namespace AZCore.Web.Common.Module
                     }
                 }
             }
-            else {
+            else
+            {
                 httpContext.Response.WriteAsync(ModuleContent.Html);
             }
 
+            return false;
+        }
+        private void DoModule(string RealPath) {
+
+            foreach (var key in httpContext.Request.Query.Keys)
+            {
+                RealPath = string.Format("{0}&{1}={2}", RealPath, key, httpContext.Request.Query[key]);
+            }
+            if (!RealPath.StartsWith("?")) {
+                RealPath = "?" + RealPath;
+            }
+            httpContext.Request.Path = "/";
+            httpContext.Request.QueryString = new QueryString(RealPath);
+            httpContext.BindRequestTo(this);
+
+            string AssemblyModule = "";
+            if (!string.IsNullOrEmpty(m))
+            {
+                if (string.IsNullOrEmpty(v))
+                {
+                    AssemblyModule = string.Format("{0}.Web.Modules.{1}.Form{1}", AssemblyName, m.ToUpperFirstChart());
+                }
+                else
+                {
+                    AssemblyModule = string.Format("{0}.Web.Modules.{1}.Form{2}", AssemblyName, m.ToUpperFirstChart(), v.ToUpperFirstChart());
+                }
+                if (!LoadModule(AssemblyModule)) {
+                    AssemblyModule = "";
+                }
+            }
+
+            if (string.IsNullOrEmpty(AssemblyModule))
+            {
+                AssemblyModule = string.Format("{0}.Web.Errors.NotFoundModule", AssemblyName);
+                if (!LoadModule(AssemblyModule))
+                {
+                    AssemblyModule = "";
+                }
+            }
 
         }
+        private bool LoadModule(string AssemblyModule)
+        {
+            var typeModule = startup.GetType().Assembly.GetType(AssemblyModule);
+            if (typeModule != null)
+            {
+                var Module = httpContext.RequestServices.GetService(typeModule) as ModuleBase;
+                if (Module != null)
+                {
+                    ModuleContent = Module.GetView().DoResult((mdo) =>
+                    {
+                        if (!httpContext.IsAjax() && pageConfigs != null)
+                        {
+                            if (pageConfigs.Head != null)
+                            {
+                                mdo.CSS.InsertRange(0, pageConfigs.Head.Stypes);
+                                mdo.JS.InsertRange(0, pageConfigs.Head.Scripts);
+                            }
+                        }
+                    });
+                    return true;
+                }
+            }
+            return false;
+        } 
         public static bool Router(HttpContext httpContext) {
-
             return new ModuleStore(httpContext).DoCheckRouter();
         }
     }

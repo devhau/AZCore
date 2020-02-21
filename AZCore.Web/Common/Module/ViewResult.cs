@@ -27,7 +27,7 @@ namespace AZCore.Web.Common.Module
         public string Description { get; set; }
         public string Author { get; set; }
         public string Keywords { get; set; }
-        public Action<IViewResult> ActionResult { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Action<ViewResult> ActionResult { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public bool IsTheme { get; set; } = true;
 
         public IViewResult DoResult(Action<IViewResult> ac)

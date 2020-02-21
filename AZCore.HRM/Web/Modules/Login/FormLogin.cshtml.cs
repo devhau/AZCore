@@ -1,4 +1,5 @@
 ﻿using AZCore.Web.Common.Module;
+using AZCore.Web.Extensions;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,17 @@ namespace AZCore.HRM.Web.Modules.Login
         public IViewResult Get() {
             this.Title = "Đăng nhập hệ thống";
             this.IsTheme = false;
-            return View();
+            return View().DoResult((mdo) =>
+            {
+                if (!httpContext.IsAjax() && PagesConfig != null)
+                {
+                    if (PagesConfig.Head != null)
+                    {
+                        mdo.CSS.InsertRange(0, PagesConfig.Head.Stypes);
+                        mdo.JS.InsertRange(0, PagesConfig.Head.Scripts);
+                    }
+                }
+            }); ;
         }
     }
 }
