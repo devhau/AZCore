@@ -128,6 +128,14 @@
             "Castle.Windsor": {
               "target": "Package",
               "version": "[5.0.1, )"
+            },
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.30, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.19, )"
             }
           },
           "imports": [

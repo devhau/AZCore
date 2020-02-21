@@ -56,11 +56,7 @@ namespace AZCore.Web.Common.Module
             }
             string AssemblyModule;
             if (ModuleContent == null) {
-
-                AssemblyModule = string.Format("{0}.Web.Errors.NotFound", AssemblyName);
-                if (!LoadModule(AssemblyModule))
-                {
-                }
+                DoError("NotFound");             
             }
             if (ModuleContent.IsTheme)
             {
@@ -81,6 +77,11 @@ namespace AZCore.Web.Common.Module
             }
 
             return false;
+        }
+        private void DoError(string error) {
+            if (!LoadModule(string.Format("{0}.Web.Errors.{1}", AssemblyName, error)))
+            {
+            }
         }
         private void DoModule(string RealPath) {
 
@@ -113,14 +114,11 @@ namespace AZCore.Web.Common.Module
 
             if (string.IsNullOrEmpty(AssemblyModule))
             {
-                AssemblyModule = string.Format("{0}.Web.Errors.NotFoundModule", AssemblyName);
-                if (!LoadModule(AssemblyModule))
-                {
-                    AssemblyModule = "";
-                }
+                DoError("NotFoundModule");               
             }
 
         }
+         
         private bool LoadModule(string AssemblyModule)
         {
             var typeModule = startup.GetType().Assembly.GetType(AssemblyModule);
@@ -129,7 +127,7 @@ namespace AZCore.Web.Common.Module
                 var Module = httpContext.RequestServices.GetService(typeModule) as ModuleBase;
                 if (Module != null)
                 {
-                    ModuleContent = Module.GetView().DoResult((mdo) =>
+                    Module.GetView().DoResult((mdo) =>
                     {
                         if (!httpContext.IsAjax() && pageConfigs != null)
                         {

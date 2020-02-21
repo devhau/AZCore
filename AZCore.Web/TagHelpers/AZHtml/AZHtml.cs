@@ -2,6 +2,7 @@
 using AZCore.Web.Extensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Yahoo.Yui.Compressor;
@@ -45,7 +46,7 @@ namespace AZCore.Web.TagHelpers.AZHtml
                     var styleCssEl = new TagBuilder("style");
                     styleCssEl.Attributes.Add("type", "text/css");
                     styleCssEl.Attributes.Add("rel", "stylesheet");
-                    styleCssEl.InnerHtml.Append(item.Code);
+                    styleCssEl.InnerHtml.AppendHtml(item.Code);
                     htmlBuilder.Append(styleCssEl.GetString());
                 }
                 else if (!string.IsNullOrEmpty(item.CDN))

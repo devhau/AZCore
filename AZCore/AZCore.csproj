@@ -5,11 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Database\RenderSQL\" />
     <Folder Include="Domain\" />
+    <Folder Include="Localization\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Castle.Windsor" Version="5.0.1" />
+    <PackageReference Include="Dapper" Version="2.0.30" />
+    <PackageReference Include="MySql.Data" Version="8.0.19" />
   </ItemGroup>
 
 </Project>

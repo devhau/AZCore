@@ -1,10 +1,173 @@
 ﻿@model FormLogin
-<az-html>
+<az-html class="hold-transition login-page">
     <az-head>
 
-       
+       <az-style>
+           //
+// Pages: Login & Register
+//
+
+.login-logo,
+.register-logo {
+  font-size: 2.1rem;
+  font-weight: 300;
+  margin-bottom: .9rem;
+  text-align: center;
+
+  a {
+    color: $gray-700;
+  }
+}
+
+.login-page,
+.register-page {
+  align-items: center;
+  background: $gray-200;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
+
+.login-box,
+.register-box {
+  width: 360px;
+
+  @@media (max-width: map-get($grid-breakpoints, sm)) {
+    margin-top: 20px;
+    width: 90%;
+  }
+}
+
+.login-card-body,
+.register-card-body {
+  background: $white;
+  border-top: 0;
+  color: #666;
+  padding: 20px;
+
+  .input-group {
+    .form-control {
+      border-right: 0;
+
+      &:focus {
+        box-shadow: none;
+
+        & ~ .input-group-append .input-group-text {
+          border-color: $input-focus-border-color;
+        }
+      }
+
+      &.is-valid {
+        &:focus {
+          box-shadow: none;
+        }
+
+        & ~ .input-group-append .input-group-text {
+          border-color: $success;
+        }
+      }
+
+      &.is-invalid {
+        &:focus {
+          box-shadow: none;
+        }
+
+        & ~ .input-group-append .input-group-text {
+          border-color: $danger;
+        }
+      }
+    }
+
+    .input-group-text {
+      background-color: transparent;
+      border-bottom-right-radius: $border-radius;
+      border-left: 0;
+      border-top-right-radius: $border-radius;
+      color: #777;
+      transition: $input-transition;
+    }
+  }
+}
+
+.login-box-msg,
+.register-box-msg {
+  margin: 0;
+  padding: 0 20px 20px;
+  text-align: center;
+}
+
+.social-auth-links {
+  margin: 10px 0;
+}
+
+       </az-style>
     </az-head>
     <az-body>
-        Đăng nhập hệ thống
+        <div class="login-box">
+            <div class="login-logo">
+                <a href=""><b>Viec1.com</b></a>
+            </div>
+            <!-- /.login-logo -->
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <h3 class="login-box-msg">Đăng nhập hệ thống</h3>
+
+                    <form action="" method="post">
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Email">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" placeholder="Password">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="remember">
+                                    <label for="remember">
+                                        Nhớ lần sau đăng nhập
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </form>
+
+                    <div class="social-auth-links text-center mb-3">
+                        <p>- OR -</p>
+                        <a href="/dang-nhap-bang-facebook.az" class="btn btn-block btn-primary">
+                            <i class="fab fa-facebook mr-2"></i> Đăng nhập bằng Facebook
+                        </a>
+                        <a href="/dang-nhap-bang-google.az" class="btn btn-block btn-danger">
+                            <i class="fab fa-google-plus mr-2"></i> Đăng nhập bằng Google+
+                        </a>
+                    </div>
+                    <!-- /.social-auth-links -->
+
+                    <p class="mb-1">
+                        <a href="/lay-lai-mat-khau.az">Lấy lại mật khẩu</a>
+                    </p>
+                    <p class="mb-0">
+                        <a href="/dang-ky.az" class="text-center">Đăng ký tài khoản mới</a>
+                    </p>
+                </div>
+                <!-- /.login-card-body -->
+            </div>
+        </div>
+        <!-- /.login-box -->
     </az-body>
 </az-html>

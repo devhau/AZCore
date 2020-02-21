@@ -25,14 +25,16 @@ namespace AZCore.Web.Common.Module
         public HttpContext httpContext { get; private set; }
         public IViewResult HtmlResult { get => this.httpContext.GetContetModule(); }
         public IPagesConfig PagesConfig { get; }
-        public string Title { get; set; } = "Hệ thống quản lý nhân sự";
-        public string Description { get; set; }
-        public string Author { get; set; }
-        public string Keywords { get; set; }
-        public bool IsTheme { get; set; } = true;
+        public string Title{ get => HtmlResult.Title; set => HtmlResult.Title = value; }
+        public string Description { get => HtmlResult.Description; set => HtmlResult.Description = value; }
+        public string Author { get => HtmlResult.Author; set => HtmlResult.Author = value; }
+        public string Keywords { get => HtmlResult.Keywords; set => HtmlResult.Keywords = value; }
+        public string Html { get => HtmlResult.Html; set => HtmlResult.Html = value; }
+        public bool IsTheme { get => HtmlResult.IsTheme; set => HtmlResult.IsTheme = value; }
         public string LayoutTheme { get; set; } = "LayoutTheme";
         public ModuleBase(IHttpContextAccessor httpContext) {
             this.httpContext = httpContext.HttpContext;
+            IsTheme = true;
             PagesConfig = this.httpContext.GetService<IPagesConfig>();
             this.httpContext.BindRequestTo(this);
         }
@@ -50,12 +52,7 @@ namespace AZCore.Web.Common.Module
         }
         protected IViewResult GetView(string html)
         {
-            this.HtmlResult.Html = html;
-            this.HtmlResult.Title = this.Title;
-            this.HtmlResult.Description = this.Description;
-            this.HtmlResult.Author = this.Author;
-            this.HtmlResult.Keywords = this.Keywords;
-            this.HtmlResult.IsTheme = this.IsTheme;
+            this.Html = html;
             return this.HtmlResult;
 
         }
@@ -103,7 +100,7 @@ namespace AZCore.Web.Common.Module
             var rsObj = methodFunction.Invoke(this, paraValues.ToArray());
             if (rsObj != null)
             {
-                if (rsObj.GetType() == typeof(IViewResult))
+                if ((IViewResult)rsObj!=null)
                 {
                     return (IViewResult)rsObj;
                 }
