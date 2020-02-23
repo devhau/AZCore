@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Database\RenderSQL\" />
     <Folder Include="Domain\" />
     <Folder Include="Localization\" />
   </ItemGroup>
