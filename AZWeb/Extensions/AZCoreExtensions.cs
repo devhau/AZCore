@@ -17,7 +17,7 @@ namespace AZWeb.Extensions
     public static class AZCoreExtensions
     {
         public static void UseAZCore(this IApplicationBuilder app) {
-            app.UseMiddleware<AZModuleMiddleware>();
+            app.UseMiddleware<AZWebMiddleware>();
         }
         public static void AddAZCore(this IServiceCollection services, IStartup startup)
         {

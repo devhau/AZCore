@@ -65,3 +65,4 @@ E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\AZERP.Views.pdb
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\AZERP.csproj.CopyComplete
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\AZERP.dll
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\AZERP.pdb
+E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Errors\NotFoundMethod.cshtml.g.cs

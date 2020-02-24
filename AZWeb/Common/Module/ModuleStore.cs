@@ -14,7 +14,7 @@ namespace AZWeb.Common.Module
     public class ModuleStore
     {
         IViewResult ModuleContent { get { return (IViewResult)httpContext.Items[AZCoreWeb.KeyHtmlModule]; } set { httpContext.Items[AZCoreWeb.KeyHtmlModule] = value; } }
-
+        private bool IsModule { get; set; } = false;
         HttpContext httpContext;
         IStartup startup;
         IPagesConfig pageConfigs;
@@ -55,8 +55,12 @@ namespace AZWeb.Common.Module
                 }
             }
             string AssemblyModule;
+           
             if (ModuleContent == null) {
-                DoError("NotFound");             
+                if (this.IsModule)
+                    DoError("NotFoundMethod");
+                else
+                    DoError("NotFound");             
             }
             if (ModuleContent.IsTheme)
             {
@@ -127,7 +131,13 @@ namespace AZWeb.Common.Module
                 var Module = httpContext.RequestServices.GetService(typeModule) as ModuleBase;
                 if (Module != null)
                 {
-                    Module.GetView().DoResult((mdo) =>
+                    this.IsModule = true;
+                    var vi = Module.GetView();
+                    if (vi == null) {
+                        ModuleContent = null;
+                        return false;
+                    }
+                    vi.DoResult((mdo) =>
                     {
                         if (!httpContext.IsAjax() && pageConfigs != null)
                         {

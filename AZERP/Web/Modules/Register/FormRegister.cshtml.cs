@@ -8,5 +8,8 @@ namespace AZ.Web.Modules.Register
         public FormRegister(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
+        public IViewResult Get() {
+            return View();
+        }
     }
 }

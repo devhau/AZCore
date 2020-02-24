@@ -1,6 +1,7 @@
 ﻿using AZCore.Extensions;
 using AZWeb.Configs;
 using AZWeb.Extensions;
+using AZWeb.Utilities;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -81,6 +82,9 @@ namespace AZWeb.Common.Module
         internal virtual IViewResult GetView()
         {
             var methodFunction = this.GetType().GetMethod(string.Format("{0}{1}", this.httpContext.Request.Method.ToUpperFirstChart(), this.h.ToUpperFirstChart()));
+            if (methodFunction==null) {
+                return null;
+            }
             var paras = methodFunction.GetParameters();
             List<object> paraValues = new List<object>();
             foreach (var item in paras)
