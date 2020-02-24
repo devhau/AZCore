@@ -26,5 +26,9 @@ namespace AZ.Web.Modules.Login
             });
             return View() ;
         }
+        public IViewResult Post() {
+
+            return View();
+        }
     }
 }
