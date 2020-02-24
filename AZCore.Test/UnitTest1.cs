@@ -16,12 +16,13 @@ namespace AZCore.Test
         {
             Setup();
             this.user.CreateTableIfNotExitAsync().Wait();
-            this.user.FullName = "Xin cahfo";
-            this.user.Email = "email.@omcm";
-            this.user.PhoneNumber = "034463867";
-            this.user.UserName = "haunv";
-            this.user.Password = "xin chào";
-            this.user.Insert().Wait();
+            this.user.Id = 1;
+            this.user.FullName = "22333";
+            this.user.Email = "2222email.@omcm";
+            this.user.PhoneNumber = "2234463867";
+            this.user.UserName = "22haunv";
+            this.user.Password = "22xin chào";
+            this.user.Update().Wait();
             Assert.Pass();
         }
     }

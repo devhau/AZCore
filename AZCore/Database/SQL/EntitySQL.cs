@@ -4,6 +4,7 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using static Dapper.SqlMapper;
 
@@ -11,6 +12,7 @@ namespace AZCore.Database.SQL
 {
     internal class EntitySQL
     {
+        [Obsolete]
         public static EntitySQL NewSQL(EntityBase entity) {
             return new EntitySQL(entity);
         }
@@ -37,9 +39,7 @@ namespace AZCore.Database.SQL
                 {
                     field.FieldType = TypeConvertor.ToSqlDbType(SqlMapper.LookupDbType(p.PropertyType, "n/a", false, out ITypeHandler handler));
                 }
-                if (field.IsNull == null) {
-                    field.IsNull = Nullable.GetUnderlyingType(p.PropertyType)==null;
-                }
+                
                 field.FieldName = field.FieldName;
                 
                 return field;
@@ -102,7 +102,12 @@ namespace AZCore.Database.SQL
         public SQLResult ToSqlSelect()
         {
             StringBuilder SQL = new StringBuilder();
-            return null;
+            SQL.AppendFormat("SELECT FROM `{0}`  ", this.TableName);
+            return new SQLResult()
+            {
+
+                SQL = SQL.ToString()
+            };
         }
         public SQLResult ToSqlInsert()
         {
@@ -125,20 +130,108 @@ namespace AZCore.Database.SQL
                 SQL = SQL.ToString()
             };
         }
-        public SQLResult ToSqlUpdate()
+        public SQLResult ToSqlUpdate<TEntity>(Expression<Func<TEntity, bool>> updateSet, Expression<Func<TEntity, bool>> funcWhere)
         {
             StringBuilder SQL = new StringBuilder();
-            return null;
+            DynamicParameters parameter = new DynamicParameters();
+            return new SQLResult()
+            {
+                Param = parameter,
+                SQL = SQL.ToString()
+            };
+        }
+            public SQLResult ToSqlUpdate()
+        {
+            StringBuilder SQL = new StringBuilder();
+            string prex = "";
+            SQL.AppendFormat("UPDATE `{0}` SET ",this.TableName);
+            DynamicParameters parameter = new DynamicParameters();
+            foreach (var item in this.Fields.Where(p => p.IsAutoIncrement == false&&p.IsKey==false))
+            {
+                SQL.AppendFormat("{1}`{0}`=@{0}", item.FieldName, prex);
+                parameter.Add("@" + item.FieldName, this.GetValueByName(item.FieldName));
+                prex = ",";
+            }
+            SQL.Append(" WHERE  ");
+            prex = "";
+            if (this.FieldKeys.Count() == 0)
+            {
+                foreach (var item in this.Fields.Where(p=>p.IsAutoIncrement))
+                {
+                    SQL.AppendFormat("{1}`{0}`=@{0}", item.FieldName, prex);
+                    parameter.Add("@" + item.FieldName, this.GetValueByName(item.FieldName));
+                    prex = " AND ";
+                }
+            }
+            else {
+                foreach (var item in this.FieldKeys)
+                {
+                    SQL.AppendFormat("{1}`{0}`=@{0}", item.FieldName, prex);
+                    parameter.Add("@" + item.FieldName, this.GetValueByName(item.FieldName));
+                    prex = " AND ";
+                }
+            }
+            
+            return new SQLResult()
+            {
+                Param = parameter,
+                SQL = SQL.ToString()
+            };
         }
         public SQLResult ToSqlDelete()
         {
             StringBuilder SQL = new StringBuilder();
-            return null;
+            string prex = "";
+            SQL.AppendFormat("DELETE FROM `{0}`  ", this.TableName);
+            DynamicParameters parameter = new DynamicParameters();
+            SQL.AppendFormat("WHERE  `{0}` SET ", this.TableName);
+            foreach (var item in this.FieldKeys)
+            {
+                SQL.AppendFormat("{1}`{0}`=@{0}", item.FieldName, prex);
+                parameter.Add("@" + item.FieldName, this.GetValueByName(item.FieldName));
+                prex = " AND ";
+            }
+            return new SQLResult()
+            {
+                Param = parameter,
+                SQL = SQL.ToString()
+            };
+        }
+        public SQLResult ToSqlDelete<TEntity>(Expression<Func<TEntity, bool>> funcWhere)
+        {
+            StringBuilder SQL = new StringBuilder();
+            string prex = "";
+            SQL.AppendFormat("DELETE FROM `{0}`  ", this.TableName);
+            DynamicParameters parameter = new DynamicParameters();
+            SQL.AppendFormat("WHERE  `{0}` SET ", this.TableName);
+            foreach (var item in this.FieldKeys)
+            {
+                SQL.AppendFormat("{1}`{0}`=@{0}", item.FieldName, prex);
+                parameter.Add("@" + item.FieldName, this.GetValueByName(item.FieldName));
+                prex = " AND ";
+            }
+            return new SQLResult()
+            {
+                Param = parameter,
+                SQL = SQL.ToString()
+            };
         }
         public SQLResult ToSqlSave()
         {
             StringBuilder SQL = new StringBuilder();
             return null;
         }
+        public void AnalyticQuery(BinaryExpression be, ref int i, DynamicParameters parameter, string prefix = "t") {
+
+
+        }
+        public void AnalyticSet(BinaryExpression be, ref int i, DynamicParameters parameter, string prefix = "t")
+        {
+
+
+        }
+        
+
+
     }
 }

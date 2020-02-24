@@ -67,21 +67,25 @@ namespace AZCore.Database
             return await this.ExeNonQueryAsync(rs.SQL, rs.Param) > 0;
 
         }
-        public bool Update()
+        public async Task<bool> Update()
         {
-            return true;
+            var rs = this.Builder.ToSqlUpdate();
+            return await this.ExeNonQueryAsync(rs.SQL, rs.Param) > 0;
         }
-        public bool Update(Expression<Func<TEntity, bool>> updateSet, Expression<Func<TEntity, bool>> updateWhere)
+        public async Task<bool> Update(Expression<Func<TEntity, bool>> updateSet, Expression<Func<TEntity, bool>> funcWhere)
         {
-            return true;
+            var rs = this.Builder.ToSqlUpdate();
+            return await this.ExeNonQueryAsync(rs.SQL, rs.Param) > 0;
         }
-        public bool Delete()
+        public async Task<bool> Delete()
         {
-            return true;
+            var rs = this.Builder.ToSqlDelete();
+            return await this.ExeNonQueryAsync(rs.SQL, rs.Param) > 0;
         }
-        public bool Delete(Expression<Func<TEntity, bool>> func)
+        public async Task<bool> Delete(Expression<Func<TEntity, bool>> funcWhere)
         {
-            return true;
+            var rs = this.Builder.ToSqlDelete();
+            return await this.ExeNonQueryAsync(rs.SQL, rs.Param) > 0;
         }
         public async Task<bool> CreateTableIfNotExitAsync() {
             var rs = this.Builder.CreateTableIfNotExit();
