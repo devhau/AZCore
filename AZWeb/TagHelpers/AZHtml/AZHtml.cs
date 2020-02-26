@@ -99,9 +99,6 @@ namespace AZWeb.TagHelpers.AZHtml
             htmlBuilder.Append("</html>");
             #endregion
             output.Content.SetHtmlContent(htmlBuilder.ToString());
-            //string html = ViewContext.HttpContext.RequestServices.GetRequiredService<ModulePortal>().GetTheme().GetHtml(); ;
-            //output.Content.SetHtmlContent(html);
-
         }
     }
 }

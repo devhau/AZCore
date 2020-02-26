@@ -30,6 +30,15 @@ namespace AZCore.Extensions
 
             return type.GetAttributes<TAttribute>().FirstOrDefault();
         }
-        
+
+        public static IEnumerable<Type> GetTypeFromInterface<TInterface>(this Type type)
+        {
+            return type.Assembly.GetTypeFromInterface<TInterface>();
+        }
+            public static IEnumerable<Type> GetTypeFromInterface<TInterface>(this Assembly ass) {
+            var typeInterface = typeof(TInterface);
+            return ass.GetTypes().Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces().Any(i => i == typeInterface));
+        }
+
     }
 }

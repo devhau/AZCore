@@ -68,21 +68,13 @@ namespace AZWeb.Common.Module
                 var typeModule = startup.GetType().Assembly.GetType(AssemblyModule);
                 if (typeModule != null)
                 {
-                    var Theme = httpContext.RequestServices.GetService(typeModule) as ThemeBase;
-                    if (Theme != null)
-                    {
-                        httpContext.Response.WriteAsync(Theme.GetHtml());
-                    }
+                    httpContext.GetService<ThemeBase>(typeModule)?.RenderSite();                    
                 }
-            }
-            else
-            {
-                httpContext.Response.WriteAsync(ModuleContent.Html);
-            }
-
+            }            
             return true;
         }
         private void DoError(string error) {
+            this.h = "";
             if (!LoadModule(string.Format("{0}.Web.Errors.{1}", AssemblyName, error)))
             {
             }
@@ -148,6 +140,7 @@ namespace AZWeb.Common.Module
                             }
                         }
                     });
+                    if (!Module.IsTheme) Module.RenderSite();
                     return true;
                 }
             }

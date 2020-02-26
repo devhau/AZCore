@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 
 namespace AZWeb.Common.Module
 {
-    public class ThemeBase:ModuleBase
+    public abstract class ThemeBase:ModuleBase
     {
         public ThemeBase(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
 
-        protected virtual void IntData() { }
+        
         public string GetHtml() {
             IntData();
             return View().Html;
+        }
+        public override void RenderSite()
+        {
+            httpContext.Response.WriteAsync(this.GetHtml());
         }
     }
 

@@ -1,4 +1,6 @@
-﻿using AZCore.Utility.Xml;
+﻿using AZCore.Domain;
+using AZCore.Extensions;
+using AZCore.Utility.Xml;
 using AZWeb.Common;
 using AZWeb.Common.Module;
 using AZWeb.Configs;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Data;
 using System.IO;
 using System.Linq;
 
@@ -16,6 +19,9 @@ namespace AZWeb.Extensions
 {
     public static class AZCoreExtensions
     {
+        public static void AddMySQL(this IServiceCollection services,string connectString="") {
+            services.AddTransient<IDbConnection>((t) => new MySql.Data.MySqlClient.MySqlConnection(connectString));
+        }
         public static void UseAZCore(this IApplicationBuilder app) {
             app.UseMiddleware<AZWebMiddleware>();
         }
@@ -26,8 +32,16 @@ namespace AZWeb.Extensions
             services.AddHttpContextAccessor();
             services.AddSingleton<IPagesConfig>(PagesConfig);
             services.AddSingleton<IStartup>(startup);
-            foreach (var item in startup.GetType().Assembly.GetTypes().Where(t => t.BaseType == typeof(ModuleBase) || t.BaseType == typeof(ThemeBase))) {
+            foreach (var item in startup.GetType().GetTypeFromInterface<IAZTransient>()) {
                 services.AddTransient(item);
+            }
+            foreach (var item in startup.GetType().GetTypeFromInterface<IAZSingleton>())
+            {
+                services.AddSingleton(item);
+            }
+            foreach (var item in startup.GetType().GetTypeFromInterface<IAZScoped>())
+            {
+                services.AddScoped(item);
             }
         }
         public static IObject CreateInstance<IObject>(this Type obj) where IObject:class => Activator.CreateInstance(obj) as IObject;

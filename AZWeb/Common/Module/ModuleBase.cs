@@ -1,15 +1,17 @@
-﻿using AZCore.Extensions;
+﻿using AZCore.Domain;
+using AZCore.Extensions;
 using AZWeb.Configs;
 using AZWeb.Extensions;
 using AZWeb.Utilities;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace AZWeb.Common.Module
 {
-    public interface IModule
+    public interface IModule: IAZTransient
     {
         string Title { get; set; }
         string Description { get; set; }
@@ -17,8 +19,9 @@ namespace AZWeb.Common.Module
         string Keywords { get; set; }
         HttpContext httpContext { get; }
     }
-    public class ModuleBase : IModule
+    public abstract class ModuleBase : IModule
     {
+        protected virtual void IntData() { }
         public string h { get; set; }
         private static Regex regexModule = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+).([A-Za-z0-9]+)$", RegexOptions.IgnoreCase);
         private static Regex regexError = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+)$", RegexOptions.IgnoreCase);
@@ -81,6 +84,7 @@ namespace AZWeb.Common.Module
         }
         internal virtual IViewResult GetView()
         {
+            IntData();
             var methodFunction = this.GetType().GetMethod(string.Format("{0}{1}", this.httpContext.Request.Method.ToUpperFirstChart(), this.h.ToUpperFirstChart()));
             if (methodFunction==null) {
                 return null;
@@ -89,9 +93,32 @@ namespace AZWeb.Common.Module
             List<object> paraValues = new List<object>();
             foreach (var item in paras)
             {
-                if (false && this.httpContext.Request.Query.ContainsKey(item.Name))
+                if (this.httpContext.Request.Query.ContainsKey(item.Name.ToLower()))
                 {
-                    paraValues.Add(Convert.ChangeType(this.httpContext.Request.Query[item.Name], item.ParameterType));
+                    if (item.ParameterType.IsArray)
+                    {
+                        var type = item.ParameterType.GetElementType();
+                        var obj = this.httpContext.Request.Query[item.Name][0].Split(',').Select(p => Convert.ChangeType(p, type)).ToArray();
+                        paraValues.Add(obj);
+                    }
+                    else
+                    {
+                        paraValues.Add(Convert.ChangeType(this.httpContext.Request.Query[item.Name].ToArray()[0], item.ParameterType));
+                    }
+
+                }
+                else if (this.httpContext.Request.HasFormContentType&& this.httpContext.Request.Form.Keys.Contains(item.Name.ToLower())) {
+                    if (item.ParameterType.IsArray)
+                    {
+                        var type = item.ParameterType.GetElementType();
+                        var obj = this.httpContext.Request.Form[item.Name][0].Split(',').Select(p => Convert.ChangeType(p, type)).ToArray();
+                        paraValues.Add(obj);
+                    }
+                    else
+                    {
+                        paraValues.Add(Convert.ChangeType(this.httpContext.Request.Form[item.Name].ToArray()[0], item.ParameterType));
+                    }
+
                 }
                 else
                 {
@@ -119,6 +146,9 @@ namespace AZWeb.Common.Module
         public override string ToString()
         {
             return RenderHtml();
+        }
+        public virtual void RenderSite() {
+            httpContext.Response.WriteAsync(this.Html);
         }
     }
 }

@@ -5,3 +5,4 @@ E:\Projects\AZCore\AZCore\obj\Debug\netcoreapp3.1\AZCore.AssemblyInfoInputs.cach
 E:\Projects\AZCore\AZCore\obj\Debug\netcoreapp3.1\AZCore.AssemblyInfo.cs
 E:\Projects\AZCore\AZCore\obj\Debug\netcoreapp3.1\AZCore.dll
 E:\Projects\AZCore\AZCore\obj\Debug\netcoreapp3.1\AZCore.pdb
+E:\Projects\AZCore\AZCore\obj\Debug\netcoreapp3.1\AZCore.csprojAssemblyReference.cache

@@ -54,9 +54,6 @@ E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\AZERP.RazorCoreGenerate.cache
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Errors\NotFound.cshtml.g.cs
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Errors\NotFoundModule.cshtml.g.cs
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Home\FormHome.cshtml.g.cs
-E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Login\FormLogin.cshtml.g.cs
-E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Login\FormLogout.cshtml.g.cs
-E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Register\FormRegister.cshtml.g.cs
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Themes\Admin\LayoutTheme.cshtml.g.cs
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\_ViewImports.cshtml.g.cs
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\AZERP.RazorTargetAssemblyInfo.cache
@@ -66,3 +63,5 @@ E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\AZERP.csproj.CopyComplete
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\AZERP.dll
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\AZERP.pdb
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Errors\NotFoundMethod.cshtml.g.cs
+E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Auth\FormLogin.cshtml.g.cs
+E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Auth\FormRegister.cshtml.g.cs

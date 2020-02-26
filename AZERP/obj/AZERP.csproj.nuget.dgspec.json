@@ -192,6 +192,10 @@
               "target": "Package",
               "version": "[2.2.0, )"
             },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.19, )"
+            },
             "YUICompressor.NET": {
               "target": "Package",
               "version": "[3.0.0, )"

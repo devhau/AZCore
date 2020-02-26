@@ -1,7 +1,7 @@
 ﻿using AZWeb.Common.Module;
 using Microsoft.AspNetCore.Http;
 
-namespace AZ.Web.Modules.Register
+namespace AZ.Web.Modules.Auth
 {
     public class FormRegister : ModuleBase
     {

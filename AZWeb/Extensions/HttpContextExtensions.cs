@@ -101,6 +101,10 @@ namespace AZWeb.Extensions
         public static TClass GetService<TClass>(this HttpContext httpContext) {
             return httpContext.RequestServices.GetRequiredService<TClass>();
         }
-      
+        public static TClass GetService<TClass>(this HttpContext httpContext,Type type)
+        {
+            return (TClass)httpContext.RequestServices.GetRequiredService(type) ;
+        }
+
     }
 }
