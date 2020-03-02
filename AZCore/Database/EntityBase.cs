@@ -48,10 +48,11 @@ namespace AZCore.Database
     {
         protected int? commandTimeout = null;
         protected IDbTransaction transaction = null;
-        private EntitySQL Builder;
+        protected EntitySQL builder = null;
+
         public EntityNoneBase(IDbConnection _connection) : base(_connection)
         {
-            this.Builder = EntitySQL.NewSQL(this);
+            this.builder = EntitySQL.NewSQL(this);
         }
 
         public IEnumerable<TEntity> Select(Expression<Func<TEntity,bool>> func)
@@ -63,37 +64,37 @@ namespace AZCore.Database
             return null;
         }
         public async Task<bool> Insert() {
-            var rs = this.Builder.ToSqlInsert();
+            var rs = this.builder.ToSqlInsert();
             return await this.ExeNonQueryAsync(rs.SQL, rs.Param) > 0;
 
         }
         public async Task<bool> Update()
         {
-            var rs = this.Builder.ToSqlUpdate();
+            var rs = this.builder.ToSqlUpdate();
             return await this.ExeNonQueryAsync(rs.SQL, rs.Param) > 0;
         }
         public async Task<bool> Update(Expression<Func<TEntity, bool>> updateSet, Expression<Func<TEntity, bool>> funcWhere)
         {
-            var rs = this.Builder.ToSqlUpdate();
+            var rs = this.builder.ToSqlUpdate();
             return await this.ExeNonQueryAsync(rs.SQL, rs.Param) > 0;
         }
         public async Task<bool> Delete()
         {
-            var rs = this.Builder.ToSqlDelete();
+            var rs = this.builder.ToSqlDelete();
             return await this.ExeNonQueryAsync(rs.SQL, rs.Param) > 0;
         }
         public async Task<bool> Delete(Expression<Func<TEntity, bool>> funcWhere)
         {
-            var rs = this.Builder.ToSqlDelete();
+            var rs = this.builder.ToSqlDelete();
             return await this.ExeNonQueryAsync(rs.SQL, rs.Param) > 0;
         }
         public async Task<bool> CreateTableIfNotExitAsync() {
-            var rs = this.Builder.CreateTableIfNotExit();
+            var rs = this.builder.CreateTableIfNotExit();
             return await this.ExeNonQueryAsync(rs.SQL, rs.Param)>0;
         }
-        protected Task<IEnumerable<TEntity>> ExeQueryAsync( string sql, object param)
+        protected Task<IEnumerable<TEntity2>> ExeQueryAsync<TEntity2>( string sql, object param)
         {
-            return this.Connection.QueryAsync<TEntity>(sql, param, transaction, commandTimeout, CommandType.Text);
+            return this.Connection.QueryAsync<TEntity2>(sql, param, transaction, commandTimeout, CommandType.Text);
         }
         protected Task<int> ExeNonQueryAsync(string sql, object param) {
             return this.Connection.ExecuteAsync(sql, param, transaction, commandTimeout, CommandType.Text);

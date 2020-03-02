@@ -1,7 +1,4 @@
 ﻿using AZWeb.Common.Module;
-using AZWeb.Configs;
-using AZWeb.Extensions;
-using AZWeb.Utilities;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
@@ -16,7 +13,6 @@ namespace AZWeb.Middleware
         {
             _next = next;
         }
-
         public async Task Invoke(HttpContext httpContext)
         {
 

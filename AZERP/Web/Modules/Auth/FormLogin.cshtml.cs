@@ -2,6 +2,7 @@
 using AZWeb.Common.Module;
 using AZWeb.Extensions;
 using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace AZ.Web.Modules.Auth
 {
@@ -39,7 +40,8 @@ namespace AZ.Web.Modules.Auth
             this.Title = "Đăng Xuất hệ thống thành công";
             return View();
         }
-        public IViewResult Post(string email,string password) {
+        public async Task<IViewResult> Post(string azemail,string azpassword) {
+            var usr = await this.user.GetEmailOrUsername(azemail);
             return View();
         }
     }

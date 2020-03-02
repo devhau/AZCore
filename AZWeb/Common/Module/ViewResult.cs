@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace AZWeb.Common.Module
 {
-    public interface IViewResult
+    public  interface IResult{
+    }
+    public interface IViewResult: IResult
     {
         string Title { get; set; }
         string Description { get; set; }

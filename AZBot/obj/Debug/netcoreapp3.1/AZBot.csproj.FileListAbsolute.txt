@@ -1,0 +1,17 @@
+E:\Projects\AZCore\AZBot\bin\Debug\netcoreapp3.1\AZBot.exe
+E:\Projects\AZCore\AZBot\bin\Debug\netcoreapp3.1\AZBot.deps.json
+E:\Projects\AZCore\AZBot\bin\Debug\netcoreapp3.1\AZBot.runtimeconfig.json
+E:\Projects\AZCore\AZBot\bin\Debug\netcoreapp3.1\AZBot.runtimeconfig.dev.json
+E:\Projects\AZCore\AZBot\bin\Debug\netcoreapp3.1\AZBot.dll
+E:\Projects\AZCore\AZBot\bin\Debug\netcoreapp3.1\AZBot.pdb
+E:\Projects\AZCore\AZBot\obj\Debug\netcoreapp3.1\AZBot.csprojAssemblyReference.cache
+E:\Projects\AZCore\AZBot\obj\Debug\netcoreapp3.1\MainWindow.g.cs
+E:\Projects\AZCore\AZBot\obj\Debug\netcoreapp3.1\App.g.cs
+E:\Projects\AZCore\AZBot\obj\Debug\netcoreapp3.1\AZBot_MarkupCompile.cache
+E:\Projects\AZCore\AZBot\obj\Debug\netcoreapp3.1\AZBot_MarkupCompile.lref
+E:\Projects\AZCore\AZBot\obj\Debug\netcoreapp3.1\MainWindow.baml
+E:\Projects\AZCore\AZBot\obj\Debug\netcoreapp3.1\AZBot.g.resources
+E:\Projects\AZCore\AZBot\obj\Debug\netcoreapp3.1\AZBot.AssemblyInfoInputs.cache
+E:\Projects\AZCore\AZBot\obj\Debug\netcoreapp3.1\AZBot.AssemblyInfo.cs
+E:\Projects\AZCore\AZBot\obj\Debug\netcoreapp3.1\AZBot.dll
+E:\Projects\AZCore\AZBot\obj\Debug\netcoreapp3.1\AZBot.pdb

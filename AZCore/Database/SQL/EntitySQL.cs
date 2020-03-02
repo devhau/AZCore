@@ -10,20 +10,18 @@ using static Dapper.SqlMapper;
 
 namespace AZCore.Database.SQL
 {
-    internal class EntitySQL
+    public class EntitySQL
     {
-        [Obsolete]
         public static EntitySQL NewSQL(EntityBase entity) {
             return new EntitySQL(entity);
         }
 
-        private IEnumerable<FieldAttribute> Fields { get; set; }
-        private IEnumerable<FieldAttribute> FieldKeys { get; set; }
-        private IEnumerable<FieldAttribute> FieldAutoIncrements { get; set; }
-        private string TableName { get; set; }
+        public IEnumerable<FieldAttribute> Fields { get; set; }
+        public IEnumerable<FieldAttribute> FieldKeys { get; set; }
+        public IEnumerable<FieldAttribute> FieldAutoIncrements { get; set; }
+        public string TableName { get; set; }
         EntityBase entity;
 
-        [Obsolete]
         public EntitySQL(EntityBase entity)
         {
             this.entity = entity;
@@ -37,7 +35,7 @@ namespace AZCore.Database.SQL
                 }
                 if (field.FieldType==null)
                 {
-                    field.FieldType = TypeConvertor.ToSqlDbType(SqlMapper.LookupDbType(p.PropertyType, "n/a", false, out ITypeHandler handler));
+                    field.FieldType = TypeConvertor.ToSqlDbType(LookupDbType(p.PropertyType, "n/a", false, out ITypeHandler handler));
                 }
                 
                 field.FieldName = field.FieldName;

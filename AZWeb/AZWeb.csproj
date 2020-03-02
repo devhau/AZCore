@@ -6,6 +6,7 @@
     <OutputType>Library</OutputType>
     <StartupObject />
     <AssemblyName>AZWeb</AssemblyName>
+    <RootNamespace>AZWeb</RootNamespace>
   </PropertyGroup>
 
 

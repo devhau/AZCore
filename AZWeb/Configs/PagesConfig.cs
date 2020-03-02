@@ -10,6 +10,7 @@ namespace AZWeb.Configs
         string GetMatchingRewrite(string url);
         string extenstion { get; set; }
         string UrlRealDefault { get; set; }
+        string UrlLogin { get; set; }
         string Theme { get; set; }
         public List<MenuTag> Menu { set; get; }
 
@@ -28,6 +29,8 @@ namespace AZWeb.Configs
         public string extenstion { get; set; } = ".az";
         [XmlElement("web-default")]
         public string UrlRealDefault { get; set; } = "m=home";
+        [XmlElement("web-login")]
+        public string UrlLogin { get; set; } = "dang-nhap.az";
         [XmlElement("web-theme")]
         public string Theme { get; set; } = "Admin";
         /// <summary>

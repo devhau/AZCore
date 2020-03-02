@@ -10,6 +10,7 @@
         "dependencies": {
           "Castle.Windsor": "5.0.1",
           "Dapper": "2.0.30",
+          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "3.1.2",
           "MySql.Data": "8.0.19"
         },
         "runtime": {
@@ -84,6 +85,25 @@
           "lib/netstandard1.0/Google.Protobuf.dll": {
             "assemblyVersion": "3.6.1.0",
             "fileVersion": "3.6.1.0"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Cryptography.Internal/3.1.2": {
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.Internal.dll": {
+            "assemblyVersion": "3.1.2.0",
+            "fileVersion": "3.100.220.6801"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Cryptography.KeyDerivation/3.1.2": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.Internal": "3.1.2"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {
+            "assemblyVersion": "3.1.2.0",
+            "fileVersion": "3.100.220.6801"
           }
         }
       },
@@ -1233,6 +1253,20 @@
       "sha512": "sha512-741fGeDQjixBJaU2j+0CbrmZXsNJkTn/hWbOh4fLVXndHsCclJmWznCPWrJmPoZKvajBvAz3e8ECJOUvRtwjNQ==",
       "path": "google.protobuf/3.6.1",
       "hashPath": "google.protobuf.3.6.1.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Cryptography.Internal/3.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Yi69aUt2rZsMor/eIEy7IgDoh/bZ6Lx0ZD3p9FZeU2zw+LIjERghrA8fOJUfpacJxBlWqcf9YkIzD85SSJ0u7Q==",
+      "path": "microsoft.aspnetcore.cryptography.internal/3.1.2",
+      "hashPath": "microsoft.aspnetcore.cryptography.internal.3.1.2.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Cryptography.KeyDerivation/3.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-p5ZGlen0a0eIBHBRBj+4XgArONulCZmE4X8rc91n6O4ZneRkLDKvyMiKC9f20t5Bf42cILkj/YjjrcdLYPmcXQ==",
+      "path": "microsoft.aspnetcore.cryptography.keyderivation/3.1.2",
+      "hashPath": "microsoft.aspnetcore.cryptography.keyderivation.3.1.2.nupkg.sha512"
     },
     "Microsoft.CSharp/4.0.1": {
       "type": "package",

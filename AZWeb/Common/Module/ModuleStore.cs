@@ -1,4 +1,5 @@
 ﻿using AZCore.Extensions;
+using AZWeb.Common.Module.Attr;
 using AZWeb.Configs;
 using AZWeb.Extensions;
 using AZWeb.Utilities;
@@ -24,11 +25,14 @@ namespace AZWeb.Common.Module
             startup = httpContext.GetService<IStartup>();
             pageConfigs = this.httpContext.GetService<IPagesConfig>();
             AssemblyName = startup.AssemblyName;
+            this.method = httpContext.Request.Method.ToUpperFirstChart();
+            this.h = this.h.ToUpperFirstChart();
         }
         public string m { get; set; }
         public string v { get; set; }
         public string h { get; set; }
-
+        public string method { get; set; }
+        private ModuleBase ModuleCurrent;
         private bool DoCheckRouter() {
             string path = this.httpContext.Request.Path.Value;
             if (path != "/" && !path.EndsWith(pageConfigs.extenstion)) return false;
@@ -55,22 +59,88 @@ namespace AZWeb.Common.Module
                 }
             }
             string AssemblyModule;
-           
-            if (ModuleContent == null) {
-                if (this.IsModule)
-                    DoError("NotFoundMethod");
-                else
-                    DoError("NotFound");             
-            }
-            if (ModuleContent.IsTheme)
+            bool IsAuthModule = false;
+            if (ModuleCurrent == null)
             {
-                AssemblyModule = string.Format("{0}.Web.Themes.{1}.LayoutTheme", AssemblyName, pageConfigs.Theme);
-                var typeModule = startup.GetType().Assembly.GetType(AssemblyModule);
-                if (typeModule != null)
+                DoError("NotFound");
+            }
+            else {
+                IsAuthModule = ModuleCurrent.GetType().GetAttribute<AuthAttribute>() != null;
+            }
+            {
+
+                var methodFunction = ModuleCurrent.GetType().GetMethod(string.Format("{0}{1}", method, h));
+                if (IsAuthModule)
                 {
-                    httpContext.GetService<ThemeBase>(typeModule)?.RenderSite();                    
+                    IsAuthModule = methodFunction.GetAttribute<NotAuthAttribute>() == null;
                 }
-            }            
+                else
+                {
+                    IsAuthModule = methodFunction.GetAttribute<AuthAttribute>() != null;
+                }
+                if (IsAuthModule) {
+                    httpContext.Response.Redirect(pageConfigs.UrlLogin);
+                    return true;
+                }
+                List<object> paraValues = new List<object>();
+                foreach (var param in methodFunction.GetParameters()) {
+                    if (this.httpContext.Request.Query.ContainsKey(param.Name.ToLower()))
+                    {
+                        if (param.ParameterType.IsArray)
+                        {
+                            var type = param.ParameterType.GetElementType();
+                            var obj = this.httpContext.Request.Query[param.Name][0].Split(',').Select(p => Convert.ChangeType(p, type)).ToArray();
+                            paraValues.Add(obj);
+                        }
+                        else
+                        {
+                            paraValues.Add(Convert.ChangeType(this.httpContext.Request.Query[param.Name].ToArray()[0], param.ParameterType));
+                        }
+
+                    }
+                    else if (this.httpContext.Request.HasFormContentType && this.httpContext.Request.Form.Keys.Contains(param.Name.ToLower()))
+                    {
+                        if (param.ParameterType.IsArray)
+                        {
+                            var type = param.ParameterType.GetElementType();
+                            var obj = this.httpContext.Request.Form[param.Name][0].Split(',').Select(p => Convert.ChangeType(p, type)).ToArray();
+                            paraValues.Add(obj);
+                        }
+                        else
+                        {
+                            paraValues.Add(Convert.ChangeType(this.httpContext.Request.Form[param.Name].ToArray()[0], param.ParameterType));
+                        }
+
+                    }
+                    else
+                    {
+                        if (param.HasDefaultValue)
+                            paraValues.Add(param.RawDefaultValue);
+                        else
+                            paraValues.Add(null);
+                    }
+                }
+                var rsFN = methodFunction.Invoke(ModuleCurrent, paraValues.ToArray());
+                if (rsFN is Task) {
+                    ((Task<IResult>)rsFN).Wait();
+                } 
+
+
+                if (ModuleCurrent.IsTheme)
+                {
+                    AssemblyModule = string.Format("{0}.Web.Themes.{1}.LayoutTheme", AssemblyName, pageConfigs.Theme);
+                    var typeModule = startup.GetType().Assembly.GetType(AssemblyModule);
+                    if (typeModule != null)
+                    {
+                        httpContext.GetService<ThemeBase>(typeModule)?.RenderSite();
+                    }
+                }
+                else {
+
+                    ModuleCurrent.RenderSite();
+                }
+
+            }
             return true;
         }
         private void DoError(string error) {
@@ -88,6 +158,7 @@ namespace AZWeb.Common.Module
             if (!RealPath.StartsWith("?")) {
                 RealPath = "?" + RealPath;
             }
+            var TempQuery = new QueryString(RealPath);
             httpContext.Request.Path = "/";
             httpContext.Request.QueryString = new QueryString(RealPath);
             httpContext.BindRequestTo(this);
@@ -120,27 +191,9 @@ namespace AZWeb.Common.Module
             var typeModule = startup.GetType().Assembly.GetType(AssemblyModule);
             if (typeModule != null)
             {
-                var Module = httpContext.RequestServices.GetService(typeModule) as ModuleBase;
-                if (Module != null)
-                {
-                    this.IsModule = true;
-                    var vi = Module.GetView();
-                    if (vi == null) {
-                        ModuleContent = null;
-                        return false;
-                    }
-                    vi.DoResult((mdo) =>
-                    {
-                        if (!httpContext.IsAjax() && pageConfigs != null)
-                        {
-                            if (pageConfigs.Head != null)
-                            {
-                                mdo.CSS.InsertRange(0, pageConfigs.Head.Stypes);
-                                mdo.JS.InsertRange(0, pageConfigs.Head.Scripts);
-                            }
-                        }
-                    });
-                    if (!Module.IsTheme) Module.RenderSite();
+                ModuleCurrent = httpContext.RequestServices.GetService(typeModule) as ModuleBase;
+                if (ModuleCurrent != null)
+                {                   
                     return true;
                 }
             }

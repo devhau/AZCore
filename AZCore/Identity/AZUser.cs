@@ -1,6 +1,9 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attr;
+using System;
 using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AZCore.Identity
 {
@@ -17,6 +20,16 @@ namespace AZCore.Identity
         public string UserName { get; set; }
         [Field(Length =128)] 
         public string Password { get; set; }
+        [Field(Length = 128)]
+        public string Salt { get; set; }
+        public async Task<TEntity> GetEmailOrUsername(string name) {
+            string sql = string.Format("select * from {0} where UserName=@UserName or Email=@Email", this.builder.TableName);
+            var entity = await ExeQueryAsync<TEntity>(sql, new { UserName = name, Email = name });
+            return entity.FirstOrDefault();
+        }
+
+       
+
         public AZUser(IDbConnection _connection) : base(_connection)
         {
         }

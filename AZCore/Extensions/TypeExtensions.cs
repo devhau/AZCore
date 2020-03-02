@@ -19,12 +19,21 @@ namespace AZCore.Extensions
             return type.GetAttributes<TAttribute>().FirstOrDefault();
         }
 
+        public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this MethodInfo type)
+        {
+
+            return type.GetCustomAttributes(true).OfType<TAttribute>();
+        }
+        public static TAttribute GetAttribute<TAttribute>(this MethodInfo type)
+        {
+           return type.GetAttributes<TAttribute>().FirstOrDefault();
+        }
         public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this PropertyInfo type)
         {
 
             return type.GetCustomAttributes(true).OfType<TAttribute>();
         }
-
+        
         public static TAttribute GetAttribute<TAttribute>(this PropertyInfo type)
         {
 

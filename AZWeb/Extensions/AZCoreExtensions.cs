@@ -20,13 +20,31 @@ namespace AZWeb.Extensions
     public static class AZCoreExtensions
     {
         public static void AddMySQL(this IServiceCollection services,string connectString="") {
-            services.AddTransient<IDbConnection>((t) => new MySql.Data.MySqlClient.MySqlConnection(connectString));
+            services.AddScoped<IDbConnection>((t) => new MySql.Data.MySqlClient.MySqlConnection(connectString));
         }
-        public static void UseAZCore(this IApplicationBuilder app) {
-            app.UseMiddleware<AZWebMiddleware>();
+        public static void UseAZCore(this IApplicationBuilder app)
+        {
+            app.UseSession();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+                app.UseMiddleware<AZWebMiddleware>();
+            });            
         }
         public static void AddAZCore(this IServiceCollection services, IStartup startup)
         {
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                // Make the session cookie essential
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddRazorPages();
             var PagesConfig = ReadConfig<PagesConfig>.Load(null, (t) => t.MapPath());
             services.AddHttpContextAccessor();
