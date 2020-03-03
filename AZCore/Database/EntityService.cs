@@ -70,7 +70,7 @@ namespace AZCore.Database
     }
     public partial class EntityService<TService, TModel> : EntityService<TService>
         where TService : EntityService<TService>
-        where TModel : EntityModel
+        where TModel : IEntityModel
     {
         protected BuildSQL buildSQL;
         public EntityService(IDbConnection _connection) : base(_connection)

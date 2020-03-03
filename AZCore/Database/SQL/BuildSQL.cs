@@ -47,7 +47,7 @@ namespace AZCore.Database.SQL
 
         }
 
-        private object GetValueByName(string name, EntityModel model)
+        private object GetValueByName(string name, IEntityModel model)
         {
             return this.typeEntity.GetProperty(name).GetValue(model);
         }
@@ -81,7 +81,7 @@ namespace AZCore.Database.SQL
                 SQL = SQL.ToString()
             };
         }
-        public SQLResult SQLInsert(EntityModel model)
+        public SQLResult SQLInsert(IEntityModel model)
         {
             StringBuilder SQL = new StringBuilder();
             StringBuilder SQLField = new StringBuilder();
@@ -103,7 +103,7 @@ namespace AZCore.Database.SQL
                 SQL = SQL.ToString()
             };
         }
-        public SQLResult SQLUpdate(EntityModel model)
+        public SQLResult SQLUpdate(IEntityModel model)
         {
             StringBuilder SQL = new StringBuilder();
             string prex = "";
@@ -142,7 +142,7 @@ namespace AZCore.Database.SQL
                 SQL = SQL.ToString()
             };
         }
-        public SQLResult SQLDelete(EntityModel model)
+        public SQLResult SQLDelete(IEntityModel model)
         {
             StringBuilder SQL = new StringBuilder();
             string prex = "";
@@ -183,7 +183,7 @@ namespace AZCore.Database.SQL
             string prex = "";
             foreach (var item in this.FieldKeys)
             {
-                SQL.AppendFormat("`{0}`{1}", item.FieldName, prex);
+                SQL.AppendFormat("{1}`{0}`", item.FieldName, prex);
                 prex = ",";
             }
             SQL.AppendFormat(" ))");
@@ -197,10 +197,36 @@ namespace AZCore.Database.SQL
 
 
         #region AnalyticQuery
+        public SQLResult AnalyticSet(BinaryExpression be, ref int index, DynamicParameters param =null)
+        {
+
+            var result = new SQLResult()
+            {
+                SQL = string.Empty
+            };
+            result.Param = param == null ? new DynamicParameters() : param;
+
+            return result;
+        }
+        public SQLResult AnalyticQuery(BinaryExpression be, ref int index, DynamicParameters param = null,string prefix="t") 
+        {
+            var result = new SQLResult()
+            {
+                SQL = string.Empty
+            };
+            result.Param = param == null ? new DynamicParameters() : param;
+
+
+            return result;
+        }
         public SQLResult SQLSelect<TModel>(Expression<Func<TModel, bool>> funcWhere)
         {
+            // Biến lưu thứ tự các Param
+            int i = 0;
             StringBuilder SQL = new StringBuilder();
             DynamicParameters parameter = new DynamicParameters();
+           
+            var where = AnalyticQuery(funcWhere.Body as BinaryExpression, ref i);
             return new SQLResult()
             {
                 Param = parameter,

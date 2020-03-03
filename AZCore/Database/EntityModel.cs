@@ -5,10 +5,10 @@ using System.Text;
 
 namespace AZCore.Database
 {
-    public class EntityModel
+    public interface IEntityModel
     {
     }
-    public class EntityModel<TModel>: EntityModel where TModel:EntityModel
+    public class EntityModel<TModel>: IEntityModel where TModel: IEntityModel
     {
         [Field]
         public bool IsLock { get; set; }

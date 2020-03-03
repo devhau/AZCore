@@ -8,12 +8,12 @@ using System.Text;
 namespace AZCore.Identity
 {
     [TableInfo(TableName ="az_permission")]
-    public class AZPermission<TEntity,TKey> : EntityBase<TEntity, TKey> where TEntity: AZPermission<TEntity, TKey>
+    public class AZPermission<TEntity,TKey> : EntityModel<TEntity, TKey> where TEntity: AZPermission<TEntity, TKey>
     {
         [Field]
+        public string Code { get; set; }
+        [Field]
         public string Name { get; set; }
-        public AZPermission(IDbConnection _connection) : base(_connection)
-        {
-        }
+      
     }
 }

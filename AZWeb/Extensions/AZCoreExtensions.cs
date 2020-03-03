@@ -1,4 +1,5 @@
-﻿using AZCore.Domain;
+﻿using AZCore.Database;
+using AZCore.Domain;
 using AZCore.Extensions;
 using AZCore.Utility.Xml;
 using AZWeb.Common;
@@ -30,7 +31,8 @@ namespace AZWeb.Extensions
             {
                 endpoints.MapRazorPages();
                 app.UseMiddleware<AZWebMiddleware>();
-            });            
+            });
+            //IDBCreate
         }
         public static void AddAZCore(this IServiceCollection services, IStartup startup)
         {

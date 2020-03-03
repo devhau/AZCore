@@ -15,5 +15,8 @@ namespace AZCore.Extensions
             }
             return "";
         }
+        public static string Frmat(this string str,params object[] param) {
+            return string.Format(str, param);
+        }
     }
 }

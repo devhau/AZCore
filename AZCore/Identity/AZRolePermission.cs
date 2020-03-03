@@ -7,14 +7,13 @@ using System.Text;
 
 namespace AZCore.Identity
 {
-    public class AZRolePermission<TEntity, TKey> : EntityBase<TEntity, TKey> where TEntity : AZRolePermission<TEntity, TKey>
+    [TableInfo(TableName = "az_role_permission")]
+    public class AZRolePermission<TEntity, TKey> : EntityModel<TEntity> where TEntity : AZRolePermission<TEntity, TKey>
     {
         [Field(IsKey =true)]
         public TKey RoleId { get; set; }
         [Field(IsKey = true)]
         public TKey PermissionId { get; set; }
-        public AZRolePermission(IDbConnection _connection) : base(_connection)
-        {
-        }
+      
     }
 }

@@ -9,11 +9,11 @@ namespace AZ.Web.Modules.Auth
 {
     public class FormLogin:ModuleBase
     {
-        User user;
-        public FormLogin(IHttpContextAccessor httpContext, User _user) : base(httpContext)
+        UserService userService;
+        public FormLogin(IHttpContextAccessor httpContext, UserService _userService, DBCreateEntities dbCreate) : base(httpContext)
         {
-            this.user = _user;
-            this.user.CreateTableIfNotExitAsync().Wait();
+            dbCreate.CheckDatabase();
+            this.userService = _userService;
         }
         protected override void IntData()
         {
@@ -35,8 +35,7 @@ namespace AZ.Web.Modules.Auth
 
         public  IViewResult Get(object[] Id)
         {
-            var lsUser = this.user.GetAll();
-            lsUser.Wait();
+            
             return View() ;
         }
         public IViewResult GetLogout() {
@@ -44,8 +43,14 @@ namespace AZ.Web.Modules.Auth
             return View();
         }
         public IViewResult Post(string azemail,string azpassword) {
-            //var usr = this.user.GetEmailOrUsername(azemail);
-            //usr.Wait();
+            var usr = this.userService.GetEmailOrUsername(azemail);
+            if (usr == null)
+            {
+            }
+            else if (!this.userService.HasPassword(usr, azpassword)) { 
+            
+            }
+            // Login Thanh cong;
             return View();
         }
     }

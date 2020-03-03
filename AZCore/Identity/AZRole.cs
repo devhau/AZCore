@@ -8,12 +8,10 @@ using System.Text;
 namespace AZCore.Identity
 {
     [TableInfo(TableName = "az_role")]
-    public class AZRole<TEntity, TKey> : EntityBase<TEntity, TKey> where TEntity: AZRole<TEntity, TKey>
+    public class AZRole<TEntity, TKey> : EntityModel<TEntity, TKey> where TEntity: AZRole<TEntity, TKey>
     {
         [Field]
         public string Name { get; set; }
-        public AZRole(IDbConnection _connection) : base(_connection)
-        {
-        }
+       
     }
 }

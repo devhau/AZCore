@@ -145,6 +145,7 @@ namespace AZWeb.Common.Module
         }
         private void DoError(string error) {
             this.h = "";
+            this.method = "";
             if (!LoadModule(string.Format("{0}.Web.Errors.{1}", AssemblyName, error)))
             {
             }

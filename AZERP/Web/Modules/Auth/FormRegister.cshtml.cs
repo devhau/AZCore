@@ -9,16 +9,10 @@ namespace AZ.Web.Modules.Auth
 {
     public class FormRegister : ModuleBase
     {
-        public class ViewModelRegister {
-            public string Fullname { get; set; }
-            public string Email { get; set; }
-            public string Password { get; set; }
-            public string RePassword { get; set; }
-        }
-        User user;
-        public FormRegister(IHttpContextAccessor httpContext, User _user) : base(httpContext)
+        UserService userService;
+        public FormRegister(IHttpContextAccessor httpContext, UserService _userService) : base(httpContext)
         {
-            this.user = _user;          
+            this.userService = _userService;
         }
         protected override void IntData()
         {
@@ -40,16 +34,19 @@ namespace AZ.Web.Modules.Auth
         public IViewResult Get() {
             return View();
         }
-        public IViewResult Post(string Fullname, string Email, string Password, string RePassword,string Phone)
+        public IViewResult Post(string Fullname, string Email, string Password, string RePassword, string Phone)
         {
-            user.FullName = Fullname;
-            user.Email = Email;
-            user.Salt= HashPassword.CreateSalt();
-            user.Password = HashPassword.Create(Password, user.Salt);
-            user.PhoneNumber = Phone;
-            user.CreateAt = DateTime.Now;
-            user.Insert().Wait();
+            var salt = HashPassword.CreateSalt();
+            this.userService.Insert(new UserModel()
+            {
+                FullName = Fullname,
+                Email = Email,
+                Salt = salt,
+                Password = HashPassword.Create(Password, salt),
+                PhoneNumber = Phone,
+                CreateAt = DateTime.Now
+            });           
             return View();
-        }
+        } 
     }
 }

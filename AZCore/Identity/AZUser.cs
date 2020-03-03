@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace AZCore.Identity
 {
     [TableInfo(TableName = "az_user")]
-    public class AZUser<TEntity, TKey> : EntityBase<TEntity, TKey> where TEntity: AZUser<TEntity, TKey>
+    public class AZUser<TEntity, TKey> : EntityModel<TEntity, TKey> where TEntity: AZUser<TEntity, TKey>
     {
         [Field(Length =200)]
         public string FullName { get; set; }
@@ -21,17 +21,6 @@ namespace AZCore.Identity
         [Field(Length =128)] 
         public string Password { get; set; }
         [Field(Length = 128)]
-        public string Salt { get; set; }
-        //public async Task<TEntity> GetEmailOrUsername(string name) {
-        //    string sql = string.Format("select * from {0} where UserName=@UserName or Email=@Email", this.Builder.TableName);
-        //    var entity = await ExeQueryAsync<TEntity>(sql, new { UserName = name, Email = name });
-        //    return entity.FirstOrDefault();
-        //}
-
-       
-
-        public AZUser(IDbConnection _connection) : base(_connection)
-        {
-        }
+        public string Salt { get; set; }     
     }
 }

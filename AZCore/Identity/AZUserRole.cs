@@ -1,4 +1,5 @@
 ﻿using AZCore.Database;
+using AZCore.Database.Attr;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,10 +7,13 @@ using System.Text;
 
 namespace AZCore.Identity
 {
-    public class AZUserRole<TEntity, TKey> : EntityBase<TEntity, TKey> where TEntity : AZUserRole<TEntity, TKey>
+    [TableInfo(TableName = "az_user_role")]
+    public class AZUserRole<TEntity, TKey> : EntityModel<TEntity> where TEntity : AZUserRole<TEntity, TKey>
     {
-        public AZUserRole(IDbConnection _connection) : base(_connection)
-        {
-        }
+
+        [Field(IsKey = true)]
+        public TKey UserId { get; set; }
+        [Field(IsKey = true)]
+        public TKey RoleId { get; set; }
     }
 }

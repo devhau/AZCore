@@ -11,8 +11,6 @@ namespace AZCore.Test
     {
         [Field(IsAutoIncrement =true,IsKey =true)]
         public override long Id { get => base.Id; set => base.Id = value; }
-        public AZUser(IDbConnection _connection) : base(_connection)
-        {
-        }
+       
     }
 }
