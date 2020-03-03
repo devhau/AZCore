@@ -92,19 +92,19 @@ namespace AZCore.Database
         {
             return await this.Connection.QueryAsync<TModel>(sql, param, this.transaction, this.commandTimeout, commandType);
         }
-        public IEnumerable<TModel> GetAll()
+        public virtual IEnumerable<TModel> GetAll()
         {
             return ExecuteQuery(buildSQL.SQLSelect());
         }
-        public int Insert(TModel model)
+        public virtual int Insert(TModel model)
         {
             return Execute(buildSQL.SQLInsert(model));
         }
-        public int Update(TModel model)
+        public virtual int Update(TModel model)
         {
             return Execute(buildSQL.SQLUpdate(model));
         }
-        public int Delete(TModel model)
+        public virtual int Delete(TModel model)
         {
             return Execute(buildSQL.SQLDelete(model));
         }

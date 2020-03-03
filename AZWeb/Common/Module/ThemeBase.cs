@@ -16,6 +16,14 @@ namespace AZWeb.Common.Module
 
         protected override void IntData()
         {
+            base.IntData();
+        }
+        public string GetHtml() {
+            IntData();
+            return View().Html;
+        }
+        public override void RenderSite()
+        {
             this.HtmlResult.DoResult((mdo) =>
             {
                 if (!httpContext.IsAjax() && PagesConfig != null)
@@ -27,14 +35,6 @@ namespace AZWeb.Common.Module
                     }
                 }
             });
-            base.IntData();
-        }
-        public string GetHtml() {
-            IntData();
-            return View().Html;
-        }
-        public override void RenderSite()
-        {
             httpContext.Response.WriteAsync(this.GetHtml());
         }
     }

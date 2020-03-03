@@ -1,5 +1,6 @@
 ﻿using AZCore.Domain;
 using AZCore.Extensions;
+using AZCore.Identity;
 using AZWeb.Configs;
 using AZWeb.Extensions;
 using AZWeb.Utilities;
@@ -35,15 +36,39 @@ namespace AZWeb.Common.Module
         public string Html { get => HtmlResult.Html; set => HtmlResult.Html = value; }
         public bool IsTheme { get => HtmlResult.IsTheme; set => HtmlResult.IsTheme = value; }
         public string LayoutTheme { get; set; } = "LayoutTheme";
+        public UserInfo User { get; private set; }
+        public bool IsAuth { get => User != null; }
         public ModuleBase(IHttpContextAccessor httpContext) {
             this.httpContext = httpContext.HttpContext;
             IsTheme = true;
             PagesConfig = this.httpContext.GetService<IPagesConfig>();
             this.httpContext.BindRequestTo(this);
-
+            CheckUser();
             IntData();
         }
-
+        private void CheckUser() {
+            User = this.httpContext.GetSession<UserInfo>(AZCoreWeb.KeyAuth);
+            if (User == null)
+            {
+                User = this.httpContext.GetCookie<UserInfo>(AZCoreWeb.KeyAuth);
+            }
+        }
+        public void Login(object User) {
+            var userInfo = User.CopyTo<UserInfo>();
+            this.httpContext.SetSession(AZCoreWeb.KeyAuth, userInfo);
+            this.httpContext.SetCookie(AZCoreWeb.KeyAuth, userInfo, 10 * 24 * 60);
+            CheckUser();
+        }
+        public void Logout() {
+            this.httpContext.RemoveCookie(AZCoreWeb.KeyAuth);
+            this.httpContext.RemoveCookie(AZCoreWeb.KeyAuth);
+        }
+        public void RedirectToHome() {
+            Redirect("/");
+        }
+        public virtual void Redirect(string location) {
+            this.httpContext.Response.Redirect(location);
+        }
         protected IViewResult View(){
             return View(this);
         }

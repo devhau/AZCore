@@ -4,7 +4,6 @@ namespace AZCore.Test
 {
     public class Tests
     {
-        private AZUser user;
         [SetUp]
         public void Setup()
         {

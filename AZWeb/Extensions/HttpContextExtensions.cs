@@ -105,6 +105,14 @@ namespace AZWeb.Extensions
         {
             return (TClass)httpContext.RequestServices.GetRequiredService(type) ;
         }
+        public static void RemoveCookie(this HttpContext httpContext, string key)
+        {
+            httpContext.Response.Cookies.RemoveCookie(key);
+        }
+        public static void RemoveCookie(this IResponseCookies cookie, string key)
+        {
+            cookie.Delete("{0}_cookie".Frmat(key));
+        }
         public static void SetCookie<TClass>(this HttpContext httpContext, string key, TClass obj, int? expireTime)
         {
             httpContext.Response.Cookies.SetCookie<TClass>(key, obj, expireTime);
@@ -124,7 +132,7 @@ namespace AZWeb.Extensions
                 option.Expires = DateTime.Now.AddMinutes(expireTime.Value);
             else
                 option.Expires = DateTime.Now.AddDays(2);
-            cookie.Append(key, obj);
+            cookie.Append("{0}_cookie".Frmat(key), obj);
         }
         public static TClass GetCookie<TClass>(this HttpContext httpContext, string key) where TClass : class
         {
@@ -132,7 +140,7 @@ namespace AZWeb.Extensions
         }
         public static TClass GetCookie<TClass>(this IRequestCookieCollection cookie, string key) where TClass : class
         {
-            var str = cookie[key];
+            var str = cookie["{0}_cookie".Frmat(key)];
             if (str.IsNull())
             {
                 return null;
@@ -145,19 +153,27 @@ namespace AZWeb.Extensions
         }
         public static string GetCookie(this IRequestCookieCollection cookie, string key)
         {
-            var str = cookie[key];
+            var str = cookie["{0}_cookie".Frmat(key)];
             if (str.IsNull())
             {
                 return null;
             }
             return str;
         }
+        public static void RemoveSession(this HttpContext httpContext, string key)
+        {
+            httpContext.Session.RemoveSession(key);
+        }
+        public static void RemoveSession(this ISession session, string key)
+        {
+            session.Remove("{0}_session".Frmat(key));
+        }
         public static void SetSession<TClass>(this HttpContext httpContext, string key, TClass obj)
         {
             httpContext.Session.SetSession<TClass>(key, obj);
         }
         public static void SetSession<TClass>( this ISession session,string key, TClass obj) {
-            session.SetString(key, obj.ToJson());
+            session.SetString("{0}_session".Frmat(key), obj.ToJson());
         }
         public static TClass GetSession<TClass>(this HttpContext httpContext, string key) where TClass : class
         {
@@ -165,7 +181,7 @@ namespace AZWeb.Extensions
         }
         public static TClass GetSession<TClass>(this ISession session, string key) where TClass:class
         {
-            var str = session.GetString(key);
+            var str = session.GetString("{0}_session".Frmat(key));
             if (str.IsNull()) {
                 return null;
             }

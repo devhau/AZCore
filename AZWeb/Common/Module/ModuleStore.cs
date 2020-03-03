@@ -85,7 +85,7 @@ namespace AZWeb.Common.Module
                 {
                     IsAuthModule = methodFunction.GetAttribute<AuthAttribute>() != null;
                 }
-                if (IsAuthModule) {
+                if (IsAuthModule&& !ModuleCurrent.IsAuth) {
                     httpContext.Response.Redirect(pageConfigs.UrlLogin);
                     return true;
                 }

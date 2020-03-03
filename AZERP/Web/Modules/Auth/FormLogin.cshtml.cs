@@ -1,11 +1,10 @@
 ﻿using AZ.Web.Entities;
-using AZCore.Database;
+using AZCore.Extensions;
+using AZCore.Identity;
 using AZWeb.Common.Module;
 using AZWeb.Extensions;
 using AZWeb.Utilities;
 using Microsoft.AspNetCore.Http;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AZ.Web.Modules.Auth
 {
@@ -36,11 +35,6 @@ namespace AZ.Web.Modules.Auth
 
         public  IViewResult Get(object[] Id)
         {
-            var item = this.httpContext.GetSession<UserModel>(AZCoreWeb.KeyAuth);
-            if (item == null) {
-
-                item= this.httpContext.GetCookie<UserModel>(AZCoreWeb.KeyAuth);
-            }
             return View();
         }
         public IViewResult GetLogout() {
@@ -60,10 +54,8 @@ namespace AZ.Web.Modules.Auth
             }
             else
             {
-                usr.Password = "";
-                usr.Salt="";
-                this.httpContext.SetSession(AZCoreWeb.KeyAuth, usr);
-                this.httpContext.SetCookie(AZCoreWeb.KeyAuth, usr,10*24*60);
+                this.Login(usr);
+                this.RedirectToHome();
                 this.AddMessage("Đăng nhập thành công");
             }
             // Login Thanh cong;

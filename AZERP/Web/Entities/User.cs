@@ -3,12 +3,8 @@ using AZCore.Database.Attr;
 using AZCore.Domain;
 using AZCore.Identity;
 using AZCore.Utility;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AZ.Web.Entities
 {
