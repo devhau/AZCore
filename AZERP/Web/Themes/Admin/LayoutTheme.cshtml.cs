@@ -20,8 +20,10 @@ namespace AZ.Web.Themes.Admin
         }
         protected override void IntData()
         {
+            base.IntData();
             this.MenuLeft = GetMenuPostion(MenuPosition.Left)?.MenuItem;
             this.MenuTop = GetMenuPostion(MenuPosition.Top)?.MenuItem;
+            
         }
     }
 }

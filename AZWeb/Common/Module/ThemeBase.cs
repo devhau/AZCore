@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AZWeb.Extensions;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,22 @@ namespace AZWeb.Common.Module
         {
         }
 
-        
+
+        protected override void IntData()
+        {
+            this.HtmlResult.DoResult((mdo) =>
+            {
+                if (!httpContext.IsAjax() && PagesConfig != null)
+                {
+                    if (PagesConfig.Head != null)
+                    {
+                        mdo.CSS.InsertRange(0, PagesConfig.Head.Stypes);
+                        mdo.JS.InsertRange(0, PagesConfig.Head.Scripts);
+                    }
+                }
+            });
+            base.IntData();
+        }
         public string GetHtml() {
             IntData();
             return View().Html;

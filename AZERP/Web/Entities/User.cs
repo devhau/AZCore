@@ -3,6 +3,7 @@ using AZCore.Database.Attr;
 using AZCore.Domain;
 using AZCore.Identity;
 using AZCore.Utility;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -26,6 +27,7 @@ namespace AZ.Web.Entities
         public bool HasPassword(UserModel user,string passowrd) {
             return user.Password == HashPassword.Create(passowrd, user.Salt);
         }
+        
     }
     public class UserModel : AZUser<UserModel, long>
     {

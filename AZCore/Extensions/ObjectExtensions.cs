@@ -12,6 +12,10 @@ namespace AZCore.Extensions
             if (obj == null) return "";
             return JsonConvert.SerializeObject(obj); 
         }
+        public static TClass ToObject<TClass>(this string obj)
+        {
+            return JsonConvert.DeserializeObject(obj,typeof(TClass)).As<TClass>();
+        }
         public static bool IsNull(this object obj) {
             return obj == null;
         }

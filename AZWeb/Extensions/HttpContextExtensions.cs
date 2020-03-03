@@ -105,6 +105,71 @@ namespace AZWeb.Extensions
         {
             return (TClass)httpContext.RequestServices.GetRequiredService(type) ;
         }
-
+        public static void SetCookie<TClass>(this HttpContext httpContext, string key, TClass obj, int? expireTime)
+        {
+            httpContext.Response.Cookies.SetCookie<TClass>(key, obj, expireTime);
+        }
+        public static void SetCookie<TClass>(this IResponseCookies cookie, string key, TClass obj, int? expireTime)
+        {
+            cookie.SetCookie(key,obj.ToJson(),expireTime);
+        }
+        public static void SetCookie(this HttpContext httpContext, string key, string obj, int? expireTime)
+        {
+            httpContext.Response.Cookies.SetCookie(key, obj, expireTime);
+        }
+        public static void SetCookie(this IResponseCookies cookie, string key, string obj, int? expireTime)
+        {
+            CookieOptions option = new CookieOptions();
+            if (expireTime.HasValue)
+                option.Expires = DateTime.Now.AddMinutes(expireTime.Value);
+            else
+                option.Expires = DateTime.Now.AddDays(2);
+            cookie.Append(key, obj);
+        }
+        public static TClass GetCookie<TClass>(this HttpContext httpContext, string key) where TClass : class
+        {
+            return httpContext.Request.Cookies.GetCookie<TClass>(key);
+        }
+        public static TClass GetCookie<TClass>(this IRequestCookieCollection cookie, string key) where TClass : class
+        {
+            var str = cookie[key];
+            if (str.IsNull())
+            {
+                return null;
+            }
+            return str.ToObject<TClass>();
+        }
+        public static string GetCookie(this HttpContext httpContext, string key)
+        {
+            return httpContext.Request.Cookies.GetCookie(key);
+        }
+        public static string GetCookie(this IRequestCookieCollection cookie, string key)
+        {
+            var str = cookie[key];
+            if (str.IsNull())
+            {
+                return null;
+            }
+            return str;
+        }
+        public static void SetSession<TClass>(this HttpContext httpContext, string key, TClass obj)
+        {
+            httpContext.Session.SetSession<TClass>(key, obj);
+        }
+        public static void SetSession<TClass>( this ISession session,string key, TClass obj) {
+            session.SetString(key, obj.ToJson());
+        }
+        public static TClass GetSession<TClass>(this HttpContext httpContext, string key) where TClass : class
+        {
+            return httpContext.Session.GetSession<TClass>(key);
+        }
+        public static TClass GetSession<TClass>(this ISession session, string key) where TClass:class
+        {
+            var str = session.GetString(key);
+            if (str.IsNull()) {
+                return null;
+            }
+            return str.ToObject<TClass>();
+        }
     }
 }

@@ -45,7 +45,8 @@ namespace AZ.Web.Modules.Auth
                 Password = HashPassword.Create(Password, salt),
                 PhoneNumber = Phone,
                 CreateAt = DateTime.Now
-            });           
+            });
+            this.AddMessage("Đăng ký thành công");
             return View();
         } 
     }

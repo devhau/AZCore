@@ -40,8 +40,18 @@ namespace AZ
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(); 
+            app.Use(next =>
+            {
+                return async ctx =>
+                {
+                    ctx.RequestServices.GetRequiredService<DBCreateEntities>()?.CheckDatabase();
+                    await next(ctx);
+                };
+            });
             app.UseAZCore();
+          
+
 
         }
     }

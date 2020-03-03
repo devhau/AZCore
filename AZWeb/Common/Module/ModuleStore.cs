@@ -27,12 +27,17 @@ namespace AZWeb.Common.Module
             AssemblyName = startup.AssemblyName;
             this.method = httpContext.Request.Method.ToUpperFirstChart();
             this.h = this.h.ToUpperFirstChart();
+            DoCheckAuth();
         }
         public string m { get; set; }
         public string v { get; set; }
         public string h { get; set; }
         public string method { get; set; }
         private ModuleBase ModuleCurrent;
+        private bool isError = false;
+        private void DoCheckAuth() {
+            
+        }
         private bool DoCheckRouter() {
             string path = this.httpContext.Request.Path.Value;
             if (path != "/" && !path.EndsWith(pageConfigs.extenstion)) return false;
@@ -67,9 +72,11 @@ namespace AZWeb.Common.Module
             else {
                 IsAuthModule = ModuleCurrent.GetType().GetAttribute<AuthAttribute>() != null;
             }
-            {
 
                 var methodFunction = ModuleCurrent.GetType().GetMethod(string.Format("{0}{1}", method, h));
+
+            if (!this.isError)
+            {
                 if (IsAuthModule)
                 {
                     IsAuthModule = methodFunction.GetAttribute<NotAuthAttribute>() == null;
@@ -82,7 +89,8 @@ namespace AZWeb.Common.Module
                     httpContext.Response.Redirect(pageConfigs.UrlLogin);
                     return true;
                 }
-                List<object> paraValues = new List<object>();
+            }
+            List<object> paraValues = new List<object>();
                 foreach (var param in methodFunction.GetParameters()) {
                     if (this.httpContext.Request.Query.ContainsKey(param.Name.ToLower()))
                     {
@@ -123,10 +131,10 @@ namespace AZWeb.Common.Module
                 var rsFN = methodFunction.Invoke(ModuleCurrent, paraValues.ToArray());
                 if (rsFN is Task) {
                     ((Task<IViewResult>)rsFN).Wait();
-                } 
+                }
 
 
-                if (ModuleCurrent.IsTheme)
+            if (ModuleCurrent.IsTheme&&!this.isError)
                 {
                     AssemblyModule = string.Format("{0}.Web.Themes.{1}.LayoutTheme", AssemblyName, pageConfigs.Theme);
                     var typeModule = startup.GetType().Assembly.GetType(AssemblyModule);
@@ -140,12 +148,12 @@ namespace AZWeb.Common.Module
                     ModuleCurrent.RenderSite();
                 }
 
-            }
             return true;
         }
         private void DoError(string error) {
             this.h = "";
-            this.method = "";
+            this.method = "Get";
+            this.isError = true;
             if (!LoadModule(string.Format("{0}.Web.Errors.{1}", AssemblyName, error)))
             {
             }

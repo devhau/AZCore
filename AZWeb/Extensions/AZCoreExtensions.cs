@@ -1,20 +1,15 @@
-﻿using AZCore.Database;
-using AZCore.Domain;
+﻿using AZCore.Domain;
 using AZCore.Extensions;
 using AZCore.Utility.Xml;
-using AZWeb.Common;
-using AZWeb.Common.Module;
 using AZWeb.Configs;
 using AZWeb.Middleware;
 using AZWeb.Utilities;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Data;
 using System.IO;
-using System.Linq;
 
 namespace AZWeb.Extensions
 {
@@ -25,6 +20,7 @@ namespace AZWeb.Extensions
         }
         public static void UseAZCore(this IApplicationBuilder app)
         {
+            app.UseCookiePolicy();
             app.UseSession();
             app.UseRouting();
             app.UseEndpoints(endpoints =>
