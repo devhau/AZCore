@@ -61,6 +61,10 @@ namespace AZWeb.Common.Module
             return this.HtmlResult;
 
         }
+        protected virtual void AddMessage(string message) {
+
+            this.HtmlResult.JS.Add(new AZWeb.Configs.ContentTag() { Code = @"$(function(){alert('"+message+"');})" });
+        }
         protected virtual string RenderHtml(object mode) {            
             return RenderHtml(null,mode);
         }

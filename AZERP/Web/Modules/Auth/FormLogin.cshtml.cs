@@ -42,13 +42,19 @@ namespace AZ.Web.Modules.Auth
             this.Title = "Đăng Xuất hệ thống thành công";
             return View();
         }
+        
         public IViewResult Post(string azemail,string azpassword) {
             var usr = this.userService.GetEmailOrUsername(azemail);
             if (usr == null)
             {
+                this.AddMessage("Không tìm thấy tài khoản");
             }
-            else if (!this.userService.HasPassword(usr, azpassword)) { 
-            
+            else if (!this.userService.HasPassword(usr, azpassword))
+            {
+                this.AddMessage("Mật khẩu không chính xác");
+            }
+            else {
+                this.httpContext.Response.Redirect("/dang-ky.az");
             }
             // Login Thanh cong;
             return View();
