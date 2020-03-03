@@ -22,11 +22,11 @@ namespace AZCore.Identity
         public string Password { get; set; }
         [Field(Length = 128)]
         public string Salt { get; set; }
-        public async Task<TEntity> GetEmailOrUsername(string name) {
-            string sql = string.Format("select * from {0} where UserName=@UserName or Email=@Email", this.builder.TableName);
-            var entity = await ExeQueryAsync<TEntity>(sql, new { UserName = name, Email = name });
-            return entity.FirstOrDefault();
-        }
+        //public async Task<TEntity> GetEmailOrUsername(string name) {
+        //    string sql = string.Format("select * from {0} where UserName=@UserName or Email=@Email", this.Builder.TableName);
+        //    var entity = await ExeQueryAsync<TEntity>(sql, new { UserName = name, Email = name });
+        //    return entity.FirstOrDefault();
+        //}
 
        
 

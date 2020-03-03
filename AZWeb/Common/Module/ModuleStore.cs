@@ -122,7 +122,7 @@ namespace AZWeb.Common.Module
                 }
                 var rsFN = methodFunction.Invoke(ModuleCurrent, paraValues.ToArray());
                 if (rsFN is Task) {
-                    ((Task<IResult>)rsFN).Wait();
+                    ((Task<IViewResult>)rsFN).Wait();
                 } 
 
 

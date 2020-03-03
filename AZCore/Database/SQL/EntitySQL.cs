@@ -10,7 +10,7 @@ using static Dapper.SqlMapper;
 
 namespace AZCore.Database.SQL
 {
-    public class EntitySQL
+    internal class EntitySQL
     {
         public static EntitySQL NewSQL(EntityBase entity) {
             return new EntitySQL(entity);
@@ -47,8 +47,7 @@ namespace AZCore.Database.SQL
             
         }
         private object GetValueByName(string name) {
-            return this.entity.GetType().GetProperty(name).GetValue(this.entity);
-        
+            return this.entity.GetType().GetProperty(name).GetValue(this.entity);        
         }
         public SQLResult CreateTableIfNotExit() {
             StringBuilder SQL = new StringBuilder();
@@ -100,7 +99,7 @@ namespace AZCore.Database.SQL
         public SQLResult ToSqlSelect()
         {
             StringBuilder SQL = new StringBuilder();
-            SQL.AppendFormat("SELECT FROM `{0}`  ", this.TableName);
+            SQL.AppendFormat("SELECT * FROM `{0}`  ", this.TableName);
             return new SQLResult()
             {
 
