@@ -1,11 +1,11 @@
 ﻿@model LayoutTheme
-<az-html>
+<az-html class="layout-fixed">
     <az-head>
 
         <az-script>
             $(function() {
             // Handler for .ready() called.
-            (new AZUrl()).Init();
+                (new AZUrl()).Init();
             });
         </az-script>
     </az-head>
@@ -137,7 +137,7 @@
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <!-- Brand Logo -->
-                <a href="../../index3.html" class="brand-link elevation-4">
+                <a href="/" class="brand-link elevation-4">
                     <img src="~/lib/admin-lte/img/AdminLTELogo.png"
                          alt="Viec1.com"
                          class="brand-image img-circle elevation-3"
@@ -181,13 +181,12 @@
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Fixed Navbar Layout</h1>
+                                <h1>@Model.Title</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Layout</a></li>
-                                    <li class="breadcrumb-item active">Fixed Navbar Layout</li>
+                                    <li class="breadcrumb-item"><a href="#">Quản lý</a></li>
+                                    <li class="breadcrumb-item active">@Model.Title</li>
                                 </ol>
                             </div>
                         </div>
@@ -198,7 +197,7 @@
                 <section class="content">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12" id="ContentAZ">
                                 <az-content />
                             </div>
                         </div>

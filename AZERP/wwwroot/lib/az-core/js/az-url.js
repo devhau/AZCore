@@ -1,20 +1,8 @@
 ﻿function AZUrl() { }
 AZUrl.prototype.Init = function () {
-    if (("onhashchange" in window) && navigator.userAgent.toLowerCase().indexOf('msie') == -1) {
-        window.onhashchange = function () {
-            alert(window.location.hash);
-        }
-        // Or $(window).bind( 'hashchange',function(e) {  
-        //       alert(window.location.hash); 
-        //   });              
-    }
-    else {
-        var prevHash = window.location.hash;
-        window.setInterval(function () {
-            if (window.location.hash != prevHash) {
-                prevHash = window.location.hash;
-                alert(window.location.hash);
-            }
-        }, 100);
-    }
+    $(window).on('hashchange', function (e) {
+        let url_new = location.hash.slice(1);
+        window.history.pushState("data", "Title", url_new);
+        new AZAjax().DoGet(url_new, {}, function (d) { $("#ContentAZ").html(d.Html); }, function (e) { });
+    });
 }

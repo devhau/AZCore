@@ -15,13 +15,16 @@ namespace AZWeb.Common.Module
     public class ModuleStore
     {
         IViewResult ModuleContent { get { return (IViewResult)httpContext.Items[AZCoreWeb.KeyHtmlModule]; } set { httpContext.Items[AZCoreWeb.KeyHtmlModule] = value; } }
-        private bool IsModule { get; set; } = false;
+        private bool IsModule { get; set; } = false; 
+        private bool isAjax { get; set; } = false;
         HttpContext httpContext;
         IStartup startup;
         IPagesConfig pageConfigs;
+
         string AssemblyName;
         private ModuleStore(HttpContext _httpContext) {
             httpContext = _httpContext;
+            isAjax = httpContext.IsAjax();
             startup = httpContext.GetService<IStartup>();
             pageConfigs = this.httpContext.GetService<IPagesConfig>();
             AssemblyName = startup.AssemblyName;
@@ -38,23 +41,27 @@ namespace AZWeb.Common.Module
         private void DoCheckAuth() {
             
         }
-        private bool DoCheckRouter() {
+        private bool DoCheckRouter()
+        {
             string path = this.httpContext.Request.Path.Value;
             if (path != "/" && !path.EndsWith(pageConfigs.extenstion)) return false;
             if (path == "/")
             {
                 DoModule(pageConfigs.UrlRealDefault);
             }
-            else {
+            else
+            {
                 foreach (var item1 in pageConfigs.Pages)
                 {
                     foreach (var item2 in item1.Tags)
                     {
                         var RegexPath = new Regex(item2.ViturlPath);
-                        if (RegexPath.IsMatch(path)) {
+                        if (RegexPath.IsMatch(path))
+                        {
                             var mPath = RegexPath.Match(path);
                             List<object> paraObject = new List<object>();
-                            for (var i = 1; i < mPath.Groups.Count - 1; i++) {
+                            for (var i = 1; i < mPath.Groups.Count - 1; i++)
+                            {
                                 paraObject.Add(mPath.Groups[i].Value);
                             }
                             var RealPath = string.Format(item2.Real, paraObject.ToArray());
@@ -69,11 +76,12 @@ namespace AZWeb.Common.Module
             {
                 DoError("NotFound");
             }
-            else {
+            else
+            {
                 IsAuthModule = ModuleCurrent.GetType().GetAttribute<AuthAttribute>() != null;
             }
 
-                var methodFunction = ModuleCurrent.GetType().GetMethod(string.Format("{0}{1}", method, h));
+            var methodFunction = ModuleCurrent.GetType().GetMethod(string.Format("{0}{1}", method, h));
 
             if (!this.isError)
             {
@@ -85,68 +93,78 @@ namespace AZWeb.Common.Module
                 {
                     IsAuthModule = methodFunction.GetAttribute<AuthAttribute>() != null;
                 }
-                if (IsAuthModule&& !ModuleCurrent.IsAuth) {
+                if (IsAuthModule && !ModuleCurrent.IsAuth)
+                {
                     httpContext.Response.Redirect(pageConfigs.UrlLogin);
                     return true;
                 }
             }
             List<object> paraValues = new List<object>();
-                foreach (var param in methodFunction.GetParameters()) {
-                    if (this.httpContext.Request.Query.ContainsKey(param.Name.ToLower()))
+            foreach (var param in methodFunction.GetParameters())
+            {
+                if (this.httpContext.Request.Query.ContainsKey(param.Name.ToLower()))
+                {
+                    if (param.ParameterType.IsArray)
                     {
-                        if (param.ParameterType.IsArray)
-                        {
-                            var type = param.ParameterType.GetElementType();
-                            var obj = this.httpContext.Request.Query[param.Name][0].Split(',').Select(p => Convert.ChangeType(p, type)).ToArray();
-                            paraValues.Add(obj);
-                        }
-                        else
-                        {
-                            paraValues.Add(Convert.ChangeType(this.httpContext.Request.Query[param.Name].ToArray()[0], param.ParameterType));
-                        }
-
-                    }
-                    else if (this.httpContext.Request.HasFormContentType && this.httpContext.Request.Form.Keys.Contains(param.Name.ToLower()))
-                    {
-                        if (param.ParameterType.IsArray)
-                        {
-                            var type = param.ParameterType.GetElementType();
-                            var obj = this.httpContext.Request.Form[param.Name][0].Split(',').Select(p => Convert.ChangeType(p, type)).ToArray();
-                            paraValues.Add(obj);
-                        }
-                        else
-                        {
-                            paraValues.Add(Convert.ChangeType(this.httpContext.Request.Form[param.Name].ToArray()[0], param.ParameterType));
-                        }
-
+                        var type = param.ParameterType.GetElementType();
+                        var obj = this.httpContext.Request.Query[param.Name][0].Split(',').Select(p => Convert.ChangeType(p, type)).ToArray();
+                        paraValues.Add(obj);
                     }
                     else
                     {
-                        if (param.HasDefaultValue)
-                            paraValues.Add(param.RawDefaultValue);
-                        else
-                            paraValues.Add(null);
+                        paraValues.Add(Convert.ChangeType(this.httpContext.Request.Query[param.Name].ToArray()[0], param.ParameterType));
                     }
-                }
-                var rsFN = methodFunction.Invoke(ModuleCurrent, paraValues.ToArray());
-                if (rsFN is Task) {
-                    ((Task<IViewResult>)rsFN).Wait();
-                }
 
-
-            if (ModuleCurrent.IsTheme&&!this.isError)
+                }
+                else if (this.httpContext.Request.HasFormContentType && this.httpContext.Request.Form.Keys.Contains(param.Name.ToLower()))
                 {
-                    AssemblyModule = string.Format("{0}.Web.Themes.{1}.LayoutTheme", AssemblyName, pageConfigs.Theme);
-                    var typeModule = startup.GetType().Assembly.GetType(AssemblyModule);
-                    if (typeModule != null)
+                    if (param.ParameterType.IsArray)
                     {
-                        httpContext.GetService<ThemeBase>(typeModule)?.RenderSite();
+                        var type = param.ParameterType.GetElementType();
+                        var obj = this.httpContext.Request.Form[param.Name][0].Split(',').Select(p => Convert.ChangeType(p, type)).ToArray();
+                        paraValues.Add(obj);
                     }
-                }
-                else {
+                    else
+                    {
+                        paraValues.Add(Convert.ChangeType(this.httpContext.Request.Form[param.Name].ToArray()[0], param.ParameterType));
+                    }
 
+                }
+                else
+                {
+                    if (param.HasDefaultValue)
+                        paraValues.Add(param.RawDefaultValue);
+                    else
+                        paraValues.Add(null);
+                }
+            }
+            var rsFN = methodFunction.Invoke(ModuleCurrent, paraValues.ToArray());
+            if (rsFN is Task)
+            {
+                ((Task<IViewResult>)rsFN).Wait();
+            }
+
+
+            if (ModuleCurrent.IsTheme && !this.isError& !isAjax)
+            {
+                AssemblyModule = string.Format("{0}.Web.Themes.{1}.LayoutTheme", AssemblyName, pageConfigs.Theme);
+                var typeModule = startup.GetType().Assembly.GetType(AssemblyModule);
+                if (typeModule != null)
+                {
+                    httpContext.GetService<ThemeBase>(typeModule)?.RenderSite();
+                }
+            }
+            else
+            {
+                if (isAjax)
+                {
+                    ModuleCurrent.RenderJson();
+                }
+                else
+                {
                     ModuleCurrent.RenderSite();
                 }
+            }
 
             return true;
         }

@@ -116,8 +116,12 @@ namespace AZWeb.Common.Module
         {
             return RenderHtml();
         }
-        public virtual void RenderSite() {
+        public virtual void RenderSite() {            
             httpContext.Response.WriteAsync(this.Html);
+        }
+        public virtual void RenderJson()
+        {
+            httpContext.Response.WriteAsync(this.HtmlResult.ToJson());
         }
     }
 }

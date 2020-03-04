@@ -67,3 +67,4 @@ E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Auth\FormLogi
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Auth\FormRegister.cshtml.g.cs
 E:\Projects\AZCore\AZERP\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
 E:\Projects\AZCore\AZERP\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Candidate\FormCandidate.cshtml.g.cs

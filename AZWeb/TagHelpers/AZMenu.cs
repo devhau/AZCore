@@ -1,17 +1,16 @@
 ﻿using AZWeb.Common;
 using AZWeb.Configs;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AZWeb.TagHelpers
 {
     [HtmlTargetElement("az-menu")]
     public class AZMenu : AZTagHelper
     {
+        [HtmlAttributeName("prex")]
+        public string prex { get; set; } = "#";
         [HtmlAttributeName("menus")]
         public List<MenuItemTag> Menus { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
@@ -30,7 +29,7 @@ namespace AZWeb.TagHelpers
                 foreach (var item in menus)
                 {
                     htmlMenu.Append(string.Format("<li class=\"nav-item {0}\">", item.Menus != null && item.Menus.Count > 0 ? "has-treeview" : ""));
-                    htmlMenu.Append(string.Format("<a href=\"{0}\" class=\"nav-link\"><i class=\"{1}\"></i><p>{2}{3}{4}</p></a>", item.Link, item.Icon, item.Title, item.Menus != null && item.Menus.Count > 0 ? "<i class=\"fas fa-angle-left right\"></i>":"", "<span class=\"badge badge-info right\">New</span>"));
+                    htmlMenu.Append(string.Format("<a href=\"{0}{1}\" class=\"nav-link\"><i class=\"{2}\"></i><p>{3}{4}{5}</p></a>", prex, item.Link, item.Icon, item.Title, item.Menus != null && item.Menus.Count > 0 ? "<i class=\"fas fa-angle-left right\"></i>":"", "<span class=\"badge badge-info right\">New</span>"));
                     this.RenderMenu(htmlMenu, item.Menus);
                     htmlMenu.Append(string.Format("</li>"));
                 }
@@ -42,7 +41,7 @@ namespace AZWeb.TagHelpers
                 foreach (var item in menus)
                 {
                     htmlMenu.Append(string.Format("<li class=\"nav-item {0}\">", item.Menus != null && item.Menus.Count > 0 ? "has-treeview" : ""));
-                    htmlMenu.Append(string.Format("<a href=\"{0}\" class=\"nav-link\"><i class=\"{1}\"></i><p>{2}{3}{4}</p></a>", item.Link, item.Icon, item.Title, item.Menus != null && item.Menus.Count > 0 ? "<i class=\"fas fa-angle-left right\"></i>" : "", "<span class=\"badge badge-info right\">New</span>"));
+                    htmlMenu.Append(string.Format("<a href=\"{0}{1}\" class=\"nav-link\"><i class=\"{2}\"></i><p>{3}{4}{5}</p></a>", prex, item.Link, item.Icon, item.Title, item.Menus != null && item.Menus.Count > 0 ? "<i class=\"fas fa-angle-left right\"></i>" : "", "<span class=\"badge badge-info right\">New</span>"));
                     this.RenderMenu(htmlMenu, item.Menus);
                     htmlMenu.Append(string.Format("</li>"));
                 }

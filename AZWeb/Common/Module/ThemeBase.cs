@@ -1,9 +1,5 @@
 ﻿using AZWeb.Extensions;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AZWeb.Common.Module
 {
@@ -12,8 +8,6 @@ namespace AZWeb.Common.Module
         public ThemeBase(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
-
-
         protected override void IntData()
         {
             base.IntData();
@@ -38,5 +32,4 @@ namespace AZWeb.Common.Module
             httpContext.Response.WriteAsync(this.GetHtml());
         }
     }
-
 }
