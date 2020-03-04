@@ -9,7 +9,7 @@ namespace AZ.Web.Errors
         {
         }
 
-        public IViewResult Get() {
+        public IView Get() {
             this.Title = "404 - Không tìm thấy trang";
             return View();
         }

@@ -19,7 +19,7 @@ namespace AZ.Web.Modules.Auth
             this.Title = "Đăng ký tài khoản";
             this.IsTheme = false;
 
-            this.HtmlResult.DoResult((mdo) =>
+            this.DoView((mdo) =>
             {
                 if (!httpContext.IsAjax() && PagesConfig != null)
                 {
@@ -31,10 +31,10 @@ namespace AZ.Web.Modules.Auth
                 }
             });
         }
-        public IViewResult Get() {
+        public IView Get() {
             return View();
         }
-        public IViewResult Post(string Fullname, string Email, string Password, string RePassword, string Phone)
+        public IView Post(string Fullname, string Email, string Password, string RePassword, string Phone)
         {
             var salt = HashPassword.CreateSalt();
             this.userService.Insert(new UserModel()

@@ -8,7 +8,7 @@ namespace AZWeb.Common.Module
 {
     public  interface IResult{
     }
-    public interface IViewResult: IResult
+    public interface IView: IResult
     {
         string Title { get; set; }
         string Description { get; set; }
@@ -18,9 +18,9 @@ namespace AZWeb.Common.Module
          List<ContentTag> JS { get; set; }
         List<ContentTag> CSS { get; set; }
         bool IsTheme { get; set; }
-        IViewResult DoResult(Action<IViewResult> ac);
+        IView DoView(Action<IView> ac);
     }
-    public class ViewResult : IViewResult
+    public class AZView : IView
     {
         public string Html { get; set; }
         public List<ContentTag> JS { get; set; } = new List<ContentTag>();
@@ -29,10 +29,9 @@ namespace AZWeb.Common.Module
         public string Description { get; set; }
         public string Author { get; set; }
         public string Keywords { get; set; }
-        public Action<ViewResult> ActionResult { get; set; }
         public bool IsTheme { get; set; } = true;
 
-        public IViewResult DoResult(Action<IViewResult> ac)
+        public IView DoView(Action<IView> ac)
         {
             if (ac!=null) {
                 ac(this);

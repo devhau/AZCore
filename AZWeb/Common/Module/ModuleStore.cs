@@ -14,7 +14,7 @@ namespace AZWeb.Common.Module
 {
     public class ModuleStore
     {
-        IViewResult ModuleContent { get { return (IViewResult)httpContext.Items[AZCoreWeb.KeyHtmlModule]; } set { httpContext.Items[AZCoreWeb.KeyHtmlModule] = value; } }
+        IView ModuleContent { get { return (IView)httpContext.Items[AZCoreWeb.KeyHtmlModule]; } set { httpContext.Items[AZCoreWeb.KeyHtmlModule] = value; } }
         private bool IsModule { get; set; } = false; 
         private bool isAjax { get; set; } = false;
         HttpContext httpContext;
@@ -141,7 +141,7 @@ namespace AZWeb.Common.Module
             var rsFN = methodFunction.Invoke(ModuleCurrent, paraValues.ToArray());
             if (rsFN is Task)
             {
-                ((Task<IViewResult>)rsFN).Wait();
+                ((Task<IView>)rsFN).Wait();
             }
 
 

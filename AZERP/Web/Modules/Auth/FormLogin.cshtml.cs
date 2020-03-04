@@ -20,7 +20,7 @@ namespace AZ.Web.Modules.Auth
             this.Title = "Đăng nhập hệ thống:";
             this.IsTheme = false;
 
-            this.HtmlResult.DoResult((mdo) =>
+            this.DoView((mdo) =>
             {
                 if (!httpContext.IsAjax() && PagesConfig != null)
                 {
@@ -33,16 +33,16 @@ namespace AZ.Web.Modules.Auth
             });
         }
 
-        public  IViewResult Get(object[] Id)
+        public  IView Get(object[] Id)
         {
             return View();
         }
-        public IViewResult GetLogout() {
+        public IView GetLogout() {
             this.Title = "Đăng Xuất hệ thống thành công";
             return View();
         }
         
-        public IViewResult Post(string azemail,string azpassword) {
+        public IView Post(string azemail,string azpassword) {
             var usr = this.userService.GetEmailOrUsername(azemail);
             if (usr == null)
             {

@@ -9,7 +9,7 @@ namespace AZ.Web.Errors
         {
         }
 
-        public IViewResult Get() {
+        public IView Get() {
             this.Title = "Không tìm thấy module";
             return View();
         }

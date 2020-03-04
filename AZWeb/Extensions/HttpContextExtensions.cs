@@ -94,9 +94,9 @@ namespace AZWeb.Extensions
                 return request.Headers["X-Requested-With"] == "XMLHttpRequest";
             return false;
         }
-        public static IViewResult GetContetModule(this HttpContext httpContext) {
-            if (httpContext.Items[AZCoreWeb.KeyHtmlModule] == null) { httpContext.Items[AZCoreWeb.KeyHtmlModule] = new Common.Module.ViewResult(); }
-            return httpContext.Items[AZCoreWeb.KeyHtmlModule] as IViewResult;
+        public static IView GetContetModule(this HttpContext httpContext) {
+            if (httpContext.Items[AZCoreWeb.KeyHtmlModule] == null) { httpContext.Items[AZCoreWeb.KeyHtmlModule] = new Common.Module.AZView(); }
+            return httpContext.Items[AZCoreWeb.KeyHtmlModule] as IView;
         }
         public static TClass GetService<TClass>(this HttpContext httpContext) {
             return httpContext.RequestServices.GetRequiredService<TClass>();

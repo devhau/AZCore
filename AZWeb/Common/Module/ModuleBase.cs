@@ -27,17 +27,22 @@ namespace AZWeb.Common.Module
         private static Regex regexError = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+)$", RegexOptions.IgnoreCase);
 
         public HttpContext httpContext { get; private set; }
-        public IViewResult HtmlResult { get => this.httpContext.GetContetModule(); }
+        private IView _view { get => this.httpContext.GetContetModule(); }
         public IPagesConfig PagesConfig { get; }
-        public string Title{ get => HtmlResult.Title; set => HtmlResult.Title = value; }
-        public string Description { get => HtmlResult.Description; set => HtmlResult.Description = value; }
-        public string Author { get => HtmlResult.Author; set => HtmlResult.Author = value; }
-        public string Keywords { get => HtmlResult.Keywords; set => HtmlResult.Keywords = value; }
-        public string Html { get => HtmlResult.Html; set => HtmlResult.Html = value; }
-        public bool IsTheme { get => HtmlResult.IsTheme; set => HtmlResult.IsTheme = value; }
+        public string Title{ get => _view.Title; set => _view.Title = value; }
+        public string Description { get => _view.Description; set => _view.Description = value; }
+        public string Author { get => _view.Author; set => _view.Author = value; }
+        public string Keywords { get => _view.Keywords; set => _view.Keywords = value; }
+        public string Html { get => _view.Html; set => _view.Html = value; }
+        public bool IsTheme { get => _view.IsTheme; set => _view.IsTheme = value; }
         public string LayoutTheme { get; set; } = "LayoutTheme";
         public UserInfo User { get; private set; }
         public bool IsAuth { get => User != null; }
+
+        protected void DoView(Action<IView> ac)
+        {
+            if (ac != null) ac(_view);
+        }
         public ModuleBase(IHttpContextAccessor httpContext) {
             this.httpContext = httpContext.HttpContext;
             IsTheme = true;
@@ -69,26 +74,26 @@ namespace AZWeb.Common.Module
         public virtual void Redirect(string location) {
             this.httpContext.Response.Redirect(location);
         }
-        protected IViewResult View(){
+        protected IView View(){
             return View(this);
         }
-        protected IViewResult View(object mode)
+        protected IView View(object mode)
         {
             return View(null, mode);
         }
-        protected IViewResult View(string viewName, object mode)
+        protected IView View(string viewName, object mode)
         {
             return GetView(RenderHtml(viewName, mode));
         }
-        protected IViewResult GetView(string html)
+        protected IView GetView(string html)
         {
             this.Html = html;
-            return this.HtmlResult;
+            return this._view;
 
         }
         protected virtual void AddMessage(string message) {
 
-            this.HtmlResult.JS.Add(new AZWeb.Configs.ContentTag() { Code = @"$(function(){alert('"+message+"');})" });
+            this._view.JS.Add(new AZWeb.Configs.ContentTag() { Code = @"$(function(){alert('"+message+"');})" });
         }
         protected virtual string RenderHtml(object mode) {            
             return RenderHtml(null,mode);
@@ -121,7 +126,7 @@ namespace AZWeb.Common.Module
         }
         public virtual void RenderJson()
         {
-            httpContext.Response.WriteAsync(this.HtmlResult.ToJson());
+            httpContext.Response.WriteAsync(this._view.ToJson());
         }
     }
 }

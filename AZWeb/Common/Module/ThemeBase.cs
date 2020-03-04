@@ -18,7 +18,7 @@ namespace AZWeb.Common.Module
         }
         public override void RenderSite()
         {
-            this.HtmlResult.DoResult((mdo) =>
+            this.DoView((mdo) =>
             {
                 if (!httpContext.IsAjax() && PagesConfig != null)
                 {

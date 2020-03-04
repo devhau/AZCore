@@ -18,7 +18,7 @@ namespace AZ.Web.Modules.Candidate
         
         }
 
-        public  IViewResult Get(object[] Id)
+        public  IView Get(object[] Id)
         {
             return View();
         }
