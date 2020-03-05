@@ -12,7 +12,7 @@
         var dataPost = typeof (data) == "function" ? data() : data;
         if (dataPost == null) dataPost = {};
        // dataPost.path = window.location.pathname + window.location.search;
-
+        dataPost.time = new Date().getTime();
         //var request ajax
         var request = $.ajax(
             {

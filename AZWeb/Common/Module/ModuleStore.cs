@@ -83,6 +83,7 @@ namespace AZWeb.Common.Module
 
             var methodFunction = ModuleCurrent.GetType().GetMethod(string.Format("{0}{1}", method, h));
 
+            
             if (!this.isError)
             {
                 if (IsAuthModule)
