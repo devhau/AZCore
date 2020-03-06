@@ -22,3 +22,23 @@
     -ms-flex: 0 0 230px;
     flex: 0 0 230px;
 }
+.az-layout .wrapper .main-header {
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1037;
+}
+.az-layout .main-sidebar {
+    bottom: 0;
+    float: none;
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    top: 0;
+}
+.az-layout .wrapper .content-wrapper {
+    margin-top: calc(3.5rem + 1px);
+    height: calc(100vh - 3.5rem - 2px);
+    overflow: auto;
+}
