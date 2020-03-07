@@ -39,6 +39,36 @@
 }
 .az-layout .wrapper .content-wrapper {
     margin-top: calc(3.5rem + 1px);
-    height: calc(100vh - 3.5rem - 2px);
+    height: calc(100% - 3.5rem - 2px);
+    position:relative;
+    padding:0px;
     overflow: auto;
 }
+.az-btn {
+    border-radius: 0px;
+}
+.az-manager {
+    height: 100%;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+    .az-manager .az-toolbar {
+        background: #efeaea;
+        width: 100%;
+        height: 45px;
+        padding: 7px;
+    }
+    .az-manager .az-data-table {
+        width: calc(100% - 2px);
+        height: calc(100% - 50px - 2px);
+        padding: 7px;
+    }
+    .az-manager.az-bottom {
+        padding-bottom: 50px;
+    }
+    .az-manager.az-bottom .az-toolbar {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+    }
