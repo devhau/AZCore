@@ -25,7 +25,7 @@ namespace AZCore.Database
     }
     public class EntityModel<TModel,TKey>: EntityModel<TModel> where TModel: EntityModel<TModel>
     {
-        [Field(IsKey = true)]
+        [Field(IsKey = true,IsAutoIncrement =true)]
         public virtual TKey Id { get; set; }
     }
 }

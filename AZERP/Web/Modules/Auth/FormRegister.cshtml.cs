@@ -1,13 +1,14 @@
 ﻿using AZ.Web.Entities;
 using AZCore.Utility;
 using AZWeb.Common.Module;
+using AZWeb.Common.Module.View;
 using AZWeb.Extensions;
 using Microsoft.AspNetCore.Http;
 using System;
 
 namespace AZ.Web.Modules.Auth
 {
-    public class FormRegister : ModuleBase
+    public class FormRegister : PageModule
     {
         UserService userService;
         public FormRegister(IHttpContextAccessor httpContext, UserService _userService) : base(httpContext)

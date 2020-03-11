@@ -1,9 +1,10 @@
 ﻿using AZWeb.Common.Module;
+using AZWeb.Common.Module.View;
 using Microsoft.AspNetCore.Http;
 
 namespace AZ.Web.Errors
 {
-    public class NotFoundMethod : ModuleBase
+    public class NotFoundMethod : PageModule
     {
         public NotFoundMethod(IHttpContextAccessor httpContext) : base(httpContext)
         {

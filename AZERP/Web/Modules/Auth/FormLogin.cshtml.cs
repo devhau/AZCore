@@ -1,14 +1,12 @@
 ﻿using AZ.Web.Entities;
-using AZCore.Extensions;
-using AZCore.Identity;
 using AZWeb.Common.Module;
+using AZWeb.Common.Module.View;
 using AZWeb.Extensions;
-using AZWeb.Utilities;
 using Microsoft.AspNetCore.Http;
 
 namespace AZ.Web.Modules.Auth
 {
-    public class FormLogin:ModuleBase
+    public class FormLogin:PageModule
     {
         UserService userService;
         public FormLogin(IHttpContextAccessor httpContext, UserService _userService) : base(httpContext)

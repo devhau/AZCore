@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace AZWeb.Common.Module
 {
-    public abstract class ThemeBase:ModuleBase
+    public abstract class ThemeBase:PageModule
     {
         public ThemeBase(IHttpContextAccessor httpContext) : base(httpContext)
         {
@@ -14,7 +14,8 @@ namespace AZWeb.Common.Module
         }
         public string GetHtml() {
             IntData();
-            return View().Html;
+            View();
+            return this.Html;
         }
         public override void RenderSite()
         {

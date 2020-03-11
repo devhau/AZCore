@@ -1,5 +1,6 @@
 ﻿using AZCore.Extensions;
 using AZWeb.Common.Module.Attr;
+using AZWeb.Common.Module.View;
 using AZWeb.Configs;
 using AZWeb.Extensions;
 using AZWeb.Utilities;
@@ -15,7 +16,7 @@ namespace AZWeb.Common.Module
     public class ModuleStore
     {
         IView ModuleContent { get { return (IView)httpContext.Items[AZCoreWeb.KeyHtmlModule]; } set { httpContext.Items[AZCoreWeb.KeyHtmlModule] = value; } }
-        private bool IsModule { get; set; } = false; 
+
         private bool isAjax { get; set; } = false;
         HttpContext httpContext;
         IStartup startup;
@@ -29,14 +30,13 @@ namespace AZWeb.Common.Module
             pageConfigs = this.httpContext.GetService<IPagesConfig>();
             AssemblyName = startup.AssemblyName;
             this.method = httpContext.Request.Method.ToUpperFirstChart();
-            this.h = this.h.ToUpperFirstChart();
             DoCheckAuth();
         }
         public string m { get; set; }
         public string v { get; set; }
         public string h { get; set; }
         public string method { get; set; }
-        private ModuleBase ModuleCurrent;
+        private PageModule ModuleCurrent;
         private bool isError = false;
         private void DoCheckAuth() {
             
@@ -70,6 +70,7 @@ namespace AZWeb.Common.Module
                     }
                 }
             }
+
             string AssemblyModule;
             bool IsAuthModule = false;
             if (ModuleCurrent == null)
@@ -80,6 +81,7 @@ namespace AZWeb.Common.Module
             {
                 IsAuthModule = ModuleCurrent.GetType().GetAttribute<AuthAttribute>() != null;
             }
+            ModuleCurrent.BeforeRequest();
 
             var methodFunction = ModuleCurrent.GetType().GetMethod(string.Format("{0}{1}", method, h));
 
@@ -144,7 +146,7 @@ namespace AZWeb.Common.Module
             {
                 ((Task<IView>)rsFN).Wait();
             }
-
+            ModuleCurrent.AfterRequest();
 
             if (ModuleCurrent.IsTheme && !this.isError& !isAjax)
             {
@@ -190,7 +192,7 @@ namespace AZWeb.Common.Module
             httpContext.Request.Path = "/";
             httpContext.Request.QueryString = new QueryString(RealPath);
             httpContext.BindRequestTo(this);
-
+            this.h = this.h.ToUpperFirstChart();
             string AssemblyModule = "";
             if (!string.IsNullOrEmpty(m))
             {
@@ -219,7 +221,7 @@ namespace AZWeb.Common.Module
             var typeModule = startup.GetType().Assembly.GetType(AssemblyModule);
             if (typeModule != null)
             {
-                ModuleCurrent = httpContext.RequestServices.GetService(typeModule) as ModuleBase;
+                ModuleCurrent = httpContext.RequestServices.GetService(typeModule) as PageModule;
                 if (ModuleCurrent != null)
                 {                   
                     return true;

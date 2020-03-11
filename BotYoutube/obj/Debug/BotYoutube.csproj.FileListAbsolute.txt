@@ -1,0 +1,15 @@
+E:\Projects\AZCore\BotYoutube\bin\Debug\BotYoutube.exe.config
+E:\Projects\AZCore\BotYoutube\bin\Debug\BotYoutube.exe
+E:\Projects\AZCore\BotYoutube\bin\Debug\BotYoutube.pdb
+E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.Properties.Resources.resources
+E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.csproj.GenerateResource.cache
+E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.exe
+E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.pdb
+E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.UI.FormBase.resources
+E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.FormMain.resources
+E:\Projects\AZCore\BotYoutube\bin\Debug\Geckofx-Core.dll
+E:\Projects\AZCore\BotYoutube\bin\Debug\Geckofx-Winforms.dll
+E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.csprojAssemblyReference.cache
+E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.csproj.CopyComplete
+E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.UIBrowser.resources
+E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.UILog.resources

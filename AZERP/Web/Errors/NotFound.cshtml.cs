@@ -1,9 +1,10 @@
 ﻿using AZWeb.Common.Module;
+using AZWeb.Common.Module.View;
 using Microsoft.AspNetCore.Http;
 
 namespace AZ.Web.Errors
 {
-    public class NotFound : ModuleBase
+    public class NotFound : PageModule
     {
         public NotFound(IHttpContextAccessor httpContext) : base(httpContext)
         {

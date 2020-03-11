@@ -17,6 +17,7 @@ using AZWeb.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 using AZCore.Extensions;
+using AZWeb.Common.Module.View;
 
 namespace AZWeb.Extensions
 {
@@ -94,9 +95,9 @@ namespace AZWeb.Extensions
                 return request.Headers["X-Requested-With"] == "XMLHttpRequest";
             return false;
         }
-        public static IView GetContetModule(this HttpContext httpContext) {
-            if (httpContext.Items[AZCoreWeb.KeyHtmlModule] == null) { httpContext.Items[AZCoreWeb.KeyHtmlModule] = new Common.Module.AZView(); }
-            return httpContext.Items[AZCoreWeb.KeyHtmlModule] as IView;
+        public static IHtmlView GetContetModule(this HttpContext httpContext) {
+            if (httpContext.Items[AZCoreWeb.KeyHtmlModule] == null) { httpContext.Items[AZCoreWeb.KeyHtmlModule] = new DefaultView(); }
+            return httpContext.Items[AZCoreWeb.KeyHtmlModule] as IHtmlView;
         }
         public static TClass GetService<TClass>(this HttpContext httpContext) {
             return httpContext.RequestServices.GetRequiredService<TClass>();

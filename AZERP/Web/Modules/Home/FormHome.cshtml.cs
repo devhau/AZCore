@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 namespace AZ.Web.Modules.Home
 {
     [Auth]
-    public class FormHome:ModuleBase
+    public class FormHome:PageModule
     {
         public FormHome(IHttpContextAccessor httpContext) : base(httpContext)
         {

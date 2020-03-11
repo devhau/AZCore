@@ -1,0 +1,36 @@
+﻿@model FormUpdateCandidate
+    <div class="az-update" id="FormUpdateCandidate">
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- text input -->
+                <div class="form-group">
+                    <label>Text</label>
+                    <input type="text" class="form-control" placeholder="Enter ...">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Text Disabled</label>
+                    <input type="text" class="form-control" placeholder="Enter ...">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- textarea -->
+                <div class="form-group">
+                    <label>Textarea</label>
+                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Textarea Disabled</label>
+                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+<az-script>
+    $("#FormCandidate").AZManager();
+</az-script>
