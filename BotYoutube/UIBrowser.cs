@@ -20,7 +20,7 @@ namespace BotYoutube
             {
                 if (ui == null)
                 {
-                    ui = new UIBrowser(); ui.TopMost = true; ui.Show(); ui.Location = new Point(0, 0);
+                    ui = new UIBrowser();  ui.Show(); ui.Location = new Point(0, 0);
                     ui.HideButtuonClose = false;
                     ui.HideButtuonMin = false;
                 }
@@ -35,7 +35,12 @@ namespace BotYoutube
 
         private void UIBrowser_Load(object sender, EventArgs e)
         {
-            botBrowser1.Navigate("canbiet.xyz");
+            btnHome.PerformClick();
+        }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            botBrowser1.Navigate("google.com");
         }
     }
 }

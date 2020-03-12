@@ -13,3 +13,5 @@ E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.csprojAssemblyReference.cache
 E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.csproj.CopyComplete
 E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.UIBrowser.resources
 E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.UILog.resources
+E:\Projects\AZCore\BotYoutube\bin\Debug\Geckofx-Core.pdb
+E:\Projects\AZCore\BotYoutube\bin\Debug\Geckofx-Winforms.pdb

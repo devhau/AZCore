@@ -1,4 +1,7 @@
-﻿using BotYoutube.UI;
+﻿using BotYoutube.Tasks;
+using BotYoutube.UI;
+using Gecko;
+using Gecko.DOM;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +25,11 @@ namespace BotYoutube
         {
             UIBrowser.Browser.Focus();
             UILog.AddLog("Wellcome To Bot Youtube");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new DisLikeYoutubeTask(UIBrowser.GetBotBrowser()).DoTask();
         }
     }
 }
