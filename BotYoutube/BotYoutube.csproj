@@ -60,6 +60,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.30\lib\net461\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Geckofx-Core, Version=60.0.44.0, Culture=neutral, PublicKeyToken=3209ac31600d1857, processorArchitecture=x86">
       <HintPath>..\packages\Geckofx60.32.60.0.44\lib\net45\Geckofx-Core.dll</HintPath>
     </Reference>
@@ -82,6 +85,16 @@
     <Compile Include="BotBrowser.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Database\Attr\FieldAttribute.cs" />
+    <Compile Include="Database\Attr\TableInfoAttribute.cs" />
+    <Compile Include="Database\EntityModel.cs" />
+    <Compile Include="Database\EntityService.cs" />
+    <Compile Include="Database\IDBCreate.cs" />
+    <Compile Include="Database\SQL\BuildSQL.cs" />
+    <Compile Include="Database\SQL\SQLResult.cs" />
+    <Compile Include="Database\TypeConvertor.cs" />
+    <Compile Include="Entities\Link.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Extensions\TaskExtension.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
