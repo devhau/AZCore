@@ -1,5 +1,5 @@
 ﻿using AZCore.Database.Attr;
-using AZCore.Extensions;
+using BotYoutube.Extensions;
 using Dapper;
 using System;
 using System.Collections.Generic;

@@ -13,3 +13,16 @@ E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.csproj.GenerateResource.c
 E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.csproj.CopyComplete
 E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.exe
 E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.pdb
+E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.FormSetup.resources
+E:\Projects\AZCore\BotYoutube\bin\x86\Debug\BouncyCastle.Crypto.dll
+E:\Projects\AZCore\BotYoutube\bin\x86\Debug\Dapper.dll
+E:\Projects\AZCore\BotYoutube\bin\x86\Debug\Google.Protobuf.dll
+E:\Projects\AZCore\BotYoutube\bin\x86\Debug\MySql.Data.dll
+E:\Projects\AZCore\BotYoutube\bin\x86\Debug\Newtonsoft.Json.dll
+E:\Projects\AZCore\BotYoutube\bin\x86\Debug\Renci.SshNet.dll
+E:\Projects\AZCore\BotYoutube\bin\x86\Debug\Ubiety.Dns.Core.dll
+E:\Projects\AZCore\BotYoutube\bin\x86\Debug\Dapper.xml
+E:\Projects\AZCore\BotYoutube\bin\x86\Debug\Google.Protobuf.xml
+E:\Projects\AZCore\BotYoutube\bin\x86\Debug\MySql.Data.xml
+E:\Projects\AZCore\BotYoutube\bin\x86\Debug\Newtonsoft.Json.xml
+E:\Projects\AZCore\BotYoutube\bin\x86\Debug\Renci.SshNet.xml

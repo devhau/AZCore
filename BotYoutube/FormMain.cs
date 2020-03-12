@@ -43,5 +43,14 @@ namespace BotYoutube
         {
             Application.Exit();
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.F8) {
+                new FormSetup().ShowDialog();
+                return true;
+            
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
     }
 }
