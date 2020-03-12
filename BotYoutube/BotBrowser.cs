@@ -26,5 +26,27 @@ namespace BotYoutube
             GeckoPreferences.Default["network.proxy.ssl_port"] = port;
             this.Reload();
         }
+        public void GoToTop()
+        {
+            this.Window.ScrollTo(0, 0);
+        }
+        public void GoToBottom()
+        {
+            this.Window.ScrollTo(this.Window.ScrollMaxX / 2, this.Window.ScrollMaxY);
+        }
+        public void GoToCenter()
+        {
+            this.Window.ScrollTo(this.Window.ScrollMaxX / 2, this.Window.ScrollMaxY / 2);
+        }
+        public void GoToSubYoutube()
+        {
+            GoToBottom();
+            WaitUtilDone();
+            TaskBase.Sleep(500);
+            this.Window.ScrollTo(this.Window.ScrollMaxX / 2,(int) this.Window.ScrollY + 100);
+            WaitUtilDone();
+            TaskBase.Sleep(500);
+            this.Window.ScrollTo(this.Window.ScrollMaxX / 2, (int)this.Window.ScrollY + 100);
+        }
     }
 }

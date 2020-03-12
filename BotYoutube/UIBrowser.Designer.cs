@@ -37,7 +37,8 @@
             // 
             this.pnMain.Controls.Add(this.btnHome);
             this.pnMain.Controls.Add(this.botBrowser1);
-            this.pnMain.Size = new System.Drawing.Size(198, 220);
+            this.pnMain.Location = new System.Drawing.Point(2, 51);
+            this.pnMain.Size = new System.Drawing.Size(509, 248);
             // 
             // botBrowser1
             // 
@@ -45,18 +46,18 @@
             this.botBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.botBrowser1.FrameEventsPropagateToMainWindow = false;
             this.botBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.botBrowser1.Margin = new System.Windows.Forms.Padding(2);
             this.botBrowser1.Name = "botBrowser1";
-            this.botBrowser1.Size = new System.Drawing.Size(198, 220);
+            this.botBrowser1.Size = new System.Drawing.Size(509, 248);
             this.botBrowser1.TabIndex = 0;
             this.botBrowser1.UseHttpActivityObserver = false;
             // 
             // btnHome
             // 
             this.btnHome.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnHome.Location = new System.Drawing.Point(3, 191);
+            this.btnHome.Location = new System.Drawing.Point(4, 205);
+            this.btnHome.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(65, 26);
+            this.btnHome.Size = new System.Drawing.Size(98, 38);
             this.btnHome.TabIndex = 1;
             this.btnHome.Text = "Home";
             this.btnHome.UseVisualStyleBackColor = true;
@@ -64,14 +65,13 @@
             // 
             // UIBrowser
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(200, 272);
+            this.ClientSize = new System.Drawing.Size(513, 300);
             this.HideButtuonClose = true;
             this.HideButtuonMin = true;
-            this.Margin = new System.Windows.Forms.Padding(3);
-            this.MinimumSize = new System.Drawing.Size(33, 34);
             this.Name = "UIBrowser";
+            this.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.Text = "UIBrowser";
             this.Load += new System.EventHandler(this.UIBrowser_Load);
             this.pnMain.ResumeLayout(false);

@@ -29,7 +29,19 @@ namespace BotYoutube
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new SubYoutubeTask(UIBrowser.GetBotBrowser()).DoTask();
+            new CommentYoutubeTask(UIBrowser.GetBotBrowser()).DoTask();
+        }
+
+        private void txtComment_TextChanged(object sender, EventArgs e)
+        {
+            cbkTaskComment.Enabled = txtComment.Text.Length > 0;
+            if (txtComment.Text.Length == 0)
+                cbkTaskComment.Checked = false;
+        }
+
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -89,6 +89,10 @@ namespace BotYoutube.Tasks
             }
             return result;
         }
+        public void GoToTop() => this.browser.GoToTop();
+        public void GoToBottom() => this.browser.GoToBottom();
+        public void GoToCenter() => this.browser.GoToCenter();
+        public void GoToSubYoutube() => this.browser.GoToSubYoutube();
+        
     }
-   
 }
