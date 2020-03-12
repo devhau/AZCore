@@ -16,9 +16,11 @@ namespace BotYoutube.Tasks
 
         public override void DoTask()
         {
+            UILog.AddLog("Start View : " + Link + " - " + DelayLink);
             this.Navigate(Link);
             this.WaitUtilDone();
             Sleep(DelayLink);
+            UILog.AddLog("End View : " + Link + " - " + DelayLink);
         }
     }
 }

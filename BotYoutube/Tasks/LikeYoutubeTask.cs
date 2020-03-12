@@ -18,11 +18,13 @@ namespace BotYoutube.Tasks
 
         public override void DoTask()
         {
+            UILog.AddLog("Start Like : " + Link + " - " + DelayLink);
             this.Navigate(Link);
             this.WaitUtilDone();
             Sleep(DelayLink);
             this.RunJS(jsLike);
-            UILog.AddLog("log");
+            this.WaitUtilDone();
+            UILog.AddLog("End Like : " + Link + " - " + DelayLink);
         }
     }
 }

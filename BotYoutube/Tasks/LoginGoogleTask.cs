@@ -20,20 +20,16 @@ namespace BotYoutube.Tasks
 
         public override void DoTask()
         {
+            UILog.AddLog("Start login : " + Email);
             Gecko.CookieManager.RemoveAll();
-            UILog.AddLog("Go To Login");
-            //
             this.Navigate("https://accounts.google.com/signin/v2/identifier?hl=vi&passive=true&continue=https%3A%2F%2Fwww.google.com%2Fwebhp%3Fhl%3Dvi%26sa%3DX%26ved%3D0ahUKEwjqwaG9kJToAhXXZt4KHeFwDxQQPAgH&flowName=GlifWebSignIn&flowEntry=ServiceLogin");
             this.WaitUtilDone();
-            UILog.AddLog("Set Email");
             this.GetInputElement((t) => t.Name.ToLower().Equals("email")).DoTaskNotNull(p => p.Value = Email);
-            UILog.AddLog("click signin");
             this.GetInputElement((t) => t.Name.ToLower().Equals("signin")).DoTaskNotNull(p => p.Click());
-            UILog.AddLog("Set password");
             this.GetInputElement((t) => t.Name.ToLower().Equals("passwd")).DoTaskNotNull(p => p.Value = Password);
-            UILog.AddLog("click signin");
             this.GetInputElement((t) => t.Name.ToLower().Equals("signin")).DoTaskNotNull(p => p.Click());
-           // this.Navigate("https://google.com");
+            this.WaitUtilDone();
+            UILog.AddLog("End login : " + Email);
         }
     }
 }
