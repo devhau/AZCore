@@ -14,8 +14,6 @@ namespace BotYoutube.Tasks
         public string Password { get; set; }
         public LoginGoogleTask(BotBrowser _browser) : base(_browser)
         {
-            this.Email = "kiemtienbn03@gmail.com";
-            this.Password = "01644638697";
         }
 
         public override void DoTask()

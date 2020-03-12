@@ -29,7 +29,7 @@ namespace BotYoutube
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new DisLikeYoutubeTask(UIBrowser.GetBotBrowser()).DoTask();
+            new SubYoutubeTask(UIBrowser.GetBotBrowser()).DoTask();
         }
     }
 }

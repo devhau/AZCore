@@ -11,7 +11,7 @@ namespace BotYoutube.Tasks
     {
         string jsDisLike = "if(document.querySelector(\"#top-level-buttons > ytd-toggle-button-renderer:nth-child(2).style-scope.ytd-menu-renderer.force-icon-button.style-default-active > a\")==undefined){document.querySelector(\"#top-level-buttons > ytd-toggle-button-renderer:nth-child(2) > a\").click();}";
         public string Link { get; set; } = "https://www.youtube.com/watch?v=dtl4tMLAeW4";
-        public int DelayLink { get; set; } = 5000;
+        public int DelayLink { get; set; } = 1000;
         public DisLikeYoutubeTask(BotBrowser _browser) : base(_browser)
         {
         }

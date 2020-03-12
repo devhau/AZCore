@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="Tasks\ChangeProxyTask.cs" />
     <Compile Include="Tasks\DisLikeYoutubeTask.cs" />
+    <Compile Include="Tasks\SubYoutubeTask.cs" />
     <Compile Include="Tasks\LikeYoutubeTask.cs" />
     <Compile Include="Tasks\LoginGoogleTask.cs" />
     <Compile Include="Tasks\TaskBase.cs" />
