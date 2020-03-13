@@ -39,5 +39,10 @@ namespace BotYoutube.Manager.AccYoutube
         {
             service.Delete((AccYoutubeModel)model);
         }
+        public override void AfterLoad()
+        {
+            this.dataView.Columns["pass"].Visible = false;
+        }
+
     }
 }

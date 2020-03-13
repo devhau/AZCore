@@ -34,9 +34,13 @@ namespace BotYoutube.UI
 
 
         }
-        public void LoadData() {
 
+        public virtual void BeforeLoad() { }
+        public virtual void AfterLoad() { }
+        public void LoadData() {
+            BeforeLoad();
             dataView.DataSource = GetData();
+            AfterLoad();
         }
         
         private void btnAdd_Click(object sender, EventArgs e)

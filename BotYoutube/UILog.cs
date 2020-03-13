@@ -13,7 +13,7 @@ namespace BotYoutube
             {
                 if (ui == null)
                 {
-                    ui = new UILog(); ui.TopMost = true; ui.Show(); ui.Location = new Point(200, 0);
+                    ui = new UILog();  ui.Show(); ui.Location = new Point(200, 0);
                     ui.HideButtuonClose = false;
                     ui.HideButtuonMin = false;
                 }

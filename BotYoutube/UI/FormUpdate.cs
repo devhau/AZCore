@@ -49,7 +49,7 @@ namespace BotYoutube.UI
                 Type typeModel = Model.GetType();
                 foreach(var item in ControlInput)
                 {
-                    if (typeModel.GetProperty(((Control)item).Tag.ToString()) != null) {
+                    if (((Control)item).Tag != null && typeModel.GetProperty(((Control)item).Tag.ToString()) != null) {
                         item.SetValue(typeModel.GetProperty(((Control)item).Tag.ToString()).GetValue(Model));
                     }
                 }
@@ -65,7 +65,7 @@ namespace BotYoutube.UI
 
             foreach (var item in ControlInput)
             {
-                if (typeModel.GetProperty(((Control)item).Tag.ToString()) != null)
+                if (((Control)item).Tag!=null&&typeModel.GetProperty(((Control)item).Tag.ToString()) != null)
                 {
                     typeModel.GetProperty(((Control)item).Tag.ToString()).SetValue(Model,item.GetValue());
                 }

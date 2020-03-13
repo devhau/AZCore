@@ -39,5 +39,10 @@ namespace BotYoutube.Manager.User
         {
             service.Delete((UserModel)model);
         }
+        public override void AfterLoad()
+        {
+            this.dataView.Columns["passsword"].Visible = false;
+            this.dataView.Columns["Id"].Visible = false;
+        }
     }
 }

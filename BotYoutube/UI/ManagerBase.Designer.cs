@@ -131,10 +131,10 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridView dataView;
         private Controls.BButton btnAdd;
         private Controls.BButton btnEdit;
         private Controls.BButton btnRemove;
         private MySql.Data.MySqlClient.CustomInstaller customInstaller1;
+        protected System.Windows.Forms.DataGridView dataView;
     }
 }
