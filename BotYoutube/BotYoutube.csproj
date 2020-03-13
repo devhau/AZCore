@@ -119,6 +119,7 @@
     <Compile Include="Database\SQL\SQLResult.cs" />
     <Compile Include="Database\TypeConvertor.cs" />
     <Compile Include="Entities\DBCreateEntities.cs" />
+    <Compile Include="Entities\Bot.cs" />
     <Compile Include="Entities\Link.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Extensions\ConverterExtensions.cs" />
@@ -139,6 +140,18 @@
     </Compile>
     <Compile Include="FormSetup.Designer.cs">
       <DependentUpon>FormSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Bot\ManagerBot.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Manager\Bot\ManagerBot.Designer.cs">
+      <DependentUpon>ManagerBot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Bot\UpdateBot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manager\Bot\UpdateBot.Designer.cs">
+      <DependentUpon>UpdateBot.cs</DependentUpon>
     </Compile>
     <Compile Include="Manager\Link\ManagerLink.cs">
       <SubType>UserControl</SubType>
@@ -223,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSetup.resx">
       <DependentUpon>FormSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manager\Bot\UpdateBot.resx">
+      <DependentUpon>UpdateBot.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Manager\Link\UpdateLink.resx">
       <DependentUpon>UpdateLink.cs</DependentUpon>

@@ -30,3 +30,4 @@ E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.UI.ManagerBase.resources
 E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.UI.FormUpdate.resources
 E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.Manager.User.UpdateUser.resources
 E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.Manager.Link.UpdateLink.resources
+E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.Manager.Bot.UpdateBot.resources
