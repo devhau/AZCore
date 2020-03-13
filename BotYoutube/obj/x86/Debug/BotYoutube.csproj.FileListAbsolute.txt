@@ -26,3 +26,7 @@ E:\Projects\AZCore\BotYoutube\bin\x86\Debug\Google.Protobuf.xml
 E:\Projects\AZCore\BotYoutube\bin\x86\Debug\MySql.Data.xml
 E:\Projects\AZCore\BotYoutube\bin\x86\Debug\Newtonsoft.Json.xml
 E:\Projects\AZCore\BotYoutube\bin\x86\Debug\Renci.SshNet.xml
+E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.UI.ManagerBase.resources
+E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.UI.FormUpdate.resources
+E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.Manager.User.UpdateUser.resources
+E:\Projects\AZCore\BotYoutube\obj\x86\Debug\BotYoutube.Manager.Link.UpdateLink.resources

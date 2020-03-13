@@ -55,11 +55,13 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.managerUser1 = new BotYoutube.Manager.User.ManagerUser();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.managerLink1 = new BotYoutube.Manager.Link.ManagerLink();
             this.pnMain.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -69,6 +71,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numDelay)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.tabPage7.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnMain
@@ -346,7 +350,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 37);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(290, 207);
+            this.tabPage2.Size = new System.Drawing.Size(1088, 607);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Admin";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -362,18 +366,28 @@
             this.tabControl2.Location = new System.Drawing.Point(3, 3);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(284, 201);
+            this.tabControl2.Size = new System.Drawing.Size(1082, 601);
             this.tabControl2.TabIndex = 0;
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.managerUser1);
             this.tabPage5.Location = new System.Drawing.Point(4, 37);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(276, 160);
+            this.tabPage5.Size = new System.Drawing.Size(1074, 560);
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "User";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // managerUser1
+            // 
+            this.managerUser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.managerUser1.Location = new System.Drawing.Point(3, 3);
+            this.managerUser1.Margin = new System.Windows.Forms.Padding(4);
+            this.managerUser1.Name = "managerUser1";
+            this.managerUser1.Size = new System.Drawing.Size(1068, 554);
+            this.managerUser1.TabIndex = 0;
             // 
             // tabPage6
             // 
@@ -387,6 +401,7 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.managerLink1);
             this.tabPage7.Location = new System.Drawing.Point(4, 37);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
@@ -425,6 +440,15 @@
             this.tabPage4.Text = "About";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // managerLink1
+            // 
+            this.managerLink1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.managerLink1.Location = new System.Drawing.Point(3, 3);
+            this.managerLink1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.managerLink1.Name = "managerLink1";
+            this.managerLink1.Size = new System.Drawing.Size(1068, 554);
+            this.managerLink1.TabIndex = 0;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -451,6 +475,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numDelay)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -489,6 +515,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtComment;
         private System.Windows.Forms.Label label5;
+        private Manager.User.ManagerUser managerUser1;
+        private Manager.Link.ManagerLink managerLink1;
     }
 }
 

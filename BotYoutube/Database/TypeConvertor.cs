@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace AZCore.Database
+namespace BotYoutube.Database
 {
     /// <summary>
     /// Convert a base data type to another base data type

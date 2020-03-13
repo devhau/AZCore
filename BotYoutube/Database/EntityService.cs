@@ -1,4 +1,4 @@
-﻿using AZCore.Database.SQL;
+﻿using BotYoutube.Database.SQL;
 using Dapper;
 using System;
 
@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AZCore.Database
+namespace BotYoutube.Database
 {
     public class EntityService
     {

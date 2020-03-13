@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace AZCore.Database.Attr
+namespace BotYoutube.Database.Attr
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class FieldAttribute : Attribute

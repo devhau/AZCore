@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AZCore.Database.SQL
+namespace BotYoutube.Database.SQL
 {
     public class SQLResult
     {

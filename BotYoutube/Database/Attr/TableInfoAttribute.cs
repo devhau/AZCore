@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AZCore.Database.Attr
+namespace BotYoutube.Database.Attr
 {
     public class TableInfoAttribute: Attribute
     {

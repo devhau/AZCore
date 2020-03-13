@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AZCore.Database
+namespace BotYoutube.Database
 {
     public interface IDBCreate
     {

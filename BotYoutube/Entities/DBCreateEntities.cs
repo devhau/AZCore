@@ -1,5 +1,5 @@
-﻿using AZCore.Database;
-using AZCore.Database.SQL;
+﻿using BotYoutube.Database;
+using BotYoutube.Database.SQL;
 using BotYoutube.Extensions;
 using System;
 using System.Collections.Generic;

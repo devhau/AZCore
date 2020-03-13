@@ -1,4 +1,4 @@
-﻿using AZCore.Database.Attr;
+﻿using BotYoutube.Database.Attr;
 using BotYoutube.Extensions;
 using Dapper;
 using System;
@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using static Dapper.SqlMapper;
 
-namespace AZCore.Database.SQL
+namespace BotYoutube.Database.SQL
 {
     public sealed class BuildSQL
     {
@@ -148,7 +148,7 @@ namespace AZCore.Database.SQL
             string prex = "";
             SQL.AppendFormat("DELETE FROM `{0}`  ", this.TableName);
             DynamicParameters parameter = new DynamicParameters();
-            SQL.AppendFormat("WHERE  `{0}` SET ", this.TableName);
+            SQL.Append(" WHERE ");
             foreach (var item in this.FieldKeys)
             {
                 SQL.AppendFormat("{1}`{0}`=@{0}", item.FieldName, prex);

@@ -1,5 +1,5 @@
-﻿using AZCore.Database;
-using AZCore.Database.Attr;
+﻿using BotYoutube.Database;
+using BotYoutube.Database.Attr;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +12,7 @@ namespace BotYoutube.Entities
     [TableInfo(TableName = "bot_user")]
     public class UserModel : EntityModel<UserModel, long>
     {
+        public UserModel() { }
         [Field]
         public string username { get; set; }
         [Field]

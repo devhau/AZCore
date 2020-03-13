@@ -1,9 +1,9 @@
-﻿using AZCore.Database.Attr;
+﻿using BotYoutube.Database.Attr;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AZCore.Database
+namespace BotYoutube.Database
 {
     public interface IEntityModel
     {
