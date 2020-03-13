@@ -57,11 +57,13 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.managerUser1 = new BotYoutube.Manager.User.ManagerUser();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.managerBot1 = new BotYoutube.Manager.Bot.ManagerBot();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.managerLink1 = new BotYoutube.Manager.Link.ManagerLink();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.managerLink1 = new BotYoutube.Manager.Link.ManagerLink();
+            this.managerAccYoutube1 = new BotYoutube.Manager.AccYoutube.ManagerAccYoutube();
             this.pnMain.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -72,7 +74,9 @@
             this.tabPage2.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.tabPage7.SuspendLayout();
+            this.tabPage8.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnMain
@@ -391,6 +395,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.managerBot1);
             this.tabPage6.Location = new System.Drawing.Point(4, 37);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
@@ -398,6 +403,14 @@
             this.tabPage6.TabIndex = 1;
             this.tabPage6.Text = "Bot";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // managerBot1
+            // 
+            this.managerBot1.Location = new System.Drawing.Point(19, 23);
+            this.managerBot1.Margin = new System.Windows.Forms.Padding(4);
+            this.managerBot1.Name = "managerBot1";
+            this.managerBot1.Size = new System.Drawing.Size(1594, 761);
+            this.managerBot1.TabIndex = 0;
             // 
             // tabPage7
             // 
@@ -410,8 +423,18 @@
             this.tabPage7.Text = "Link";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // managerLink1
+            // 
+            this.managerLink1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.managerLink1.Location = new System.Drawing.Point(3, 3);
+            this.managerLink1.Margin = new System.Windows.Forms.Padding(4);
+            this.managerLink1.Name = "managerLink1";
+            this.managerLink1.Size = new System.Drawing.Size(1068, 554);
+            this.managerLink1.TabIndex = 0;
+            // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.managerAccYoutube1);
             this.tabPage8.Location = new System.Drawing.Point(4, 37);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
@@ -440,14 +463,14 @@
             this.tabPage4.Text = "About";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // managerLink1
+            // managerAccYoutube1
             // 
-            this.managerLink1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.managerLink1.Location = new System.Drawing.Point(3, 3);
-            this.managerLink1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.managerLink1.Name = "managerLink1";
-            this.managerLink1.Size = new System.Drawing.Size(1068, 554);
-            this.managerLink1.TabIndex = 0;
+            this.managerAccYoutube1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.managerAccYoutube1.Location = new System.Drawing.Point(3, 3);
+            this.managerAccYoutube1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.managerAccYoutube1.Name = "managerAccYoutube1";
+            this.managerAccYoutube1.Size = new System.Drawing.Size(1068, 554);
+            this.managerAccYoutube1.TabIndex = 0;
             // 
             // FormMain
             // 
@@ -476,7 +499,9 @@
             this.tabPage2.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
+            this.tabPage8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -517,6 +542,8 @@
         private System.Windows.Forms.Label label5;
         private Manager.User.ManagerUser managerUser1;
         private Manager.Link.ManagerLink managerLink1;
+        private Manager.Bot.ManagerBot managerBot1;
+        private Manager.AccYoutube.ManagerAccYoutube managerAccYoutube1;
     }
 }
 

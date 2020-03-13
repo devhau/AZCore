@@ -116,7 +116,7 @@
             this.HideButtuonClose = true;
             this.HideButtuonMin = true;
             this.Name = "UpdateUser";
-            this.Text = "Thông tin Tài khoản";
+            this.Text = "User Info";
             this.panEditer.ResumeLayout(false);
             this.panEditer.PerformLayout();
             this.pnMain.ResumeLayout(false);

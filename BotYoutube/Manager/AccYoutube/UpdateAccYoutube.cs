@@ -12,7 +12,7 @@ namespace BotYoutube.Manager.AccYoutube
         }
         public override IEntityModel GetDataNew()
         {
-            return new LinkModel();
+            return new AccYoutubeModel();
         }
         public override void AfterLoad()
         {

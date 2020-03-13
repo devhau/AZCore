@@ -118,9 +118,9 @@
     <Compile Include="Database\SQL\BuildSQL.cs" />
     <Compile Include="Database\SQL\SQLResult.cs" />
     <Compile Include="Database\TypeConvertor.cs" />
-    <Compile Include="Entities\AccYoutube.cs" />
-    <Compile Include="Entities\DBCreateEntities.cs" />
     <Compile Include="Entities\Bot.cs" />
+    <Compile Include="Entities\DBCreateEntities.cs" />
+    <Compile Include="Entities\AccYoutube.cs" />
     <Compile Include="Entities\Link.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Extensions\ConverterExtensions.cs" />
@@ -209,6 +209,9 @@
     </Compile>
     <Compile Include="UILog.Designer.cs">
       <DependentUpon>UILog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\BDateTimePicker.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Controls\BButton.cs">
       <SubType>Component</SubType>

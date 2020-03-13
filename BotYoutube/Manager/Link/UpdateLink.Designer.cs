@@ -150,6 +150,11 @@
             // bNumericUpDown1
             // 
             this.bNumericUpDown1.Location = new System.Drawing.Point(261, 80);
+            this.bNumericUpDown1.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.bNumericUpDown1.Name = "bNumericUpDown1";
             this.bNumericUpDown1.Size = new System.Drawing.Size(179, 33);
             this.bNumericUpDown1.TabIndex = 7;
@@ -158,6 +163,11 @@
             // bNumericUpDown2
             // 
             this.bNumericUpDown2.Location = new System.Drawing.Point(261, 119);
+            this.bNumericUpDown2.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.bNumericUpDown2.Name = "bNumericUpDown2";
             this.bNumericUpDown2.Size = new System.Drawing.Size(179, 33);
             this.bNumericUpDown2.TabIndex = 8;
@@ -166,6 +176,11 @@
             // bNumericUpDown3
             // 
             this.bNumericUpDown3.Location = new System.Drawing.Point(261, 158);
+            this.bNumericUpDown3.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.bNumericUpDown3.Name = "bNumericUpDown3";
             this.bNumericUpDown3.Size = new System.Drawing.Size(179, 33);
             this.bNumericUpDown3.TabIndex = 9;
@@ -174,6 +189,11 @@
             // bNumericUpDown4
             // 
             this.bNumericUpDown4.Location = new System.Drawing.Point(261, 197);
+            this.bNumericUpDown4.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.bNumericUpDown4.Name = "bNumericUpDown4";
             this.bNumericUpDown4.Size = new System.Drawing.Size(179, 33);
             this.bNumericUpDown4.TabIndex = 10;
@@ -182,6 +202,11 @@
             // bNumericUpDown5
             // 
             this.bNumericUpDown5.Location = new System.Drawing.Point(261, 236);
+            this.bNumericUpDown5.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.bNumericUpDown5.Name = "bNumericUpDown5";
             this.bNumericUpDown5.Size = new System.Drawing.Size(179, 33);
             this.bNumericUpDown5.TabIndex = 11;
@@ -190,6 +215,11 @@
             // bNumericUpDown6
             // 
             this.bNumericUpDown6.Location = new System.Drawing.Point(261, 275);
+            this.bNumericUpDown6.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.bNumericUpDown6.Name = "bNumericUpDown6";
             this.bNumericUpDown6.Size = new System.Drawing.Size(179, 33);
             this.bNumericUpDown6.TabIndex = 12;
@@ -212,7 +242,7 @@
             this.HideButtuonClose = true;
             this.HideButtuonMin = true;
             this.Name = "UpdateLink";
-            this.Text = "Thông tin Link";
+            this.Text = "Link Info";
             this.panEditer.ResumeLayout(false);
             this.panEditer.PerformLayout();
             this.pnMain.ResumeLayout(false);
