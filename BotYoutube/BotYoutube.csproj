@@ -118,6 +118,7 @@
     <Compile Include="Database\SQL\BuildSQL.cs" />
     <Compile Include="Database\SQL\SQLResult.cs" />
     <Compile Include="Database\TypeConvertor.cs" />
+    <Compile Include="Entities\AccYoutube.cs" />
     <Compile Include="Entities\DBCreateEntities.cs" />
     <Compile Include="Entities\Bot.cs" />
     <Compile Include="Entities\Link.cs" />
@@ -140,6 +141,18 @@
     </Compile>
     <Compile Include="FormSetup.Designer.cs">
       <DependentUpon>FormSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\AccYoutube\ManagerAccYoutube.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Manager\AccYoutube\ManagerAccYoutube.Designer.cs">
+      <DependentUpon>ManagerAccYoutube.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\AccYoutube\UpdateAccYoutube.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manager\AccYoutube\UpdateAccYoutube.Designer.cs">
+      <DependentUpon>UpdateAccYoutube.cs</DependentUpon>
     </Compile>
     <Compile Include="Manager\Bot\ManagerBot.cs">
       <SubType>UserControl</SubType>
@@ -236,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSetup.resx">
       <DependentUpon>FormSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manager\AccYoutube\UpdateAccYoutube.resx">
+      <DependentUpon>UpdateAccYoutube.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Manager\Bot\UpdateBot.resx">
       <DependentUpon>UpdateBot.cs</DependentUpon>

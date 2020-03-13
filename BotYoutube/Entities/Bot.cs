@@ -9,22 +9,20 @@ using System.Threading.Tasks;
 
 namespace BotYoutube.Entities
 {
-    [TableInfo(TableName = "bot_bot")]
-    public class BotModel : EntityModel<BotModel, long>
+    [TableInfo(TableName = "bot_accyoutube")]
+    public class AccYoutubeModel : EntityModel<AccYoutubeModel, long>
     {
         [Field]
-        public string ip { get; set; }
+        public string email { get; set; }
         [Field]
-        public DateTime LastLogin { get; set; }
-        [Field]
-        public DateTime LastProcess { get; set; }
+        public string pass { get; set; }
         [Field]
         public bool IsActice { get; set; }
 
     }
-    public class BotService : EntityService<BotService, BotModel>
+    public class AccYoutubeService : EntityService<AccYoutubeService, AccYoutubeModel>
     {
-        public BotService(IDbConnection _connection) : base(_connection)
+        public AccYoutubeService(IDbConnection _connection) : base(_connection)
         {
         }
     }
