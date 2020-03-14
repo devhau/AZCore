@@ -19,7 +19,7 @@ namespace BotYoutube.Tasks
             UILog.AddLog("Start View : " + Link + " - " + DelayLink);
             this.Navigate(Link);
             this.WaitUtilDone();
-            Sleep(DelayLink);
+            BotWorker.Sleep(DelayLink);
             UILog.AddLog("End View : " + Link + " - " + DelayLink);
         }
     }

@@ -71,6 +71,7 @@
             this.bCheckBox1.Name = "bCheckBox1";
             this.bCheckBox1.Size = new System.Drawing.Size(123, 29);
             this.bCheckBox1.TabIndex = 2;
+            this.bCheckBox1.Tag = "IsActice";
             this.bCheckBox1.Text = "Is Active";
             this.bCheckBox1.UseVisualStyleBackColor = true;
             // 

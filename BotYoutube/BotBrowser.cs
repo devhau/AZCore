@@ -14,7 +14,7 @@ namespace BotYoutube
     {
         public void WaitUtilDone()
         {
-            do { TaskBase.Sleep(500);} while (this.IsBusy);
+            do { BotWorker.Sleep(500);} while (this.IsBusy&& !BotWorker.IsStop);
         }
         public void ChangeProxy(string http, int port, int type = 1)
         {
@@ -42,10 +42,10 @@ namespace BotYoutube
         {
             GoToBottom();
             WaitUtilDone();
-            TaskBase.Sleep(500);
+            BotWorker.Sleep(500);
             this.Window.ScrollTo(this.Window.ScrollMaxX / 2,(int) this.Window.ScrollY + 100);
             WaitUtilDone();
-            TaskBase.Sleep(500);
+            BotWorker.Sleep(500);
             this.Window.ScrollTo(this.Window.ScrollMaxX / 2, (int)this.Window.ScrollY + 100);
         }
     }

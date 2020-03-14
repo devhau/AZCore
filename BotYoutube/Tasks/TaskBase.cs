@@ -20,25 +20,7 @@ namespace BotYoutube.Tasks
         public abstract void DoTask();
         public void WaitUtilDone() => browser.WaitUtilDone();
         public void Navigate(string url) => browser.Navigate(url);
-        public static void Sleep(int time)
-        {
-            do
-            {
-                if (time > 100)
-                {
-                    Thread.Sleep(100);
-                    time = time - 100;
-                }
-                else
-                {
-                    Thread.Sleep(time);
-                    time = 0;
-                }
-                Application.DoEvents();
-            } while (time > 0);
-
-
-        }
+      
         #region Anchor
         protected GeckoAnchorElement GetAnchorElement(Func<GeckoAnchorElement, bool> func)
         {

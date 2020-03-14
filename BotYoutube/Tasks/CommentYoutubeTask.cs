@@ -24,7 +24,7 @@ namespace BotYoutube.Tasks
             this.WaitUtilDone();            
             this.GoToSubYoutube();
             this.WaitUtilDone();
-            Sleep(DelayLink);
+            BotWorker.Sleep(DelayLink);
             this.RunJS(string.Format(jsComment,Comment));
             this.WaitUtilDone();
             UILog.AddLog("End Comment : " + Link + " - " + DelayLink);

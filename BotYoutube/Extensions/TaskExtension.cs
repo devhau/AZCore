@@ -11,7 +11,7 @@ namespace BotYoutube.Extensions
     public static class TaskExtension
     {
         public static void DoTaskNotNull<T>(this T task, Action<T> action) {
-            if (task != null) { action(task); TaskBase.Sleep(500); }
+            if (task != null) { action(task); BotWorker.Sleep(500); }
         }
     }
 }

@@ -19,11 +19,15 @@ namespace BotYoutube.Manager.User
         public ManagerUser()
         {
             InitializeComponent();
-            service = new UserService(new MySql.Data.MySqlClient.MySqlConnection("server=127.0.0.1;database=botyoutube;uid=root;pwd=;CharSet=utf8;"));
+        }
+        public override void BeforeLoad()
+        {
+            service = new UserService(new MySql.Data.MySqlClient.MySqlConnection(FormMain.KeyConnectString));
+            base.BeforeLoad();
         }
         public override FormUpdate GetFormUpdate()
         {
-            return new UpdateUser();
+            return new UpdateUser() { service = service };
         }
         public override object GetData()
         {

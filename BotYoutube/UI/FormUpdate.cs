@@ -37,13 +37,14 @@ namespace BotYoutube.UI
         {
             return null;
         }
-        public virtual void BeforeLoad() { }
-        public virtual void AfterLoad() { }
-        public virtual void BeforeSave() { }
-        public virtual void AfterSave() { }
+        public virtual bool BeforeLoad() { return true; }
+        public virtual bool AfterLoad() { return true; }
+        public virtual bool BeforeSave() { return true; }
+        public virtual bool AfterSave() { return true; }
         private void FormUpdate_Load(object sender, EventArgs e)
         {
-            BeforeLoad();
+            if (designMode) return;
+                BeforeLoad();
             if (Model != null)
             {
                 Type typeModel = Model.GetType();
@@ -59,7 +60,7 @@ namespace BotYoutube.UI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            BeforeSave();
+            if (!BeforeSave()) { return; }
             if (Model == null) Model = GetDataNew();
             Type typeModel = Model.GetType();
 

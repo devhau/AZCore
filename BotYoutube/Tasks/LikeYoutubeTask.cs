@@ -21,7 +21,7 @@ namespace BotYoutube.Tasks
             UILog.AddLog("Start Like : " + Link + " - " + DelayLink);
             this.Navigate(Link);
             this.WaitUtilDone();
-            Sleep(DelayLink);
+            BotWorker.Sleep(DelayLink);
             this.RunJS(jsLike);
             this.WaitUtilDone();
             UILog.AddLog("End Like : " + Link + " - " + DelayLink);

@@ -13,6 +13,7 @@ namespace BotYoutube.UI
 {
     public partial class FormBase : Form
     {
+        protected bool designMode = (LicenseManager.UsageMode == LicenseUsageMode.Designtime);
         public FormBase()
         {
             this.InitializeComponent();

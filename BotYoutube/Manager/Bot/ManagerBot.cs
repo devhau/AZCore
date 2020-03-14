@@ -19,7 +19,11 @@ namespace BotYoutube.Manager.Bot
         public ManagerBot()
         {
             InitializeComponent();
-            service = new BotService(new MySql.Data.MySqlClient.MySqlConnection("server=127.0.0.1;database=botyoutube;uid=root;pwd=;CharSet=utf8;"));
+          }
+        public override void BeforeLoad()
+        {
+            service = new BotService(new MySql.Data.MySqlClient.MySqlConnection(FormMain.KeyConnectString));
+            base.BeforeLoad();
         }
         public override FormUpdate GetFormUpdate()
         {

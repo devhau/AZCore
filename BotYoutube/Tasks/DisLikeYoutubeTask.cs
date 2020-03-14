@@ -21,7 +21,7 @@ namespace BotYoutube.Tasks
             UILog.AddLog("Start DisLkie : " + Link + " - " + DelayLink);
             this.Navigate(Link);
             this.WaitUtilDone();
-            Sleep(DelayLink);
+            BotWorker.Sleep(DelayLink);
             this.RunJS(jsDisLike); 
             this.WaitUtilDone();
             UILog.AddLog("End DisLkie : " + Link + " - " + DelayLink);

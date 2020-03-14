@@ -26,5 +26,16 @@ namespace BotYoutube.Entities
         public UserService(IDbConnection _connection) : base(_connection)
         {
         }
+        public UserModel GetUserByUsername(string username) 
+        {
+            var rs = buildSQL.SQLSelect();
+            rs.SQL = rs.SQL + " where `username`= @username";
+            rs.Param.Add("@username", username);
+            return ExecuteQuery(rs).FirstOrDefault();
+        }
+        public bool CheckExitsUser(string username)
+        {
+            return GetUserByUsername(username) != null;
+        }
     }
 }

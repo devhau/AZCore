@@ -29,29 +29,46 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dataView = new System.Windows.Forms.DataGridView();
             this.btnRemove = new BotYoutube.UI.Controls.BButton();
             this.btnEdit = new BotYoutube.UI.Controls.BButton();
             this.btnAdd = new BotYoutube.UI.Controls.BButton();
-            this.dataView = new System.Windows.Forms.DataGridView();
-            this.customInstaller1 = new MySql.Data.MySqlClient.CustomInstaller();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataView)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.btnRemove);
             this.panel1.Controls.Add(this.btnEdit);
             this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1594, 87);
+            this.panel1.Size = new System.Drawing.Size(1590, 87);
             this.panel1.TabIndex = 0;
+            // 
+            // dataView
+            // 
+            this.dataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataView.Location = new System.Drawing.Point(2, 89);
+            this.dataView.MultiSelect = false;
+            this.dataView.Name = "dataView";
+            this.dataView.ReadOnly = true;
+            this.dataView.RowHeadersWidth = 62;
+            this.dataView.RowTemplate.Height = 28;
+            this.dataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataView.Size = new System.Drawing.Size(1590, 670);
+            this.dataView.TabIndex = 1;
+            this.dataView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataView_CellDoubleClick);
+            this.dataView.SelectionChanged += new System.EventHandler(this.dataView_SelectionChanged);
             // 
             // btnRemove
             // 
             this.btnRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnRemove.Enabled = false;
             this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemove.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -67,6 +84,7 @@
             // btnEdit
             // 
             this.btnEdit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnEdit.Enabled = false;
             this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEdit.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -94,32 +112,15 @@
             this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // dataView
-            // 
-            this.dataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataView.Location = new System.Drawing.Point(0, 87);
-            this.dataView.MultiSelect = false;
-            this.dataView.Name = "dataView";
-            this.dataView.ReadOnly = true;
-            this.dataView.RowHeadersWidth = 62;
-            this.dataView.RowTemplate.Height = 28;
-            this.dataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataView.Size = new System.Drawing.Size(1594, 674);
-            this.dataView.TabIndex = 1;
-            this.dataView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataView_CellDoubleClick);
-            // 
-            // customInstaller1
-            // 
-            this.customInstaller1.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.customInstaller1_AfterInstall);
-            // 
             // ManagerBase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.Controls.Add(this.dataView);
             this.Controls.Add(this.panel1);
             this.Name = "ManagerBase";
+            this.Padding = new System.Windows.Forms.Padding(2);
             this.Size = new System.Drawing.Size(1594, 761);
             this.Load += new System.EventHandler(this.ManagerBase_Load);
             this.panel1.ResumeLayout(false);
@@ -134,7 +135,6 @@
         private Controls.BButton btnAdd;
         private Controls.BButton btnEdit;
         private Controls.BButton btnRemove;
-        private MySql.Data.MySqlClient.CustomInstaller customInstaller1;
         protected System.Windows.Forms.DataGridView dataView;
     }
 }

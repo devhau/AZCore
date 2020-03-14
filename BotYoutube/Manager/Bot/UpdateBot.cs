@@ -14,11 +14,6 @@ namespace BotYoutube.Manager.Bot
         {
             return new BotModel();
         }
-        public override void AfterLoad()
-        {
-            if (this.Model != null) {
-                //txtUser.Enabled = false;
-            }
-        }
+      
     }
 }

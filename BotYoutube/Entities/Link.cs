@@ -36,6 +36,8 @@ namespace BotYoutube.Entities
         public int DelayComment { get; set; }
         [Field]
         public int Rank { get; set; }
+        [Field]
+        public int TargetView { get; set; }
 
     }
     public class LinkService : EntityService<LinkService, LinkModel>

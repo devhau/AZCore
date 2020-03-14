@@ -75,9 +75,11 @@ namespace BotYoutube.Database.SQL
         {
             StringBuilder SQL = new StringBuilder();
             SQL.AppendFormat("SELECT * FROM `{0}`  ", this.TableName);
+            DynamicParameters parameter = new DynamicParameters();
             return new SQLResult()
             {
 
+                Param = parameter,
                 SQL = SQL.ToString()
             };
         }
@@ -187,9 +189,11 @@ namespace BotYoutube.Database.SQL
                 prex = ",";
             }
             SQL.AppendFormat(" ))");
+            DynamicParameters parameter = new DynamicParameters();
             return new SQLResult()
             {
 
+                Param = parameter,
                 SQL = SQL.ToString()
             };
         }

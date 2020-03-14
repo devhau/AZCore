@@ -1,0 +1,15 @@
+E:\Projects\AZCore\AZWeb\bin\Release\netcoreapp3.1\Properties\launchSettings.json
+E:\Projects\AZCore\AZWeb\bin\Release\netcoreapp3.1\AZWeb.deps.json
+E:\Projects\AZCore\AZWeb\bin\Release\netcoreapp3.1\AZWeb.dll
+E:\Projects\AZCore\AZWeb\bin\Release\netcoreapp3.1\AZWeb.pdb
+E:\Projects\AZCore\AZWeb\bin\Release\netcoreapp3.1\AZCore.dll
+E:\Projects\AZCore\AZWeb\bin\Release\netcoreapp3.1\AZCore.pdb
+E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\AZWeb.csprojAssemblyReference.cache
+E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\staticwebassets\AZWeb.StaticWebAssets.Manifest.cache
+E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\staticwebassets\AZWeb.StaticWebAssets.xml
+E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\AZWeb.AssemblyInfoInputs.cache
+E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\AZWeb.AssemblyInfo.cs
+E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\AZWeb.RazorTargetAssemblyInfo.cache
+E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\AZWeb.csproj.CopyComplete
+E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\AZWeb.dll
+E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\AZWeb.pdb

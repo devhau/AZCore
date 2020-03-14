@@ -42,6 +42,14 @@
             this.bNumericUpDown5 = new BotYoutube.UI.Controls.BNumericUpDown();
             this.bNumericUpDown6 = new BotYoutube.UI.Controls.BNumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.bNumericUpDown7 = new BotYoutube.UI.Controls.BNumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.bCheckBox6 = new BotYoutube.UI.Controls.BCheckBox();
             this.panEditer.SuspendLayout();
             this.pnMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bNumericUpDown1)).BeginInit();
@@ -50,10 +58,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.bNumericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bNumericUpDown5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bNumericUpDown6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bNumericUpDown7)).BeginInit();
             this.SuspendLayout();
             // 
             // panEditer
             // 
+            this.panEditer.Controls.Add(this.bCheckBox6);
+            this.panEditer.Controls.Add(this.label8);
+            this.panEditer.Controls.Add(this.label7);
+            this.panEditer.Controls.Add(this.label6);
+            this.panEditer.Controls.Add(this.label5);
+            this.panEditer.Controls.Add(this.label4);
+            this.panEditer.Controls.Add(this.label3);
+            this.panEditer.Controls.Add(this.bNumericUpDown7);
             this.panEditer.Controls.Add(this.label2);
             this.panEditer.Controls.Add(this.bNumericUpDown6);
             this.panEditer.Controls.Add(this.bNumericUpDown5);
@@ -68,11 +85,11 @@
             this.panEditer.Controls.Add(this.bCheckBox1);
             this.panEditer.Controls.Add(this.label1);
             this.panEditer.Controls.Add(this.bTextbox1);
-            this.panEditer.Size = new System.Drawing.Size(505, 344);
+            this.panEditer.Size = new System.Drawing.Size(561, 382);
             // 
             // pnMain
             // 
-            this.pnMain.Size = new System.Drawing.Size(505, 424);
+            this.pnMain.Size = new System.Drawing.Size(561, 462);
             // 
             // bTextbox1
             // 
@@ -159,6 +176,11 @@
             this.bNumericUpDown1.Size = new System.Drawing.Size(179, 33);
             this.bNumericUpDown1.TabIndex = 7;
             this.bNumericUpDown1.Tag = "DelayView";
+            this.bNumericUpDown1.Value = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
             // 
             // bNumericUpDown2
             // 
@@ -172,6 +194,11 @@
             this.bNumericUpDown2.Size = new System.Drawing.Size(179, 33);
             this.bNumericUpDown2.TabIndex = 8;
             this.bNumericUpDown2.Tag = "DelaySub";
+            this.bNumericUpDown2.Value = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
             // 
             // bNumericUpDown3
             // 
@@ -185,6 +212,11 @@
             this.bNumericUpDown3.Size = new System.Drawing.Size(179, 33);
             this.bNumericUpDown3.TabIndex = 9;
             this.bNumericUpDown3.Tag = "DelayLike";
+            this.bNumericUpDown3.Value = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
             // 
             // bNumericUpDown4
             // 
@@ -198,6 +230,11 @@
             this.bNumericUpDown4.Size = new System.Drawing.Size(179, 33);
             this.bNumericUpDown4.TabIndex = 10;
             this.bNumericUpDown4.Tag = "DelayDisLike";
+            this.bNumericUpDown4.Value = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
             // 
             // bNumericUpDown5
             // 
@@ -211,6 +248,11 @@
             this.bNumericUpDown5.Size = new System.Drawing.Size(179, 33);
             this.bNumericUpDown5.TabIndex = 11;
             this.bNumericUpDown5.Tag = "DelayComment";
+            this.bNumericUpDown5.Value = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
             // 
             // bNumericUpDown6
             // 
@@ -228,17 +270,100 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(131, 270);
+            this.label2.Location = new System.Drawing.Point(178, 275);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 25);
             this.label2.TabIndex = 13;
             this.label2.Text = "Rank";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(109, 312);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(130, 25);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Target View";
+            // 
+            // bNumericUpDown7
+            // 
+            this.bNumericUpDown7.Location = new System.Drawing.Point(261, 314);
+            this.bNumericUpDown7.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.bNumericUpDown7.Name = "bNumericUpDown7";
+            this.bNumericUpDown7.Size = new System.Drawing.Size(179, 33);
+            this.bNumericUpDown7.TabIndex = 14;
+            this.bNumericUpDown7.Tag = "TargetView";
+            this.bNumericUpDown7.Value = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(446, 83);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(102, 25);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Delay (s)";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(446, 122);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(102, 25);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Delay (s)";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(446, 164);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(102, 25);
+            this.label6.TabIndex = 18;
+            this.label6.Text = "Delay (s)";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(446, 200);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(102, 25);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "Delay (s)";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(446, 242);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(102, 25);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "Delay (s)";
+            // 
+            // bCheckBox6
+            // 
+            this.bCheckBox6.AutoSize = true;
+            this.bCheckBox6.Location = new System.Drawing.Point(446, 42);
+            this.bCheckBox6.Name = "bCheckBox6";
+            this.bCheckBox6.Size = new System.Drawing.Size(98, 29);
+            this.bCheckBox6.TabIndex = 21;
+            this.bCheckBox6.Tag = "IsActive";
+            this.bCheckBox6.Text = "Active";
+            this.bCheckBox6.UseVisualStyleBackColor = true;
+            // 
             // UpdateLink
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(507, 476);
+            this.ClientSize = new System.Drawing.Size(563, 514);
             this.HideButtuonClose = true;
             this.HideButtuonMin = true;
             this.Name = "UpdateLink";
@@ -252,6 +377,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bNumericUpDown4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bNumericUpDown5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bNumericUpDown6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bNumericUpDown7)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -272,5 +398,13 @@
         private UI.Controls.BNumericUpDown bNumericUpDown2;
         private UI.Controls.BNumericUpDown bNumericUpDown6;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private UI.Controls.BNumericUpDown bNumericUpDown7;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private UI.Controls.BCheckBox bCheckBox6;
     }
 }
