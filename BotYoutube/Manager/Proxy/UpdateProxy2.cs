@@ -32,7 +32,7 @@ namespace BotYoutube.Manager.Proxy
                         int.TryParse(port, out pport);
                         if (pport > 0 && ip != "")
                         {
-                            listProxy.Add(new ProxyModel() { ip = ip, port = pport, IsActice = true });
+                            listProxy.Add(new ProxyModel() { ip = ip, port = pport, IsActive = true });
                         }
                     }
                 }

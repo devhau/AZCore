@@ -30,6 +30,7 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataView = new System.Windows.Forms.DataGridView();
+            this.btnLoad = new BotYoutube.UI.Controls.BButton();
             this.btnRemove = new BotYoutube.UI.Controls.BButton();
             this.btnEdit = new BotYoutube.UI.Controls.BButton();
             this.btnAdd = new BotYoutube.UI.Controls.BButton();
@@ -40,6 +41,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.btnLoad);
             this.panel1.Controls.Add(this.btnRemove);
             this.panel1.Controls.Add(this.btnEdit);
             this.panel1.Controls.Add(this.btnAdd);
@@ -65,6 +67,21 @@
             this.dataView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataView_CellDoubleClick);
             this.dataView.SelectionChanged += new System.EventHandler(this.dataView_SelectionChanged);
             // 
+            // btnLoad
+            // 
+            this.btnLoad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoad.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnLoad.KeyCommand = System.Windows.Forms.Keys.None;
+            this.btnLoad.Location = new System.Drawing.Point(448, 12);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(89, 54);
+            this.btnLoad.TabIndex = 3;
+            this.btnLoad.Text = "Load";
+            this.btnLoad.UseVisualStyleBackColor = false;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
             // btnRemove
             // 
             this.btnRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
@@ -73,9 +90,9 @@
             this.btnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemove.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnRemove.KeyCommand = System.Windows.Forms.Keys.None;
-            this.btnRemove.Location = new System.Drawing.Point(326, 12);
+            this.btnRemove.Location = new System.Drawing.Point(288, 12);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(158, 54);
+            this.btnRemove.Size = new System.Drawing.Size(154, 54);
             this.btnRemove.TabIndex = 2;
             this.btnRemove.Text = "Remove(F6)";
             this.btnRemove.UseVisualStyleBackColor = false;
@@ -89,9 +106,9 @@
             this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEdit.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnEdit.KeyCommand = System.Windows.Forms.Keys.None;
-            this.btnEdit.Location = new System.Drawing.Point(201, 12);
+            this.btnEdit.Location = new System.Drawing.Point(167, 12);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(119, 54);
+            this.btnEdit.Size = new System.Drawing.Size(115, 54);
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Edi(F5)";
             this.btnEdit.UseVisualStyleBackColor = false;
@@ -104,9 +121,9 @@
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnAdd.KeyCommand = System.Windows.Forms.Keys.None;
-            this.btnAdd.Location = new System.Drawing.Point(28, 12);
+            this.btnAdd.Location = new System.Drawing.Point(32, 12);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(167, 54);
+            this.btnAdd.Size = new System.Drawing.Size(129, 54);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Add(F4)";
             this.btnAdd.UseVisualStyleBackColor = false;
@@ -136,5 +153,6 @@
         private Controls.BButton btnEdit;
         private Controls.BButton btnRemove;
         protected System.Windows.Forms.DataGridView dataView;
+        private Controls.BButton btnLoad;
     }
 }

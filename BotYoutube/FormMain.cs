@@ -25,6 +25,9 @@ namespace BotYoutube
         public const string KeyConnect = "KeyConnectBotYoutube";
         RegistryKey BotRegistryKey;
         UserService service;
+        LinkService serviceLink;
+        ProxyService serviceProxy;
+        AccYoutubeService serviceAccYoutube;
         public FormMain()
         {
             InitializeComponent();
@@ -37,6 +40,10 @@ namespace BotYoutube
             if (CheckConnect())
             {
                 service = new UserService(new MySql.Data.MySqlClient.MySqlConnection(FormMain.KeyConnectString));
+                serviceLink = new LinkService(new MySql.Data.MySqlClient.MySqlConnection(FormMain.KeyConnectString));
+                serviceProxy = new ProxyService(new MySql.Data.MySqlClient.MySqlConnection(FormMain.KeyConnectString));
+                serviceAccYoutube = new AccYoutubeService(new MySql.Data.MySqlClient.MySqlConnection(FormMain.KeyConnectString));
+
                 UIBrowser.Browser.Focus();
                 UILog.AddLog("Wellcome To Bot Youtube");
                 panel2.Visible = false;
@@ -148,7 +155,7 @@ namespace BotYoutube
         private void btnLogin_Click(object sender, EventArgs e)
         {
             var user = service.GetUserByUsername(txtUser.Text);
-            if (user != null && user.passsword == txtPassword.Text)
+            if (user != null && user.passsword == BotAlgorithm.BotPassword(txtPassword.Text))
             {
                 UserCurrent = user;
                 LoadUserCurrent();
@@ -204,13 +211,31 @@ namespace BotYoutube
         }
         private void btnStartWork_Click(object sender, EventArgs e)
         {
-            grbLocal.Enabled = btnLogout.Enabled=btnDisconnect.Enabled= !grbLocal.Enabled;
-            if (grbLocal.Enabled)
+            if (BotWorker.IsStop)
             {
-                btnStartWork.Text = "Start Bot";
+                return;
             }
-            else {
-                btnStartWork.Text = "Stop";
+            if (BotWorker.IsRunning)
+            {
+                BotWorker.IsStop = true;
+                btnStartWork.Text = "Stopping....";
+            }
+            else
+            {
+                Action ActionServer = () =>
+                {
+                    grbLocal.Enabled = btnLogout.Enabled = btnDisconnect.Enabled = !grbLocal.Enabled;
+                    if (grbLocal.Enabled)
+                    {
+                        btnStartWork.Text = "Start Bot";
+                    }
+                    else
+                    {
+                        btnStartWork.Text = "Stop";
+                    }
+                };
+                ActionServer();
+                BotWorker.StartServer(serviceLink,serviceProxy, serviceAccYoutube, ActionServer);
             }
         }
     }

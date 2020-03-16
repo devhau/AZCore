@@ -48,7 +48,7 @@ namespace BotYoutube
             new DBCreateEntities(con).CheckDatabase();
             var usersce = new UserService(con);
             if (usersce.GetAll().Count() == 0)
-                usersce.Insert(new UserModel() { username = "admin", passsword = "123456", IsAdmin = true, CreateAt = DateTime.Now });
+                usersce.Insert(new UserModel() { username = "admin", passsword = BotAlgorithm.BotPassword("123456"), IsAdmin = true, CreateAt = DateTime.Now });
             MessageBox.Show("OK");
         }
 
@@ -66,7 +66,7 @@ namespace BotYoutube
         {
 #if DEBUG
 #else
-            if (txtPass.Text == string.Format("Admin@01644638697{0:DD}{0:HH}", DateTime.Now))
+            if (txtPass.Text == string.Format("Admin@01644638697{0:DD}", DateTime.Now))
 #endif
             {
                 panel2.Visible = false;

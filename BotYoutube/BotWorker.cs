@@ -1,4 +1,5 @@
-﻿using BotYoutube.Tasks;
+﻿using BotYoutube.Entities;
+using BotYoutube.Tasks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -142,8 +143,55 @@ namespace BotYoutube
             IsRunning = false;
             if (acDone != null) acDone();
         }
-        public static void StartServer() { 
-        
+        public static void StartServer(LinkService serviceLink, ProxyService serviceProxy, AccYoutubeService serviceAccYoutube, Action acDone = null) {
+            IsStop = false;
+            IsRunning = true;
+            DateTime startDateProcess = DateTime.Now;
+            do {
+                if ((DateTime.Now - startDateProcess).TotalMinutes > 15) {
+                    startDateProcess = DateTime.Now;
+                    // set Proxy
+                    var proxy = serviceProxy.GetProxyProcess();
+                    if(proxy!=null)
+                     new ChangeProxyTask(UIBrowser.GetBotBrowser()) { ProxyIP=proxy.ip,ProxyPort= proxy.port}.DoTask();
+                    var accc = serviceAccYoutube.GetAccProcess();
+                    if (accc != null)
+                        new LoginGoogleTask(UIBrowser.GetBotBrowser()) { Email = accc.email, Password = accc.pass}.DoTask();
+                }
+                var taskLink = serviceLink.GetLinkProcess();
+                if (taskLink!=null) {
+                    if (taskLink.IsView && !IsStop) {
+                        new ViewLinkTask(UIBrowser.GetBotBrowser()) { Link = taskLink.link, DelayLink = taskLink.DelayView }.DoTask();
+                    }
+                    Application.DoEvents();
+                    if (taskLink.IsSub && !IsStop)
+                    {
+                        new SubYoutubeTask(UIBrowser.GetBotBrowser()) { Link = taskLink.link, DelayLink = taskLink.DelaySub }.DoTask();
+                    }
+                    Application.DoEvents();
+                    if (taskLink.IsLike && !IsStop)
+                    {
+                        new LikeYoutubeTask(UIBrowser.GetBotBrowser()) { Link = taskLink.link, DelayLink = taskLink.DelayLike }.DoTask();
+                    }
+                    Application.DoEvents();
+                    if (taskLink.IsDisLike && !IsStop)
+                    {
+                        new DisLikeYoutubeTask(UIBrowser.GetBotBrowser()) { Link = taskLink.link, DelayLink = taskLink.DelayDisLike }.DoTask();
+                    }
+                    Application.DoEvents();
+                    if (taskLink.IsComment && !IsStop)
+                    {
+                        string comment = "Xin chào ";
+                        new CommentYoutubeTask(UIBrowser.GetBotBrowser()) { Link = taskLink.link, DelayLink = taskLink.DelayComment, Comment = comment }.DoTask();
+                    }
+                    Application.DoEvents();
+                }
+                Application.DoEvents();
+            } while (!IsStop);
+            IsStop = false;
+            IsRunning = false;
+            if (acDone != null) acDone();
+
         }
     }
 }

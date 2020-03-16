@@ -16,14 +16,24 @@ namespace BotYoutube.Entities
         public string email { get; set; }
         [Field]
         public string pass { get; set; }
-        [Field]
-        public bool IsActice { get; set; }
 
     }
     public class AccYoutubeService : EntityService<AccYoutubeService, AccYoutubeModel>
     {
         public AccYoutubeService(IDbConnection _connection) : base(_connection)
         {
+        }
+        public AccYoutubeModel GetAccProcess() {
+            var sqlLink = this.buildSQL.SQLSelect();
+            var sqlWhere = " where IsActive = 1 order by UpdateAt";
+            sqlLink.SQL = sqlLink.SQL + sqlWhere;
+            var rs = ExecuteQuery(sqlLink).FirstOrDefault();
+            if (rs != null)
+            {
+                rs.UpdateAt = DateTime.Now;
+                this.Update(rs);
+            }
+            return rs;
         }
     }
 }

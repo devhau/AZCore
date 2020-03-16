@@ -31,7 +31,7 @@
             this.txtUser = new BotYoutube.UI.Controls.BTextbox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.bTextbox1 = new BotYoutube.UI.Controls.BTextbox();
+            this.txtPass = new BotYoutube.UI.Controls.BTextbox();
             this.cbkAdmin = new BotYoutube.UI.Controls.BCheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panEditer.SuspendLayout();
@@ -43,7 +43,7 @@
             this.panEditer.Controls.Add(this.label3);
             this.panEditer.Controls.Add(this.cbkAdmin);
             this.panEditer.Controls.Add(this.label2);
-            this.panEditer.Controls.Add(this.bTextbox1);
+            this.panEditer.Controls.Add(this.txtPass);
             this.panEditer.Controls.Add(this.label1);
             this.panEditer.Controls.Add(this.txtUser);
             this.panEditer.Size = new System.Drawing.Size(533, 168);
@@ -79,15 +79,15 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Password";
             // 
-            // bTextbox1
+            // txtPass
             // 
-            this.bTextbox1.KeyCommand = System.Windows.Forms.Keys.None;
-            this.bTextbox1.Location = new System.Drawing.Point(149, 66);
-            this.bTextbox1.Name = "bTextbox1";
-            this.bTextbox1.PasswordChar = '*';
-            this.bTextbox1.Size = new System.Drawing.Size(352, 33);
-            this.bTextbox1.TabIndex = 2;
-            this.bTextbox1.Tag = "passsword";
+            this.txtPass.KeyCommand = System.Windows.Forms.Keys.None;
+            this.txtPass.Location = new System.Drawing.Point(149, 66);
+            this.txtPass.Name = "txtPass";
+            this.txtPass.PasswordChar = '*';
+            this.txtPass.Size = new System.Drawing.Size(352, 33);
+            this.txtPass.TabIndex = 2;
+            this.txtPass.Tag = "passsword";
             // 
             // cbkAdmin
             // 
@@ -128,7 +128,7 @@
         private UI.Controls.BTextbox txtUser;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private UI.Controls.BTextbox bTextbox1;
+        private UI.Controls.BTextbox txtPass;
         private UI.Controls.BCheckBox cbkAdmin;
         private System.Windows.Forms.Label label3;
     }

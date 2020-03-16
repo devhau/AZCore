@@ -76,6 +76,13 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.managerProxy1 = new BotYoutube.Manager.Proxy.ManagerProxy();
             this.tabConnect = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.bCheckBox2 = new BotYoutube.UI.Controls.BCheckBox();
+            this.bDateTimePicker2 = new BotYoutube.UI.Controls.BDateTimePicker();
+            this.label8 = new System.Windows.Forms.Label();
+            this.bCheckBox1 = new BotYoutube.UI.Controls.BCheckBox();
+            this.bDateTimePicker1 = new BotYoutube.UI.Controls.BDateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCodeBotConnect = new BotYoutube.UI.Controls.BTextbox();
             this.tabProxyFree = new System.Windows.Forms.TabPage();
@@ -99,6 +106,7 @@
             this.tabPage8.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabConnect.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnMain
@@ -500,7 +508,7 @@
             this.tabAdmin.Location = new System.Drawing.Point(4, 37);
             this.tabAdmin.Name = "tabAdmin";
             this.tabAdmin.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAdmin.Size = new System.Drawing.Size(290, 207);
+            this.tabAdmin.Size = new System.Drawing.Size(1088, 707);
             this.tabAdmin.TabIndex = 1;
             this.tabAdmin.Text = "Admin";
             this.tabAdmin.UseVisualStyleBackColor = true;
@@ -518,7 +526,7 @@
             this.tabControl2.Location = new System.Drawing.Point(3, 3);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(284, 201);
+            this.tabControl2.Size = new System.Drawing.Size(1082, 701);
             this.tabControl2.TabIndex = 0;
             this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.tabControl2_SelectedIndexChanged);
             // 
@@ -528,7 +536,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 37);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(276, 160);
+            this.tabPage5.Size = new System.Drawing.Size(1074, 660);
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "User";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -541,7 +549,7 @@
             this.managerUser1.Margin = new System.Windows.Forms.Padding(4);
             this.managerUser1.Name = "managerUser1";
             this.managerUser1.Padding = new System.Windows.Forms.Padding(2);
-            this.managerUser1.Size = new System.Drawing.Size(270, 154);
+            this.managerUser1.Size = new System.Drawing.Size(1068, 654);
             this.managerUser1.TabIndex = 0;
             // 
             // tabPage6
@@ -634,6 +642,7 @@
             // 
             // tabConnect
             // 
+            this.tabConnect.Controls.Add(this.groupBox2);
             this.tabConnect.Controls.Add(this.label4);
             this.tabConnect.Controls.Add(this.txtCodeBotConnect);
             this.tabConnect.Location = new System.Drawing.Point(4, 37);
@@ -644,10 +653,79 @@
             this.tabConnect.Text = "Setting";
             this.tabConnect.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.bCheckBox2);
+            this.groupBox2.Controls.Add(this.bDateTimePicker2);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.bCheckBox1);
+            this.groupBox2.Controls.Add(this.bDateTimePicker1);
+            this.groupBox2.Location = new System.Drawing.Point(6, 53);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1062, 601);
+            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Setting";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(10, 82);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(170, 25);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "Change Account";
+            // 
+            // bCheckBox2
+            // 
+            this.bCheckBox2.AutoSize = true;
+            this.bCheckBox2.Location = new System.Drawing.Point(551, 85);
+            this.bCheckBox2.Name = "bCheckBox2";
+            this.bCheckBox2.Size = new System.Drawing.Size(22, 21);
+            this.bCheckBox2.TabIndex = 12;
+            this.bCheckBox2.UseVisualStyleBackColor = true;
+            // 
+            // bDateTimePicker2
+            // 
+            this.bDateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.bDateTimePicker2.KeyCommand = System.Windows.Forms.Keys.None;
+            this.bDateTimePicker2.Location = new System.Drawing.Point(183, 80);
+            this.bDateTimePicker2.Name = "bDateTimePicker2";
+            this.bDateTimePicker2.Size = new System.Drawing.Size(362, 33);
+            this.bDateTimePicker2.TabIndex = 11;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(34, 42);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(146, 25);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "Change Proxy";
+            // 
+            // bCheckBox1
+            // 
+            this.bCheckBox1.AutoSize = true;
+            this.bCheckBox1.Location = new System.Drawing.Point(551, 42);
+            this.bCheckBox1.Name = "bCheckBox1";
+            this.bCheckBox1.Size = new System.Drawing.Size(22, 21);
+            this.bCheckBox1.TabIndex = 9;
+            this.bCheckBox1.UseVisualStyleBackColor = true;
+            // 
+            // bDateTimePicker1
+            // 
+            this.bDateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.bDateTimePicker1.KeyCommand = System.Windows.Forms.Keys.None;
+            this.bDateTimePicker1.Location = new System.Drawing.Point(183, 37);
+            this.bDateTimePicker1.Name = "bDateTimePicker1";
+            this.bDateTimePicker1.Size = new System.Drawing.Size(362, 33);
+            this.bDateTimePicker1.TabIndex = 8;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 11);
+            this.label4.Location = new System.Drawing.Point(82, 16);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(101, 25);
             this.label4.TabIndex = 1;
@@ -658,10 +736,10 @@
             this.txtCodeBotConnect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.txtCodeBotConnect.Font = new System.Drawing.Font("Meiryo UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCodeBotConnect.KeyCommand = System.Windows.Forms.Keys.None;
-            this.txtCodeBotConnect.Location = new System.Drawing.Point(113, 6);
+            this.txtCodeBotConnect.Location = new System.Drawing.Point(189, 6);
             this.txtCodeBotConnect.Name = "txtCodeBotConnect";
             this.txtCodeBotConnect.ReadOnly = true;
-            this.txtCodeBotConnect.Size = new System.Drawing.Size(466, 41);
+            this.txtCodeBotConnect.Size = new System.Drawing.Size(390, 41);
             this.txtCodeBotConnect.TabIndex = 0;
             // 
             // tabProxyFree
@@ -723,6 +801,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tabConnect.ResumeLayout(false);
             this.tabConnect.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -781,6 +861,13 @@
         private UI.Controls.BButton btnDisconnect;
         private System.Windows.Forms.TabPage tabPage1;
         private Manager.Proxy.ManagerProxy managerProxy1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label9;
+        private UI.Controls.BCheckBox bCheckBox2;
+        private UI.Controls.BDateTimePicker bDateTimePicker2;
+        private System.Windows.Forms.Label label8;
+        private UI.Controls.BCheckBox bCheckBox1;
+        private UI.Controls.BDateTimePicker bDateTimePicker1;
     }
 }
 

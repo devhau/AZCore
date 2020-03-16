@@ -109,5 +109,10 @@ namespace BotYoutube.UI
                 btnRemove.Enabled = true;
             }
         }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
     }
 }

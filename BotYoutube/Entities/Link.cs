@@ -38,12 +38,26 @@ namespace BotYoutube.Entities
         public int Rank { get; set; }
         [Field]
         public int TargetView { get; set; }
-
     }
     public class LinkService : EntityService<LinkService, LinkModel>
     {
         public LinkService(IDbConnection _connection) : base(_connection)
         {
+        }
+        public LinkModel GetLinkProcess()
+        {
+            var sqlLink = this.buildSQL.SQLSelect();
+            var sqlWhere = " where TargetView > 0 and IsActive = 1 order by Rank,UpdateAt";
+            sqlLink.SQL = sqlLink.SQL + sqlWhere;
+            var rs = ExecuteQuery(sqlLink).FirstOrDefault();
+            
+            if (rs != null)
+            {
+                rs.TargetView = rs.TargetView - 1;
+                rs.UpdateAt = DateTime.Now;
+                this.Update(rs);
+            }
+            return rs;
         }
     }
 }

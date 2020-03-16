@@ -9,6 +9,10 @@ namespace BotYoutube
 {
     class BotAlgorithm
     {
+        private static string keyPass = "";
+        public static string BotPassword(string pass) {
+            return EncryptString(pass, keyPass);
+        }
         public const string KeyString = "Admin@#@Admin#12343";
         //Hàm mã hóa chuỗi
 

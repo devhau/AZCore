@@ -120,6 +120,7 @@
     <Compile Include="Database\SQL\BuildSQL.cs" />
     <Compile Include="Database\SQL\SQLResult.cs" />
     <Compile Include="Database\TypeConvertor.cs" />
+    <Compile Include="Entities\Campaign.cs" />
     <Compile Include="Entities\Proxy.cs" />
     <Compile Include="Entities\Bot.cs" />
     <Compile Include="Entities\DBCreateEntities.cs" />
@@ -144,6 +145,18 @@
     </Compile>
     <Compile Include="FormSetup.Designer.cs">
       <DependentUpon>FormSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Campaign\ManagerCampaign.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Manager\Campaign\ManagerCampaign.Designer.cs">
+      <DependentUpon>ManagerCampaign.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Campaign\UpdateCampaign.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manager\Campaign\UpdateCampaign.Designer.cs">
+      <DependentUpon>UpdateCampaign.cs</DependentUpon>
     </Compile>
     <Compile Include="Manager\AccYoutube\ManagerAccYoutube.cs">
       <SubType>UserControl</SubType>
@@ -273,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSetup.resx">
       <DependentUpon>FormSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manager\Campaign\UpdateCampaign.resx">
+      <DependentUpon>UpdateCampaign.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Manager\AccYoutube\UpdateAccYoutube.resx">
       <DependentUpon>UpdateAccYoutube.cs</DependentUpon>

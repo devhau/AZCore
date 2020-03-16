@@ -35,3 +35,4 @@ E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.csprojAssemblyReference.cache
 E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.Manager.Proxy.UpdateProxy.resources
 E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.Manager.Proxy.ManagerProxy.resources
 E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.Manager.Proxy.UpdateProxy2.resources
+E:\Projects\AZCore\BotYoutube\obj\Debug\BotYoutube.Manager.Campaign.UpdateCampaign.resources

@@ -35,3 +35,4 @@ E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.csproj.GenerateResource.cac
 E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.csproj.CopyComplete
 E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.exe
 E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.pdb
+E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.Manager.Campaign.UpdateCampaign.resources

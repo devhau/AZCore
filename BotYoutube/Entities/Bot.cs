@@ -18,8 +18,6 @@ namespace BotYoutube.Entities
         public DateTime LastLogin { get; set; }
         [Field]
         public DateTime LastProcess { get; set; }
-        [Field]
-        public bool IsActice { get; set; }
 
     }
     public class BotService : EntityService<BotService, BotModel>
