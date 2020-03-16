@@ -15,7 +15,6 @@ E:\Projects\AZCore\BotYoutube\bin\Release\Google.Protobuf.xml
 E:\Projects\AZCore\BotYoutube\bin\Release\MySql.Data.xml
 E:\Projects\AZCore\BotYoutube\bin\Release\Newtonsoft.Json.xml
 E:\Projects\AZCore\BotYoutube\bin\Release\Renci.SshNet.xml
-E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.csprojAssemblyReference.cache
 E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.FormMain.resources
 E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.FormSetup.resources
 E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.Manager.AccYoutube.UpdateAccYoutube.resources

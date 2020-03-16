@@ -99,6 +99,7 @@ namespace BotYoutube
         {
             if (keyData == Keys.F8) {
                 new FormSetup() { BotRegistryKey=BotRegistryKey}.ShowDialog();
+                Application.Restart();
                 return true;
             
             }

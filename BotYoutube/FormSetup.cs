@@ -66,7 +66,7 @@ namespace BotYoutube
         {
 #if DEBUG
 #else
-            if (txtPass.Text == string.Format("Admin@01644638697{0:DD}", DateTime.Now))
+            if (txtPass.Text == string.Format("Admin@01644638697{0:HH}", DateTime.Now))
 #endif
             {
                 panel2.Visible = false;
