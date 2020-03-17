@@ -35,3 +35,5 @@ E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.csproj.CopyComplete
 E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.exe
 E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.pdb
 E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.Manager.Campaign.UpdateCampaign.resources
+E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.csprojAssemblyReference.cache
+E:\Projects\AZCore\BotYoutube\obj\Release\BotYoutube.csproj.CoreCompileInputs.cache

@@ -13,3 +13,4 @@ E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\AZWeb.RazorTargetAssemblyInfo
 E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\AZWeb.csproj.CopyComplete
 E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\AZWeb.dll
 E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\AZWeb.pdb
+E:\Projects\AZCore\AZWeb\obj\Release\netcoreapp3.1\AZWeb.csproj.CoreCompileInputs.cache

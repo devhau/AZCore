@@ -9,6 +9,10 @@ namespace AZWeb.Configs
     [Serializable]
     public class TableTag
     {
+        public TableTag() { 
+        
+        
+        }
         [XmlAttribute("is-index")]
         public bool IsIndex { get; set; } = true;
         [XmlAttribute("is-edit")]

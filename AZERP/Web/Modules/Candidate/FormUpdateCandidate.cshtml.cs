@@ -1,5 +1,6 @@
 ﻿using AZ.Web.Entities;
 using AZCore.Database.Attr;
+using AZWeb.Common.Manager;
 using AZWeb.Common.Module;
 using AZWeb.Common.Module.View;
 using AZWeb.Extensions;
@@ -9,7 +10,7 @@ using System.Linq;
 
 namespace AZ.Web.Modules.Candidate
 {
-    public class FormUpdateCandidate : PageModule
+    public class FormUpdateCandidate : UpdateModule<CandidateService, CandidateModel>
     {
         #region Field Data
         /// <summary>
@@ -78,10 +79,8 @@ namespace AZ.Web.Modules.Candidate
         public int Status { get; set; }
         #endregion
 
-        CandidateService candidateService;
-        public FormUpdateCandidate(IHttpContextAccessor httpContext, CandidateService _candidateService) : base(httpContext)
+        public FormUpdateCandidate(IHttpContextAccessor httpContext) : base(httpContext)
         {
-            this.candidateService = _candidateService;
         }
         protected override void IntData()
         {
@@ -89,10 +88,5 @@ namespace AZ.Web.Modules.Candidate
             this.IsTheme = true;
         }
 
-        public  IView Get(object Id)
-        {
-            return View();
-        }
-       
     }
 }

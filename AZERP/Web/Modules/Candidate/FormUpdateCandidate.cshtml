@@ -1,36 +1,30 @@
 ﻿@model FormUpdateCandidate
-    <div class="az-update" id="FormUpdateCandidate">
-        <div class="row">
-            <div class="col-sm-6">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Text</label>
-                    <input type="text" class="form-control" placeholder="Enter ...">
+<div class="az-update" id="FormUpdateCandidate" role="form">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputFile">File input</label>
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label>Text Disabled</label>
-                    <input type="text" class="form-control" placeholder="Enter ...">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="">Upload</span>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <!-- textarea -->
-                <div class="form-group">
-                    <label>Textarea</label>
-                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label>Textarea Disabled</label>
-                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                </div>
-            </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
-    </div>
+</div>
 <az-script>
-    $("#FormCandidate").AZManager();
+    
 </az-script>

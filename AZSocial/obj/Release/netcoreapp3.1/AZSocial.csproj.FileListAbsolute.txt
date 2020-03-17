@@ -1,0 +1,9 @@
+E:\Projects\AZCore\AZSocial\bin\Release\netcoreapp3.1\AZSocial.deps.json
+E:\Projects\AZCore\AZSocial\bin\Release\netcoreapp3.1\AZSocial.dll
+E:\Projects\AZCore\AZSocial\bin\Release\netcoreapp3.1\AZSocial.pdb
+E:\Projects\AZCore\AZSocial\obj\Release\netcoreapp3.1\AZSocial.csprojAssemblyReference.cache
+E:\Projects\AZCore\AZSocial\obj\Release\netcoreapp3.1\AZSocial.csproj.CoreCompileInputs.cache
+E:\Projects\AZCore\AZSocial\obj\Release\netcoreapp3.1\AZSocial.AssemblyInfoInputs.cache
+E:\Projects\AZCore\AZSocial\obj\Release\netcoreapp3.1\AZSocial.AssemblyInfo.cs
+E:\Projects\AZCore\AZSocial\obj\Release\netcoreapp3.1\AZSocial.dll
+E:\Projects\AZCore\AZSocial\obj\Release\netcoreapp3.1\AZSocial.pdb

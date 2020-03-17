@@ -118,3 +118,5 @@ E:\Projects\AZCore\AZCore.Test\obj\Release\netcoreapp3.1\AZCore.Test.AssemblyInf
 E:\Projects\AZCore\AZCore.Test\obj\Release\netcoreapp3.1\AZCore.Test.csproj.CopyComplete
 E:\Projects\AZCore\AZCore.Test\obj\Release\netcoreapp3.1\AZCore.Test.dll
 E:\Projects\AZCore\AZCore.Test\obj\Release\netcoreapp3.1\AZCore.Test.pdb
+E:\Projects\AZCore\AZCore.Test\obj\Release\netcoreapp3.1\AZCore.Test.csproj.CoreCompileInputs.cache
+E:\Projects\AZCore\AZCore.Test\obj\Release\netcoreapp3.1\AZCore.Test.genruntimeconfig.cache

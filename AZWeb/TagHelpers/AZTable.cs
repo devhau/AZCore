@@ -51,7 +51,6 @@ namespace AZWeb.TagHelpers
             });
             output.TagName = "";
             StringBuilder htmlTable = new StringBuilder();
-            //<table class=\"table table-bordered table-hover dataTable\" role=\"grid\">
             htmlTable.Append("<table class=\"table table-bordered table-hover dataTable\" role=\"grid\">");
             this.RenderHeader(htmlTable, Table);
             this.RenderBody(htmlTable, Table,Data);

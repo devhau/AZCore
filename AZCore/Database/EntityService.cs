@@ -4,6 +4,7 @@ using System;
 
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,6 +108,13 @@ namespace AZCore.Database
         public virtual int Delete(TModel model)
         {
             return Execute(buildSQL.SQLDelete(model));
+        }
+        public virtual TModel GetById(object id) 
+        {
+            var rs = buildSQL.SQLSelect();
+            rs.SQL = rs.SQL + " where `Id` = @Id";
+            rs.Param.Add("@Id",id);
+            return ExecuteQuery(rs).FirstOrDefault(); 
         }
     }
     public partial class EntityService<TService, TModel> {

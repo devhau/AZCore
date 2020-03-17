@@ -77,7 +77,7 @@ namespace AZCore.Database.SQL
             SQL.AppendFormat("SELECT * FROM `{0}`  ", this.TableName);
             return new SQLResult()
             {
-
+                Param = new DynamicParameters(),
                 SQL = SQL.ToString()
             };
         }
@@ -189,7 +189,7 @@ namespace AZCore.Database.SQL
             SQL.AppendFormat(" ))");
             return new SQLResult()
             {
-
+                Param = new DynamicParameters(),
                 SQL = SQL.ToString()
             };
         }

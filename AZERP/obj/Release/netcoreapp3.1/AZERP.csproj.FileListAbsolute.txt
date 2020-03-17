@@ -22,20 +22,15 @@ E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.Cryptogr
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
-E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\MySql.Data.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\Ubiety.Dns.Core.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\Newtonsoft.Json.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\Renci.SshNet.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\SshNet.Security.Cryptography.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
-E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\System.Drawing.Common.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\Yahoo.Yui.Compressor.dll
-E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
-E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
-E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\AZCore.dll
 E:\Projects\AZCore\AZERP\bin\Release\netcoreapp3.1\AZWeb.dll
@@ -69,3 +64,5 @@ E:\Projects\AZCore\AZERP\obj\Release\netcoreapp3.1\AZERP.Views.pdb
 E:\Projects\AZCore\AZERP\obj\Release\netcoreapp3.1\AZERP.csproj.CopyComplete
 E:\Projects\AZCore\AZERP\obj\Release\netcoreapp3.1\AZERP.dll
 E:\Projects\AZCore\AZERP\obj\Release\netcoreapp3.1\AZERP.pdb
+E:\Projects\AZCore\AZERP\obj\Release\netcoreapp3.1\AZERP.csproj.CoreCompileInputs.cache
+E:\Projects\AZCore\AZERP\obj\Release\netcoreapp3.1\AZERP.genruntimeconfig.cache

@@ -46,6 +46,17 @@
 }
 .az-btn {
     border-radius: 0px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    -webkit-transition: all 0.2s ease-in-out 0s;
+    -moz-transition: all 0.2s ease-in-out 0s;
+    -ms-transition: all 0.2s ease-in-out 0s;
+    transition: all 0.2s ease-in-out 0s;
+}
+.az-btn-close {
+
+}
+.az-btn-edit, .az-btn-delete {
+    cursor: pointer;
 }
 .az-manager {
     height: 100%;
@@ -53,22 +64,45 @@
     margin-right: auto;
     margin-left: auto;
 }
-    .az-manager .az-toolbar {
-        background: #efeaea;
-        width: 100%;
-        height: 45px;
-        padding: 7px;
+.az-manager .az-toolbar {
+    background: #efeaea;
+    width: 100%;
+    height: 45px;
+    padding: 7px;
+}
+.az-manager .az-data-table {
+    width: calc(100% - 2px);
+    height: calc(100% - 50px - 2px);
+    padding: 7px;
+}
+.az-manager.az-bottom {
+    padding-bottom: 50px;
+}
+.az-manager.az-bottom .az-toolbar {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+.az-modal {
+    background: rgba(0, 0, 0, 0.75);
+}
+    .az-modal .modal-content {
+        border-radius:0px;
     }
-    .az-manager .az-data-table {
-        width: calc(100% - 2px);
-        height: calc(100% - 50px - 2px);
-        padding: 7px;
+    .az-modal .modal-header {
+        padding:5px 10px;
     }
-    .az-manager.az-bottom {
-        padding-bottom: 50px;
-    }
-    .az-manager.az-bottom .az-toolbar {
-        position: absolute;
-        bottom: 0px;
-        left: 0px;
-    }
+        .az-modal .modal-header .close {
+            padding: 5px 10px;
+            margin:0;
+        }
+.az-modal-full, .az-modal-full .modal-dialog, .az-modal-full .modal-dialog .modal-content {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+.az-modal-xl .modal-dialog {
+}

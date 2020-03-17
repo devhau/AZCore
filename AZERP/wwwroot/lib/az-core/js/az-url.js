@@ -1,6 +1,8 @@
 ﻿function AZUrl() { }
 AZUrl.prototype.loadHtml = function (url) {
-    new AZAjax().DoGet(url, {}, function (d) { $("#ContentAZ").html(d.Html); eval(d.Javascript); }, function (e) { });
+    new AZAjax().DoGet(url, {}, function (d) {
+        $("#ContentAZ").html(d.Html); if (d.JS) d.JS.forEach(function (item) { eval(item.Code) });
+    }, function (e) { });
 }
 AZUrl.prototype.changeUrl = function (url) {
     this.loadHtml(url);

@@ -32,11 +32,11 @@
         // Nếu như request thực hiện thành công
         request.done(
             function (res) {
-               
 
                 // Thực hiện xử lý javascript mà server gửi về cho client
                 eval(res.JavaScript);
 
+                if (res.JS) res.JS.forEach(function (itemCode) { eval(itemCode.Code); });
                 // Nếu có xử lý sau khi kết thúc request theo ý người lập trình
                 if (callback != null) callback(res);
             }
@@ -47,6 +47,7 @@
         return request;
 
     }
+    
 }
 
 jQuery.cachedScript = function (url, options) {

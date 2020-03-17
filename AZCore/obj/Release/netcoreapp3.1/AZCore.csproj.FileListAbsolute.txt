@@ -6,3 +6,4 @@ E:\Projects\AZCore\AZCore\obj\Release\netcoreapp3.1\AZCore.AssemblyInfoInputs.ca
 E:\Projects\AZCore\AZCore\obj\Release\netcoreapp3.1\AZCore.AssemblyInfo.cs
 E:\Projects\AZCore\AZCore\obj\Release\netcoreapp3.1\AZCore.dll
 E:\Projects\AZCore\AZCore\obj\Release\netcoreapp3.1\AZCore.pdb
+E:\Projects\AZCore\AZCore\obj\Release\netcoreapp3.1\AZCore.csproj.CoreCompileInputs.cache
