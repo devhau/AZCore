@@ -7,6 +7,5 @@ namespace AZWeb.Common.Module.View
 {
     public interface IView
     {
-        IModule Module { get; set; }
     }
 }

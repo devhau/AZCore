@@ -13,13 +13,5 @@ namespace AZWeb.Configs
         
         
         }
-        [XmlAttribute("is-index")]
-        public bool IsIndex { get; set; } = true;
-        [XmlAttribute("is-edit")]
-        public bool IsEdit { get; set; } = true;
-        [XmlAttribute("is-delete")]
-        public bool IsDelete { get; set; } = true;
-        [XmlElement("columns")]
-        public List<ColumnTag> Columns { get; set; }
     }
 }

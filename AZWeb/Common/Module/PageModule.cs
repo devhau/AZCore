@@ -1,7 +1,6 @@
 ﻿using AZCore.Extensions;
 using AZCore.Identity;
 using AZWeb.Common.Module.View;
-using AZWeb.Configs;
 using AZWeb.Extensions;
 using AZWeb.Utilities;
 using Microsoft.AspNetCore.Http;
@@ -10,19 +9,13 @@ using System.Text.RegularExpressions;
 
 namespace AZWeb.Common.Module
 {
-    public abstract class PageModule : IModule
+    public abstract class PageModule : ApiModule
     {
         protected virtual void IntData() { }
         private static Regex regexModule = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+).([A-Za-z0-9]+)$", RegexOptions.IgnoreCase);
         private static Regex regexError = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+)$", RegexOptions.IgnoreCase);
-
-        public HttpContext httpContext { get; private set; }
         private IHtmlView _view { get => this.httpContext.GetContetModule(); }
-        public IPagesConfig PagesConfig { get; }
         public string Title{ get => _view.Title; set => _view.Title = value; }
-        public string Description { get => _view.Description; set => _view.Description = value; }
-        public string Author { get => _view.Author; set => _view.Author = value; }
-        public string Keywords { get => _view.Keywords; set => _view.Keywords = value; }
         public string Html { get => _view.Html; set => _view.Html = value; }
         public bool IsTheme { get => _view.IsTheme; set => _view.IsTheme = value; }
         public string LayoutTheme { get; set; } = "LayoutTheme";
@@ -33,17 +26,14 @@ namespace AZWeb.Common.Module
         {
             if (ac != null) ac(_view);
         }
-        public virtual void BeforeRequest() {
+        public override void BeforeRequest() {
             CheckUser();
             IntData();
         }
-        public virtual void AfterRequest()
+        public override void AfterRequest()
         {}
-        public PageModule(IHttpContextAccessor httpContext) {
-            this.httpContext = httpContext.HttpContext;
+        public PageModule(IHttpContextAccessor httpContext):base(httpContext) {
             IsTheme = true;
-            PagesConfig = this.httpContext.GetService<IPagesConfig>();
-            this.httpContext.BindRequestTo(this);         
         }
         private void CheckUser() {
             User = this.httpContext.GetSession<UserInfo>(AZCoreWeb.KeyAuth);

@@ -4,7 +4,7 @@
 							<div class="modal-content">\
 								<div class="modal-header">\
 									<h4 class="modal-title"></h4>\
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">\
+									<button type="button" class="close az-btn-close" data-dismiss="modal" aria-label="Close">\
 										<span aria-hidden="true">×</span>\
 									</button>\
 								</div>\
@@ -16,16 +16,20 @@
 					</div>\
 				</div>';
 	var $this = this;
-	this.Buttons = [{ value: "Đóng", cls: "btn btn-default az-btn az-btn-close", func: function (elem, scope) { scope.CloseForm(); } }];
+	this.Buttons = [{ value: "Đóng", cls: "btn btn-default az-btn az-btn-close",icon:"", func: function (elem, scope) { scope.CloseForm(); } }];
 	this.Modal = $(this.template);
 	this.ModalBody = $(this.Modal).find(".modal-body");
+	this.ModalForm = $(this.Modal).find(".modal-body");
 	this.ModalFooter = $(this.Modal).find(".modal-footer");
 	this.ModalHeader = $(this.Modal).find(".modal-header");
 	this.ModalClose = $(this.Modal).find(".modal-header").find(".close");
 	this.ModalTitle = $(this.Modal).find(".modal-header").find(".modal-title");
 	this.ModalSize = "az-modal-none";
 	this.setHtml = function ($data) {
-		$($this.ModalBody).html($data);
+
+		this.ModalForm = $("<form>");
+		$(this.ModalForm).append($data)
+		$($this.ModalBody).html(this.ModalForm);
 	}
 	this.setTitle = function ($data) {
 		$($this.ModalTitle).html($data);
@@ -38,8 +42,8 @@
 	}
 	this.createButton = function (btnInfo) {
 		var $this = this;
-		var btn = $("<input type='button'>");
-		btn.attr("value", btnInfo.value);
+		var btn = $("<button></button>");
+		$(btn).html("<i class=\"" + btnInfo.icon + "\"></i> " + btnInfo.value);
 		btn.addClass(btnInfo.cls == null || btnInfo.cls == "" ? clsButtonDefault : btnInfo.cls);
 		btn.click(function () { btnInfo.func(this, $this); });
 		return btn;
@@ -52,6 +56,9 @@
 		$($this.Modal).addClass($this.ModalSize);
 		$("body").append($this.Modal);
 		$($this.ModalClose).click($this.ClosePopup);
+	}
+	this.SerializeData = function () {
+		return $(this.ModalForm).serializeArray();
 	}
 	
 }

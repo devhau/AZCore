@@ -7,7 +7,6 @@ namespace AZWeb.Configs
     public interface IPagesConfig {
         List<PageTag> Pages { set; get; }
         HeadTag Head { set; get; }
-        string GetMatchingRewrite(string url);
         string extenstion { get; set; }
         string UrlRealDefault { get; set; }
         string UrlLogin { get; set; }
@@ -48,26 +47,6 @@ namespace AZWeb.Configs
         /// </summary>        
         [XmlElement("menu")]
         public List<MenuTag> Menu { set; get; }
-
-
-        public string GetMatchingRewrite(string url)
-        {
-            if (Pages != null)
-            {
-                foreach (var page in Pages)
-                {
-                    foreach (var tag in page.Tags)
-                    {
-                        if (url.EndsWith(tag.ViturlPath))
-                        {
-                            return  tag.Real;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
 
         /// <summary>
         /// Lấy ra đường dẫn chưa file config

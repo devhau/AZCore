@@ -1,15 +1,15 @@
 ﻿@using  AZ.Web.Entities;
-@model FormCandidate
-<div class="az-manager" id="FormCandidate" data-form-size="az-modal-xl">
+@model FormUser
+<div class="az-manager" id="FormUser" data-form-size="az-modal-xl">
     <div class="az-toolbar">
         <button type="button" class="btn btn-success btn-sm az-btn az-btn-add"><i class="far fa-plus-square"></i> Thêm Mới (F1)</button>
         <button type="button" class="btn btn-info btn-sm az-btn az-btn-export"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
         <button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
     </div>
     <div class="az-data-table">
-        <az-table data="Model.Data" FunKey="(item)=>((CandidateModel)item).Id"></az-table>
+        <az-table data="Model.Data" FunKey="(item)=>((UserModel)item).Id" columns="Model.Columns"></az-table>
     </div>
 </div>
 <az-script>
-    $("#FormCandidate").AZManager();
+    $("#FormUser").AZManager();
 </az-script>

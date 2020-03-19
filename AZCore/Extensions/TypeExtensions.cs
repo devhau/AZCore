@@ -8,35 +8,37 @@ namespace AZCore.Extensions
 {
     public static class TypeExtensions
     {
-        public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this Type type) {
-
+        public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this object obj)
+        {
+            return obj.GetType().GetAttributes<TAttribute>();
+        }
+        public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this Type type)
+        {
             return type.GetCustomAttributes(true).OfType<TAttribute>();
         }
-
+        public static TAttribute GetAttribute<TAttribute>(this object obj)
+        {
+            return obj.GetAttributes<TAttribute>().FirstOrDefault();
+        }
         public static TAttribute GetAttribute<TAttribute>(this Type type)
         {
-
             return type.GetAttributes<TAttribute>().FirstOrDefault();
         }
-
         public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this MethodInfo type)
         {
-
             return type.GetCustomAttributes(true).OfType<TAttribute>();
         }
         public static TAttribute GetAttribute<TAttribute>(this MethodInfo type)
         {
-           return type.GetAttributes<TAttribute>().FirstOrDefault();
+            return type.GetAttributes<TAttribute>().FirstOrDefault();
         }
         public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this PropertyInfo type)
         {
-
             return type.GetCustomAttributes(true).OfType<TAttribute>();
         }
-        
+
         public static TAttribute GetAttribute<TAttribute>(this PropertyInfo type)
         {
-
             return type.GetAttributes<TAttribute>().FirstOrDefault();
         }
 
@@ -44,10 +46,10 @@ namespace AZCore.Extensions
         {
             return type.Assembly.GetTypeFromInterface<TInterface>();
         }
-            public static IEnumerable<Type> GetTypeFromInterface<TInterface>(this Assembly ass) {
+        public static IEnumerable<Type> GetTypeFromInterface<TInterface>(this Assembly ass)
+        {
             var typeInterface = typeof(TInterface);
             return ass.GetTypes().Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces().Any(i => i == typeInterface));
         }
-
-    }
+    } 
 }

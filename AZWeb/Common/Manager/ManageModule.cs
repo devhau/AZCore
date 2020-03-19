@@ -1,5 +1,7 @@
 ﻿using AZCore.Database;
+using AZCore.Extensions;
 using AZWeb.Common.Module;
+using AZWeb.Common.Module.Attr;
 using AZWeb.Common.Module.View;
 using AZWeb.Extensions;
 using Microsoft.AspNetCore.Http;
@@ -13,9 +15,20 @@ namespace AZWeb.Common.Manager
         where TService : EntityService<TService, TModel>
         where TForm: UpdateModule<TService,TModel>
     {
+        public List<TableColumnAttribute> Columns { get;  set; }
         public List<TModel> Data;
         protected TService Service;
         protected TForm FormUpdate;
+        public virtual void BindTableColumn() {
+
+            this.Columns = this.GetAttributes<TableColumnAttribute>().ToList();
+            FormUpdate.Columns = this.Columns;
+        }
+        public override void BeforeRequest()
+        {
+            BindTableColumn();
+            base.BeforeRequest();
+        }
         public ManageModule(IHttpContextAccessor httpContext) : base(httpContext)
         {
             Service = this.httpContext.GetService<TService>();

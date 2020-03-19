@@ -64,7 +64,7 @@ jQuery.cachedScript = function (url, options) {
     return jQuery.ajax(options);
 };
 
-$.fn.serializeData = function () {
-    var form = $("<form>");
-    return JSON.stringify(form.append(this.html()).serializeArray());
-}
+//$.fn.serializeData = function () {
+//    var form = $("<form>");
+//    return JSON.stringify(form.append(this.html()).serializeArray());
+//}

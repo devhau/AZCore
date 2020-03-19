@@ -94,7 +94,10 @@
     }
         .az-modal .modal-header .close {
             padding: 5px 10px;
-            margin:0;
+            margin: 0;
+            color: #fff;
+            background-color: #0069d9;
+            border-color: #0062cc;
         }
 .az-modal-full, .az-modal-full .modal-dialog, .az-modal-full .modal-dialog .modal-content {
     width: 100%;
@@ -105,4 +108,5 @@
     padding: 0px;
 }
 .az-modal-xl .modal-dialog {
+    max-width:1050px;
 }

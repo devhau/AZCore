@@ -6,6 +6,8 @@ namespace AZWeb.Common.Module
 
     public interface IModule : IAZTransient
     {
-        HttpContext httpContext { get; }       
+        HttpContext httpContext { get; }
+        void BeforeRequest();
+        void AfterRequest();
     }
 }

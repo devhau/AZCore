@@ -1,8 +1,10 @@
 ﻿using AZCore.Database;
 using AZWeb.Common.Module;
+using AZWeb.Common.Module.Attr;
 using AZWeb.Common.Module.View;
 using AZWeb.Extensions;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace AZWeb.Common.Manager
 {
@@ -11,6 +13,7 @@ namespace AZWeb.Common.Manager
         where TService:EntityService<TService,TModel>
     {
 
+        public List<TableColumnAttribute> Columns { get; set; }
         protected TService Service;
         protected TModel Data;
         public UpdateModule(IHttpContextAccessor httpContext) : base(httpContext)

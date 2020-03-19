@@ -1,98 +1,75 @@
-﻿using AZCore.Database;
-using AZWeb.Common;
+﻿using AZWeb.Common;
+using AZWeb.Common.Module.Attr;
 using AZWeb.Configs;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AZWeb.TagHelpers
 {
     [HtmlTargetElement("az-table")]
     public class AZTable : AZTagHelper
     {
-        [HtmlAttributeName("table")]
-        public TableTag Table { get; set; }
+        [HtmlAttributeName("FunKey")]
+        public Func<object, object> FunKey { get; set; }
+        [HtmlAttributeName("is-index")]
+        public bool IsIndex { get; set; } = true;
+        [HtmlAttributeName("is-edit")]
+        public bool IsEdit { get; set; } = true;
+        [HtmlAttributeName("is-delete")]
+        public bool IsDelete { get; set; } = true;
+        [HtmlAttributeName("columns")]
+        public List<TableColumnAttribute> Columns { get; set; }
         [HtmlAttributeName("data")]
         public object Data { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            Table = new TableTag();
-            Table.Columns = new List<ColumnTag>();
-            Table.Columns.Add(new ColumnTag()
-            {
-
-                Title = "Họ Tên",
-                FieldName = "Fullname",
-                Width="200px;"
-            }) ;
-            Table.Columns.Add(new ColumnTag()
-            {
-
-                Title = "Địa Chỉ",
-                FieldName = "Address"
-
-            }); 
-            Table.Columns.Add(new ColumnTag()
-            {
-
-                Title = "Ghi Chú"
-
-            });
-            Table.Columns.Add(new ColumnTag()
-            {
-
-                Title = "Trạng thái"
-
-            });
             output.TagName = "";
             StringBuilder htmlTable = new StringBuilder();
             htmlTable.Append("<table class=\"table table-bordered table-hover dataTable\" role=\"grid\">");
-            this.RenderHeader(htmlTable, Table);
-            this.RenderBody(htmlTable, Table,Data);
-            this.RenderBottom(htmlTable, Table);
+            this.RenderHeader(htmlTable);
+            this.RenderBody(htmlTable,Data);
+            this.RenderBottom(htmlTable);
             htmlTable.Append("</table>");
             output.Content.SetHtmlContent(htmlTable.ToString());
         }
-        private void RenderHeader(StringBuilder htmlTable, TableTag Table)
+        private void RenderHeader(StringBuilder htmlTable)
         {
             htmlTable.Append("<thead>");
             htmlTable.Append("<tr>");
-            if (Table.IsIndex) {
+            if (this.IsIndex) {
                 htmlTable.Append("<th width=\"50px\">");
                 htmlTable.Append("#");
                 htmlTable.Append("</th>");
             }
-
-            foreach (var item in Table.Columns)
-            {
-                htmlTable.Append("<th class=\"sorting_asc\" tabindex=\"0\" rowspan =\"1\" colspan =\"1\" aria-sort=\"ascending\" width=\""+ item.Width + "\">");
-                htmlTable.Append(item.Title);
-                htmlTable.Append("</th>");
+            if (this.Columns!=null) {
+                foreach (var item in this.Columns)
+                {
+                    htmlTable.Append("<th class=\"sorting_asc\" tabindex=\"0\" rowspan =\"1\" colspan =\"1\" aria-sort=\"ascending\" width=\"" + item.Width + "\">");
+                    htmlTable.Append(item.Title);
+                    htmlTable.Append("</th>");
+                }
             }
 
-            if (Table.IsEdit)
+            if (this.IsEdit)
             {
                 htmlTable.Append("<th width=\"50px\">");
                 htmlTable.Append("Sửa");
                 htmlTable.Append("</th>");
             }
-            if (Table.IsDelete)
+            if (this.IsDelete)
             {
                 htmlTable.Append("<th width=\"50px\">");
                 htmlTable.Append("Xóa");
                 htmlTable.Append("</th>");
             }
-
-
             htmlTable.Append("</tr>");
             htmlTable.Append("</thead>");
         }
-        private void RenderBody(StringBuilder htmlTable, TableTag Table,object Data)
+        private void RenderBody(StringBuilder htmlTable,object Data)
         {
             int IndexRow = 0;
             
@@ -103,27 +80,31 @@ namespace AZWeb.TagHelpers
                 foreach (var item in _dataTable.Rows)
                 {
                     IndexRow++;
-                    htmlTable.Append("<tr>");
-                    if (Table.IsIndex)
+                    object itemId = null;
+                    if (this.FunKey != null) itemId = FunKey(item);
+                    htmlTable.AppendFormat("<tr data-item-id=\"{0}\">", itemId);
+                    if (this.IsIndex)
                     {
                         htmlTable.Append("<td>");
                         htmlTable.Append(IndexRow);
                         htmlTable.Append("</td>");
                     }
-                    foreach (var col in Table.Columns)
+                    if (this.Columns != null)
                     {
-                        htmlTable.Append("<td>");
-                        htmlTable.Append(col.Title);
-                        htmlTable.Append("</td>");
+                        foreach (var col in this.Columns)
+                        {
+                            htmlTable.Append("<td>");
+                            htmlTable.Append(col.Title);
+                            htmlTable.Append("</td>");
+                        }
                     }
-
-                    if (Table.IsEdit)
+                    if (this.IsEdit)
                     {
                         htmlTable.Append("<td>");
                         htmlTable.Append("<i class=\"far fa-edit az-btn-edit\"></i>");
                         htmlTable.Append("</td>");
                     }
-                    if (Table.IsDelete)
+                    if (this.IsDelete)
                     {
                         htmlTable.Append("<td>");
                         htmlTable.Append("<i class=\"far fa-trash-alt az-btn-delete\"></i>");
@@ -138,33 +119,36 @@ namespace AZWeb.TagHelpers
                 {
 
                     IndexRow++;
-
-                    htmlTable.Append("<tr>");
-                    if (Table.IsIndex)
+                    object itemId = null;
+                    if (this.FunKey != null) itemId = FunKey(item);
+                    htmlTable.AppendFormat("<tr data-item-id=\"{0}\">", itemId);
+                    if (this.IsIndex)
                     {
                         htmlTable.Append("<td>");
                         htmlTable.Append(IndexRow);
                         htmlTable.Append("</td>");
                     }
-                    var d = item.GetType();
-                    foreach (var col in Table.Columns)
+                     if (this.Columns != null)
                     {
-                        htmlTable.Append("<td >");
-                        if ( !string.IsNullOrEmpty(col.FieldName) && d.GetProperty(col.FieldName) != null) {
-                            htmlTable.Append(d.GetProperty(col.FieldName).GetValue(item));
-                        }                     
-                        htmlTable.Append("</td>");
+                        var d = item.GetType();
+                        foreach (var col in this.Columns)
+                        {
+                            htmlTable.Append("<td >");
+                            if (!string.IsNullOrEmpty(col.FieldName) && d.GetProperty(col.FieldName) != null) {
+                                htmlTable.Append(d.GetProperty(col.FieldName).GetValue(item));
+                            }
+                            htmlTable.Append("</td>");
+                        }
                     }
-
                     //<i class="fas fa-print"></i>
                     //<i class="fas fa-barcode"></i>
-                    if (Table.IsEdit)
+                    if (this.IsEdit)
                     {
                         htmlTable.Append("<td>");
                         htmlTable.Append("<i class=\"far fa-edit az-btn-edit\"></i>");
                         htmlTable.Append("</td>");
                     }
-                    if (Table.IsDelete)
+                    if (this.IsDelete)
                     {
                         htmlTable.Append("<td>");
                         htmlTable.Append("<i class=\"far fa-trash-alt az-btn-delete\"></i>");
@@ -176,7 +160,7 @@ namespace AZWeb.TagHelpers
             }
             htmlTable.Append("</tbody>");
         }
-        private void RenderBottom(StringBuilder htmlTable, TableTag Table)
+        private void RenderBottom(StringBuilder htmlTable)
         {
         }
     }

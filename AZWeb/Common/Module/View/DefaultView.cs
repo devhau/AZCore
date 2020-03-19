@@ -1,8 +1,6 @@
 ﻿using AZWeb.Configs;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AZWeb.Common.Module.View
 {
@@ -16,7 +14,6 @@ namespace AZWeb.Common.Module.View
         public string Author { get; set; }
         public string Keywords { get; set; }
         public bool IsTheme { get; set; } = true;
-        public IModule Module { get; set; }
 
         public IView DoView(Action<IView> ac)
         {

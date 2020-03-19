@@ -1,5 +1,4 @@
 ﻿using AZCore.Database;
-using AZCore.Database.Attr;
 using AZCore.Domain;
 using AZCore.Identity;
 using AZCore.Utility;
