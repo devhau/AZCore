@@ -2,6 +2,7 @@
 AZUrl.prototype.loadHtml = function (url, callback) {
     new AZAjax().DoGet(url, {}, function (d) {
         $("#ContentAZ").html(d.Html);
+        document.title = d.Title;
         if (d.JS) d.JS.forEach(function (item) { eval(item.Code) });
         if (callback) callback();
     }, function (e) { });

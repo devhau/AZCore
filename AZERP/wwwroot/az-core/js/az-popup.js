@@ -25,11 +25,15 @@
 	this.ModalClose = $(this.Modal).find(".modal-header").find(".close");
 	this.ModalTitle = $(this.Modal).find(".modal-header").find(".modal-title");
 	this.ModalSize = "az-modal-none";
+	this.IsForm = false;
 	this.setHtml = function ($data) {
-
-		this.ModalForm = $("<form>");
-		$(this.ModalForm).append($data)
-		$($this.ModalBody).html(this.ModalForm);
+		if ($this.IsForm === true) {
+			$this.ModalForm = $("<form>");
+			$($this.ModalForm).append($data)
+			$($this.ModalBody).html(this.ModalForm);
+		} else {
+			$($this.ModalBody).html($data);
+		}
 	}
 	this.setTitle = function ($data) {
 		$($this.ModalTitle).html($data);

@@ -53,5 +53,11 @@ namespace AZWeb.Common.Manager
         {           
             return FormUpdate.Post(Id);
         }
+        public virtual IView PostDelete(object Id)
+        {
+            var modelId=  Service.GetById(Id);
+            Service.Delete(modelId);
+            return Json("Thành công",200);
+        }
     }
 }

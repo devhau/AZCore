@@ -23,12 +23,7 @@
         $this.DoGet(url, null, function (item) {
             var popup = new AZPopup();
             popup.ClearButton();
-            popup.AddButton({
-                value: "Sao Chép và Lưu lại",
-                icon:"far fa-save",
-                cls: "btn btn-success az-btn az-btn-update",
-                func: function (elem, scope) { alert("Lưu"); }
-            });
+            popup.IsForm = true;
             popup.AddButton({
                 value: "Lưu lại",
                 icon: "far fa-save",
@@ -46,13 +41,15 @@
     $(this).find(".az-btn-add").on("click", function () {       
         $this.ShowFormUpdate();
     });
-    $(this).find(".az-btn-edit").on("click", function (e) {
-    
+    $(this).find(".az-btn-edit").on("click", function (e) {    
         var $Id = $(this).parents("tr").attr("data-item-id");
         $this.ShowFormUpdate($Id);       
     });
     $(this).find(".az-btn-delete").on("click", function () {
-        alert("delete");
+        var $Id = $(this).parents("tr").attr("data-item-id");
+        var url = location.pathname + "?h=delete";
+        if ($Id) url = url + "&id=" + $Id;
+        $this.DoPost(url, {}, function (item) { $this.ReLoad();});
     });
     $(this).find(".az-btn-export").on("click", function () {
         alert("export");
