@@ -2,8 +2,14 @@
     $.extend(this, new AZAjax());
     $this = this;
     this.FormSize = $(this).data("form-size");
+    this.ReLoad = function (callback) {
+
+        new AZUrl().loadHtml(location.href, callback);
+    }
     this.SaveData = function (url, scope) {
-        $this.DoPost(url, { Data: scope.SerializeData() }, function (item) {
+        $this.DoPost(url, scope.SerializeData(), function (item) {
+            $this.ReLoad(function () {
+            });
             scope.ClosePopup();
         }, function (error) {
 
@@ -13,7 +19,7 @@
     }
     this.ShowFormUpdate = function ($Id) {
         var url = location.pathname + "?h=update";
-        if ($Id) url = url + "&id" + $Id;
+        if ($Id) url = url + "&id=" + $Id;
         $this.DoGet(url, null, function (item) {
             var popup = new AZPopup();
             popup.ClearButton();
@@ -41,6 +47,7 @@
         $this.ShowFormUpdate();
     });
     $(this).find(".az-btn-edit").on("click", function (e) {
+    
         var $Id = $(this).parents("tr").attr("data-item-id");
         $this.ShowFormUpdate($Id);       
     });

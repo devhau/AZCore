@@ -1,7 +1,7 @@
 ﻿using AZWeb.Common;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace AZWeb.TagHelpers.AZHtml
+namespace AZWeb.TagHelpers.Html
 {
     [HtmlTargetElement("az-head",ParentTag ="az-html")]
     public class AZHead : AZTagHelper

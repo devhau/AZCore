@@ -47,20 +47,20 @@ using AZ;
                 return __backed__tagHelperScopeManager;
             }
         }
-        private global::AZWeb.TagHelpers.AZHtml.AZHtml __AZWeb_TagHelpers_AZHtml_AZHtml;
-        private global::AZWeb.TagHelpers.AZHtml.AZHead __AZWeb_TagHelpers_AZHtml_AZHead;
-        private global::AZWeb.TagHelpers.AZHtml.AZStyle __AZWeb_TagHelpers_AZHtml_AZStyle;
-        private global::AZWeb.TagHelpers.AZHtml.AZBody __AZWeb_TagHelpers_AZHtml_AZBody;
+        private global::AZWeb.TagHelpers.Html.AZHtml __AZWeb_TagHelpers_Html_AZHtml;
+        private global::AZWeb.TagHelpers.Html.AZHead __AZWeb_TagHelpers_Html_AZHead;
+        private global::AZWeb.TagHelpers.Html.AZStyle __AZWeb_TagHelpers_Html_AZStyle;
+        private global::AZWeb.TagHelpers.Html.AZBody __AZWeb_TagHelpers_Html_AZBody;
         private global::Microsoft.AspNetCore.Mvc.TagHelpers.FormTagHelper __Microsoft_AspNetCore_Mvc_TagHelpers_FormTagHelper;
         private global::Microsoft.AspNetCore.Mvc.TagHelpers.RenderAtEndOfFormTagHelper __Microsoft_AspNetCore_Mvc_TagHelpers_RenderAtEndOfFormTagHelper;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-html", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fbe3cfb4cb514edd3973a54ddf3fc7600a824d234653", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-html", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fbe3cfb4cb514edd3973a54ddf3fc7600a824d234637", async() => {
                 WriteLiteral("\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fbe3cfb4cb514edd3973a54ddf3fc7600a824d234918", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fbe3cfb4cb514edd3973a54ddf3fc7600a824d234902", async() => {
                     WriteLiteral("\r\n\r\n       ");
-                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-style", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fbe3cfb4cb514edd3973a54ddf3fc7600a824d235198", async() => {
+                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-style", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fbe3cfb4cb514edd3973a54ddf3fc7600a824d235182", async() => {
                         WriteLiteral(@"
            //
 // Pages: Login & Register
@@ -149,8 +149,8 @@ using AZ;
                         WriteLiteral("nput-transition;\n    }\n  }\n}\n\n.login-box-msg,\n.register-box-msg {\n  margin: 0;\n  padding: 0 20px 20px;\n  text-align: center;\n}\n\n.social-auth-links {\n  margin: 10px 0;\n}\n\r\n       ");
                     }
                     );
-                    __AZWeb_TagHelpers_AZHtml_AZStyle = CreateTagHelper<global::AZWeb.TagHelpers.AZHtml.AZStyle>();
-                    __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_AZHtml_AZStyle);
+                    __AZWeb_TagHelpers_Html_AZStyle = CreateTagHelper<global::AZWeb.TagHelpers.Html.AZStyle>();
+                    __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Html_AZStyle);
                     await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
                     if (!__tagHelperExecutionContext.Output.IsContentModified)
                     {
@@ -161,8 +161,8 @@ using AZ;
                     WriteLiteral("\r\n    ");
                 }
                 );
-                __AZWeb_TagHelpers_AZHtml_AZHead = CreateTagHelper<global::AZWeb.TagHelpers.AZHtml.AZHead>();
-                __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_AZHtml_AZHead);
+                __AZWeb_TagHelpers_Html_AZHead = CreateTagHelper<global::AZWeb.TagHelpers.Html.AZHead>();
+                __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Html_AZHead);
                 await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
                 if (!__tagHelperExecutionContext.Output.IsContentModified)
                 {
@@ -171,7 +171,7 @@ using AZ;
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fbe3cfb4cb514edd3973a54ddf3fc7600a824d238615", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fbe3cfb4cb514edd3973a54ddf3fc7600a824d238587", async() => {
                     WriteLiteral("\r\n        <div class=\"login-box\">\r\n            <div class=\"login-logo\">\r\n                <a");
                     BeginWriteAttribute("href", " href=\"", 1849, "\"", 1856, 0);
                     EndWriteAttribute();
@@ -201,7 +201,7 @@ using AZ;
 #line hidden
 #nullable disable
                     WriteLiteral("                    ");
-                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fbe3cfb4cb514edd3973a54ddf3fc7600a824d2310089", async() => {
+                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fbe3cfb4cb514edd3973a54ddf3fc7600a824d2310061", async() => {
                         WriteLiteral(@"
                         <div class=""input-group mb-3"">
                             <input type=""email"" name=""azemail"" class=""form-control"" placeholder=""Email"" value=""admin@viec1.com"">
@@ -279,8 +279,8 @@ using AZ;
                     WriteLiteral("div>\r\n        <!-- /.login-box -->\r\n    ");
                 }
                 );
-                __AZWeb_TagHelpers_AZHtml_AZBody = CreateTagHelper<global::AZWeb.TagHelpers.AZHtml.AZBody>();
-                __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_AZHtml_AZBody);
+                __AZWeb_TagHelpers_Html_AZBody = CreateTagHelper<global::AZWeb.TagHelpers.Html.AZBody>();
+                __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Html_AZBody);
                 await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
                 if (!__tagHelperExecutionContext.Output.IsContentModified)
                 {
@@ -291,9 +291,9 @@ using AZ;
                 WriteLiteral("\r\n");
             }
             );
-            __AZWeb_TagHelpers_AZHtml_AZHtml = CreateTagHelper<global::AZWeb.TagHelpers.AZHtml.AZHtml>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_AZHtml_AZHtml);
-            __AZWeb_TagHelpers_AZHtml_AZHtml.ClassHtml = (string)__tagHelperAttribute_3.Value;
+            __AZWeb_TagHelpers_Html_AZHtml = CreateTagHelper<global::AZWeb.TagHelpers.Html.AZHtml>();
+            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Html_AZHtml);
+            __AZWeb_TagHelpers_Html_AZHtml.ClassHtml = (string)__tagHelperAttribute_3.Value;
             __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_3);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)

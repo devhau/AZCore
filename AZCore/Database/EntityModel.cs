@@ -5,6 +5,12 @@ namespace AZCore.Database
 {
     public interface IEntityModel
     {
+         bool IsLock { get; set; }
+         bool IsActive { get; set; }
+         bool IsDelete { get; set; }
+         DateTime CreateAt { get; set; }
+         DateTime? UpdateAt { get; set; }
+         DateTime? DeleteAt { get; set; }
     }
     public class EntityModel<TModel>: IEntityModel where TModel: IEntityModel
     {

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yahoo.Yui.Compressor;
 
-namespace AZWeb.TagHelpers.AZHtml
+namespace AZWeb.TagHelpers.Html
 {
     [HtmlTargetElement("az-html")]
     public class AZHtml : AZTagHelper

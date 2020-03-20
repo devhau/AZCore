@@ -1,14 +1,11 @@
 ﻿using AZWeb.Common;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace AZWeb.TagHelpers.AZHtml
+namespace AZWeb.TagHelpers.Html
 {
-    [HtmlTargetElement("az-script")]
-    public class AZScript : AZTagHelper
+    [HtmlTargetElement("az-style")]
+    public class AZStyle : AZTagHelper
     {
         [HtmlAttributeName("link")]
         public string Link { get; set; }
@@ -17,7 +14,7 @@ namespace AZWeb.TagHelpers.AZHtml
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             var content = await output.GetChildContentAsync();
-            this.HtmlResult.JS.Add(new Configs.ContentTag() { Code = content.GetContent(),CDN=this.CDN,Link=this.Link });
+            this.HtmlResult.CSS.Add(new Configs.ContentTag() { Code = content.GetContent(), CDN = this.CDN, Link = this.Link });
             output.SuppressOutput();
         }
     }

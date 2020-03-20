@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AZWeb.TagHelpers.AZHtml
+namespace AZWeb.TagHelpers.Html
 {
     [HtmlTargetElement("az-layout")]
     public class AZLayout: AZTagHelper

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AZWeb.TagHelpers.AZHtml
+namespace AZWeb.TagHelpers.Html
 {
     public class AZContent:AZTagHelper
     {

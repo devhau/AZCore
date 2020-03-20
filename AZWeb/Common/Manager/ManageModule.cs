@@ -11,23 +11,28 @@ using System.Linq;
 namespace AZWeb.Common.Manager
 {
     public class ManageModule<TService,TModel,TForm> : PageModule
-        where TModel : IEntityModel
+        where TModel : IEntityModel, new()
         where TService : EntityService<TService, TModel>
         where TForm: UpdateModule<TService,TModel>
     {
-        public List<TableColumnAttribute> Columns { get;  set; }
         public List<TModel> Data;
         protected TService Service;
         protected TForm FormUpdate;
+        public List<TableColumnAttribute> Columns { get; set; }
         public virtual void BindTableColumn() {
 
             this.Columns = this.GetAttributes<TableColumnAttribute>().ToList();
-            FormUpdate.Columns = this.Columns;
         }
         public override void BeforeRequest()
         {
             BindTableColumn();
+            FormUpdate.BeforeRequest();
             base.BeforeRequest();
+        }
+        public override void AfterRequest()
+        {
+            FormUpdate.AfterRequest();
+            base.AfterRequest();
         }
         public ManageModule(IHttpContextAccessor httpContext) : base(httpContext)
         {
@@ -45,7 +50,7 @@ namespace AZWeb.Common.Manager
             return FormUpdate.Get(Id);
         }
         public virtual IView PostUpdate(object Id)
-        {
+        {           
             return FormUpdate.Post(Id);
         }
     }

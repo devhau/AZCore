@@ -1,7 +1,9 @@
 ﻿function AZUrl() { }
-AZUrl.prototype.loadHtml = function (url) {
+AZUrl.prototype.loadHtml = function (url, callback) {
     new AZAjax().DoGet(url, {}, function (d) {
-        $("#ContentAZ").html(d.Html); if (d.JS) d.JS.forEach(function (item) { eval(item.Code) });
+        $("#ContentAZ").html(d.Html);
+        if (d.JS) d.JS.forEach(function (item) { eval(item.Code) });
+        if (callback) callback();
     }, function (e) { });
 }
 AZUrl.prototype.changeUrl = function (url) {

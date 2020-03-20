@@ -43,7 +43,7 @@ using AZ;
                 return __backed__tagHelperScopeManager;
             }
         }
-        private global::AZWeb.TagHelpers.AZHtml.AZScript __AZWeb_TagHelpers_AZHtml_AZScript;
+        private global::AZWeb.TagHelpers.Html.AZScript __AZWeb_TagHelpers_Html_AZScript;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
@@ -58,12 +58,12 @@ using AZ;
         </div>
 </div>
 ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7864af4303211aae9f8fb441eec77fa88efc2a363399", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7864af4303211aae9f8fb441eec77fa88efc2a363395", async() => {
                 WriteLiteral("\r\n    \r\n");
             }
             );
-            __AZWeb_TagHelpers_AZHtml_AZScript = CreateTagHelper<global::AZWeb.TagHelpers.AZHtml.AZScript>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_AZHtml_AZScript);
+            __AZWeb_TagHelpers_Html_AZScript = CreateTagHelper<global::AZWeb.TagHelpers.Html.AZScript>();
+            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Html_AZScript);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {

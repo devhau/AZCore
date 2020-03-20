@@ -51,7 +51,7 @@ using AZ.Web.Entities;
             }
         }
         private global::AZWeb.TagHelpers.AZTable __AZWeb_TagHelpers_AZTable;
-        private global::AZWeb.TagHelpers.AZHtml.AZScript __AZWeb_TagHelpers_AZHtml_AZScript;
+        private global::AZWeb.TagHelpers.Html.AZScript __AZWeb_TagHelpers_Html_AZScript;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
@@ -63,7 +63,7 @@ using AZ.Web.Entities;
     </div>
     <div class=""az-data-table"">
         ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-table", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d2dd0ee2b1feb4f04d60be37d0e5d470a236272e3671", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-table", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d2dd0ee2b1feb4f04d60be37d0e5d470a236272e3667", async() => {
             }
             );
             __AZWeb_TagHelpers_AZTable = CreateTagHelper<global::AZWeb.TagHelpers.AZTable>();
@@ -100,12 +100,12 @@ __AZWeb_TagHelpers_AZTable.Columns = Model.Columns;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n    </div>\r\n</div>\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d2dd0ee2b1feb4f04d60be37d0e5d470a236272e5694", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d2dd0ee2b1feb4f04d60be37d0e5d470a236272e5690", async() => {
                 WriteLiteral("\r\n    $(\"#FormUser\").AZManager();\r\n");
             }
             );
-            __AZWeb_TagHelpers_AZHtml_AZScript = CreateTagHelper<global::AZWeb.TagHelpers.AZHtml.AZScript>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_AZHtml_AZScript);
+            __AZWeb_TagHelpers_Html_AZScript = CreateTagHelper<global::AZWeb.TagHelpers.Html.AZScript>();
+            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Html_AZScript);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {

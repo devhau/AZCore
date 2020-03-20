@@ -1,9 +1,5 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attr;
-using System;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AZCore.Identity
 {
@@ -22,6 +18,8 @@ namespace AZCore.Identity
         [Field(Length =128)] 
         public string Password { get; set; }
         [Field(Length = 128)]
-        public string Salt { get; set; }     
+        public string Salt { get; set; }
+        [Field(Length = 200)]
+        public string Address { get; set; }
     }
 }
