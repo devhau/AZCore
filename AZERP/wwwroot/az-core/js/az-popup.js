@@ -62,7 +62,13 @@
 		$($this.ModalClose).click($this.ClosePopup);
 	}
 	this.SerializeData = function () {
-		return $(this.ModalForm).serializeArray();
+		$data = $(this.ModalForm).serializeArray();
+		$(this.ModalForm).find('input[type="checkbox"]:not(:checked)').each(function () {
+			if ($data.indexOf(this.name) < 0) {
+				$data.push({ name: this.name, value: false });
+			}
+		});
+		return $data;
 	}
 	
 }

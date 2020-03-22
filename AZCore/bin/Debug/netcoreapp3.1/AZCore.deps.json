@@ -11,7 +11,8 @@
           "Castle.Windsor": "5.0.1",
           "Dapper": "2.0.30",
           "Microsoft.AspNetCore.Cryptography.KeyDerivation": "3.1.2",
-          "MySql.Data": "8.0.19"
+          "MySql.Data": "8.0.19",
+          "Aspose.Cells": "7.0.3.0"
         },
         "runtime": {
           "AZCore.dll": {}
@@ -1210,6 +1211,14 @@
             "fileVersion": "1.0.24212.1"
           }
         }
+      },
+      "Aspose.Cells/7.0.3.0": {
+        "runtime": {
+          "Aspose.Cells.dll": {
+            "assemblyVersion": "7.0.3.0",
+            "fileVersion": "7.0.3.0"
+          }
+        }
       }
     }
   },
@@ -2002,6 +2011,11 @@
       "sha512": "sha512-Zm2BdeanuncYs3NhCj4c9e1x3EXFzFBVv2wPEc/Dj4ZbI9R8ecLSR5frAsx4zJCPBtKQreQ7Q/KxJEohJZbfzA==",
       "path": "system.xml.xpath.xmldocument/4.0.1",
       "hashPath": "system.xml.xpath.xmldocument.4.0.1.nupkg.sha512"
+    },
+    "Aspose.Cells/7.0.3.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

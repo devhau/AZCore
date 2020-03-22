@@ -3,6 +3,7 @@ using AZCore.Extensions;
 using AZWeb.Common;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Text;
 
@@ -16,12 +17,33 @@ namespace AZWeb.TagHelpers.Input
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if (Func != null) {
-                this.InputName = this.Func.Body.As<MemberExpression>().Member.Name;
-                if (string.IsNullOrEmpty(this.InputId))
-                    this.InputId = string.Format("Input{0}",this.InputName);
-                if (Model != null) {
-                    this.InputValue = this.Func.Compile()(Model);
+                try
+                {
+                    var memberExpression = this.Func.Body as MemberExpression ?? ((UnaryExpression)this.Func.Body).Operand as MemberExpression;
+                    this.InputName = memberExpression.Member.Name;
+                    if (string.IsNullOrEmpty(this.InputId))
+                        this.InputId = string.Format("Input{0}", this.InputName);
+                    if (Model != null)
+                    {
+                        this.InputValue = this.Func.Compile()(Model);
+
+                        if(memberExpression.Type == typeof(bool)|| memberExpression.Type == typeof(bool?))
+                        {
+                            if ((bool)this.InputValue == true) 
+                            {
+                                this.Attr += " checked ";
+                            }
+                        }
+                    }
                 }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+            }
+            if (this.InputType == AZInputType.checkbox)
+            {
+                this.InputValue = true;
             }
             base.Process(context, output);
         }
@@ -51,7 +73,7 @@ namespace AZWeb.TagHelpers.Input
             StringBuilder htmlBuild = new StringBuilder();
             if(!string.IsNullOrEmpty(InputLabel))
                 htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
-            htmlBuild.AppendFormat("<input type=\"{0}\" class=\"{1}\" id=\"{2}\" placeholder=\"{3}\" {4} value=\"{5}\" name=\"{6}\">",InputType,InputClass,InputId,InputPlaceholder, Attr, InputValue, InputName);
+            htmlBuild.AppendFormat("<input type=\"{0}\" class=\"{1}\" id=\"{2}\" placeholder=\"{3}\" {4} {5} name=\"{6}\">",InputType,InputClass,InputId,InputPlaceholder, Attr, InputValue.IsNullOrEmpty()?"": string.Format("value =\"{0}\"", InputValue), InputName);
             output.Content.SetHtmlContent(htmlBuild.ToString());
         }
     }

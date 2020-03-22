@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text.RegularExpressions;
 
 namespace AZCore.Extensions
 {
@@ -17,6 +15,10 @@ namespace AZCore.Extensions
         }
         public static string Frmat(this string str,params object[] param) {
             return string.Format(str, param);
+        }
+        public static string GetOnlyDigital(this string str)
+        {
+            return Regex.Replace(str, @"[^\d]", string.Empty);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace AZ.Web.Modules.Auth
             {
                 this.AddMessage("Không tìm thấy tài khoản");
             }
-            else if (!this.userService.HasPassword(usr, azpassword))
+            else if (!usr.HasPassword(azpassword))
             {
                 this.AddMessage("Mật khẩu không chính xác");
             }

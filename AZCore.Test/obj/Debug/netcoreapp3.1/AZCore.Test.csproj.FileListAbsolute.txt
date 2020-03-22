@@ -120,3 +120,4 @@ E:\Projects\AZCore\AZCore.Test\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryp
 E:\Projects\AZCore\AZCore.Test\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 E:\Projects\AZCore\AZCore.Test\obj\Debug\netcoreapp3.1\AZCore.Test.csproj.CoreCompileInputs.cache
 E:\Projects\AZCore\AZCore.Test\obj\Debug\netcoreapp3.1\AZCore.Test.genruntimeconfig.cache
+E:\Projects\AZCore\AZCore.Test\bin\Debug\netcoreapp3.1\Aspose.Cells.dll

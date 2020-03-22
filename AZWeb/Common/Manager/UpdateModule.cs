@@ -19,7 +19,7 @@ namespace AZWeb.Common.Manager
         public List<TableColumnAttribute> Columns { get; set; }
         public virtual void BindTableColumn()
         {
-            this.Columns = this.GetAttributes<TableColumnAttribute>().ToList();
+            this.Columns = this.GetType().GetAttributes<TableColumnAttribute>().ToList();
         }
         public override void BeforeRequest()
         {
@@ -36,29 +36,25 @@ namespace AZWeb.Common.Manager
             }
             return View();
         }
-        public virtual void BindRequestFormToData() {
-            if (this.Data == null) return;
+        public virtual void DataFormToData(TModel DataForm) {
             var ModelType = typeof(TModel);
-            foreach (var item in this.httpContext.Request.Form.Keys)
-            {
-                if (ModelType.GetProperty(item) != null)
+            foreach (var item in ModelType.GetProperties()) {
+                if (this.httpContext.Request.Form.ContainsKey(item.Name)) 
                 {
-                    ModelType.GetProperty(item).SetValue(this.Data, this.httpContext.Request.Form[item][0]);
+                    item.SetValue(this.Data, item.GetValue(DataForm));
                 }
             }
         }
-        public virtual IView Post(object Id)
+        public virtual IView Post(object Id, TModel DataForm)
         {
             if (Id != null)
             {
                 this.Data = this.Service.GetById(Id);
-                BindRequestFormToData();
+                DataFormToData(DataForm);
                 Service.Update(this.Data);
             }
             else {
-                this.Data = new TModel();
-                BindRequestFormToData();
-                Service.Insert(this.Data);
+                Service.Insert(DataForm);
             }
             return Json("Cập nhật dữ liệu thành công",200);
         }

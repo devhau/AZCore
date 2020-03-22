@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using System.Reflection;
 
@@ -8,18 +7,11 @@ namespace AZCore.Extensions
 {
     public static class TypeExtensions
     {
-        public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this object obj)
-        {
-            return obj.GetType().GetAttributes<TAttribute>();
-        }
+       
         public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this Type type)
         {
             return type.GetCustomAttributes(true).OfType<TAttribute>();
-        }
-        public static TAttribute GetAttribute<TAttribute>(this object obj)
-        {
-            return obj.GetAttributes<TAttribute>().FirstOrDefault();
-        }
+        }       
         public static TAttribute GetAttribute<TAttribute>(this Type type)
         {
             return type.GetAttributes<TAttribute>().FirstOrDefault();
@@ -42,6 +34,16 @@ namespace AZCore.Extensions
             return type.GetAttributes<TAttribute>().FirstOrDefault();
         }
 
+        public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this FieldInfo type)
+        {
+            return type.GetCustomAttributes(true).OfType<TAttribute>();
+        }
+
+        public static TAttribute GetAttribute<TAttribute>(this FieldInfo type)
+        {
+            return type.GetAttributes<TAttribute>().FirstOrDefault();
+        }
+
         public static IEnumerable<Type> GetTypeFromInterface<TInterface>(this Type type)
         {
             return type.Assembly.GetTypeFromInterface<TInterface>();
@@ -51,5 +53,26 @@ namespace AZCore.Extensions
             var typeInterface = typeof(TInterface);
             return ass.GetTypes().Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces().Any(i => i == typeInterface));
         }
-    } 
+        /// <summary>
+        /// Khởi tạo một đối tượng theo Type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public static T CreateInstance<T>(this Type type, params object[] param)
+        {
+            return (T)type.CreateInstance(param);
+        }
+        /// <summary>
+        /// Khởi tạo một đối tượng theo Type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static object CreateInstance(this Type type, params object[] param)
+        {
+            return Activator.CreateInstance(type, param);
+        }
+
+    }
 }

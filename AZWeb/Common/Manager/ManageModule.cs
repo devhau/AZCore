@@ -21,7 +21,7 @@ namespace AZWeb.Common.Manager
         public List<TableColumnAttribute> Columns { get; set; }
         public virtual void BindTableColumn() {
 
-            this.Columns = this.GetAttributes<TableColumnAttribute>().ToList();
+            this.Columns = this.GetType().GetAttributes<TableColumnAttribute>().ToList();
         }
         public override void BeforeRequest()
         {
@@ -50,8 +50,10 @@ namespace AZWeb.Common.Manager
             return FormUpdate.Get(Id);
         }
         public virtual IView PostUpdate(object Id)
-        {           
-            return FormUpdate.Post(Id);
+        {
+            var DataForm = new TModel();
+            this.httpContext.BindFormTo(DataForm);
+            return FormUpdate.Post(Id, DataForm);
         }
         public virtual IView PostDelete(object Id)
         {

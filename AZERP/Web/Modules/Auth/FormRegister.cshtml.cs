@@ -37,16 +37,15 @@ namespace AZ.Web.Modules.Auth
         }
         public IView Post(string Fullname, string Email, string Password, string RePassword, string Phone)
         {
-            var salt = HashPassword.CreateSalt();
-            this.userService.Insert(new UserModel()
+            var user = new UserModel()
             {
                 FullName = Fullname,
                 Email = Email,
-                Salt = salt,
-                Password = HashPassword.Create(Password, salt),
                 PhoneNumber = Phone,
                 CreateAt = DateTime.Now
-            });
+            };
+            user.SetPassword(Password);
+            this.userService.Insert(user);
             this.AddMessage("Đăng ký thành công");
             return View();
         } 

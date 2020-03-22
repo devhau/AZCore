@@ -28,15 +28,7 @@ namespace AZ.Web.Entities
             rs.Param.Add("@name",name);
             return ExecuteQuery(rs).FirstOrDefault();
         }
-        /// <summary>
-        /// Kiểm tra mật khẩu xem có đúng không.
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="passowrd"></param>
-        /// <returns></returns>
-        public bool HasPassword(UserModel user,string passowrd) {
-            return user.Password == HashPassword.Create(passowrd, user.Salt);
-        }
+      
         
     }
     /// <summary>

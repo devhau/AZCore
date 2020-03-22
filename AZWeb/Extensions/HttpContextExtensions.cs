@@ -56,7 +56,7 @@ namespace AZWeb.Extensions
                 return sw.ToString();
             }
         }
-        public static void BindRequestTo( this HttpContext httpContext,object obj) {
+        public static void BindQuerytTo( this HttpContext httpContext,object obj) {
             var objType = obj.GetType();
             foreach (var item in httpContext.Request.Query.Keys) {
                 var pro = objType.GetProperty(item);
@@ -71,6 +71,26 @@ namespace AZWeb.Extensions
                     
                 }
              }
+        }
+        public static void BindFormTo(this HttpContext httpContext, object obj)
+        {
+            var objType = obj.GetType();
+            foreach (var item in httpContext.Request.Form.Keys)
+            {
+                var pro = objType.GetProperty(item);
+                if (pro != null && pro.CanWrite)
+                {
+                    if (pro.PropertyType.IsArray)
+                    {
+                        pro.SetValue(obj, httpContext.Request.Form[item]);
+                    }
+                    else
+                    {
+                        pro.SetValue(obj, httpContext.Request.Form[item][0].ToType(pro.PropertyType));
+                    }
+
+                }
+            }
         }
         public static bool IsAjax(this HttpContext httpContext) {
 

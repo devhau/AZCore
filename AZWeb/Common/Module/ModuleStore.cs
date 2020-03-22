@@ -191,7 +191,7 @@ namespace AZWeb.Common.Module
             var TempQuery = new QueryString(RealPath);
             httpContext.Request.Path = "/";
             httpContext.Request.QueryString = new QueryString(RealPath);
-            httpContext.BindRequestTo(this);
+            httpContext.BindQuerytTo(this);
             this.h = this.h.ToUpperFirstChart();
             string AssemblyModule = "";
             if (!string.IsNullOrEmpty(m))

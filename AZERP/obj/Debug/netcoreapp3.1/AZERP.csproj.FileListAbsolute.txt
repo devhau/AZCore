@@ -68,3 +68,4 @@ E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\AZERP.csproj.CopyComplete
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\staticwebassets\AZERP.StaticWebAssets.Manifest.cache
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\staticwebassets\AZERP.StaticWebAssets.xml
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\AZERP.genruntimeconfig.cache
+E:\Projects\AZCore\AZERP\bin\Debug\netcoreapp3.1\Aspose.Cells.dll
