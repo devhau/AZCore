@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AZCore.Utility
 {
-    public class HashPassword
+    public static class AzPassword
 	{
 		public static string Create(string value, string salt)
 		{

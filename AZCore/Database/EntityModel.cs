@@ -5,12 +5,15 @@ namespace AZCore.Database
 {
     public interface IEntityModel
     {
-         bool IsLock { get; set; }
-         bool IsActive { get; set; }
-         bool IsDelete { get; set; }
-         DateTime CreateAt { get; set; }
-         DateTime? UpdateAt { get; set; }
-         DateTime? DeleteAt { get; set; }
+        bool IsLock { get; set; }
+        bool IsActive { get; set; }
+        bool IsDelete { get; set; }
+        long CreateBy { get; set; }
+        long? UpdateBy { get; set; }
+        long? DeleteBy { get; set; }
+        DateTime CreateAt { get; set; }
+        DateTime? UpdateAt { get; set; }
+        DateTime? DeleteAt { get; set; }
     }
     public class EntityModel<TModel>: IEntityModel where TModel: IEntityModel
     {
@@ -20,6 +23,12 @@ namespace AZCore.Database
         public bool IsActive { get; set; }
         [Field]
         public bool IsDelete { get; set; }
+        [Field]
+        public long CreateBy { get; set; }
+        [Field] 
+        public long? UpdateBy { get; set; }
+        [Field] 
+        public long? DeleteBy { get; set; }
         [Field]
         public DateTime CreateAt { get; set; }
         [Field]

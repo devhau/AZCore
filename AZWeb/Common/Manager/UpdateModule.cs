@@ -5,8 +5,10 @@ using AZWeb.Common.Module.Attr;
 using AZWeb.Common.Module.View;
 using AZWeb.Extensions;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace AZWeb.Common.Manager
 {
@@ -36,10 +38,12 @@ namespace AZWeb.Common.Manager
             }
             return View();
         }
-        public virtual void DataFormToData(TModel DataForm) {
+        public virtual void DataFormToData(TModel DataForm, Func<PropertyInfo, bool> funProper = null)
+        {
+            if (this.Data == null) return;
             var ModelType = typeof(TModel);
             foreach (var item in ModelType.GetProperties()) {
-                if (this.httpContext.Request.Form.ContainsKey(item.Name)) 
+                if (this.httpContext.Request.Form.ContainsKey(item.Name) && (funProper==null||funProper(item))) 
                 {
                     item.SetValue(this.Data, item.GetValue(DataForm));
                 }
@@ -51,9 +55,13 @@ namespace AZWeb.Common.Manager
             {
                 this.Data = this.Service.GetById(Id);
                 DataFormToData(DataForm);
+                this.Data.UpdateAt = DateTime.Now;
                 Service.Update(this.Data);
             }
             else {
+                DataFormToData(DataForm);
+                DataForm.CreateAt = DateTime.Now;
+
                 Service.Insert(DataForm);
             }
             return Json("Cập nhật dữ liệu thành công",200);

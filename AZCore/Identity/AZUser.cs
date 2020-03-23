@@ -24,8 +24,8 @@ namespace AZCore.Identity
         public string Address { get; set; }
         public void SetPassword(string pass) 
         {
-            this.Salt = HashPassword.CreateSalt();
-            this.Password = HashPassword.Create(pass, this.Salt);
+            this.Salt = AzPassword.CreateSalt();
+            this.Password = AzPassword.Create(pass, this.Salt);
         }
         /// <summary>
         /// Kiểm tra mật khẩu xem có đúng không.
@@ -35,7 +35,7 @@ namespace AZCore.Identity
         /// <returns></returns>
         public bool  HasPassword(string pass)
         {
-            return this.Password == HashPassword.Create(pass, this.Salt);
+            return AzPassword.Validate(pass, this.Salt, this.Password);
         }
     }
 }

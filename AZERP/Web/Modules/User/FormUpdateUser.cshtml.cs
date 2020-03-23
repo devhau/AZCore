@@ -1,6 +1,9 @@
 ﻿using AZ.Web.Entities;
+using AZCore.Extensions;
 using AZWeb.Common.Manager;
 using Microsoft.AspNetCore.Http;
+using System;
+using System.Reflection;
 
 namespace AZ.Web.Modules.User
 {
@@ -9,17 +12,20 @@ namespace AZ.Web.Modules.User
         public FormUpdateUser(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
-        public override void DataFormToData(UserModel DataForm)
+        public override void DataFormToData(UserModel DataForm, Func<PropertyInfo, bool> funProper)
         {
-            if (DataForm.Password == "" || DataForm.Password == null)
+            if (!DataForm.Password.IsNullOrEmpty())
             {
-                this.httpContext.Request.Form.Keys.Remove("Password");
+                if (this.Data == null)
+                {
+                    var pas = DataForm.Password;
+                    DataForm.SetPassword(pas);
+                }else if (this.Data != null&& DataForm.Password!= this.Data.Password) {
+                    this.Data.SetPassword(DataForm.Password);
+                }               
             }
-            else {
-
-                
-            }
-            base.DataFormToData(DataForm);
+            funProper = (item) => item.Name != "Password";
+            base.DataFormToData(DataForm, funProper);
         }
         protected override void IntData()
         {
