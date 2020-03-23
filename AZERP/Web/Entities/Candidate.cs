@@ -99,16 +99,6 @@ namespace AZ.Web.Entities
         [Field]
         public DateTime? StartWork { get; set; }
         /// <summary>
-        /// Tạo bởi ai đó
-        /// </summary>
-        [Field]
-        public long CreateBy { get; set; }
-        /// <summary>
-        /// Cập nhật ai đó
-        /// </summary>
-        [Field]
-        public long? UpdateBy { get; set; }
-        /// <summary>
         /// Dán cho ai đó
         /// </summary>
         [Field]

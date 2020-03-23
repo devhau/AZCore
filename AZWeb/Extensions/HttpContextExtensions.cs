@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 using AZCore.Extensions;
 using AZWeb.Common.Module.View;
+using AZCore.Identity;
 
 namespace AZWeb.Extensions
 {
@@ -63,10 +64,10 @@ namespace AZWeb.Extensions
                 if (pro != null && pro.CanWrite) {
                     if (pro.PropertyType.IsArray)
                     {
-                        pro.SetValue(obj, httpContext.Request.Query[item]);
+                        pro.SetValue(obj, httpContext.Request.Query[item][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
                     }
                     else {
-                        pro.SetValue(obj, httpContext.Request.Query[item][0]);
+                        pro.SetValue(obj, httpContext.Request.Query[item][0].ToType(pro.PropertyType));
                     }
                     
                 }
@@ -82,7 +83,7 @@ namespace AZWeb.Extensions
                 {
                     if (pro.PropertyType.IsArray)
                     {
-                        pro.SetValue(obj, httpContext.Request.Form[item]);
+                        pro.SetValue(obj, httpContext.Request.Form[item][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
                     }
                     else
                     {
@@ -118,6 +119,23 @@ namespace AZWeb.Extensions
         public static IHtmlView GetContetModule(this HttpContext httpContext) {
             if (httpContext.Items[AZCoreWeb.KeyHtmlModule] == null) { httpContext.Items[AZCoreWeb.KeyHtmlModule] = new DefaultView(); }
             return httpContext.Items[AZCoreWeb.KeyHtmlModule] as IHtmlView;
+        }
+
+        public static UserInfo GeUserModule(this HttpContext httpContext)
+        {
+            if (httpContext.Items[AZCoreWeb.KeyHtmlModule] == null) return null;
+            return httpContext.Items[AZCoreWeb.KeyAuth] as UserInfo;
+        }
+        public static UserInfo GetUser(this HttpContext httpContext)
+        {
+            var User = httpContext.GetSession<UserInfo>(AZCoreWeb.KeyAuth);
+            if (User == null)
+            {
+                User = httpContext.GetCookie<UserInfo>(AZCoreWeb.KeyAuth);
+            }
+
+            httpContext.Items[AZCoreWeb.KeyAuth] = User;
+            return User;
         }
         public static TClass GetService<TClass>(this HttpContext httpContext) {
             return httpContext.RequestServices.GetRequiredService<TClass>();

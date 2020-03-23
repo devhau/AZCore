@@ -2,7 +2,7 @@
 
 namespace AZWeb.Utilities
 {
-    public class AZCoreWeb
+    public static class AZCoreWeb
     {
         public static IWebHostEnvironment env;
         public const string KeyHtmlModule = "AZHtmlModule";

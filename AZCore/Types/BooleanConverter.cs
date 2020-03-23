@@ -20,7 +20,7 @@ namespace AZCore.Types
         {
             switch (typeCode)
             {
-                case AZTypeCode.String: return value.ToString().ToLower() == "true" || value.ToString() == "1";
+                case AZTypeCode.String: return "true".Equals(value?.ToString().ToLower()) || value.ToString() == "1";
                 case AZTypeCode.Int32: return value.ToString() == "1";
                 case AZTypeCode.Boolean: return value;
                 case AZTypeCode.DBNull: return false;

@@ -14,6 +14,7 @@ namespace AZWeb.Common.Module.View
         public string Author { get; set; }
         public string Keywords { get; set; }
         public bool IsTheme { get; set; } = true;
+        public string Redirect { get; set; }
 
         public IView DoView(Action<IView> ac)
         {

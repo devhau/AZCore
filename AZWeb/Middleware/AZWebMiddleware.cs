@@ -16,7 +16,7 @@ namespace AZWeb.Middleware
         public async Task Invoke(HttpContext httpContext)
         {
 
-            if (!ModuleStore.Router(httpContext)) {
+            if (!ModuleRender.Router(httpContext)) {
                 await _next(httpContext);
             }
         }

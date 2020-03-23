@@ -10,6 +10,7 @@ using System.Linq;
 
 namespace AZWeb.Common.Manager
 {
+    [Auth]
     public class ManageModule<TService,TModel,TForm> : PageModule
         where TModel : IEntityModel, new()
         where TService : EntityService<TService, TModel>
@@ -20,7 +21,6 @@ namespace AZWeb.Common.Manager
         protected TForm FormUpdate;
         public List<TableColumnAttribute> Columns { get; set; }
         public virtual void BindTableColumn() {
-
             this.Columns = this.GetType().GetAttributes<TableColumnAttribute>().ToList();
         }
         public override void BeforeRequest()
@@ -46,16 +46,16 @@ namespace AZWeb.Common.Manager
             Data = GetSearchData();
             return View();
         }
-        public virtual IView GetUpdate(object Id) {
+        public virtual IView GetUpdate(long? Id) {
             return FormUpdate.Get(Id);
         }
-        public virtual IView PostUpdate(object Id)
+        public virtual IView PostUpdate(long? Id)
         {
             var DataForm = new TModel();
             this.httpContext.BindFormTo(DataForm);
             return FormUpdate.Post(Id, DataForm);
         }
-        public virtual IView PostDelete(object Id)
+        public virtual IView PostDelete(long? Id)
         {
             var modelId=  Service.GetById(Id);
             Service.Delete(modelId);

@@ -29,7 +29,7 @@ namespace AZ.Web.Modules.User
         }
         protected override void IntData()
         {
-            this.Title = "Quản lý ứng viên";
+            this.Title = "Nhân viên";
             this.IsTheme = true;
         }
 

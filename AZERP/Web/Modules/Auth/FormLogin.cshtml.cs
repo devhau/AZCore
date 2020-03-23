@@ -53,8 +53,7 @@ namespace AZ.Web.Modules.Auth
             else
             {
                 this.Login(usr);
-                this.RedirectToHome();
-                this.AddMessage("Đăng nhập thành công");
+             return   this.RedirectToHome();
             }
             // Login Thanh cong;
             return View();

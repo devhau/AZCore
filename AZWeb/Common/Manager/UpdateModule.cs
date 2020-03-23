@@ -12,6 +12,7 @@ using System.Reflection;
 
 namespace AZWeb.Common.Manager
 {
+    [Auth]
     public class UpdateModule<TService, TModel> : PageModule 
         where TModel: IEntityModel, new()
         where TService:EntityService<TService,TModel>
@@ -32,8 +33,9 @@ namespace AZWeb.Common.Manager
         {
             Service = this.httpContext.GetService<TService>();
         }
-        public virtual IView Get(object Id) {
-            if (Id != null) {
+        public virtual IView Get(long? Id) {
+            if (Id != null && 0 != Id)
+            {
                 this.Data = this.Service.GetById(Id);
             }
             return View();
@@ -49,9 +51,9 @@ namespace AZWeb.Common.Manager
                 }
             }
         }
-        public virtual IView Post(object Id, TModel DataForm)
+        public virtual IView Post(long? Id, TModel DataForm)
         {
-            if (Id != null)
+            if (Id != null&& 0!=Id)
             {
                 this.Data = this.Service.GetById(Id);
                 DataFormToData(DataForm);

@@ -14,12 +14,12 @@ namespace AZWeb.Common.Module
         protected virtual void IntData() { }
         private static Regex regexModule = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+).([A-Za-z0-9]+)$", RegexOptions.IgnoreCase);
         private static Regex regexError = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+)$", RegexOptions.IgnoreCase);
-        private IHtmlView _view { get => this.httpContext.GetContetModule(); }
+        private IHtmlView _view { get; set; }
         public string Title{ get => _view.Title; set => _view.Title = value; }
         public string Html { get => _view.Html; set => _view.Html = value; }
         public bool IsTheme { get => _view.IsTheme; set => _view.IsTheme = value; }
         public string LayoutTheme { get; set; } = "LayoutTheme";
-        public UserInfo User { get; private set; }
+        public UserInfo User { get => this.httpContext.GeUserModule(); }
         public bool IsAuth { get => User != null; }
 
         protected void DoView(Action<IHtmlView> ac)
@@ -27,36 +27,33 @@ namespace AZWeb.Common.Module
             if (ac != null) ac(_view);
         }
         public override void BeforeRequest() {
-            CheckUser();
+            this._view = this.httpContext.GetContetModule();
+            IsTheme = true;
             IntData();
         }
         public override void AfterRequest()
         {}
         public PageModule(IHttpContextAccessor httpContext):base(httpContext) {
-            IsTheme = true;
+            
         }
-        private void CheckUser() {
-            User = this.httpContext.GetSession<UserInfo>(AZCoreWeb.KeyAuth);
-            if (User == null)
-            {
-                User = this.httpContext.GetCookie<UserInfo>(AZCoreWeb.KeyAuth);
-            }
-        }
+      
         public void Login(object User) {
             var userInfo = User.CopyTo<UserInfo>();
             this.httpContext.SetSession(AZCoreWeb.KeyAuth, userInfo);
             this.httpContext.SetCookie(AZCoreWeb.KeyAuth, userInfo, 10 * 24 * 60);
-            CheckUser();
+            this.httpContext.GetUser();
         }
         public void Logout() {
             this.httpContext.RemoveCookie(AZCoreWeb.KeyAuth);
             this.httpContext.RemoveCookie(AZCoreWeb.KeyAuth);
         }
-        public void RedirectToHome() {
-            Redirect("/");
+        public IView RedirectToHome() {
+           return Redirect("/");
         }
-        public virtual void Redirect(string location) {
-            this.httpContext.Response.Redirect(location);
+        public virtual IView Redirect(string location)
+        {
+            this._view.Redirect = location;
+            return this._view;
         }
         protected IView View(){
             return View(this);
@@ -105,8 +102,11 @@ namespace AZWeb.Common.Module
         {
             return RenderHtml();
         }
-        public virtual void RenderSite() {            
-            httpContext.Response.WriteAsync(this.Html);
+        public virtual void RenderSite() {
+            if (string.IsNullOrEmpty(this._view.Redirect))
+                httpContext.Response.WriteAsync(this.Html);
+            else
+                httpContext.Response.Redirect(this._view.Redirect);
         }
         public virtual void RenderJson()
         {

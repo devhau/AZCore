@@ -1,5 +1,6 @@
 ﻿using AZWeb.Common.Module;
 using AZWeb.Common.Module.Attr;
+using AZWeb.Common.Module.View;
 using Microsoft.AspNetCore.Http;
 
 namespace AZ.Web.Modules.Home
@@ -12,7 +13,7 @@ namespace AZ.Web.Modules.Home
         }
 
         public string id { get; set; }
-        public object Get(){
+        public IView Get(){
            return View();
         }
     }
