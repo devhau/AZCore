@@ -5,8 +5,7 @@ namespace AZCore.Database
 {
     public interface IEntityModel
     {
-        bool IsLock { get; set; }
-        bool IsActive { get; set; }
+        EntityStatus Status { get; set; }
         bool IsDelete { get; set; }
         long CreateBy { get; set; }
         long? UpdateBy { get; set; }
@@ -18,9 +17,7 @@ namespace AZCore.Database
     public class EntityModel<TModel>: IEntityModel where TModel: IEntityModel
     {
         [Field]
-        public bool IsLock { get; set; }
-        [Field]
-        public bool IsActive { get; set; }
+        public EntityStatus Status { get; set; }
         [Field]
         public bool IsDelete { get; set; }
         [Field]

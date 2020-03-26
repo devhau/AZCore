@@ -15,8 +15,8 @@ namespace AZWeb.Common
         public IHtmlView HtmlResult { get => this.ViewContext.HttpContext.GetContetModule(); }
         public override void Init(TagHelperContext context)
         {
-            base.Init(context);
             this.TagId = string.Format("az{0}", Guid.NewGuid().ToString().Replace("-", ""));
+            base.Init(context);
         }
     }
 }

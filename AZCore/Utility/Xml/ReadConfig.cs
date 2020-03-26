@@ -9,7 +9,7 @@ namespace AZCore.Utility.Xml
     /// Đọc file Config và đưa dữ liệu đọc được vào một biến kiểu dữ liệu là T
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ReadConfig<T> where T : ConfigBase, new()
+    public static class ReadConfig<T> where T : ConfigBase, new()
     {
         /// <summary>
         /// Đối tượng để Serializer hoặc Deserializer đối tượng ra file hoặc ngược lại từ file ra đối tượng

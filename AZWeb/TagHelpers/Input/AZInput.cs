@@ -69,6 +69,7 @@ namespace AZWeb.TagHelpers.Input
         public object InputValue { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            this.InputClass += " " + this.TagId;
             output.TagName = "";
             StringBuilder htmlBuild = new StringBuilder();
             if(!string.IsNullOrEmpty(InputLabel))

@@ -23,7 +23,7 @@ namespace AZ.Web.Entities
         /// Họ Tên
         /// </summary>
         [Field(Length = 500)]
-        public string Fullname { get; set; }
+        public string FullName { get; set; }
         /// <summary>
         /// Số điện thoại
         /// </summary>

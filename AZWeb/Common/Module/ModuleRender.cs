@@ -46,6 +46,10 @@ namespace AZWeb.Common.Module
         private Type GetType(string type) {
             return startup.GetType().Assembly.GetType(type);
         }
+        /// <summary>
+        /// Get Path Real
+        /// </summary>
+        /// <returns> Path Real </returns>
         private string GetPathReal()
         {
             string path = this.httpContext.Request.Path.Value;
@@ -76,6 +80,11 @@ namespace AZWeb.Common.Module
             }
             return null;
         }
+        /// <summary>
+        /// Load Module
+        /// </summary>
+        /// <param name="AssemblyModule"></param>
+        /// <returns></returns>
         private PageModule LoadModule(string AssemblyModule)
         {
             var typeModule = this.GetType(AssemblyModule);
@@ -85,13 +94,22 @@ namespace AZWeb.Common.Module
             }
             return null;
         }
-        private RenderError GetModule() {
+        /// <summary>
+        /// Get Module
+        /// </summary>
+        /// <returns></returns>
+        private RenderError GetModule() 
+        {
+
+            #region --- Get Path & Merge Path ---
             var pathReal = GetPathReal();
             if (string.IsNullOrEmpty(pathReal)) return RenderError.NotFoundPath;
             foreach (var key in httpContext.Request.Query.Keys)
             {
                 pathReal = string.Format("{0}&{1}={2}", pathReal, key, httpContext.Request.Query[key]);
             }
+            #endregion
+
             #region --- Get Module & Process Module ----
             var query = QueryHelpers.ParseQuery(pathReal);
             if(!query.ContainsKey("m")|| string.IsNullOrEmpty(query["m"].ToString())) return RenderError.NotFoundPath;
@@ -166,7 +184,8 @@ namespace AZWeb.Common.Module
             ModuleCurrent.AfterRequest();
 
             #endregion
-            #region Get Theme && Process Theme
+
+            #region --- Get Theme && Process Theme ---
 
             if (ModuleCurrent.IsTheme & !IsAjax)
             {
@@ -194,9 +213,11 @@ namespace AZWeb.Common.Module
                 }
             }
             #endregion
+
             return RenderError.OK;
         }
-        private bool GetError(RenderError error) {
+        private bool GetError(RenderError error) 
+        {
             var ErrorString = "NotFound";
             string typeModuleString = string.Format("{0}.Errors.{1}", AzWebAssembly, ErrorString);
             var typeModule = this.GetType(typeModuleString);

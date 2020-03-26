@@ -11,7 +11,11 @@ namespace AZ.Web.Modules.Home
         public FormHome(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
-
+        protected override void IntData()
+        {
+            this.Title = "Bảng điều khiển";
+            base.IntData();
+        }
         public string id { get; set; }
         public IView Get(){
            return View();
