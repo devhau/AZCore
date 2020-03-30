@@ -67,14 +67,34 @@ namespace AZWeb.TagHelpers.Input
         public string InputPlaceholder { get; set; }
         [HtmlAttributeName("value")]
         public object InputValue { get; set; }
+        [HtmlAttributeName("len-code")]
+        public int LenCode { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            if (LenCode > 0 ) {
+                if(InputValue == null)
+                    InputValue = Guid.NewGuid().ToString();
+                Attr += "disabled";
+            }
+            if (InputType == AZInputType.checkbox) {
+                this.InputClass = "";
+            }
             this.InputClass += " " + this.TagId;
             output.TagName = "";
             StringBuilder htmlBuild = new StringBuilder();
-            if(!string.IsNullOrEmpty(InputLabel))
+            if (InputType == AZInputType.checkbox)
+            {
+                htmlBuild.Append("<div class=\"icheck-primary d-inline\">");
+            }
+            if (!string.IsNullOrEmpty(InputLabel)&& InputType != AZInputType.checkbox)
                 htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
             htmlBuild.AppendFormat("<input type=\"{0}\" class=\"{1}\" id=\"{2}\" placeholder=\"{3}\" {4} {5} name=\"{6}\">",InputType,InputClass,InputId,InputPlaceholder, Attr, InputValue.IsNullOrEmpty()?"": string.Format("value =\"{0}\"", InputValue), InputName);
+
+            if (InputType == AZInputType.checkbox)
+            {
+                htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
+                htmlBuild.Append("</div>");
+            }
             output.Content.SetHtmlContent(htmlBuild.ToString());
         }
     }

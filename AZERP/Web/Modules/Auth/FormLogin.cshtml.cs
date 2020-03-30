@@ -1,10 +1,10 @@
-﻿using AZ.Web.Entities;
+﻿using AZERP.Data.Entities;
 using AZWeb.Common.Module;
 using AZWeb.Common.Module.View;
 using AZWeb.Extensions;
 using Microsoft.AspNetCore.Http;
 
-namespace AZ.Web.Modules.Auth
+namespace AZERP.Web.Modules.Auth
 {
     public class FormLogin:PageModule
     {

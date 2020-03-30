@@ -14,7 +14,7 @@ namespace AZWeb.TagHelpers.Html
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             var content = await output.GetChildContentAsync();
-            this.HtmlResult.CSS.Add(new Configs.ContentTag() { Code = content.GetContent(), CDN = this.CDN, Link = this.Link });
+            this.Html.CSS.Add(new Configs.ContentTag() { Code = content.GetContent(), CDN = this.CDN, Link = this.Link });
             output.SuppressOutput();
         }
     }

@@ -16,6 +16,14 @@ namespace AZCore.Extensions
         {
             return type.GetAttributes<TAttribute>().FirstOrDefault();
         }
+        public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this MemberInfo type)
+        {
+            return type.GetCustomAttributes(true).OfType<TAttribute>();
+        }
+        public static TAttribute GetAttribute<TAttribute>(this MemberInfo type)
+        {
+            return type.GetAttributes<TAttribute>().FirstOrDefault();
+        }
         public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this MethodInfo type)
         {
             return type.GetCustomAttributes(true).OfType<TAttribute>();
@@ -51,7 +59,13 @@ namespace AZCore.Extensions
         public static IEnumerable<Type> GetTypeFromInterface<TInterface>(this Assembly ass)
         {
             var typeInterface = typeof(TInterface);
-            return ass.GetTypes().Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces().Any(i => i == typeInterface));
+            return ass.GetTypes().Where(t => t.IsTypeFromInterface<TInterface>());
+        }
+
+        public static bool IsTypeFromInterface<TInterface>(this Type type)
+        {
+            var typeInterface = typeof(TInterface);
+            return type.IsClass && !type.IsAbstract && type.GetInterfaces().Any(i => i == typeInterface);
         }
         /// <summary>
         /// Khởi tạo một đối tượng theo Type

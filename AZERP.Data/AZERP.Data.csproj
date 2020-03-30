@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\Inputs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AZCore\AZCore.csproj" />
+    <ProjectReference Include="..\AZWeb\AZWeb.csproj" />
+  </ItemGroup>
+
+</Project>

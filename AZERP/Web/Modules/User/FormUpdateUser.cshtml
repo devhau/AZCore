@@ -1,5 +1,4 @@
 ﻿@model FormUpdateUser
-@using AZ.Web.Entities
 <div class="az-update row" id="FormUpdateUser" role="form">
     <div class="form-group col-md-6">
         <az-model-input model="Model.Data" func="(item)=>((UserModel)item).FullName" label="Họ tên" />
@@ -9,10 +8,11 @@
     </div>
     <div class="form-group col-md-6">
         <az-model-input model="Model.Data" func="(item)=>((UserModel)item).PhoneNumber" label="Số điện thoại" />
+    </div><div class="col-md-6">
+    <div class="form-group">
+        <az-status-select model="Model.Data" func="(item)=>((UserModel)item).Status" label="Trạng thái" />
     </div>
-    <div class="form-group col-md-6">
-        <az-model-input model="Model.Data" func="(item)=>((UserModel)item).Status" type="checkbox" label="Trạng thái" />
-    </div> 
+</div>
     <div class="form-group col-md-6">
         <az-model-input model="Model.Data" func="(item)=>((UserModel)item).Password" type="password" label="Mật khẩu" />
     </div>

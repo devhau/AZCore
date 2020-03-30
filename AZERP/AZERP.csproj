@@ -3,15 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>AZERP</AssemblyName>
-    <RootNamespace>AZ</RootNamespace>
+    <RootNamespace>AZERP</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AZERP.Data\AZERP.Data.csproj" />
     <ProjectReference Include="..\AZWeb\AZWeb.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Web\Components\Inputs\" />
   </ItemGroup>
 
   <ItemGroup>

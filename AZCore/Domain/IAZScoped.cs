@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AZCore.Domain
 {
-    public interface IAZScoped
+    public interface IAZScoped: IAZDomain
     {
     }
 }

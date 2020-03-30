@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Data;
 using System.IO;
+using System.Linq;
 
 namespace AZWeb.Extensions
 {
@@ -48,17 +49,20 @@ namespace AZWeb.Extensions
             services.AddHttpContextAccessor();
             services.AddSingleton<IPagesConfig>(PagesConfig);
             services.AddSingleton<IStartup>(startup);
-            foreach (var item in startup.GetType().GetTypeFromInterface<IAZTransient>()) {
-                services.AddTransient(item);
+            foreach (var item in AppDomain.CurrentDomain.GetAssemblies().SelectMany(p => p.GetTypeFromInterface<IAZDomain>())) {
+                if (item.IsTypeFromInterface<IAZTransient>()) {
+                    services.AddTransient(item);
+                }
+                if (item.IsTypeFromInterface<IAZSingleton>())
+                {
+                    services.AddSingleton(item);
+                }
+                if (item.IsTypeFromInterface<IAZScoped>())
+                {
+                    services.AddScoped(item);
+                }
             }
-            foreach (var item in startup.GetType().GetTypeFromInterface<IAZSingleton>())
-            {
-                services.AddSingleton(item);
-            }
-            foreach (var item in startup.GetType().GetTypeFromInterface<IAZScoped>())
-            {
-                services.AddScoped(item);
-            }
+            
         }
         public static IObject CreateInstance<IObject>(this Type obj) where IObject:class => Activator.CreateInstance(obj) as IObject;
         public static IObject CreateInstance<IObject>(this string strObj,string strAssembly) where IObject : class => Activator.CreateInstance(strAssembly,strObj) as IObject;

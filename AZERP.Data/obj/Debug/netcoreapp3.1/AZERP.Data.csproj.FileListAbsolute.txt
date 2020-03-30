@@ -1,0 +1,16 @@
+E:\Projects\AZCore\AZERP.Data\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+E:\Projects\AZCore\AZERP.Data\bin\Debug\netcoreapp3.1\AZERP.Data.deps.json
+E:\Projects\AZCore\AZERP.Data\bin\Debug\netcoreapp3.1\AZERP.Data.dll
+E:\Projects\AZCore\AZERP.Data\bin\Debug\netcoreapp3.1\AZERP.Data.pdb
+E:\Projects\AZCore\AZERP.Data\bin\Debug\netcoreapp3.1\AZCore.dll
+E:\Projects\AZCore\AZERP.Data\bin\Debug\netcoreapp3.1\AZWeb.dll
+E:\Projects\AZCore\AZERP.Data\bin\Debug\netcoreapp3.1\Aspose.Cells.dll
+E:\Projects\AZCore\AZERP.Data\bin\Debug\netcoreapp3.1\AZCore.pdb
+E:\Projects\AZCore\AZERP.Data\bin\Debug\netcoreapp3.1\AZWeb.pdb
+E:\Projects\AZCore\AZERP.Data\obj\Debug\netcoreapp3.1\AZERP.Data.csprojAssemblyReference.cache
+E:\Projects\AZCore\AZERP.Data\obj\Debug\netcoreapp3.1\AZERP.Data.csproj.CoreCompileInputs.cache
+E:\Projects\AZCore\AZERP.Data\obj\Debug\netcoreapp3.1\AZERP.Data.AssemblyInfoInputs.cache
+E:\Projects\AZCore\AZERP.Data\obj\Debug\netcoreapp3.1\AZERP.Data.AssemblyInfo.cs
+E:\Projects\AZCore\AZERP.Data\obj\Debug\netcoreapp3.1\AZERP.Data.csproj.CopyComplete
+E:\Projects\AZCore\AZERP.Data\obj\Debug\netcoreapp3.1\AZERP.Data.dll
+E:\Projects\AZCore\AZERP.Data\obj\Debug\netcoreapp3.1\AZERP.Data.pdb

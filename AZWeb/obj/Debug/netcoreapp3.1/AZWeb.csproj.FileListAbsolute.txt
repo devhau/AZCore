@@ -3,6 +3,7 @@ E:\Projects\AZCore\AZWeb\bin\Debug\netcoreapp3.1\AZWeb.deps.json
 E:\Projects\AZCore\AZWeb\bin\Debug\netcoreapp3.1\AZWeb.dll
 E:\Projects\AZCore\AZWeb\bin\Debug\netcoreapp3.1\AZWeb.pdb
 E:\Projects\AZCore\AZWeb\bin\Debug\netcoreapp3.1\AZCore.dll
+E:\Projects\AZCore\AZWeb\bin\Debug\netcoreapp3.1\Aspose.Cells.dll
 E:\Projects\AZCore\AZWeb\bin\Debug\netcoreapp3.1\AZCore.pdb
 E:\Projects\AZCore\AZWeb\obj\Debug\netcoreapp3.1\AZWeb.csprojAssemblyReference.cache
 E:\Projects\AZCore\AZWeb\obj\Debug\netcoreapp3.1\AZWeb.csproj.CoreCompileInputs.cache
@@ -14,4 +15,3 @@ E:\Projects\AZCore\AZWeb\obj\Debug\netcoreapp3.1\staticwebassets\AZWeb.StaticWeb
 E:\Projects\AZCore\AZWeb\obj\Debug\netcoreapp3.1\staticwebassets\AZWeb.StaticWebAssets.xml
 E:\Projects\AZCore\AZWeb\obj\Debug\netcoreapp3.1\AZWeb.dll
 E:\Projects\AZCore\AZWeb\obj\Debug\netcoreapp3.1\AZWeb.pdb
-E:\Projects\AZCore\AZWeb\bin\Debug\netcoreapp3.1\Aspose.Cells.dll

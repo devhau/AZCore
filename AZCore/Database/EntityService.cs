@@ -11,38 +11,37 @@ using System.Threading.Tasks;
 
 namespace AZCore.Database
 {
-    public class EntityService
+    public interface IEntityService 
+    { }
+    public class EntityService: IEntityService
     {
         protected IDbConnection Connection;
         public EntityService(IDbConnection _connection)
         {
             Connection = _connection;
         }
-    }
-    public class EntityService<TService> : EntityService where TService : EntityService
-    {
         protected int? commandTimeout = null;
         protected IDbTransaction transaction = null;
-        public void BeginTransaction() {
-            this.transaction =  this.Connection.BeginTransaction();
+        public void BeginTransaction()
+        {
+            this.transaction = this.Connection.BeginTransaction();
         }
-        public void Commit() {
-            if (this.transaction!=null) { this.transaction.Commit(); this.transaction = null; }
-            
+        public void Commit()
+        {
+            if (this.transaction != null) { this.transaction.Commit(); this.transaction = null; }
+
         }
         public void Rollback()
         {
             if (this.transaction != null) { this.transaction.Rollback(); this.transaction = null; }
         }
-        public EntityService(IDbConnection _connection) : base(_connection)
-        {
-        }
         public IDataReader ExecuteReader(SQLResult rs)
         {
             return ExecuteReader(rs.SQL, rs.Param);
         }
-        protected IDataReader ExecuteReader(string sql,object param=null, CommandType? commandType = null) {
-            return this.Connection.ExecuteReader(sql,param, this.transaction, commandTimeout, commandType);
+        protected IDataReader ExecuteReader(string sql, object param = null, CommandType? commandType = null)
+        {
+            return this.Connection.ExecuteReader(sql, param, this.transaction, commandTimeout, commandType);
         }
         public int Execute(SQLResult rs)
         {
@@ -69,8 +68,8 @@ namespace AZCore.Database
             return await this.Connection.ExecuteAsync(sql, param, this.transaction, commandTimeout, commandType);
         }
     }
-    public partial class EntityService<TService, TModel> : EntityService<TService>
-        where TService : EntityService<TService>
+    public partial class EntityService<TService, TModel> : EntityService
+        where TService : EntityService
         where TModel : IEntityModel
     {
         protected BuildSQL buildSQL;

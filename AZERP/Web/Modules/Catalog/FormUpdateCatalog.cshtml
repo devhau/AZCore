@@ -1,0 +1,27 @@
+﻿@model FormUpdateCatalog
+    <div class="az-update row" id="FormUpdateCatalog" role="form">
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-model-input model="Model.Data" func="(item)=>((CatalogModel)item).Code" label="Mã code" len-code="10" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-catalog-select model="Model.Data" func="(item)=>((CatalogModel)item).ParentId" label="Nhóm cha" />
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-model-input model="Model.Data" func="(item)=>((CatalogModel)item).Name" label="Tên nhóm" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-status-select model="Model.Data" func="(item)=>((CatalogModel)item).Status" label="Trạng thái" />
+            </div>
+        </div>
+    </div>
+<az-script>
+
+</az-script>

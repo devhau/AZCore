@@ -30,16 +30,16 @@ namespace AZWeb.TagHelpers.Html
             htmlBuilder.Append("<head>");
             htmlBuilder.Append("<meta charset=\"utf-8\">");
             htmlBuilder.Append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
-            htmlBuilder.Append($"<title>{this.HtmlResult.Title}</title>");
+            htmlBuilder.Append($"<title>{this.Html.Title}</title>");
             //<meta name=\"description\" content=\"{this.HtmlResult.Title}\">
-            htmlBuilder.Append($"<meta name=\"description\" content=\"{this.HtmlResult.Description}\">");
-            htmlBuilder.Append($"<meta name=\"keywords\" content=\"{this.HtmlResult.Keywords}\">");
-            htmlBuilder.Append($"<meta name=\"author\" content=\"{this.HtmlResult.Author}\">");
+            htmlBuilder.Append($"<meta name=\"description\" content=\"{this.Html.Description}\">");
+            htmlBuilder.Append($"<meta name=\"keywords\" content=\"{this.Html.Keywords}\">");
+            htmlBuilder.Append($"<meta name=\"author\" content=\"{this.Html.Author}\">");
             foreach (var item in headHtml)
             {
                 htmlBuilder.Append(item.InnerHtml.ToString());
             }
-            foreach (var item in this.HtmlResult.CSS)
+            foreach (var item in this.Html.CSS)
             {
                 if (!string.IsNullOrEmpty(item.Code))
                 {
@@ -75,7 +75,7 @@ namespace AZWeb.TagHelpers.Html
                 htmlBuilder.Append(item.InnerHtml.ToString());
             }
             var jsCompressor = new JavaScriptCompressor();
-            foreach (var item in this.HtmlResult.JS)
+            foreach (var item in this.Html.JS)
             {
                 var scriptEl = new TagBuilder("script");
                 scriptEl.Attributes.Add("type", "text/javascript");

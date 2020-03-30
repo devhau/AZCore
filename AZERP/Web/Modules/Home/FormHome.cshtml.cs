@@ -3,7 +3,7 @@ using AZWeb.Common.Module.Attr;
 using AZWeb.Common.Module.View;
 using Microsoft.AspNetCore.Http;
 
-namespace AZ.Web.Modules.Home
+namespace AZERP.Web.Modules.Home
 {
     [Auth]
     public class FormHome:PageModule

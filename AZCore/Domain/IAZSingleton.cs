@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AZCore.Domain
 {
-    public interface IAZSingleton
+    public interface IAZSingleton: IAZDomain
     {
     }
 }

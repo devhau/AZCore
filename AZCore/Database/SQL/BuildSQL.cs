@@ -29,16 +29,17 @@ namespace AZCore.Database.SQL
             this.Fields = this.typeEntity.GetProperties().Where((p) => p.GetAttribute<FieldAttribute>() != null).Select((p) =>
             {
                 var field = p.GetAttribute<FieldAttribute>();
-                if (string.IsNullOrEmpty(field.FieldName) || string.IsNullOrWhiteSpace(field.FieldName))
+                if (string.IsNullOrEmpty(field.Name) || string.IsNullOrWhiteSpace(field.Name))
                 {
-                    field.FieldName = p.Name;
+                    field.Name = p.Name;
                 }
                 if (field.FieldType == null)
                 {
                     field.FieldType = TypeConvertor.ToSqlDbType(LookupDbType(p.PropertyType, "n/a", false, out ITypeHandler handler));
                 }
-
-                field.FieldName = field.FieldName;
+                if (field.Length > 2000|| field.FieldType == System.Data.SqlDbType.VarChar && field.Length == 0) {
+                    field.FieldType = System.Data.SqlDbType.Text;
+                }
 
                 return field;
             });
@@ -58,7 +59,7 @@ namespace AZCore.Database.SQL
             {
                 if (item.FieldType == System.Data.SqlDbType.VarChar)
                 {
-                    return "(10000)";
+                    return "(1000)";
                 }
                 else if (item.FieldType == System.Data.SqlDbType.Char)
                     return "(255)";
@@ -91,9 +92,9 @@ namespace AZCore.Database.SQL
 
             foreach (var item in this.Fields.Where(p => p.IsAutoIncrement == false))
             {
-                SQLField.AppendFormat("{1}`{0}`", item.FieldName, prex);
-                SQLValue.AppendFormat("{1}@{0}", item.FieldName, prex);
-                parameter.Add("@" + item.FieldName, this.GetValueByName(item.FieldName, model));
+                SQLField.AppendFormat("{1}`{0}`", item.Name, prex);
+                SQLValue.AppendFormat("{1}@{0}", item.Name, prex);
+                parameter.Add("@" + item.Name, this.GetValueByName(item.Name, model));
                 prex = ",";
             }
             SQL.AppendFormat("INSERT INTO `{0}` ({1}) VALUES({2});", this.TableName, SQLField.ToString(), SQLValue.ToString());
@@ -111,8 +112,8 @@ namespace AZCore.Database.SQL
             DynamicParameters parameter = new DynamicParameters();
             foreach (var item in this.Fields.Where(p => p.IsAutoIncrement == false && p.IsKey == false))
             {
-                SQL.AppendFormat("{1}`{0}`=@{0}", item.FieldName, prex);
-                parameter.Add("@" + item.FieldName, this.GetValueByName(item.FieldName, model));
+                SQL.AppendFormat("{1}`{0}`=@{0}", item.Name, prex);
+                parameter.Add("@" + item.Name, this.GetValueByName(item.Name, model));
                 prex = ",";
             }
             SQL.Append(" WHERE  ");
@@ -121,8 +122,8 @@ namespace AZCore.Database.SQL
             {
                 foreach (var item in this.Fields.Where(p => p.IsAutoIncrement))
                 {
-                    SQL.AppendFormat("{1}`{0}`=@{0}", item.FieldName, prex);
-                    parameter.Add("@" + item.FieldName, this.GetValueByName(item.FieldName, model));
+                    SQL.AppendFormat("{1}`{0}`=@{0}", item.Name, prex);
+                    parameter.Add("@" + item.Name, this.GetValueByName(item.Name, model));
                     prex = " AND ";
                 }
             }
@@ -130,8 +131,8 @@ namespace AZCore.Database.SQL
             {
                 foreach (var item in this.FieldKeys)
                 {
-                    SQL.AppendFormat("{1}`{0}`=@{0}", item.FieldName, prex);
-                    parameter.Add("@" + item.FieldName, this.GetValueByName(item.FieldName, model));
+                    SQL.AppendFormat("{1}`{0}`=@{0}", item.Name, prex);
+                    parameter.Add("@" + item.Name, this.GetValueByName(item.Name, model));
                     prex = " AND ";
                 }
             }
@@ -151,8 +152,8 @@ namespace AZCore.Database.SQL
             SQL.Append(" WHERE ");
             foreach (var item in this.FieldKeys)
             {
-                SQL.AppendFormat("{1}`{0}`=@{0}", item.FieldName, prex);
-                parameter.Add("@" + item.FieldName, this.GetValueByName(item.FieldName, model));
+                SQL.AppendFormat("{1}`{0}`=@{0}", item.Name, prex);
+                parameter.Add("@" + item.Name, this.GetValueByName(item.Name, model));
                 prex = " AND ";
             }
             return new SQLResult()
@@ -167,23 +168,23 @@ namespace AZCore.Database.SQL
             SQL.AppendFormat("CREATE TABLE IF NOT EXISTS `{0}` (", this.TableName);
             foreach (var item in this.FieldAutoIncrements)
             {
-                SQL.AppendFormat("`{0}` {1} {2} {3}  {4} {5},", item.FieldName, item.FieldType, GetLengthItem(item), item.IsNull == false ? "NOT NULL" : "", item.IsKey ? " " : "  ", item.IsAutoIncrement ? "AUTO_INCREMENT" : "");
+                SQL.AppendFormat("`{0}` {1} {2} {3}  {4} {5},", item.Name, item.FieldType, GetLengthItem(item), item.IsNull == false ? "NOT NULL" : "", item.IsKey ? " " : "  ", item.IsAutoIncrement ? "AUTO_INCREMENT" : "");
             }
             foreach (var item in this.FieldKeys.Where(p => p.IsAutoIncrement == false))
             {
-                SQL.AppendFormat("`{0}` {1} {2} {3} ,", item.FieldName, item.FieldType, GetLengthItem(item), item.IsNull == false ? "NOT NULL" : "");
+                SQL.AppendFormat("`{0}` {1} {2} {3} ,", item.Name, item.FieldType, GetLengthItem(item), item.IsNull == false ? "NOT NULL" : "");
             }
 
             foreach (var item in this.Fields.Where(p => p.IsAutoIncrement == false && p.IsKey == false))
             {
-                SQL.AppendFormat("`{0}` {1} {2} {3}  ,", item.FieldName, item.FieldType, GetLengthItem(item), item.IsNull == false ? "NOT NULL" : "");
+                SQL.AppendFormat("`{0}` {1} {2} {3}  ,", item.Name, item.FieldType, GetLengthItem(item), item.IsNull == false ? "NOT NULL" : "");
             }
 
             SQL.Append("PRIMARY KEY (");
             string prex = "";
             foreach (var item in this.FieldKeys)
             {
-                SQL.AppendFormat("{1}`{0}`", item.FieldName, prex);
+                SQL.AppendFormat("{1}`{0}`", item.Name, prex);
                 prex = ",";
             }
             SQL.AppendFormat(" ))");

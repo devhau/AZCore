@@ -1,11 +1,11 @@
-﻿using AZ.Web.Entities;
-using AZCore.Extensions;
+﻿using AZCore.Extensions;
+using AZERP.Data.Entities;
 using AZWeb.Common.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Reflection;
 
-namespace AZ.Web.Modules.User
+namespace AZERP.Web.Modules.User
 {
     public class FormUpdateUser : UpdateModule<UserService, UserModel>
     {

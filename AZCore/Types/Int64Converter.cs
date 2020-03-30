@@ -14,7 +14,7 @@ namespace AZCore.Types
                 case AZTypeCode.Int16:                
                 case AZTypeCode.Int32:                
                 case AZTypeCode.Decimal:
-                case AZTypeCode.Byte: return Convert.ToInt64(value);                
+                case AZTypeCode.Byte: return "".Equals(value)?0:Convert.ToInt64(value);                
                 case AZTypeCode.Int64: return value;
                 case AZTypeCode.DBNull: return 0;
             }

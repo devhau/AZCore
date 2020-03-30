@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AZ.Web.Themes.Admin
+namespace AZERP.Web.Themes.Admin
 {
     public class LayoutTheme: ThemeBase
     {

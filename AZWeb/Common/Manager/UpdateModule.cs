@@ -29,6 +29,12 @@ namespace AZWeb.Common.Manager
             BindTableColumn();
             base.BeforeRequest();
         }
+        protected override void IntData()
+        {
+
+            this.IsTheme = false;
+            base.IntData();
+        }
         public UpdateModule(IHttpContextAccessor httpContext) : base(httpContext)
         {
             Service = this.httpContext.GetService<TService>();

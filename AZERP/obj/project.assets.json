@@ -2129,6 +2129,23 @@
           "bin/placeholder/AZCore.dll": {}
         }
       },
+      "AZERP.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "AZCore": "1.0.0",
+          "AZWeb": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/AZERP.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AZERP.Data.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "AZWeb/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -7096,6 +7113,11 @@
       "path": "../AZCore/AZCore.csproj",
       "msbuildProject": "../AZCore/AZCore.csproj"
     },
+    "AZERP.Data/1.0.0": {
+      "type": "project",
+      "path": "../AZERP.Data/AZERP.Data.csproj",
+      "msbuildProject": "../AZERP.Data/AZERP.Data.csproj"
+    },
     "AZWeb/1.0.0": {
       "type": "project",
       "path": "../AZWeb/AZWeb.csproj",
@@ -7104,6 +7126,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "AZERP.Data >= 1.0.0",
       "AZWeb >= 1.0.0"
     ]
   },
@@ -7137,6 +7160,9 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
+            "E:\\Projects\\AZCore\\AZERP.Data\\AZERP.Data.csproj": {
+              "projectPath": "E:\\Projects\\AZCore\\AZERP.Data\\AZERP.Data.csproj"
+            },
             "E:\\Projects\\AZCore\\AZWeb\\AZWeb.csproj": {
               "projectPath": "E:\\Projects\\AZCore\\AZWeb\\AZWeb.csproj"
             }

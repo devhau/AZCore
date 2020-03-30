@@ -12,7 +12,10 @@ namespace AZWeb.Common
         public string TagId { get; private set; }
         [ViewContext]
         public ViewContext ViewContext { get; set; }
-        public IHtmlView HtmlResult { get => this.ViewContext.HttpContext.GetContetModule(); }
+        public IHtmlView Html { get => this.ViewContext.HttpContext.GetContetModule(); }
+        public void AddJS(string js) {
+            Html.JS.Add(new Configs.ContentTag() {Code=js });
+        }
         public override void Init(TagHelperContext context)
         {
             this.TagId = string.Format("az{0}", Guid.NewGuid().ToString().Replace("-", ""));

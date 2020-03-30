@@ -1,9 +1,9 @@
-﻿using AZ.Web.Entities;
+﻿using AZERP.Data.Entities;
 using AZWeb.Common.Manager;
 using AZWeb.Common.Module.Attr;
 using Microsoft.AspNetCore.Http;
 
-namespace AZ.Web.Modules.Candidate
+namespace AZERP.Web.Modules.Candidate
 {
     [TableColumn(Title = "Họ Tên", FieldName = "FullName", Width = "150px")]
     [TableColumn(Title = "Email", FieldName = "Email", Width = "100px")]

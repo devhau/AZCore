@@ -10,8 +10,8 @@ namespace AZCore.Database.Attr
     {
         public bool IsAutoIncrement { get; set; } = false;
         public bool IsKey { get; set; } = false;
-        public string FieldName { get; set; }
-        public string FieldDisplay { get; set; }
+        public string Name { get; set; }
+        public string Display { get; set; }
         public SqlDbType? FieldType { get; set; }
         public bool IsNull { get; set; } = true;
         public int Length { get; set; } = 0;

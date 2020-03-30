@@ -1,12 +1,11 @@
-﻿using AZ.Web.Entities;
-using AZCore.Utility;
+﻿using AZERP.Data.Entities;
 using AZWeb.Common.Module;
 using AZWeb.Common.Module.View;
 using AZWeb.Extensions;
 using Microsoft.AspNetCore.Http;
 using System;
 
-namespace AZ.Web.Modules.Auth
+namespace AZERP.Web.Modules.Auth
 {
     public class FormRegister : PageModule
     {

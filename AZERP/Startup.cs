@@ -1,14 +1,13 @@
-using AZ.Web.Entities;
+using AZERP.Data.Entities;
 using AZWeb.Extensions;
 using AZWeb.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace AZ
+namespace AZERP
 {
     public class Startup: AZWeb.Utilities.IStartup
     {
@@ -18,7 +17,7 @@ namespace AZ
             Configuration = configuration;
 
             AZCoreWeb.env = env;
-            this.AssemblyName = "AZ";
+            this.AssemblyName = "AZERP";
         }
 
         public IConfiguration Configuration { get; }
@@ -26,7 +25,7 @@ namespace AZ
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMySQL("server=127.0.0.1;database=viec1.com;uid=root;pwd=;CharSet=utf8;");
+            services.AddMySQL("server=127.0.0.1;database=azcore;uid=root;pwd=;CharSet=utf8;");
             services.AddAZCore(this);
             
         }

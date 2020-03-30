@@ -7,11 +7,11 @@ namespace AZCore.Database
 {
     public enum EntityStatus:Int16
     {
-        [Field(FieldDisplay = "Chưa kịch hoạt")]
+        [Field(Display = "Chưa kịch hoạt")]
         NoActive = 0,
-        [Field(FieldDisplay = "Kịch hoạt")]
+        [Field(Display = "Kịch hoạt")]
         Active=1,
-        [Field(FieldDisplay = "Bị khóa")]
+        [Field(Display = "Bị khóa")]
         Block = 2,
     }
 }

@@ -2,7 +2,7 @@
 using AZWeb.Common.Module.View;
 using Microsoft.AspNetCore.Http;
 
-namespace AZ.Web.Errors
+namespace AZERP.Web.Errors
 {
     public class NotFound : PageModule
     {
