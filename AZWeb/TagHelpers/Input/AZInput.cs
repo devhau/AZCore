@@ -25,6 +25,8 @@ namespace AZWeb.TagHelpers.Input
                         this.InputId = string.Format("Input{0}", this.InputName);
                     if (Model != null)
                     {
+                        if(this.LenCode>0)
+                            Attr += " disabled ";
                         this.InputValue = this.Func.Compile()(Model);
 
                         if(memberExpression.Type == typeof(bool)|| memberExpression.Type == typeof(bool?))
@@ -45,6 +47,7 @@ namespace AZWeb.TagHelpers.Input
             {
                 this.InputValue = true;
             }
+            
             base.Process(context, output);
         }
     }
@@ -74,7 +77,11 @@ namespace AZWeb.TagHelpers.Input
             if (LenCode > 0 ) {
                 if(InputValue == null)
                     InputValue = Guid.NewGuid().ToString();
-                Attr += "disabled";
+                if (this.Attr==null || !this.Attr.Contains("disabled")) {
+                    //readonly
+
+                    Attr += " readonly ";
+                }
             }
             if (InputType == AZInputType.checkbox) {
                 this.InputClass = "";

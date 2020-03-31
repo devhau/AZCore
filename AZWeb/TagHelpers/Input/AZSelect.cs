@@ -42,26 +42,7 @@ namespace AZWeb.TagHelpers.Input
                 }
             }
             if (DataType != null) {
-                this.Data = new System.Collections.Generic.List<AZItemValue>();
-                if (DataType.IsEnum)
-                {
-                    foreach (var item in Enum.GetValues(DataType)) {
-                        this.Data.Add(item.GetItemValueByEnum());
-                    }       
-                }
-                else if (DataType.IsTypeFromInterface<IEntityService>()) {
-                  var service=  this.ViewContext.HttpContext.RequestServices.GetService(DataType) as IEntityService;
-                  var fnGetAll=  DataType.GetMethod("GetAll");
-                    if(fnGetAll!=null){
-                        var rsData= (IList)fnGetAll.Invoke(service,null);
-                        foreach (var item in rsData)
-                        {
-                            this.Data.Add(item.GetItemValue()) ;
-                        }
-                    }
-
-
-                }
+                this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext,"Chọn "+this.InputLabel);
             }
             base.Process(context, output);
         }

@@ -46,10 +46,33 @@
         $this.ShowFormUpdate($Id);       
     });
     $(this).find(".az-btn-delete").on("click", function () {
+
         var $Id = $(this).parents("tr").attr("data-item-id");
-        var url = location.pathname + "?h=delete";
-        if ($Id) url = url + "&id=" + $Id;
-        $this.DoPost(url, {}, function (item) { $this.ReLoad();});
+        var popup = new AZPopup();
+        popup.ClearButton();
+        popup.IsForm = true;
+        popup.AddButton({
+            value: "Có",
+            icon: "far fa-check-circle",
+            cls: "btn btn-success az-btn",
+            func: function (elem, scope) {
+                var url = location.pathname + "?h=delete";
+                if ($Id) url = url + "&id=" + $Id;
+                $this.DoPost(url, {}, function (item) { $this.ReLoad(); scope.ClosePopup();});
+            }
+        });
+        popup.AddButton({
+            value: "Không",
+            icon: "far fa-times-circle",
+            cls: "btn btn-danger az-btn",
+            func: function (elem, scope) {
+                scope.ClosePopup();
+            }
+        });
+        popup.setHtml("Bạn có muốn xóa bản ghi này không?");
+        popup.setTitle("Thông báo");
+        popup.ShowPopup();
+       
     });
     $(this).find(".az-btn-export").on("click", function () {
         alert("export");

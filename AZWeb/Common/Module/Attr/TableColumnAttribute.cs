@@ -12,6 +12,7 @@ namespace AZWeb.Common.Module.Attr
         public string FieldName { get; set; }
         public string Width { get; set; }
         public string FormatString { get; set; }
-       
+        public Type DataType { get; set; }
+        public bool IsQRCode { get; set; }
     }
 }

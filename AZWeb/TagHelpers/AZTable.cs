@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace AZWeb.TagHelpers
@@ -25,6 +26,7 @@ namespace AZWeb.TagHelpers
         public List<TableColumnAttribute> Columns { get; set; }
         [HtmlAttributeName("data")]
         public object Data { get; set; }
+        private Dictionary<Type, List<AZItemValue>> DataDic { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "";
@@ -38,6 +40,7 @@ namespace AZWeb.TagHelpers
         }
         private void RenderHeader(StringBuilder htmlTable)
         {
+            this.DataDic = new Dictionary<Type, List<AZItemValue>>();
             htmlTable.Append("<thead>");
             htmlTable.Append("<tr>");
             if (this.IsIndex) {
@@ -51,6 +54,9 @@ namespace AZWeb.TagHelpers
                     htmlTable.Append("<th class=\"sorting_asc\" tabindex=\"0\" rowspan =\"1\" colspan =\"1\" aria-sort=\"ascending\" width=\"" + item.Width + "\">");
                     htmlTable.Append(item.Title);
                     htmlTable.Append("</th>");
+                    if (item.DataType != null&& !this.DataDic.ContainsKey(item.DataType)) {
+                        this.DataDic[item.DataType] = item.DataType.GetListDataByDataType(this.ViewContext.HttpContext," ");
+                    }
                 }
             }
 
@@ -133,11 +139,39 @@ namespace AZWeb.TagHelpers
                         var d = item.GetType();
                         foreach (var col in this.Columns)
                         {
-                            htmlTable.Append("<td >");
-                            if (!string.IsNullOrEmpty(col.FieldName) && d.GetProperty(col.FieldName) != null) {
-                                htmlTable.Append(d.GetProperty(col.FieldName).GetValue(item));
+                            if (!string.IsNullOrEmpty(col.FieldName) && d.GetProperty(col.FieldName) != null)
+                            {
+                                var itemValue = d.GetProperty(col.FieldName).GetValue(item);
+                               
+                                htmlTable.AppendFormat("<td data-{0}=\"{1}\">",col.FieldName,itemValue);
+                                if (col.IsQRCode)
+                                {
+                                    htmlTable.AppendFormat("<i class=\"fas fa-qrcode az-qrcode\" style=\"color: #343a40;font-size: 20px;\" data-qrcode=\"{0}\"></i>", itemValue);
+                                }
+                                else
+                                {
+                                    if (col.DataType != null)
+                                    {
+                                        var itemDic = this.DataDic[col.DataType].Where(p => p.ItemValue.Equals(itemValue)).FirstOrDefault();
+                                        if (itemDic != null)
+                                        {
+                                            htmlTable.Append(itemDic.ItemDisplay);
+                                        }
+                                        else
+                                            htmlTable.Append(itemValue);
+                                    }
+                                    else
+                                    {
+                                        htmlTable.Append(itemValue);
+                                    }
+                                }
+                                htmlTable.Append("</td>");
                             }
-                            htmlTable.Append("</td>");
+                            else {
+
+                                htmlTable.Append("<td>");
+                                htmlTable.Append("</td>");
+                            }
                         }
                     }
                     //<i class="fas fa-print"></i>
