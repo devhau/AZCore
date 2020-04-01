@@ -1,6 +1,8 @@
 ﻿using AZCore.Database;
 using AZCore.Extensions;
 using AZWeb.Common;
+using AZWeb.TagHelpers;
+using AZWeb.TagHelpers.Input;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections;
@@ -10,81 +12,47 @@ using System.Text;
 
 namespace AZWeb.TagHelpers.Input
 {
-    public class AZSelect<TModel> : AZSelect
+    public class AZSelect<TModel> : AZSelect,IAZModelInput
     {
         public IEntityModel Model { get; set; }
         public Expression<Func<IEntityModel, object>> Func { get; set; }
-        
-        protected Type DataType { get; set; }
-        public override void Init(TagHelperContext context)
+        protected override void InitData()
         {
-            this.DataType = typeof(TModel);
-            base.Init(context);
-        }
-        public override void Process(TagHelperContext context, TagHelperOutput output)
-        {
-            if (Func != null)
+            var DataType = typeof(TModel);
+            this.BindModel();
+            if (DataType != null)
             {
-                try
-                {
-                    var memberExpression = this.Func.Body as MemberExpression ?? ((UnaryExpression)this.Func.Body).Operand as MemberExpression;
-                    this.InputName = memberExpression.Member.Name;
-                    if (string.IsNullOrEmpty(this.InputId))
-                        this.InputId = string.Format("Input{0}", this.InputName);
-                    if (Model != null)
-                    {
-                        this.InputValue = this.Func.Compile()(Model);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                }
+                this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, "Chọn " + this.InputLabel);
             }
-            if (DataType != null) {
-                this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext,"Chọn "+this.InputLabel);
-            }
-            base.Process(context, output);
+            base.InitData();
         }
+       
+            
     }
     [HtmlTargetElement("az-select")]
-    public class AZSelect: AZTagHelper
+    public class AZSelect: AZInput
     {
-        [HtmlAttributeName("attr")]
-        public string Attr { get; set; }
-        [HtmlAttributeName("class")]
-        public string InputClass { get; set; } = " form-control select2";
-        [HtmlAttributeName("id")]
-        public string InputId { get; set; }
-        [HtmlAttributeName("name")]
-        public string InputName { get; set; }
-        [HtmlAttributeName("label")]
-        public string InputLabel { get; set; }
-        [HtmlAttributeName("placeholder")]
-        public string InputPlaceholder { get; set; }
-        [HtmlAttributeName("value")]
-        public object InputValue { get; set; }
         [HtmlAttributeName("data")]
         public System.Collections.Generic.List<AZItemValue> Data { get; set; }
-        public override void Process(TagHelperContext context, TagHelperOutput output)
+        protected override void InitData()
         {
-            this.InputClass += " " + this.TagId;
-            output.TagName = "";
-            StringBuilder htmlBuild = new StringBuilder();
-            if(!string.IsNullOrEmpty(InputLabel))
+            this.InputClass = "form-control select2";
+        }
+
+        protected override void RenderHtml(StringBuilder htmlBuild)
+        {
+            if (!string.IsNullOrEmpty(InputLabel))
                 htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
-            htmlBuild.AppendFormat("<select class=\"{0}\" name=\"{1}\" {2} {3}>", InputClass, InputName,string.IsNullOrEmpty(InputId)?"":string.Format("id=\"{0}\"", InputId), Attr);
-            foreach (var item in this.Data) {
+            htmlBuild.AppendFormat("<select class=\"{0}\" name=\"{1}\" {2} {3} placeholder=\"{4}\">", InputClass, InputName, string.IsNullOrEmpty(InputId) ? "" : string.Format("id=\"{0}\"", InputId), Attr, InputPlaceholder);
+            foreach (var item in this.Data)
+            {
                 string ItemActive = "";
-                if (item.ItemValue!=null&&item.ItemValue.Equals(this.InputValue)) { ItemActive = " selected=\"selected\""; }
+                if (item.ItemValue != null && item.ItemValue.Equals(this.InputValue)) { ItemActive = " selected=\"selected\""; }
                 htmlBuild.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3} >{2}</option>", item.ItemValue, item.ItemName, item.ItemDisplay, ItemActive);
             }
-                
+
             htmlBuild.Append("</select>");
-            output.Content.SetHtmlContent(htmlBuild.ToString());
             this.AddJS("$(function(){ $('." + this.TagId + "').select2({theme: 'bootstrap4'}); });");
         }
     }
-
-  
 }

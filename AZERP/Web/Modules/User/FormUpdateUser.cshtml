@@ -1,20 +1,21 @@
 ﻿@model FormUpdateUser
 <div class="az-update row" id="FormUpdateUser" role="form">
     <div class="form-group col-md-6">
-        <az-model-input model="Model.Data" func="(item)=>((UserModel)item).FullName" label="Họ tên" />
+        <az-text-model model="Model.Data" func="(item)=>((UserModel)item).FullName" label="Họ tên" />
     </div>
     <div class="form-group col-md-6">
-        <az-model-input model="Model.Data" func="(item)=>((UserModel)item).Email" label="Email" />
+        <az-text-model model="Model.Data" func="(item)=>((UserModel)item).Email" label="Email" />
     </div>
     <div class="form-group col-md-6">
-        <az-model-input model="Model.Data" func="(item)=>((UserModel)item).PhoneNumber" label="Số điện thoại" />
-    </div><div class="col-md-6">
+        <az-text-model  model="Model.Data" func="(item)=>((UserModel)item).PhoneNumber" label="Số điện thoại" />
+    </div>
+    <div class="col-md-6">
     <div class="form-group">
         <az-status-select model="Model.Data" func="(item)=>((UserModel)item).Status" label="Trạng thái" />
     </div>
 </div>
     <div class="form-group col-md-6">
-        <az-model-input model="Model.Data" func="(item)=>((UserModel)item).Password" type="password" label="Mật khẩu" />
+        <az-password-model model="Model.Data" func="(item)=>((UserModel)item).Password" label="Mật khẩu" />
     </div>
 </div>
 <az-script>
