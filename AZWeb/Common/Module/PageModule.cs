@@ -5,6 +5,7 @@ using AZWeb.Extensions;
 using AZWeb.Utilities;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace AZWeb.Common.Module
@@ -98,10 +99,28 @@ namespace AZWeb.Common.Module
             }
             return string.Empty;
         }
+
+        public IView File(Stream file)
+        {
+            return File(file, "download.txt");
+        }
+        public IView File(Stream file, string name) {
+
+            return File(file, name, FileView.Text);
+        }
+        public IView File(Stream file, string name,string contentType) {
+
+            return new FileView() {
+                File = file,
+                Name = name,
+                ContentType = contentType
+            };
+        }
         public override string ToString()
         {
             return RenderHtml();
         }
+
         public virtual void RenderSite() {
             if (string.IsNullOrEmpty(this._view.Redirect))
                 httpContext.Response.WriteAsync(this.Html);

@@ -31,6 +31,7 @@
           "Microsoft.AspNetCore.Routing.Abstractions": "2.2.0",
           "MySql.Data": "8.0.19",
           "YUICompressor.NET": "3.0.0",
+          "Aspose.Cells": "7.0.3.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -1635,6 +1636,9 @@
             "assemblyVersion": "7.0.3.0",
             "fileVersion": "7.0.3.0"
           }
+        },
+        "compile": {
+          "Aspose.Cells.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {

@@ -10,4 +10,4 @@ String.prototype.splice = function (idx, s) {
     return (this.slice(0, idx) + s + this.slice(idx));
 };
 function AZCore() { }
-AZCore.Init = function () { AZHotKey();}
+AZCore.Init = function () {}

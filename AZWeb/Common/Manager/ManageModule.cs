@@ -1,4 +1,5 @@
 ﻿using AZCore.Database;
+using AZCore.Excel;
 using AZCore.Extensions;
 using AZWeb.Common.Module;
 using AZWeb.Common.Module.Attr;
@@ -11,15 +12,16 @@ using System.Linq;
 namespace AZWeb.Common.Manager
 {
     [Auth]
-    public class ManageModule<TService,TModel,TForm> : PageModule
+    public class ManageModule<TService, TModel, TForm> : PageModule
         where TModel : IEntityModel, new()
         where TService : EntityService<TService, TModel>
-        where TForm: UpdateModule<TService,TModel>
+        where TForm : UpdateModule<TService, TModel>
     {
         public List<TModel> Data;
         protected TService Service;
         protected TForm FormUpdate;
         public List<TableColumnAttribute> Columns { get; set; }
+        public AZExcelGrid excelGrid { get;private set;}
         public virtual void BindTableColumn() {
             this.Columns = this.GetType().GetAttributes<TableColumnAttribute>().ToList();
         }
@@ -28,6 +30,7 @@ namespace AZWeb.Common.Manager
             BindTableColumn();
             FormUpdate.BeforeRequest();
             base.BeforeRequest();
+            excelGrid = new AZExcelGridWeb(this.httpContext);
         }
         public override void AfterRequest()
         {
@@ -48,6 +51,13 @@ namespace AZWeb.Common.Manager
         }
         public virtual IView GetUpdate(long? Id) {
             return FormUpdate.Get(Id);
+        }
+        public virtual IView GetDownload()
+        {
+            Data = GetSearchData();
+            excelGrid.SetSheet(this.Title);
+            excelGrid.SetDataForGrid(Data, this.Columns.Cast<IExcelColumn>().ToList());
+            return File(excelGrid.Download(), this.Title.ToUrlSlug()+".xlsx",FileView.ExcelX);
         }
         public virtual IView PostUpdate(long? Id)
         {

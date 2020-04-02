@@ -75,11 +75,14 @@
        
     });
     $(this).find(".az-btn-export").on("click", function () {
-        alert("export");
+        var href = location.href;
+        if (href.indexOf("?") < 0) {
+            href = href + "?";
+        }
+        location.href=href+"&h=download"
     });
     $(this).find(".az-btn-import").on("click", function () {
-
-        alert("import");
+        alert("Đang phát triển!");
     });
     return this;
 }

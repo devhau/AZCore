@@ -24,4 +24,11 @@
     <ProjectReference Include="..\AZCore\AZCore.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Reference Include="Aspose.Cells">
+      <HintPath>..\AZCore\Libs\Aspose.Cells.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

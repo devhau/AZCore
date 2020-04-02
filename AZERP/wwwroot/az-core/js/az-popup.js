@@ -1,10 +1,11 @@
 ﻿function AZPopup() {
+	this.scope = "popup"+ Math.ceil(Math.random() * 10)
 	this.template = '<div class="az-modal modal fade show"  style="display: block;" aria-modal="true">\
 						<div class="modal-dialog">\
 							<div class="modal-content">\
 								<div class="modal-header">\
 									<h4 class="modal-title"></h4>\
-									<button type="button" class="close az-btn-close" data-dismiss="modal" aria-label="Close">\
+									<button type="button" class="close az-btn-close" data-dismiss="modal" aria-label="Close" data-hot-key="esc">\
 										<span aria-hidden="true">×</span>\
 									</button>\
 								</div>\

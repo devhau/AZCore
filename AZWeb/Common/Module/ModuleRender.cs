@@ -184,10 +184,21 @@ namespace AZWeb.Common.Module
             ModuleCurrent.AfterRequest();
 
             #endregion
+            #region --- Check Download File && Download file ---
+            if (rsFN is FileView) {
+                var fileView = rsFN.As<FileView>();
+                var response = httpContext.Response;
+                response.Clear();
+                response.ContentType = fileView.ContentType;
+                response.Headers["Content-Disposition"] = "attachment; filename=" + fileView.Name + ";";
+                fileView.File.CopyToAsync(response.Body);
+                response.Body.Flush();
+                return RenderError.OK;
+            }
+            #endregion
+                #region --- Get Theme && Process Theme ---
 
-            #region --- Get Theme && Process Theme ---
-
-            if (ModuleCurrent.IsTheme & !IsAjax)
+                if (ModuleCurrent.IsTheme & !IsAjax)
             {
                 string typeThemeString = string.Format("{0}.Themes.{1}.{2}", AzWebAssembly, PageConfigs.Theme, ModuleCurrent.LayoutTheme);
                 var typeTheme = this.GetType(typeThemeString);
