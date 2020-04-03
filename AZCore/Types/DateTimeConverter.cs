@@ -20,7 +20,7 @@ namespace AZCore.Types
         {
             switch (typeCode)
             {
-                case AZTypeCode.String: return value.ToString().Trim().IsNull() ? (DateTime?)null : Convert.ToDateTime(value, CultureInfo.GetCultureInfo("vi-VN"));
+                case AZTypeCode.String: return value.ToString().Trim().IsNullOrEmpty() ? (DateTime?)null : Convert.ToDateTime(value, CultureInfo.GetCultureInfo("vi-VN"));
                 case AZTypeCode.DateTime: return value;                
                 case AZTypeCode.DBNull: return null;
             }

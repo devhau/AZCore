@@ -1,14 +1,23 @@
 ﻿using AZERP.Data.Entities;
+using AZERP.Data.Enums;
 using AZWeb.Common.Manager;
 using AZWeb.Common.Module.Attr;
 using Microsoft.AspNetCore.Http;
 
 namespace AZERP.Web.Modules.Candidate
 {
-    [TableColumn(Title = "Họ Tên", FieldName = "FullName", Width = 150)]
-    [TableColumn(Title = "Email", FieldName = "Email", Width = 100)]
-    [TableColumn(Title = "Số điện thoại", FieldName = "PhoneNumber", Width = 150)]
-    [TableColumn(Title = "Trạng thái", FieldName = "IsActive")]
+    [TableColumn(Title = "Ngày tạo", FieldName = "CreateAt", Width = 100,FormatString ="{0:dd/MM/yyyy}")]
+    [TableColumn(Title = "Họ Tên", FieldName = "FullName", Width = 100)]
+    [TableColumn(Title = "Giới tính", FieldName = "Gender", Width = 80,DataType =typeof(EnumGender))]
+    [TableColumn(Title = "Số điện thoại", FieldName = "PhoneNumber", Width = 100)]
+    [TableColumn(Title = "Ngày sinh", FieldName = "BirthDay", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
+    [TableColumn(Title = "Địa chỉ", FieldName = "Address", Width = 150)]
+    [TableColumn(Title = "Ở hiện tại", FieldName = "AddressCurrent", Width = 150)]
+    [TableColumn(Title = "Làm khu vực", FieldName = "TargetToAddress", DataType = typeof(EnumAddressWorker))]
+    [TableColumn(Title = "Trạng thái gọi", FieldName = "CallStatus", DataType = typeof(EnumCallStatus))]
+    [TableColumn(Title = "Hẹn đi làm", FieldName = "StartWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
+    [TableColumn(Title = "Hẹn đến văn phòng", FieldName = "GoCompanyAt", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
+    [TableColumn(Title = "Hẹn gọi lại", FieldName = "CallBack", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     public class FormCandidate : ManageModule<CandidateService, CandidateModel, FormUpdateCandidate>
     {
         public FormCandidate(IHttpContextAccessor httpContext) : base(httpContext)

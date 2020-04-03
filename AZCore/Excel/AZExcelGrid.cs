@@ -32,9 +32,12 @@ namespace AZCore.Excel
             AddHeader(columns);
             AddGrid(Data, columns);
         }
-        protected virtual void SetHeader(Cell cell)
+        protected virtual void SetHeader(Cell cell,bool isDateTime=false)
         {
             var style=cell.GetStyle();
+
+            if(isDateTime)
+                style.Custom = "dd/mm/yyyy"; 
             style.Pattern = BackgroundType.Solid;
             style.BackgroundColor = Color.Blue;
             style.ForegroundColor = Color.White;
@@ -48,9 +51,12 @@ namespace AZCore.Excel
             cell.SetStyle(style);
         }
 
-        protected virtual void SetCell(Cell cell)
+        protected virtual void SetCell(Cell cell,bool isDateTime=false)
         {
             var style = cell.GetStyle();
+
+            if (isDateTime)
+                style.Custom = "dd/mm/yyyy";
             style.Pattern = BackgroundType.Solid;
             //style.BackgroundColor = Color.Azure;
             //style.ForegroundColor = Color.White;
@@ -101,18 +107,17 @@ namespace AZCore.Excel
             var typeData = Data.GetType();
             foreach (var item in columns) {
                 var proItem = typeData.GetProperty(item.FieldName);
+                bool IsDate = false;
                 if (proItem != null) {
                     object objValue = proItem.GetValue(Data);
                     if (item.DataType != null)
                     {
-                        azWorksheet.Cells[StartRow, colIndex].Value = GetValueByType(item.DataType, objValue);
+                        objValue = GetValueByType(item.DataType, objValue);
                     }
-                    else
-                    {
-                        azWorksheet.Cells[StartRow, colIndex].Value = objValue;
-                    }
+                    azWorksheet.Cells[StartRow, colIndex].Value = objValue;
+                    IsDate = (objValue != null && objValue.GetType() == typeof(DateTime));
                 }              
-                SetCell(azWorksheet.Cells[StartRow, colIndex]);
+                SetCell(azWorksheet.Cells[StartRow, colIndex], IsDate);
                 colIndex++;
             }
         }
@@ -122,15 +127,14 @@ namespace AZCore.Excel
             foreach (var item in columns)
             {
                 object objValue = Data[item.FieldName];
+                bool IsDate = false;
                 if (item.DataType != null)
                 {
-                    azWorksheet.Cells[StartRow, colIndex].Value = GetValueByType(item.DataType, objValue);
-                }
-                else 
-                {
-                    azWorksheet.Cells[StartRow, colIndex].Value = objValue;
-                }
-                SetCell(azWorksheet.Cells[StartRow, colIndex]);
+                    objValue = GetValueByType(item.DataType, objValue);
+                }                
+                azWorksheet.Cells[StartRow, colIndex].Value = objValue;
+                IsDate = (objValue != null && objValue.GetType() == typeof(DateTime));
+                SetCell(azWorksheet.Cells[StartRow, colIndex], IsDate);
                 colIndex++;
             }
         }

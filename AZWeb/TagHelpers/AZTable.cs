@@ -150,20 +150,19 @@ namespace AZWeb.TagHelpers
                                 }
                                 else
                                 {
+                                    object ItemDisplay = itemValue;
                                     if (col.DataType != null)
                                     {
                                         var itemDic = this.DataDic[col.DataType].Where(p => p.ItemValue.Equals(itemValue)).FirstOrDefault();
                                         if (itemDic != null)
                                         {
-                                            htmlTable.Append(itemDic.ItemDisplay);
-                                        }
-                                        else
-                                            htmlTable.Append(itemValue);
+                                            ItemDisplay = itemDic.ItemDisplay;                                           
+                                        }                                       
                                     }
-                                    else
-                                    {
-                                        htmlTable.Append(itemValue);
+                                    if (!string.IsNullOrEmpty(col.FormatString)) {
+                                        ItemDisplay = string.Format(col.FormatString, ItemDisplay);
                                     }
+                                    htmlTable.Append(ItemDisplay);
                                 }
                                 htmlTable.Append("</td>");
                             }

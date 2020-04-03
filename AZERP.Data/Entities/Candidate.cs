@@ -1,6 +1,7 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attr;
 using AZCore.Domain;
+using AZERP.Data.Enums;
 using System;
 using System.Data;
 
@@ -25,20 +26,31 @@ namespace AZERP.Data.Entities
         [Field(Length = 500)]
         public string FullName { get; set; }
         /// <summary>
+        /// <summary>
+        /// Ngày sinh
+        /// </summary>
+        [Field]
+        public DateTime BirthDay { get; set; }
+        /// <summary>
+        /// Giới tính
+        /// </summary>
+        [Field]
+        public EnumGender Gender { get; set; }
+        /// <summary>
         /// Số điện thoại
         /// </summary>
         [Field(Length = 5000)] 
         public string PhoneNumber { get; set; }
         /// <summary>
-        /// Địa chỉ Email
-        /// </summary>
-        [Field(Length = 500)]
-        public string Email { get; set; }
-        /// <summary>
         /// Địa chỉ của ứng viên
         /// </summary>
-        [Field(Length = 500)]
+        [Field(Length = 1000)]
         public string Address { get; set; }
+        /// <summary>
+        /// Nơi ở hiện tại
+        /// </summary>
+        [Field(Length = 1000)]
+        public string AddressCurrent { get; set; }
         /// <summary>
         /// Đường dẫn Facebook
         /// </summary>
@@ -65,14 +77,19 @@ namespace AZERP.Data.Entities
         /// 4-Bắc Giang
         /// </summary>
         [Field]
-        public int TargetToAddress { get; set; }
+        public EnumAddressWorker TargetToAddress { get; set; }
         /// <summary>
         /// Loại của ứng viên.
         /// Chính Thức 
         /// Thời vụ.
         /// </summary>
         [Field]
-        public int TypeOfCandidate { get; set; }
+        public EnumTypeOfCandidate TypeOfCandidate { get; set; }
+        /// <summary>
+        /// Trạng thái cuộc gọi
+        /// </summary>
+        [Field]
+        public EnumCallStatus CallStatus { get; set; }
         /// <summary>
         /// Thời gian gọi gần đây nhất
         /// </summary>
@@ -88,6 +105,11 @@ namespace AZERP.Data.Entities
         /// </summary>
         [Field]
         public DateTime? CompleteAt { get; set; }
+        /// <summary>
+        /// Gọi lại
+        /// </summary>
+        [Field]
+        public DateTime? CallBack { get; set; }
         /// <summary>
         /// Thời gian bắt đầu công việc
         /// </summary>
