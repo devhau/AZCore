@@ -6,6 +6,29 @@
             <button type="button" class="btn btn-info btn-sm az-btn az-btn-export"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
             <button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
         </div>
+        <div class="az-search-manager">
+            <form class="az-search-form row">
+                <div class="form-group col-md-2">
+                    <az-date-model model="Model" func="(item)=>((FormCandidate)item).CreateAt" label="Ngày tạo" />
+                </div>
+                <div class="form-group col-md-2">
+                    <az-text-model model="Model" func="(item)=>((FormCandidate)item).FullName" label="Họ tên" />
+                </div>
+                <div class="form-group col-md-2">
+                    <az-date-model model="Model" func="(item)=>((FormCandidate)item).BirthDay" label="Ngày sinh" />
+                </div>
+                <div class="form-group col-md-2">
+                    <az-gender-select model="Model" func="(item)=>((FormCandidate)item).Gender" label="Giới tính" null-text="Chọn Tất cả" />
+                </div>
+                <div class="form-group col-md-2">
+                    <az-call-status-select model="Model" func="(item)=>((FormCandidate)item).CallStatus" label="Trạng thái gọi" null-text="Chọn Tất cả" />
+                </div>
+                <div class="form-group col-md-2">
+                    <az-call-status-select model="Model" func="(item)=>((FormCandidate)item).TargetToAddress" label="Nơi làm việc" null-text="Chọn Tất cả" />
+                </div>
+            </form>
+            <button type="button" class="btn btn-warning az-btn az-btn-search float-right"><i class="fas fa-search"></i> Tìm kiếm</button>
+        </div>
         <div class="az-data-table">
             <az-table data="Model.Data" FunKey="(item)=>((CandidateModel)item).Id" columns="Model.Columns"></az-table>
         </div>

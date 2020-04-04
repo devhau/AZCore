@@ -10,8 +10,8 @@ namespace AZWeb.TagHelpers.Input
     [HtmlTargetElement("az-password-model")]
     public class AZPasswordModel : AZPassword, IAZModelInput
     {
-        public IEntityModel Model { get; set; }
-        public Expression<Func<IEntityModel, object>> Func { get; set; }
+        public IEntity Model { get; set; }
+        public Expression<Func<IEntity, object>> Func { get; set; }
         protected override void InitData()
         {
             this.BindModel();

@@ -3,7 +3,10 @@ using System;
 
 namespace AZCore.Database
 {
-    public interface IEntityModel
+    public interface IEntity 
+    { 
+    }
+    public interface IEntityModel: IEntity
     {
         EntityStatus Status { get; set; }
         bool IsDelete { get; set; }

@@ -16,7 +16,7 @@ namespace AZWeb.Common.Module
         private static Regex regexModule = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+).([A-Za-z0-9]+)$", RegexOptions.IgnoreCase);
         private static Regex regexError = new Regex("Web.([A-Za-z0-9]+).([A-Za-z0-9]+)$", RegexOptions.IgnoreCase);
         private IHtmlView _view { get; set; }
-        public string Title{ get => _view.Title; set => _view.Title = value; }
+        public string Title { get => _view.Title; set => _view.Title = value; }
         public string Html { get => _view.Html; set => _view.Html = value; }
         public bool IsTheme { get => _view.IsTheme; set => _view.IsTheme = value; }
         public string LayoutTheme { get; set; } = "LayoutTheme";

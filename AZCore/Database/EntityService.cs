@@ -81,6 +81,15 @@ namespace AZCore.Database
         {
             return await this.Connection.ExecuteAsync(sql, param, this.transaction, commandTimeout, commandType);
         }
+        public SQLResult Query(string tablename, Action<QuerySQL> action) {
+
+            var query = QuerySQL.NewQuery(this.typeSQL);
+            query.SetTable(tablename);
+            if (action != null) {
+                action(query);
+            }
+            return query.ToResult();
+        }
     }
     public partial class EntityService<TService, TModel> : EntityService
         where TService : EntityService
@@ -105,6 +114,14 @@ namespace AZCore.Database
         public async Task<IEnumerable<TModel>> ExecuteQueryAsync(string sql, object param = null, CommandType? commandType = null)
         {
             return await this.Connection.QueryAsync<TModel>(sql, param, this.transaction, this.commandTimeout, commandType);
+        }
+        public IEnumerable<TModel> ExecuteQuery(Action<QuerySQL> action)
+        {
+            return ExecuteQuery(Query(action));
+        }
+        public SQLResult Query(Action<QuerySQL> action)
+        {
+            return Query(this.buildSQL.TableName, action);
         }
         public virtual IEnumerable<TModel> GetAll()
         {

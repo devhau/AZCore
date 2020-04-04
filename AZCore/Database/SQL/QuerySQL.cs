@@ -60,7 +60,7 @@ namespace AZCore.Database.SQL
 
             StringBuilder sql = new StringBuilder();
             DynamicParameters parameter = new DynamicParameters();
-            sql.AppendFormat("SELECT {0} FROM `{1}`",this.Column,this.TableName);
+            sql.AppendFormat("SELECT {0} FROM `{1}` ",this.Column,this.TableName);
             if (SqlWhere.Count > 0) {
                 int indexWhere = 0;
                 sql.Append(" WHERE ");
@@ -68,7 +68,7 @@ namespace AZCore.Database.SQL
                     if (indexWhere > 0)
                         sql.Append(" AND ");
 
-                    sql.AppendFormat(" `{0}` = @{0}{1}", item.Column.Trim(), indexWhere);
+                    sql.AppendFormat(" `{0}` = @{0}{1} ", item.Column.Trim(), indexWhere);
                     parameter.Add(string.Format("@{0}{1}", item.Column.Trim(), indexWhere), item.Value);
                     indexWhere++;
                 }
@@ -90,10 +90,10 @@ namespace AZCore.Database.SQL
                 int StartRow = (PageIndex - 1) * PageSize;
                 if (type == TypeSQL.MySql)
                 {
-                    sql.AppendFormat("LIMIT {0},10", StartRow,StartRow+ PageSize);
+                    sql.AppendFormat(" LIMIT {0},10", StartRow,StartRow+ PageSize);
                 }
                 else if(type==TypeSQL.SqlServer){
-                    sql.AppendFormat("offset {0} rows fetch next {1} rows only", StartRow, PageSize);
+                    sql.AppendFormat(" offset {0} rows fetch next {1} rows only", StartRow, PageSize);
                 }
             
             }

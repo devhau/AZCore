@@ -12,7 +12,7 @@ using System.Linq;
 namespace AZWeb.Common.Manager
 {
     [Auth]
-    public class ManageModule<TService, TModel, TForm> : PageModule
+    public class ManageModule<TService, TModel, TForm> : PageModule, IEntity
         where TModel : IEntityModel, new()
         where TService : EntityService<TService, TModel>
         where TForm : UpdateModule<TService, TModel>
@@ -43,7 +43,7 @@ namespace AZWeb.Common.Manager
             FormUpdate = this.httpContext.GetService<TForm>();            
         }
         public virtual List<TModel> GetSearchData() {
-            return Service.GetAll().ToList();
+            return Service.ExecuteQuery((T)=> { T.Pagination(); }).ToList();
         }
         public virtual IView Get() {
             Data = GetSearchData();

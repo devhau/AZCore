@@ -13,8 +13,8 @@ namespace AZWeb.TagHelpers.Input
     [HtmlTargetElement("az-date-model")]
     public class AZDateModel : AZDate, IAZModelInput
     {
-        public IEntityModel Model { get; set; }
-        public Expression<Func<IEntityModel, object>> Func { get; set; }
+        public IEntity Model { get; set; }
+        public Expression<Func<IEntity, object>> Func { get; set; }
         protected override void InitData()
         {
             this.BindModel();

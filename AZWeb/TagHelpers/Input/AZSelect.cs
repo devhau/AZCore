@@ -14,8 +14,8 @@ namespace AZWeb.TagHelpers.Input
 {
     public class AZSelect<TModel> : AZSelect,IAZModelInput
     {
-        public IEntityModel Model { get; set; }
-        public Expression<Func<IEntityModel, object>> Func { get; set; }
+        public IEntity Model { get; set; }
+        public Expression<Func<IEntity, object>> Func { get; set; }
         protected override void InitData()
         {
             var DataType = typeof(TModel);
@@ -34,6 +34,8 @@ namespace AZWeb.TagHelpers.Input
     {
         [HtmlAttributeName("data")]
         public System.Collections.Generic.List<AZItemValue> Data { get; set; }
+        [HtmlAttributeName("null-text")]
+        public string NullText { get; set; } 
         protected override void InitData()
         {
             this.InputClass = "form-control select2";
@@ -43,7 +45,10 @@ namespace AZWeb.TagHelpers.Input
         {
             if (!string.IsNullOrEmpty(InputLabel))
                 htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
-            htmlBuild.AppendFormat("<select class=\"{0}\" name=\"{1}\" {2} {3} placeholder=\"{4}\">", InputClass, InputName, string.IsNullOrEmpty(InputId) ? "" : string.Format("id=\"{0}\"", InputId), Attr, InputPlaceholder);
+            htmlBuild.AppendFormat("<select class=\"{0}\" name=\"{1}\" {2} {3} placeholder=\"{4}\" style=\"width: 100% \">", InputClass, InputName, string.IsNullOrEmpty(InputId) ? "" : string.Format("id=\"{0}\"", InputId), Attr, InputPlaceholder);
+            if (!string.IsNullOrEmpty(NullText)) {
+                this.Data.Insert(0, new AZItemValue() { ItemValue = null, ItemDisplay = NullText, });
+            }
             foreach (var item in this.Data)
             {
                 string ItemActive = "";
@@ -52,7 +57,7 @@ namespace AZWeb.TagHelpers.Input
             }
 
             htmlBuild.Append("</select>");
-            this.AddJS("$(function(){ $('." + this.TagId + "').select2({theme: 'bootstrap4'}); });");
+            this.AddJS("$(function(){ $('." + this.TagId + "').select2({theme: 'bootstrap4', width: 'resolve' }); });");
         }
     }
 }

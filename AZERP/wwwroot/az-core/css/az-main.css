@@ -83,6 +83,12 @@
     bottom: 0px;
     left: 0px;
 }
+.az-manager .az-search-manager {
+    margin:1px 5px;
+    padding: 10px;
+    overflow: auto;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
 .az-modal {
     background: rgba(0, 0, 0, 0.75);
 }

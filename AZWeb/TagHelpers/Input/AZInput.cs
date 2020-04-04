@@ -9,8 +9,8 @@ namespace AZWeb.TagHelpers.Input
 {
     public interface IAZModelInput 
     {
-        IEntityModel Model { get; set; }
-        Expression<Func<IEntityModel, object>> Func { get; set; }
+        IEntity Model { get; set; }
+        Expression<Func<IEntity, object>> Func { get; set; }
         string InputName { get; set; }
         string InputId { get; set; }
         object InputValue { get; set; }
