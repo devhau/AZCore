@@ -4,7 +4,6 @@ namespace AZERP.Data.Enums
 {
     public enum EnumAddressWorker:int
     {
-        [Field(Display = "Nơi làm việc")] None = 0,//Default
         [Field(Display = "Quế Võ 1, Bắc Ninh")] QueVo1BacNinh = 1,
         [Field(Display = "Quế Võ 2, Bắc Ninh")] QueVo2BacNinh = 2,
         [Field(Display = "Quế Võ 3, Bắc Ninh")] QueVo3BacNinh = 3,

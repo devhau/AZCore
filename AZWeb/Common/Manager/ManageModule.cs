@@ -12,7 +12,7 @@ using System.Linq;
 namespace AZWeb.Common.Manager
 {
     [Auth]
-    public class ManageModule<TService, TModel, TForm> : PageModule, IEntity
+    public class ManageModule<TService, TModel, TForm> : PageModule, IEntity, IPagination
         where TModel : IEntityModel, new()
         where TService : EntityService<TService, TModel>
         where TForm : UpdateModule<TService, TModel>
@@ -22,6 +22,11 @@ namespace AZWeb.Common.Manager
         protected TForm FormUpdate;
         public List<TableColumnAttribute> Columns { get; set; }
         public AZExcelGrid excelGrid { get;private set;}
+        public int PageIndex { get; set; }
+        public int PageSize { get; set; }
+        public long PageTotal { get; set; }
+        public long PageTotalAll { get; set; }
+
         public virtual void BindTableColumn() {
             this.Columns = this.GetType().GetAttributes<TableColumnAttribute>().ToList();
         }

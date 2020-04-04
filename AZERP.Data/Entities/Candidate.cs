@@ -30,12 +30,12 @@ namespace AZERP.Data.Entities
         /// Ngày sinh
         /// </summary>
         [Field]
-        public DateTime BirthDay { get; set; }
+        public DateTime? BirthDay { get; set; }
         /// <summary>
         /// Giới tính
         /// </summary>
         [Field]
-        public EnumGender Gender { get; set; }
+        public EnumGender? Gender { get; set; }
         /// <summary>
         /// Số điện thoại
         /// </summary>
@@ -77,19 +77,19 @@ namespace AZERP.Data.Entities
         /// 4-Bắc Giang
         /// </summary>
         [Field]
-        public EnumAddressWorker TargetToAddress { get; set; }
+        public EnumAddressWorker? TargetToAddress { get; set; }
         /// <summary>
         /// Loại của ứng viên.
         /// Chính Thức 
         /// Thời vụ.
         /// </summary>
         [Field]
-        public EnumTypeOfCandidate TypeOfCandidate { get; set; }
+        public EnumTypeOfCandidate? TypeOfCandidate { get; set; }
         /// <summary>
         /// Trạng thái cuộc gọi
         /// </summary>
         [Field]
-        public EnumCallStatus CallStatus { get; set; }
+        public EnumCallStatus? CallStatus { get; set; }
         /// <summary>
         /// Thời gian gọi gần đây nhất
         /// </summary>
