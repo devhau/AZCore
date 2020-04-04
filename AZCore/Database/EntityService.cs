@@ -15,13 +15,27 @@ namespace AZCore.Database
     { }
     public class EntityService: IEntityService
     {
+        private TypeSQL typeSQL;
         protected IDbConnection Connection;
         public EntityService(IDbConnection _connection)
         {
             Connection = _connection;
+            CheckTypeSQL();
         }
         protected int? commandTimeout = null;
         protected IDbTransaction transaction = null;
+
+        private void CheckTypeSQL() {
+            string name = Connection.GetType().FullName;
+            if (name.EndsWith(".SqlConnection"))
+            {
+                typeSQL = TypeSQL.SqlServer;
+            }
+            else if (name.EndsWith(".MySqlConnection"))
+            {
+                typeSQL = TypeSQL.MySql;
+            }
+        }
         public void BeginTransaction()
         {
             this.transaction = this.Connection.BeginTransaction();

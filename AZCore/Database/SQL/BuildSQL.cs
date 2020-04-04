@@ -85,10 +85,10 @@ namespace AZCore.Database.SQL
         public SQLResult SQLInsert(IEntityModel model)
         {
             StringBuilder SQL = new StringBuilder();
+            DynamicParameters parameter = new DynamicParameters();
             StringBuilder SQLField = new StringBuilder();
             StringBuilder SQLValue = new StringBuilder();
             string prex = "";
-            DynamicParameters parameter = new DynamicParameters();
 
             foreach (var item in this.Fields.Where(p => p.IsAutoIncrement == false))
             {

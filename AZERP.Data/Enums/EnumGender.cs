@@ -7,7 +7,7 @@ namespace AZERP.Data.Enums
 {
     public enum EnumGender : int
     {
-        [Field(Display = "Chưa chọn giới tính")] None=0,//Default
+        [Field(Display = "Giới tính")] None=0,//Default
         [Field(Display = "Nam")] Male = 1, 
         [Field(Display = "Nữ")] Female = 2,
         [Field(Display = "Chuyển giới")] Transgender = 3,
