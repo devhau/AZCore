@@ -10,10 +10,12 @@ namespace AZCore.Database.SQL
         private class ColumnValue {
             public ColumnValue() { }
             public ColumnValue(string column, object value) { this.Column = column; this.Value = value; }
+            public ColumnValue(string column, object value, EnumOperatorSQL _operator) { this.Column = column; this.Value = value; this.Operator = _operator; }
             public ColumnValue(string column, EnumSort sort) { this.Column = column;this.Sort = sort; }
             public string Column { get; set; }
             public object Value { get; set; }
             public EnumSort Sort { get; set; }
+            public EnumOperatorSQL Operator { get; set; }
             public List<ColumnValue> Sub { get; set; }
         }
         #region -- Init
@@ -40,9 +42,9 @@ namespace AZCore.Database.SQL
             this.Column = name;
             return this;
         }
-        public QuerySQL AddWhere(string column, object value)
+        public QuerySQL AddWhere(string column, object value, EnumOperatorSQL _operator=EnumOperatorSQL.EQUAL)
         {
-            this.SqlWhere.Add(new ColumnValue(column,value));
+            this.SqlWhere.Add(new ColumnValue(column,value, _operator));
             return this;
         }
         public QuerySQL AddOrder(string column, EnumSort sort)
@@ -68,8 +70,21 @@ namespace AZCore.Database.SQL
                     if (indexWhere > 0)
                         sql.Append(" AND ");
 
-                    sql.AppendFormat(" `{0}` = @{0}{1} ", item.Column.Trim(), indexWhere);
-                    parameter.Add(string.Format("@{0}{1}", item.Column.Trim(), indexWhere), item.Value);
+                    switch (item.Operator) {
+                        case EnumOperatorSQL.LIKE:
+                            sql.AppendFormat(" `{0}` like @{0}{1} ", item.Column.Trim(), indexWhere);
+                            parameter.Add(string.Format("@{0}{1}", item.Column.Trim(), indexWhere), string.Format("%{0}%", item.Value));
+                            break;
+                        case EnumOperatorSQL.IN:
+                            sql.AppendFormat(" `{0}` in (@{0}{1}) ", item.Column.Trim(), indexWhere);
+                            parameter.Add(string.Format("@{0}{1}", item.Column.Trim(), indexWhere), item.Value);
+                            break;
+
+                        default:
+                            sql.AppendFormat(" `{0}` = @{0}{1} ", item.Column.Trim(), indexWhere);
+                            parameter.Add(string.Format("@{0}{1}", item.Column.Trim(), indexWhere), item.Value);
+                            break;
+                    }
                     indexWhere++;
                 }
             }
@@ -90,10 +105,10 @@ namespace AZCore.Database.SQL
                 int StartRow = (PageIndex - 1) * PageSize;
                 if (type == TypeSQL.MySql)
                 {
-                    sql.AppendFormat(" LIMIT {0},10", StartRow,StartRow+ PageSize);
+                    sql.AppendFormat(" LIMIT {0},{1} ", StartRow, PageSize);
                 }
                 else if(type==TypeSQL.SqlServer){
-                    sql.AppendFormat(" offset {0} rows fetch next {1} rows only", StartRow, PageSize);
+                    sql.AppendFormat(" offset {0} rows fetch next {1} rows only", StartRow+1, PageSize);
                 }
             
             }

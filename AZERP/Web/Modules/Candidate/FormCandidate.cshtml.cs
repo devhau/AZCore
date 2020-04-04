@@ -1,4 +1,5 @@
-﻿using AZCore.Database.Attr;
+﻿using AZCore.Database;
+using AZCore.Database.Attr;
 using AZERP.Data.Entities;
 using AZERP.Data.Enums;
 using AZWeb.Common.Manager;
@@ -26,49 +27,49 @@ namespace AZERP.Web.Modules.Candidate
         /// <summary>
         /// Họ Tên
         /// </summary>
-        [Field]
+        [QuerySearch(OperatorSQL = EnumOperatorSQL.LIKE)]
         public string FullName { get; set; }
         /// <summary>
         /// <summary>
         /// Ngày sinh
         /// </summary>
-        [Field]
+        [QuerySearch]
         public DateTime? BirthDay { get; set; }
         /// <summary>
         /// Giới tính
         /// </summary>
-        [Field]
+        [QuerySearch]
         public EnumGender? Gender { get; set; }
         /// <summary>
         /// Số điện thoại
         /// </summary>
-        [Field]
+        [QuerySearch(OperatorSQL = EnumOperatorSQL.LIKE)]
         public string PhoneNumber { get; set; }
         /// <summary>
         /// Địa chỉ của ứng viên
         /// </summary>
-        [Field]
+        [QuerySearch(OperatorSQL = EnumOperatorSQL.LIKE)]
         public string Address { get; set; }
         /// <summary>
         /// Nơi ở hiện tại
         /// </summary>
-        [Field]
+        [QuerySearch]
         public string AddressCurrent { get; set; }
         /// <summary>
         /// Đường dẫn Facebook
         /// </summary>
-        [Field]
+        [QuerySearch]
         public string LinkFacebook { get; set; }
         /// <summary>
         /// Nguồn thông tin này ở đâu.
         /// Trang: Kho Việc Làm Bắc Ninh
         /// </summary>
-        [Field]
+        [QuerySearch]
         public string Source { get; set; }
         /// <summary>
         /// Nguyện Vọng của ứng viên
         /// </summary>
-        [Field]
+        [QuerySearch]
         public string AspirationsOfCandidates { get; set; }
         /// <summary>
         /// Lựa chọn vị trí công việc ở địa chỉ nào.
@@ -79,54 +80,54 @@ namespace AZERP.Web.Modules.Candidate
         /// 3-Yên Phong,Bắc Ninh
         /// 4-Bắc Giang
         /// </summary>
-        [Field]
+        [QuerySearch]
         public EnumAddressWorker? TargetToAddress { get; set; }
         /// <summary>
         /// Loại của ứng viên.
         /// Chính Thức 
         /// Thời vụ.
         /// </summary>
-        [Field]
+        [QuerySearch]
         public EnumTypeOfCandidate? TypeOfCandidate { get; set; }
         /// <summary>
         /// Trạng thái cuộc gọi
         /// </summary>
-        [Field]
+        [QuerySearch]
         public EnumCallStatus? CallStatus { get; set; }
         /// <summary>
         /// Thời gian gọi gần đây nhất
         /// </summary>
-        [Field]
+        [QuerySearch]
         public DateTime? CallAt { get; set; }
         /// <summary>
         /// Hẹn thời gian đến công ty
         /// </summary>
-        [Field]
+        [QuerySearch]
         public DateTime? GoCompanyAt { get; set; }
         /// <summary>
         /// Hoàn thành lúc
         /// </summary>
-        [Field]
+        [QuerySearch]
         public DateTime? CompleteAt { get; set; }
         /// <summary>
         /// Gọi lại
         /// </summary>
-        [Field]
+        [QuerySearch]
         public DateTime? CallBack { get; set; }
         /// <summary>
         /// Thời gian bắt đầu công việc
         /// </summary>
-        [Field]
+        [QuerySearch]
         public DateTime? StartWork { get; set; }
         /// <summary>
         /// Dán cho ai đó
         /// </summary>
-        [Field]
+        [QuerySearch]
         public long? AssignTo { get; set; }
         /// <summary>
         /// Ngày tạo
         /// </summary>
-        [Field]
+        [QuerySearch]
         public DateTime? CreateAt { get; set; }
         #endregion
 

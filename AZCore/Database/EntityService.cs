@@ -119,6 +119,18 @@ namespace AZCore.Database
         {
             return ExecuteQuery(Query(action));
         }
+        public long ExecuteNoneQuery(Action<QuerySQL> action, long @default =-1)
+        {
+            var reader = ExecuteReader(Query(action));
+            var rs = @default;
+            if (reader.Read())
+            {
+                rs= reader.GetInt64(0);
+            }
+            reader.Close();
+            reader = null;
+            return rs;
+        }
         public SQLResult Query(Action<QuerySQL> action)
         {
             return Query(this.buildSQL.TableName, action);

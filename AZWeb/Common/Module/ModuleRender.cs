@@ -137,6 +137,7 @@ namespace AZWeb.Common.Module
                 }
             }
             ModuleCurrent.BeforeRequest();
+            
             httpContext.Request.QueryString = new QueryString(string.Format("?{0}", pathReal));
             List<object> paraValues = new List<object>();
             foreach (var param in methodFunction.GetParameters())
@@ -194,9 +195,18 @@ namespace AZWeb.Common.Module
                 fileView.File.CopyToAsync(response.Body);
                 response.Body.Flush();
                 return RenderError.OK;
+            } else if (rsFN is IRedirectView) {
+                if (IsAjax)
+                {
+                    httpContext.Response.WriteAsync(rsFN.ToJson());
+                }
+                else {
+                    httpContext.Response.Redirect(rsFN.As<IRedirectView>().Redirect);
+                }
+                return RenderError.OK;
             }
             #endregion
-                #region --- Get Theme && Process Theme ---
+            #region --- Get Theme && Process Theme ---
 
                 if (ModuleCurrent.IsTheme & !IsAjax)
             {

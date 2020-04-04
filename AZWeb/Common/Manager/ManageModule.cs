@@ -1,11 +1,14 @@
 ﻿using AZCore.Database;
+using AZCore.Database.SQL;
 using AZCore.Excel;
 using AZCore.Extensions;
+using AZWeb.Common.Attributes;
 using AZWeb.Common.Module;
 using AZWeb.Common.Module.Attr;
 using AZWeb.Common.Module.View;
 using AZWeb.Extensions;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,8 +25,11 @@ namespace AZWeb.Common.Manager
         protected TForm FormUpdate;
         public List<TableColumnAttribute> Columns { get; set; }
         public AZExcelGrid excelGrid { get;private set;}
+        [BindQuery]
         public int PageIndex { get; set; }
-        public int PageSize { get; set; }
+        public int PageMax { get; set; }
+        [BindQuery]
+        public int PageSize { get; set; } = 10;
         public long PageTotal { get; set; }
         public long PageTotalAll { get; set; }
 
@@ -35,7 +41,6 @@ namespace AZWeb.Common.Manager
             BindTableColumn();
             FormUpdate.BeforeRequest();
             base.BeforeRequest();
-            excelGrid = new AZExcelGridWeb(this.httpContext);
         }
         public override void AfterRequest()
         {
@@ -48,7 +53,31 @@ namespace AZWeb.Common.Manager
             FormUpdate = this.httpContext.GetService<TForm>();            
         }
         public virtual List<TModel> GetSearchData() {
-            return Service.ExecuteQuery((T)=> { T.Pagination(); }).ToList();
+            var proper = this.GetType().GetPropertyByQuerySearch();
+            Action<QuerySQL> actionWhere = (T) =>
+            {
+                foreach (var p in proper) {
+                    if(p.Property.GetValue(this)!=null)
+                        T.AddWhere(p.Property.Name, p.Property.GetValue(this), p.OperatorSQL);
+                }
+            };
+            this.PageTotalAll = Service.ExecuteNoneQuery((T) => {
+
+                T.SetColumn("count(0)");
+            
+            });
+            this.PageTotal = Service.ExecuteNoneQuery((T) => {
+                T.SetColumn("count(0)");
+                actionWhere(T);
+            });
+            this.PageMax= (int)Math.Ceiling((decimal)this.PageTotal / (decimal)this.PageSize);
+            return Service.ExecuteQuery((T)=> {
+                if (PageIndex <= 0) {
+                    PageIndex = 1;
+                }
+                T.Pagination(PageIndex, PageSize);
+                actionWhere(T);
+            }).ToList();
         }
         public virtual IView Get() {
             Data = GetSearchData();
@@ -57,11 +86,19 @@ namespace AZWeb.Common.Manager
         public virtual IView GetUpdate(long? Id) {
             return FormUpdate.Get(Id);
         }
+        protected virtual void BeforeDownload() {
+        }
+        protected virtual void AfterDownload()
+        {
+        }
         public virtual IView GetDownload()
         {
+            excelGrid = new AZExcelGridWeb(this.httpContext);
+            BeforeDownload();
             Data = GetSearchData();
             excelGrid.SetSheet(this.Title);
             excelGrid.SetDataForGrid(Data, this.Columns.Cast<IExcelColumn>().ToList());
+            AfterDownload();
             return File(excelGrid.Download(), this.Title.ToUrlSlug()+".xlsx",FileView.ExcelX);
         }
         public virtual IView PostUpdate(long? Id)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AZWeb.Common.Module.View
 {
-    public interface IHtmlView : IView, IRedirectView
+    public interface IHtmlView : IView
     {
         string Title { get; set; }
         string Description { get; set; }

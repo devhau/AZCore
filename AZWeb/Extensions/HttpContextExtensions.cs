@@ -19,6 +19,7 @@ using System.Text;
 using AZCore.Extensions;
 using AZWeb.Common.Module.View;
 using AZCore.Identity;
+using AZWeb.Common.Attributes;
 
 namespace AZWeb.Extensions
 {
@@ -57,7 +58,48 @@ namespace AZWeb.Extensions
                 return sw.ToString();
             }
         }
-        public static void BindQuerytTo( this HttpContext httpContext,object obj) {
+        public static void BindQueryAttributeTo(this HttpContext httpContext, object obj)
+        {
+            var objType = obj.GetType();
+            foreach (var item in httpContext.Request.Query.Keys)
+            {
+                var pro = objType.GetProperty(item);
+                if (pro != null && pro.CanWrite && pro.GetAttribute<BindQueryAttribute>() != null)
+                {
+                    if (pro.PropertyType.IsArray)
+                    {
+                        pro.SetValue(obj, httpContext.Request.Query[item][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
+                    }
+                    else
+                    {
+                        pro.SetValue(obj, httpContext.Request.Query[item][0].ToType(pro.PropertyType));
+                    }
+
+                }
+            }
+        }
+        public static void BindFormAttributeTo(this HttpContext httpContext, object obj)
+        {
+            if (!httpContext.Request.HasFormContentType) return;
+            var objType = obj.GetType();
+            foreach (var item in httpContext.Request.Form.Keys)
+            {
+                var pro = objType.GetProperty(item);
+                if (pro != null && pro.CanWrite&&pro.GetAttribute<BindFormAttribute>()!=null)
+                {
+                    if (pro.PropertyType.IsArray)
+                    {
+                        pro.SetValue(obj, httpContext.Request.Form[item][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
+                    }
+                    else
+                    {
+                        pro.SetValue(obj, httpContext.Request.Form[item][0].ToType(pro.PropertyType));
+                    }
+
+                }
+            }
+        }
+        public static void BindQueryTo( this HttpContext httpContext,object obj) {
             var objType = obj.GetType();
             foreach (var item in httpContext.Request.Query.Keys) {
                 var pro = objType.GetProperty(item);

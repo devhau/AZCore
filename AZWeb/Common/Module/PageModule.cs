@@ -53,8 +53,7 @@ namespace AZWeb.Common.Module
         }
         public virtual IView Redirect(string location)
         {
-            this._view.Redirect = location;
-            return this._view;
+            return new RedirectView(location);
         }
         protected IView View(){
             return View(this);
@@ -121,11 +120,8 @@ namespace AZWeb.Common.Module
             return RenderHtml();
         }
 
-        public virtual void RenderSite() {
-            if (string.IsNullOrEmpty(this._view.Redirect))
+        public virtual void RenderSite() {           
                 httpContext.Response.WriteAsync(this.Html);
-            else
-                httpContext.Response.Redirect(this._view.Redirect);
         }
         public virtual void RenderJson()
         {

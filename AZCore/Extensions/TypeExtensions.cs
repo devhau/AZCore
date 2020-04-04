@@ -62,6 +62,9 @@ namespace AZCore.Extensions
             return ass.GetTypes().Where(t => t.IsTypeFromInterface<TInterface>());
         }
 
+        public static IEnumerable<PropertyInfo> GetPropertyByAttribute<TAttribute>(this Type type) {
+            return type.GetProperties().Where(p => p.GetAttribute<TAttribute>() != null);
+        }
         public static bool IsTypeFromInterface<TInterface>(this Type type)
         {
             var typeInterface = typeof(TInterface);

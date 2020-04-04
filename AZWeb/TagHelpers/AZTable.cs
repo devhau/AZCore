@@ -1,4 +1,5 @@
 ﻿using AZWeb.Common;
+using AZWeb.Common.Manager;
 using AZWeb.Common.Module.Attr;
 using AZWeb.Configs;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -26,6 +27,8 @@ namespace AZWeb.TagHelpers
         public List<TableColumnAttribute> Columns { get; set; }
         [HtmlAttributeName("data")]
         public object Data { get; set; }
+        [HtmlAttributeName("pagination")]
+        public IPagination Pagination { get; set; }
         private Dictionary<Type, List<AZItemValue>> DataDic { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -77,8 +80,9 @@ namespace AZWeb.TagHelpers
         }
         private void RenderBody(StringBuilder htmlTable,object Data)
         {
-            int IndexRow = 0;
-            
+            int IndexRow = (Pagination.PageIndex - 1) * Pagination.PageSize;
+
+            if (IndexRow < 0) IndexRow = 0;
             htmlTable.Append("<tbody>");
             if (Data is DataTable)
             {

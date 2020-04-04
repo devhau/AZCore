@@ -5,14 +5,18 @@ using Microsoft.AspNetCore.Http;
 
 namespace AZWeb.Common.Module
 {
-    public class ApiModule : IModule
+    public class ApiModule : IModule, IUrlVirtual
     {
+        public IQueryCollection UrlVirtual { get; private set; }
         public HttpContext httpContext { get; private set; }
         protected IPagesConfig PagesConfig { get; }
         public ApiModule(IHttpContextAccessor httpContext)
         {
             this.httpContext = httpContext.HttpContext;
+            UrlVirtual = this.httpContext.Request.Query;
             PagesConfig = this.httpContext.GetService<IPagesConfig>();
+            this.httpContext.BindFormAttributeTo(this);
+            this.httpContext.BindQueryAttributeTo(this);
         }
         public virtual void BeforeRequest(){}
         public virtual void AfterRequest(){ }

@@ -8,6 +8,7 @@
         </div>
         <div class="az-search-manager">
             <form class="az-search-form row">
+                <az-hidden-model model="Model" func="(item)=>((FormCandidate)item).PageSize" />
                 <div class="form-group col-md-2">
                     <az-date-model model="Model" func="(item)=>((FormCandidate)item).CreateAt" label="Ngày tạo" />
                 </div>
@@ -30,8 +31,8 @@
             <button type="button" class="btn btn-warning az-btn az-btn-search float-right"><i class="fas fa-search"></i> Tìm kiếm</button>
         </div>
         <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((CandidateModel)item).Id" columns="Model.Columns"/>
-            <az-pagination/>
+            <az-table data="Model.Data" FunKey="(item)=>((CandidateModel)item).Id" columns="Model.Columns"  pagination="Model"/>
+            <az-pagination pagination="Model"/>
         </div>
     </div>
 </az-module-layout>

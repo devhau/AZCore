@@ -2,8 +2,8 @@
     $.extend(this, new AZAjax());
     $this = this;
     this.FormSize = $(this).data("form-size");
+    this.FormSearch = $(this).find(".az-search-form");
     this.ReLoad = function (callback) {
-
         new AZUrl().loadHtml(location.href, callback);
     }
     this.SaveData = function (url, scope) {
@@ -83,6 +83,19 @@
     });
     $(this).find(".az-btn-import").on("click", function () {
         alert("Đang phát triển!");
+    });
+    $(this).find(".az-btn-search").on("click", function () {
+        $data = $($this.FormSearch).serializeArray();
+        hrefSearch = "";
+        $.each($data, function (index, item) {
+            if (item.value != "") {
+                if (hrefSearch != "")
+                    hrefSearch += "&";
+                hrefSearch += item.name + "=" + encodeURIComponent(item.value);
+            }
+        });
+        hrefSearch = location.pathname + "?" + hrefSearch;
+        new AZUrl().changeUrl(hrefSearch);
     });
     return this;
 }
