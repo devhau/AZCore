@@ -1,72 +1,76 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attr;
-using AZCore.Domain;
+using AZERP.Data.Entities;
 using AZERP.Data.Enums;
+using AZWeb.Common.Manager;
+using AZWeb.Common.Module.Attr;
+using Microsoft.AspNetCore.Http;
 using System;
-using System.Data;
 
-namespace AZERP.Data.Entities
+namespace AZERP.Web.Modules.Worker
 {
-    public class CandidateService : EntityService<CandidateService, CandidateModel>, IAZTransient
+    [TableColumn(Title = "Ngày tạo", FieldName = "CreateAt", Width = 100,FormatString ="{0:dd/MM/yyyy}")]
+    [TableColumn(Title = "Họ Tên", FieldName = "FullName", Width = 130)]
+    [TableColumn(Title = "Giới tính", FieldName = "Gender", Width = 80,DataType =typeof(EnumGender))]
+    [TableColumn(Title = "Số điện thoại", FieldName = "PhoneNumber", Width = 100)]
+    [TableColumn(Title = "Ngày sinh", FieldName = "BirthDay", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
+    [TableColumn(Title = "Địa chỉ", FieldName = "Address", Width = 150)]
+    [TableColumn(Title = "Ở hiện tại", FieldName = "AddressCurrent", Width = 150)]
+    [TableColumn(Title = "Làm khu vực", FieldName = "TargetToAddress", Width = 150, DataType = typeof(EnumAddressWorker))]
+    [TableColumn(Title = "Trạng thái gọi", FieldName = "CallStatus", Width = 150, DataType = typeof(EnumCallStatus))]
+    [TableColumn(Title = "Hẹn đi làm", FieldName = "StartWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
+    [TableColumn(Title = "Hẹn đến văn phòng", FieldName = "GoCompanyAt", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
+    [TableColumn(Title = "Hẹn gọi lại", FieldName = "CallBack", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
+    public class FormWorker : ManageModule<WorkerService, WorkerModel, FormUpdateWorker>
     {
-        public CandidateService(IDbConnection _connection) : base(_connection)
-        {
-        }
-    }
-    /// <summary>
-    /// Thông tin của ứng viên
-    /// </summary>
-
-    [TableInfo(TableName = "az_candidate")]
-    public class CandidateModel : EntityModel<CandidateModel, long>
-    {
+        #region -- Field Search --
         /// <summary>
         /// Họ Tên
         /// </summary>
-        [Field(Length = 500)]
+        [QuerySearch(OperatorSQL = EnumOperatorSQL.LIKE)]
         public string FullName { get; set; }
         /// <summary>
         /// <summary>
         /// Ngày sinh
         /// </summary>
-        [Field]
+        [QuerySearch]
         public DateTime? BirthDay { get; set; }
         /// <summary>
         /// Giới tính
         /// </summary>
-        [Field]
+        [QuerySearch]
         public EnumGender? Gender { get; set; }
         /// <summary>
         /// Số điện thoại
         /// </summary>
-        [Field(Length = 5000)]
+        [QuerySearch(OperatorSQL = EnumOperatorSQL.LIKE)]
         public string PhoneNumber { get; set; }
         /// <summary>
         /// Địa chỉ của ứng viên
         /// </summary>
-        [Field(Length = 1000)]
+        [QuerySearch(OperatorSQL = EnumOperatorSQL.LIKE)]
         public string Address { get; set; }
         /// <summary>
         /// Nơi ở hiện tại
         /// </summary>
-        [Field(Length = 1000)]
+        [QuerySearch]
         public string AddressCurrent { get; set; }
         /// <summary>
         /// Đường dẫn Facebook
         /// </summary>
-        [Field(Length = 5000)]
+        [QuerySearch]
         public string LinkFacebook { get; set; }
         /// <summary>
         /// Nguồn thông tin này ở đâu.
         /// Trang: Kho Việc Làm Bắc Ninh
         /// </summary>
-        [Field(Length = 5000)]
+        [QuerySearch]
         public string Source { get; set; }
         /// <summary>
         /// Nguyện Vọng của ứng viên
         /// </summary>
-        [Field(Length = 5000)]
-        public string AspirationsOfCandidates { get; set; }
+        [QuerySearch]
+        public string AspirationsOfWorkers { get; set; }
         /// <summary>
         /// Lựa chọn vị trí công việc ở địa chỉ nào.
         /// Mục đích để Thông kê
@@ -76,56 +80,63 @@ namespace AZERP.Data.Entities
         /// 3-Yên Phong,Bắc Ninh
         /// 4-Bắc Giang
         /// </summary>
-        [Field]
+        [QuerySearch]
         public EnumAddressWorker? TargetToAddress { get; set; }
         /// <summary>
         /// Loại của ứng viên.
         /// Chính Thức 
         /// Thời vụ.
         /// </summary>
-        [Field]
-        public EnumTypeOfCandidate? TypeOfCandidate { get; set; }
+        [QuerySearch]
+        public EnumTypeOfCandidate? TypeOfWorker { get; set; }
         /// <summary>
         /// Trạng thái cuộc gọi
         /// </summary>
-        [Field]
+        [QuerySearch]
         public EnumCallStatus? CallStatus { get; set; }
         /// <summary>
         /// Thời gian gọi gần đây nhất
         /// </summary>
-        [Field]
+        [QuerySearch]
         public DateTime? CallAt { get; set; }
         /// <summary>
         /// Hẹn thời gian đến công ty
         /// </summary>
-        [Field]
+        [QuerySearch]
         public DateTime? GoCompanyAt { get; set; }
         /// <summary>
         /// Hoàn thành lúc
         /// </summary>
-        [Field]
+        [QuerySearch]
         public DateTime? CompleteAt { get; set; }
         /// <summary>
         /// Gọi lại
         /// </summary>
-        [Field]
+        [QuerySearch]
         public DateTime? CallBack { get; set; }
         /// <summary>
         /// Thời gian bắt đầu công việc
         /// </summary>
-        [Field]
+        [QuerySearch]
         public DateTime? StartWork { get; set; }
         /// <summary>
         /// Dán cho ai đó
         /// </summary>
-        [Field]
+        [QuerySearch]
         public long? AssignTo { get; set; }
-        [Field]
-        public string Note { get; set; }
         /// <summary>
-        /// Người đã đi làm
+        /// Ngày tạo
         /// </summary>
-        [Field]
-        public long? WorkderId {get;set;}
+        [QuerySearch]
+        public DateTime? CreateAt { get; set; }
+        #endregion
+
+        public FormWorker(IHttpContextAccessor httpContext) : base(httpContext)
+        {
+        }
+        protected override void IntData()
+        {
+            this.Title = "Quản lý công nhân";
+        }
     }
 }

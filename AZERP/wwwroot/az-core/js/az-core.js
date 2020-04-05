@@ -12,8 +12,9 @@ String.prototype.splice = function (idx, s) {
 function AZCore() { }
 AZCore.Init = function () { }
 $.fn.singleDatePicker = function () {
+   var rs= $(this).daterangepicker({ singleDatePicker: true, autoUpdateInput: false, ShowDropdowns: true, minYear: 1901, locale: { format: 'DD/MM/YYYY' }, maxYear: parseInt(moment().format('YYYY'), 10) });
     $(this).on("apply.daterangepicker", function (e, picker) {
         picker.element.val(picker.startDate.format(picker.locale.format));
     });
-    return $(this).daterangepicker({ singleDatePicker: true, autoUpdateInput: false, ShowDropdowns: true, minYear: 1901, locale: { format: 'DD/MM/YYYY' }, maxYear: parseInt(moment().format('YYYY'), 10) })
+    return rs;
 };

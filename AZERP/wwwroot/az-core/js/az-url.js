@@ -3,7 +3,10 @@ AZUrl.prototype.loadHtml = function (url, callback) {
     new AZAjax().DoGet(url, {}, function (d) {
         $("#ContentAZ").html(d.Html);
         document.title = d.Title;
-        if (d.JS) d.JS.forEach(function (item) { eval(item.Code) });
+        var CodeJS = "";
+        if (d.JS) d.JS.forEach(function (item) { if (item.Code) { CodeJS = CodeJS + " " + item.Code; } });
+        setTimeout(function () { eval(CodeJS); }, 1000);
+        
         if (callback) callback();
         UrlMain.Init();
     }, function (e) { });

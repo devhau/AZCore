@@ -1,0 +1,43 @@
+﻿@model FormUpdateWorker
+    <div class="az-update row" id="FormUpdateUser" role="form">
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((WorkerModel)item).FullName" label="Họ tên" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((WorkerModel)item).PhoneNumber" label="Số điện thoại" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-date-model model="Model.Data" func="(item)=>((WorkerModel)item).BirthDay" label="Ngày sinh(Nếu chỉ năm sinh:01/01/Năm sinh)" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-gender-select model="Model.Data" func="(item)=>((WorkerModel)item).Gender" label="Giới tínhh" null-text="Chọn giới tính" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((WorkerModel)item).Address" label="Địa chỉ" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((WorkerModel)item).AddressCurrent" label="Hiện tại trọ đâu" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-address-worker-select model="Model.Data" func="(item)=>((WorkerModel)item).TargetToAddress" null-text="Chọn khu làm việc"  label="Làm khu vực" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-call-status-select model="Model.Data" func="(item)=>((WorkerModel)item).CallStatus" label="Trạng thái gọi" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-date-model model="Model.Data" func="(item)=>((WorkerModel)item).StartWork" label="Hẹn đi làm" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-date-model model="Model.Data" func="(item)=>((WorkerModel)item).GoCompanyAt" label="Hẹn đến văn phòng" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-date-model model="Model.Data" func="(item)=>((WorkerModel)item).CallBack" label="Hẹn gọi lại" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((WorkerModel)item).LinkFacebook" label="Đường dẫn facebook" />
+        </div>
+
+    </div>
+<az-script>
+
+</az-script>

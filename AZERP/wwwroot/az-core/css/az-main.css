@@ -104,6 +104,7 @@
     }
 .az-modal {
     background: rgba(0, 0, 0, 0.75);
+    overflow:auto;
 }
     .az-modal .modal-content {
         border-radius:0px;

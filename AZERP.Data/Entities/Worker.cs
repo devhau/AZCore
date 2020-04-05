@@ -3,22 +3,24 @@ using AZCore.Database.Attr;
 using AZCore.Domain;
 using AZERP.Data.Enums;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Text;
 
 namespace AZERP.Data.Entities
 {
-    public class CandidateService : EntityService<CandidateService, CandidateModel>, IAZTransient
+    public class WorkerService : EntityService<WorkerService, WorkerModel>, IAZTransient
     {
-        public CandidateService(IDbConnection _connection) : base(_connection)
+        public WorkerService(IDbConnection _connection) : base(_connection)
         {
         }
     }
     /// <summary>
-    /// Thông tin của ứng viên
+    /// Thông tin công nhân
     /// </summary>
 
-    [TableInfo(TableName = "az_candidate")]
-    public class CandidateModel : EntityModel<CandidateModel, long>
+    [TableInfo(TableName = "az_worker")]
+    public class WorkerModel : EntityModel<WorkerModel, long>
     {
         /// <summary>
         /// Họ Tên
@@ -122,10 +124,5 @@ namespace AZERP.Data.Entities
         public long? AssignTo { get; set; }
         [Field]
         public string Note { get; set; }
-        /// <summary>
-        /// Người đã đi làm
-        /// </summary>
-        [Field]
-        public long? WorkderId {get;set;}
     }
 }

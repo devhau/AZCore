@@ -77,3 +77,6 @@ E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Role\FormRole
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Role\FormUpdateRole.cshtml.g.cs
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\CompanyWorker\FormCompanyWorker.cshtml.g.cs
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\CompanyWorker\FormUpdateCompanyWorker.cshtml.g.cs
+E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Worker\FormUpdateWorker.cshtml.g.cs
+E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Worker\FormWorker.cshtml.g.cs
+E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Candidate\FormSale.cshtml.g.cs
