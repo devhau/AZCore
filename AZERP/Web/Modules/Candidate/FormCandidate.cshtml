@@ -7,32 +7,40 @@
             <button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
         </div>
         <div class="az-search-manager">
-            <form class="az-search-form row">
-                <az-hidden-model model="Model" func="(item)=>((FormCandidate)item).PageSize" />
-                <div class="form-group col-md-2">
-                    <az-date-model model="Model" func="(item)=>((FormCandidate)item).CreateAt" label="Ngày tạo" />
+            <div class="row">
+                <div class="col-md-11">
+                    <form class="az-search-form row">
+                        <az-hidden-model model="Model" func="(item)=>((FormCandidate)item).PageSize" />
+                        <div class="form-group col-md-2">
+                            <az-date-model model="Model" func="(item)=>((FormCandidate)item).CreateAt" label="Ngày tạo" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-text-model model="Model" func="(item)=>((FormCandidate)item).FullName" label="Họ tên" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-text-model model="Model" func="(item)=>((FormCandidate)item).PhoneNumber" label="Số điện thoại" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-gender-select model="Model" func="(item)=>((FormCandidate)item).Gender" label="Giới tính" null-text="Chọn Tất cả" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-call-status-select model="Model" func="(item)=>((FormCandidate)item).CallStatus" label="Trạng thái gọi" null-text="Chọn Tất cả" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-address-worker-select model="Model" func="(item)=>((FormCandidate)item).TargetToAddress" label="Nơi làm việc" null-text="Chọn Tất cả" />
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group col-md-2">
-                    <az-text-model model="Model" func="(item)=>((FormCandidate)item).FullName" label="Họ tên" />
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-warning az-btn az-btn-search float-right"><i class="fas fa-search"></i> Tìm kiếm</button>
                 </div>
-                <div class="form-group col-md-2">
-                    <az-text-model model="Model" func="(item)=>((FormCandidate)item).PhoneNumber" label="Số điện thoại" />
-                </div>
-                <div class="form-group col-md-2">
-                    <az-gender-select model="Model" func="(item)=>((FormCandidate)item).Gender" label="Giới tính" null-text="Chọn Tất cả" />
-                </div>
-                <div class="form-group col-md-2">
-                    <az-call-status-select model="Model" func="(item)=>((FormCandidate)item).CallStatus" label="Trạng thái gọi" null-text="Chọn Tất cả" />
-                </div>
-                <div class="form-group col-md-2">
-                    <az-address-worker-select model="Model" func="(item)=>((FormCandidate)item).TargetToAddress" label="Nơi làm việc" null-text="Chọn Tất cả" />
-                </div>
-            </form>
-            <button type="button" class="btn btn-warning az-btn az-btn-search float-right"><i class="fas fa-search"></i> Tìm kiếm</button>
+            </div>
         </div>
         <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((CandidateModel)item).Id" columns="Model.Columns"  pagination="Model"/>
-            <az-pagination pagination="Model"/>
+            <az-table data="Model.Data" FunKey="(item)=>((CandidateModel)item).Id" columns="Model.Columns" pagination="Model" />
+        </div>
+        <div class="az-bottom-manager">
+            <az-pagination pagination="Model" />
         </div>
     </div>
 </az-module-layout>
