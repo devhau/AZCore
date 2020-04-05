@@ -1,0 +1,26 @@
+﻿@model FormUpdateCompanyWorker
+    <div class="az-update row" id="FormUpdateUser" role="form">
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((CompanyWorkerModel)item).Name" label="Tên Công Ty" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((CompanyWorkerModel)item).AbbreviatedName" label="Tên viết tắt" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((CompanyWorkerModel)item).PhoneNumber" label="Số điện thoại" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((CompanyWorkerModel)item).Address" label="Địa chỉ" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-address-worker-select model="Model.Data" func="(item)=>((CompanyWorkerModel)item).AtAddress" null-text="Chọn khu làm việc" label="Làm khu vực" />
+        </div>
+
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((CompanyWorkerModel)item).Description" label="Mô tả" />
+        </div>
+
+    </div>
+<az-script>
+
+</az-script>

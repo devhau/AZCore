@@ -3,11 +3,7 @@ using AZWeb.Common.Manager;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace AZWeb.TagHelpers.Module
@@ -22,7 +18,7 @@ namespace AZWeb.TagHelpers.Module
         [HtmlAttributeName("pagination")]
         public IPagination Pagination { get; set; }
         [HtmlAttributeName("page-show")]
-        public int PageShow { get; set; } = 5;
+        public int PageShow { get; set; } = 7;
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             IQueryCollection query = Pagination.UrlVirtual;

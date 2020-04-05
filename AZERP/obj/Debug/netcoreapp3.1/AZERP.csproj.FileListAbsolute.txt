@@ -75,3 +75,5 @@ E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\staticwebassets\AZERP.StaticWeb
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\AZERP.genruntimeconfig.cache
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Role\FormRole.cshtml.g.cs
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Role\FormUpdateRole.cshtml.g.cs
+E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\CompanyWorker\FormCompanyWorker.cshtml.g.cs
+E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\CompanyWorker\FormUpdateCompanyWorker.cshtml.g.cs

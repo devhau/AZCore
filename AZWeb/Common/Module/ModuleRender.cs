@@ -41,10 +41,10 @@ namespace AZWeb.Common.Module
             this.PageConfigs = this.httpContext.GetService<IPagesConfig>();
             this.IsAjax = httpContext.IsAjax();
             startup = httpContext.GetService<IStartup>();
-            AzWebAssembly = string.Format("{0}.Web", startup.AssemblyName);
+            AzWebAssembly = "Web";
         }
         private Type GetType(string type) {
-            return startup.GetType().Assembly.GetType(type);
+            return startup.GetType(type);
         }
         /// <summary>
         /// Get Path Real

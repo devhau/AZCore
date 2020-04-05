@@ -7,6 +7,6 @@ namespace AZWeb.Utilities
 {
     public interface IStartup
     {
-        string AssemblyName {get;}
+        Type GetType(string type);
     }
 }

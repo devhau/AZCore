@@ -6,18 +6,27 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AZERP
 {
     public class Startup: AZWeb.Utilities.IStartup
     {
-        public string AssemblyName { get; }
+        private static Dictionary<String, Type> dicType = new Dictionary<string, Type>();
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
 
             AZCoreWeb.env = env;
-            this.AssemblyName = "AZERP";
+            this.GetType().Assembly.GetTypes().Where(p => p.FullName.Contains(".Web.")).Any(p =>
+            {
+                var indexWeb= p.FullName.IndexOf(".Web.");
+                var key = p.FullName.Substring(indexWeb+1).ToLower().Trim();
+                dicType[key] = p;
+                return false;
+            });
         }
 
         public IConfiguration Configuration { get; }
@@ -52,6 +61,13 @@ namespace AZERP
           
 
 
+        }
+
+        public Type GetType(string type)
+        {
+            type = type.ToLower().Trim();
+            if (dicType.ContainsKey(type)) return dicType[type];
+            return null;
         }
     }
 }
