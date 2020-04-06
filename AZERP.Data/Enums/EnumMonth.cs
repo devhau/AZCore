@@ -8,7 +8,6 @@ namespace AZERP.Data.Enums
 {
     public enum EnumMonth:int
     {
-        [Field(Display ="Chọn tháng")]None=0,//Default
         [Field(Display = "Tháng 1")] January = 1, //January - 31 days 
         [Field(Display = "Tháng 2")] February =2,//February - 28 days in a common year and 29 days in leap years
         [Field(Display = "Tháng 3")] March =3,//March - 31 days

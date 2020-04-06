@@ -38,12 +38,11 @@ namespace AZWeb.TagHelpers
                         Data.Add(item.GetItemValue());
                     }
                 }
-                if (!string.IsNullOrEmpty(txtDefault)) {
-
-                    Data.Insert(0, new AZItemValue() { ItemDisplay=txtDefault,ItemValue=0});
-                }
             }
-            
+            if (!string.IsNullOrEmpty(txtDefault))
+            {
+                Data.Insert(0, new AZItemValue() { ItemDisplay = txtDefault, ItemValue = null });
+            }
             return Data;
         }
         public static AZItemValue GetItemValue(this object obj) { 

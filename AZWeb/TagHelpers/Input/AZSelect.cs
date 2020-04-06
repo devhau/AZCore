@@ -22,7 +22,7 @@ namespace AZWeb.TagHelpers.Input
             this.BindModel();
             if (DataType != null)
             {
-                this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, "Chọn " + this.InputLabel);
+                this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, NullText.IsNullOrEmpty()? "Chọn " + this.InputLabel.ToLower():"");
             }
             base.InitData();
         }

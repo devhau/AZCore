@@ -29,7 +29,7 @@ namespace AZWeb.Common.Manager
         }
         protected override object GetValueByType(Type type, object value)
         {
-            var itemDic = this.DataDic[type].Where(p => p.ItemValue.Equals(value)).FirstOrDefault();
+            var itemDic = this.DataDic[type].Where(p => p.ItemValue!=null&&p.ItemValue.Equals(value)).FirstOrDefault();
             if (itemDic != null)
             {
                 return itemDic.ItemDisplay;

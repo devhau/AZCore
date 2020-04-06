@@ -28,6 +28,11 @@ namespace AZERP.Data.Entities
         [Field(Length = 500)]
         public string FullName { get; set; }
         /// <summary>
+        /// Chứ minh thư
+        /// </summary>
+        [Field(Length = 20)]
+        public string CMD { get; set; }
+        /// <summary>
         /// <summary>
         /// Ngày sinh
         /// </summary>
@@ -65,11 +70,6 @@ namespace AZERP.Data.Entities
         [Field(Length = 5000)]
         public string Source { get; set; }
         /// <summary>
-        /// Nguyện Vọng của ứng viên
-        /// </summary>
-        [Field(Length = 5000)]
-        public string AspirationsOfCandidates { get; set; }
-        /// <summary>
         /// Lựa chọn vị trí công việc ở địa chỉ nào.
         /// Mục đích để Thông kê
         /// Ví dụ:
@@ -88,41 +88,33 @@ namespace AZERP.Data.Entities
         [Field]
         public EnumTypeOfCandidate? TypeOfCandidate { get; set; }
         /// <summary>
-        /// Trạng thái cuộc gọi
+        /// Tình trạng công nhân
         /// </summary>
         [Field]
-        public EnumCallStatus? CallStatus { get; set; }
+        public EnumWorkerStatus? WorkerStatus { get; set; }
         /// <summary>
-        /// Thời gian gọi gần đây nhất
-        /// </summary>
-        [Field]
-        public DateTime? CallAt { get; set; }
-        /// <summary>
-        /// Hẹn thời gian đến công ty
-        /// </summary>
-        [Field]
-        public DateTime? GoCompanyAt { get; set; }
-        /// <summary>
-        /// Hoàn thành lúc
-        /// </summary>
-        [Field]
-        public DateTime? CompleteAt { get; set; }
-        /// <summary>
-        /// Gọi lại
-        /// </summary>
-        [Field]
-        public DateTime? CallBack { get; set; }
-        /// <summary>
-        /// Thời gian bắt đầu công việc
+        /// Ngày bắt đầu công việc
         /// </summary>
         [Field]
         public DateTime? StartWork { get; set; }
         /// <summary>
-        /// Dán cho ai đó
+        /// Ngày kết thúc việc
+        /// </summary>
+        public DateTime? LastWork { get; set; }
+        /// <summary>
+        /// Ghi chú
         /// </summary>
         [Field]
-        public long? AssignTo { get; set; }
-        [Field]
         public string Note { get; set; }
+        /// <summary>
+        /// Làm việc ở công ty
+        /// </summary>
+        [Field]
+        public long? CompanyId { get; set; }
+        /// <summary>
+        /// Thông tin ứng viên
+        /// </summary>
+        [Field] 
+        public long? CandidateId { get; set; }
     }
 }

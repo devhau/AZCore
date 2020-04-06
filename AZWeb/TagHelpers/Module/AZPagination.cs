@@ -19,6 +19,8 @@ namespace AZWeb.TagHelpers.Module
         public IPagination Pagination { get; set; }
         [HtmlAttributeName("page-show")]
         public int PageShow { get; set; } = 7;
+        [HtmlAttributeName("list-page-size")]
+        public string ListPageSize { get; set; } = "5,10,20,50,100,200,500,1000";
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             IQueryCollection query = Pagination.UrlVirtual;
@@ -37,11 +39,15 @@ namespace AZWeb.TagHelpers.Module
             htmlBuild.Append("<li style=\"padding:0px 5px;\">");
             htmlBuild.AppendFormat("<select class=\"form-control select2 az-change-ajax\" style=\"width: 100% \" name=\"PageSize\" az-href=\"{0}\">", pathReal);
 
-            for (int index = 5; index < 100; index += 5) 
+            foreach (var item in ListPageSize.Split(",")) 
             {
-                htmlBuild.AppendFormat("<option value=\"{0}\" name=\"PageSize_{0}\" {1} >{0}</option>", index, index==this.Pagination.PageSize? " selected=\"selected\"" : "");
-            }
+                int PageSize = 0;
+                if (int.TryParse(item, out PageSize))
+                {
+                    htmlBuild.AppendFormat("<option value=\"{0}\" name=\"PageSize_{0}\" {1} >{0}</option>", PageSize, PageSize == this.Pagination.PageSize ? " selected=\"selected\"" : "");
 
+                }
+            }
             htmlBuild.Append("</select>");
             htmlBuild.Append("</li>");
             htmlBuild.AppendFormat("<li class=\"paginate_button page-item previous {3}\"><a href=\"{0}&PageSize={2}&PageIndex={1}\" tabindex=\"0\" class=\"page-link  az-link\"><<</a></li>", pathReal, this.Pagination.PageIndex-1, this.Pagination.PageSize, this.Pagination.PageIndex <=1?"disabled":"");

@@ -157,7 +157,7 @@ namespace AZWeb.TagHelpers
                                     object ItemDisplay = itemValue;
                                     if (col.DataType != null)
                                     {
-                                        var itemDic = this.DataDic[col.DataType].Where(p => p.ItemValue.Equals(itemValue)).FirstOrDefault();
+                                        var itemDic = this.DataDic[col.DataType].Where(p => p.ItemValue!=null&&p.ItemValue.Equals(itemValue)).FirstOrDefault();
                                         if (itemDic != null)
                                         {
                                             ItemDisplay = itemDic.ItemDisplay;                                           
