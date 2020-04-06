@@ -31,7 +31,7 @@ namespace AZWeb.Common.Module
         IStartup startup;
         private  bool IsAjax { get; }
         private readonly HttpContext httpContext;
-        private readonly string AzWebAssembly;
+        private readonly string AzWebAssembly = "Web";
         private readonly IPagesConfig PageConfigs = null;
         private readonly UserInfo user;
         ModuleRender(HttpContext _httpContext)
@@ -41,7 +41,6 @@ namespace AZWeb.Common.Module
             this.PageConfigs = this.httpContext.GetService<IPagesConfig>();
             this.IsAjax = httpContext.IsAjax();
             startup = httpContext.GetService<IStartup>();
-            AzWebAssembly = "Web";
         }
         private Type GetType(string type) {
             return startup.GetType(type);

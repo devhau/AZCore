@@ -84,6 +84,24 @@
     $(this).find(".az-btn-import").on("click", function () {
         alert("Đang phát triển!");
     });
+    $(this).find(".az-search-form .az-input-change-search").on("change", function () {
+        $data = $($this.FormSearch).serializeArray();
+        var notSearch = $(this).attr("data-not-search")
+        if (notSearch)
+            notSearch = notSearch.split(",");
+        hrefSearch = "";
+        $.each($data, function (index, item) {
+            if (notSearch != undefined && notSearch.indexOf(item.name)>-1) {
+            }else
+            if (item.value != "" ) {
+                if (hrefSearch != "")
+                    hrefSearch += "&";
+                hrefSearch += item.name + "=" + encodeURIComponent(item.value);
+            }
+        });
+        hrefSearch = location.pathname + "?" + hrefSearch;
+        new AZUrl().changeUrl(hrefSearch);
+    })
     $(this).find(".az-btn-search").on("click", function () {
         $data = $($this.FormSearch).serializeArray();
         hrefSearch = "";

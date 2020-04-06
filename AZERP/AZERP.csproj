@@ -47,4 +47,9 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Web\Modules\Auth\css\" />
+    <Folder Include="Web\Modules\Auth\js\" />
+  </ItemGroup>
+
 </Project>

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Text;
 
 namespace AZCore.Database
@@ -32,54 +33,19 @@ namespace AZCore.Database
 
         static TypeConvertor()
         {
-            DbTypeMapEntry dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(bool), DbType.Boolean, SqlDbType.Bit);
-            _DbTypeList.Add(dbTypeMapEntry);
-
-            dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(byte), DbType.Double, SqlDbType.TinyInt);
-            _DbTypeList.Add(dbTypeMapEntry);
-
-            dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(byte[]), DbType.Binary, SqlDbType.Image);
-            _DbTypeList.Add(dbTypeMapEntry);
-
-            dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(DateTime), DbType.DateTime, SqlDbType.DateTime);
-            _DbTypeList.Add(dbTypeMapEntry);
-
-            dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(Decimal), DbType.Decimal, SqlDbType.Decimal);
-            _DbTypeList.Add(dbTypeMapEntry);
-
-            dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(double), DbType.Double, SqlDbType.Float);
-            _DbTypeList.Add(dbTypeMapEntry);
-
-            dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(Guid), DbType.Guid, SqlDbType.UniqueIdentifier);
-            _DbTypeList.Add(dbTypeMapEntry);
-
-            dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(Int16), DbType.Int16, SqlDbType.SmallInt);
-            _DbTypeList.Add(dbTypeMapEntry);
-
-            dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(Int32), DbType.Int32, SqlDbType.Int);
-            _DbTypeList.Add(dbTypeMapEntry);
-
-            dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(Int64), DbType.Int64, SqlDbType.BigInt);
-            _DbTypeList.Add(dbTypeMapEntry);
-
-            dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(object), DbType.Object, SqlDbType.Variant);
-            _DbTypeList.Add(dbTypeMapEntry);
-
-            dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(string), DbType.String, SqlDbType.VarChar);
-            _DbTypeList.Add(dbTypeMapEntry);
-
+            _DbTypeList.Add(new DbTypeMapEntry(typeof(bool), DbType.Boolean, SqlDbType.Bit));
+            _DbTypeList.Add(new DbTypeMapEntry(typeof(byte), DbType.Double, SqlDbType.TinyInt));
+            _DbTypeList.Add(new DbTypeMapEntry(typeof(byte[]), DbType.Binary, SqlDbType.Image));
+            _DbTypeList.Add(new DbTypeMapEntry(typeof(DateTime), DbType.DateTime, SqlDbType.DateTime));
+            _DbTypeList.Add(new DbTypeMapEntry(typeof(Decimal), DbType.Decimal, SqlDbType.Decimal));
+            _DbTypeList.Add(new DbTypeMapEntry(typeof(double), DbType.Double, SqlDbType.Float));
+            _DbTypeList.Add(new DbTypeMapEntry(typeof(Guid), DbType.Guid, SqlDbType.UniqueIdentifier));
+            _DbTypeList.Add(new DbTypeMapEntry(typeof(Int16), DbType.Int16, SqlDbType.SmallInt));
+            _DbTypeList.Add(new DbTypeMapEntry(typeof(Int32), DbType.Int32, SqlDbType.Int));
+            _DbTypeList.Add(new DbTypeMapEntry(typeof(Int64), DbType.Int64, SqlDbType.BigInt));
+            _DbTypeList.Add(new DbTypeMapEntry(typeof(object), DbType.Object, SqlDbType.Variant));
+            _DbTypeList.Add(new DbTypeMapEntry(typeof(string), DbType.String, SqlDbType.VarChar));
+            _DbTypeList.Add(new DbTypeMapEntry(typeof(float), DbType.Single, SqlDbType.Float));
         }
 
         private TypeConvertor()
@@ -196,6 +162,15 @@ namespace AZCore.Database
                 new ApplicationException("Referenced an unsupported DbType");
             }
 
+            try
+            {
+                return (DbTypeMapEntry)retObj;
+            }
+            catch {
+
+                Debug.WriteLine("");
+
+            }
             return (DbTypeMapEntry)retObj;
         }
         private static DbTypeMapEntry Find(SqlDbType sqlDbType)

@@ -26,6 +26,7 @@ namespace AZERP.Data.Entities
         /// Họ Tên
         /// </summary>
         [Field(Length = 500)]
+        [FieldDisplay]
         public string FullName { get; set; }
         /// <summary>
         /// Chứ minh thư

@@ -80,6 +80,7 @@ namespace AZWeb.TagHelpers
         }
         private void RenderBody(StringBuilder htmlTable,object Data)
         {
+            if (Data == null) return;
             int IndexRow = (Pagination.PageIndex - 1) * Pagination.PageSize;
 
             if (IndexRow < 0) IndexRow = 0;

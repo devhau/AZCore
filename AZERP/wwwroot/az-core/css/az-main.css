@@ -71,12 +71,16 @@
     height: 45px;
     padding: 7px;
 }
-.az-manager .az-data-table {
-    width: calc(100% - 2px);
-    height: calc(100% - 50px - 2px);
-    padding: 7px;
-    overflow:auto;
-}
+    .az-manager .az-toolbar .az-search-form {
+        padding: 0px;
+        margin-top: -5px;
+    }
+    .az-manager .az-data-table {
+        width: calc(100% - 2px);
+        height: calc(100% - 50px - 2px);
+        padding: 7px;
+        overflow: auto;
+    }
 .az-manager.az-bottom {
     padding-bottom: 50px;
 }
@@ -136,4 +140,20 @@
     position: absolute;
     padding: 0px;
     margin: 0px;
+    display: flex;
+    flex-direction: column;
 }
+    .az-module-layout .az-module-header {
+        width: 100%;
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+    .az-module-layout .az-module-body {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        position: relative;
+        margin: 0;
+        padding:0;
+    }

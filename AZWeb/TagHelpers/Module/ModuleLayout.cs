@@ -20,7 +20,9 @@ namespace AZWeb.TagHelpers.Module
             var content = await output.GetChildContentAsync();
             htmlBuild.Append("<div class=\"az-module-layout\">");
             htmlBuild.AppendFormat("<div class=\"az-module-header\"><h4 style=\"padding:2px 0px 2px 7px;;margin-bottom:0px;font-weight:700;\">{0}</h4></div>", this.Html.Title);
+            htmlBuild.Append("<div class=\"az-module-body\">");
             htmlBuild.Append(content.GetContent());
+            htmlBuild.Append("</div>");
             htmlBuild.Append("</div>");
             output.Content.SetHtmlContent(htmlBuild.ToString());
         }
