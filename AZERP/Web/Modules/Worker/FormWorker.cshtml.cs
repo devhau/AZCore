@@ -17,7 +17,8 @@ namespace AZERP.Web.Modules.Worker
     [TableColumn(Title = "Địa chỉ", FieldName = "Address", Width = 150)]
     [TableColumn(Title = "Ở hiện tại", FieldName = "AddressCurrent", Width = 150)]
     [TableColumn(Title = "Làm khu vực", FieldName = "TargetToAddress", Width = 150, DataType = typeof(EnumAddressWorker))]
-    [TableColumn(Title = "Trạng thái gọi", FieldName = "CallStatus", Width = 150, DataType = typeof(EnumCallStatus))]
+    [TableColumn(Title = "Công ty", FieldName = "CompanyId", Width = 150, DataType = typeof(CompanyWorkerService))]
+    [TableColumn(Title = "Trạng thái gọi", FieldName = "WorkerStatus", Width = 150, DataType = typeof(EnumWorkerStatus))]
     [TableColumn(Title = "Ngày đi làm", FieldName = "StartWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Ngày nghỉ việc", FieldName = "LastWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     public class FormWorker : ManageModule<WorkerService, WorkerModel, FormUpdateWorker>
@@ -89,40 +90,15 @@ namespace AZERP.Web.Modules.Worker
         [QuerySearch]
         public EnumTypeOfCandidate? TypeOfWorker { get; set; }
         /// <summary>
-        /// Trạng thái cuộc gọi
+        /// Trạng thái công nhân
         /// </summary>
         [QuerySearch]
-        public EnumCallStatus? CallStatus { get; set; }
+        public EnumWorkerStatus? WorkerStatus { get; set; }
         /// <summary>
-        /// Thời gian gọi gần đây nhất
+        /// Công ty
         /// </summary>
         [QuerySearch]
-        public DateTime? CallAt { get; set; }
-        /// <summary>
-        /// Hẹn thời gian đến công ty
-        /// </summary>
-        [QuerySearch]
-        public DateTime? GoCompanyAt { get; set; }
-        /// <summary>
-        /// Hoàn thành lúc
-        /// </summary>
-        [QuerySearch]
-        public DateTime? CompleteAt { get; set; }
-        /// <summary>
-        /// Gọi lại
-        /// </summary>
-        [QuerySearch]
-        public DateTime? CallBack { get; set; }
-        /// <summary>
-        /// Thời gian bắt đầu công việc
-        /// </summary>
-        [QuerySearch]
-        public DateTime? StartWork { get; set; }
-        /// <summary>
-        /// Dán cho ai đó
-        /// </summary>
-        [QuerySearch]
-        public long? AssignTo { get; set; }
+        public long? CompanyId { get; set; }
         /// <summary>
         /// Ngày tạo
         /// </summary>

@@ -12,9 +12,6 @@
                     <form class="az-search-form row">
                         <az-hidden-model model="Model" func="(item)=>((FormWorker)item).PageSize" />
                         <div class="form-group col-md-2">
-                            <az-date-model model="Model" func="(item)=>((FormWorker)item).CreateAt" label="Ngày tạo" />
-                        </div>
-                        <div class="form-group col-md-2">
                             <az-text-model model="Model" func="(item)=>((FormWorker)item).FullName" label="Họ tên" />
                         </div>
                         <div class="form-group col-md-2">
@@ -24,7 +21,10 @@
                             <az-gender-select model="Model" func="(item)=>((FormWorker)item).Gender" label="Giới tính" null-text="Chọn Tất cả" />
                         </div>
                         <div class="form-group col-md-2">
-                            <az-call-status-select model="Model" func="(item)=>((FormWorker)item).CallStatus" label="Trạng thái gọi" null-text="Chọn Tất cả" />
+                            <az-worker-status-select model="Model" func="(item)=>((FormWorker)item).WorkerStatus" label="Trạng thái công nhân" null-text="Chọn Tất cả" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-company-worker-select model="Model" func="(item)=>((FormWorker)item).CompanyId" label="Công ty" null-text="Chọn Tất cả" />
                         </div>
                         <div class="form-group col-md-2">
                             <az-address-worker-select model="Model" func="(item)=>((FormWorker)item).TargetToAddress" label="Nơi làm việc" null-text="Chọn Tất cả" />

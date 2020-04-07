@@ -27,6 +27,8 @@ namespace AZERP.Web.Modules.Worker
         [BindQuery]
         public int? Year { get; set; }
         public List<WorkerModel> Workers;
+        public DateTime StartDate { get; private set; }
+        public DateTime EndDate { get; private set; }
 
         public override List<WorkerCheckinCheckoutModel> GetSearchData()
         {
@@ -47,6 +49,8 @@ namespace AZERP.Web.Modules.Worker
             this.Title = "Bảng chấm công";
             if (this.Year == null) this.Year = DateTime.Now.Year;
             if (this.Month == null) this.Month = (EnumMonth)DateTime.Now.Month;
+            this.StartDate = new DateTime(this.Year.Value,(int)this.Month.Value,1);
+            this.EndDate = this.StartDate.AddMonths(1).AddDays(-1);
             base.IntData();
         }
        

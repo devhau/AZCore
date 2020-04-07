@@ -26,6 +26,7 @@
                 </div>
             </div>
         </div>
+        <h3 style="padding:5px;">Chấm công từ ngày @Model.StartDate.ToString("dd/MM/yyyy") đến @Model.EndDate.ToString("dd/MM/yyyy")</h3>
         <div class="az-data-table">
             <az-table data="Model.Data" FunKey="(item)=>((CandidateModel)item).Id" columns="Model.Columns" pagination="Model" />
         </div>
