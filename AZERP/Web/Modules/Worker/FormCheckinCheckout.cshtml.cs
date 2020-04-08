@@ -31,7 +31,7 @@ namespace AZERP.Web.Modules.Worker
                     build.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3}>{2}</option>", "NghiPhep", "NghiPhep", "Nghỉ phép", DataCheckIn != null && DataCheckIn.WorkShift == EnumWorkShift.NghiPhep ? "selected" : "");
                     build.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3}>{2}</option>", "NghiKhongLuong", "NghiKhongLuong", "Nghỉ không lương", DataCheckIn != null && DataCheckIn.WorkShift == EnumWorkShift.NghiKhongLuong ? "selected" : "");
                     build.Append("</select>");
-                    build.AppendFormat("<input class='form-control' value='{0}' placeholder='Tăng ca(h)' tabindex='{1}'/>", DataCheckIn!=null&&DataCheckIn.OverTimeWork>0? DataCheckIn.OverTimeWork.ToString():"", day.Date.Day);
+                    build.AppendFormat("<input class='form-control' type='number' value='{0}' placeholder='Tăng ca(h)' tabindex='{1}'/>", DataCheckIn!=null&&DataCheckIn.OverTimeWork>0? DataCheckIn.OverTimeWork.ToString():"", day.Date.Day);
                 }
                 return build;
             }

@@ -1,5 +1,6 @@
-﻿using AZWeb.Common.Module;
+﻿
 using AZWeb.Configs;
+using AZWeb.Module.Common;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,10 @@ namespace AZERP.Web.Themes.Admin
 {
     public class LayoutTheme: ThemeBase
     {
-        public LayoutTheme(IHttpContextAccessor httpContext) : base(httpContext)
+        IPagesConfig PagesConfig;
+        public LayoutTheme(IHttpContextAccessor httpContext , IPagesConfig _PagesConfig) : base(httpContext)
         {
+            PagesConfig = _PagesConfig;
         }
 
         public List<MenuItemTag> MenuLeft { get; set; }

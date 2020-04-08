@@ -14,6 +14,7 @@
     <PackageReference Include="HtmlAgilityPack" Version="1.11.18" />
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Routing.Abstractions" Version="2.2.0" />
     <PackageReference Include="MySql.Data" Version="8.0.19" />
     <PackageReference Include="YUICompressor.NET" Version="3.0.0" />
@@ -29,6 +30,14 @@
     <Reference Include="Aspose.Cells">
       <HintPath>..\AZCore\Libs\Aspose.Cells.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Module\Attribute\" />
+    <Folder Include="Module\Extensions\" />
+    <Folder Include="Module\Constant\" />
+    <Folder Include="Module\TagHelper\" />
   </ItemGroup>
 
 </Project>

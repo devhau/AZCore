@@ -1,5 +1,5 @@
-﻿using AZWeb.Common.Module;
-using AZWeb.Common.Module.View;
+﻿using AZWeb.Module.Common;
+using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;
 
 namespace AZERP.Web.Errors
@@ -11,7 +11,6 @@ namespace AZERP.Web.Errors
         }
 
         public IView Get() {
-            this.Title = "Không tìm thấy module";
             return View();
         }
     }

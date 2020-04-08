@@ -9,7 +9,7 @@ namespace AZWeb.TagHelpers.Html
         {
             output.TagName = "";
 
-            output.Content.SetHtmlContent(this.Html.Html.ToString());
+           // output.Content.SetHtmlContent(this.Html.Html.ToString());
         }
     }
 }

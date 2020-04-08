@@ -27,13 +27,13 @@ namespace AZWeb.Extensions
     {
         public static string RenderToHtml(this HttpContext httpContext,string path,string viewName, object model) {
 
-            var actionContext = new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
+            var actionContext = new ActionContext(httpContext, httpContext.GetRouteData(), new ActionDescriptor());
             var _razorViewEngine = httpContext.GetService<IRazorViewEngine>();
             var _tempDataProvider= httpContext.GetService<ITempDataProvider>();
             
             using (var sw = new StringWriter())
             {
-                var viewResult = _razorViewEngine.GetView(path+"/"+ viewName, viewName, true);
+                var viewResult = _razorViewEngine.GetView(path+"/"+ viewName, viewName, false);
                 if (viewResult.View == null)
                 {
                     throw new ArgumentNullException($"{viewName} does not match any available view");

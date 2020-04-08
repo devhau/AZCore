@@ -3,6 +3,7 @@ using AZCore.Extensions;
 using AZCore.Utility.Xml;
 using AZWeb.Configs;
 using AZWeb.Middleware;
+using AZWeb.Module.Middleware;
 using AZWeb.Utilities;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Builder;
@@ -27,7 +28,7 @@ namespace AZWeb.Extensions
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                app.UseMiddleware<AZWebMiddleware>();
+                app.UseMiddleware<AZModuleMiddleware>();
             });
             //IDBCreate
         }

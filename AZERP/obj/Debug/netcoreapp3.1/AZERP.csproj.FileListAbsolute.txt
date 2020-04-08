@@ -81,3 +81,5 @@ E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Worker\FormUp
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Worker\FormWorker.cshtml.g.cs
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Candidate\FormSale.cshtml.g.cs
 E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Modules\Worker\FormCheckinCheckout.cshtml.g.cs
+E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Test\Home.cshtml.g.cs
+E:\Projects\AZCore\AZERP\obj\Debug\netcoreapp3.1\Razor\Web\Test\FormTest.cshtml.g.cs

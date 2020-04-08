@@ -1,0 +1,353 @@
+﻿using AZCore.Extensions;
+using AZWeb.Configs;
+using AZWeb.Extensions;
+using AZWeb.Module.Common;
+using AZWeb.Module.Formatters;
+using AZWeb.Module.Page;
+using AZWeb.Module.View;
+using AZWeb.Utilities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.WebUtilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace AZWeb.Module
+{
+    public sealed class ModuleRender
+    {
+        private enum RenderError
+        {
+            None,
+            NoAuth,
+            NoPermission,
+            NotFoundModule,
+            NotFoundMethod,
+            NotFoundPath,
+            NotFoundTheme,
+            OK
+
+        }
+
+        public static readonly string DefaultContentType = "text/html; charset=utf-8";
+
+        IHttpResponseStreamWriterFactory writerFactory;
+        ICompositeViewEngine viewEngine;
+        ITempDataProvider tempDataProvider;
+        HttpContext httpContext;
+        ActionContext actionContext;
+        IStartup startup;
+        private readonly IPagesConfig PageConfigs = null;
+        private bool IsAjax { get; }
+
+        ModuleRender(HttpContext _httpContext)
+        {
+            httpContext = _httpContext;
+            writerFactory = httpContext.GetService<IHttpResponseStreamWriterFactory>();
+            viewEngine = httpContext.GetService<ICompositeViewEngine>();
+            actionContext = new ActionContext(httpContext, httpContext.GetRouteData(), new ActionDescriptor());
+            tempDataProvider = httpContext.GetService<ITempDataProvider>();
+            startup = httpContext.GetService<IStartup>();
+            this.PageConfigs = this.httpContext.GetService<IPagesConfig>();
+            this.IsAjax = httpContext.IsAjax();
+        }
+        /// <summary>
+        /// Get Path Real
+        /// </summary>
+        /// <returns> Path Real </returns>
+        private string GetPathReal()
+        {
+            string path = this.httpContext.Request.Path.Value;
+            if (path != "/" && !path.EndsWith(PageConfigs.extenstion)) return string.Empty;
+            if (path == "/")
+            {
+                return PageConfigs.UrlRealDefault;
+            }
+            else
+            {
+                foreach (var item1 in PageConfigs.Pages)
+                {
+                    foreach (var item2 in item1.Tags)
+                    {
+                        var RegexPath = new Regex(item2.ViturlPath);
+                        if (RegexPath.IsMatch(path))
+                        {
+                            var mPath = RegexPath.Match(path);
+                            List<object> paraObject = new List<object>();
+                            for (var i = 1; i < mPath.Groups.Count - 1; i++)
+                            {
+                                paraObject.Add(mPath.Groups[i].Value);
+                            }
+                            return string.Format(item2.Real, paraObject.ToArray());
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// Load Module
+        /// </summary>
+        /// <param name="AssemblyModule"></param>
+        /// <returns></returns>
+        private PageModule LoadModule(string AssemblyModule)
+        {
+            var typeModule = this.GetType(AssemblyModule);
+            if (typeModule != null)
+            {
+                return httpContext.RequestServices.GetService(typeModule) as PageModule;
+            }
+            return null;
+        }
+        /// <summary>
+        /// Get Module
+        /// </summary>
+        /// <returns></returns>
+        private async Task<RenderError> GetModule()
+        {
+
+            #region --- Get Path & Merge Path ---
+            var pathReal = GetPathReal();
+            if (string.IsNullOrEmpty(pathReal)) return RenderError.NotFoundPath;
+            foreach (var key in httpContext.Request.Query.Keys)
+            {
+                pathReal = string.Format("{0}&{1}={2}", pathReal, key, httpContext.Request.Query[key]);
+            }
+            #endregion
+
+            #region --- Get Module & Process Module ----
+            var query = QueryHelpers.ParseQuery(pathReal);
+            if (!query.ContainsKey("m") || string.IsNullOrEmpty(query["m"].ToString())) return RenderError.NotFoundPath;
+            string moduleName = query["m"].ToString();
+            string viewName = moduleName;
+            if (query.ContainsKey("v") && !string.IsNullOrEmpty(query["v"].ToString()))
+                viewName = query["v"].ToString();
+            string typeModuleString = string.Format("Web.Modules.{0}.Form{1}",  moduleName, viewName);
+            var ModuleCurrent = LoadModule(typeModuleString);
+
+            var methodName = httpContext.Request.Method.ToUpperFirstChart();
+            if (query.ContainsKey("h") && !string.IsNullOrEmpty(query["h"].ToString()))
+                methodName = string.Format("{0}{1}", methodName, query["h"].ToString().ToUpperFirstChart());
+
+            if (ModuleCurrent == null)
+                return RenderError.NotFoundModule;
+            var methodFunction = ModuleCurrent.GetType().GetMethod(methodName);
+            if (methodFunction == null)
+                return RenderError.NotFoundMethod;
+            ModuleCurrent.BeforeRequest();
+
+            httpContext.Request.QueryString = new QueryString(string.Format("?{0}", pathReal));
+            List<object> paraValues = new List<object>();
+            foreach (var param in methodFunction.GetParameters())
+            {
+                if (this.httpContext.Request.Query.ContainsKey(param.Name.ToLower()))
+                {
+                    if (param.ParameterType.IsArray)
+                    {
+                        var type = param.ParameterType.GetElementType();
+                        var obj = this.httpContext.Request.Query[param.Name][0].Split(',').Select(p => p.ToType(type)).ToArray();
+                        paraValues.Add(obj);
+                    }
+                    else
+                    {
+                        paraValues.Add(this.httpContext.Request.Query[param.Name].ToArray()[0].ToType(param.ParameterType));
+                    }
+
+                }
+                else if (this.httpContext.Request.HasFormContentType && this.httpContext.Request.Form.Keys.Contains(param.Name.ToLower()))
+                {
+                    if (param.ParameterType.IsArray)
+                    {
+                        var type = param.ParameterType.GetElementType();
+                        var obj = this.httpContext.Request.Form[param.Name][0].Split(',').Select(p => p.ToType(type)).ToArray();
+                        paraValues.Add(obj);
+                    }
+                    else
+                    {
+                        paraValues.Add(this.httpContext.Request.Form[param.Name].ToArray()[0].ToType(param.ParameterType));
+                    }
+                }
+                else
+                {
+                    if (param.HasDefaultValue)
+                        paraValues.Add(param.RawDefaultValue);
+                    else
+                        paraValues.Add(null);
+                }
+            }
+            Common.IView rsView = null;
+            var rsFN = methodFunction.Invoke(ModuleCurrent, paraValues.ToArray());
+            if (rsFN is Task)
+            {
+                rsView = await (Task<Common.IView>)rsFN;
+            } else {
+                rsView = (Common.IView)rsFN;
+            }
+            ModuleCurrent.AfterRequest();
+
+            #endregion
+            #region --- Check Download File && Download file ---
+           
+            #endregion
+            #region --- Get Theme && Process Theme ---
+
+            if (ModuleCurrent.IsTheme & !IsAjax)
+            {
+                string typeThemeString = string.Format("Web.Themes.{0}.LayoutTheme", PageConfigs.Theme);
+                var typeTheme = this.GetType(typeThemeString);
+                if (typeTheme == null)
+                    return RenderError.NotFoundTheme;
+                var theme = httpContext.GetService<ThemeBase>(typeTheme);
+
+                if (theme == null)
+                    return RenderError.NotFoundTheme;
+                theme.BeforeRequest();
+                await this.RenderHtml(theme.GetTheme());
+                theme.AfterRequest();
+            }
+            else
+            {
+                if (IsAjax)
+                {
+                    
+                }
+                else
+                {
+                    await this.RenderHtml(rsView as HtmlView);
+                }
+            }
+            #endregion
+
+            return RenderError.OK;
+        }
+        private async Task<bool> GetError(RenderError error)
+        {
+            var ErrorString = "NotFound";
+            string typeModuleString = string.Format("Web.Errors.{0}", ErrorString);
+            var typeModule = this.GetType(typeModuleString);
+            if (typeModule != null)
+            {
+                var errorModule = httpContext.RequestServices.GetService(typeModule) as PageModule;
+                errorModule.BeforeRequest();
+                var methodFunction = errorModule.GetType().GetMethod("Get");
+                List<object> paraValues = new List<object>();
+                foreach (var param in methodFunction.GetParameters())
+                {
+                    if (this.httpContext.Request.Query.ContainsKey(param.Name.ToLower()))
+                    {
+                        if (param.ParameterType.IsArray)
+                        {
+                            var type = param.ParameterType.GetElementType();
+                            var obj = this.httpContext.Request.Query[param.Name][0].Split(',').Select(p => p.ToType(type)).ToArray();
+                            paraValues.Add(obj);
+                        }
+                        else
+                        {
+                            paraValues.Add(this.httpContext.Request.Query[param.Name].ToArray()[0].ToType(param.ParameterType));
+                        }
+
+                    }
+                    else if (this.httpContext.Request.HasFormContentType && this.httpContext.Request.Form.Keys.Contains(param.Name.ToLower()))
+                    {
+                        if (param.ParameterType.IsArray)
+                        {
+                            var type = param.ParameterType.GetElementType();
+                            var obj = this.httpContext.Request.Form[param.Name][0].Split(',').Select(p => p.ToType(type)).ToArray();
+                            paraValues.Add(obj);
+                        }
+                        else
+                        {
+                            paraValues.Add(this.httpContext.Request.Form[param.Name].ToArray()[0].ToType(param.ParameterType));
+                        }
+                    }
+                    else
+                    {
+                        if (param.HasDefaultValue)
+                            paraValues.Add(param.RawDefaultValue);
+                        else
+                            paraValues.Add(null);
+                    }
+                }
+                Common.IView rsView = null;
+                var rsFN = methodFunction.Invoke(errorModule, paraValues.ToArray());
+                if (rsFN is Task)
+                {
+                    rsView = await (Task<Common.IView>)rsFN;
+                }
+                else
+                {
+                    rsView = (Common.IView)rsFN;
+                }
+                errorModule.AfterRequest();
+            }
+            return true;
+        }
+        private async Task RenderHtml(HtmlView htmlView) {
+
+            var response = httpContext.Response;
+
+            var viewResult = viewEngine.GetView(string.Format("{0}/{1}", htmlView.Path, htmlView.ViewName), htmlView.ViewName, false);
+            if (viewResult.View == null)
+            {
+                throw new ArgumentNullException($"{htmlView.ViewName} does not match any available view");
+            }
+            var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
+            {
+                Model = htmlView.Model
+            };
+            string contentType = "";
+            ResponseContentTypeHelper.ResolveContentTypeAndEncoding(
+                contentType,
+                response.ContentType,
+                DefaultContentType,
+                out var resolvedContentType,
+                out var resolvedContentTypeEncoding);
+
+            response.ContentType = resolvedContentType;
+            await using (System.IO.TextWriter writer = writerFactory.CreateWriter(response.Body, resolvedContentTypeEncoding))
+            {
+                var viewContext = new ViewContext(
+                actionContext,
+                viewResult.View,
+                viewDictionary,
+                new TempDataDictionary(actionContext.HttpContext, tempDataProvider),
+                writer,
+                new HtmlHelperOptions()
+                ); 
+                var view = viewContext.View;
+
+                await view.RenderAsync(viewContext);
+                // Perf: Invoke FlushAsync to ensure any buffered content is asynchronously written to the underlying
+                // response asynchronously. In the absence of this line, the buffer gets synchronously written to the
+                // response as part of the Dispose which has a perf impact.
+                await writer.FlushAsync();
+            }
+        }
+        private async Task<bool> DoRouterAsync() {
+
+            var statusModule = await GetModule();
+            if (statusModule != RenderError.OK && statusModule != RenderError.None && statusModule != RenderError.NoAuth)
+            {
+                return await GetError(statusModule);
+            }
+            return true;
+        }
+        private Type GetType(string type)
+        {
+            return startup.GetType(type);
+        }
+        public static async Task<bool> RouterAsync(HttpContext httpContext) {
+            return await new ModuleRender(httpContext).DoRouterAsync();
+        }
+    }
+}

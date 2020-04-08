@@ -16,10 +16,7 @@
             <div class="card">
                 <div class="card-body login-card-body">
                     <h3 class="login-box-msg">Đăng nhập hệ thống</h3>
-                    @if (Model.IsAuth)
-                    {
-                        @Model.User.FullName
-                    }
+              
                     <form action="" method="post" name="user-login">
                         <div class="input-group mb-3">
                             <input type="email" name="azemail" class="form-control" placeholder="Email" value="admin@viec1.com">
