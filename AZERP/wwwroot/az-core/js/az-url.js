@@ -5,6 +5,11 @@ AZUrl.prototype.loadHtml = function (url, callback) {
         document.title = d.Title;
         var CodeJS = "";
         if (d.JS) d.JS.forEach(function (item) { if (item.Code) { CodeJS = CodeJS + " " + item.Code; } });
+        var CodeCss = "";
+        if (d.CSS) d.CSS.forEach(function (item) { if (item.Code) { CodeCss = CodeCss + " " + item.Code; } });
+        var style = $("<style></style>");
+        $(style).html(CodeCss);
+        $("html head").append(style);
         setTimeout(function () { eval(CodeJS); }, 1000);
         
         if (callback) callback();

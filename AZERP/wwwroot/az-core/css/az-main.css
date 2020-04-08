@@ -63,19 +63,24 @@
     flex-direction: column;
     position: absolute;
     width: 100%;
-    height: calc(100% - 33px);
+    height: 100%;
 }
-.az-manager .az-toolbar {
-    background: #efeaea;
-    width: 100%;
-    height: 45px;
-    padding: 7px;
-}
+    .az-manager .az-toolbar {
+        position: relative;
+        background: #efeaea;
+        width: 100%;
+        padding: 7px;
+    }
     .az-manager .az-toolbar .az-search-form {
+        position:relative;
         padding: 0px;
-        margin-top: -5px;
+        margin:0px;
+    }
+    .az-manager .az-toolbar .form-group {
+        margin:0;
     }
     .az-manager .az-data-table {
+        position: relative;
         width: calc(100% - 2px);
         height: calc(100% - 50px - 2px);
         padding: 7px;
@@ -157,3 +162,63 @@
         margin: 0;
         padding:0;
     }
+.az-div-freeze {
+    width:100%;
+    height:100%;
+}
+.az-table-freeze {
+    position: relative;
+    width: 1000px;
+    background-color: #aaa;
+    overflow: hidden;
+    border-collapse: collapse;
+}
+
+
+    /*thead*/
+    .az-table-freeze thead {
+        position: relative;
+        display: block; /*seperates the header from the body allowing it to be positioned*/
+        width: 1000px;
+        overflow: visible;
+    }
+
+        .az-table-freeze thead th {
+            background-color: #99a;
+            min-width: 120px;
+            height: 50px;
+            border: 1px solid #222;
+            text-align:center;
+        }
+
+            .az-table-freeze thead th:nth-child(1) { /*first cell in the header*/
+                position: relative;
+                display: block; /*seperates the first cell in the header from the header*/
+                height: 50px;
+                background-color: #88b;
+            }
+
+
+    /*tbody*/
+    .az-table-freeze tbody {
+        position: relative;
+        display: block; /*seperates the tbody from the header*/
+        width: 1000px;
+        height: 500px;
+        overflow: scroll;
+    }
+
+        .az-table-freeze tbody td {
+            background-color: #ccc;
+            min-width: 120px;
+            height: 50px;
+            border: 1px solid #222;
+        }
+
+        .az-table-freeze tbody tr td:nth-child(1) { /*the first cell in each tr*/
+            position: relative;
+            display: block; /*seperates the first column from the tbody*/
+            height: 50px;
+            background-color: #99a;
+        }
+

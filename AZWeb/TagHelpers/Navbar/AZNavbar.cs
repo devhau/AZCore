@@ -47,7 +47,7 @@ namespace AZWeb.TagHelpers.Navbar
                 {
                     //
                     htmlBuild.AppendFormat("<li class=\"{0} {1}\">", this.NavbarItemClass, this.NavbarDropdownClass);
-                    htmlBuild.AppendFormat("<a id=\"SubMenu{0}\" href=\"#\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\" class=\"{1} {2}\"><i class=\"{4}\"/>&nbsp;{3}</a>", subMenuIndex, NavbarLinkClass, DropdownToggleClass, item.Title, item.Icon);
+                    htmlBuild.AppendFormat("<a id=\"SubMenu{0}\" href=\"\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\" class=\"{1} {2}\"><i class=\"{4}\"/>&nbsp;{3}</a>", subMenuIndex, NavbarLinkClass, DropdownToggleClass, item.Title, item.Icon);
                     htmlBuild.AppendFormat("<ul aria-labelledby=\"SubMenu{0}\" class=\"{1}\">", subMenuIndex, DropdownMenuClass);
                     foreach (var subItem in item.Menus) {
                         htmlBuild.AppendFormat("<li class=\"{0}\" ><a href=\"{1}\" class=\"{2} {3}\"><i class=\"{5}\"/>&nbsp;{4}</a></li>", "", subItem.Link, this.DropdownItemClass, this.AZLink, subItem.Title, subItem.Icon);

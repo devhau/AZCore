@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AZWeb.TagHelpers.Input
 {
@@ -40,6 +41,7 @@ namespace AZWeb.TagHelpers.Input
             RenderHtml(htmlBuild);
             output.Content.SetHtmlContent(htmlBuild.ToString());
         }
+       
         protected virtual void InitData() { }
         protected abstract void RenderHtml(StringBuilder htmlBuild);
     }

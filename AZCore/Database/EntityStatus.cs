@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AZCore.Database
 {
-    public enum EntityStatus:Int16
+    public enum EntityStatus:int
     {
         [Field(Display = "Chưa kịch hoạt")]
         NoActive = 0,

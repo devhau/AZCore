@@ -81,7 +81,8 @@ namespace AZCore.Excel
         }
 
         protected virtual void AddGrid(object Data, List<IExcelColumn> columns) {
-           
+
+            if (Data == null) return;
             if (Data is DataTable)
             {
                 var _dataTable = (DataTable)Data;

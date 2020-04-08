@@ -1,11 +1,15 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attr;
+using AZCore.Extensions;
 using AZERP.Data.Entities;
 using AZERP.Data.Enums;
 using AZWeb.Common.Manager;
 using AZWeb.Common.Module.Attr;
+using AZWeb.Common.Module.View;
+using AZWeb.Extensions;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Linq;
 
 namespace AZERP.Web.Modules.Candidate
 {
@@ -137,6 +141,17 @@ namespace AZERP.Web.Modules.Candidate
         protected override void IntData()
         {
             this.Title = "Quản lý ứng viên";
+        }
+        public IView GetCopy() {
+
+
+            var data =this.GetSearchData();
+            var WorkerData = data.Select(p => p.CopyTo<WorkerModel>()).ToList();
+            var workderService = this.httpContext.GetService<WorkerService>();
+            foreach (var item in WorkerData) {
+                workderService.Insert(item);
+            }
+            return View();
         }
     }
 }

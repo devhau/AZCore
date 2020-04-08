@@ -16,11 +16,13 @@ namespace AZWeb.TagHelpers.Html
         public string ClassHtml { get; set; } = "hold-transition sidebar-mini layout-navbar-fixed";
         [HtmlAttributeName("lang")]
         public string LangHtml { get; set; } = "en";
-        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+        public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            
             output.TagName = "";
-            var content = await output.GetChildContentAsync();
-            var htmlDoc = content.GetContent().LoadHtml();
+            var content =  output.GetChildContentAsync();
+                content.Wait();
+            var htmlDoc = content.Result.GetContent().LoadHtml();
             var headHtml = htmlDoc.DocumentNode.Descendants("head");
             var bodyHtml = htmlDoc.DocumentNode.Descendants("body");
             #region << Init Html >>

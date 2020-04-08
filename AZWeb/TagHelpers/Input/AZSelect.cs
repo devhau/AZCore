@@ -22,7 +22,7 @@ namespace AZWeb.TagHelpers.Input
             this.BindModel();
             if (DataType != null&& DataType!= this.GetType())
             {
-                this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, NullText.IsNullOrEmpty()? "Chọn " + this.InputLabel.ToLower():"");
+                this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, NullText.IsNullOrEmpty()&& !this.InputLabel.IsNullOrEmpty()? "Chọn " + this.InputLabel.ToLower():"");
             }
             base.InitData();
         }
@@ -40,7 +40,8 @@ namespace AZWeb.TagHelpers.Input
         [HtmlAttributeName("data")]
         public System.Collections.Generic.List<AZItemValue> Data { get; set; }
         [HtmlAttributeName("null-text")]
-        public string NullText { get; set; } 
+        public string NullText { get; set; }
+        public bool AddJs { get; set; } = true;
         protected override void InitData()
         {
             
@@ -69,9 +70,8 @@ namespace AZWeb.TagHelpers.Input
                 if (item.ItemValue != null && item.ItemValue.Equals(this.InputValue)) { ItemActive = " selected=\"selected\""; }
                 htmlBuild.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3} >{2}</option>", item.ItemValue, item.ItemName, item.ItemDisplay, ItemActive);
             }
-
             htmlBuild.Append("</select>");
-            this.AddJS("$(function(){ $('." + this.TagId + "').select2({theme: 'bootstrap4', width: 'resolve' }); });");
+            if(AddJs) this.AddJS("$(function(){ $('." + this.TagId + "').select2({theme: 'bootstrap4', width: 'resolve' }); });");
         }
     }
 }

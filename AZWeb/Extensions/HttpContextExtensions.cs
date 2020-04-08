@@ -33,7 +33,7 @@ namespace AZWeb.Extensions
             
             using (var sw = new StringWriter())
             {
-                var viewResult = _razorViewEngine.GetView(path+"/"+ viewName, viewName, false);
+                var viewResult = _razorViewEngine.GetView(path+"/"+ viewName, viewName, true);
                 if (viewResult.View == null)
                 {
                     throw new ArgumentNullException($"{viewName} does not match any available view");
@@ -53,9 +53,9 @@ namespace AZWeb.Extensions
                     new HtmlHelperOptions()
                 );
 
-                var rs = viewResult.View.RenderAsync(viewContext);
+                var rs =  viewResult.View.RenderAsync(viewContext);
                 rs.Wait();
-                return sw.ToString();
+                return sw.GetStringBuilder().ToString();
             }
         }
         public static void BindQueryAttributeTo(this HttpContext httpContext, object obj)
