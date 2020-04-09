@@ -64,14 +64,15 @@ namespace AZWeb.Module.Page.Manager
                 DataFormToData(DataForm);
                 this.Data.UpdateAt = DateTime.Now;
                 Service.Update(this.Data);
+                return Json("Cập nhật dữ liệu thành công", 200);
             }
             else {
                 DataFormToData(DataForm);
                 DataForm.CreateAt = DateTime.Now;
 
                 Service.Insert(DataForm);
+                return Json("Thêm mới dữ liệu thành công", 200);
             }
-            return Json("Cập nhật dữ liệu thành công",200);
         }
     }
 }

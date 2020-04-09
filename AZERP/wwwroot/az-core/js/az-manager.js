@@ -11,10 +11,8 @@
             $this.ReLoad(function () {
             });
             scope.ClosePopup();
-            alert(item.message);
+            toastr.success(item.message);
         }, function (error) {
-
-
 
         })
     }
@@ -59,7 +57,7 @@
             func: function (elem, scope) {
                 var url = location.pathname + "?h=delete";
                 if ($Id) url = url + "&id=" + $Id;
-                $this.DoPost(url, {}, function (item) { $this.ReLoad(); scope.ClosePopup(); alert(item.message);});
+                $this.DoPost(url, {}, function (item) { $this.ReLoad(); scope.ClosePopup(); toastr.info(item.message);});
             }
         });
         popup.AddButton({

@@ -132,7 +132,7 @@ namespace AZWeb.Module.Page.Manager
         {
             var modelId=  Service.GetById(Id);
             Service.Delete(modelId);
-            return Json("Thành công",200);
+            return Json("Xóa thành công",200);
         }
     }
 }
