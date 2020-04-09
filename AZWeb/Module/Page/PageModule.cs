@@ -1,6 +1,8 @@
 ﻿using AZWeb.Module.Common;
+using AZWeb.Module.Constant;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace AZWeb.Module.Page
 {
@@ -8,8 +10,27 @@ namespace AZWeb.Module.Page
     {
         public bool IsTheme { get; set; } = true;
         public string LayoutTheme { get; set; } = "";
+        public string Title { get => Html.Title; set => Html.Title = value; }
+        public string Description { get => Html.Description; set => Html.Description = value; }
+        public string Keyword { get => Html.Keyword; set => Html.Keyword = value; }
+        public HtmlContent Html { get => this.HttpContext.Items[AZWebConstant.Html] as HtmlContent; }
+        public void AddMeta(string name, string content)
+        {
+            this.Html.AddMeta(name, content);
+        }
+        public void AddJS(string Code, string link, string CDN)
+        {
+            this.Html.AddJS(Code, link, CDN);
+        }
+        public void AddCSS(string Code, string link, string CDN)
+        {
+            this.Html.AddCSS(Code, link, CDN);
+        }
         public PageModule(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
+            if (this.HttpContext.Items[AZWebConstant.Html] == null) {
+                this.HttpContext.Items[AZWebConstant.Html] = new HtmlContent();
+            }
         }
         public virtual IView View() {
             return View(this);
@@ -33,11 +54,22 @@ namespace AZWeb.Module.Page
             return new HtmlView()
             {
                 Model=model,
-                ViewName= string.Format("{0}.cshtml",viewName),
+                ViewName= viewName,
                 Path= string.Format("~/{0}",_path),
                 Module=this,
-
             };
+        }
+        public virtual IView DownloadFile(Stream file, string fileName) {
+            return DownloadFile(file, fileName,DownloadFileView.Text);
+        }
+        public virtual IView DownloadFile(Stream file,string fileName, string contentType) {
+            return new DownloadFileView() { File=file,ContentType= contentType ,Name= fileName,Module=this};
+        }
+        public virtual IView Json(object data) {
+            return Json(data, 200);        
+        }
+        public virtual IView Json(object data,int status) {         
+            return new JsonView() { Module=this,Data=data,StatusCode=status };
         }
     }
 }

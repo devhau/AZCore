@@ -7,8 +7,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Web\Modules\Auth\FormLogin.cshtml" />
+    <None Include="Web\Modules\Auth\FormRegister.cshtml" />
+    <None Include="Web\Modules\Candidate\FormCandidate.cshtml" />
+    <None Include="Web\Modules\Candidate\FormSale.cshtml" />
+    <None Include="Web\Modules\Candidate\FormUpdateCandidate.cshtml" />
+    <None Include="Web\Modules\Catalog\FormCatalog.cshtml" />
+    <None Include="Web\Modules\Catalog\FormUpdateCatalog.cshtml" />
+    <None Include="Web\Modules\CompanyWorker\FormCompanyWorker.cshtml" />
+    <None Include="Web\Modules\CompanyWorker\FormUpdateCompanyWorker.cshtml" />
+    <None Include="Web\Modules\Role\FormRole.cshtml" />
+    <None Include="Web\Modules\Role\FormUpdateRole.cshtml" />
+    <None Include="Web\Modules\User\FormUpdateUser.cshtml" />
+    <None Include="Web\Modules\User\FormUser.cshtml" />
+    <None Include="Web\Modules\Worker\FormCheckinCheckout.cshtml" />
+    <None Include="Web\Modules\Worker\FormUpdateWorker.cshtml" />
+    <None Include="Web\Modules\Worker\FormWorker.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AZERP.Data\AZERP.Data.csproj" />
     <ProjectReference Include="..\AZWeb\AZWeb.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Aspose.Cells">
+      <HintPath>..\AZCore\Libs\Aspose.Cells.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -29,14 +54,6 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Web\Modules\Auth\FormLogin.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Web\Modules\Auth\FormRegister.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Update="Web\Themes\Admin\LayoutTheme.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -45,11 +62,6 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Web\Modules\Auth\css\" />
-    <Folder Include="Web\Modules\Auth\js\" />
   </ItemGroup>
 
 </Project>

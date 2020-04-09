@@ -58,40 +58,40 @@ using AZERP.Data.Entities;
                 return __backed__tagHelperScopeManager;
             }
         }
-        private global::AZWeb.TagHelpers.Input.AZTextModel __AZWeb_TagHelpers_Input_AZTextModel;
-        private global::AZWeb.TagHelpers.Input.AZDateModel __AZWeb_TagHelpers_Input_AZDateModel;
+        private global::AZWeb.Module.TagHelper.Input.AZTextModel __AZWeb_Module_TagHelper_Input_AZTextModel;
+        private global::AZWeb.Module.TagHelper.Input.AZDateModel __AZWeb_Module_TagHelper_Input_AZDateModel;
         private global::AZERP.Data.Components.GenderSelect __AZERP_Data_Components_GenderSelect;
         private global::AZERP.Data.Components.CompanyWorkerSelect __AZERP_Data_Components_CompanyWorkerSelect;
         private global::AZERP.Data.Components.AddressWorkerSelect __AZERP_Data_Components_AddressWorkerSelect;
         private global::AZERP.Data.Components.WorkerStatusSelect __AZERP_Data_Components_WorkerStatusSelect;
-        private global::AZWeb.TagHelpers.Input.AZTextAreaModel __AZWeb_TagHelpers_Input_AZTextAreaModel;
-        private global::AZWeb.TagHelpers.Html.AZScript __AZWeb_TagHelpers_Html_AZScript;
+        private global::AZWeb.Module.TagHelper.Input.AZTextAreaModel __AZWeb_Module_TagHelper_Input_AZTextAreaModel;
+        private global::AZWeb.Module.TagHelper.Theme.AZScript __AZWeb_Module_TagHelper_Theme_AZScript;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("    <div class=\"az-update row\" id=\"FormUpdateUser\" role=\"form\">\r\n        <div class=\"form-group col-md-6\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-text-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c828334", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-text-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c828384", async() => {
             }
             );
-            __AZWeb_TagHelpers_Input_AZTextModel = CreateTagHelper<global::AZWeb.TagHelpers.Input.AZTextModel>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Input_AZTextModel);
+            __AZWeb_Module_TagHelper_Input_AZTextModel = CreateTagHelper<global::AZWeb.Module.TagHelper.Input.AZTextModel>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Input_AZTextModel);
 #nullable restore
 #line 4 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZTextModel.Model = Model.Data;
+__AZWeb_Module_TagHelper_Input_AZTextModel.Model = Model.Data;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_TagHelpers_Input_AZTextModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_Module_TagHelper_Input_AZTextModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
 #nullable restore
 #line 4 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZTextModel.Func = (item)=>((WorkerModel)item).FullName;
+__AZWeb_Module_TagHelper_Input_AZTextModel.Func = (item)=>((WorkerModel)item).FullName;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_TagHelpers_Input_AZTextModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-            __AZWeb_TagHelpers_Input_AZTextModel.InputLabel = (string)__tagHelperAttribute_0.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_Module_TagHelper_Input_AZTextModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __AZWeb_Module_TagHelper_Input_AZTextModel.InputLabel = (string)__tagHelperAttribute_0.Value;
             __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_0);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
@@ -101,28 +101,28 @@ __AZWeb_TagHelpers_Input_AZTextModel.Func = (item)=>((WorkerModel)item).FullName
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-text-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8210304", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-text-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8210402", async() => {
             }
             );
-            __AZWeb_TagHelpers_Input_AZTextModel = CreateTagHelper<global::AZWeb.TagHelpers.Input.AZTextModel>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Input_AZTextModel);
+            __AZWeb_Module_TagHelper_Input_AZTextModel = CreateTagHelper<global::AZWeb.Module.TagHelper.Input.AZTextModel>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Input_AZTextModel);
 #nullable restore
 #line 7 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZTextModel.Model = Model.Data;
+__AZWeb_Module_TagHelper_Input_AZTextModel.Model = Model.Data;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_TagHelpers_Input_AZTextModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_Module_TagHelper_Input_AZTextModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
 #nullable restore
 #line 7 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZTextModel.Func = (item)=>((WorkerModel)item).PhoneNumber;
+__AZWeb_Module_TagHelper_Input_AZTextModel.Func = (item)=>((WorkerModel)item).PhoneNumber;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_TagHelpers_Input_AZTextModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-            __AZWeb_TagHelpers_Input_AZTextModel.InputLabel = (string)__tagHelperAttribute_1.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_Module_TagHelper_Input_AZTextModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __AZWeb_Module_TagHelper_Input_AZTextModel.InputLabel = (string)__tagHelperAttribute_1.Value;
             __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_1);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
@@ -132,28 +132,28 @@ __AZWeb_TagHelpers_Input_AZTextModel.Func = (item)=>((WorkerModel)item).PhoneNum
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-text-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8212278", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-text-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8212424", async() => {
             }
             );
-            __AZWeb_TagHelpers_Input_AZTextModel = CreateTagHelper<global::AZWeb.TagHelpers.Input.AZTextModel>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Input_AZTextModel);
+            __AZWeb_Module_TagHelper_Input_AZTextModel = CreateTagHelper<global::AZWeb.Module.TagHelper.Input.AZTextModel>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Input_AZTextModel);
 #nullable restore
 #line 10 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZTextModel.Model = Model.Data;
+__AZWeb_Module_TagHelper_Input_AZTextModel.Model = Model.Data;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_TagHelpers_Input_AZTextModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_Module_TagHelper_Input_AZTextModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
 #nullable restore
 #line 10 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZTextModel.Func = (item)=>((WorkerModel)item).CMD;
+__AZWeb_Module_TagHelper_Input_AZTextModel.Func = (item)=>((WorkerModel)item).CMD;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_TagHelpers_Input_AZTextModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-            __AZWeb_TagHelpers_Input_AZTextModel.InputLabel = (string)__tagHelperAttribute_2.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_Module_TagHelper_Input_AZTextModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __AZWeb_Module_TagHelper_Input_AZTextModel.InputLabel = (string)__tagHelperAttribute_2.Value;
             __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_2);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
@@ -163,28 +163,28 @@ __AZWeb_TagHelpers_Input_AZTextModel.Func = (item)=>((WorkerModel)item).CMD;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-date-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8214246", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-date-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8214440", async() => {
             }
             );
-            __AZWeb_TagHelpers_Input_AZDateModel = CreateTagHelper<global::AZWeb.TagHelpers.Input.AZDateModel>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Input_AZDateModel);
+            __AZWeb_Module_TagHelper_Input_AZDateModel = CreateTagHelper<global::AZWeb.Module.TagHelper.Input.AZDateModel>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Input_AZDateModel);
 #nullable restore
 #line 13 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZDateModel.Model = Model.Data;
+__AZWeb_Module_TagHelper_Input_AZDateModel.Model = Model.Data;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_TagHelpers_Input_AZDateModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_Module_TagHelper_Input_AZDateModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
 #nullable restore
 #line 13 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZDateModel.Func = (item)=>((WorkerModel)item).BirthDay;
+__AZWeb_Module_TagHelper_Input_AZDateModel.Func = (item)=>((WorkerModel)item).BirthDay;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_TagHelpers_Input_AZDateModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-            __AZWeb_TagHelpers_Input_AZDateModel.InputLabel = (string)__tagHelperAttribute_3.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_Module_TagHelper_Input_AZDateModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __AZWeb_Module_TagHelper_Input_AZDateModel.InputLabel = (string)__tagHelperAttribute_3.Value;
             __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_3);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
@@ -194,7 +194,7 @@ __AZWeb_TagHelpers_Input_AZDateModel.Func = (item)=>((WorkerModel)item).BirthDay
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-gender-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8216219", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-gender-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8216461", async() => {
             }
             );
             __AZERP_Data_Components_GenderSelect = CreateTagHelper<global::AZERP.Data.Components.GenderSelect>();
@@ -227,28 +227,28 @@ __AZERP_Data_Components_GenderSelect.Func = (item)=>((WorkerModel)item).Gender;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-text-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8218380", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-text-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8218622", async() => {
             }
             );
-            __AZWeb_TagHelpers_Input_AZTextModel = CreateTagHelper<global::AZWeb.TagHelpers.Input.AZTextModel>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Input_AZTextModel);
+            __AZWeb_Module_TagHelper_Input_AZTextModel = CreateTagHelper<global::AZWeb.Module.TagHelper.Input.AZTextModel>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Input_AZTextModel);
 #nullable restore
 #line 19 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZTextModel.Model = Model.Data;
+__AZWeb_Module_TagHelper_Input_AZTextModel.Model = Model.Data;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_TagHelpers_Input_AZTextModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_Module_TagHelper_Input_AZTextModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
 #nullable restore
 #line 19 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZTextModel.Func = (item)=>((WorkerModel)item).Address;
+__AZWeb_Module_TagHelper_Input_AZTextModel.Func = (item)=>((WorkerModel)item).Address;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_TagHelpers_Input_AZTextModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-            __AZWeb_TagHelpers_Input_AZTextModel.InputLabel = (string)__tagHelperAttribute_6.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_Module_TagHelper_Input_AZTextModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __AZWeb_Module_TagHelper_Input_AZTextModel.InputLabel = (string)__tagHelperAttribute_6.Value;
             __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_6);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
@@ -258,28 +258,28 @@ __AZWeb_TagHelpers_Input_AZTextModel.Func = (item)=>((WorkerModel)item).Address;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-text-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8220352", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-text-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8220642", async() => {
             }
             );
-            __AZWeb_TagHelpers_Input_AZTextModel = CreateTagHelper<global::AZWeb.TagHelpers.Input.AZTextModel>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Input_AZTextModel);
+            __AZWeb_Module_TagHelper_Input_AZTextModel = CreateTagHelper<global::AZWeb.Module.TagHelper.Input.AZTextModel>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Input_AZTextModel);
 #nullable restore
 #line 22 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZTextModel.Model = Model.Data;
+__AZWeb_Module_TagHelper_Input_AZTextModel.Model = Model.Data;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_TagHelpers_Input_AZTextModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_Module_TagHelper_Input_AZTextModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
 #nullable restore
 #line 22 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZTextModel.Func = (item)=>((WorkerModel)item).AddressCurrent;
+__AZWeb_Module_TagHelper_Input_AZTextModel.Func = (item)=>((WorkerModel)item).AddressCurrent;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_TagHelpers_Input_AZTextModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-            __AZWeb_TagHelpers_Input_AZTextModel.InputLabel = (string)__tagHelperAttribute_7.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_Module_TagHelper_Input_AZTextModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __AZWeb_Module_TagHelper_Input_AZTextModel.InputLabel = (string)__tagHelperAttribute_7.Value;
             __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_7);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
@@ -289,7 +289,7 @@ __AZWeb_TagHelpers_Input_AZTextModel.Func = (item)=>((WorkerModel)item).AddressC
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-company-worker-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8222331", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-company-worker-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8222669", async() => {
             }
             );
             __AZERP_Data_Components_CompanyWorkerSelect = CreateTagHelper<global::AZERP.Data.Components.CompanyWorkerSelect>();
@@ -320,7 +320,7 @@ __AZERP_Data_Components_CompanyWorkerSelect.Func = (item)=>((WorkerModel)item).C
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-address-worker-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8224372", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-address-worker-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8224710", async() => {
             }
             );
             __AZERP_Data_Components_AddressWorkerSelect = CreateTagHelper<global::AZERP.Data.Components.AddressWorkerSelect>();
@@ -353,7 +353,7 @@ __AZERP_Data_Components_AddressWorkerSelect.Func = (item)=>((WorkerModel)item).T
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-worker-status-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8226615", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-worker-status-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8226953", async() => {
             }
             );
             __AZERP_Data_Components_WorkerStatusSelect = CreateTagHelper<global::AZERP.Data.Components.WorkerStatusSelect>();
@@ -384,28 +384,28 @@ __AZERP_Data_Components_WorkerStatusSelect.Func = (item)=>((WorkerModel)item).Wo
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-date-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8228652", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-date-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8228990", async() => {
             }
             );
-            __AZWeb_TagHelpers_Input_AZDateModel = CreateTagHelper<global::AZWeb.TagHelpers.Input.AZDateModel>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Input_AZDateModel);
+            __AZWeb_Module_TagHelper_Input_AZDateModel = CreateTagHelper<global::AZWeb.Module.TagHelper.Input.AZDateModel>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Input_AZDateModel);
 #nullable restore
 #line 34 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZDateModel.Model = Model.Data;
+__AZWeb_Module_TagHelper_Input_AZDateModel.Model = Model.Data;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_TagHelpers_Input_AZDateModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_Module_TagHelper_Input_AZDateModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
 #nullable restore
 #line 34 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZDateModel.Func = (item)=>((WorkerModel)item).StartWork;
+__AZWeb_Module_TagHelper_Input_AZDateModel.Func = (item)=>((WorkerModel)item).StartWork;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_TagHelpers_Input_AZDateModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-            __AZWeb_TagHelpers_Input_AZDateModel.InputLabel = (string)__tagHelperAttribute_12.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_Module_TagHelper_Input_AZDateModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __AZWeb_Module_TagHelper_Input_AZDateModel.InputLabel = (string)__tagHelperAttribute_12.Value;
             __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_12);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
@@ -415,28 +415,28 @@ __AZWeb_TagHelpers_Input_AZDateModel.Func = (item)=>((WorkerModel)item).StartWor
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-date-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8230628", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-date-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8231014", async() => {
             }
             );
-            __AZWeb_TagHelpers_Input_AZDateModel = CreateTagHelper<global::AZWeb.TagHelpers.Input.AZDateModel>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Input_AZDateModel);
+            __AZWeb_Module_TagHelper_Input_AZDateModel = CreateTagHelper<global::AZWeb.Module.TagHelper.Input.AZDateModel>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Input_AZDateModel);
 #nullable restore
 #line 37 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZDateModel.Model = Model.Data;
+__AZWeb_Module_TagHelper_Input_AZDateModel.Model = Model.Data;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_TagHelpers_Input_AZDateModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_Module_TagHelper_Input_AZDateModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
 #nullable restore
 #line 37 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZDateModel.Func = (item)=>((WorkerModel)item).LastWork;
+__AZWeb_Module_TagHelper_Input_AZDateModel.Func = (item)=>((WorkerModel)item).LastWork;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_TagHelpers_Input_AZDateModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-            __AZWeb_TagHelpers_Input_AZDateModel.InputLabel = (string)__tagHelperAttribute_13.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_Module_TagHelper_Input_AZDateModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __AZWeb_Module_TagHelper_Input_AZDateModel.InputLabel = (string)__tagHelperAttribute_13.Value;
             __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_13);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
@@ -446,28 +446,28 @@ __AZWeb_TagHelpers_Input_AZDateModel.Func = (item)=>((WorkerModel)item).LastWork
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n        <div class=\"form-group col-md-12\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-text-area-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8232604", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-text-area-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f14dbc8b05b525ca63accef0b30006285a100c8233038", async() => {
             }
             );
-            __AZWeb_TagHelpers_Input_AZTextAreaModel = CreateTagHelper<global::AZWeb.TagHelpers.Input.AZTextAreaModel>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Input_AZTextAreaModel);
+            __AZWeb_Module_TagHelper_Input_AZTextAreaModel = CreateTagHelper<global::AZWeb.Module.TagHelper.Input.AZTextAreaModel>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Input_AZTextAreaModel);
 #nullable restore
 #line 40 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZTextAreaModel.Model = Model.Data;
+__AZWeb_Module_TagHelper_Input_AZTextAreaModel.Model = Model.Data;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_TagHelpers_Input_AZTextAreaModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_Module_TagHelper_Input_AZTextAreaModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
 #nullable restore
 #line 40 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormUpdateWorker.cshtml"
-__AZWeb_TagHelpers_Input_AZTextAreaModel.Func = (item)=>((WorkerModel)item).Note;
+__AZWeb_Module_TagHelper_Input_AZTextAreaModel.Func = (item)=>((WorkerModel)item).Note;
 
 #line default
 #line hidden
 #nullable disable
-            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_TagHelpers_Input_AZTextAreaModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-            __AZWeb_TagHelpers_Input_AZTextAreaModel.InputLabel = (string)__tagHelperAttribute_14.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_Module_TagHelper_Input_AZTextAreaModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __AZWeb_Module_TagHelper_Input_AZTextAreaModel.InputLabel = (string)__tagHelperAttribute_14.Value;
             __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_14);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
@@ -477,12 +477,12 @@ __AZWeb_TagHelpers_Input_AZTextAreaModel.Func = (item)=>((WorkerModel)item).Note
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f14dbc8b05b525ca63accef0b30006285a100c8234567", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f14dbc8b05b525ca63accef0b30006285a100c8235049", async() => {
                 WriteLiteral("\r\n\r\n");
             }
             );
-            __AZWeb_TagHelpers_Html_AZScript = CreateTagHelper<global::AZWeb.TagHelpers.Html.AZScript>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Html_AZScript);
+            __AZWeb_Module_TagHelper_Theme_AZScript = CreateTagHelper<global::AZWeb.Module.TagHelper.Theme.AZScript>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Theme_AZScript);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {

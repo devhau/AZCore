@@ -9,6 +9,17 @@
     <RootNamespace>AZWeb</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Common\**" />
+    <Content Remove="Common\**" />
+    <EmbeddedResource Remove="Common\**" />
+    <None Remove="Common\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Middleware\AZWebMiddleware.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.18" />
@@ -34,10 +45,7 @@
 
 
   <ItemGroup>
-    <Folder Include="Module\Attribute\" />
-    <Folder Include="Module\Extensions\" />
-    <Folder Include="Module\Constant\" />
-    <Folder Include="Module\TagHelper\" />
+    <Folder Include="Middleware\" />
   </ItemGroup>
 
 </Project>

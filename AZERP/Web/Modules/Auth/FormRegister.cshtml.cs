@@ -1,7 +1,6 @@
 ﻿using AZERP.Data.Entities;
-using AZWeb.Common.Module;
-using AZWeb.Common.Module.View;
-using AZWeb.Extensions;
+using AZWeb.Module.Common;
+using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;
 using System;
 
@@ -17,19 +16,7 @@ namespace AZERP.Web.Modules.Auth
         protected override void IntData()
         {
             this.Title = "Đăng ký tài khoản";
-            this.IsTheme = false;
-
-            this.DoView((mdo) =>
-            {
-                if (!httpContext.IsAjax() && PagesConfig != null)
-                {
-                    if (PagesConfig.Head != null)
-                    {
-                        mdo.CSS.InsertRange(0, PagesConfig.Head.Stypes);
-                        mdo.JS.InsertRange(0, PagesConfig.Head.Scripts);
-                    }
-                }
-            });
+            this.IsTheme = false;        
         }
         public IView Get() {
             return View();
@@ -45,7 +32,7 @@ namespace AZERP.Web.Modules.Auth
             };
             user.SetPassword(Password);
             this.userService.Insert(user);
-            this.AddMessage("Đăng ký thành công");
+            //this.AddMessage("Đăng ký thành công");
             return View();
         } 
     }

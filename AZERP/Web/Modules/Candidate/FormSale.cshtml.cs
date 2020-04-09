@@ -1,6 +1,6 @@
-﻿using AZWeb.Common.Module;
-using AZWeb.Common.Module.Attr;
-using AZWeb.Common.Module.View;
+﻿using AZWeb.Module.Attribute;
+using AZWeb.Module.Common;
+using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;
 
 namespace AZERP.Web.Modules.Candidate

@@ -11,6 +11,7 @@ namespace AZERP.Web.Modules.Home
         }
         protected override void IntData()
         {
+            this.Title = "Bảng điền khiển";
             base.IntData();
         }
         public string id { get; set; }

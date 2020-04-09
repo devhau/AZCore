@@ -43,13 +43,13 @@ using AZERP.Data.Entities;
                 return __backed__tagHelperScopeManager;
             }
         }
-        private global::AZWeb.TagHelpers.Module.ModuleLayout __AZWeb_TagHelpers_Module_ModuleLayout;
+        private global::AZWeb.Module.TagHelper.Module.ModuleLayout __AZWeb_Module_TagHelper_Module_ModuleLayout;
         private global::AZWeb.TagHelpers.AZTable __AZWeb_TagHelpers_AZTable;
-        private global::AZWeb.TagHelpers.Html.AZScript __AZWeb_TagHelpers_Html_AZScript;
+        private global::AZWeb.Module.TagHelper.Theme.AZScript __AZWeb_Module_TagHelper_Theme_AZScript;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-module-layout", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c58de52fc638c101fc9413805a1c1e342e04be632995", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-module-layout", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c58de52fc638c101fc9413805a1c1e342e04be633021", async() => {
                 WriteLiteral(@"
     <div class=""az-manager"" id=""FormCatalog"" data-form-size=""az-modal-xl"">
         <div class=""az-toolbar"">
@@ -59,7 +59,7 @@ using AZERP.Data.Entities;
         </div>
         <div class=""az-data-table"">
             ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-table", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c58de52fc638c101fc9413805a1c1e342e04be633922", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-table", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c58de52fc638c101fc9413805a1c1e342e04be633948", async() => {
                 }
                 );
                 __AZWeb_TagHelpers_AZTable = CreateTagHelper<global::AZWeb.TagHelpers.AZTable>();
@@ -98,8 +98,8 @@ __AZWeb_TagHelpers_AZTable.Columns = Model.Columns;
                 WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
             }
             );
-            __AZWeb_TagHelpers_Module_ModuleLayout = CreateTagHelper<global::AZWeb.TagHelpers.Module.ModuleLayout>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Module_ModuleLayout);
+            __AZWeb_Module_TagHelper_Module_ModuleLayout = CreateTagHelper<global::AZWeb.Module.TagHelper.Module.ModuleLayout>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Module_ModuleLayout);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {
@@ -108,12 +108,12 @@ __AZWeb_TagHelpers_AZTable.Columns = Model.Columns;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c58de52fc638c101fc9413805a1c1e342e04be636672", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c58de52fc638c101fc9413805a1c1e342e04be636716", async() => {
                 WriteLiteral("\r\n        $(\"#FormCatalog\").AZManager();\r\n    ");
             }
             );
-            __AZWeb_TagHelpers_Html_AZScript = CreateTagHelper<global::AZWeb.TagHelpers.Html.AZScript>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Html_AZScript);
+            __AZWeb_Module_TagHelper_Theme_AZScript = CreateTagHelper<global::AZWeb.Module.TagHelper.Theme.AZScript>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Theme_AZScript);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {

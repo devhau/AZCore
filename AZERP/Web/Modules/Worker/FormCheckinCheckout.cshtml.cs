@@ -2,10 +2,9 @@
 using AZERP.Data.Components.Tables;
 using AZERP.Data.Entities;
 using AZERP.Data.Enums;
-using AZWeb.Common.Attributes;
-using AZWeb.Common.Manager;
-using AZWeb.Common.Module.Attr;
 using AZWeb.Extensions;
+using AZWeb.Module.Attribute;
+using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -46,7 +45,7 @@ namespace AZERP.Web.Modules.Worker
         WorkerService workerService;
         public FormCheckinCheckout(IHttpContextAccessor httpContext) : base(httpContext)
         {
-            workerService = this.httpContext.GetService<WorkerService>();
+            workerService = this.HttpContext.GetService<WorkerService>();
         }
         [QuerySearch]
         public long? CompanyId { get; set; }

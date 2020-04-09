@@ -51,22 +51,22 @@ using AZERP.Data.Entities;
                 return __backed__tagHelperScopeManager;
             }
         }
-        private global::AZWeb.TagHelpers.Module.ModuleLayout __AZWeb_TagHelpers_Module_ModuleLayout;
+        private global::AZWeb.Module.TagHelper.Module.ModuleLayout __AZWeb_Module_TagHelper_Module_ModuleLayout;
         private global::Microsoft.AspNetCore.Mvc.TagHelpers.FormTagHelper __Microsoft_AspNetCore_Mvc_TagHelpers_FormTagHelper;
         private global::Microsoft.AspNetCore.Mvc.TagHelpers.RenderAtEndOfFormTagHelper __Microsoft_AspNetCore_Mvc_TagHelpers_RenderAtEndOfFormTagHelper;
-        private global::AZWeb.TagHelpers.Input.AZHiddenModel __AZWeb_TagHelpers_Input_AZHiddenModel;
+        private global::AZWeb.Module.TagHelper.Input.AZHiddenModel __AZWeb_Module_TagHelper_Input_AZHiddenModel;
         private global::AZERP.Data.Components.YearSelect __AZERP_Data_Components_YearSelect;
         private global::AZERP.Data.Components.MonthSelect __AZERP_Data_Components_MonthSelect;
         private global::AZERP.Data.Components.CompanyWorkerSelect __AZERP_Data_Components_CompanyWorkerSelect;
-        private global::AZWeb.TagHelpers.Input.AZSelectModel __AZWeb_TagHelpers_Input_AZSelectModel;
+        private global::AZWeb.Module.TagHelper.Input.AZSelectModel __AZWeb_Module_TagHelper_Input_AZSelectModel;
         private global::AZERP.Data.Components.Tables.AZTableCheckinCheckout __AZERP_Data_Components_Tables_AZTableCheckinCheckout;
-        private global::AZWeb.TagHelpers.Module.AZPagination __AZWeb_TagHelpers_Module_AZPagination;
-        private global::AZWeb.TagHelpers.Html.AZStyle __AZWeb_TagHelpers_Html_AZStyle;
-        private global::AZWeb.TagHelpers.Html.AZScript __AZWeb_TagHelpers_Html_AZScript;
+        private global::AZWeb.Module.TagHelper.Module.AZPagination __AZWeb_Module_TagHelper_Module_AZPagination;
+        private global::AZWeb.Module.TagHelper.Theme.AZStyle __AZWeb_Module_TagHelper_Theme_AZStyle;
+        private global::AZWeb.Module.TagHelper.Theme.AZScript __AZWeb_Module_TagHelper_Theme_AZScript;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-module-layout", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f5e303fa815b9b41b7c39ec9c047ddefa877427c6634", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-module-layout", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f5e303fa815b9b41b7c39ec9c047ddefa877427c6710", async() => {
                 WriteLiteral(@"
     <div class=""az-manager"" id=""FormCheckinCheckOut"" data-form-size=""az-modal-xl"">
         <div class=""az-toolbar"">
@@ -77,29 +77,29 @@ using AZERP.Data.Entities;
                 </div>
                 <div class=""col-md-7"">
                     ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f5e303fa815b9b41b7c39ec9c047ddefa877427c7511", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f5e303fa815b9b41b7c39ec9c047ddefa877427c7587", async() => {
                     WriteLiteral("\r\n                        ");
-                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-hidden-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c7801", async() => {
+                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-hidden-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c7877", async() => {
                     }
                     );
-                    __AZWeb_TagHelpers_Input_AZHiddenModel = CreateTagHelper<global::AZWeb.TagHelpers.Input.AZHiddenModel>();
-                    __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Input_AZHiddenModel);
+                    __AZWeb_Module_TagHelper_Input_AZHiddenModel = CreateTagHelper<global::AZWeb.Module.TagHelper.Input.AZHiddenModel>();
+                    __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Input_AZHiddenModel);
 #nullable restore
 #line 12 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormCheckinCheckout.cshtml"
-__AZWeb_TagHelpers_Input_AZHiddenModel.Model = Model;
+__AZWeb_Module_TagHelper_Input_AZHiddenModel.Model = Model;
 
 #line default
 #line hidden
 #nullable disable
-                    __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_TagHelpers_Input_AZHiddenModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+                    __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_Module_TagHelper_Input_AZHiddenModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
 #nullable restore
 #line 12 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormCheckinCheckout.cshtml"
-__AZWeb_TagHelpers_Input_AZHiddenModel.Func = (item) => ((FormCheckinCheckout)item).PageSize;
+__AZWeb_Module_TagHelper_Input_AZHiddenModel.Func = (item) => ((FormCheckinCheckout)item).PageSize;
 
 #line default
 #line hidden
 #nullable disable
-                    __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_TagHelpers_Input_AZHiddenModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+                    __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_Module_TagHelper_Input_AZHiddenModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
                     await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
                     if (!__tagHelperExecutionContext.Output.IsContentModified)
                     {
@@ -108,7 +108,7 @@ __AZWeb_TagHelpers_Input_AZHiddenModel.Func = (item) => ((FormCheckinCheckout)it
                     Write(__tagHelperExecutionContext.Output);
                     __tagHelperExecutionContext = __tagHelperScopeManager.End();
                     WriteLiteral("\r\n                        <div class=\"form-group col-md-2\">\r\n                            ");
-                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-year-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c9745", async() => {
+                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-year-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c9863", async() => {
                     }
                     );
                     __AZERP_Data_Components_YearSelect = CreateTagHelper<global::AZERP.Data.Components.YearSelect>();
@@ -153,7 +153,7 @@ __AZERP_Data_Components_YearSelect.TimeYear = 3;
                     Write(__tagHelperExecutionContext.Output);
                     __tagHelperExecutionContext = __tagHelperScopeManager.End();
                     WriteLiteral("\r\n                        </div>\r\n                        <div class=\"form-group col-md-2\">\r\n                            ");
-                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-month-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c12910", async() => {
+                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-month-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c13028", async() => {
                     }
                     );
                     __AZERP_Data_Components_MonthSelect = CreateTagHelper<global::AZERP.Data.Components.MonthSelect>();
@@ -190,7 +190,7 @@ __AZERP_Data_Components_MonthSelect.Func = (item) => ((FormCheckinCheckout)item)
                     Write(__tagHelperExecutionContext.Output);
                     __tagHelperExecutionContext = __tagHelperScopeManager.End();
                     WriteLiteral("\r\n                        </div>\r\n                        <div class=\"form-group col-md-2\">\r\n                            ");
-                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-company-worker-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c15673", async() => {
+                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-company-worker-select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c15791", async() => {
                     }
                     );
                     __AZERP_Data_Components_CompanyWorkerSelect = CreateTagHelper<global::AZERP.Data.Components.CompanyWorkerSelect>();
@@ -227,40 +227,40 @@ __AZERP_Data_Components_CompanyWorkerSelect.Func = (item) => ((FormCheckinChecko
                     Write(__tagHelperExecutionContext.Output);
                     __tagHelperExecutionContext = __tagHelperScopeManager.End();
                     WriteLiteral("\r\n                        </div>\r\n                        <div class=\"form-group col-md-2\">\r\n                            ");
-                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-select-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c18537", async() => {
+                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-select-model", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c18655", async() => {
                     }
                     );
-                    __AZWeb_TagHelpers_Input_AZSelectModel = CreateTagHelper<global::AZWeb.TagHelpers.Input.AZSelectModel>();
-                    __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Input_AZSelectModel);
+                    __AZWeb_Module_TagHelper_Input_AZSelectModel = CreateTagHelper<global::AZWeb.Module.TagHelper.Input.AZSelectModel>();
+                    __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Input_AZSelectModel);
 #nullable restore
 #line 23 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormCheckinCheckout.cshtml"
-__AZWeb_TagHelpers_Input_AZSelectModel.Model = Model;
+__AZWeb_Module_TagHelper_Input_AZSelectModel.Model = Model;
 
 #line default
 #line hidden
 #nullable disable
-                    __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_TagHelpers_Input_AZSelectModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+                    __tagHelperExecutionContext.AddTagHelperAttribute("model", __AZWeb_Module_TagHelper_Input_AZSelectModel.Model, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
 #nullable restore
 #line 23 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormCheckinCheckout.cshtml"
-__AZWeb_TagHelpers_Input_AZSelectModel.Func = (item) => ((FormCheckinCheckout)item).WorkerId;
+__AZWeb_Module_TagHelper_Input_AZSelectModel.Func = (item) => ((FormCheckinCheckout)item).WorkerId;
 
 #line default
 #line hidden
 #nullable disable
-                    __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_TagHelpers_Input_AZSelectModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+                    __tagHelperExecutionContext.AddTagHelperAttribute("func", __AZWeb_Module_TagHelper_Input_AZSelectModel.Func, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
 #nullable restore
 #line 23 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormCheckinCheckout.cshtml"
-__AZWeb_TagHelpers_Input_AZSelectModel.ListObject = Model.Workers;
+__AZWeb_Module_TagHelper_Input_AZSelectModel.ListObject = Model.Workers;
 
 #line default
 #line hidden
 #nullable disable
-                    __tagHelperExecutionContext.AddTagHelperAttribute("list-object", __AZWeb_TagHelpers_Input_AZSelectModel.ListObject, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-                    __AZWeb_TagHelpers_Input_AZSelectModel.InputClass = (string)__tagHelperAttribute_0.Value;
+                    __tagHelperExecutionContext.AddTagHelperAttribute("list-object", __AZWeb_Module_TagHelper_Input_AZSelectModel.ListObject, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+                    __AZWeb_Module_TagHelper_Input_AZSelectModel.InputClass = (string)__tagHelperAttribute_0.Value;
                     __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_0);
-                    __AZWeb_TagHelpers_Input_AZSelectModel.InputLabel = (string)__tagHelperAttribute_1.Value;
+                    __AZWeb_Module_TagHelper_Input_AZSelectModel.InputLabel = (string)__tagHelperAttribute_1.Value;
                     __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_1);
-                    __AZWeb_TagHelpers_Input_AZSelectModel.NullText = (string)__tagHelperAttribute_6.Value;
+                    __AZWeb_Module_TagHelper_Input_AZSelectModel.NullText = (string)__tagHelperAttribute_6.Value;
                     __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_6);
                     await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
                     if (!__tagHelperExecutionContext.Output.IsContentModified)
@@ -301,7 +301,7 @@ __AZWeb_TagHelpers_Input_AZSelectModel.ListObject = Model.Workers;
 #line hidden
 #nullable disable
                 WriteLiteral("</h3>\r\n        <div class=\"az-data-table\">\r\n            <div class=\"az-div-freeze\">\r\n               ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-table-checkin-checkout", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c23460", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-table-checkin-checkout", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c23650", async() => {
                 }
                 );
                 __AZERP_Data_Components_Tables_AZTableCheckinCheckout = CreateTagHelper<global::AZERP.Data.Components.Tables.AZTableCheckinCheckout>();
@@ -322,19 +322,19 @@ __AZERP_Data_Components_Tables_AZTableCheckinCheckout.Data = Model.AZData;
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n            </div>\r\n        </div>\r\n        <div class=\"az-bottom-manager\">\r\n            ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-pagination", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c24988", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-pagination", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "f5e303fa815b9b41b7c39ec9c047ddefa877427c25178", async() => {
                 }
                 );
-                __AZWeb_TagHelpers_Module_AZPagination = CreateTagHelper<global::AZWeb.TagHelpers.Module.AZPagination>();
-                __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Module_AZPagination);
+                __AZWeb_Module_TagHelper_Module_AZPagination = CreateTagHelper<global::AZWeb.Module.TagHelper.Module.AZPagination>();
+                __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Module_AZPagination);
 #nullable restore
 #line 36 "E:\Projects\AZCore\AZERP\Web\Modules\Worker\FormCheckinCheckout.cshtml"
-__AZWeb_TagHelpers_Module_AZPagination.Pagination = Model;
+__AZWeb_Module_TagHelper_Module_AZPagination.Pagination = Model;
 
 #line default
 #line hidden
 #nullable disable
-                __tagHelperExecutionContext.AddTagHelperAttribute("pagination", __AZWeb_TagHelpers_Module_AZPagination.Pagination, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+                __tagHelperExecutionContext.AddTagHelperAttribute("pagination", __AZWeb_Module_TagHelper_Module_AZPagination.Pagination, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
                 await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
                 if (!__tagHelperExecutionContext.Output.IsContentModified)
                 {
@@ -345,8 +345,8 @@ __AZWeb_TagHelpers_Module_AZPagination.Pagination = Model;
                 WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
             }
             );
-            __AZWeb_TagHelpers_Module_ModuleLayout = CreateTagHelper<global::AZWeb.TagHelpers.Module.ModuleLayout>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Module_ModuleLayout);
+            __AZWeb_Module_TagHelper_Module_ModuleLayout = CreateTagHelper<global::AZWeb.Module.TagHelper.Module.ModuleLayout>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Module_ModuleLayout);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {
@@ -355,7 +355,7 @@ __AZWeb_TagHelpers_Module_AZPagination.Pagination = Model;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-style", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f5e303fa815b9b41b7c39ec9c047ddefa877427c27026", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-style", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f5e303fa815b9b41b7c39ec9c047ddefa877427c27264", async() => {
                 WriteLiteral(@"
     #FormCheckinCheckOut .az-table-freeze .col-freeze{
     width:200px;
@@ -376,8 +376,8 @@ __AZWeb_TagHelpers_Module_AZPagination.Pagination = Model;
 ");
             }
             );
-            __AZWeb_TagHelpers_Html_AZStyle = CreateTagHelper<global::AZWeb.TagHelpers.Html.AZStyle>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Html_AZStyle);
+            __AZWeb_Module_TagHelper_Theme_AZStyle = CreateTagHelper<global::AZWeb.Module.TagHelper.Theme.AZStyle>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Theme_AZStyle);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {
@@ -386,12 +386,12 @@ __AZWeb_TagHelpers_Module_AZPagination.Pagination = Model;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f5e303fa815b9b41b7c39ec9c047ddefa877427c28348", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("az-script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f5e303fa815b9b41b7c39ec9c047ddefa877427c28607", async() => {
                 WriteLiteral("\r\n    $(document).ready(function() {\r\n    $(\"#FormCheckinCheckOut\").AZManager();\r\n    $(\".az-div-freeze\").TableFreeze();\r\n    });\r\n");
             }
             );
-            __AZWeb_TagHelpers_Html_AZScript = CreateTagHelper<global::AZWeb.TagHelpers.Html.AZScript>();
-            __tagHelperExecutionContext.Add(__AZWeb_TagHelpers_Html_AZScript);
+            __AZWeb_Module_TagHelper_Theme_AZScript = CreateTagHelper<global::AZWeb.Module.TagHelper.Theme.AZScript>();
+            __tagHelperExecutionContext.Add(__AZWeb_Module_TagHelper_Theme_AZScript);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {

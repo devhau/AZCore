@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Components\Tables\**" />
+    <EmbeddedResource Remove="Components\Tables\**" />
+    <None Remove="Components\Tables\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Components\Tables\AZTableCheckinCheckout.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Components\Inputs\" />
   </ItemGroup>
 

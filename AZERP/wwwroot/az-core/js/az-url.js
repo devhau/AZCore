@@ -1,12 +1,12 @@
 ﻿function AZUrl() { }
 AZUrl.prototype.loadHtml = function (url, callback) {
     new AZAjax().DoGet(url, {}, function (d) {
-        $("#ContentAZ").html(d.Html);
-        document.title = d.Title;
+        $("#ContentAZ").html(d.html);
+        document.title = d.title;
         var CodeJS = "";
-        if (d.JS) d.JS.forEach(function (item) { if (item.Code) { CodeJS = CodeJS + " " + item.Code; } });
+        if (d.js) d.js.forEach(function (item) { if (item.code) { CodeJS = CodeJS + " " + item.code; } });
         var CodeCss = "";
-        if (d.CSS) d.CSS.forEach(function (item) { if (item.Code) { CodeCss = CodeCss + " " + item.Code; } });
+        if (d.css) d.css.forEach(function (item) { if (item.code) { CodeCss = CodeCss + " " + item.code; } });
         var style = $("<style></style>");
         $(style).html(CodeCss);
         $("html head").append(style);

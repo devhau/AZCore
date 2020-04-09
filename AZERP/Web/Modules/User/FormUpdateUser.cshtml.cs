@@ -1,6 +1,6 @@
 ﻿using AZCore.Extensions;
 using AZERP.Data.Entities;
-using AZWeb.Common.Manager;
+using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Reflection;

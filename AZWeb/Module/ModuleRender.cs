@@ -1,11 +1,13 @@
 ﻿using AZCore.Extensions;
 using AZWeb.Configs;
 using AZWeb.Extensions;
+using AZWeb.Module.Buffers;
 using AZWeb.Module.Common;
 using AZWeb.Module.Formatters;
 using AZWeb.Module.Page;
 using AZWeb.Module.View;
 using AZWeb.Utilities;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
@@ -14,11 +16,15 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Buffers;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -40,6 +46,7 @@ namespace AZWeb.Module
         }
 
         public static readonly string DefaultContentType = "text/html; charset=utf-8";
+        private static readonly string extends = ".cshtml";
 
         IHttpResponseStreamWriterFactory writerFactory;
         ICompositeViewEngine viewEngine;
@@ -47,6 +54,7 @@ namespace AZWeb.Module
         HttpContext httpContext;
         ActionContext actionContext;
         IStartup startup;
+        private readonly IViewBufferScope _bufferScope;
         private readonly IPagesConfig PageConfigs = null;
         private bool IsAjax { get; }
 
@@ -57,6 +65,7 @@ namespace AZWeb.Module
             viewEngine = httpContext.GetService<ICompositeViewEngine>();
             actionContext = new ActionContext(httpContext, httpContext.GetRouteData(), new ActionDescriptor());
             tempDataProvider = httpContext.GetService<ITempDataProvider>();
+            _bufferScope = httpContext.GetService<IViewBufferScope>();
             startup = httpContext.GetService<IStartup>();
             this.PageConfigs = this.httpContext.GetService<IPagesConfig>();
             this.IsAjax = httpContext.IsAjax();
@@ -132,7 +141,7 @@ namespace AZWeb.Module
             string viewName = moduleName;
             if (query.ContainsKey("v") && !string.IsNullOrEmpty(query["v"].ToString()))
                 viewName = query["v"].ToString();
-            string typeModuleString = string.Format("Web.Modules.{0}.Form{1}",  moduleName, viewName);
+            string typeModuleString = string.Format("Web.Modules.{0}.Form{1}", moduleName, viewName);
             var ModuleCurrent = LoadModule(typeModuleString);
 
             var methodName = httpContext.Request.Method.ToUpperFirstChart();
@@ -144,7 +153,6 @@ namespace AZWeb.Module
             var methodFunction = ModuleCurrent.GetType().GetMethod(methodName);
             if (methodFunction == null)
                 return RenderError.NotFoundMethod;
-            ModuleCurrent.BeforeRequest();
 
             httpContext.Request.QueryString = new QueryString(string.Format("?{0}", pathReal));
             List<object> paraValues = new List<object>();
@@ -185,19 +193,35 @@ namespace AZWeb.Module
                         paraValues.Add(null);
                 }
             }
+            ModuleCurrent.BeforeRequest();
             Common.IView rsView = null;
             var rsFN = methodFunction.Invoke(ModuleCurrent, paraValues.ToArray());
             if (rsFN is Task)
             {
                 rsView = await (Task<Common.IView>)rsFN;
-            } else {
+            }
+            else
+            {
                 rsView = (Common.IView)rsFN;
             }
             ModuleCurrent.AfterRequest();
 
             #endregion
             #region --- Check Download File && Download file ---
-           
+            if (rsView is DownloadFileView)
+            {
+                var fileView = rsView.As<DownloadFileView>();
+                var response = httpContext.Response;
+                response.ContentType = fileView.ContentType;
+                response.Headers["Content-Disposition"] = "attachment; filename=" + fileView.Name + ";";
+                await fileView.File.CopyToAsync(response.Body);
+                await response.Body.FlushAsync();
+                return RenderError.OK;
+            } else if (rsView is RedirectView) {
+                var redirectView = rsView.As<RedirectView>();
+                httpContext.Response.Redirect(redirectView.RedirectToUrl);
+                return RenderError.OK;
+            }
             #endregion
             #region --- Get Theme && Process Theme ---
 
@@ -212,19 +236,20 @@ namespace AZWeb.Module
                 if (theme == null)
                     return RenderError.NotFoundTheme;
                 theme.BeforeRequest();
+                theme.BodyContent = await this.GetContentHtmlFromView(rsView as HtmlView);
                 await this.RenderHtml(theme.GetTheme());
                 theme.AfterRequest();
             }
+            else if (!IsAjax)
+            {
+                await this.RenderHtml(rsView as HtmlView);
+            }
             else
             {
-                if (IsAjax)
-                {
-                    
-                }
-                else
-                {
-                    await this.RenderHtml(rsView as HtmlView);
-                }
+                var BodyContent = await this.GetContentHtmlFromView(rsView as HtmlView);
+                var htmlContent = ModuleCurrent.Html;
+                htmlContent.Html = BodyContent.GetString();
+               await RenderJson(htmlContent);
             }
             #endregion
 
@@ -292,11 +317,37 @@ namespace AZWeb.Module
             }
             return true;
         }
+        private static JsonSerializerOptions GetHtmlSafeSerializerOptions(JsonSerializerOptions serializerOptions)
+        {
+            if (serializerOptions.Encoder is null || serializerOptions.Encoder == JavaScriptEncoder.Default)
+            {
+                return serializerOptions;
+            }
+            return serializerOptions.Copy(JavaScriptEncoder.Default);
+        }
+        private async Task RenderJson(object dataa)
+        {
+            IOptions<JsonOptions> options = httpContext.GetService<IOptions<JsonOptions>>();
+            var json = JsonSerializer.Serialize(dataa, GetHtmlSafeSerializerOptions(options.Value.JsonSerializerOptions));
+            var HtmlJson = new HtmlString(json);
+            var response = httpContext.Response;
+            ResponseContentTypeHelper.ResolveContentTypeAndEncoding(
+               null,
+               response.ContentType,
+               DefaultContentType,
+               out var resolvedContentType,
+               out var resolvedContentTypeEncoding);
+            await using (System.IO.TextWriter writer = writerFactory.CreateWriter(response.Body, resolvedContentTypeEncoding))
+            {
+                HtmlJson.WriteTo(writer, HtmlEncoder.Default);
+                await writer.FlushAsync();
+            }
+        }
         private async Task RenderHtml(HtmlView htmlView) {
 
             var response = httpContext.Response;
 
-            var viewResult = viewEngine.GetView(string.Format("{0}/{1}", htmlView.Path, htmlView.ViewName), htmlView.ViewName, false);
+            var viewResult = viewEngine.GetView(string.Format("{0}/{1}{2}", htmlView.Path, htmlView.ViewName, extends), string.Format("{0}{1}", htmlView.ViewName, extends), false);
             if (viewResult.View == null)
             {
                 throw new ArgumentNullException($"{htmlView.ViewName} does not match any available view");
@@ -305,9 +356,8 @@ namespace AZWeb.Module
             {
                 Model = htmlView.Model
             };
-            string contentType = "";
             ResponseContentTypeHelper.ResolveContentTypeAndEncoding(
-                contentType,
+                null,
                 response.ContentType,
                 DefaultContentType,
                 out var resolvedContentType,
@@ -331,6 +381,48 @@ namespace AZWeb.Module
                 // response asynchronously. In the absence of this line, the buffer gets synchronously written to the
                 // response as part of the Dispose which has a perf impact.
                 await writer.FlushAsync();
+            }
+        }
+        private async Task<IHtmlContent> GetContentHtmlFromView(HtmlView htmlView) {
+
+            var response = httpContext.Response;
+            var viewResult = viewEngine.GetView(string.Format("{0}/{1}{2}", htmlView.Path, htmlView.ViewName, extends),  string.Format("{0}{1}", htmlView.ViewName, extends), false);
+            if (viewResult.View == null)
+            {
+                throw new ArgumentNullException($"{htmlView.ViewName} does not match any available view");
+            }
+            var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
+            {
+                Model = htmlView.Model
+            };
+            string contentType = "";
+            ResponseContentTypeHelper.ResolveContentTypeAndEncoding(
+                contentType,
+                response.ContentType,
+                DefaultContentType,
+                out var resolvedContentType,
+                out var resolvedContentTypeEncoding);
+
+            response.ContentType = resolvedContentType;
+            var viewBuffer = new ViewBuffer(_bufferScope, htmlView.ViewName, ViewBuffer.PartialViewPageSize);
+            await using (var writer = new ViewBufferTextWriter(viewBuffer, resolvedContentTypeEncoding))
+            {
+                // Forcing synchronous behavior so users don't have to await templates.
+                var view = viewResult.View;
+                using (view as IDisposable)
+                {
+                    var viewContext = new ViewContext(
+                     actionContext,
+                     viewResult.View,
+                     viewDictionary,
+                     new TempDataDictionary(actionContext.HttpContext, tempDataProvider),
+                     writer,
+                     new HtmlHelperOptions()
+                     );
+                     await view.RenderAsync(viewContext);
+                    await writer.FlushAsync();
+                    return viewBuffer;
+                }
             }
         }
         private async Task<bool> DoRouterAsync() {

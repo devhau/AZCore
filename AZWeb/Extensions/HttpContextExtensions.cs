@@ -4,22 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Razor;
 using System.IO;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using AZWeb.Common.Module;
 using AZWeb.Utilities;
 using Microsoft.Extensions.DependencyInjection;
-using System.Text;
 using AZCore.Extensions;
-using AZWeb.Common.Module.View;
 using AZCore.Identity;
-using AZWeb.Common.Attributes;
+using AZWeb.Module.Attribute;
 
 namespace AZWeb.Extensions
 {
@@ -158,10 +153,7 @@ namespace AZWeb.Extensions
                 return request.Headers["X-Requested-With"] == "XMLHttpRequest";
             return false;
         }
-        public static IHtmlView GetContetModule(this HttpContext httpContext) {
-            if (httpContext.Items[AZCoreWeb.KeyHtmlModule] == null) { httpContext.Items[AZCoreWeb.KeyHtmlModule] = new DefaultView(); }
-            return httpContext.Items[AZCoreWeb.KeyHtmlModule] as IHtmlView;
-        }
+      
 
         public static UserInfo GeUserModule(this HttpContext httpContext)
         {

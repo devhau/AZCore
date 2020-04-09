@@ -1,6 +1,6 @@
 ﻿using AZERP.Data.Entities;
-using AZWeb.Common.Manager;
-using AZWeb.Common.Module.Attr;
+using AZWeb.Module.Attribute;
+using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
 namespace AZERP.Web.Modules.User

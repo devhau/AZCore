@@ -1,17 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AZWeb.Extensions;
+using Microsoft.AspNetCore.Http;
 
 namespace AZWeb.Module.Common
 {
-    public class ModuleBase : IModule
+    public class ModuleBase : IModule, IUrlVirtual
     {
+        public IQueryCollection UrlVirtual { get; }
         public HttpContext HttpContext { get; }
         public ModuleBase(IHttpContextAccessor httpContextAccessor)
         {
             HttpContext = httpContextAccessor.HttpContext;
-          
+            UrlVirtual = HttpContext.Request.Query;
+
+            this.HttpContext.BindFormAttributeTo(this);
+            this.HttpContext.BindQueryAttributeTo(this);
+
         }
-        public void BeforeRequest() { IntData(); }
-        public void AfterRequest() { }
+        public virtual void BeforeRequest() { IntData(); }
+        public virtual void AfterRequest() { }
         protected virtual void IntData(){ }
     }
 }

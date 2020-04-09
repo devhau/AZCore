@@ -1,12 +1,12 @@
 ﻿@model LayoutTheme
 <az-html class="az-layout layout-top-nav">
-    <az-head>
+    <head>
 
         <az-script>
            
         </az-script>
-    </az-head>
-    <az-body>
+    </head>
+    <body>
         <!-- Site wrapper -->
         <div class="wrapper">
             <nav class="main-header navbar navbar-expand-md navbar-light navbar-dark">
@@ -111,11 +111,11 @@
             </nav>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper" id="ContentAZ">
-                <az-content />
+                @Model.BodyContent
             </div>
             <!-- /.content-wrapper -->
             <!-- /.control-sidebar -->
         </div>
         <!-- ./wrapper -->
-    </az-body>
+    </body>
 </az-html>

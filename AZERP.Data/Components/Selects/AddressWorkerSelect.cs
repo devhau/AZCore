@@ -1,6 +1,5 @@
-﻿using AZCore.Database;
-using AZERP.Data.Enums;
-using AZWeb.TagHelpers.Input;
+﻿using AZERP.Data.Enums;
+using AZWeb.Module.TagHelper.Input;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace AZERP.Data.Components

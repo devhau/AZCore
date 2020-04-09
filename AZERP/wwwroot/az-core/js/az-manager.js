@@ -32,8 +32,8 @@
                     $this.SaveData(url, scope);
                 }
             });
-            popup.setHtml(item.Html);
-            popup.setTitle(item.Title);
+            popup.setHtml(item.html);
+            popup.setTitle(item.title);
             popup.ModalSize = $this.FormSize;
             popup.ShowPopup();
         });

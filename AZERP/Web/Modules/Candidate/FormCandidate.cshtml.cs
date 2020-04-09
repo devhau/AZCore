@@ -1,12 +1,11 @@
 ﻿using AZCore.Database;
-using AZCore.Database.Attr;
 using AZCore.Extensions;
 using AZERP.Data.Entities;
 using AZERP.Data.Enums;
-using AZWeb.Common.Manager;
-using AZWeb.Common.Module.Attr;
-using AZWeb.Common.Module.View;
 using AZWeb.Extensions;
+using AZWeb.Module.Attribute;
+using AZWeb.Module.Common;
+using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
@@ -147,7 +146,7 @@ namespace AZERP.Web.Modules.Candidate
 
             var data =this.GetSearchData();
             var WorkerData = data.Select(p => p.CopyTo<WorkerModel>()).ToList();
-            var workderService = this.httpContext.GetService<WorkerService>();
+            var workderService = this.HttpContext.GetService<WorkerService>();
             foreach (var item in WorkerData) {
                 workderService.Insert(item);
             }

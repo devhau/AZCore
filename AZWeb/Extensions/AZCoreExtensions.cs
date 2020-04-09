@@ -2,7 +2,6 @@
 using AZCore.Extensions;
 using AZCore.Utility.Xml;
 using AZWeb.Configs;
-using AZWeb.Middleware;
 using AZWeb.Module.Middleware;
 using AZWeb.Utilities;
 using HtmlAgilityPack;

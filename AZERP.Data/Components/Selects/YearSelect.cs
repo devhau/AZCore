@@ -1,6 +1,7 @@
 ﻿using AZERP.Data.Enums;
-using AZWeb.TagHelpers;
-using AZWeb.TagHelpers.Input;
+using AZWeb.Module;
+using AZWeb.Module.TagHelper;
+using AZWeb.Module.TagHelper.Input;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 

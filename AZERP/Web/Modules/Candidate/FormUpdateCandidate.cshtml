@@ -19,7 +19,7 @@
             <az-text-model model="Model.Data" func="(item)=>((CandidateModel)item).AddressCurrent" label="Hiện tại trọ đâu" />
         </div>
         <div class="form-group col-md-6">
-            <az-address-worker-select model="Model.Data" func="(item)=>((CandidateModel)item).TargetToAddress" null-text="Chọn khu làm việc"  label="Làm khu vực" />
+            <az-address-worker-select model="Model.Data" func="(item)=>((CandidateModel)item).TargetToAddress" null-text="Chọn khu làm việc" label="Làm khu vực" />
         </div>
         <div class="form-group col-md-6">
             <az-call-status-select model="Model.Data" func="(item)=>((CandidateModel)item).CallStatus" label="Trạng thái gọi" />
@@ -36,7 +36,9 @@
         <div class="form-group col-md-6">
             <az-text-model model="Model.Data" func="(item)=>((CandidateModel)item).LinkFacebook" label="Đường dẫn facebook" />
         </div>
-
+        <div class="form-group col-md-12">
+            <az-text-area-model model="Model.Data" func="(item)=>((CandidateModel)item).Note" label="Ghi chú" />
+        </div>
     </div>
 <az-script>
 
