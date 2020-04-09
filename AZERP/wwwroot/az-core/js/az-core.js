@@ -22,7 +22,7 @@ $.fn.TableFreeze = function () {
     $thisTableFreeze = this;
     $tableBody = $($thisTableFreeze).find('tbody');
     var thisWidth = $($thisTableFreeze).width();   
-    var thisHeight = $($thisTableFreeze).height();
+    var thisHeight = $($thisTableFreeze).height() ;
     $($tableBody).width(thisWidth);
     $($tableBody).height(thisHeight - $($thisTableFreeze).find('thead').height());
     $($thisTableFreeze).find('thead').width(thisWidth);
@@ -42,7 +42,7 @@ $.fn.TableFreeze = function () {
         $isCroll = false;
     });
     $(window).resize(function () {
-        var thisWidth = $($thisTableFreeze).width();
+        var thisWidth = $($thisTableFreeze).width() ;
         var thisHeight = $($thisTableFreeze).height();
         $($tableBody).width(thisWidth);
         $($tableBody).height(thisHeight - $($thisTableFreeze).find('thead').height());

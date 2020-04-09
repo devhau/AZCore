@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace AZWeb.Module.View
@@ -16,6 +17,7 @@ namespace AZWeb.Module.View
         public Stream File { get; set; }
         public string Name { get; set; }
         public string ContentType { get; set; }
+        [JsonIgnore]
         public IModule Module { get; set; }
     }
 }

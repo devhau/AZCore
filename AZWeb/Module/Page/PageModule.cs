@@ -65,11 +65,19 @@ namespace AZWeb.Module.Page
         public virtual IView DownloadFile(Stream file,string fileName, string contentType) {
             return new DownloadFileView() { File=file,ContentType= contentType ,Name= fileName,Module=this};
         }
-        public virtual IView Json(object data) {
-            return Json(data, 200);        
+        public virtual IView Json(string Message)
+        {
+            return Json(Message, null, 200);
         }
-        public virtual IView Json(object data,int status) {         
-            return new JsonView() { Module=this,Data=data,StatusCode=status };
+        public virtual IView Json(string Message, int status)
+        {
+            return Json(Message, null, status);
+        }
+        public virtual IView Json(string Message, object data) {
+            return Json(Message,data, 200);        
+        }
+        public virtual IView Json(string Message, object data,int status) {         
+            return new JsonView() { Module=this,Data=data,StatusCode=status, Message=Message };
         }
     }
 }

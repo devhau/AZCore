@@ -221,6 +221,12 @@ namespace AZWeb.Module
                 var redirectView = rsView.As<RedirectView>();
                 httpContext.Response.Redirect(redirectView.RedirectToUrl);
                 return RenderError.OK;
+            } else if (rsView is JsonView)
+            {
+                var JsonView = rsView.As<JsonView>();
+                await  RenderJson(JsonView);
+                return RenderError.OK;
+
             }
             #endregion
             #region --- Get Theme && Process Theme ---

@@ -62,8 +62,8 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    width: 100%;
-    height: 100%;
+    height: calc(100% - 2px);
+    width: calc(100% - 2px);
 }
     .az-manager .az-toolbar {
         position: relative;
@@ -157,10 +157,10 @@
     .az-module-layout .az-module-body {
         width: 100%;
         height: 100%;
-        overflow: hidden;
+        overflow: auto;
         position: relative;
         margin: 0;
-        padding:0;
+        padding:0px;
     }
 .az-div-freeze {
     width:100%;

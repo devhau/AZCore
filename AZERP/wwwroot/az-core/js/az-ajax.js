@@ -52,7 +52,7 @@
         var style = $("<style></style>");
         $(style).html(CodeCss);
         $("html head").append(style);
-        setTimeout(function () { eval(CodeJS); }, 1000);
+        eval(CodeJS);
     }
     
 }
