@@ -1,17 +1,10 @@
-﻿function AZUrl() { }
+﻿function AZUrl() {
+    $.extend(this, new AZAjax());
+}
 AZUrl.prototype.loadHtml = function (url, callback) {
-    new AZAjax().DoGet(url, {}, function (d) {
-        $("#ContentAZ").html(d.html);
-        document.title = d.title;
-        var CodeJS = "";
-        if (d.js) d.js.forEach(function (item) { if (item.code) { CodeJS = CodeJS + " " + item.code; } });
-        var CodeCss = "";
-        if (d.css) d.css.forEach(function (item) { if (item.code) { CodeCss = CodeCss + " " + item.code; } });
-        var style = $("<style></style>");
-        $(style).html(CodeCss);
-        $("html head").append(style);
-        setTimeout(function () { eval(CodeJS); }, 1000);
-        
+    this.DoGet(url, {}, function (itemData) {
+        $("#ContentAZ").html(itemData.html);
+        document.title = itemData.title;
         if (callback) callback();
         UrlMain.Init();
     }, function (e) { });

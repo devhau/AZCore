@@ -23,13 +23,7 @@ namespace AZWeb.Extensions
         {
             app.UseCookiePolicy();
             app.UseSession();
-            app.UseRouting();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-                app.UseMiddleware<AZModuleMiddleware>();
-            });
-            //IDBCreate
+            app.UseMiddleware<AZModuleMiddleware>();
         }
         public static void AddAZCore(this IServiceCollection services, IStartup startup)
         {
