@@ -162,63 +162,39 @@
         margin: 0;
         padding:0px;
     }
-.az-div-freeze {
-    width:100%;
-    height:100%;
-}
-.az-table-freeze {
+
+    /*Table Freeze*/
+.table-freeze, .table-freeze thead, .table-freeze tbody {
+    display: block;
     position: relative;
-    width: 1000px;
-    background-color: #aaa;
+    width: 100%;
+}
+.table-freeze {
+    height: 100%;
     overflow: hidden;
+    margin: 0;
     border-collapse: collapse;
 }
-
-
-    /*thead*/
-    .az-table-freeze thead {
-        position: relative;
-        display: block; /*seperates the header from the body allowing it to be positioned*/
-        width: 1000px;
-        overflow: visible;
+.table-freeze thead {
+    overflow: visible;
+}
+table-freeze thead th {
+    text-align: center;
+    vertical-align: middle;
+    font-weight: 600;
+}
+.table-freeze tbody {
+    overflow: scroll;
+    height: 100%;
+}
+    .table-freeze td, .table-freeze th {
+        min-width: 50px;
+        border: 1px solid #222;
     }
-
-        .az-table-freeze thead th {
-            background-color: #99a;
-            min-width: 120px;
-            height: 50px;
-            border: 1px solid #222;
-            text-align:center;
-        }
-
-            .az-table-freeze thead th:nth-child(1) { /*first cell in the header*/
-                position: relative;
-                display: block; /*seperates the first cell in the header from the header*/
-                height: 50px;
-                background-color: #88b;
-            }
-
-
-    /*tbody*/
-    .az-table-freeze tbody {
-        position: relative;
-        display: block; /*seperates the tbody from the header*/
-        width: 1000px;
-        height: 500px;
-        overflow: scroll;
-    }
-
-        .az-table-freeze tbody td {
-            background-color: #ccc;
-            min-width: 120px;
-            height: 50px;
-            border: 1px solid #222;
-        }
-
-        .az-table-freeze tbody tr td:nth-child(1) { /*the first cell in each tr*/
-            position: relative;
-            display: block; /*seperates the first column from the tbody*/
-            height: 50px;
-            background-color: #99a;
-        }
-
+.table-freeze .column-freeze {
+    position: relative;
+    display: block; /*seperates the first cell in the header from the header*/
+    height: 50px;
+    background-color: #e6e6e6;
+    vertical-align: middle;
+}

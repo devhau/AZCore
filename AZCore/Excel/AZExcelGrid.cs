@@ -32,15 +32,20 @@ namespace AZCore.Excel
             AddHeader(columns);
             AddGrid(Data, columns);
         }
-        protected virtual void SetHeader(Cell cell,bool isDateTime=false)
+        protected virtual void SetHeader(Cell cell,bool isDateTime=false, Color? BackColor=null, Color? ForeColor = null)
         {
             var style=cell.GetStyle();
-
             if(isDateTime)
                 style.Custom = "dd/mm/yyyy"; 
             style.Pattern = BackgroundType.Solid;
-            style.BackgroundColor = Color.Blue;
-            style.ForegroundColor = Color.White;
+            if (BackColor == null)
+                style.ForegroundColor = Color.Gray;
+            else
+                style.ForegroundColor = BackColor.Value;
+            if (ForeColor == null)
+                style.Font.Color = Color.White;
+            else
+                style.Font.Color = ForeColor.Value;
             style.SetBorder(BorderType.BottomBorder,CellBorderType.Thick, Color.Black);
             style.SetBorder(BorderType.TopBorder, CellBorderType.Thin, Color.Black);
             style.SetBorder(BorderType.RightBorder, CellBorderType.Thin, Color.Black);
@@ -48,22 +53,25 @@ namespace AZCore.Excel
             style.VerticalAlignment = TextAlignmentType.Center;
             style.HorizontalAlignment = TextAlignmentType.Center;
             style.Font.IsBold = true;
+            style.Font.Size = 13;
             cell.SetStyle(style);
         }
 
-        protected virtual void SetCell(Cell cell,bool isDateTime=false)
+        protected virtual void SetCell(Cell cell,bool isDateTime=false, Color? BackColor = null, Color? ForeColor = null)
         {
             var style = cell.GetStyle();
-
             if (isDateTime)
                 style.Custom = "dd/mm/yyyy";
             style.Pattern = BackgroundType.Solid;
-            //style.BackgroundColor = Color.Azure;
-            //style.ForegroundColor = Color.White;
+            if (BackColor != null)
+                style.ForegroundColor = BackColor.Value;
+            if (ForeColor != null)
+                style.Font.Color = ForeColor.Value;
             style.SetBorder(BorderType.BottomBorder, CellBorderType.Thin, Color.Black);
             style.SetBorder(BorderType.TopBorder, CellBorderType.Thin, Color.Black);
             style.SetBorder(BorderType.RightBorder, CellBorderType.Thin, Color.Black);
             style.SetBorder(BorderType.LeftBorder, CellBorderType.Thin, Color.Black);
+            style.Font.Size = 13;
             cell.SetStyle(style);
         }
         protected virtual void AddHeader(List<IExcelColumn> columns) {
@@ -71,11 +79,17 @@ namespace AZCore.Excel
             foreach (var item in columns)
             {
                 azWorksheet.Cells[StartRow, colIndex].Value = item.Title;
-                if (item.Width > 0)
+                if (item.Width>0)
                     azWorksheet.Cells.SetColumnWidthPixel(colIndex, item.Width);
                 else
                     azWorksheet.Cells.SetColumnWidthPixel(colIndex, WidthDefault);
-                SetHeader(azWorksheet.Cells[StartRow, colIndex]);
+                if (item.Height > 0)
+                    azWorksheet.Cells.SetRowHeightPixel(colIndex, item.Height);
+               
+
+                SetHeader(azWorksheet.Cells[StartRow, colIndex],false,item.BackColor, item.ForeColor);
+             
+                    
                 colIndex++;
             }
         }
@@ -118,7 +132,7 @@ namespace AZCore.Excel
                     azWorksheet.Cells[StartRow, colIndex].Value = objValue;
                     IsDate = (objValue != null && objValue.GetType() == typeof(DateTime));
                 }              
-                SetCell(azWorksheet.Cells[StartRow, colIndex], IsDate);
+                SetCell(azWorksheet.Cells[StartRow, colIndex], IsDate, item.BackColor, item.ForeColor);
                 colIndex++;
             }
         }
@@ -135,7 +149,7 @@ namespace AZCore.Excel
                 }                
                 azWorksheet.Cells[StartRow, colIndex].Value = objValue;
                 IsDate = (objValue != null && objValue.GetType() == typeof(DateTime));
-                SetCell(azWorksheet.Cells[StartRow, colIndex], IsDate);
+                SetCell(azWorksheet.Cells[StartRow, colIndex], IsDate, item.BackColor, item.ForeColor);
                 colIndex++;
             }
         }
@@ -147,6 +161,10 @@ namespace AZCore.Excel
             var file = new MemoryStream();
             azWorkbook.Save(file, fileFormatType);
             return file;
+        }
+        public void SetTitle(string title) {
+
+            this.azWorksheet.Cells[0, 0].Value = title;
         }
     }
 }

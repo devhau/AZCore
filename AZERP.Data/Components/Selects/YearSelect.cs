@@ -15,9 +15,9 @@ namespace AZERP.Data.Components
         {
             base.InitData();
             var yearNow=DateTime.Now.Year;
-            this.Data = new System.Collections.Generic.List<AZItemValue>();
+            this.Data = new System.Collections.Generic.List<ItemValue>();
             for (int year = yearNow - TimeYear; year <= yearNow + TimeYear; year++) {
-                this.Data.Add( new AZItemValue() { ItemValue = year, ItemDisplay = year.ToString() });
+                this.Data.Add( new ItemValue() { Value = year, Display = year.ToString() });
             }
         }
     }

@@ -7,7 +7,7 @@
             <button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
         </div>
         <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((UserModel)item).Id" columns="Model.Columns"></az-table>
+            <az-table data="Model.Data" FunKey="(item)=>((UserModel)item).Id" columns="Model.Columns" pagination="Model"></az-table>
         </div>
     </div>
 </az-module-layout>

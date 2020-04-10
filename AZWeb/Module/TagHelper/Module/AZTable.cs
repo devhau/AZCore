@@ -29,7 +29,7 @@ namespace AZWeb.TagHelpers
         public object Data { get; set; }
         [HtmlAttributeName("pagination")]
         public IPagination Pagination { get; set; }
-        private Dictionary<Type, List<AZItemValue>> DataDic { get; set; }
+        private Dictionary<Type, List<ItemValue>> DataDic { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "";
@@ -43,7 +43,7 @@ namespace AZWeb.TagHelpers
         }
         private void RenderHeader(StringBuilder htmlTable)
         {
-            this.DataDic = new Dictionary<Type, List<AZItemValue>>();
+            this.DataDic = new Dictionary<Type, List<ItemValue>>();
             htmlTable.Append("<thead>");
             htmlTable.Append("<tr>");
             if (this.IsIndex) {
@@ -54,7 +54,7 @@ namespace AZWeb.TagHelpers
             if (this.Columns!=null) {
                 foreach (var item in this.Columns)
                 {
-                    htmlTable.Append("<th class=\"sorting_asc\" tabindex=\"0\" rowspan =\"1\" colspan =\"1\" aria-sort=\"ascending\" width=\"" + item.Width + "\">");
+                    htmlTable.AppendFormat("<th {0} width='px'>", item.Width==0?"":string.Format("", item.Width));
                     htmlTable.Append(item.Title);
                     htmlTable.Append("</th>");
                     if (item.DataType != null&& !this.DataDic.ContainsKey(item.DataType)) {
@@ -104,7 +104,7 @@ namespace AZWeb.TagHelpers
                     {
                         foreach (var col in this.Columns)
                         {
-                            htmlTable.Append("<td>");
+                            htmlTable.AppendFormat("<td  width='{0}px'>", col.Width);
                             htmlTable.Append(col.Title);
                             htmlTable.Append("</td>");
                         }
@@ -158,10 +158,10 @@ namespace AZWeb.TagHelpers
                                     object ItemDisplay = itemValue;
                                     if (col.DataType != null)
                                     {
-                                        var itemDic = this.DataDic[col.DataType].Where(p => p.ItemValue!=null&&p.ItemValue.Equals(itemValue)).FirstOrDefault();
+                                        var itemDic = this.DataDic[col.DataType].FirstOrDefault(p => p.Value!=null&&p.Value.Equals(itemValue));
                                         if (itemDic != null)
                                         {
-                                            ItemDisplay = itemDic.ItemDisplay;                                           
+                                            ItemDisplay = itemDic.Display;                                           
                                         }                                       
                                     }
                                     if (!string.IsNullOrEmpty(col.FormatString)) {

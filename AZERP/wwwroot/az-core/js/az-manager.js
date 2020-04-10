@@ -1,9 +1,9 @@
-﻿function AZManager() {
+﻿function AZManager(DoneCallback) {
     $.extend(this, new AZAjax());
     $this = this;
-    this.FormSize = $(this).data("form-size");
-    this.FormSearch = $(this).find(".az-search-form");
-    this.ReLoad = function (callback) {
+    $this.FormSize = $(this).data("form-size");
+    $this.FormSearch = $(this).find(".az-search-form");
+    $this.ReLoad = function (callback) {
         new AZUrl().loadHtml(location.href, callback);
     }
     this.SaveData = function (url, scope) {
@@ -83,37 +83,59 @@
     $(this).find(".az-btn-import").on("click", function () {
         alert("Đang phát triển!");
     });
+         $(this.FormSearch).on('submit', function (e, v) {
+            console.log("Toi co vào submit");
+            if (e.preventDefault) e.preventDefault();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+         });
+    console.log($this.FormSearch);
     $(this).find(".az-search-form .az-input-change-search").on("change", function () {
-        $data = $($this.FormSearch).serializeArray();
-        var notSearch = $(this).attr("data-not-search")
-        if (notSearch)
-            notSearch = notSearch.split(",");
-        hrefSearch = "";
-        $.each($data, function (index, item) {
-            if (notSearch != undefined && notSearch.indexOf(item.name)>-1) {
-            }else
-            if (item.value != "" ) {
-                if (hrefSearch != "")
-                    hrefSearch += "&";
-                hrefSearch += item.name + "=" + encodeURIComponent(item.value);
+        $data = $(this).parents(".az-search-form").serializeArray();
+            console.log($data);
+            var notSearch = $(this).attr("data-not-search")
+            if (notSearch)
+                notSearch = notSearch.split(",");
+            hrefSearch = "";
+            $.each($data, function (index, item) {
+                if (notSearch != undefined && notSearch.indexOf(item.name) > -1) {
+                } else
+                    if (item.value != "") {
+                        if (hrefSearch != "")
+                            hrefSearch += "&";
+                        hrefSearch += item.name + "=" + encodeURIComponent(item.value);
+                    }
+            });
+            if (hrefSearch != "") {
+                hrefSearch = location.pathname + "?" + hrefSearch;
+                new AZUrl().changeUrl(hrefSearch);
+
+                toastr.info("Đã tìm kiếm thành công");
+            } else {
+                toastr.error("Lỗi không tìm được");
+            }
+        })
+        $(this).find(".az-btn-search").on("click", function () {
+            $data = $($this.FormSearch).serializeArray();
+            hrefSearch = "";
+            $.each($data, function (index, item) {
+                if (item.value != "") {
+                    if (hrefSearch != "")
+                        hrefSearch += "&";
+                    hrefSearch += item.name + "=" + encodeURIComponent(item.value);
+                }
+            });
+            if (hrefSearch != "") {
+                hrefSearch = location.pathname + "?" + hrefSearch;
+                new AZUrl().changeUrl(hrefSearch);
+
+                toastr.info("Đã tìm kiếm thành công");
+            } else {
+                toastr.error("Lỗi không tìm được");
             }
         });
-        hrefSearch = location.pathname + "?" + hrefSearch;
-        new AZUrl().changeUrl(hrefSearch);
-    })
-    $(this).find(".az-btn-search").on("click", function () {
-        $data = $($this.FormSearch).serializeArray();
-        hrefSearch = "";
-        $.each($data, function (index, item) {
-            if (item.value != "") {
-                if (hrefSearch != "")
-                    hrefSearch += "&";
-                hrefSearch += item.name + "=" + encodeURIComponent(item.value);
-            }
-        });
-        hrefSearch = location.pathname + "?" + hrefSearch;
-        new AZUrl().changeUrl(hrefSearch);
-    });
+    if (DoneCallback) {
+        DoneCallback(this);
+    }
     return this;
 }
 

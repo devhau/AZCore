@@ -8,10 +8,10 @@ namespace AZWeb.Module.Page.Manager
     public class AZExcelGridWeb: AZExcelGrid
     {
         HttpContext httpContext;
-        Dictionary<Type, List<AZItemValue>> DataDic { get; set; }
+        Dictionary<Type, List<ItemValue>> DataDic { get; set; }
         public AZExcelGridWeb(HttpContext httpContext):base() {
             this.httpContext = httpContext;
-            this.DataDic = new Dictionary<Type, List<AZItemValue>>();
+            this.DataDic = new Dictionary<Type, List<ItemValue>>();
         }
         protected override void AddHeader(List<IExcelColumn> columns)
         {
@@ -26,10 +26,10 @@ namespace AZWeb.Module.Page.Manager
         }
         protected override object GetValueByType(Type type, object value)
         {
-            var itemDic = this.DataDic[type].Where(p => p.ItemValue!=null&&p.ItemValue.Equals(value)).FirstOrDefault();
+            var itemDic = this.DataDic[type].Where(p => p.Value!=null&&p.Value.Equals(value)).FirstOrDefault();
             if (itemDic != null)
             {
-                return itemDic.ItemDisplay;
+                return itemDic.Display;
             }
             return base.GetValueByType(type, value);
         }

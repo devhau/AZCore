@@ -35,7 +35,7 @@ namespace AZWeb.Module.TagHelper.Input
         [HtmlAttributeName("list-object")]
         public object ListObject { get; set; }
         [HtmlAttributeName("data")]
-        public System.Collections.Generic.List<AZItemValue> Data { get; set; }
+        public System.Collections.Generic.List<ItemValue> Data { get; set; }
         [HtmlAttributeName("null-text")]
         public string NullText { get; set; }
         public bool AddJs { get; set; } = true;
@@ -45,7 +45,7 @@ namespace AZWeb.Module.TagHelper.Input
             this.InputClass += " select2 ";
             if (Data == null && ListObject != null&& ListObject is IList)
             {
-                Data = new System.Collections.Generic.List<AZItemValue>();
+                Data = new System.Collections.Generic.List<ItemValue>();
                 foreach (var item in (IList)ListObject) {
                     Data.Add(item.GetItemValue());
                 }
@@ -54,18 +54,18 @@ namespace AZWeb.Module.TagHelper.Input
 
         protected override void RenderHtml(StringBuilder htmlBuild)
         {
-            if (this.Data == null) this.Data = new System.Collections.Generic.List<AZItemValue>();
+            if (this.Data == null) this.Data = new System.Collections.Generic.List<ItemValue>();
             if (!string.IsNullOrEmpty(InputLabel))
                 htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
             htmlBuild.AppendFormat("<select class=\"{0}\" name=\"{1}\" {2} {3} placeholder=\"{4}\" style=\"width: 100% \">", InputClass, InputName, string.IsNullOrEmpty(InputId) ? "" : string.Format("id=\"{0}\"", InputId), Attr, InputPlaceholder);
             if (!string.IsNullOrEmpty(NullText)) {
-                this.Data.Insert(0, new AZItemValue() { ItemValue = null, ItemDisplay = NullText, });
+                this.Data.Insert(0, new ItemValue() { Value = null, Display = NullText, });
             }
             foreach (var item in this.Data)
             {
                 string ItemActive = "";
-                if (item.ItemValue != null && item.ItemValue.Equals(this.InputValue)) { ItemActive = " selected=\"selected\""; }
-                htmlBuild.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3} >{2}</option>", item.ItemValue, item.ItemName, item.ItemDisplay, ItemActive);
+                if (item.Value != null && item.Value.Equals(this.InputValue)) { ItemActive = " selected=\"selected\""; }
+                htmlBuild.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3} >{2}</option>", item.Value, item.Name, item.Display, ItemActive);
             }
             htmlBuild.Append("</select>");
             if(AddJs) this.AddJS("$(function(){ $('." + this.TagId + "').select2({theme: 'bootstrap4', width: 'resolve' }); });");

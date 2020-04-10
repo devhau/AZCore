@@ -1,4 +1,5 @@
 ﻿using AZCore.Database;
+using AZCore.Excel;
 using AZERP.Data.Components.Tables;
 using AZERP.Data.Entities;
 using AZERP.Data.Enums;
@@ -8,6 +9,8 @@ using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -103,6 +106,42 @@ namespace AZERP.Web.Modules.Worker
             buildCell.Append("</select>");
             return buildCell.ToString();
         }
-       
+        protected override void FillExcel(AZExcelGrid excelGrid, object Data, List<IExcelColumn> columns)
+        {
+            columns = new List<IExcelColumn>();
+            var dtData = new DataTable();
+            dtData.Columns.Add("Fullname", typeof(string));
+            columns.Add(new TableColumnAttribute() { FieldName="Fullname",Title="Họ Tên"});
+            for (DateTime day = StartDate ; day <= EndDate;day=day.AddDays(1))
+            {
+                dtData.Columns.Add(string.Format("col_day_{0}", day.Day),typeof(DateTime));
+                if (day.DayOfWeek == DayOfWeek.Saturday|| day.DayOfWeek==DayOfWeek.Sunday)
+                {
+                    columns.Add(new TableColumnAttribute() { FieldName = string.Format("col_day_{0}", day.Day), Title = day.ToString("dd/MM/yyyy") ,BackColor=Color.Red});
+                }
+                else
+                    columns.Add(new TableColumnAttribute() { FieldName = string.Format("col_day_{0}", day.Day), Title = day.ToString("dd/MM/yyyy") });
+            }
+            if (this.Workers != null) {
+                foreach (var item in this.Workers)
+                {
+                    var dr = dtData.NewRow();
+                    dr["Fullname"] = item.FullName;
+                    dtData.Rows.Add(dr);
+                    var dr2= dtData.NewRow();
+                    dr2["Fullname"] = item.PhoneNumber;
+                    dtData.Rows.Add(dr2);
+                    //for (DateTime day = StartDate; day <= EndDate; day = day.AddDays(1))
+                    //{
+                    //    dtData.Columns.Add(string.Format("col_day_{0}", day.Day), typeof(DateTime));
+                    //    columns.Add(new TableColumnAttribute() { FieldName = string.Format("col_day_{0}", day.Day), Title = day.ToString("dd/MM/yyyy") });
+                    //}
+
+                }
+            }
+            excelGrid.SetTitle(string.Format("Bảng công từ ngày {0:dd/MM/yyyy} đến {1:dd/MM/yyyy} ",this.StartDate,this.EndDate));
+            base.FillExcel(excelGrid, dtData, columns);
+        }
+
     }
 }

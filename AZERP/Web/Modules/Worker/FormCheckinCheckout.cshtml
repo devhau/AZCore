@@ -1,6 +1,6 @@
 ﻿@model FormCheckinCheckout
 <az-module-layout>
-    <div class="az-manager" id="FormCheckinCheckOut" data-form-size="az-modal-xl">
+    <div class="az-manager" id="FormCheckinCheckout" data-form-size="az-modal-xl">
         <div class="az-toolbar">
             <div class="row">
                 <div class="col-md-3 form-group">
@@ -28,36 +28,90 @@
         </div>
         <h3 style="padding:5px;">Chấm công từ ngày @Model.StartDate.ToString("dd/MM/yyyy") đến @Model.EndDate.ToString("dd/MM/yyyy")</h3>
         <div class="az-data-table">
-            <div class="az-div-freeze">
-               <az-table-checkin-checkout data="Model.AZData"/>
-            </div>
+            
+            <table class="table table-hover table-freeze">
+                <thead>
+                    <tr>
+                        <th width="250px" class="column-freeze text-right">Ngày</th>
+                        @for (var day = Model.StartDate; day <= Model.EndDate; day = day.AddDays(1))
+                        {
+                            var txtday = "az-color-last-day";
+                            if (day.DayOfWeek != DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
+                            {
+                                txtday = "";
+                            }
+                            <th class="cell-freeze text-center @txtday" colspan="2">@day.ToString("dd") 
+                        
+                                @if(day==DateTime.Now.Date){                                     
+                                <b>Hôm nay</b>
+                                }
+                        </th>
+                        }
+                    </tr>
+                    <tr>
+                        <th width="250px" class="column-freeze">Họ Tên</th>
+                        @for (var day = Model.StartDate; day <= Model.EndDate; day = day.AddDays(1))
+                        {
+                            var txtday = "az-color-last-day";
+                            if (day.DayOfWeek != DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
+                            {
+                                txtday = "";
+                            }
+                            <th class="cell-freeze text-center @txtday">Làm ca</th>
+                            <th class="cell-freeze text-center @txtday">Giờ tăng ca</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Workers != null)
+                    {
+                        @foreach (var worker in Model.Workers)
+                        {
+                    <tr>
+                        <td width="250px" class="column-freeze">@worker.FullName ( @worker.PhoneNumber )</td>
+                        @for (var day = Model.StartDate; day <= Model.EndDate; day = day.AddDays(1))
+                        {
+                            var txtday = "az-color-last-day";
+                            if (day.DayOfWeek != DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
+                            {
+                                txtday = "";
+                            }
+                            <td class="cell-freeze @txtday">
+                                <az-work-shift-select add-js="false" />
+                            </td>
+                            <td class="cell-freeze @txtday">
+                                <az-text />
+                            </td>
+                        }
+                    </tr>
+                     
+                        }
+                    }
+                </tbody>
+            </table>
         </div>
         <div class="az-bottom-manager">
-            <az-pagination pagination="Model" />
+            <h4>Tổng số công nhân : @(Model.Workers != null?Model.Workers.Count:0) </h4> 
         </div>
     </div>
 </az-module-layout>
 <az-style>
-    #FormCheckinCheckOut .az-table-freeze .col-freeze{
-    width:200px;
-    line-height: 50px;
-    text-align: center;
+#FormCheckinCheckout .cell-freeze .form-control{
+    margin:0px;
+                    }
+#FormCheckinCheckout .cell-freeze{
+                    min-width:120px;
     }
-
-    #FormCheckinCheckOut .az-table-freeze tbody .col-freeze{
-    height:78px;
-    line-height: 39px;
+#FormCheckinCheckout tbody .cell-freeze{
+                padding:5px;
     }
-    #FormCheckinCheckOut .az-table-freeze .cell-freeze{
-    width:400px;
-    }
-    #FormCheckinCheckOut .az-table-freeze .az-color-last-day {
-    background-color: orangered;
+#FormCheckinCheckout .az-color-last-day {
+            background-color: #aaa;
     }
 </az-style>
 <az-script>
     $(document).ready(function() {
-    $("#FormCheckinCheckOut").AZManager();
-    $(".az-div-freeze").TableFreeze();
+    $("#FormCheckinCheckout").AZManager(function(ma){
+        $(".table-freeze").TableFreeze();});
     });
 </az-script>

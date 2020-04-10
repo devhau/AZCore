@@ -86,13 +86,20 @@ namespace AZWeb.Module.Page.Manager
         protected virtual void AfterDownload()
         {
         }
+        protected virtual void FillExcel(AZExcelGrid excelGrid,object  Data, List<IExcelColumn> columns)
+        {
+            excelGrid.SetDataForGrid(Data, columns);
+        }
+        protected virtual AZExcelGrid CreateExcelGrid() { 
+            return new AZExcelGridWeb(this.HttpContext);
+        }
         public virtual IView GetDownload()
         {
-            excelGrid = new AZExcelGridWeb(this.HttpContext);
+            excelGrid = CreateExcelGrid();
             BeforeDownload();
             Data = GetSearchData();
             excelGrid.SetSheet(this.Title);
-            excelGrid.SetDataForGrid(Data, this.Columns.Cast<IExcelColumn>().ToList());
+            FillExcel(excelGrid, Data, this.Columns.Cast<IExcelColumn>().ToList());
             AfterDownload();
             return DownloadFile(excelGrid.Download(), this.Title.ToUrlSlug() + ".xlsx", DownloadFileView.ExcelX);
         }
