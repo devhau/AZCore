@@ -74,5 +74,3 @@ _[Ss]cripts
 *.nupkg
 *.ncrunchsolution
 *.dot[Cc]over
-.vs/AZCore/config/applicationhost.config
-.vs/AZCore/v16/.suo
