@@ -28,7 +28,6 @@ namespace AZWeb.Extensions
         public static void AddAZCore(this IServiceCollection services, IStartup startup)
         {
             services.AddDistributedMemoryCache();
-
             services.AddSession(options =>
             {
                 // Set a short timeout for easy testing.
