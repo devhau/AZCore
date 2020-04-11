@@ -36,7 +36,6 @@ namespace AZWeb.Extensions
                 // Make the session cookie essential
                 options.Cookie.IsEssential = true;
             });
-
             var PagesConfig = ReadConfig<PagesConfig>.Load(null, (t) => t.MapPath());
             services.AddHttpContextAccessor();
             services.AddSingleton<IPagesConfig>(PagesConfig);

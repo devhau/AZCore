@@ -20,7 +20,7 @@ namespace AZWeb.Module.Page.Manager
     {
         public List<TModel> Data;
         protected TService Service;
-        public AZExcelGrid excelGrid { get; protected set; }
+        public ExcelGrid excelGrid { get; protected set; }
         public List<TableColumnAttribute> Columns { get; set; }
         [BindQuery]
         public int PageIndex { get; set; }
@@ -86,11 +86,11 @@ namespace AZWeb.Module.Page.Manager
         protected virtual void AfterDownload()
         {
         }
-        protected virtual void FillExcel(AZExcelGrid excelGrid,object  Data, List<IExcelColumn> columns)
+        protected virtual void FillExcel(ExcelGrid excelGrid,object  Data, List<IExcelColumn> columns)
         {
             excelGrid.SetDataForGrid(Data, columns);
         }
-        protected virtual AZExcelGrid CreateExcelGrid() { 
+        protected virtual ExcelGrid CreateExcelGrid() { 
             return new AZExcelGridWeb(this.HttpContext);
         }
         public virtual IView GetDownload()

@@ -106,7 +106,7 @@ namespace AZERP.Web.Modules.Worker
             buildCell.Append("</select>");
             return buildCell.ToString();
         }
-        protected override void FillExcel(AZExcelGrid excelGrid, object Data, List<IExcelColumn> columns)
+        protected override void FillExcel(ExcelGrid excelGrid, object Data, List<IExcelColumn> columns)
         {
             columns = new List<IExcelColumn>();
             var dtData = new DataTable();

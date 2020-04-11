@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 namespace AZWeb.Module.Page.Manager
 {
-    public class AZExcelGridWeb: AZExcelGrid
+    public class AZExcelGridWeb: ExcelGrid
     {
         HttpContext httpContext;
         Dictionary<Type, List<ItemValue>> DataDic { get; set; }

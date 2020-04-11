@@ -2362,10 +2362,7 @@
         },
         "runtime": {
           "bin/placeholder/AZERP.Data.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+        }
       },
       "AZWeb/1.0.0": {
         "type": "project",
