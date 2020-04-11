@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace AZWeb.Module.Middleware
 {
-    public class AZModuleMiddleware
+    public class ModuleMiddleware
     {
         private readonly RequestDelegate _next;
 
-        public AZModuleMiddleware(
+        public ModuleMiddleware(
             RequestDelegate next)
         {
             _next = next;

@@ -23,7 +23,7 @@ namespace AZWeb.Extensions
         {
             app.UseCookiePolicy();
             app.UseSession();
-            app.UseMiddleware<AZModuleMiddleware>();
+            app.UseMiddleware<ModuleMiddleware>();
         }
         public static void AddAZCore(this IServiceCollection services, IStartup startup)
         {
@@ -38,7 +38,6 @@ namespace AZWeb.Extensions
                 options.Cookie.IsEssential = true;
             });
 
-            services.AddRazorPages();
             var PagesConfig = ReadConfig<PagesConfig>.Load(null, (t) => t.MapPath());
             services.AddHttpContextAccessor();
             services.AddSingleton<IPagesConfig>(PagesConfig);
