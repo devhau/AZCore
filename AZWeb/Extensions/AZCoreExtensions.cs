@@ -17,7 +17,7 @@ namespace AZWeb.Extensions
     public static class AZCoreExtensions
     {
         public static void AddMySQL(this IServiceCollection services,string connectString="") {
-            services.AddScoped<IDbConnection>((t) => new MySql.Data.MySqlClient.MySqlConnection(connectString));
+            services.AddScoped<IDbConnection>((_) => new MySql.Data.MySqlClient.MySqlConnection(connectString));
         }
         public static void UseAZCore(this IApplicationBuilder app)
         {
@@ -36,6 +36,7 @@ namespace AZWeb.Extensions
                 // Make the session cookie essential
                 options.Cookie.IsEssential = true;
             });
+            services.AddRazorPages();
             var PagesConfig = ReadConfig<PagesConfig>.Load(null, (t) => t.MapPath());
             services.AddHttpContextAccessor();
             services.AddSingleton<IPagesConfig>(PagesConfig);
