@@ -22,6 +22,9 @@ namespace AZWeb.Module.TagHelper.Input
                 this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, NullText.IsNullOrEmpty()&& !this.InputLabel.IsNullOrEmpty()? "Chọn " + this.InputLabel.ToLower():"");
             }
             base.InitData();
+            if (this.InputValue != null  && DataType.IsEnum && !(this.InputValue is TModel)) {
+                this.InputValue=(TModel)this.InputValue;
+            }
         }
     }
     [HtmlTargetElement("az-select-model")]

@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-3 form-group">
                     <button type="button" class="btn btn-info   az-btn az-btn-export"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
-                    <button type="button" class="btn btn-secondary  az-btn az-btn-import"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
+                    <button type="button" class="btn btn-secondary  az-btn az-btn-import" ><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
                 </div>
                 <div class="col-md-7">
                     <form class="az-search-form row">
@@ -26,7 +26,6 @@
                 </div>
             </div>
         </div>
-        <h3 style="padding:5px;">Chấm công từ ngày @Model.StartDate.ToString("dd/MM/yyyy") đến @Model.EndDate.ToString("dd/MM/yyyy")</h3>
         <div class="az-data-table">
             
             <table class="table table-hover table-freeze">
@@ -45,6 +44,7 @@
                                 @if(day==DateTime.Now.Date){                                     
                                 <b>Hôm nay</b>
                                 }
+                            <az-day-of-week-select value="(int)day.DayOfWeek" attr="disabled" add-js="false"/>
                         </th>
                         }
                     </tr>
@@ -91,22 +91,31 @@
             </table>
         </div>
         <div class="az-bottom-manager">
-            <h4>Tổng số công nhân : @(Model.Workers != null?Model.Workers.Count:0) </h4> 
+            <h4>Tổng số công nhân : @(Model.Workers != null?Model.Workers.Count:0) Chấm công từ ngày @Model.StartDate.ToString("dd/MM/yyyy") đến @Model.EndDate.ToString("dd/MM/yyyy")</h4>
         </div>
     </div>
 </az-module-layout>
 <az-style>
-#FormCheckinCheckout .cell-freeze .form-control{
+    #FormCheckinCheckout .cell-freeze .form-control{
     margin:0px;
-                    }
-#FormCheckinCheckout .cell-freeze{
-                    min-width:120px;
     }
-#FormCheckinCheckout tbody .cell-freeze{
-                padding:5px;
+    #FormCheckinCheckout .cell-freeze{
+    min-width:110px;
     }
-#FormCheckinCheckout .az-color-last-day {
-            background-color: #aaa;
+    #FormCheckinCheckout tbody .cell-freeze{
+    padding:5px;
+    }
+    #FormCheckinCheckout .az-color-last-day {
+    background-color: #aaa;
+    }
+    #FormCheckinCheckout thead select {
+    text-align: center;
+    text-align-last: center;
+    /* webkit*/
+    }
+    #FormCheckinCheckout thead option {
+    text-align: left;
+    /* reset to left*/
     }
 </az-style>
 <az-script>

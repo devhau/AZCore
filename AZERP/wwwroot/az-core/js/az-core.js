@@ -40,10 +40,9 @@ function AutoSizeColumnTable($TableSize) {
         $(v).width(colFreezeWidth[i]);
     });
     $table.find('tbody').height($($table).height() - $table.find('thead').height());
-    //$table.find('tr').children('.column-freeze').each(function (i, v) {
-    //    if ($(v).parents('tr').first(':not(.column-freeze)'))
-    //    $(v).height($(v).parents('tr').first(':not(.column-freeze)').height());
-    //});
+    $table.find('tr').children('.column-freeze').each(function (i, v) {
+            $(v).height($(v).parents('tr').children(':not(.column-freeze)').height());
+    });
 }
 $.fn.TableFreeze = function () {
     $this = this;
@@ -51,7 +50,6 @@ $.fn.TableFreeze = function () {
     $(window).resize(function () {
         AutoSizeColumnTable($this);
     });
-
     $isCroll = false;
     $tableBody = $($this).find('tbody');
     $($tableBody).scroll(function (e) { //detect a scroll event on the tbody
@@ -67,36 +65,4 @@ $.fn.TableFreeze = function () {
         $($this).find('thead').css("left", - $scrollLeft); //fix the thead relative to the body scrolling
         $isCroll = false;
     });
-}
-$.fn.TableFreeze1 = function () {
-    $thisTableFreeze = this;
-    $tableBody = $($thisTableFreeze).find('tbody');
-    var thisWidth = $($thisTableFreeze).width();   
-    var thisHeight = $($thisTableFreeze).height() ;
-    $($tableBody).width(thisWidth);
-    $($tableBody).height(thisHeight - $($thisTableFreeze).find('thead').height());
-    $($thisTableFreeze).find('thead').width(thisWidth);
-    $($thisTableFreeze).find('table').width(thisWidth);
-    $isCroll = false;
-    $($tableBody).scroll(function (e) { //detect a scroll event on the tbody
-        /*
-        Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement
-        of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.
-        */
-        if ($isCroll) return;
-        $isCroll = true;
-        $scrollLeft = $($tableBody).scrollLeft()
-        $($thisTableFreeze).find('thead th:nth-child(1)').css("left", $scrollLeft); //fix the first cell of the header
-        $($thisTableFreeze).find('tbody td:nth-child(1)').css("left", $scrollLeft); //fix the first column of tdbody
-        $($thisTableFreeze).find('thead').css("left", - $scrollLeft); //fix the thead relative to the body scrolling
-        $isCroll = false;
-    });
-    $(window).resize(function () {
-        var thisWidth = $($thisTableFreeze).width() ;
-        var thisHeight = $($thisTableFreeze).height();
-        $($tableBody).width(thisWidth);
-        $($tableBody).height(thisHeight - $($thisTableFreeze).find('thead').height());
-        $($thisTableFreeze).find('thead').width(thisWidth);
-        $($thisTableFreeze).find('table').width(thisWidth);
-    });    
 }
