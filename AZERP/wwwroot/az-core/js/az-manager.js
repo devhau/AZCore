@@ -99,10 +99,11 @@
                 } else {
                     if (hrefSearch != "")
                         hrefSearch += "&";
-                    if (item.value != "") {
+                    if (item.value != "")
+                    {
                         hrefSearch += item.name + "=" + encodeURIComponent(item.value);
                     }else 
-                    if (item.value == false) {
+                    if (item.value === false) {
                         hrefSearch += item.name + "=False";
                     }
                 }

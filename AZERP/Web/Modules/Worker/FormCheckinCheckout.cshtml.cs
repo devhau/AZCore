@@ -4,6 +4,7 @@ using AZERP.Data.Entities;
 using AZERP.Data.Enums;
 using AZWeb.Extensions;
 using AZWeb.Module.Attribute;
+using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -37,6 +38,9 @@ namespace AZERP.Web.Modules.Worker
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
 
+        public IView PostShift(EnumWorkShift shift) {
+            return Json("Cập nhật thành công");
+        }
         public override List<WorkerCheckinCheckoutModel> GetSearchData()
         {
             if (CompanyId != null) {
