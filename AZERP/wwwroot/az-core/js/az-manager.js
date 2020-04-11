@@ -83,28 +83,32 @@
     $(this).find(".az-btn-import").on("click", function () {
         alert("Đang phát triển!");
     });
-         $(this.FormSearch).on('submit', function (e, v) {
-            console.log("Toi co vào submit");
-            if (e.preventDefault) e.preventDefault();
-            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
-         });
-    console.log($this.FormSearch);
     $(this).find(".az-search-form .az-input-change-search").on("change", function () {
-        $data = $(this).parents(".az-search-form").serializeArray();
-            console.log($data);
+            $data = $(this).parents(".az-search-form").serializeArray();
+            $(this).parents(".az-search-form").find('input[type="checkbox"]:not(:checked)').each(function () {
+                if ($data.indexOf(this.name) < 0) {
+                    $data.push({ name: this.name, value: false });
+                }
+            });
             var notSearch = $(this).attr("data-not-search")
             if (notSearch)
                 notSearch = notSearch.split(",");
             hrefSearch = "";
             $.each($data, function (index, item) {
                 if (notSearch != undefined && notSearch.indexOf(item.name) > -1) {
-                } else
+                } else {
+                    if (hrefSearch != "")
+                        hrefSearch += "&";
                     if (item.value != "") {
-                        if (hrefSearch != "")
-                            hrefSearch += "&";
                         hrefSearch += item.name + "=" + encodeURIComponent(item.value);
+                    }else 
+                    if (item.value == false) {
+                        hrefSearch += item.name + "=False";
                     }
+                }
+                      
             });
+       
             if (hrefSearch != "") {
                 hrefSearch = location.pathname + "?" + hrefSearch;
                 new AZUrl().changeUrl(hrefSearch);
@@ -127,7 +131,6 @@
             if (hrefSearch != "") {
                 hrefSearch = location.pathname + "?" + hrefSearch;
                 new AZUrl().changeUrl(hrefSearch);
-
                 toastr.info("Đã tìm kiếm thành công");
             } else {
                 toastr.error("Lỗi không tìm được");

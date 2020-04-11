@@ -21,6 +21,9 @@
                         </div>
                         <div class="form-group col-md-2">
                             <az-select-model model="Model" func="(item) => ((FormCheckinCheckout)item).WorkerId" list-object="Model.Workers" class="form-control form-control-sm  az-input-change-search" label="" null-text="Chọn công nhân" />
+                        </div>  
+                        <div class="form-group col-md-2">
+                            <az-checkbox-model model="Model" func="(item) => ((FormCheckinCheckout)item).OnlyToday"  class="form-control form-control-sm  az-input-change-search"  attr="data-not-search='WorkerId'" label="Chỉ hôm nay" />
                         </div>
                     </form>
                 </div>
@@ -76,11 +79,22 @@
                             {
                                 txtday = "";
                             }
+                            var attr = "disabled";
+                            if ((Model.OnlyToday && day == DateTime.Now.Date) || ! Model.OnlyToday) {
+                                attr = "";
+                            }
                             <td class="cell-freeze @txtday">
-                                <az-work-shift-select add-js="false" />
+                                @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day<=DateTime.Now.Date)
+                                {
+
+                                    <az-work-shift-select add-js="false" attr="@attr" />
+                                }
                             </td>
                             <td class="cell-freeze @txtday">
-                                <az-text />
+                                @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day <= DateTime.Now.Date)
+                                {
+                                    <az-text attr="@attr" />
+                                }
                             </td>
                         }
                     </tr>

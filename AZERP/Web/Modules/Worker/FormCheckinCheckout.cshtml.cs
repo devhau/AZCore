@@ -30,6 +30,8 @@ namespace AZERP.Web.Modules.Worker
         [BindQuery]
         public EnumMonth? Month { get; set; }
         [BindQuery]
+        public bool OnlyToday { get; set; } = true;
+        [BindQuery]
         public int? Year { get; set; }
         public List<WorkerModel> Workers;
         public DateTime StartDate { get; private set; }
@@ -61,16 +63,7 @@ namespace AZERP.Web.Modules.Worker
             this.StartDate = new DateTime(this.Year.Value,(int)this.Month.Value,1);
             this.EndDate = this.StartDate.AddMonths(1).AddDays(-1);
             base.IntData();
-        }
-        public string GetCellWorker(WorkerModel worker,DateTime date) {
-            StringBuilder buildCell = new StringBuilder();
-            buildCell.Append("<select class='form-control'>");
-            buildCell.Append("<option value='1' > Nghỉ làm</option>");
-            buildCell.Append("<option value='2' > Ca Ngày</option>");
-            buildCell.Append("<option value='3' > Ca Đêm</option>");
-            buildCell.Append("</select>");
-            return buildCell.ToString();
-        }
+        }      
         protected override void FillExcel(ExcelGrid excelGrid, object Data, List<IExcelColumn> columns)
         {
             columns = new List<IExcelColumn>();
@@ -96,12 +89,6 @@ namespace AZERP.Web.Modules.Worker
                     var dr2= dtData.NewRow();
                     dr2["Fullname"] = item.PhoneNumber;
                     dtData.Rows.Add(dr2);
-                    //for (DateTime day = StartDate; day <= EndDate; day = day.AddDays(1))
-                    //{
-                    //    dtData.Columns.Add(string.Format("col_day_{0}", day.Day), typeof(DateTime));
-                    //    columns.Add(new TableColumnAttribute() { FieldName = string.Format("col_day_{0}", day.Day), Title = day.ToString("dd/MM/yyyy") });
-                    //}
-
                 }
             }
             excelGrid.SetTitle(string.Format("Bảng công từ ngày {0:dd/MM/yyyy} đến {1:dd/MM/yyyy} ",this.StartDate,this.EndDate));
