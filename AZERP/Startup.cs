@@ -35,7 +35,7 @@ namespace AZERP
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMySQL("server=127.0.0.1;database=azcore;uid=root;pwd=;CharSet=utf8;");
+            services.AddMySQL(Configuration.GetConnectionString("Mysql"));
             services.AddAZCore(this);
             // If using Kestrel:
             services.Configure<KestrelServerOptions>(options =>

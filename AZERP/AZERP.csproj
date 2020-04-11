@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>AZERP</AssemblyName>
     <RootNamespace>AZERP</RootNamespace>
+    <UserSecretsId>57a5a61c-31ff-469c-a886-d351470dc495</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
