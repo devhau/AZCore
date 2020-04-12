@@ -10,7 +10,7 @@ namespace AZWeb.Module.TagHelper.Module
     {
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-                output.TagName = "";
+                output.TagName = "div";
             if (HttpContext.Request.Query.ContainsKey("ActionType") && HttpContext.Request.Query["ActionType"] == "popup")
                 return;
                 var content = await output.GetChildContentAsync();

@@ -167,17 +167,19 @@ namespace AZWeb.Module.TagHelper.Module
                                 TextDisplay = col.Text;
                             }
                             if (!string.IsNullOrEmpty(col.LinkFormat)) {
-                                Regex regex = new Regex(@"{[a-zA-Z0-1]+\}");
+                                Regex regex = new Regex(@"{[a-zA-Z][a-zA-Z0-1]+\}");
                                 var link = col.LinkFormat;
-                                do {
-                                    var match = regex.Match(link);
-                                    foreach (Group m in match.Groups) {
+                                foreach (Match match in regex.Matches(link))
+                                {
+                                    foreach (Group m in match.Groups)
+                                    {
                                         var pro = m.Value.TrimStart('{').TrimEnd('}');
-                                        if (d.GetProperty(pro) != null) {
+                                        if (d.GetProperty(pro) != null)
+                                        {
                                             link = link.Replace(m.Value, string.Format("{0}", d.GetProperty(pro).GetValue(item)));
                                         }
                                     }
-                                } while(regex.IsMatch(link));
+                                }
                                 string classLink = "az-link";
                                 string attLink = "";
                                 if (col.Popup != PopupSize.None) 

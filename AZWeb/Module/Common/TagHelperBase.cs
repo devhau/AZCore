@@ -20,6 +20,7 @@ namespace AZWeb.Module.Common
         protected string Description { get => Html.Description; set => Html.Description = value; }
         protected string Keyword { get => Html.Keyword; set => Html.Keyword = value; }
         protected HtmlContent Html { get => this.HttpContext.Items[AZWebConstant.Html] as HtmlContent; }
+        public Action<TagHelperBase> TagExtend { get; set; }
         public void AddMeta(string name, string content)
         {
             this.Html.AddMeta(name, content);

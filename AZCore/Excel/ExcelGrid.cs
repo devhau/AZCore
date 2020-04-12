@@ -121,18 +121,21 @@ namespace AZCore.Excel
             var colIndex = 0;
             var typeData = Data.GetType();
             foreach (var item in columns) {
-                var proItem = typeData.GetProperty(item.FieldName);
-                bool IsDate = false;
-                if (proItem != null) {
-                    object objValue = proItem.GetValue(Data);
-                    if (item.DataType != null)
+                if (!string.IsNullOrEmpty(item.FieldName)) {
+                    var proItem = typeData.GetProperty(item.FieldName);
+                    bool IsDate = false;
+                    if (proItem != null)
                     {
-                        objValue = GetValueByType(item.DataType, objValue);
+                        object objValue = proItem.GetValue(Data);
+                        if (item.DataType != null)
+                        {
+                            objValue = GetValueByType(item.DataType, objValue);
+                        }
+                        azWorksheet.Cells[StartRow, colIndex].Value = objValue;
+                        IsDate = (objValue != null && objValue.GetType() == typeof(DateTime));
                     }
-                    azWorksheet.Cells[StartRow, colIndex].Value = objValue;
-                    IsDate = (objValue != null && objValue.GetType() == typeof(DateTime));
+                    SetCell(azWorksheet.Cells[StartRow, colIndex], IsDate, item.BackColor, item.ForeColor);
                 }              
-                SetCell(azWorksheet.Cells[StartRow, colIndex], IsDate, item.BackColor, item.ForeColor);
                 colIndex++;
             }
         }

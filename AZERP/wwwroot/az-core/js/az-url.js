@@ -14,7 +14,7 @@ AZUrl.prototype.changeUrl = function (url) {
     window.history.pushState("data", "Title", url);
 }
 AZUrl.prototype.Init = function () {
-    var $this = this;
+    let $this = this;
     $("a.az-link").off("click");
     $("a.az-link-popup").off("click");
     $(window).off('popstate');
@@ -25,19 +25,23 @@ AZUrl.prototype.Init = function () {
     });
     $("a.az-link-popup").on("click", function (e) {
         e.preventDefault();
-        var ModalSize = $(this).attr("modal-size");
-        var LinkHref = $(this).attr("href");
+        let ModalSize = $(this).attr("modal-size");
+        let LinkHref = $(this).attr("href");
+        let link = $(this).attr("href");
         if (LinkHref.indexOf("?") > 0) {
             LinkHref += "&ActionType=popup"
         } else
             LinkHref += "?ActionType=popup"
         $this.DoGet(LinkHref, null, function (item) {
-            var popup = new AZPopup();
+            let popup = new AZPopup();
             popup.ClearButton();         
             popup.setHtml(item.html);
             popup.setTitle(item.title);
+            popup.setLink(link);
             popup.ModalSize = ModalSize;
-            popup.ShowPopup();
+            popup.ShowPopup(function () {
+                $this.loadHtml(location.href);
+            });
         });
     });
     $(".az-change-ajax").on("change", function (e) {
@@ -48,7 +52,7 @@ AZUrl.prototype.Init = function () {
         $this.loadHtml(location.pathname + location.search);        
     });
 }
-var UrlMain = new AZUrl();
+let UrlMain = new AZUrl();
 $(function () {
     UrlMain.Init();
 });
