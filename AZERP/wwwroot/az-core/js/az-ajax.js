@@ -1,6 +1,5 @@
 ﻿function AZAjax() {
     var $this = this;
-    this.AzType = "modules";
     this.DoGet =  function (methodServer, data, callback, onerror) { return this.DoAjax("GET", methodServer, data, callback, onerror); };
     this.DoPost = function (methodServer, data, callback, onerror) {  return this.DoAjax("POST", methodServer, data, callback, onerror); };
     this.DoPut =  function (methodServer, data, callback, onerror) { return this.DoAjax("PUT", methodServer, data, callback, onerror); };
@@ -58,7 +57,6 @@
 }
 
 jQuery.cachedScript = function (url, options) {
-
     // Allow user to set any option except for dataType, cache, and url
     options = $.extend(options || {}, {
         dataType: "script",

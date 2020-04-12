@@ -2,6 +2,7 @@
 using AZERP.Data.Entities;
 using AZERP.Data.Enums;
 using AZWeb.Module.Attribute;
+using AZWeb.Module.Enums;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -20,6 +21,10 @@ namespace AZERP.Web.Modules.Worker
     [TableColumn(Title = "Trạng thái gọi", FieldName = "WorkerStatus", Width = 150, DataType = typeof(EnumWorkerStatus))]
     [TableColumn(Title = "Ngày đi làm", FieldName = "StartWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Ngày nghỉ việc", FieldName = "LastWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
+    [TableColumn(Title = "Chấm công", LinkFormat = "/cham-cong-cong-nhan.az?CompanyId={CompanyId}&WorkerId={Id}",Popup =PopupSize.FullScreen, Text ="Chấm công", Icon="fas fa-check-double", Width = 70,Display = DisplayColumn.Icon)]
+    [TableColumn(Title = "Tới ", LinkFormat = "/cham-cong-cong-nhan.az?CompanyId={CompanyId}&WorkerId={Id}", Text = "Chấm công", Icon = "fas fa-check-double", Width = 70, Display = DisplayColumn.Icon)]
+
+
     public class FormWorker : ManageModule<WorkerService, WorkerModel, FormUpdateWorker>
     {
         #region -- Field Search --

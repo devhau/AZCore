@@ -9,7 +9,6 @@
                 </div>
                 <div class="col-md-7">
                     <form class="az-search-form row">
-                        <az-hidden-model model="Model" func="(item) => ((FormCheckinCheckout)item).PageSize" />
                         <div class="form-group col-md-2">
                             <az-year-select model="Model" func="(item) => ((FormCheckinCheckout)item).Year" class="form-control form-control-sm  az-input-change-search" label="" time-year="3" attr="data-not-search='WorkerId'" null-text="Chọn năm" />
                         </div>
@@ -135,6 +134,6 @@
 <az-script>
     $(document).ready(function() {
     $("#FormCheckinCheckout").AZManager(function(ma){
-        $(".table-freeze").TableFreeze();});
+        $(ma.DataTable).TableFreeze();});
     });
 </az-script>

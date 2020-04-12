@@ -1,6 +1,6 @@
-﻿using AZWeb.Module;
-using AZWeb.Module.Attribute;
+﻿using AZWeb.Module.Attribute;
 using AZWeb.Module.Common;
+using AZWeb.Module.Enums;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
@@ -9,8 +9,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
-namespace AZWeb.TagHelpers
+namespace AZWeb.Module.TagHelper.Module
 {
     [HtmlTargetElement("az-table")]
     public class AZTable : TagHelperBase
@@ -54,7 +55,7 @@ namespace AZWeb.TagHelpers
             if (this.Columns!=null) {
                 foreach (var item in this.Columns)
                 {
-                    htmlTable.AppendFormat("<th {0} width='px'>", item.Width==0?"":string.Format("", item.Width));
+                    htmlTable.AppendFormat("<th {0} >", item.Width==0?"":string.Format("width='{0}px'", item.Width));
                     htmlTable.Append(item.Title);
                     htmlTable.Append("</th>");
                     if (item.DataType != null&& !this.DataDic.ContainsKey(item.DataType)) {
@@ -144,38 +145,84 @@ namespace AZWeb.TagHelpers
                         var d = item.GetType();
                         foreach (var col in this.Columns)
                         {
+                            string TextDisplay = "";
                             if (!string.IsNullOrEmpty(col.FieldName) && d.GetProperty(col.FieldName) != null)
                             {
-                                var itemValue = d.GetProperty(col.FieldName).GetValue(item);
+                                var itemValue = d.GetProperty(col.FieldName).GetValue(item);                               
+                                htmlTable.AppendFormat("<td data-value='{1}' data-name='{0}' class='{2}'>", col.FieldName,itemValue,col.ClassColumn);
                                
-                                htmlTable.AppendFormat("<td data-{0}=\"{1}\">",col.FieldName,itemValue);
-                                if (col.IsQRCode)
+                                object ItemDisplay = itemValue;
+                                if (col.DataType != null)
                                 {
-                                    htmlTable.AppendFormat("<i class=\"fas fa-qrcode az-qrcode\" style=\"color: #343a40;font-size: 20px;\" data-qrcode=\"{0}\"></i>", itemValue);
-                                }
-                                else
-                                {
-                                    object ItemDisplay = itemValue;
-                                    if (col.DataType != null)
+                                    var itemDic = this.DataDic[col.DataType].FirstOrDefault(p => p.Value!=null&&p.Value.Equals(itemValue));
+                                    if (itemDic != null)
                                     {
-                                        var itemDic = this.DataDic[col.DataType].FirstOrDefault(p => p.Value!=null&&p.Value.Equals(itemValue));
-                                        if (itemDic != null)
-                                        {
-                                            ItemDisplay = itemDic.Display;                                           
-                                        }                                       
-                                    }
-                                    if (!string.IsNullOrEmpty(col.FormatString)) {
-                                        ItemDisplay = string.Format(col.FormatString, ItemDisplay);
-                                    }
-                                    htmlTable.Append(ItemDisplay);
+                                        ItemDisplay = itemDic.Display;                                           
+                                    }                                       
                                 }
-                                htmlTable.Append("</td>");
+                                TextDisplay = string.IsNullOrEmpty(col.FormatString)?string.Format("{0}", ItemDisplay) : string.Format(col.FormatString, ItemDisplay);
                             }
                             else {
-
-                                htmlTable.Append("<td>");
-                                htmlTable.Append("</td>");
+                                htmlTable.AppendFormat("<td  class='{0}'>", col.ClassColumn);
+                                TextDisplay = col.Text;
                             }
+                            if (!string.IsNullOrEmpty(col.LinkFormat)) {
+                                Regex regex = new Regex(@"{[a-zA-Z][a-zA-Z0-1]+\}");
+                                var link = col.LinkFormat;
+                                foreach (Match match in regex.Matches(link))
+                                {
+                                    foreach (Group m in match.Groups)
+                                    {
+                                        var pro = m.Value.TrimStart('{').TrimEnd('}');
+                                        if (d.GetProperty(pro) != null)
+                                        {
+                                            link = link.Replace(m.Value, string.Format("{0}", d.GetProperty(pro).GetValue(item)));
+                                        }
+                                    }
+                                }
+                                string classLink = "az-link";
+                                string attLink = "";
+                                if (col.Popup != PopupSize.None) 
+                                {
+                                    classLink = "az-link-popup";
+                                    if (col.Popup == PopupSize.Small) {
+                                        attLink = "modal-size='az-modal-sm'";
+                                    }
+                                    if (col.Popup == PopupSize.Large)
+                                    {
+                                        attLink = "modal-size='az-modal-lg'";
+                                    }
+                                    if (col.Popup == PopupSize.Extralarge)
+                                    {
+                                        attLink = "modal-size='az-modal-xl'";
+                                    }
+                                    if (col.Popup == PopupSize.Popup)
+                                    {
+                                        attLink = "modal-size='az-modal-none'";
+                                    }
+                                    if (col.Popup == PopupSize.FullScreen)
+                                    {
+                                        attLink = "modal-size='az-modal-full'";
+                                    }
+                                }
+                                htmlTable.AppendFormat("<a href='{0}' class='{1}' {2}>", link, classLink, attLink);
+                            }
+                            if (col.Display == DisplayColumn.Icon || col.Display == DisplayColumn.IconText) {
+                                htmlTable.AppendFormat(" <i class='{0}'/> ", col.Icon);
+                            }
+                            if (col.Display == DisplayColumn.Text || col.Display == DisplayColumn.TextIcon || col.Display == DisplayColumn.IconText)
+                            {
+                                htmlTable.AppendFormat("<span>{0}</span>", TextDisplay);
+                            }
+                            if (col.Display == DisplayColumn.TextIcon)
+                            {
+                                htmlTable.AppendFormat(" <i class='{0}'/> ", col.Icon);
+                            }
+                            if (!string.IsNullOrEmpty(col.LinkFormat))
+                            {
+                                htmlTable.AppendFormat("</a>");
+                            }
+                            htmlTable.Append("</td>");
                         }
                     }
                     //<i class="fas fa-print"></i>

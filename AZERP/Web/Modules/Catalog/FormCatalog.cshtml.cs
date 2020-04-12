@@ -1,12 +1,13 @@
 ﻿using AZCore.Database;
 using AZERP.Data.Entities;
 using AZWeb.Module.Attribute;
+using AZWeb.Module.Enums;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
 namespace AZERP.Web.Modules.Catalog
 {
-    [TableColumn(Title = "Code", FieldName = "Code", Width = 70,IsQRCode =true)]
+    [TableColumn(Title = "Code", FieldName = "Code", Width = 70, Icon = "fas fa-qrcode az-qrcode",Display =DisplayColumn.Icon)]
     [TableColumn(Title = "Nhóm", FieldName = "Name")]
     [TableColumn(Title = "Nhóm cha", FieldName = "ParentId", DataType =typeof(CatalogService))]
     [TableColumn(Title = "Trạng thái", FieldName = "Status", Width = 150 ,DataType =typeof(EntityStatus))]

@@ -111,12 +111,16 @@
         padding: 0px;
         margin: 0px;
     }
+.az-modal .az-manager {
+    margin:-1rem;
+}
 .az-modal {
     background: rgba(0, 0, 0, 0.75);
-    overflow:auto;
+    overflow: auto;
 }
     .az-modal .modal-content {
         border-radius:0px;
+        position:relative;
     }
     .az-modal .modal-header {
         padding:5px 10px;
