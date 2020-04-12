@@ -8,8 +8,7 @@
     }
     this.SaveData = function (url, scope) {
         $this.DoPost(url, scope.SerializeData(), function (item) {
-            $this.ReLoad(function () {
-            });
+            $this.ReLoad(function () {});
             scope.ClosePopup();
             toastr.success(item.message);
         }, function (error) {
@@ -97,23 +96,20 @@
             $.each($data, function (index, item) {
                 if (notSearch != undefined && notSearch.indexOf(item.name) > -1) {
                 } else {
-                    if (hrefSearch != "")
+                    if (hrefSearch !== "")
                         hrefSearch += "&";
-                    if (item.value != "")
+                    if (item.value !== "")
                     {
                         hrefSearch += item.name + "=" + encodeURIComponent(item.value);
                     }else 
                     if (item.value === false) {
                         hrefSearch += item.name + "=False";
                     }
-                }
-                      
+                }  
             });
-       
             if (hrefSearch != "") {
                 hrefSearch = location.pathname + "?" + hrefSearch;
                 new AZUrl().changeUrl(hrefSearch);
-
                 toastr.info("Đã tìm kiếm thành công");
             } else {
                 toastr.error("Lỗi không tìm được");

@@ -1,4 +1,6 @@
-﻿using AZWeb.Module.Common;
+﻿using AZCore.Identity;
+using AZWeb.Extensions;
+using AZWeb.Module.Common;
 using AZWeb.Module.Constant;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Http;
@@ -7,7 +9,9 @@ using System.IO;
 namespace AZWeb.Module.Page
 {
     public class PageModule : ModuleBase
-    {
+    {   
+        public UserInfo User { get; private set; }
+        public bool IsAuth { get => User != null; }
         public bool IsTheme { get; set; } = true;
         public string LayoutTheme { get; set; } = "";
         public string Title { get => Html.Title; set => Html.Title = value; }
@@ -31,6 +35,25 @@ namespace AZWeb.Module.Page
             if (this.HttpContext.Items[AZWebConstant.Html] == null) {
                 this.HttpContext.Items[AZWebConstant.Html] = new HtmlContent();
             }
+            this.User = this.HttpContext.GetSession<UserInfo>(AZWebConstant.SessionUser);
+            if (this.User == null)
+            {
+                this.User = this.HttpContext.GetCookie<UserInfo>(AZWebConstant.CookieUser);
+                if (this.User != null) {
+                    this.HttpContext.SetSession(AZWebConstant.SessionUser,this.User);
+                }
+            }
+        }
+        public void Login(UserInfo user, bool rememberMe = false)
+        {
+            this.User = user;
+            this.HttpContext.SetSession(AZWebConstant.SessionUser, this.User);
+            if (rememberMe)
+                this.HttpContext.SetCookie(AZWebConstant.CookieUser, this.User,10*360*24*60*60); // nhớ tới 10 năm khi bạn già thì vẫn nhớ tới bạn
+        }
+        public void Logout() {
+            this.HttpContext.Session.Remove(AZWebConstant.SessionUser); 
+            this.HttpContext.Response.Cookies.RemoveCookie(AZWebConstant.CookieUser);
         }
         public virtual IView View() {
             return View(this);
