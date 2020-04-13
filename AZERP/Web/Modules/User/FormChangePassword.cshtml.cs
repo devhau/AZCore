@@ -22,7 +22,7 @@ namespace AZERP.Web.Modules.User
             base.IntData();
         }
         public IView Get() {
-            if (!IsAuth) {
+            if (!this.IsAjax) {
                 return GoToRedirect("/tai-khoan.az");
             }
             if (this.UserId == null) {

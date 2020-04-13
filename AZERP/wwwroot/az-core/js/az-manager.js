@@ -17,11 +17,13 @@
     }
     $this.LoadLink = function (link, callback) {
         if ($this.IsModal) {
-                $($this.Modal).attr("link-popup", link);
-            if (link.indexOf("?") > 0) {
-                link += "&ActionType=popup"
-            } else
-                link += "?ActionType=popup"
+            $($this.Modal).attr("link-popup", link);
+            if (link.indexOf("ActionType=popup") < 0) {
+                if (link.indexOf("?") > 0) {
+                    link += "&ActionType=popup"
+                } else
+                    link += "?ActionType=popup"
+            }
             $this.DoGet(link, {}, function (itemData) {
                 $($this.ModalContent).html(itemData.html);
                 if (callback) callback(true);
@@ -170,6 +172,26 @@
                 toastr.error("Lỗi không tìm được");
             }
     });
+    $($this).find(".az-change-ajax").on("change", function () {
+        hrefSearch = $this.location.pathname + "?" + $(this).attr("name") + "=" + $(this).val()
+        $this.LoadLink(hrefSearch, function (flg) {
+            if (flg) {
+                toastr.info("Đã thay đổi bảng dữ liệu");
+            } else {
+                toastr.error("Lỗi không tìm được");
+            }
+        });
+    });
+        $($this).find(".az-link").on("click", function (e) {
+            e.preventDefault();
+            $this.LoadLink($(this).attr("href"), function (flg) {
+                if (flg) {
+                    toastr.info("Đã thay đổi bảng dữ liệu");
+                } else {
+                    toastr.error("Lỗi không tìm được");
+                }
+            });
+        });
     if ($($this.DataTable).hasClass("table-freeze"))
         $($this.DataTable).TableFreeze();
     if ($callback) $callback(this);

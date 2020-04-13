@@ -52,7 +52,12 @@ AZUrl.prototype.Init = function () {
                     $this.loadHtml(location.href);
                 }
             });
+            UrlMain.Init();
         });
+    });
+    $(".az-change-ajax").on("change", function (e) {
+        e.preventDefault();
+        $this.changeUrl($(this).attr("az-href") + "&" + $(this).attr("name") + "=" + $(this).val());
     });
     $(window).on('popstate', function (e) {
         $this.loadHtml(location.pathname + location.search);        

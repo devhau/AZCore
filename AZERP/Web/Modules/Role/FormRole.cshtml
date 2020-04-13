@@ -1,6 +1,6 @@
 ﻿@model FormRole
-<az-module-layout>
-    <div class="az-manager" id="FormRole" data-form-size="az-modal-xl">
+<az-module-layout script-random='(id)=>string.Format("$(\".{0}\").find(\".az-manager\").AZManager();",id)'>
+    <div class="az-manager"  data-form-size="az-modal-xl">
         <div class="az-toolbar">
             <button type="button" class="btn btn-success btn-sm az-btn az-btn-add" data-hot-key="f1"><i class="far fa-plus-square"></i> Thêm Mới (F1)</button>
             <button type="button" class="btn btn-info btn-sm az-btn az-btn-export"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
@@ -14,6 +14,3 @@
         </div>
     </div>
 </az-module-layout>
-<az-script>
-    $("#FormRole").AZManager();
-</az-script>
