@@ -35,7 +35,7 @@ namespace AZWeb.Module.TagHelper.Module
         {
             output.TagName = "";
             StringBuilder htmlTable = new StringBuilder();
-            htmlTable.Append("<table class=\"table table-bordered table-hover dataTable\" role=\"grid\">");
+            htmlTable.AppendFormat("<table class=\"table table-bordered table-hover {0}\" role=\"grid\">",this.TagClass);
             this.RenderHeader(htmlTable);
             this.RenderBody(htmlTable,Data);
             this.RenderBottom(htmlTable);

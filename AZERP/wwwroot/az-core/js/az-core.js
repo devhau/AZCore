@@ -29,7 +29,6 @@ function AutoSizeColumnTable($TableSize) {
         $bodyCellFreezes = $table.find('tbody tr:first').children('.column-freeze'),
         colFreezeWidth,
         colWidth;
-
     // Get the tbody columns width array
     colWidth = $bodyCells.map(function () {
         return $(this).width();
@@ -43,11 +42,11 @@ function AutoSizeColumnTable($TableSize) {
     });
     $table.find('thead tr').children('.column-freeze').each(function (i, v) {
         $(v).width(colFreezeWidth[i]);
+        $(v).height($(v).parents('tr').find(':not(.column-freeze)').height() - 2);
     });
+   
+ 
     $table.find('tbody').height($($table).height() - $table.find('thead').height());
-    $table.find('tr').children('.column-freeze').each(function (i, v) {
-            $(v).height($(v).parents('tr').children(':not(.column-freeze)').height());
-    });
 }
 $.fn.TableFreeze = function () {
     $this = this;

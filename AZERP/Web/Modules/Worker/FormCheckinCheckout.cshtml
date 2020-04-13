@@ -65,11 +65,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.Workers != null)
+                    @if (Model.DataWorkers != null)
                     {
-                        @foreach (var worker in Model.Workers)
+                        @foreach (var worker in Model.DataWorkers)
                         {
-                    <tr>
+                    <tr data-user-id="@worker.Id">
                         <td width="250px" class="column-freeze">@worker.FullName ( @worker.PhoneNumber )</td>
                         @for (var day = Model.StartDate; day <= Model.EndDate; day = day.AddDays(1))
                         {
@@ -82,14 +82,14 @@
                             if ((Model.OnlyToday && day == DateTime.Now.Date) || ! Model.OnlyToday) {
                                 attr = "";
                             }
-                            <td class="cell-freeze @txtday">
+                            <td class="cell-freeze @txtday" data-day="@day.ToString("dd/MM/yyyy")">
                                 @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day<=DateTime.Now.Date)
                                 {
 
                                     <az-work-shift-select add-js="false" attr="@attr" />
                                 }
                             </td>
-                            <td class="cell-freeze @txtday">
+                            <td class="cell-freeze @txtday" data-day="@day.ToString("dd/MM/yyyy")">
                                 @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day <= DateTime.Now.Date)
                                 {
                                     <az-text attr="@attr" />

@@ -35,10 +35,16 @@ namespace AZERP.Web.Modules.Worker
         [BindQuery]
         public int? Year { get; set; }
         public List<WorkerModel> Workers;
+
+        public List<WorkerModel> DataWorkers;
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
 
-        public IView PostShift(WorkShift shift) {
+        public IView PostShift(WorkShift ValueInput,long UserId,DateTime DateDay) {
+            return Json("Cập nhật thành công");
+        }
+        public IView PostOver(decimal ValueInput, long UserId, DateTime DateDay)
+        {
             return Json("Cập nhật thành công");
         }
         public override List<WorkerCheckinCheckoutModel> GetSearchData()
@@ -47,12 +53,15 @@ namespace AZERP.Web.Modules.Worker
                 Workers = workerService.ExecuteQuery((T) =>
                 {
                     T.AddWhere("CompanyId", this.CompanyId);
-                    if (WorkerId != null)
-                    {
-                        T.AddWhere("Id", this.WorkerId);
-                    }
 
                 }).ToList();
+                if (WorkerId != null&& WorkerId>0)
+                {
+                    DataWorkers = Workers.Where(p => p.Id == this.WorkerId).ToList();
+                }
+                else {
+                    DataWorkers = Workers;
+                }
             }
             
             var data= base.GetSearchData();

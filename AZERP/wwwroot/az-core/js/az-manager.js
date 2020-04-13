@@ -170,6 +170,8 @@
                 toastr.error("Lỗi không tìm được");
             }
     });
+    if ($($this.DataTable).hasClass("table-freeze"))
+        $($this.DataTable).TableFreeze();
     if ($callback) $callback(this);
 }
 
