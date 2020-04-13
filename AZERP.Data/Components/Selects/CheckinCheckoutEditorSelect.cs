@@ -4,10 +4,8 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace AZERP.Data.Components.Selects
 {
-
-    [HtmlTargetElement("az-day-of-week-select")]
-    public class DayOfWeekSelect : AZSelect<DayOfWeek2>
+    [HtmlTargetElement("az-checkin-checkout-editor-select")]
+    public class CheckinCheckoutEditorSelect : AZSelect<CheckinCheckoutEditor>
     {
-        
     }
 }

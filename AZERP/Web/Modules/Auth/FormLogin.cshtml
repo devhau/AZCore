@@ -16,10 +16,14 @@
             <div class="card">
                 <div class="card-body login-card-body">
                     <h3 class="login-box-msg">Đăng nhập hệ thống</h3>
-              
+                    @if (!String.IsNullOrEmpty(Model.Error))
+                    {
+                        <span style="color:red;font-weight:700;">@Model.Error</span>
+                    }
+
                     <form action="" method="post" name="user-login">
                         <div class="input-group mb-3">
-                            <input type="email" name="azemail" class="form-control" placeholder="Email" value="admin@viec1.com">
+                            <input type="email" name="azemail" class="form-control" placeholder="Email">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -27,7 +31,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" name="azpassword" class="form-control" placeholder="Password" value="01644638697">
+                            <input type="password" name="azpassword" class="form-control" placeholder="Password">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>

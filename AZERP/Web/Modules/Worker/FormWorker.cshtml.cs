@@ -22,7 +22,6 @@ namespace AZERP.Web.Modules.Worker
     [TableColumn(Title = "Ngày đi làm", FieldName = "StartWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Ngày nghỉ việc", FieldName = "LastWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Chấm công", LinkFormat = "/cham-cong-cong-nhan.az?CompanyId={CompanyId}&WorkerId={Id}" ,ReLoadAfterPopupClose =false ,Popup =PopupSize.FullScreen, Text ="Chấm công", Icon="fas fa-check-double", Width = 70,Display = DisplayColumn.Icon)]
-    [TableColumn(Title = "Tới ", LinkFormat = "/cham-cong-cong-nhan.az?CompanyId={CompanyId}&WorkerId={Id}", Text = "Chấm công", Icon = "fas fa-check-double", Width = 70, Display = DisplayColumn.Icon)]
     public class FormWorker : ManageModule<WorkerService, WorkerModel, FormUpdateWorker>
     {
         #region -- Field Search --

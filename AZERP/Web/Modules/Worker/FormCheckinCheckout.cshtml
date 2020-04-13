@@ -22,7 +22,7 @@
                             <az-select-model model="Model" func="(item) => ((FormCheckinCheckout)item).WorkerId" list-object="Model.Workers" class="form-control form-control-sm  az-input-change-search" label="" null-text="Chọn công nhân" />
                         </div>  
                         <div class="form-group col-md-2">
-                            <az-checkbox-model model="Model" func="(item) => ((FormCheckinCheckout)item).OnlyToday"  class="form-control form-control-sm  az-input-change-search"  attr="data-not-search='WorkerId'" label="Chỉ hôm nay" />
+                            <az-checkin-checkout-editor-select model="Model" func="(item) => ((FormCheckinCheckout)item).OnlyToday"  class="form-control form-control-sm  az-input-change-search"  attr="data-not-search='WorkerId'" label=""/>
                         </div>
                     </form>
                 </div>
@@ -37,7 +37,7 @@
                         @for (var day = Model.StartDate; day <= Model.EndDate; day = day.AddDays(1))
                         {
                             var txtday = "az-color-last-day";
-                            if (day.DayOfWeek != DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
+                            if (day.DayOfWeek !=DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
                             {
                                 txtday = "";
                             }
@@ -79,22 +79,32 @@
                                 txtday = "";
                             }
                             var attr = "disabled";
-                            if ((Model.OnlyToday && day == DateTime.Now.Date) || ! Model.OnlyToday) {
+                            if (Model.OnlyToday == CheckinCheckoutEditor.OnlyToday && day == DateTime.Now.Date)
+                            {
                                 attr = "";
                             }
-                            <td class="cell-freeze @txtday" data-day="@day.ToString("dd/MM/yyyy")">
-                                @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day<=DateTime.Now.Date)
-                                {
+                            if (Model.OnlyToday == CheckinCheckoutEditor.OnlyWeek && (DateTime.Now.AddDays(-6).Date <= day && day <= DateTime.Now.Date))
+                            {
+                                attr = "";
+                            }
+                            if (Model.OnlyToday == CheckinCheckoutEditor.All){
+                                attr = "";
+                            }
 
-                                    <az-work-shift-select add-js="false" attr="@attr" />
-                                }
-                            </td>
-                            <td class="cell-freeze @txtday" data-day="@day.ToString("dd/MM/yyyy")">
-                                @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day <= DateTime.Now.Date)
-                                {
-                                    <az-text attr="@attr" />
-                                }
-                            </td>
+                    <td class="cell-freeze @txtday" data-day="@day.ToString("dd/MM/yyyy")">
+                        @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day <= DateTime.Now.Date)
+                        {
+                            var wshift = Model.getDataBy(worker.Id, day, false);
+
+                            <az-work-shift-select add-js="@string.IsNullOrEmpty(attr)" attr="@attr" value="wshift" null-text="@(wshift==null?"Chọn ca":"")"  />
+                        }
+                    </td>
+                        <td class="cell-freeze @txtday" data-day="@day.ToString("dd/MM/yyyy")">
+                            @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day <= DateTime.Now.Date)
+                            {
+                                <az-number attr="@attr" value="Model.getDataBy(worker.Id,day)" />
+                            }
+                        </td>
                         }
                     </tr>
                      

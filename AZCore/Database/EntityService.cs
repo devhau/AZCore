@@ -115,6 +115,10 @@ namespace AZCore.Database
         {
             return await this.Connection.QueryAsync<TModel>(sql, param, this.transaction, this.commandTimeout, commandType);
         }
+        public async Task<IEnumerable<TModel>> ExecuteQueryAsync(Action<QuerySQL> action)
+        {
+            return await ExecuteQueryAsync(Query(action));
+        }
         public IEnumerable<TModel> ExecuteQuery(Action<QuerySQL> action)
         {
             return ExecuteQuery(Query(action));

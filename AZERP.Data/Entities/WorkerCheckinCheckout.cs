@@ -14,6 +14,8 @@ namespace AZERP.Data.Entities
         public WorkerCheckinCheckoutService(IDbConnection _connection) : base(_connection)
         {
         }
+        public void UpdateTimeOver() { 
+        }
     }
     /// <summary>
     /// Thông tin của nhóm sản phẩm

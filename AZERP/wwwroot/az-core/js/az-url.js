@@ -11,7 +11,7 @@ AZUrl.prototype.loadHtml = function (url, callback) {
         document.title = itemData.title;
         if (callback) callback();
         UrlMain.Init();
-    }, function (e) { });
+    }, function (e) { window.history.back(); toastr.error("Không thể đến đường dẫn này:" + url) });
 }
 AZUrl.prototype.changeUrl = function (url) {
     this.loadHtml(url);

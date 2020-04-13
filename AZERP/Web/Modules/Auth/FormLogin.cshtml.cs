@@ -9,6 +9,7 @@ namespace AZERP.Web.Modules.Auth
 {
     public class FormLogin:PageModule
     {
+        public string Error { get; set; }
         UserService userService;
         public FormLogin(IHttpContextAccessor httpContext, UserService _userService) : base(httpContext)
         {
@@ -30,11 +31,14 @@ namespace AZERP.Web.Modules.Auth
         
         public IView Post(string azemail,string azpassword) {
             var usr = this.userService.GetEmailOrUsername(azemail);
-            if(usr.HasPassword(azpassword)) {
-                this.Login(usr.CopyTo<UserInfo>());
-             return  this.GoToHome();
+            if (usr != null) {
+                if (usr.HasPassword(azpassword))
+                {
+                    this.Login(usr.CopyTo<UserInfo>());
+                    return this.GoToHome();
+                }
             }
-            // Login Thanh cong;
+            Error = "Tài khoản hoặc mật khẩu không đúng";
             return View();
         }
     }

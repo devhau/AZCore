@@ -11,7 +11,7 @@
                 var valueInput = $(this).val();
                 var url = ma.location.href + "&h=Over";
                 ma.DoPost(url, { UserId: userId, DateDay: dateDay, ValueInput: valueInput }, function (item) {
-
+                    toastr.success(item.message);
 
                 });
             }
@@ -22,9 +22,11 @@
             var dateDay = $(this).parents("td").attr("data-day");
             var valueInput = $(this).val();
             var url = ma.location.href + "&h=Shift";
+            $this = this;
             ma.DoPost(url, { UserId: userId, DateDay: dateDay, ValueInput: valueInput }, function (item) {
-
-
+                $($this).find('option').get(0).remove();
+                $($this).select2({ theme: 'bootstrap4', width: 'resolve' });
+                toastr.success(item.message);
             });
         });
     });
