@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace AZERP.Data.Components
 {
     [HtmlTargetElement("az-worker-status-select")]
-    public class WorkerStatusSelect : AZSelect<EnumWorkerStatus>
+    public class WorkerStatusSelect : AZSelect<WorkerStatus>
     {
     }
 }

@@ -1,7 +1,8 @@
-﻿using AZCore.Database;
+﻿using AZCore.Database.Enums;
 using AZERP.Data.Entities;
 using AZERP.Data.Enums;
-using AZWeb.Module.Attribute;
+using AZWeb.Module.Attributes;
+using AZWeb.Module.Enums;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -9,24 +10,26 @@ using System;
 namespace AZERP.Web.Modules.Worker
 {
     [TableColumn(Title = "Họ Tên", FieldName = "FullName", Width = 130)]
-    [TableColumn(Title = "Giới tính", FieldName = "Gender", Width = 80,DataType =typeof(EnumGender))]
+    [TableColumn(Title = "Giới tính", FieldName = "Gender", Width = 80,DataType =typeof(Gender))]
     [TableColumn(Title = "CMT", FieldName = "CMD", Width = 130)]
     [TableColumn(Title = "Số điện thoại", FieldName = "PhoneNumber", Width = 100)]
     [TableColumn(Title = "Ngày sinh", FieldName = "BirthDay", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Địa chỉ", FieldName = "Address", Width = 150)]
     [TableColumn(Title = "Ở hiện tại", FieldName = "AddressCurrent", Width = 150)]
-    [TableColumn(Title = "Làm khu vực", FieldName = "TargetToAddress", Width = 150, DataType = typeof(EnumAddressWorker))]
+    [TableColumn(Title = "Làm khu vực", FieldName = "TargetToAddress", Width = 150, DataType = typeof(AddressWorker))]
     [TableColumn(Title = "Công ty", FieldName = "CompanyId", Width = 150, DataType = typeof(CompanyWorkerService))]
-    [TableColumn(Title = "Trạng thái gọi", FieldName = "WorkerStatus", Width = 150, DataType = typeof(EnumWorkerStatus))]
+    [TableColumn(Title = "Trạng thái gọi", FieldName = "WorkerStatus", Width = 150, DataType = typeof(WorkerStatus))]
     [TableColumn(Title = "Ngày đi làm", FieldName = "StartWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Ngày nghỉ việc", FieldName = "LastWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
+    [TableColumn(Title = "Chấm công", LinkFormat = "/cham-cong-cong-nhan.az?CompanyId={CompanyId}&WorkerId={Id}" ,ReLoadAfterPopupClose =false ,Popup =PopupSize.FullScreen, Text ="Chấm công", Icon="fas fa-check-double", Width = 70,Display = DisplayColumn.Icon)]
+    [TableColumn(Title = "Tới ", LinkFormat = "/cham-cong-cong-nhan.az?CompanyId={CompanyId}&WorkerId={Id}", Text = "Chấm công", Icon = "fas fa-check-double", Width = 70, Display = DisplayColumn.Icon)]
     public class FormWorker : ManageModule<WorkerService, WorkerModel, FormUpdateWorker>
     {
         #region -- Field Search --
         /// <summary>
         /// Họ Tên
         /// </summary>
-        [QuerySearch(OperatorSQL = EnumOperatorSQL.LIKE)]
+        [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string FullName { get; set; }
         /// <summary>
         /// <summary>
@@ -38,16 +41,16 @@ namespace AZERP.Web.Modules.Worker
         /// Giới tính
         /// </summary>
         [QuerySearch]
-        public EnumGender? Gender { get; set; }
+        public Gender? Gender { get; set; }
         /// <summary>
         /// Số điện thoại
         /// </summary>
-        [QuerySearch(OperatorSQL = EnumOperatorSQL.LIKE)]
+        [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string PhoneNumber { get; set; }
         /// <summary>
         /// Địa chỉ của ứng viên
         /// </summary>
-        [QuerySearch(OperatorSQL = EnumOperatorSQL.LIKE)]
+        [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string Address { get; set; }
         /// <summary>
         /// Nơi ở hiện tại
@@ -80,19 +83,19 @@ namespace AZERP.Web.Modules.Worker
         /// 4-Bắc Giang
         /// </summary>
         [QuerySearch]
-        public EnumAddressWorker? TargetToAddress { get; set; }
+        public AddressWorker? TargetToAddress { get; set; }
         /// <summary>
         /// Loại của ứng viên.
         /// Chính Thức 
         /// Thời vụ.
         /// </summary>
         [QuerySearch]
-        public EnumTypeOfCandidate? TypeOfWorker { get; set; }
+        public TypeOfCandidate? TypeOfWorker { get; set; }
         /// <summary>
         /// Trạng thái công nhân
         /// </summary>
         [QuerySearch]
-        public EnumWorkerStatus? WorkerStatus { get; set; }
+        public WorkerStatus? WorkerStatus { get; set; }
         /// <summary>
         /// Công ty
         /// </summary>

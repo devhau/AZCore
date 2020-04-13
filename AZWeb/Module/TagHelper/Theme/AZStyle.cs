@@ -11,10 +11,19 @@ namespace AZWeb.Module.TagHelper.Theme
         public string Link { get; set; }
         [HtmlAttributeName("cdn")]
         public string CDN { get; set; }
+        [HtmlAttributeName("module")]
+        public string Module { get; set; }
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            var content = await output.GetChildContentAsync();
-            this.AddCSS(content.GetContent(), CDN, Link);
+            if (string.IsNullOrEmpty(this.Module))
+            {
+                var content = await output.GetChildContentAsync();
+                this.AddCSS(content.GetContent(), Link, CDN);
+            }
+            else
+            {
+                this.AddCSS(this.GetContentFile(string.Format("css/{0}", this.Module)));
+            }
             output.SuppressOutput();
         }
     }

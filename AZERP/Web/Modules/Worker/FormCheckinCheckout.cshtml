@@ -9,7 +9,6 @@
                 </div>
                 <div class="col-md-7">
                     <form class="az-search-form row">
-                        <az-hidden-model model="Model" func="(item) => ((FormCheckinCheckout)item).PageSize" />
                         <div class="form-group col-md-2">
                             <az-year-select model="Model" func="(item) => ((FormCheckinCheckout)item).Year" class="form-control form-control-sm  az-input-change-search" label="" time-year="3" attr="data-not-search='WorkerId'" null-text="Chọn năm" />
                         </div>
@@ -109,32 +108,5 @@
         </div>
     </div>
 </az-module-layout>
-<az-style>
-    #FormCheckinCheckout .cell-freeze .form-control{
-    margin:0px;
-    }
-    #FormCheckinCheckout .cell-freeze{
-    min-width:110px;
-    }
-    #FormCheckinCheckout tbody .cell-freeze{
-    padding:5px;
-    }
-    #FormCheckinCheckout .az-color-last-day {
-    background-color: #aaa;
-    }
-    #FormCheckinCheckout thead select {
-    text-align: center;
-    text-align-last: center;
-    /* webkit*/
-    }
-    #FormCheckinCheckout thead option {
-    text-align: left;
-    /* reset to left*/
-    }
-</az-style>
-<az-script>
-    $(document).ready(function() {
-    $("#FormCheckinCheckout").AZManager(function(ma){
-        $(".table-freeze").TableFreeze();});
-    });
-</az-script>
+<az-style module="CheckinCheckout.css"/>
+<az-script module="CheckinCheckout.js" />

@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using AZCore.Database.Enums;
+using Dapper;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,12 +11,12 @@ namespace AZCore.Database.SQL
         private class ColumnValue {
             public ColumnValue() { }
             public ColumnValue(string column, object value) { this.Column = column; this.Value = value; }
-            public ColumnValue(string column, object value, EnumOperatorSQL _operator) { this.Column = column; this.Value = value; this.Operator = _operator; }
-            public ColumnValue(string column, EnumSort sort) { this.Column = column;this.Sort = sort; }
+            public ColumnValue(string column, object value, OperatorSQL _operator) { this.Column = column; this.Value = value; this.Operator = _operator; }
+            public ColumnValue(string column, SortType sort) { this.Column = column;this.Sort = sort; }
             public string Column { get; set; }
             public object Value { get; set; }
-            public EnumSort Sort { get; set; }
-            public EnumOperatorSQL Operator { get; set; }
+            public SortType Sort { get; set; }
+            public OperatorSQL Operator { get; set; }
             public List<ColumnValue> Sub { get; set; }
         }
         #region -- Init
@@ -42,12 +43,12 @@ namespace AZCore.Database.SQL
             this.Column = name;
             return this;
         }
-        public QuerySQL AddWhere(string column, object value, EnumOperatorSQL _operator=EnumOperatorSQL.EQUAL)
+        public QuerySQL AddWhere(string column, object value, OperatorSQL _operator=OperatorSQL.EQUAL)
         {
             this.SqlWhere.Add(new ColumnValue(column,value, _operator));
             return this;
         }
-        public QuerySQL AddOrder(string column, EnumSort sort)
+        public QuerySQL AddOrder(string column, SortType sort)
         {
             this.SqlOrder.Add(new ColumnValue(column, sort));
             return this;
@@ -71,11 +72,11 @@ namespace AZCore.Database.SQL
                         sql.Append(" AND ");
 
                     switch (item.Operator) {
-                        case EnumOperatorSQL.LIKE:
+                        case OperatorSQL.LIKE:
                             sql.AppendFormat(" `{0}` like @{0}{1} ", item.Column.Trim(), indexWhere);
                             parameter.Add(string.Format("@{0}{1}", item.Column.Trim(), indexWhere), string.Format("%{0}%", item.Value));
                             break;
-                        case EnumOperatorSQL.IN:
+                        case OperatorSQL.IN:
                             sql.AppendFormat(" `{0}` in (@{0}{1}) ", item.Column.Trim(), indexWhere);
                             parameter.Add(string.Format("@{0}{1}", item.Column.Trim(), indexWhere), item.Value);
                             break;
@@ -93,7 +94,7 @@ namespace AZCore.Database.SQL
                 bool first = true;
                 foreach (var item in SqlOrder)
                 {
-                    if (item.Sort == EnumSort.None) continue;
+                    if (item.Sort == SortType.None) continue;
                     if (!first)
                         sql.Append(" , ");
                     else

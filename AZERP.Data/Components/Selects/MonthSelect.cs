@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace AZERP.Data.Components
 {
     [HtmlTargetElement("az-month-select")]
-    public class MonthSelect : AZSelect<EnumMonth>
+    public class MonthSelect : AZSelect<Month>
     {
     }
 }

@@ -3,7 +3,7 @@ using AZCore.Database.SQL;
 using AZCore.Excel;
 using AZCore.Extensions;
 using AZWeb.Extensions;
-using AZWeb.Module.Attribute;
+using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Http;

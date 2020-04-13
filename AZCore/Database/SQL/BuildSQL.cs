@@ -1,4 +1,4 @@
-﻿using AZCore.Database.Attr;
+﻿using AZCore.Database.Attributes;
 using AZCore.Extensions;
 using Dapper;
 using System;

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace AZERP.Data.Components
 {
     [HtmlTargetElement("az-work-shift-select")]
-    public class WorkShiftSelect : AZSelect<EnumWorkShift>
+    public class WorkShiftSelect : AZSelect<WorkShift>
     {
     }
 }

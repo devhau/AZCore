@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Web\Modules\Worker\js\CheckinCheckout.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Web\Modules\Auth\FormLogin.cshtml" />
     <None Include="Web\Modules\Auth\FormRegister.cshtml" />
     <None Include="Web\Modules\Candidate\FormCandidate.cshtml" />
@@ -63,10 +67,6 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\module\auth\" />
   </ItemGroup>
 
 </Project>
