@@ -10,6 +10,7 @@ namespace AZERP.Web.Modules.User
     [TableColumn(Title = "Email", FieldName = "Email", Width = 100)]
     [TableColumn(Title = "Số điện thoại", FieldName = "PhoneNumber", Width = 150)]
     [TableColumn(Title = "Trạng thái", FieldName = "Status" ,DataType =typeof(EntityStatus))]
+    [TableColumn(Title ="Đổi mật khẩu",LinkFormat = "/tai-khoan/doi-mat-khau.az?UserId={Id}",Text ="Đổi mật khẩu",Display =AZWeb.Module.Enums.DisplayColumn.IconText,Icon ="fas fa-key",Popup =AZWeb.Module.Enums.PopupSize.Popup)]
     public class FormUser : ManageModule<UserService, UserModel, FormUpdateUser>
     {
         public FormUser(IHttpContextAccessor httpContext) : base(httpContext)

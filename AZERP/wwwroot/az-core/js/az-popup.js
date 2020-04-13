@@ -58,6 +58,7 @@
 	}
 	$this.ClosePopup = function () {
 		$($this.Modal).remove();
+		PopupMain.ClosePopup();
 	}
 	$this.ShowPopup = function (callbackClose) {
 		let flg = false;
@@ -81,5 +82,33 @@
 		});
 		return $data;
 	}
-	
+	PopupMain.PushPopup($this);
 }
+function ManagerPopup() {
+	this.data = {};
+	this.size = 0;
+	this.isEmpty = function () {
+		return this.size === 0;
+	}
+	this.PopupCurrent = function () {	
+		if (this.isEmpty()) return undefined;
+		return this.data[this.size-1];
+	}
+	this.PushPopup = function (popup) {
+
+		this.data[this.size] = popup;
+		this.size++;
+		return true;
+	}
+	this.ClosePopup = function () {
+		if (this.isEmpty()) return false;
+		delete this.data[this.size - 1];
+		this.size--;
+		return true;
+	}
+	this.clear = function () {
+		while (!this.isEmpty()) this.ClosePopup();
+		this.size = 0;
+	}
+}
+var PopupMain = new ManagerPopup();

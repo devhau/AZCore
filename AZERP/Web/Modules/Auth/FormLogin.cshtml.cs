@@ -24,7 +24,8 @@ namespace AZERP.Web.Modules.Auth
             return View();
         }
         public IView GetLogout() {
-            return View();
+            this.Logout();
+            return GoToHome();
         }
         
         public IView Post(string azemail,string azpassword) {

@@ -63,8 +63,8 @@ namespace AZWeb.Module.Page
                 this.HttpContext.SetCookie(AZWebConstant.CookieUser, this.User,10*360*24*60*60); // nhớ tới 10 năm khi bạn già thì vẫn nhớ tới bạn
         }
         public void Logout() {
-            this.HttpContext.Session.Remove(AZWebConstant.SessionUser); 
             this.HttpContext.Response.Cookies.RemoveCookie(AZWebConstant.CookieUser);
+            this.HttpContext.Session.Clear();
         }
         public virtual IView View() {
             return View(this);

@@ -189,7 +189,7 @@ namespace AZWeb.Module
                     }
 
                 }
-                else if ((this.httpContext.Request.HasFormContentType || this.IsAjax) && this.httpContext.Request.Form.Keys.Contains(param.Name.ToLower()))
+                else if (this.httpContext.Request.HasFormContentType  && this.httpContext.Request.Form.Keys.Contains(param.Name.ToLower()))
                 {
                     if (param.ParameterType.IsArray)
                     {

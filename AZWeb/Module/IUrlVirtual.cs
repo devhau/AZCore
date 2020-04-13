@@ -4,6 +4,6 @@ namespace AZWeb.Module
 {
     public interface IUrlVirtual
     {
-        IQueryCollection UrlVirtual { get; }
+        QueryString UrlVirtual { get; }
     }
 }
