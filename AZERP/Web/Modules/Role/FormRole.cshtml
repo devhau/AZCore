@@ -9,6 +9,9 @@
         <div class="az-data-table">
             <az-table data="Model.Data" FunKey="(item)=>((RoleModel)item).Id" columns="Model.Columns" pagination="Model"></az-table>
         </div>
+        <div class="az-bottom-manager">
+            <az-pagination pagination="Model" />
+        </div>
     </div>
 </az-module-layout>
 <az-script>

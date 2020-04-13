@@ -18,7 +18,7 @@ namespace AZERP.Web.Modules.Worker
     [TableColumn(Title = "Ở hiện tại", FieldName = "AddressCurrent", Width = 150)]
     [TableColumn(Title = "Làm khu vực", FieldName = "TargetToAddress", Width = 150, DataType = typeof(AddressWorker))]
     [TableColumn(Title = "Công ty", FieldName = "CompanyId", Width = 150, DataType = typeof(CompanyWorkerService))]
-    [TableColumn(Title = "Trạng thái gọi", FieldName = "WorkerStatus", Width = 150, DataType = typeof(WorkerStatus))]
+    [TableColumn(Title = "Trạng thái", FieldName = "WorkerStatus", Width = 150, DataType = typeof(WorkerStatus))]
     [TableColumn(Title = "Ngày đi làm", FieldName = "StartWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Ngày nghỉ việc", FieldName = "LastWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Chấm công", LinkFormat = "/cham-cong-cong-nhan.az?CompanyId={CompanyId}&WorkerId={Id}" ,ReLoadAfterPopupClose =false ,Popup =PopupSize.FullScreen, Text ="Chấm công", Icon="fas fa-check-double", Width = 70,Display = DisplayColumn.Icon)]

@@ -22,7 +22,6 @@ AZUrl.prototype.Init = function () {
     $("a.az-link").off("click");
     $("a.az-link-popup").off("click");
     $(window).off('popstate');
-    $(".az-change-ajax").off("change");
     $("a.az-link").on("click", function (e) {
         e.preventDefault();
         $this.changeUrl($(this).attr("href"));
@@ -54,10 +53,6 @@ AZUrl.prototype.Init = function () {
                 }
             });
         });
-    });
-    $(".az-change-ajax").on("change", function (e) {
-        e.preventDefault();
-        $this.changeUrl($(this).attr("az-href") + "&" + $(this).attr("name") + "=" + $(this).val());
     });
     $(window).on('popstate', function (e) {
         $this.loadHtml(location.pathname + location.search);        

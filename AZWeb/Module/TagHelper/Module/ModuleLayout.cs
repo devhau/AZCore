@@ -12,7 +12,10 @@ namespace AZWeb.Module.TagHelper.Module
         {
                 output.TagName = "div";
             if (HttpContext.Request.Query.ContainsKey("ActionType") && HttpContext.Request.Query["ActionType"] == "popup")
+            {
+                output.Attributes.Add(new TagHelperAttribute("class", "module-popup"));
                 return;
+            }
                 var content = await output.GetChildContentAsync();
                 StringBuilder htmlBuild = new StringBuilder();
                 htmlBuild.Append("<div class=\"az-module-layout\">");
