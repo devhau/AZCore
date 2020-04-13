@@ -1,5 +1,5 @@
 ﻿using AZCore.Database;
-using AZCore.Database.Attr;
+using AZCore.Database.Attributes;
 using AZCore.Domain;
 using AZERP.Data.Enums;
 using System;
@@ -51,7 +51,7 @@ namespace AZERP.Data.Entities
         /// Ca làm việc
         /// </summary>
         [Field]
-        public EnumWorkShift? WorkShift { get; set; }
+        public WorkShift? WorkShift { get; set; }
         /// <summary>
         /// Thời gian làm việc
         /// </summary>

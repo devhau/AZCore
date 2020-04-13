@@ -1,5 +1,5 @@
 ﻿using AZCore.Database;
-using AZCore.Database.Attr;
+using AZCore.Database.Attributes;
 using AZCore.Domain;
 using AZERP.Data.Enums;
 using System;
@@ -43,7 +43,7 @@ namespace AZERP.Data.Entities
         /// Giới tính
         /// </summary>
         [Field]
-        public EnumGender? Gender { get; set; }
+        public Gender? Gender { get; set; }
         /// <summary>
         /// Số điện thoại
         /// </summary>
@@ -80,19 +80,19 @@ namespace AZERP.Data.Entities
         /// 4-Bắc Giang
         /// </summary>
         [Field]
-        public EnumAddressWorker? TargetToAddress { get; set; }
+        public AddressWorker? TargetToAddress { get; set; }
         /// <summary>
         /// Loại của ứng viên.
         /// Chính Thức 
         /// Thời vụ.
         /// </summary>
         [Field]
-        public EnumTypeOfCandidate? TypeOfCandidate { get; set; }
+        public TypeOfCandidate? TypeOfCandidate { get; set; }
         /// <summary>
         /// Tình trạng công nhân
         /// </summary>
         [Field]
-        public EnumWorkerStatus? WorkerStatus { get; set; }
+        public WorkerStatus? WorkerStatus { get; set; }
         /// <summary>
         /// Ngày bắt đầu công việc
         /// </summary>

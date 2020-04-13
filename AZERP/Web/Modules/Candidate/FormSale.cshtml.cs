@@ -1,4 +1,4 @@
-﻿using AZWeb.Module.Attribute;
+﻿using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;

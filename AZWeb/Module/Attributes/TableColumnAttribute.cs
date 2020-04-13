@@ -3,7 +3,7 @@ using AZWeb.Module.Enums;
 using System;
 using System.Drawing;
 
-namespace AZWeb.Module.Attribute
+namespace AZWeb.Module.Attributes
 {
     /// <summary>
     /// Thiết lập cột trong bảng dữ liệu
@@ -26,6 +26,7 @@ namespace AZWeb.Module.Attribute
         public string LinkFormat { get; set; }
         public DisplayColumn Display { get; set; } = DisplayColumn.Text;
         public PopupSize Popup { get; set; } = PopupSize.None;
+        public bool ReLoadAfterPopupClose { get; set; }
     }
     
    

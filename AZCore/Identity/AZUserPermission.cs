@@ -1,5 +1,5 @@
 ﻿using AZCore.Database;
-using AZCore.Database.Attr;
+using AZCore.Database.Attributes;
 using System.Data;
 
 namespace AZCore.Identity

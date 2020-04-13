@@ -1,11 +1,11 @@
-﻿using AZCore.Database.Attr;
+﻿using AZCore.Database.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace AZERP.Data.Enums
 {
-    public enum EnumCallStatus:int
+    public enum CallStatus:int
     {
         [Field(Display = "Chưa gọi")] None = 0,//Default
         [Field(Display = "Hẹn đi làm")] HenDiLam = 1,//Default

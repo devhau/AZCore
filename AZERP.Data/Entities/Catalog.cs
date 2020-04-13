@@ -1,5 +1,5 @@
 ﻿using AZCore.Database;
-using AZCore.Database.Attr;
+using AZCore.Database.Attributes;
 using AZCore.Domain;
 using System.Data;
 

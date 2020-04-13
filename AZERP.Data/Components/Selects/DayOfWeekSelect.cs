@@ -6,7 +6,7 @@ namespace AZERP.Data.Components.Selects
 {
 
     [HtmlTargetElement("az-day-of-week-select")]
-    public class DayOfWeekSelect : AZSelect<EnumDayOfWeek>
+    public class DayOfWeekSelect : AZSelect<DayOfWeek>
     {
         
     }

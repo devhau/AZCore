@@ -1,4 +1,4 @@
-﻿using AZCore.Database.Attr;
+﻿using AZCore.Database.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AZERP.Data.Enums
 {
-    public enum EnumMonth:int
+    public enum Month:int
     {
         [Field(Display = "Tháng 1")] January = 1, //January - 31 days 
         [Field(Display = "Tháng 2")] February =2,//February - 28 days in a common year and 29 days in leap years

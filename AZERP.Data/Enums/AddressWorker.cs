@@ -1,8 +1,8 @@
-﻿using AZCore.Database.Attr;
+﻿using AZCore.Database.Attributes;
 
 namespace AZERP.Data.Enums
 {
-    public enum EnumAddressWorker:int
+    public enum AddressWorker:int
     {
         [Field(Display = "Quế Võ 1, Bắc Ninh")] QueVo1BacNinh = 1,
         [Field(Display = "Quế Võ 2, Bắc Ninh")] QueVo2BacNinh = 2,

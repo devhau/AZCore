@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace AZERP.Data.Components
 {
     [HtmlTargetElement("az-gender-select")]
-    public class GenderSelect : AZSelect<EnumGender>
+    public class GenderSelect : AZSelect<Gender>
     {
     }
 }

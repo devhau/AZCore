@@ -1,5 +1,5 @@
 ﻿using AZCore.Database;
-using AZCore.Database.Attr;
+using AZCore.Database.Attributes;
 using AZCore.Domain;
 using AZERP.Data.Enums;
 using System;
@@ -47,7 +47,7 @@ namespace AZERP.Data.Entities
         /// Công ty ở khu vực nào
         /// </summary>
         [Field]
-        public EnumAddressWorker? AtAddress { get; set; }
+        public AddressWorker? AtAddress { get; set; }
         /// <summary>
         /// Mô tả công ty
         /// </summary>
