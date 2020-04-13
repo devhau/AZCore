@@ -1,4 +1,6 @@
-﻿using AZERP.Data.Entities;
+﻿using AZCore.Extensions;
+using AZCore.Identity;
+using AZERP.Data.Entities;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;
@@ -14,10 +16,10 @@ namespace AZERP.Web.Modules.Auth
         }
         protected override void IntData()
         {
-            
+            this.IsTheme = false;
         }
 
-        public  IView Get(object[] Id)
+        public  IView Get()
         {
             return View();
         }
@@ -27,7 +29,10 @@ namespace AZERP.Web.Modules.Auth
         
         public IView Post(string azemail,string azpassword) {
             var usr = this.userService.GetEmailOrUsername(azemail);
-           
+            if(usr.HasPassword(azpassword)) {
+                this.Login(usr.CopyTo<UserInfo>());
+             return  this.GoToHome();
+            }
             // Login Thanh cong;
             return View();
         }

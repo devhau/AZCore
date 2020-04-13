@@ -5,6 +5,7 @@ using AZWeb.Module.Constant;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using System.Net;
 
 namespace AZWeb.Module.Page
 {
@@ -44,9 +45,16 @@ namespace AZWeb.Module.Page
                 }
             }
         }
-        public virtual void GoToAuth() {
-            HttpContext.Response.Redirect("/dang-nhap.az");
+        public virtual IView GoToAuth() {
+            return GoToRedirect("/dang-nhap.az");
         }
+        public virtual IView GoToHome() {
+            return GoToRedirect("/");
+        }
+        public virtual IView GoToRedirect(string url) {
+            return new RedirectView() {Module=this,RedirectToUrl=url };
+        }
+
         public void Login(UserInfo user, bool rememberMe = false)
         {
             this.User = user;
@@ -93,16 +101,16 @@ namespace AZWeb.Module.Page
         }
         public virtual IView Json(string Message)
         {
-            return Json(Message, null, 200);
+            return Json(Message, null, HttpStatusCode.OK);
         }
-        public virtual IView Json(string Message, int status)
+        public virtual IView Json(string Message, HttpStatusCode status)
         {
             return Json(Message, null, status);
         }
         public virtual IView Json(string Message, object data) {
-            return Json(Message,data, 200);        
+            return Json(Message,data, HttpStatusCode.OK);        
         }
-        public virtual IView Json(string Message, object data,int status) {         
+        public virtual IView Json(string Message, object data, HttpStatusCode status) {         
             return new JsonView() { Module=this,Data=data,StatusCode=status, Message=Message };
         }
     }

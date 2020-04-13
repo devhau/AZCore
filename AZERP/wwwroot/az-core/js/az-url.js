@@ -3,6 +3,10 @@
 }
 AZUrl.prototype.loadHtml = function (url, callback) {
     this.DoGet(url, {}, function (itemData) {
+        if (itemData.statusCode && itemData.statusCode === 401) {
+            location.href = itemData.data;
+            return;
+        }
         $("#ContentAZ").html(itemData.html);
         document.title = itemData.title;
         if (callback) callback();
@@ -33,7 +37,11 @@ AZUrl.prototype.Init = function () {
             LinkHref += "&ActionType=popup"
         } else
             LinkHref += "?ActionType=popup"
-        $this.DoGet(LinkHref, null, function (item) {
+        $this.DoGet(LinkHref, null, function (item){
+            if(item && item.statusCode && item.statusCode === 401) {
+                toastr.error("Bạn không có quyền với hành động vừa rồi.");
+                return;
+            }
             let popup = new AZPopup();
             popup.ClearButton();         
             popup.setHtml(item.html);

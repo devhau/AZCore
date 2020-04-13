@@ -1,4 +1,6 @@
-﻿using AZWeb.Module.Constant;
+﻿using AZCore.Identity;
+using AZWeb.Extensions;
+using AZWeb.Module.Constant;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
@@ -7,8 +9,19 @@ namespace AZWeb.Module.Common
 {
     public class ThemeBase : ModuleBase
     {
+        public UserInfo User { get; private set; }
+        public bool IsAuth { get => User != null; }
         public ThemeBase(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
+            this.User = this.HttpContext.GetSession<UserInfo>(AZWebConstant.SessionUser);
+            if (this.User == null)
+            {
+                this.User = this.HttpContext.GetCookie<UserInfo>(AZWebConstant.CookieUser);
+                if (this.User != null)
+                {
+                    this.HttpContext.SetSession(AZWebConstant.SessionUser, this.User);
+                }
+            }
         }
         public IHtmlContent BodyContent { get; set; }
         public string Title { get => Html.Title; set => Html.Title = value; }

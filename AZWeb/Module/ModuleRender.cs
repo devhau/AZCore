@@ -58,7 +58,7 @@ namespace AZWeb.Module
         private readonly IViewBufferScope _bufferScope;
         private readonly IPagesConfig PageConfigs = null;
         private bool IsAjax { get; }
-
+        private readonly string urlPath;
         ModuleRender(HttpContext _httpContext)
         {
             httpContext = _httpContext;
@@ -70,6 +70,8 @@ namespace AZWeb.Module
             startup = httpContext.GetService<IStartup>();
             this.PageConfigs = this.httpContext.GetService<IPagesConfig>();
             this.IsAjax = httpContext.IsAjax();
+
+            urlPath = this.httpContext.Request.Path.Value;
         }
         /// <summary>
         /// Get Path Real
@@ -77,9 +79,7 @@ namespace AZWeb.Module
         /// <returns> Path Real </returns>
         private string GetPathReal()
         {
-            string path = this.httpContext.Request.Path.Value;
-            if (path != "/" && !path.EndsWith(PageConfigs.extenstion)) return string.Empty;
-            if (path == "/")
+            if (urlPath == "/")
             {
                 return PageConfigs.UrlRealDefault;
             }
@@ -90,9 +90,9 @@ namespace AZWeb.Module
                     foreach (var item2 in item1.Tags)
                     {
                         var RegexPath = new Regex(item2.ViturlPath);
-                        if (RegexPath.IsMatch(path))
+                        if (RegexPath.IsMatch(urlPath))
                         {
-                            var mPath = RegexPath.Match(path);
+                            var mPath = RegexPath.Match(urlPath);
                             List<object> paraObject = new List<object>();
                             for (var i = 1; i < mPath.Groups.Count - 1; i++)
                             {
@@ -125,7 +125,7 @@ namespace AZWeb.Module
         /// <returns></returns>
         private async Task<RenderError> GetModule()
         {
-
+            if (urlPath != "/" && !urlPath.EndsWith(PageConfigs.extenstion)) return RenderError.OK;
             #region --- Get Path & Merge Path ---
             var pathReal = GetPathReal();
             if (string.IsNullOrEmpty(pathReal)) return RenderError.NotFoundPath;
@@ -159,9 +159,16 @@ namespace AZWeb.Module
             var isModuleAuth= ModuleCurrent.GetType().GetAttribute<AuthAttribute>()!=null;
             var isMethodAuth = methodFunction.GetAttribute<AuthAttribute>() != null;
             var isMethodNotAuth = methodFunction.GetAttribute<NotAuthAttribute>() != null;
-            if (((isMethodAuth && !isMethodNotAuth) || isMethodAuth)&&!ModuleCurrent.IsAuth) {
-                //Chưa đăng nhập thì đăng nhập
-                ModuleCurrent.GoToAuth();
+            if (((isModuleAuth && !isMethodNotAuth) || isMethodAuth)&&!ModuleCurrent.IsAuth) {
+                var redirectView = ModuleCurrent.GoToAuth().As<RedirectView>();
+                if (IsAjax)
+                {
+                    await RenderJson(new JsonView() { Module = ModuleCurrent, StatusCode = System.Net.HttpStatusCode.Unauthorized, Data = redirectView.RedirectToUrl });
+                }
+                else
+                {
+                    httpContext.Response.Redirect(redirectView.RedirectToUrl);
+                }
                 return RenderError.OK;
             }
             httpContext.Request.QueryString = new QueryString(string.Format("?{0}", pathReal));
@@ -216,6 +223,7 @@ namespace AZWeb.Module
             ModuleCurrent.AfterRequest();
 
             #endregion
+
             #region --- Check Download File && Download file ---
             if (rsView is DownloadFileView)
             {
@@ -238,6 +246,7 @@ namespace AZWeb.Module
 
             }
             #endregion
+
             #region --- Get Theme && Process Theme ---
 
             if (ModuleCurrent.IsTheme & !IsAjax)
@@ -441,7 +450,6 @@ namespace AZWeb.Module
             }
         }
         private async Task<bool> DoRouterAsync() {
-
             var statusModule = await GetModule();
             if (statusModule != RenderError.OK && statusModule != RenderError.None && statusModule != RenderError.NoAuth)
             {
