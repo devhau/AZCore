@@ -1,6 +1,7 @@
 ﻿using AZCore.Extensions;
 using AZWeb.Configs;
 using AZWeb.Extensions;
+using AZWeb.Module.Attributes;
 using AZWeb.Module.Buffers;
 using AZWeb.Module.Common;
 using AZWeb.Module.Formatters;
@@ -154,6 +155,15 @@ namespace AZWeb.Module
             if (methodFunction == null)
                 return RenderError.NotFoundMethod;
 
+            ModuleCurrent.BeforeRequest();
+            var isModuleAuth= ModuleCurrent.GetType().GetAttribute<AuthAttribute>()!=null;
+            var isMethodAuth = methodFunction.GetAttribute<AuthAttribute>() != null;
+            var isMethodNotAuth = methodFunction.GetAttribute<NotAuthAttribute>() != null;
+            if (((isMethodAuth && !isMethodNotAuth) || isMethodAuth)&&!ModuleCurrent.IsAuth) {
+                //Chưa đăng nhập thì đăng nhập
+                ModuleCurrent.GoToAuth();
+                return RenderError.OK;
+            }
             httpContext.Request.QueryString = new QueryString(string.Format("?{0}", pathReal));
             List<object> paraValues = new List<object>();
             foreach (var param in methodFunction.GetParameters())
@@ -193,7 +203,6 @@ namespace AZWeb.Module
                         paraValues.Add(null);
                 }
             }
-            ModuleCurrent.BeforeRequest();
             Common.IView rsView = null;
             var rsFN = methodFunction.Invoke(ModuleCurrent, paraValues.ToArray());
             if (rsFN is Task)

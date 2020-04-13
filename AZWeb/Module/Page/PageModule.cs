@@ -44,6 +44,9 @@ namespace AZWeb.Module.Page
                 }
             }
         }
+        public virtual void GoToAuth() {
+            HttpContext.Response.Redirect("/dang-nhap.az");
+        }
         public void Login(UserInfo user, bool rememberMe = false)
         {
             this.User = user;

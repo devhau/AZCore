@@ -45,9 +45,13 @@
     }
     this.Extends = function (itemData) {
         var CodeJS = "";
-        if (itemData.js) itemData.js.forEach(function (item) { if (item.code) { CodeJS = CodeJS + " " + item.code; } });
+        if (itemData.js) itemData.js.forEach(function (item) { if (item.code) { CodeJS = CodeJS + " " + item.code; } if (item.link) { $.cachedScript(item.link); } });
         var CodeCss = "";
-        if (itemData.css) itemData.css.forEach(function (item) { if (item.code) { CodeCss = CodeCss + " " + item.code; } });
+        if (itemData.css) itemData.css.forEach(function (item) {
+            if (item.code) { CodeCss = CodeCss + " " + item.code; } if (item.link) {
+                var link = $("<link rel='stylesheet' type='text/css' href=''>"); $(link).attr("href", item.link);
+                $("html head").append(link); }
+        });
         var style = $("<style></style>");
         $(style).html(CodeCss);
         $("html head").append(style);

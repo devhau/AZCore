@@ -108,32 +108,5 @@
         </div>
     </div>
 </az-module-layout>
-<az-style>
-    #FormCheckinCheckout .cell-freeze .form-control{
-    margin:0px;
-    }
-    #FormCheckinCheckout .cell-freeze{
-    min-width:110px;
-    }
-    #FormCheckinCheckout tbody .cell-freeze{
-    padding:5px;
-    }
-    #FormCheckinCheckout .az-color-last-day {
-    background-color: #aaa;
-    }
-    #FormCheckinCheckout thead select {
-    text-align: center;
-    text-align-last: center;
-    /* webkit*/
-    }
-    #FormCheckinCheckout thead option {
-    text-align: left;
-    /* reset to left*/
-    }
-</az-style>
-<az-script>
-    $(document).ready(function() {
-    $("#FormCheckinCheckout").AZManager(function(ma){
-        $(ma.DataTable).TableFreeze();});
-    });
-</az-script>
+<az-style module="CheckinCheckout.css"/>
+<az-script module="CheckinCheckout.js" />
