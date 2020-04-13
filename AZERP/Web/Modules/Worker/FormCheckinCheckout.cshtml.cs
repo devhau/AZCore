@@ -3,7 +3,7 @@ using AZCore.Excel;
 using AZERP.Data.Entities;
 using AZERP.Data.Enums;
 using AZWeb.Extensions;
-using AZWeb.Module.Attribute;
+using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
@@ -29,7 +29,7 @@ namespace AZERP.Web.Modules.Worker
         [QuerySearch]
         public long? WorkerId { get; set; }
         [BindQuery]
-        public EnumMonth? Month { get; set; }
+        public Month? Month { get; set; }
         [BindQuery]
         public bool OnlyToday { get; set; } = true;
         [BindQuery]
@@ -38,7 +38,7 @@ namespace AZERP.Web.Modules.Worker
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
 
-        public IView PostShift(EnumWorkShift shift) {
+        public IView PostShift(WorkShift shift) {
             return Json("Cập nhật thành công");
         }
         public override List<WorkerCheckinCheckoutModel> GetSearchData()
@@ -63,7 +63,7 @@ namespace AZERP.Web.Modules.Worker
         {
             this.Title = "Bảng chấm công";
             if (this.Year == null) this.Year = DateTime.Now.Year;
-            if (this.Month == null) this.Month = (EnumMonth)DateTime.Now.Month;
+            if (this.Month == null) this.Month = (Month)DateTime.Now.Month;
             this.StartDate = new DateTime(this.Year.Value,(int)this.Month.Value,1);
             this.EndDate = this.StartDate.AddMonths(1).AddDays(-1);
             base.IntData();
@@ -77,9 +77,9 @@ namespace AZERP.Web.Modules.Worker
             for (DateTime day = StartDate ; day <= EndDate;day=day.AddDays(1))
             {
                 dtData.Columns.Add(string.Format("col_day_{0}", day.Day),typeof(DateTime));
-                if (day.DayOfWeek == DayOfWeek.Saturday|| day.DayOfWeek==DayOfWeek.Sunday)
+                if (day.DayOfWeek == System.DayOfWeek.Saturday|| day.DayOfWeek== System.DayOfWeek.Sunday)
                 {
-                    columns.Add(new TableColumnAttribute() { FieldName = string.Format("col_day_{0}", day.Day), Title = day.ToString("dd/MM/yyyy") ,BackColor=Color.Red});
+                    columns.Add(new TableColumnAttribute() { FieldName = string.Format("col_day_{0}", day.Day), Title = day.ToString("dd/MM/yyyy") , BackColor = Color.Red});
                 }
                 else
                     columns.Add(new TableColumnAttribute() { FieldName = string.Format("col_day_{0}", day.Day), Title = day.ToString("dd/MM/yyyy") });

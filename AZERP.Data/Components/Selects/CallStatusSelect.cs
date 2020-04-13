@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace AZERP.Data.Components
 {
     [HtmlTargetElement("az-call-status-select")]
-    public class CallStatusSelect : AZSelect<EnumCallStatus>
+    public class CallStatusSelect : AZSelect<CallStatus>
     {
     }
 }

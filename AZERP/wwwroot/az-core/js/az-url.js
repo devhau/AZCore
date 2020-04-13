@@ -26,6 +26,7 @@ AZUrl.prototype.Init = function () {
     $("a.az-link-popup").on("click", function (e) {
         e.preventDefault();
         let ModalSize = $(this).attr("modal-size");
+        let reload = $(this).attr("reload");
         let LinkHref = $(this).attr("href");
         let link = $(this).attr("href");
         if (LinkHref.indexOf("?") > 0) {
@@ -40,7 +41,9 @@ AZUrl.prototype.Init = function () {
             popup.setLink(link);
             popup.ModalSize = ModalSize;
             popup.ShowPopup(function () {
-                $this.loadHtml(location.href);
+                if (reload && reload==='true') {
+                    $this.loadHtml(location.href);
+                }
             });
         });
     });

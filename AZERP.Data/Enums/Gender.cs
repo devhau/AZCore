@@ -1,11 +1,11 @@
-﻿using AZCore.Database.Attr;
+﻿using AZCore.Database.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace AZERP.Data.Enums
 {
-    public enum EnumGender : int
+    public enum Gender : int
     {
         [Field(Display = "Nam")] Male = 1, 
         [Field(Display = "Nữ")] Female = 2,

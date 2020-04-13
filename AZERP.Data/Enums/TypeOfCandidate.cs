@@ -1,8 +1,8 @@
-﻿using AZCore.Database.Attr;
+﻿using AZCore.Database.Attributes;
 
 namespace AZERP.Data.Enums
 {
-    public enum EnumTypeOfCandidate:int
+    public enum TypeOfCandidate:int
     {
         [Field(Display = "Chính Thức")] ChinhThuc = 1,//Chính Thức
         [Field(Display = "Thời vụ")] ThoiVu = 2,//Chính Thức

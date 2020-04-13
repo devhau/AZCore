@@ -1,16 +1,17 @@
 ﻿using AZCore.Database;
+using AZCore.Database.Enums;
 using AZCore.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace AZWeb.Module.Attribute
+namespace AZWeb.Module.Attributes
 {
     [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
     public class QuerySearchAttribute : BindQueryAttribute
     {
-        public EnumOperatorSQL OperatorSQL { get; set; } = EnumOperatorSQL.EQUAL;
+        public OperatorSQL OperatorSQL { get; set; } = OperatorSQL.EQUAL;
         public PropertyInfo Property { get; set; }
     }
     public static class QuerySearchExtend {

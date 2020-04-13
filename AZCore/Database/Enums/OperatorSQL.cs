@@ -1,11 +1,8 @@
-﻿using AZCore.Database.Attr;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AZCore.Database.Attributes;
 
-namespace AZCore.Database
+namespace AZCore.Database.Enums
 {
-    public enum EnumOperatorSQL
+    public enum OperatorSQL
     {
         [Field(Display ="")]
         None, 

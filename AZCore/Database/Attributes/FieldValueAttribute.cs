@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AZCore.Database.Attr
+namespace AZCore.Database.Attributes
 {
     [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
-    public class FieldDisplayAttribute : Attribute
+    public class FieldValueAttribute : Attribute
     {
         public int GroupIndex { get; set; }
     }

@@ -1,9 +1,9 @@
-﻿using AZCore.Database;
+﻿using AZCore.Database.Enums;
 using AZCore.Extensions;
 using AZERP.Data.Entities;
 using AZERP.Data.Enums;
 using AZWeb.Extensions;
-using AZWeb.Module.Attribute;
+using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
@@ -14,13 +14,13 @@ namespace AZERP.Web.Modules.Candidate
 {
     [TableColumn(Title = "Ngày tạo", FieldName = "CreateAt", Width = 100,FormatString ="{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Họ Tên", FieldName = "FullName", Width = 130)]
-    [TableColumn(Title = "Giới tính", FieldName = "Gender", Width = 80,DataType =typeof(EnumGender))]
+    [TableColumn(Title = "Giới tính", FieldName = "Gender", Width = 80,DataType =typeof(Gender))]
     [TableColumn(Title = "Số điện thoại", FieldName = "PhoneNumber", Width = 100)]
     [TableColumn(Title = "Ngày sinh", FieldName = "BirthDay", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Địa chỉ", FieldName = "Address", Width = 150)]
     [TableColumn(Title = "Ở hiện tại", FieldName = "AddressCurrent", Width = 150)]
-    [TableColumn(Title = "Làm khu vực", FieldName = "TargetToAddress", Width = 150, DataType = typeof(EnumAddressWorker))]
-    [TableColumn(Title = "Trạng thái gọi", FieldName = "CallStatus", Width = 150, DataType = typeof(EnumCallStatus))]
+    [TableColumn(Title = "Làm khu vực", FieldName = "TargetToAddress", Width = 150, DataType = typeof(AddressWorker))]
+    [TableColumn(Title = "Trạng thái gọi", FieldName = "CallStatus", Width = 150, DataType = typeof(CallStatus))]
     [TableColumn(Title = "Hẹn đi làm", FieldName = "StartWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Hẹn đến văn phòng", FieldName = "GoCompanyAt", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Hẹn gọi lại", FieldName = "CallBack", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
@@ -30,7 +30,7 @@ namespace AZERP.Web.Modules.Candidate
         /// <summary>
         /// Họ Tên
         /// </summary>
-        [QuerySearch(OperatorSQL = EnumOperatorSQL.LIKE)]
+        [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string FullName { get; set; }
         /// <summary>
         /// <summary>
@@ -42,16 +42,16 @@ namespace AZERP.Web.Modules.Candidate
         /// Giới tính
         /// </summary>
         [QuerySearch]
-        public EnumGender? Gender { get; set; }
+        public Gender? Gender { get; set; }
         /// <summary>
         /// Số điện thoại
         /// </summary>
-        [QuerySearch(OperatorSQL = EnumOperatorSQL.LIKE)]
+        [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string PhoneNumber { get; set; }
         /// <summary>
         /// Địa chỉ của ứng viên
         /// </summary>
-        [QuerySearch(OperatorSQL = EnumOperatorSQL.LIKE)]
+        [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string Address { get; set; }
         /// <summary>
         /// Nơi ở hiện tại
@@ -84,19 +84,19 @@ namespace AZERP.Web.Modules.Candidate
         /// 4-Bắc Giang
         /// </summary>
         [QuerySearch]
-        public EnumAddressWorker? TargetToAddress { get; set; }
+        public AddressWorker? TargetToAddress { get; set; }
         /// <summary>
         /// Loại của ứng viên.
         /// Chính Thức 
         /// Thời vụ.
         /// </summary>
         [QuerySearch]
-        public EnumTypeOfCandidate? TypeOfCandidate { get; set; }
+        public TypeOfCandidate? TypeOfCandidate { get; set; }
         /// <summary>
         /// Trạng thái cuộc gọi
         /// </summary>
         [QuerySearch]
-        public EnumCallStatus? CallStatus { get; set; }
+        public CallStatus? CallStatus { get; set; }
         /// <summary>
         /// Thời gian gọi gần đây nhất
         /// </summary>

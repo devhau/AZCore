@@ -1,11 +1,11 @@
-﻿using AZCore.Database.Attr;
+﻿using AZCore.Database.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace AZERP.Data.Enums
 {
-    public enum EnumDayOfWeek:int
+    public enum DayOfWeek:int
     {  
         //
         // Summary:

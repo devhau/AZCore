@@ -1,7 +1,7 @@
 ﻿using AZCore.Database;
 using AZCore.Extensions;
 using AZWeb.Extensions;
-using AZWeb.Module.Attribute;
+using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using Microsoft.AspNetCore.Http;
 using System;

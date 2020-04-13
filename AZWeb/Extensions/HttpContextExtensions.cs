@@ -14,7 +14,7 @@ using AZWeb.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using AZCore.Extensions;
 using AZCore.Identity;
-using AZWeb.Module.Attribute;
+using AZWeb.Module.Attributes;
 
 namespace AZWeb.Extensions
 {

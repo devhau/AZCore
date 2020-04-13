@@ -1,6 +1,6 @@
 ﻿using AZCore.Database;
 using AZERP.Data.Entities;
-using AZWeb.Module.Attribute;
+using AZWeb.Module.Attributes;
 using AZWeb.Module.Enums;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;

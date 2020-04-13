@@ -1,9 +1,9 @@
-﻿using AZCore.Database.Attr;
+﻿using AZCore.Database.Attributes;
 
 namespace AZERP.Data.Enums
 {
     //day shift; night shift
-    public enum EnumWorkShift:int
+    public enum WorkShift:int
     {
         [Field(Display = "Ca ngày")] DayShift = 1,
         [Field(Display = "Ca đêm")]  NightShift = 2,

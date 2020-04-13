@@ -1,4 +1,4 @@
-﻿using AZWeb.Module.Attribute;
+﻿using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Enums;
 using AZWeb.Module.Page.Manager;
@@ -204,8 +204,11 @@ namespace AZWeb.Module.TagHelper.Module
                                     {
                                         attLink = "modal-size='az-modal-full'";
                                     }
+                                    if (col.ReLoadAfterPopupClose) {
+                                        attLink += " reload='true' ";
+                                    }
                                 }
-                                htmlTable.AppendFormat("<a href='{0}' class='{1}' {2}>", link, classLink, attLink);
+                                htmlTable.AppendFormat("<a href='{0}' class='{1}' {2} >", link, classLink, attLink);
                             }
                             if (col.Display == DisplayColumn.Icon || col.Display == DisplayColumn.IconText) {
                                 htmlTable.AppendFormat(" <i class='{0}'/> ", col.Icon);

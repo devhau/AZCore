@@ -1,11 +1,11 @@
-﻿using AZCore.Database.Attr;
+﻿using AZCore.Database.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace AZERP.Data.Enums
 {
-    public enum EnumWorkerStatus:int
+    public enum WorkerStatus:int
     {
         [Field(Display = "Chờ việc")] Pedding = 0,
         [Field(Display = "Đang đi làm")] Working = 1,

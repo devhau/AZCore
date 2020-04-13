@@ -1,11 +1,11 @@
-﻿using AZCore.Database.Attr;
+﻿using AZCore.Database.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AZCore.Database
+namespace AZCore.Database.Enums
 {
-    public enum EnumSort
+    public enum SortType
     {
         [Field(Display ="")]
         None, 
