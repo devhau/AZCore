@@ -6,6 +6,7 @@ using AZWeb.Module.Middleware;
 using AZWeb.Utilities;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Data;
@@ -31,10 +32,16 @@ namespace AZWeb.Extensions
             services.AddSession(options =>
             {
                 // Set a short timeout for easy testing.
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromSeconds(60*60*24);
                 options.Cookie.HttpOnly = true;
                 // Make the session cookie essential
                 options.Cookie.IsEssential = true;
+            });
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddRazorPages();
             var PagesConfig = ReadConfig<PagesConfig>.Load(null, (t) => t.MapPath());

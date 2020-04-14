@@ -111,8 +111,9 @@
         padding: 0px;
         margin: 0px;
     }
-.az-modal .az-manager {
-    margin:-1rem;
+.az-modal .module-popup {
+    margin: -1rem;
+    min-height:500px;
 }
 .az-modal {
     background: rgba(0, 0, 0, 0.75);
@@ -172,6 +173,7 @@
     display: block;
     position: relative;
     width: 100%;
+
 }
 .table-freeze {
     height: 100%;
@@ -201,4 +203,5 @@ table-freeze thead th {
     height: 50px;
     background-color: #e6e6e6;
     vertical-align: middle;
+    z-index: 100;
 }

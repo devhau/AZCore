@@ -1,0 +1,125 @@
+﻿@model FormCheckinCheckout
+<az-module-layout script-random='id=>"CheckinCheckout(\"."+id+"\");"'>
+    <div class="az-manager" id="FormCheckinCheckout" data-form-size="az-modal-xl">
+        <div class="az-toolbar">
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <button type="button" class="btn btn-info btn-sm az-btn az-btn-export" data-cmd-key="f2"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
+                    <button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import" data-cmd-key="f3"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
+                </div>
+                <div class="col-md-7">
+                    <form class="az-search-form row">
+                        <div class="form-group col-md-2">
+                            <az-year-select model="Model" func="(item) => ((FormCheckinCheckout)item).Year" class="form-control form-control-sm  az-input-change-search" label="" time-year="3" attr="data-not-search='WorkerId'" null-text="Chọn năm" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-month-select model="Model" func="(item) => ((FormCheckinCheckout)item).Month" class="form-control form-control-sm  az-input-change-search" label="" attr="data-not-search='WorkerId'" null-text="Chọn tháng" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-company-worker-select model="Model" func="(item) => ((FormCheckinCheckout)item).CompanyId" class="form-control form-control-sm  az-input-change-search" label="" attr="data-not-search='WorkerId'" null-text="Chọn công ty" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-select-model model="Model" func="(item) => ((FormCheckinCheckout)item).WorkerId" list-object="Model.Workers" class="form-control form-control-sm  az-input-change-search" label="" null-text="Chọn công nhân" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-checkin-checkout-editor-select model="Model" func="(item) => ((FormCheckinCheckout)item).OnlyToday" class="form-control form-control-sm  az-input-change-search" attr="data-not-search='WorkerId'" label="" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="az-data-table">
+
+            <table class="table table-hover table-freeze">
+                <thead>
+                    <tr>
+                        <th width="250px" class="column-freeze text-right">Ngày</th>
+                        @for (var day = Model.StartDate; day <= Model.EndDate; day = day.AddDays(1))
+                        {
+                            var txtday = "az-color-last-day";
+                            if (day.DayOfWeek != DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
+                            {
+                                txtday = "";
+                            }
+                            <th class="cell-freeze text-center @txtday" colspan="2">
+                                @day.ToString("dd")
+
+                                @if (day == DateTime.Now.Date)
+                                {
+                                    <b>Hôm nay</b>
+                                }
+                                <az-day-of-week-select value="(int)day.DayOfWeek" attr="disabled" add-js="false" />
+                            </th>
+                        }
+                    </tr>
+                    <tr>
+                        <th width="250px" class="column-freeze">Họ Tên</th>
+                        @for (var day = Model.StartDate; day <= Model.EndDate; day = day.AddDays(1))
+                        {
+                            var txtday = "az-color-last-day";
+                            if (day.DayOfWeek != DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
+                            {
+                                txtday = "";
+                            }
+                            <th class="cell-freeze text-center @txtday">Làm ca</th>
+                            <th class="cell-freeze text-center @txtday">Giờ tăng ca</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.DataWorkers != null)
+                    {
+                        @foreach (var worker in Model.DataWorkers)
+                        {
+                            <tr data-user-id="@worker.Id">
+                                <td width="250px" class="column-freeze">@worker.FullName ( @worker.PhoneNumber )</td>
+                                @for (var day = Model.StartDate; day <= Model.EndDate; day = day.AddDays(1))
+                                {
+                                    var txtday = "az-color-last-day";
+                                    if (day.DayOfWeek != DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
+                                    {
+                                        txtday = "";
+                                    }
+                                    var attr = "disabled";
+                                    if (Model.OnlyToday == CheckinCheckoutEditor.OnlyToday && day == DateTime.Now.Date)
+                                    {
+                                        attr = "";
+                                    }
+                                    if (Model.OnlyToday == CheckinCheckoutEditor.OnlyWeek && (DateTime.Now.AddDays(-6).Date <= day && day <= DateTime.Now.Date))
+                                    {
+                                        attr = "";
+                                    }
+                                    if (Model.OnlyToday == CheckinCheckoutEditor.All)
+                                    {
+                                        attr = "";
+                                    }
+
+                                    <td class="cell-freeze @txtday" data-day="@day.ToString("dd/MM/yyyy")">
+                                        @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day <= DateTime.Now.Date)
+                                        {
+                                            var wshift = Model.getDataBy(worker.Id, day, false);
+
+                                            <az-work-shift-select add-js="@string.IsNullOrEmpty(attr)" attr="@attr" value="wshift" null-text="@(wshift==null?"Chọn ca":"")" />
+                                        }
+                                    </td>
+                                    <td class="cell-freeze @txtday" data-day="@day.ToString("dd/MM/yyyy")">
+                                        @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day <= DateTime.Now.Date)
+                                        {
+                                            <az-number attr="@attr" value="Model.getDataBy(worker.Id,day)" />
+                                        }
+                                    </td>
+                                }
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="az-bottom-manager">
+            <h4>Tổng số công nhân : @(Model.Workers != null?Model.Workers.Count:0) Chấm công từ ngày @Model.StartDate.ToString("dd/MM/yyyy") đến @Model.EndDate.ToString("dd/MM/yyyy")</h4>
+        </div>
+    </div>
+</az-module-layout>
+<az-style module="CheckinCheckout.css" />
+<az-script module="CheckinCheckout.js" />

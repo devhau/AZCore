@@ -1,5 +1,5 @@
 ﻿function AZManager($callback) {
-    let $this = this;
+    let $this = $(this).hasClass("az-manager") ? this : $(this).find(".az-manager");
     $.extend($this, new AZAjax());
     $this.FormSize = $($this).data("form-size");
     $this.FormSearch = $($this).find(".az-search-form");
@@ -17,11 +17,13 @@
     }
     $this.LoadLink = function (link, callback) {
         if ($this.IsModal) {
-                $($this.Modal).attr("link-popup", link);
-            if (link.indexOf("?") > 0) {
-                link += "&ActionType=popup"
-            } else
-                link += "?ActionType=popup"
+            $($this.Modal).attr("link-popup", link);
+            if (link.indexOf("ActionType=popup") < 0) {
+                if (link.indexOf("?") > 0) {
+                    link += "&ActionType=popup"
+                } else
+                    link += "?ActionType=popup"
+            }
             $this.DoGet(link, {}, function (itemData) {
                 $($this.ModalContent).html(itemData.html);
                 if (callback) callback(true);
@@ -49,9 +51,10 @@
             popup.ClearButton();
             popup.IsForm = true;
             popup.AddButton({
-                value: "Lưu lại",
+                value: "Lưu lại (F2)",
                 icon: "far fa-save",
                 cls: "btn btn-success az-btn az-btn-update",
+                cmd: "f2",
                 func: function (elem, scope) {
                     $this.SaveData(url, scope);
                 }
@@ -76,9 +79,10 @@
         popup.ClearButton();
         popup.IsForm = true;
         popup.AddButton({
-            value: "Có",
+            value: "[C]ó",
+            cmd: "c",
             icon: "far fa-check-circle",
-            cls: "btn btn-success az-btn",
+            cls: "btn btn-success az-btn",            
             func: function (elem, scope) {
                 var url = $this.location.pathname + "?h=delete";
                 if ($Id) url = url + "&id=" + $Id;
@@ -86,9 +90,10 @@
             }
         });
         popup.AddButton({
-            value: "Không",
+            value: "[K]hông",
             icon: "far fa-times-circle",
             cls: "btn btn-danger az-btn",
+            cmd: "k",
             func: function (elem, scope) {
                 scope.ClosePopup();
             }
@@ -107,7 +112,12 @@
         location.href=href+"&h=download"
     });
     $($this).find(".az-btn-import").on("click", function () {
-        alert("Đang phát triển!");
+        var popup = new AZPopup();
+        popup.ClearButton();
+        popup.setHtml("<h3>Đang phát triển chức năng này</h3>");
+        popup.setTitle("Nhập từ excel");
+        popup.ModalSize = $this.FormSize;
+        popup.ShowPopup();
     });
     $($this).find(".az-search-form .az-input-change-search").on("change", function () {
             $data = $(this).parents(".az-search-form").serializeArray();
@@ -170,6 +180,30 @@
                 toastr.error("Lỗi không tìm được");
             }
     });
+    $($this).find(".az-change-ajax").on("change", function () {
+        hrefSearch = $this.location.pathname + "?" + $(this).attr("name") + "=" + $(this).val()
+        $this.LoadLink(hrefSearch, function (flg) {
+            if (flg) {
+                toastr.info("Đã thay đổi bảng dữ liệu");
+            } else {
+                toastr.error("Lỗi không tìm được");
+            }
+        });
+    });
+        $($this).find(".az-link").on("click", function (e) {
+            e.preventDefault();
+            $this.LoadLink($(this).attr("href"), function (flg) {
+                if (flg) {
+                    toastr.info("Đã thay đổi bảng dữ liệu");
+                } else {
+                    toastr.error("Lỗi không tìm được");
+                }
+            });
+        });
+    if ($($this.DataTable).hasClass("table-freeze"))
+        $($this.DataTable).TableFreeze();
+    if ($this.FormSearch)
+        $($this.FormSearch).find("*:input,select,textarea").filter(":not([readonly='readonly']):not([disabled='disabled']):not([type='hidden'])").first().focus();
     if ($callback) $callback(this);
 }
 

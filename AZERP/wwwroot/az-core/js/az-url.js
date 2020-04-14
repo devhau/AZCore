@@ -3,11 +3,15 @@
 }
 AZUrl.prototype.loadHtml = function (url, callback) {
     this.DoGet(url, {}, function (itemData) {
+        if (itemData.statusCode && itemData.statusCode === 401) {
+            location.href = itemData.data;
+            return;
+        }
         $("#ContentAZ").html(itemData.html);
         document.title = itemData.title;
         if (callback) callback();
         UrlMain.Init();
-    }, function (e) { });
+    }, function (e) { window.history.back(); toastr.error("Không thể đến đường dẫn này:" + url) });
 }
 AZUrl.prototype.changeUrl = function (url) {
     this.loadHtml(url);
@@ -18,7 +22,6 @@ AZUrl.prototype.Init = function () {
     $("a.az-link").off("click");
     $("a.az-link-popup").off("click");
     $(window).off('popstate');
-    $(".az-change-ajax").off("change");
     $("a.az-link").on("click", function (e) {
         e.preventDefault();
         $this.changeUrl($(this).attr("href"));
@@ -33,7 +36,11 @@ AZUrl.prototype.Init = function () {
             LinkHref += "&ActionType=popup"
         } else
             LinkHref += "?ActionType=popup"
-        $this.DoGet(LinkHref, null, function (item) {
+        $this.DoGet(LinkHref, null, function (item){
+            if(item && item.statusCode && item.statusCode === 401) {
+                toastr.error("Bạn không có quyền với hành động vừa rồi.");
+                return;
+            }
             let popup = new AZPopup();
             popup.ClearButton();         
             popup.setHtml(item.html);
@@ -45,15 +52,20 @@ AZUrl.prototype.Init = function () {
                     $this.loadHtml(location.href);
                 }
             });
+            UrlMain.Init();
         });
     });
     $(".az-change-ajax").on("change", function (e) {
-        e.preventDefault();
-        $this.changeUrl($(this).attr("az-href") + "&" + $(this).attr("name") + "=" + $(this).val());
+        if ($(this).parents(".az-manager") === undefined) {
+            e.preventDefault();
+            $this.changeUrl($(this).attr("az-href") + "&" + $(this).attr("name") + "=" + $(this).val());
+        }
+        
     });
     $(window).on('popstate', function (e) {
         $this.loadHtml(location.pathname + location.search);        
     });
+    HotKeyMain.Init();
 }
 let UrlMain = new AZUrl();
 $(function () {

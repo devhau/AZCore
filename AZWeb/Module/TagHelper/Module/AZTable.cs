@@ -2,6 +2,7 @@
 using AZWeb.Module.Common;
 using AZWeb.Module.Enums;
 using AZWeb.Module.Page.Manager;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections;
@@ -10,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace AZWeb.Module.TagHelper.Module
 {
@@ -35,7 +37,7 @@ namespace AZWeb.Module.TagHelper.Module
         {
             output.TagName = "";
             StringBuilder htmlTable = new StringBuilder();
-            htmlTable.Append("<table class=\"table table-bordered table-hover dataTable\" role=\"grid\">");
+            htmlTable.AppendFormat("<table class=\"table table-bordered table-hover {0}\" role=\"grid\">",this.TagClass);
             this.RenderHeader(htmlTable);
             this.RenderBody(htmlTable,Data);
             this.RenderBottom(htmlTable);
@@ -55,12 +57,14 @@ namespace AZWeb.Module.TagHelper.Module
             if (this.Columns!=null) {
                 foreach (var item in this.Columns)
                 {
-                    htmlTable.AppendFormat("<th {0} >", item.Width==0?"":string.Format("width='{0}px'", item.Width));
+                    if (item.DataType != null && !this.DataDic.ContainsKey(item.DataType))
+                    {
+                        this.DataDic[item.DataType] = item.DataType.GetListDataByDataType(this.ViewContext.HttpContext, " ");
+                    }
+                    htmlTable.AppendFormat("<th {0} name='{1}'>", item.Width==0?"":string.Format("width='{0}px'", item.Width), item.FieldName);
                     htmlTable.Append(item.Title);
                     htmlTable.Append("</th>");
-                    if (item.DataType != null&& !this.DataDic.ContainsKey(item.DataType)) {
-                        this.DataDic[item.DataType] = item.DataType.GetListDataByDataType(this.ViewContext.HttpContext," ");
-                    }
+                  
                 }
             }
 
@@ -148,8 +152,7 @@ namespace AZWeb.Module.TagHelper.Module
                             string TextDisplay = "";
                             if (!string.IsNullOrEmpty(col.FieldName) && d.GetProperty(col.FieldName) != null)
                             {
-                                var itemValue = d.GetProperty(col.FieldName).GetValue(item);                               
-                                htmlTable.AppendFormat("<td data-value='{1}' data-name='{0}' class='{2}'>", col.FieldName,itemValue,col.ClassColumn);
+                                var itemValue = d.GetProperty(col.FieldName).GetValue(item);                              
                                
                                 object ItemDisplay = itemValue;
                                 if (col.DataType != null)
@@ -161,6 +164,8 @@ namespace AZWeb.Module.TagHelper.Module
                                     }                                       
                                 }
                                 TextDisplay = string.IsNullOrEmpty(col.FormatString)?string.Format("{0}", ItemDisplay) : string.Format(col.FormatString, ItemDisplay);
+
+                                htmlTable.AppendFormat("<td data-value='{1}' data-name='{0}' class='{2}'>", col.FieldName, HttpUtility.UrlEncode(itemValue?.ToString()), col.ClassColumn);
                             }
                             else {
                                 htmlTable.AppendFormat("<td  class='{0}'>", col.ClassColumn);

@@ -5,15 +5,17 @@ namespace AZWeb.Module.Common
 {
     public class ModuleBase : IModule, IUrlVirtual
     {
-        public IQueryCollection UrlVirtual { get; }
+        public QueryString UrlVirtual { get; }
         public HttpContext HttpContext { get; }
+        public bool IsAjax { get; }
         public ModuleBase(IHttpContextAccessor httpContextAccessor)
         {
             HttpContext = httpContextAccessor.HttpContext;
-            UrlVirtual = HttpContext.Request.Query;
+            this.IsAjax = HttpContext.IsAjax();
+            UrlVirtual = HttpContext.Request.QueryString;
 
             this.HttpContext.BindFormAttributeTo(this);
-            this.HttpContext.BindQueryAttributeTo(this);
+            this.HttpContext.BindQueryAttributeTo(this); 
 
         }
         public virtual void BeforeRequest() { IntData(); }
