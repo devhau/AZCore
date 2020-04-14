@@ -60,7 +60,7 @@ namespace AZWeb.Module.Page
             this.User = user;
             this.HttpContext.SetSession(AZWebConstant.SessionUser, this.User);
             if (rememberMe)
-                this.HttpContext.SetCookie(AZWebConstant.CookieUser, this.User,10*360*24*60*60); // nhớ tới 10 năm khi bạn già thì vẫn nhớ tới bạn
+                this.HttpContext.SetCookie(AZWebConstant.CookieUser, this.User,10*360*24*60); // nhớ tới 10 năm khi bạn già thì vẫn nhớ tới bạn
         }
         public void Logout() {
             this.HttpContext.Response.Cookies.RemoveCookie(AZWebConstant.CookieUser);

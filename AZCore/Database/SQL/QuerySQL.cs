@@ -1,13 +1,21 @@
 ﻿using AZCore.Database.Enums;
 using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace AZCore.Database.SQL
 {
+
     public class QuerySQL
     {
-        
+
+        private class JoinTable
+        {
+            public string TableName { get; set; }
+            public Func<string, string, string> WhereJoin { get; set; }
+            public JoinType JoinType { get; set; } = JoinType.InnerJoin;
+        }
         private class ColumnValue {
             public ColumnValue() { }
             public ColumnValue(string column, object value) { this.Column = column; this.Value = value; }
@@ -23,6 +31,7 @@ namespace AZCore.Database.SQL
         private TypeSQL type;
         private string TableName = "";
         private string Column = " * ";
+        private List<JoinTable> joinTable = new List<JoinTable>();
         private List<ColumnValue> SqlWhere = new List<ColumnValue>();
         private List<ColumnValue> SqlOrder = new List<ColumnValue>();
         private int PageSize = 0;
@@ -34,8 +43,18 @@ namespace AZCore.Database.SQL
             return new QuerySQL(_type);
         }
         #endregion
+        
         public QuerySQL SetTable(string name) {
             this.TableName = name;
+            return this;
+        }
+        public QuerySQL Join(string nameTable, Func<string, string, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
+        {
+            joinTable.Add(new JoinTable() {
+                TableName= nameTable,
+                WhereJoin = whereJoin,
+                JoinType = joinType,
+            });
             return this;
         }
         public QuerySQL SetColumn(string name)
@@ -64,6 +83,19 @@ namespace AZCore.Database.SQL
             StringBuilder sql = new StringBuilder();
             DynamicParameters parameter = new DynamicParameters();
             sql.AppendFormat("SELECT {0} FROM `{1}` ",this.Column,this.TableName);
+            foreach (var item in this.joinTable) {
+                string joinStr = " JOIN ";
+                if (item.JoinType == JoinType.LeftOuterJoin) {
+                    joinStr = " LEFT JOIN ";
+                }
+                if (item.JoinType == JoinType.RightOuterJoin){
+                    joinStr = " RIGHT JOIN ";
+                }
+                if (item.JoinType == JoinType.RightOuterJoin){
+                    joinStr = " FULL OUTER JOIN ";
+                }
+                sql.AppendFormat(" {0} `{1}`  on {2}", joinStr,item.TableName,item.WhereJoin(this.TableName,item.TableName));
+            }
             if (SqlWhere.Count > 0) {
                 int indexWhere = 0;
                 sql.Append(" WHERE ");

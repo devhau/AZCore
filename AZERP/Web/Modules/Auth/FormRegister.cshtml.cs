@@ -8,6 +8,7 @@ namespace AZERP.Web.Modules.Auth
 {
     public class FormRegister : PageModule
     {
+        public string Error { get; set; }
         UserService userService;
         public FormRegister(IHttpContextAccessor httpContext, UserService _userService) : base(httpContext)
         {
@@ -21,8 +22,17 @@ namespace AZERP.Web.Modules.Auth
         public IView Get() {
             return View();
         }
-        public IView Post(string Fullname, string Email, string Password, string RePassword, string Phone)
+        public IView Post(string Fullname, string Email, string Password, string Phone)
         {
+            if (this.userService.ExecuteNoneQuery(p => { p.AddWhere("Email", Email); p.SetColumn("count(0)"); }) > 0) {
+                Error = "Email đã được người khác đăng ký rồi!";
+                return View();
+            }
+            if (this.userService.ExecuteNoneQuery(p => { p.AddWhere("PhoneNumber", Phone); p.SetColumn("count(0)"); }) > 0)
+            {
+                Error = "Số điện thoại đã được người khác đăng ký rồi!";
+                return View();
+            }
             var user = new UserModel()
             {
                 FullName = Fullname,
@@ -32,8 +42,7 @@ namespace AZERP.Web.Modules.Auth
             };
             user.SetPassword(Password);
             this.userService.Insert(user);
-            //this.AddMessage("Đăng ký thành công");
-            return View();
+            return GoToHome();
         } 
     }
 }

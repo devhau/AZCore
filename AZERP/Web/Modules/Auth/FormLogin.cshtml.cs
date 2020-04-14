@@ -17,6 +17,7 @@ namespace AZERP.Web.Modules.Auth
         }
         protected override void IntData()
         {
+            this.Title = "Đăng nhập hệ thống";
             this.IsTheme = false;
         }
 
@@ -29,12 +30,22 @@ namespace AZERP.Web.Modules.Auth
             return GoToHome();
         }
         
-        public IView Post(string azemail,string azpassword) {
+        public IView Post(string azemail,string azpassword,bool azremember) {
             var usr = this.userService.GetEmailOrUsername(azemail);
             if (usr != null) {
-                if (usr.HasPassword(azpassword))
+                if (usr.HasPassword(azpassword))      
                 {
-                    this.Login(usr.CopyTo<UserInfo>());
+                    if (usr.Status == AZCore.Database.EntityStatus.NoActive|| usr.Status == null) {
+
+                        Error = "Tài khoản chưa được kích hoạt";
+                        return View();
+                    }
+                    if (usr.Status == AZCore.Database.EntityStatus.Block)
+                    {
+                        Error = "Tài khoản đã bị khóa";
+                        return View();
+                    }
+                    this.Login(usr.CopyTo<UserInfo>(), azremember);
                     return this.GoToHome();
                 }
             }
