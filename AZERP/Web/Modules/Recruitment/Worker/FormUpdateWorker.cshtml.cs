@@ -2,7 +2,7 @@
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.Worker
+namespace AZERP.Web.Modules.Recruitment.Worker
 {
     public class FormUpdateWorker : UpdateModule<WorkerService, WorkerModel>
     {

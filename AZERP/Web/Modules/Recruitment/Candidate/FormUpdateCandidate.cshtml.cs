@@ -2,12 +2,11 @@
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
-
-namespace AZERP.Web.Modules.Role
+namespace AZERP.Web.Modules.Recruitment.Candidate
 {
-    public class FormUpdateRole : UpdateModule<RoleService, RoleModel>
+    public class FormUpdateCandidate : UpdateModule<CandidateService, CandidateModel>
     {
-        public FormUpdateRole(IHttpContextAccessor httpContext) : base(httpContext)
+        public FormUpdateCandidate(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
         protected override void IntData()

@@ -5,7 +5,7 @@ using AZWeb.Module.Common;
 using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.Auth
+namespace AZERP.Web.Modules.Common.Auth
 {
     public class FormLogin:PageModule
     {

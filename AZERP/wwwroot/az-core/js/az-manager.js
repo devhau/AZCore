@@ -109,7 +109,12 @@
         location.href=href+"&h=download"
     });
     $($this).find(".az-btn-import").on("click", function () {
-        alert("Đang phát triển!");
+        var popup = new AZPopup();
+        popup.ClearButton();
+        popup.setHtml("<h3>Đang phát triển chức năng này</h3>");
+        popup.setTitle("Nhập từ excel");
+        popup.ModalSize = $this.FormSize;
+        popup.ShowPopup();
     });
     $($this).find(".az-search-form .az-input-change-search").on("change", function () {
             $data = $(this).parents(".az-search-form").serializeArray();

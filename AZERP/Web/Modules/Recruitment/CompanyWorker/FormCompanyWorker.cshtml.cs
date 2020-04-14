@@ -5,7 +5,7 @@ using AZWeb.Module.Attributes;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.CompanyWorker
+namespace AZERP.Web.Modules.Recruitment.CompanyWorker
 {
     [TableColumn(Title = "Tên công ty", FieldName = "Name")]
     [TableColumn(Title = "Tên viết tắt", FieldName = "AbbreviatedName")]

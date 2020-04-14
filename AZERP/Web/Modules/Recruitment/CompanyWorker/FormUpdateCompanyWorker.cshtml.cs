@@ -2,7 +2,7 @@
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.CompanyWorker
+namespace AZERP.Web.Modules.Recruitment.CompanyWorker
 {
     public class FormUpdateCompanyWorker : UpdateModule<CompanyWorkerService, CompanyWorkerModel>
     {

@@ -4,7 +4,7 @@ using AZWeb.Module.Attributes;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.Role
+namespace AZERP.Web.Modules.Common.Role
 {
     [TableColumn(Title = "Vai trò", FieldName = "Name")]
     [TableColumn(Title = "Trạng thái", FieldName = "Status", Width = 150 ,DataType =typeof(EntityStatus))]

@@ -8,26 +8,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Web\Modules\Worker\js\CheckinCheckout.js" />
+    <Content Include="Web\Modules\Recruitment\Worker\js\CheckinCheckout.js" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Web\Modules\Auth\FormLogin.cshtml" />
-    <None Include="Web\Modules\Auth\FormRegister.cshtml" />
-    <None Include="Web\Modules\Candidate\FormCandidate.cshtml" />
-    <None Include="Web\Modules\Candidate\FormSale.cshtml" />
-    <None Include="Web\Modules\Candidate\FormUpdateCandidate.cshtml" />
+    <None Include="Web\Modules\Common\Auth\FormLogin.cshtml" />
+    <None Include="Web\Modules\Common\Auth\FormRegister.cshtml" />
+    <None Include="Web\Modules\Recruitment\Candidate\FormCandidate.cshtml" />
+    <None Include="Web\Modules\Recruitment\Candidate\FormSale.cshtml" />
+    <None Include="Web\Modules\Recruitment\Candidate\FormUpdateCandidate.cshtml" />
     <None Include="Web\Modules\Catalog\FormCatalog.cshtml" />
     <None Include="Web\Modules\Catalog\FormUpdateCatalog.cshtml" />
-    <None Include="Web\Modules\CompanyWorker\FormCompanyWorker.cshtml" />
-    <None Include="Web\Modules\CompanyWorker\FormUpdateCompanyWorker.cshtml" />
-    <None Include="Web\Modules\Role\FormRole.cshtml" />
-    <None Include="Web\Modules\Role\FormUpdateRole.cshtml" />
-    <None Include="Web\Modules\User\FormUpdateUser.cshtml" />
-    <None Include="Web\Modules\User\FormUser.cshtml" />
-    <None Include="Web\Modules\Worker\FormCheckinCheckout.cshtml" />
-    <None Include="Web\Modules\Worker\FormUpdateWorker.cshtml" />
-    <None Include="Web\Modules\Worker\FormWorker.cshtml" />
+    <None Include="Web\Modules\Recruitment\CompanyWorker\FormCompanyWorker.cshtml" />
+    <None Include="Web\Modules\Recruitment\CompanyWorker\FormUpdateCompanyWorker.cshtml" />
+    <None Include="Web\Modules\Common\Role\FormRole.cshtml" />
+    <None Include="Web\Modules\Common\Role\FormUpdateRole.cshtml" />
+    <None Include="Web\Modules\Common\User\FormUpdateUser.cshtml" />
+    <None Include="Web\Modules\Common\User\FormUser.cshtml" />
+    <None Include="Web\Modules\Recruitment\Worker\FormCheckinCheckout.cshtml" />
+    <None Include="Web\Modules\Recruitment\Worker\FormUpdateWorker.cshtml" />
+    <None Include="Web\Modules\Recruitment\Worker\FormWorker.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

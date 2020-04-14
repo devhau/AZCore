@@ -4,7 +4,7 @@ using AZWeb.Module.Common;
 using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.User
+namespace AZERP.Web.Modules.Common.User
 {
     [Auth]
     public class FormChangePassword : PageModule

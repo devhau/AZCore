@@ -7,7 +7,7 @@ using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
 
-namespace AZERP.Web.Modules.Worker
+namespace AZERP.Web.Modules.Recruitment.Worker
 {
     [TableColumn(Title = "Họ Tên", FieldName = "FullName", Width = 130)]
     [TableColumn(Title = "Giới tính", FieldName = "Gender", Width = 80,DataType =typeof(Gender))]

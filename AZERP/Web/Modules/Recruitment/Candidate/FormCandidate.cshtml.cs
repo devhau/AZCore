@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
 
-namespace AZERP.Web.Modules.Candidate
+namespace AZERP.Web.Modules.Recruitment.Candidate
 {
     [TableColumn(Title = "Ngày tạo", FieldName = "CreateAt", Width = 100,FormatString ="{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Họ Tên", FieldName = "FullName", Width = 130)]

@@ -4,7 +4,7 @@ using AZWeb.Module.Attributes;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.User
+namespace AZERP.Web.Modules.Common.User
 {
     [TableColumn(Title ="Họ Tên",FieldName = "FullName",Width =150)]
     [TableColumn(Title = "Email", FieldName = "Email", Width = 100)]

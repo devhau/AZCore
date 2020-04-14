@@ -12,6 +12,11 @@ namespace AZWeb.Configs
     public class UrlTag
     {
         /// <summary>
+        /// Nhóm Module
+        /// </summary>
+        [XmlAttribute("group")]
+        public string Group { get; set; }
+        /// <summary>
         /// Đường link ảo
         /// </summary>
         [XmlAttribute("virtual")]

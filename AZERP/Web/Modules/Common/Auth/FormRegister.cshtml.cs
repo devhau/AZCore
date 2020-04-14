@@ -4,7 +4,7 @@ using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;
 using System;
 
-namespace AZERP.Web.Modules.Auth
+namespace AZERP.Web.Modules.Common.Auth
 {
     public class FormRegister : PageModule
     {

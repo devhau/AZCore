@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AZERP.Web.Modules.Worker
+namespace AZERP.Web.Modules.Recruitment.Worker
 {
     public class FormCheckinCheckout : ManageModule<WorkerCheckinCheckoutService, WorkerCheckinCheckoutModel>
     {

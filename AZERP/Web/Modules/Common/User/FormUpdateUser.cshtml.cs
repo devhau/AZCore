@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Reflection;
 
-namespace AZERP.Web.Modules.User
+namespace AZERP.Web.Modules.Common.User
 {
     public class FormUpdateUser : UpdateModule<UserService, UserModel>
     {

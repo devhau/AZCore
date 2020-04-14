@@ -3,7 +3,7 @@ using AZWeb.Module.Common;
 using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.Candidate
+namespace AZERP.Web.Modules.Recruitment.Candidate
 {
     [Auth]
     public class FormSale : PageModule

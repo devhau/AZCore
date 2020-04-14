@@ -98,7 +98,9 @@ namespace AZWeb.Module
                             {
                                 paraObject.Add(mPath.Groups[i].Value);
                             }
+                            if (string.IsNullOrEmpty(item2.Group))
                             return string.Format(item2.Real, paraObject.ToArray());
+                            return string.Format("{0}&gm={1}", string.Format(item2.Real, paraObject.ToArray()), item2.Group);
                         }
                     }
                 }
@@ -142,7 +144,10 @@ namespace AZWeb.Module
             string viewName = moduleName;
             if (query.ContainsKey("v") && !string.IsNullOrEmpty(query["v"].ToString()))
                 viewName = query["v"].ToString();
-            string typeModuleString = string.Format("Web.Modules.{0}.Form{1}", moduleName, viewName);
+            string gm = "";
+            if (query.ContainsKey("gm") && !string.IsNullOrEmpty(query["gm"].ToString()))
+                gm = "."+query["gm"].ToString();
+            string typeModuleString = string.Format("Web.Modules{2}.{0}.Form{1}", moduleName, viewName, gm);
             var ModuleCurrent = LoadModule(typeModuleString);
 
             var methodName = httpContext.Request.Method.ToUpperFirstChart();
