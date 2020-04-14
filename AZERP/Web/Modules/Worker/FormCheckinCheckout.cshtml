@@ -1,11 +1,11 @@
 ﻿@model FormCheckinCheckout
-<az-module-layout>
+<az-module-layout script-random='id=>"CheckinCheckout(\"."+id+"\");"'>
     <div class="az-manager" id="FormCheckinCheckout" data-form-size="az-modal-xl">
         <div class="az-toolbar">
             <div class="row">
                 <div class="col-md-3 form-group">
                     <button type="button" class="btn btn-info   az-btn az-btn-export"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
-                    <button type="button" class="btn btn-secondary  az-btn az-btn-import" ><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
+                    <button type="button" class="btn btn-secondary  az-btn az-btn-import"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
                 </div>
                 <div class="col-md-7">
                     <form class="az-search-form row">
@@ -20,16 +20,16 @@
                         </div>
                         <div class="form-group col-md-2">
                             <az-select-model model="Model" func="(item) => ((FormCheckinCheckout)item).WorkerId" list-object="Model.Workers" class="form-control form-control-sm  az-input-change-search" label="" null-text="Chọn công nhân" />
-                        </div>  
+                        </div>
                         <div class="form-group col-md-2">
-                            <az-checkin-checkout-editor-select model="Model" func="(item) => ((FormCheckinCheckout)item).OnlyToday"  class="form-control form-control-sm  az-input-change-search"  attr="data-not-search='WorkerId'" label=""/>
+                            <az-checkin-checkout-editor-select model="Model" func="(item) => ((FormCheckinCheckout)item).OnlyToday" class="form-control form-control-sm  az-input-change-search" attr="data-not-search='WorkerId'" label="" />
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         <div class="az-data-table">
-            
+
             <table class="table table-hover table-freeze">
                 <thead>
                     <tr>
@@ -37,17 +37,19 @@
                         @for (var day = Model.StartDate; day <= Model.EndDate; day = day.AddDays(1))
                         {
                             var txtday = "az-color-last-day";
-                            if (day.DayOfWeek !=DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
+                            if (day.DayOfWeek != DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
                             {
                                 txtday = "";
                             }
-                            <th class="cell-freeze text-center @txtday" colspan="2">@day.ToString("dd") 
-                        
-                                @if(day==DateTime.Now.Date){                                     
-                                <b>Hôm nay</b>
+                            <th class="cell-freeze text-center @txtday" colspan="2">
+                                @day.ToString("dd")
+
+                                @if (day == DateTime.Now.Date)
+                                {
+                                    <b>Hôm nay</b>
                                 }
-                            <az-day-of-week-select value="(int)day.DayOfWeek" attr="disabled" add-js="false"/>
-                        </th>
+                                <az-day-of-week-select value="(int)day.DayOfWeek" attr="disabled" add-js="false" />
+                            </th>
                         }
                     </tr>
                     <tr>
@@ -69,45 +71,46 @@
                     {
                         @foreach (var worker in Model.DataWorkers)
                         {
-                    <tr data-user-id="@worker.Id">
-                        <td width="250px" class="column-freeze">@worker.FullName ( @worker.PhoneNumber )</td>
-                        @for (var day = Model.StartDate; day <= Model.EndDate; day = day.AddDays(1))
-                        {
-                            var txtday = "az-color-last-day";
-                            if (day.DayOfWeek != DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
-                            {
-                                txtday = "";
-                            }
-                            var attr = "disabled";
-                            if (Model.OnlyToday == CheckinCheckoutEditor.OnlyToday && day == DateTime.Now.Date)
-                            {
-                                attr = "";
-                            }
-                            if (Model.OnlyToday == CheckinCheckoutEditor.OnlyWeek && (DateTime.Now.AddDays(-6).Date <= day && day <= DateTime.Now.Date))
-                            {
-                                attr = "";
-                            }
-                            if (Model.OnlyToday == CheckinCheckoutEditor.All){
-                                attr = "";
-                            }
+                            <tr data-user-id="@worker.Id">
+                                <td width="250px" class="column-freeze">@worker.FullName ( @worker.PhoneNumber )</td>
+                                @for (var day = Model.StartDate; day <= Model.EndDate; day = day.AddDays(1))
+                                {
+                                    var txtday = "az-color-last-day";
+                                    if (day.DayOfWeek != DayOfWeek.Saturday && day.DayOfWeek != DayOfWeek.Sunday)
+                                    {
+                                        txtday = "";
+                                    }
+                                    var attr = "disabled";
+                                    if (Model.OnlyToday == CheckinCheckoutEditor.OnlyToday && day == DateTime.Now.Date)
+                                    {
+                                        attr = "";
+                                    }
+                                    if (Model.OnlyToday == CheckinCheckoutEditor.OnlyWeek && (DateTime.Now.AddDays(-6).Date <= day && day <= DateTime.Now.Date))
+                                    {
+                                        attr = "";
+                                    }
+                                    if (Model.OnlyToday == CheckinCheckoutEditor.All)
+                                    {
+                                        attr = "";
+                                    }
 
-                    <td class="cell-freeze @txtday" data-day="@day.ToString("dd/MM/yyyy")">
-                        @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day <= DateTime.Now.Date)
-                        {
-                            var wshift = Model.getDataBy(worker.Id, day, false);
+                                    <td class="cell-freeze @txtday" data-day="@day.ToString("dd/MM/yyyy")">
+                                        @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day <= DateTime.Now.Date)
+                                        {
+                                            var wshift = Model.getDataBy(worker.Id, day, false);
 
-                            <az-work-shift-select add-js="@string.IsNullOrEmpty(attr)" attr="@attr" value="wshift" null-text="@(wshift==null?"Chọn ca":"")"  />
-                        }
-                    </td>
-                        <td class="cell-freeze @txtday" data-day="@day.ToString("dd/MM/yyyy")">
-                            @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day <= DateTime.Now.Date)
-                            {
-                                <az-number attr="@attr" value="Model.getDataBy(worker.Id,day)" />
-                            }
-                        </td>
-                        }
-                    </tr>
-                     
+                                            <az-work-shift-select add-js="@string.IsNullOrEmpty(attr)" attr="@attr" value="wshift" null-text="@(wshift==null?"Chọn ca":"")" />
+                                        }
+                                    </td>
+                                    <td class="cell-freeze @txtday" data-day="@day.ToString("dd/MM/yyyy")">
+                                        @if (worker.StartWork <= day && (worker.LastWork == null || day <= worker.LastWork) && day <= DateTime.Now.Date)
+                                        {
+                                            <az-number attr="@attr" value="Model.getDataBy(worker.Id,day)" />
+                                        }
+                                    </td>
+                                }
+                            </tr>
+
                         }
                     }
                 </tbody>
@@ -118,5 +121,5 @@
         </div>
     </div>
 </az-module-layout>
-<az-style module="CheckinCheckout.css"/>
+<az-style module="CheckinCheckout.css" />
 <az-script module="CheckinCheckout.js" />

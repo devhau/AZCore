@@ -56,8 +56,11 @@ AZUrl.prototype.Init = function () {
         });
     });
     $(".az-change-ajax").on("change", function (e) {
-        e.preventDefault();
-        $this.changeUrl($(this).attr("az-href") + "&" + $(this).attr("name") + "=" + $(this).val());
+        if ($(this).parents(".az-manager") === undefined) {
+            e.preventDefault();
+            $this.changeUrl($(this).attr("az-href") + "&" + $(this).attr("name") + "=" + $(this).val());
+        }
+        
     });
     $(window).on('popstate', function (e) {
         $this.loadHtml(location.pathname + location.search);        

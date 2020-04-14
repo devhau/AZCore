@@ -1,5 +1,5 @@
 ﻿function AZManager($callback) {
-    let $this = this;
+    let $this = $(this).hasClass("az-manager") ? this : $(this).find(".az-manager");
     $.extend($this, new AZAjax());
     $this.FormSize = $($this).data("form-size");
     $this.FormSearch = $($this).find(".az-search-form");

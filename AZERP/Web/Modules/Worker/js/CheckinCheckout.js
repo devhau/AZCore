@@ -1,10 +1,10 @@
-﻿$(document).ready(function () {
-    $("#FormCheckinCheckout").AZManager(function (ma) {
+﻿function CheckinCheckout($this) {
+    $($this).AZManager(function (ma) {
         $(ma.DataTable).find("input").on("change", function () {
             $(this).attr("is-change", "1");
         });
         $(ma.DataTable).find("input").on("blur", function () {
-           
+
             if ($(this).attr("is-change") == "1") {
                 var userId = $(this).parents("tr").attr("data-user-id");
                 var dateDay = $(this).parents("td").attr("data-day");
@@ -30,4 +30,4 @@
             });
         });
     });
-});
+}
