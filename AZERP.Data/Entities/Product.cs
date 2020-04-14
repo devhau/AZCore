@@ -22,6 +22,9 @@ namespace AZERP.Data.Entities
     [TableInfo(TableName = "az_product")]
     public class ProductModel : EntityModel<ProductModel, long>
     {
+        /// <summary>
+        /// Mã SP
+        /// </summary>
         [Field(Length = 500)]
         public string Code { get; set; }
         /// <summary>
@@ -39,5 +42,10 @@ namespace AZERP.Data.Entities
         /// </summary>
         [Field(Length = 500)]
         public string Description { get; set; }
+        /// <summary>
+        /// Giá SP
+        /// </summary>
+        [Field]
+        public long Price { get; set; }
     }
 }
