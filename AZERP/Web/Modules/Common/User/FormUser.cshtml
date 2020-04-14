@@ -2,10 +2,10 @@
 <az-module-layout script-random='(id)=>"$(\"."+id+"\").AZManager();"'>
     <div class="az-manager " data-form-size="az-modal-xl">
         <div class="az-toolbar">
-            <button type="button" class="btn btn-success btn-sm az-btn az-btn-add"><i class="far fa-plus-square"></i> Thêm Mới (F1)</button>
-            <button type="button" class="btn btn-info btn-sm az-btn az-btn-export"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
-            <button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
-            <a href="/vai-tro.az" class="btn btn-secondary btn-sm az-btn az-link-popup" modal-size="az-modal-xl"><i class="fas fa-user-tag"></i> Quản lý vai trò</a>
+            <button type="button" class="btn btn-success btn-sm az-btn az-btn-add" data-cmd-key="f1"><i class="far fa-plus-square"></i> Thêm Mới (F1)</button>
+            <button type="button" class="btn btn-info btn-sm az-btn az-btn-export" data-cmd-key="f2"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
+            <button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import" data-cmd-key="f3"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
+            <a href="/vai-tro.az" class="btn btn-secondary btn-sm az-btn az-link-popup"  data-cmd-key="f4" modal-size="az-modal-xl"><i class="fas fa-user-tag"></i> Quản lý vai trò (F4)</a>
         </div>
         <div class="az-data-table">
             <az-table data="Model.Data" FunKey="(item)=>((UserModel)item).Id" columns="Model.Columns" pagination="Model"></az-table>

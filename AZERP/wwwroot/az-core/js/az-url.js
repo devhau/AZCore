@@ -54,7 +54,6 @@ AZUrl.prototype.Init = function () {
             });
             UrlMain.Init();
         });
-        HotKeyMain.init();
     });
     $(".az-change-ajax").on("change", function (e) {
         if ($(this).parents(".az-manager") === undefined) {
@@ -66,6 +65,7 @@ AZUrl.prototype.Init = function () {
     $(window).on('popstate', function (e) {
         $this.loadHtml(location.pathname + location.search);        
     });
+    HotKeyMain.Init();
 }
 let UrlMain = new AZUrl();
 $(function () {
