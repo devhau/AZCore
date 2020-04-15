@@ -31,7 +31,7 @@ using System.Threading.Tasks;
 
 namespace AZWeb.Module
 {
-    public sealed class ModuleRender
+    sealed class ModuleRender
     {
         private enum RenderError
         {
