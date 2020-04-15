@@ -79,7 +79,7 @@
 		'f12': 123
 	};
     $this.Init = function () {
-		$(document).off("keydown");
+		$(window).off("keydown");
         if (PopupMain.isEmpty()) {
             $this.TergetManger = document;
         } else {
@@ -90,7 +90,12 @@
 		$($this.TergetManger).find("*[data-cmd-key]").each(function (i, e) {
 			$this.countKey++;
 			var elCallback = function (el) {
-                $(el).click();
+			
+				$(el).focus();
+				$(el).click();
+				if ($(el).hasClass("select2")) {
+					$(el).select2('open');
+				}
             }
             var func = $(e).attr("data-cmd-func");
             if (func) {
@@ -102,7 +107,7 @@
                 callback: elCallback
             });
 		});
-		$(document).on("keydown", $this.EventKeyUp);
+		$(window).on("keydown", $this.EventKeyUp);
 		$($this.TergetManger).focus();
     }
 	$this.EventKeyUp = function (e) {

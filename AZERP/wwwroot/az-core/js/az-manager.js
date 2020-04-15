@@ -68,6 +68,10 @@
     $($this).find(".az-btn-add").on("click", function () {       
         $this.ShowFormUpdate();
     });
+    $($this).find("table tbody tr").on("dblclick", function () {
+        var $Id = $(this).attr("data-item-id");
+        $this.ShowFormUpdate($Id);    
+    });
     $($this).find(".az-btn-edit").on("click", function (e) {    
         var $Id = $(this).parents("tr").attr("data-item-id");
         $this.ShowFormUpdate($Id);       
