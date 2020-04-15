@@ -2,6 +2,7 @@
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace AZWeb.Module.TagHelper.Module
         public string ListPageSize { get; set; } = "5,10,20,50,100,200,500,1000";
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            IQueryCollection query = Pagination.UrlVirtual;
+            var query = QueryHelpers.ParseQuery( Pagination.UrlVirtual.Value);
             string pathReal = "";
             foreach (var key in query.Keys)
             {

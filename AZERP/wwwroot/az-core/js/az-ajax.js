@@ -31,6 +31,10 @@
         // Nếu như request thực hiện thành công
         request.done(
             function (res) {
+                if (res.statusCode && res.statusCode === 401) {
+                    location.href = res.data;
+                    return;
+                }
                 // Nếu có xử lý sau khi kết thúc request theo ý người lập trình
                 if (callback != null) callback(res);
 

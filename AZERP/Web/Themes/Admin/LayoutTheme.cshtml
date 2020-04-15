@@ -19,6 +19,25 @@
 
                 <!-- Right navbar links -->
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                    <li class="nav-item dropdown">
+                        @if (Model.IsAuth)
+                        {<a class="nav-link" data-toggle="dropdown" href="#">
+
+                                <span>Chào,@Model.User.FullName</span>
+                            </a>
+                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                             <a href="/tai-khoan/doi-mat-khau.az" class="az-link-popup dropdown-item" modal-size="az-modal-none"> <i class="fas fa-key"></i> <span>Đổi mật khẩu</span></a>
+                             <div class="dropdown-divider"></div>
+                             <a href="/dang-xuat.az" class="dropdown-item"> <i class="fas fa-sign-out-alt"></i> <span>Thoát khỏi</span></a>
+                             <div class="dropdown-divider"></div>
+                         </div>
+                        }
+                        else
+                        {
+                            <span>Chào,Bạn</span>
+                        }
+
+                    </li>
                     <!-- Messages Dropdown Menu -->
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#">

@@ -205,6 +205,7 @@ namespace AZWeb.Extensions
                 option.Expires = DateTime.Now.AddMinutes(expireTime.Value);
             else
                 option.Expires = DateTime.Now.AddDays(2);
+            cookie.Delete("{0}_cookie".Frmat(key));
             cookie.Append("{0}_cookie".Frmat(key), obj);
         }
         public static TClass GetCookie<TClass>(this HttpContext httpContext, string key) where TClass : class

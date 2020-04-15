@@ -6,7 +6,7 @@
 							<div class="modal-content">\
 								<div class="modal-header">\
 									<h4 class="modal-title"></h4>\
-									<button type="button" class="close az-btn-close" data-dismiss="modal" aria-label="Close" data-hot-key="esc">\
+									<button type="button" class="close az-btn-close" data-dismiss="modal" aria-label="Close" data-cmd-key="esc">\
 										<span aria-hidden="true">×</span>\
 									</button>\
 								</div>\
@@ -53,11 +53,30 @@
 		let btn = $("<button></button>");
 		$(btn).html("<i class=\"" + btnInfo.icon + "\"></i> " + btnInfo.value);
 		btn.addClass(btnInfo.cls == null || btnInfo.cls == "" ? clsButtonDefault : btnInfo.cls);
+		if (btnInfo.cmd) {
+			$(btn).attr("data-cmd-key", btnInfo.cmd);
+			if (btnInfo.cmdfunc) {
+				$(btn).attr("data-cmd-func", btnInfo.cmdfunc);
+			}
+		}
 		btn.click(function () { btnInfo.func(btn, $this); });
 		return btn;
 	}
 	$this.ClosePopup = function () {
 		$($this.Modal).remove();
+		PopupMain.ClosePopup();
+		console.log("ClosePopup");
+		console.log(PopupMain.PopupCurrent());
+		if (!PopupMain.isEmpty()) {
+			PopupMain.PopupCurrent().focusPopup();
+		}
+		HotKeyMain.Init();
+	}
+	$this.focusPopup = function () {
+		$($this.Modal).focus();
+		if ($this.ModalForm)
+			$($this.ModalForm).find("*:input,select,textarea").filter(":not([readonly='readonly']):not([disabled='disabled']):not([type='hidden'])").first().focus();
+
 	}
 	$this.ShowPopup = function (callbackClose) {
 		let flg = false;
@@ -71,6 +90,10 @@
 		}
 		$("body").append($this.Modal);
 		$($this.ModalClose).click(function () { $this.ClosePopup(); if (callbackClose) callbackClose($this); });
+		
+		HotKeyMain.Init();
+		$this.focusPopup();
+		
 	}
 	$this.SerializeData = function () {
 		$data = $($this.ModalForm).serializeArray();
@@ -81,5 +104,32 @@
 		});
 		return $data;
 	}
-	
+	PopupMain.PushPopup($this);
 }
+function ManagerPopup() {
+	this.data = {};
+	this.size = 0;
+	this.isEmpty = function () {
+		return this.size === 0;
+	}
+	this.PopupCurrent = function () {	
+		if (this.isEmpty()) return undefined;
+		return this.data[this.size-1];
+	}
+	this.PushPopup = function (popup) {
+		this.data[this.size] = popup;
+		this.size++;
+		return true;
+	}
+	this.ClosePopup = function () {
+		if (this.isEmpty()) return false;
+		delete this.data[this.size - 1];
+		this.size--;
+		return true;
+	}
+	this.clear = function () {
+		while (!this.isEmpty()) this.ClosePopup();
+		this.size = 0;
+	}
+}
+var PopupMain = new ManagerPopup();

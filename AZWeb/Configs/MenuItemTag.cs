@@ -19,7 +19,8 @@ namespace AZWeb.Configs
         public string LinkBadge { get; set; }
         [XmlAttribute("badge")]
         public string Badge { get; set; } = "New";
-
+        [XmlAttribute("cmd")]
+        public string CMD { get; set; }
         [XmlElement("sub-item")]
         public List<MenuItemTag> Menus { get; set; }
     }

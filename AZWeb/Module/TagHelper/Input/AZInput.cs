@@ -32,11 +32,16 @@ namespace AZWeb.Module.TagHelper.Input
         public string InputPlaceholder { get; set; }
         [HtmlAttributeName("value")]
         public object InputValue { get; set; }
+        [HtmlAttributeName("cmd-key")]
+        public string CMD { get; set; }
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             InitData();
             this.InputClass += " " + this.TagId;
             output.TagName = "";
+            if (!string.IsNullOrEmpty(CMD)) {
+                this.Attr += $"  data-cmd-key='{CMD}' ";
+            }
             StringBuilder htmlBuild = new StringBuilder();
             RenderHtml(htmlBuild);
             output.Content.SetHtmlContent(htmlBuild.ToString());

@@ -1,5 +1,6 @@
 ﻿using AZWeb.Module.Common;
 using System;
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace AZWeb.Module.View
@@ -9,7 +10,7 @@ namespace AZWeb.Module.View
         [JsonIgnore]
         public IModule Module { get; set; }
         public string Message { get; set; }
-        public int StatusCode { get; set; }
+        public HttpStatusCode StatusCode { get; set; } = HttpStatusCode.OK;
         public object Data { get; set; }
     }
 }

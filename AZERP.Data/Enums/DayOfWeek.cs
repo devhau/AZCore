@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AZERP.Data.Enums
 {
-    public enum DayOfWeek:int
+    public enum DayOfWeek2:int
     {  
         //
         // Summary:
