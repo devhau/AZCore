@@ -1,6 +1,7 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
 using AZCore.Domain;
+using AZERP.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Data;

@@ -6,9 +6,38 @@
             <button type="button" class="btn btn-info btn-sm az-btn az-btn-export"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
             <button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
         </div>
-      
+        <div class="az-search-manager">
+            <div class="row">
+                <div class="col-md-10">
+                    <form class="az-search-form row">
+                        <az-hidden-model model="Model" func="(item)=>((FormCatalog)item).PageSize" />
+                        <div class="form-group col-md-2">
+                            <az-text-model model="Model" func="(item)=>((FormCatalog)item).Name" label="Tên danh mục" />
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2 align-self-center">
+                    <div class="btn-group float-right ">
+                        <button type="button" class="btn btn-warning  az-btn az-btn-search"><i class="fas fa-search"></i> Tìm kiếm</button>
+                        <button type="button" class="btn btn-warning  dropdown-toggle dropdown-icon az-btn" data-toggle="dropdown">
+                            <span class="sr-only">Tìm kiếm nâng cao</span>
+                            <div class="dropdown-menu" role="menu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="az-data-table">
             <az-table data="Model.Data" FunKey="(item)=>((CatalogModel)item).Id" columns="Model.Columns" pagination="Model"></az-table>
+        </div>
+        <div class="az-bottom-manager">
+            <az-pagination pagination="Model" />
         </div>
     </div>
 </az-module-layout>

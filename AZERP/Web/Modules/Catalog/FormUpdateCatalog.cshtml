@@ -1,30 +1,17 @@
 ﻿@model FormUpdateCatalog
     <div class="az-update row" id="FormUpdateCatalog" role="form">
-        <div class="col-md-12">
-            <div class="form-group">
-                <az-code-model model="Model.Data" func="(item)=>((CatalogModel)item).Code" label="Mã code" />
-            </div>
+        
+        <div class="form-group col-md-12">
+            <az-code-model model="Model.Data" func="(item)=>((CatalogModel)item).Code" label="Mã code" />
         </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <az-catalog-select model="Model.Data" func="(item)=>((CatalogModel)item).ParentId" label="Nhóm cha" />
-            </div>
+        <div class="form-group col-md-12">
+            <az-catalog-select model="Model.Data" func="(item)=>((CatalogModel)item).ParentId" label="Nhóm cha" />
         </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                <az-text-model model="Model.Data" func="(item)=>((CatalogModel)item).Name" label="Tên nhóm" />
-            </div>
+        <div class="form-group col-md-12">
+            <az-text-model model="Model.Data" func="(item)=>((CatalogModel)item).Name" label="Tên nhóm" />
         </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <az-status-select model="Model.Data" func="(item)=>((CatalogModel)item).Status" label="Trạng thái" />
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <az-switch-model model="Model.Data" func="(item)=>((CatalogModel)item).IsDelete" label="Trạng thái" />
-            </div>
+        <div class="form-group col-md-12">
+            <az-status-select model="Model.Data" func="(item)=>((CatalogModel)item).Status" label="Trạng thái" />
         </div>
     </div>
 <az-script>

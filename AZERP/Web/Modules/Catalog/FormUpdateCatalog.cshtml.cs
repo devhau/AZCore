@@ -12,7 +12,7 @@ namespace AZERP.Web.Modules.Catalog
         }
         protected override void IntData()
         {
-            this.Title = "Quản lý ứng viên";
+            this.Title = "Thêm/Sửa danh mục";
         }
 
     }

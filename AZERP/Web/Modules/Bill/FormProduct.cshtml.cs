@@ -5,7 +5,7 @@ using AZWeb.Module.Attributes;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.Product
+namespace AZERP.Web.Modules.Bill
 {
     [TableColumn(Title = "Mã SP", FieldName = "Code")]
     [TableColumn(Title = "Tên SP", FieldName = "Name")]

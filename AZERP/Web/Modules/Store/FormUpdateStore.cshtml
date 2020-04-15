@@ -1,0 +1,22 @@
+﻿@model FormUpdateStore
+    <div class="az-update row" id="FormUpdateUser" role="form">
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((StoreModel)item).Name" label="Tên Kho" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((StoreModel)item).AbbreviatedName" label="Tên viết tắt" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((StoreModel)item).PhoneNumber" label="Số điện thoại" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((StoreModel)item).Address" label="Địa chỉ" />
+        </div>
+        <div class="form-group col-md-12">
+            <az-text-area-model model="Model.Data" func="(item)=>((StoreModel)item).Description" label="Mô tả" />
+        </div>
+
+    </div>
+<az-script>
+
+</az-script>
