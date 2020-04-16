@@ -1,18 +1,18 @@
-﻿@model FormProduct
-<az-module-layout>
-    <div class="az-manager" id="FormCatalog" data-form-size="az-modal-xl">
+﻿@model FormProducts
+<az-module-layout script-random='(id)=>"$(\"."+id+"\").AZManager();"'>
+    <div class="az-manager" id="FormProduct" data-form-size="az-modal-xl">
         <div class="az-toolbar">
-            <button type="button" class="btn btn-success btn-sm az-btn az-btn-add" data-hot-key="f1"><i class="far fa-plus-square"></i> Thêm Mới (F1)</button>
-            <button type="button" class="btn btn-info btn-sm az-btn az-btn-export"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
-            <button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
+            <button type="button" class="btn btn-success btn-sm az-btn az-btn-add" data-cmd-key="f1"><i class="far fa-plus-square"></i> Thêm Mới (F1)</button>
+            <button type="button" class="btn btn-info btn-sm az-btn az-btn-export" data-cmd-key="f2"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
+            <button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import" data-cmd-key="f3"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
         </div>
         <div class="az-search-manager">
             <div class="row">
                 <div class="col-md-10">
                     <form class="az-search-form row">
-                        <az-hidden-model model="Model" func="(item)=>((FormProduct)item).PageSize" />
+                        <az-hidden-model model="Model" func="(item)=>((FormProducts)item).PageSize" />
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormProduct)item).Name" label="Tên sản phẩm" />
+                            <az-text-model model="Model" func="(item)=>((FormProducts)item).Name" label="Tên sản phẩm" />
                         </div>
                         <div class="form-group col-md-2">
                             <az-catalog-select model="Model" func="(item)=>((FormProduct)item).CatalogId" label="Nhóm SP" null-text="Chọn Tất cả" />
@@ -44,6 +44,3 @@
         </div>
     </div>
 </az-module-layout>
-<az-script>
-    $("#FormProduct").AZManager();
-</az-script>

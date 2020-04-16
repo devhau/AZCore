@@ -5,15 +5,15 @@ using AZWeb.Module.Attributes;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.Product
+namespace AZERP.Web.Modules.Product.Products
 {
     [TableColumn(Title = "Mã SP", FieldName = "Code")]
     [TableColumn(Title = "Tên SP", FieldName = "Name")]
     [TableColumn(Title = "Giá Bán (VNĐ)", FieldName = "Price", FormatString = "{0:#,###}")]
-    [TableColumn(Title = "Danh Mục", FieldName = "CatalogId", DataType = typeof(CatalogService))]
+    [TableColumn(Title = "Danh Mục", FieldName = "CatalogId", DataType = typeof(CategoryService))]
     [TableColumn(Title = "Mô Tả", FieldName = "Description")]
     [TableColumn(Title = "Trạng Thái", FieldName = "Status", DataType = typeof(EntityStatus))]
-    public class FormProduct : ManageModule<ProductService, ProductModel, FormUpdateProduct>
+    public class FormProducts : ManageModule<ProductService, ProductModel, FormUpdateProduct>
     {
         #region -- Field Search --
         /// <summary>
@@ -28,7 +28,7 @@ namespace AZERP.Web.Modules.Product
         public long? CatalogId { get; set; }
         #endregion
 
-        public FormProduct(IHttpContextAccessor httpContext) : base(httpContext)
+        public FormProducts(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
         protected override void IntData()

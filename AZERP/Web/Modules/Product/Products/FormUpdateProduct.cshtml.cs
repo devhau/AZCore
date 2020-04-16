@@ -3,7 +3,7 @@ using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
 
-namespace AZERP.Web.Modules.Product
+namespace AZERP.Web.Modules.Product.Products
 {
     public class FormUpdateProduct : UpdateModule<ProductService, ProductModel>
     {

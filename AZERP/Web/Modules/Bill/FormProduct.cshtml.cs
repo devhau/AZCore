@@ -10,7 +10,7 @@ namespace AZERP.Web.Modules.Bill
     [TableColumn(Title = "Mã SP", FieldName = "Code")]
     [TableColumn(Title = "Tên SP", FieldName = "Name")]
     [TableColumn(Title = "Giá Bán (VNĐ)", FieldName = "Price", FormatString = "{0:#,###}")]
-    [TableColumn(Title = "Danh Mục", FieldName = "CatalogId", DataType = typeof(CatalogService))]
+    [TableColumn(Title = "Danh Mục", FieldName = "CatalogId", DataType = typeof(CategoryService))]
     [TableColumn(Title = "Mô Tả", FieldName = "Description")]
     [TableColumn(Title = "Trạng Thái", FieldName = "Status", DataType = typeof(EntityStatus))]
     public class FormProduct : ManageModule<ProductService, ProductModel, FormUpdateProduct>

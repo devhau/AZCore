@@ -3,17 +3,16 @@ using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
 
-namespace AZERP.Web.Modules.Catalog
+namespace AZERP.Web.Modules.Category
 {
-    public class FormUpdateCatalog : UpdateModule<CatalogService, CatalogModel>
+    public class FormUpdateCategory : UpdateModule<CategoryService, CategoryModel>
     {
-        public FormUpdateCatalog(IHttpContextAccessor httpContext) : base(httpContext)
+        public FormUpdateCategory(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
         protected override void IntData()
         {
             this.Title = "Thêm/Sửa danh mục";
         }
-
     }
 }

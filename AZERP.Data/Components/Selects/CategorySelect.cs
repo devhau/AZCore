@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace AZERP.Data.Components
 {
-    [HtmlTargetElement("az-catalog-select")]
-    public class CatalogSelect : AZSelect<CatalogService>
+    [HtmlTargetElement("az-category-select")]
+    public class CategorySelect : AZSelect<CategoryService>
     {
     }
 }

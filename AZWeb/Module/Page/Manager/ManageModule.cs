@@ -113,13 +113,12 @@ namespace AZWeb.Module.Page.Manager
        
         public override void BeforeRequest()
         {
-            FormUpdate.BeforeRequest();
             base.BeforeRequest();
         }
         public override void AfterRequest()
         {
-            FormUpdate.AfterRequest();
             base.AfterRequest();
+            FormUpdate.AfterRequest();
         }
         public ManageModule(IHttpContextAccessor httpContext) : base(httpContext)
         {
@@ -127,10 +126,13 @@ namespace AZWeb.Module.Page.Manager
         }
        
         public virtual IView GetUpdate(long? Id) {
-            return FormUpdate.Get(Id);
+
+            FormUpdate.BeforeRequest();
+           return FormUpdate.Get(Id);
         }        
         public virtual IView PostUpdate(long? Id)
         {
+            FormUpdate.BeforeRequest();
             var DataForm = new TModel();
             this.HttpContext.BindFormTo(DataForm);
             return FormUpdate.Post(Id, DataForm);
