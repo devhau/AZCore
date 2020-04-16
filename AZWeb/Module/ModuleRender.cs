@@ -143,10 +143,11 @@ namespace AZWeb.Module
             if (query.ContainsKey("h") && !string.IsNullOrEmpty(query["h"].ToString()))
                 methodName = string.Format("{0}{1}", methodName, query["h"].ToString().ToUpperFirstChart());
 
-            if (ModuleCurrent == null)
+            if (ModuleCurrent == null|| (ModuleCurrent.GetType().GetAttribute<OnlyAjaxAttribute>() != null&&!IsAjax))
                 return RenderError.NotFoundModule;
+
             var methodFunction = ModuleCurrent.GetType().GetMethod(methodName);
-            if (methodFunction == null)
+            if (methodFunction == null || (methodFunction.GetAttribute<OnlyAjaxAttribute>() != null && !IsAjax))
                 return RenderError.NotFoundMethod;
 
             ModuleCurrent.BeforeRequest();
@@ -335,7 +336,7 @@ namespace AZWeb.Module
        
         private async Task<bool> DoRouterAsync() {
             var statusModule = await GetModule();
-            if (statusModule != RenderError.OK && statusModule != RenderError.None && statusModule != RenderError.NoAuth)
+            if (statusModule != RenderError.OK && statusModule != RenderError.None && statusModule != RenderError.NoAuth &&statusModule!= RenderError.NotFoundMethod)
             {
                 return await GetError(statusModule);
             }
