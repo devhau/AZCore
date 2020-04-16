@@ -1,6 +1,7 @@
 ﻿using AZCore.Database;
 using AZCore.Domain;
 using AZCore.Identity;
+using System.Collections.Generic;
 using System.Data;
 
 namespace AZERP.Data.Entities
@@ -10,8 +11,12 @@ namespace AZERP.Data.Entities
         public RolePermissionService(IDbConnection _connection) : base(_connection)
         {
         }
+        public List<string> GetPermissionByRoleId(long roleId) {
+
+            return null;
+        }
     }
-    public class RolePermissionModel : AZRolePermission<RolePermissionModel, long>
+    public class RolePermissionModel : AZRolePermission<RolePermissionModel>
     {
     }
 }

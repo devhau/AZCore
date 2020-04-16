@@ -1,11 +1,7 @@
 ﻿using AZCore.Database;
 using AZCore.Domain;
 using AZCore.Identity;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AZERP.Data.Entities
 {
@@ -15,7 +11,7 @@ namespace AZERP.Data.Entities
         {
         }
     }
-    public class TenantUserModel : AZTenantUser<TenantUserModel, long>
+    public class TenantUserModel : AZTenantUser<TenantUserModel>
     {
     }
     

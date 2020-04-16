@@ -13,9 +13,14 @@ namespace AZWeb.Module.TagHelper.Input
     {
         public IEntity Model { get; set; }
         public Expression<Func<IEntity, object>> Func { get; set; }
+        public Expression<Func<Type>> FuncType { get; set; }
         protected override void InitData()
         {
-            var DataType = typeof(TModel);
+            Type DataType;
+            if (FuncType == null)
+                DataType = typeof(TModel);
+            else
+                DataType = FuncType.Compile().Invoke();
             this.BindModel();
             if (DataType != null&& DataType!= this.GetType())
             {

@@ -8,6 +8,7 @@ using HtmlAgilityPack;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Data;
 using System.IO;
@@ -25,6 +26,7 @@ namespace AZWeb.Extensions
             app.UseCookiePolicy();
             app.UseSession();
             app.UseMiddleware<ModuleMiddleware>();
+            
         }
         public static void AddAZCore(this IServiceCollection services, IStartup startup)
         {
@@ -48,6 +50,7 @@ namespace AZWeb.Extensions
             services.AddHttpContextAccessor();
             services.AddSingleton<IPagesConfig>(PagesConfig);
             services.AddSingleton<IStartup>(startup);
+            //IHostedService
             foreach (var item in AppDomain.CurrentDomain.GetAssemblies().SelectMany(p => p.GetTypeFromInterface<IAZDomain>())) {
                 if (item.IsTypeFromInterface<IAZTransient>()) {
                     services.AddTransient(item);
@@ -60,8 +63,10 @@ namespace AZWeb.Extensions
                 {
                     services.AddScoped(item);
                 }
+                if (item.IsTypeFromInterface<IHostedService>())
+                    services.AddTransient(typeof(IHostedService), item);
             }
-            
+
         }
         public static IObject CreateInstance<IObject>(this Type obj) where IObject:class => Activator.CreateInstance(obj) as IObject;
         public static IObject CreateInstance<IObject>(this string strObj,string strAssembly) where IObject : class => Activator.CreateInstance(strAssembly,strObj) as IObject;

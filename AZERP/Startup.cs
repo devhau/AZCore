@@ -1,4 +1,5 @@
 using AZERP.Data.Entities;
+using AZERP.Web.HostedService;
 using AZWeb.Extensions;
 using AZWeb.Utilities;
 using Microsoft.AspNetCore.Builder;
@@ -36,7 +37,7 @@ namespace AZERP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMySQL(Configuration.GetConnectionString("Mysql"));
-            services.AddAZCore(this);
+            services.AddAZCore(this); 
             // If using Kestrel:
             services.Configure<KestrelServerOptions>(options =>
             {
@@ -47,7 +48,8 @@ namespace AZERP
             services.Configure<IISServerOptions>(options =>
             {
                 options.AllowSynchronousIO = true;
-            });
+            }); 
+            //
 
         }
 

@@ -15,7 +15,7 @@ namespace AZERP.Data.Entities
 		{
 		}
 	}
-	public class TenantModel : AZTenant<TenantModel, long>
+	public class TenantModel : AZTenant<TenantModel>
 	{
 	}
 

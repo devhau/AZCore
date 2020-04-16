@@ -34,7 +34,7 @@ namespace AZERP.Data.Entities
     /// Thông tin tài khoản
     /// Thằng nào tìm được thông tin của tao thì tao cũng cặn lời
     /// </summary>
-    public class UserModel : AZUser<UserModel, long>
+    public class UserModel : AZUser<UserModel>
     {
               
     }

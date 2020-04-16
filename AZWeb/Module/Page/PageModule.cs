@@ -3,9 +3,11 @@ using AZWeb.Extensions;
 using AZWeb.Module.Common;
 using AZWeb.Module.Constant;
 using AZWeb.Module.View;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace AZWeb.Module.Page
 {
@@ -19,6 +21,7 @@ namespace AZWeb.Module.Page
         public string Description { get => Html.Description; set => Html.Description = value; }
         public string Keyword { get => Html.Keyword; set => Html.Keyword = value; }
         public HtmlContent Html { get => this.HttpContext.Items[AZWebConstant.Html] as HtmlContent; }
+        RenderView renderView { get; }
         public void AddMeta(string name, string content)
         {
             this.Html.AddMeta(name, content);
@@ -44,6 +47,7 @@ namespace AZWeb.Module.Page
                     this.HttpContext.SetSession(AZWebConstant.SessionUser,this.User);
                 }
             }
+            this.renderView = new RenderView(this.HttpContext);
         }
         public virtual IView GoToAuth() {
             return GoToRedirect("/dang-nhap.az");
@@ -79,20 +83,17 @@ namespace AZWeb.Module.Page
         }
         public virtual IView View(string viewName, object model)
         {
-            var pathFull = this.GetType().FullName;
-            var indexEnd= pathFull.LastIndexOf('.');
-            if(string.IsNullOrEmpty(viewName))
-                viewName = pathFull.Substring(indexEnd+1);
-            var indexStart = pathFull.IndexOf(".Web.");
-            var _path = pathFull.Substring(indexStart + 1, indexEnd - indexStart-1).Replace(".", "/"); ;
+            if (string.IsNullOrEmpty(viewName))
+                viewName = this.GetType().Name;
             return new HtmlView()
             {
                 Model=model,
                 ViewName= viewName,
-                Path= string.Format("~/{0}",_path),
+                Path= string.Format("~/{0}",this.GetPathMoule()),
                 Module=this,
             };
         }
+      
         public virtual IView DownloadFile(Stream file, string fileName) {
             return DownloadFile(file, fileName,DownloadFileView.Text);
         }

@@ -46,6 +46,7 @@
 
   <ItemGroup>
     <Folder Include="Middleware\" />
+    <Folder Include="Module\HostedService\" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,7 @@
 ﻿using AZCore.Database;
 using AZCore.Domain;
 using AZCore.Identity;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AZERP.Data.Entities
@@ -14,8 +11,14 @@ namespace AZERP.Data.Entities
         public PermissionService(IDbConnection _connection) : base(_connection)
         {
         }
+        public async Task<int> DeleteAll() {
+          return await this.ExecuteAsync(buildSQL.SQLDelete());        
+        }
     }
-    public class PermissionModel : AZPermission<PermissionModel, long>
+    /// <summary>
+    /// Thông tin của quyền
+    /// </summary>
+    public class PermissionModel : AZPermission<PermissionModel>
     {
     }
 }

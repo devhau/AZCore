@@ -17,6 +17,7 @@ namespace AZCore.Database
         DateTime? UpdateAt { get; set; }
         DateTime? DeleteAt { get; set; }
     }
+
     public class EntityModel<TModel>: IEntityModel where TModel: IEntityModel
     {
         [Field]

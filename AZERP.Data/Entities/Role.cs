@@ -11,7 +11,7 @@ namespace AZERP.Data.Entities
         {
         }
     }
-    public class RoleModel : AZRole<RoleModel, long>
+    public class RoleModel : AZRole<RoleModel>
     {
     }
 }

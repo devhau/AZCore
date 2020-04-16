@@ -48,7 +48,7 @@ namespace AZCore.Database.SQL
 
         }
 
-        private object GetValueByName(string name, IEntityModel model)
+        private object GetValueByName(string name, IEntity model)
         {
             return this.typeEntity.GetProperty(name).GetValue(model);
         }
@@ -82,7 +82,7 @@ namespace AZCore.Database.SQL
                 SQL = SQL.ToString()
             };
         }
-        public SQLResult SQLInsert(IEntityModel model)
+        public SQLResult SQLInsert(IEntity model)
         {
             StringBuilder SQL = new StringBuilder();
             DynamicParameters parameter = new DynamicParameters();
@@ -104,7 +104,7 @@ namespace AZCore.Database.SQL
                 SQL = SQL.ToString()
             };
         }
-        public SQLResult SQLUpdate(IEntityModel model)
+        public SQLResult SQLUpdate(IEntity model)
         {
             StringBuilder SQL = new StringBuilder();
             string prex = "";
@@ -143,7 +143,18 @@ namespace AZCore.Database.SQL
                 SQL = SQL.ToString()
             };
         }
-        public SQLResult SQLDelete(IEntityModel model)
+        public SQLResult SQLDelete()
+        {
+            StringBuilder SQL = new StringBuilder();
+            SQL.AppendFormat("DELETE FROM `{0}`  ", this.TableName);
+            DynamicParameters parameter = new DynamicParameters();
+            return new SQLResult()
+            {
+                Param = parameter,
+                SQL = SQL.ToString()
+            };
+        }
+        public SQLResult SQLDelete(IEntity model)
         {
             StringBuilder SQL = new StringBuilder();
             string prex = "";
