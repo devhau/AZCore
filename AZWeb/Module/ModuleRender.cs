@@ -89,7 +89,7 @@ namespace AZWeb.Module
                 {
                     foreach (var item2 in item1.Tags)
                     {
-                        var RegexPath = new Regex(item2.ViturlPath);
+                        var RegexPath = new Regex(string.Format("/{0}", item2.ViturlPath));
                         if (RegexPath.IsMatch(urlPath))
                         {
                             var mPath = RegexPath.Match(urlPath);

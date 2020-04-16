@@ -7,6 +7,8 @@ namespace AZCore.Identity
     public class AZPermission<TEntity,TKey> : EntityModel<TEntity, TKey> where TEntity: AZPermission<TEntity, TKey>
     {
         [Field]
+        public string Key { get; set; }
+        [Field]
         public string Code { get; set; }
         [Field]
         public string Name { get; set; }

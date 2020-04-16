@@ -21,8 +21,8 @@
     <None Include="Web\Modules\Catalog\FormUpdateCatalog.cshtml" />
     <None Include="Web\Modules\Recruitment\CompanyWorker\FormCompanyWorker.cshtml" />
     <None Include="Web\Modules\Recruitment\CompanyWorker\FormUpdateCompanyWorker.cshtml" />
-    <None Include="Web\Modules\Common\Role\FormRole.cshtml" />
-    <None Include="Web\Modules\Common\Role\FormUpdateRole.cshtml" />
+    <None Include="Web\Modules\Common\Permission\FormPermission.cshtml" />
+    <None Include="Web\Modules\Common\Permission\FormUpdatePermission.cshtml" />
     <None Include="Web\Modules\Common\User\FormUpdateUser.cshtml" />
     <None Include="Web\Modules\Common\User\FormUser.cshtml" />
     <None Include="Web\Modules\Recruitment\Worker\FormCheckinCheckout.cshtml" />
@@ -67,6 +67,10 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Web\Api\" />
   </ItemGroup>
 
 </Project>
