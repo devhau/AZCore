@@ -3,7 +3,7 @@ using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
 
-namespace AZERP.Web.Modules.Category
+namespace AZERP.Web.Modules.Product.Products
 {
     public class FormUpdateCategory : UpdateModule<CategoryService, CategoryModel>
     {
@@ -12,7 +12,7 @@ namespace AZERP.Web.Modules.Category
         }
         protected override void IntData()
         {
-            this.Title = "Thêm/Sửa danh mục";
+            this.Title = "Thêm/Sửa nhóm";
         }
     }
 }

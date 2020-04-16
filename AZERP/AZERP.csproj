@@ -17,7 +17,7 @@
     <None Include="Web\Modules\Recruitment\Candidate\FormCandidate.cshtml" />
     <None Include="Web\Modules\Recruitment\Candidate\FormSale.cshtml" />
     <None Include="Web\Modules\Recruitment\Candidate\FormUpdateCandidate.cshtml" />
-    <None Include="Web\Modules\Category\FormCategory.cshtml" />
+    <None Include="Web\Modules\Product\Products\FormCategory.cshtml" />
     <None Include="Web\Modules\Recruitment\CompanyWorker\FormCompanyWorker.cshtml" />
     <None Include="Web\Modules\Recruitment\CompanyWorker\FormUpdateCompanyWorker.cshtml" />
     <None Include="Web\Modules\Common\Role\FormRole.cshtml" />
@@ -69,6 +69,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Web\Modules\Category\" />
     <Folder Include="Web\Modules\Orders\Returns\" />
     <Folder Include="Web\Modules\Orders\Shippers\" />
     <Folder Include="Web\Modules\Orders\Shipments\" />

@@ -6,12 +6,12 @@ using AZWeb.Module.Enums;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.Category
+namespace AZERP.Web.Modules.Product.Products
 {
+    [TableColumn(Title = "Nhóm sản phẩm", FieldName = "Name")]
     [TableColumn(Title = "Mã nhóm", FieldName = "Code")]
-    [TableColumn(Title = "Nhóm", FieldName = "Name")]
+    [TableColumn(Title = "Ghi chú", FieldName = "Note")]
     [TableColumn(Title = "Nhóm cha", FieldName = "ParentId", DataType =typeof(CategoryService))]
-    [TableColumn(Title = "Trạng thái", FieldName = "Status", Width = 150 , DataType =typeof(EntityStatus))]
     public class FormCategory : ManageModule<CategoryService, CategoryModel, FormUpdateCategory>
     {
         #region -- Field Search --

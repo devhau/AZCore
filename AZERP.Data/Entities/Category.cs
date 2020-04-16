@@ -34,5 +34,10 @@ namespace AZERP.Data.Entities
         /// </summary>
         [Field(Length = 500)]
         public string Code { get; set; }
+        /// <summary>
+        /// Ghi chú
+        /// </summary>
+        [Field(Length = 500)]
+        public string Note { get; set; }
     }
 }

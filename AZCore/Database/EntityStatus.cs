@@ -7,9 +7,9 @@ namespace AZCore.Database
 {
     public enum EntityStatus:int
     {
-        [Field(Display = "Chưa kích hoạt")]
+        [Field(Display = "Đang hoạt động")]
         NoActive = 0,
-        [Field(Display = "Kích hoạt")]
+        [Field(Display = "Chưa kích hoạt")]
         Active=1,
         [Field(Display = "Bị khóa")]
         Block = 2,
