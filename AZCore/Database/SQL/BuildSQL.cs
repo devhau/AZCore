@@ -143,6 +143,17 @@ namespace AZCore.Database.SQL
                 SQL = SQL.ToString()
             };
         }
+        public SQLResult SQLDelete()
+        {
+            StringBuilder SQL = new StringBuilder();
+            SQL.AppendFormat("DELETE FROM `{0}`  ", this.TableName);
+            DynamicParameters parameter = new DynamicParameters();
+            return new SQLResult()
+            {
+                Param = parameter,
+                SQL = SQL.ToString()
+            };
+        }
         public SQLResult SQLDelete(IEntityModel model)
         {
             StringBuilder SQL = new StringBuilder();

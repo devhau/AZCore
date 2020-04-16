@@ -6,10 +6,12 @@ using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
+using System;
+using System.Threading.Tasks;
 using Pe = AZERP.Web.Permissions.Permission;
 namespace AZERP.Web.Modules.Common.Permission
 {
+    [TableColumn(Title = "Key", FieldName = "Key", Width = 200)]
     [TableColumn(Title = "Mã quyền", FieldName = "Code", Width = 150)]
     [TableColumn(Title = "Quyền", FieldName = "Name")]
     [TableColumn(Title = "Trạng thái", FieldName = "Status", Width = 150 ,DataType =typeof(EntityStatus))]
@@ -22,19 +24,49 @@ namespace AZERP.Web.Modules.Common.Permission
         {
             this.Title = "Danh sách quyền hệ thống";
         }
-        public IView GetPermission() {
-            var pes = new List<PermissionModel>();
+        [OnlyAjax]
+        public IView GetUser(long Id)
+        {
+            this.Title = "Phân quyền cho người dùng";
+            var viewPer = new ViewPermission();
+            viewPer.TargetType = typeof(UserService);
+            viewPer.Title = "Nguyễn Văn hậu";
+            viewPer.Value = Id;
+            viewPer.Permissions = this.GetSearchData(); 
+            viewPer.PermissionActive = null;
+            return View("ViewPermission", viewPer);
+        }
+        [OnlyAjax]
+        public IView GetRole(long Id)
+        {
+            this.Title = "Phân quyền cho vai trò";
+            var viewPer = new ViewPermission();
+            viewPer.TargetType = typeof(RoleService);
+            viewPer.Title = "Nguyễn Văn hậu"; 
+            viewPer.Value = Id;
+            viewPer.Permissions = this.GetSearchData();
+            viewPer.PermissionActive = null;
+            return View("ViewPermission", viewPer);
+        }
+        [OnlyAjax]
+        public async Task<IView> PostPermission() {
+           await this.Service.DeleteAll();
             var files=typeof(Pe).GetFields();
             foreach (var item in typeof(Pe).GetFields()) {
                 var dis = item.GetAttribute<FieldAttribute>();
-                pes.Add(new PermissionModel()
-                {
-                    Key = item.Name,
-                    Code = string.Format("{0}", item.GetRawConstantValue()),
-                    Name = dis.Display
-                }) ;
+                this.Service.Insert(
+                    new PermissionModel()
+                    {
+                        Key = item.Name,
+                        Code = string.Format("{0}", item.GetRawConstantValue()),
+                        Name = dis.Display,
+                        Status=EntityStatus.Active,
+                        CreateAt = DateTime.Now,
+                        CreateBy = this.User.Id
+                    });
             }
-            return View();
+            
+            return Json("cập nhật danh sách quyền thành công");
         }
     }
 }

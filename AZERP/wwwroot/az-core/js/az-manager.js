@@ -208,7 +208,7 @@
         $($this.DataTable).TableFreeze();
     if ($this.FormSearch)
         $($this.FormSearch).find("*:input,select,textarea").filter(":not([readonly='readonly']):not([disabled='disabled']):not([type='hidden'])").first().focus();
-    if ($callback) $callback(this);
+    if ($callback) $callback($this);
 }
 
 $.fn.AZManager = AZManager;

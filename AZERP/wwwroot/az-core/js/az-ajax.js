@@ -56,10 +56,13 @@
                 var link = $("<link rel='stylesheet' type='text/css' href=''>"); $(link).attr("href", item.link);
                 $("html head").append(link); }
         });
-        var style = $("<style></style>");
-        $(style).html(CodeCss);
-        $("html head").append(style);
-        eval(CodeJS);
+        if (CodeCss && CodeCss !="") {
+            var style = $("<style></style>");
+            $(style).html(CodeCss);
+            $("html head").append(style);
+        }
+        if (CodeJS && CodeJS!="")
+            eval(CodeJS);
     }
     
 }

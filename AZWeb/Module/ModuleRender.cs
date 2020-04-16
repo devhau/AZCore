@@ -45,28 +45,17 @@ namespace AZWeb.Module
             OK
 
         }
+        RenderView renderView;
 
-        public static readonly string DefaultContentType = "text/html; charset=utf-8";
-        private static readonly string extends = ".cshtml";
-
-        IHttpResponseStreamWriterFactory writerFactory;
-        ICompositeViewEngine viewEngine;
-        ITempDataProvider tempDataProvider;
         HttpContext httpContext;
-        ActionContext actionContext;
         IStartup startup;
-        private readonly IViewBufferScope _bufferScope;
-        private readonly IPagesConfig PageConfigs = null;
-        private bool IsAjax { get; }
-        private readonly string urlPath;
+        readonly IPagesConfig PageConfigs = null;
+        bool IsAjax { get; }
+        readonly string urlPath;
         ModuleRender(HttpContext _httpContext)
         {
             httpContext = _httpContext;
-            writerFactory = httpContext.GetService<IHttpResponseStreamWriterFactory>();
-            viewEngine = httpContext.GetService<ICompositeViewEngine>();
-            actionContext = new ActionContext(httpContext, httpContext.GetRouteData(), new ActionDescriptor());
-            tempDataProvider = httpContext.GetService<ITempDataProvider>();
-            _bufferScope = httpContext.GetService<IViewBufferScope>();
+            renderView = new RenderView(httpContext);
             startup = httpContext.GetService<IStartup>();
             this.PageConfigs = this.httpContext.GetService<IPagesConfig>();
             this.IsAjax = httpContext.IsAjax();
@@ -168,7 +157,7 @@ namespace AZWeb.Module
                 var redirectView = ModuleCurrent.GoToAuth().As<RedirectView>();
                 if (IsAjax)
                 {
-                    await RenderJson(new JsonView() { Module = ModuleCurrent, StatusCode = System.Net.HttpStatusCode.Unauthorized, Data = redirectView.RedirectToUrl });
+                    await renderView.RenderJson(new JsonView() { Module = ModuleCurrent, StatusCode = System.Net.HttpStatusCode.Unauthorized, Data = redirectView.RedirectToUrl });
                 }
                 else
                 {
@@ -177,6 +166,8 @@ namespace AZWeb.Module
                 return RenderError.OK;
             }
             httpContext.Request.QueryString = new QueryString(string.Format("?{0}", pathReal));
+
+            #region Bind Param action
             List<object> paraValues = new List<object>();
             foreach (var param in methodFunction.GetParameters())
             {
@@ -215,6 +206,8 @@ namespace AZWeb.Module
                         paraValues.Add(null);
                 }
             }
+            #endregion
+
             Common.IView rsView = null;
             var rsFN = methodFunction.Invoke(ModuleCurrent, paraValues.ToArray());
             if (rsFN is Task)
@@ -232,21 +225,14 @@ namespace AZWeb.Module
             #region --- Check Download File && Download file ---
             if (rsView is DownloadFileView)
             {
-                var fileView = rsView.As<DownloadFileView>();
-                var response = httpContext.Response;
-                response.ContentType = fileView.ContentType;
-                response.Headers["Content-Disposition"] = "attachment; filename=" + fileView.Name + ";";
-                await fileView.File.CopyToAsync(response.Body);
-                await response.Body.FlushAsync();
+                await renderView.RenderFile(rsView as DownloadFileView);
                 return RenderError.OK;
             } else if (rsView is RedirectView) {
-                var redirectView = rsView.As<RedirectView>();
-                httpContext.Response.Redirect(redirectView.RedirectToUrl);
+                await renderView.RenderRedirect(rsView as RedirectView);
                 return RenderError.OK;
             } else if (rsView is JsonView)
             {
-                var JsonView = rsView.As<JsonView>();
-                await  RenderJson(JsonView);
+                await renderView.RenderJson(rsView as JsonView);
                 return RenderError.OK;
 
             }
@@ -265,20 +251,20 @@ namespace AZWeb.Module
                 if (theme == null)
                     return RenderError.NotFoundTheme;
                 theme.BeforeRequest();
-                theme.BodyContent = await this.GetContentHtmlFromView(rsView as HtmlView);
-                await this.RenderHtml(theme.GetTheme());
+                theme.BodyContent = await renderView.GetContentHtmlFromView(rsView as HtmlView);
+                await renderView.RenderHtml(theme.GetTheme());
                 theme.AfterRequest();
             }
             else if (!IsAjax)
             {
-                await this.RenderHtml(rsView as HtmlView);
+                await renderView.RenderHtml(rsView as HtmlView);
             }
             else
             {
-                var BodyContent = await this.GetContentHtmlFromView(rsView as HtmlView);
+                var BodyContent = await renderView.GetContentHtmlFromView(rsView as HtmlView);
                 var htmlContent = ModuleCurrent.Html;
                 htmlContent.Html = BodyContent.GetString();
-               await RenderJson(htmlContent);
+               await renderView.RenderJson(htmlContent);
             }
             #endregion
 
@@ -346,114 +332,7 @@ namespace AZWeb.Module
             }
             return true;
         }
-        private static JsonSerializerOptions GetHtmlSafeSerializerOptions(JsonSerializerOptions serializerOptions)
-        {
-            if (serializerOptions.Encoder is null || serializerOptions.Encoder == JavaScriptEncoder.Default)
-            {
-                return serializerOptions;
-            }
-            return serializerOptions.Copy(JavaScriptEncoder.Default);
-        }
-        private async Task RenderJson(object dataa)
-        {
-            IOptions<JsonOptions> options = httpContext.GetService<IOptions<JsonOptions>>();
-            var json = JsonSerializer.Serialize(dataa, GetHtmlSafeSerializerOptions(options.Value.JsonSerializerOptions));
-            var HtmlJson = new HtmlString(json);
-            var response = httpContext.Response;
-            ResponseContentTypeHelper.ResolveContentTypeAndEncoding(
-               null,
-               response.ContentType,
-               DefaultContentType,
-               out var resolvedContentType,
-               out var resolvedContentTypeEncoding);
-            await using (System.IO.TextWriter writer = writerFactory.CreateWriter(response.Body, resolvedContentTypeEncoding))
-            {
-                HtmlJson.WriteTo(writer, HtmlEncoder.Default);
-                await writer.FlushAsync();
-            }
-        }
-        private async Task RenderHtml(HtmlView htmlView) {
-
-            var response = httpContext.Response;
-
-            var viewResult = viewEngine.GetView(string.Format("{0}/{1}{2}", htmlView.Path, htmlView.ViewName, extends), string.Format("{0}{1}", htmlView.ViewName, extends), false);
-            if (viewResult.View == null)
-            {
-                throw new ArgumentNullException($"{htmlView.ViewName} does not match any available view");
-            }
-            var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
-            {
-                Model = htmlView.Model
-            };
-            ResponseContentTypeHelper.ResolveContentTypeAndEncoding(
-                null,
-                response.ContentType,
-                DefaultContentType,
-                out var resolvedContentType,
-                out var resolvedContentTypeEncoding);
-
-            response.ContentType = resolvedContentType;
-            await using (System.IO.TextWriter writer = writerFactory.CreateWriter(response.Body, resolvedContentTypeEncoding))
-            {
-                var viewContext = new ViewContext(
-                actionContext,
-                viewResult.View,
-                viewDictionary,
-                new TempDataDictionary(actionContext.HttpContext, tempDataProvider),
-                writer,
-                new HtmlHelperOptions()
-                ); 
-                var view = viewContext.View;
-
-                await view.RenderAsync(viewContext);
-                // Perf: Invoke FlushAsync to ensure any buffered content is asynchronously written to the underlying
-                // response asynchronously. In the absence of this line, the buffer gets synchronously written to the
-                // response as part of the Dispose which has a perf impact.
-                await writer.FlushAsync();
-            }
-        }
-        private async Task<IHtmlContent> GetContentHtmlFromView(HtmlView htmlView) {
-
-            var response = httpContext.Response;
-            var viewResult = viewEngine.GetView(string.Format("{0}/{1}{2}", htmlView.Path, htmlView.ViewName, extends),  string.Format("{0}{1}", htmlView.ViewName, extends), false);
-            if (viewResult.View == null)
-            {
-                throw new ArgumentNullException($"{htmlView.ViewName} does not match any available view");
-            }
-            var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
-            {
-                Model = htmlView.Model
-            };
-            string contentType = "";
-            ResponseContentTypeHelper.ResolveContentTypeAndEncoding(
-                contentType,
-                response.ContentType,
-                DefaultContentType,
-                out var resolvedContentType,
-                out var resolvedContentTypeEncoding);
-
-            response.ContentType = resolvedContentType;
-            var viewBuffer = new ViewBuffer(_bufferScope, htmlView.ViewName, ViewBuffer.PartialViewPageSize);
-            await using (var writer = new ViewBufferTextWriter(viewBuffer, resolvedContentTypeEncoding))
-            {
-                // Forcing synchronous behavior so users don't have to await templates.
-                var view = viewResult.View;
-                using (view as IDisposable)
-                {
-                    var viewContext = new ViewContext(
-                     actionContext,
-                     viewResult.View,
-                     viewDictionary,
-                     new TempDataDictionary(actionContext.HttpContext, tempDataProvider),
-                     writer,
-                     new HtmlHelperOptions()
-                     );
-                     await view.RenderAsync(viewContext);
-                    await writer.FlushAsync();
-                    return viewBuffer;
-                }
-            }
-        }
+       
         private async Task<bool> DoRouterAsync() {
             var statusModule = await GetModule();
             if (statusModule != RenderError.OK && statusModule != RenderError.None && statusModule != RenderError.NoAuth)

@@ -4,6 +4,7 @@ using AZWeb.Module.Constant;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace AZWeb.Module.Common
 {
@@ -11,6 +12,7 @@ namespace AZWeb.Module.Common
     {
         public UserInfo User { get; private set; }
         public bool IsAuth { get => User != null; }
+        RenderView renderView { get; }
         public ThemeBase(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             this.User = this.HttpContext.GetSession<UserInfo>(AZWebConstant.SessionUser);
@@ -22,6 +24,7 @@ namespace AZWeb.Module.Common
                     this.HttpContext.SetSession(AZWebConstant.SessionUser, this.User);
                 }
             }
+            this.renderView = new RenderView(this.HttpContext);
         }
         public IHtmlContent BodyContent { get; set; }
         public string Title { get => Html.Title; set => Html.Title = value; }
@@ -41,16 +44,27 @@ namespace AZWeb.Module.Common
             this.Html.AddCSS(Code, link, CDN);
         }
         public string LayoutTheme { get; set; }
+        public virtual IHtmlContent ViewChild(string viewName)
+        {
+            return  this.ViewChild(viewName, this);
+        }
+        public virtual IHtmlContent ViewChild(string viewName, object model)
+        {
+            return this.renderView.GetContentHtmlFromView(new HtmlView()
+            {
+                Model = model,
+                ViewName = viewName,
+                Path = this.GetPathMoule(),
+                Module = this
+            }).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
         public HtmlView GetTheme() {
-            var pathFull = this.GetType().FullName;
-            var indexEnd = pathFull.LastIndexOf('.');
-            var indexStart = pathFull.IndexOf(".Web.");
-            var _path = pathFull.Substring(indexStart + 1, indexEnd - indexStart-1).Replace(".", "/"); ;
+            
             return new HtmlView()
             {
                 Model = this,
                 Module = this,
-                Path = string.Format("~/{0}", _path),
+                Path = string.Format("~/{0}", this.GetPathMoule()),
                 ViewName = string.Format("{0}", !string.IsNullOrEmpty(this.LayoutTheme) ? this.LayoutTheme : this.GetType().Name)
             };
         }

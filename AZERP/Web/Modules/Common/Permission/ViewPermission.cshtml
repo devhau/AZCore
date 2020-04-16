@@ -1,0 +1,21 @@
+﻿@model ViewPermission
+
+<div class="az-view-permission">
+    <az-select-model func-type="()=>Model.TargetType"/>
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th width="120px">Module</th>
+                <th>Chức năng</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Permissions)
+        {
+        <tr>
+            <td> @item.Name <az-switch/></td>
+            <td></td>
+        </tr>
+        }
+    </table>
+
+</div>

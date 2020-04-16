@@ -8,6 +8,7 @@ namespace AZCore.Identity
     [TableInfo(TableName = "az_user")]
     public class AZUser<TEntity, TKey> : EntityModel<TEntity, TKey> where TEntity : AZUser<TEntity, TKey>
     {
+        [FieldDisplay]
         [Field(Length =200)]
         public string FullName { get; set; }
         [Field(Length = 15)] 
