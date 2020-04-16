@@ -23,11 +23,16 @@ namespace AZERP.Data.Entities
     public class StoreModel : EntityModel<StoreModel, long>
     {
         /// <summary>
+        /// Mã kho
+        /// </summary>
+        [Field]
+        public long StoreCode { get; set; }
+        /// <summary>
         /// Tên Kho
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
-        public string Name { get; set; }
+        public string StoreName { get; set; }
         /// <summary>
         /// Tên viết tắt
         /// </summary>
