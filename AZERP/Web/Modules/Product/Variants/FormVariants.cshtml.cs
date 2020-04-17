@@ -6,17 +6,17 @@ using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
 
-namespace AZERP.Web.Modules.Product.Products
+namespace AZERP.Web.Modules.Product.Variants
 {
     [TableColumn(Title = "Sản phẩm", FieldName = "Name")]
+    [TableColumn(Title = "Mã SKU", FieldName = "Code")]
     [TableColumn(Title = "Nhóm", FieldName = "CategoryId", DataType = typeof(CategoryService))]
-    [TableColumn(Title = "Giá bán lẻ (VNĐ)", FieldName = "RetailPrice", FormatString = "{0:#,###}")]
-    [TableColumn(Title = "Giá bán buôn (VNĐ)", FieldName = "WholesalePrice", FormatString = "{0:#,###}")]
     [TableColumn(Title = "Tồn kho", FieldName = "Available")]
+    [TableColumn(Title = "Hàng đang về", FieldName = "Incoming")]
+    [TableColumn(Title = "Hàng đang giao", FieldName = "OnWay")]
+    [TableColumn(Title = "Đang giao dịch", FieldName = "Committed")]
     [TableColumn(Title = "Trạng Thái", FieldName = "Status", DataType = typeof(EntityStatus))]
-    [TableColumn(Title = "Ngày khởi tạo", FieldName = "CreateAt", DataType = typeof(DateTime))]
-    [TableColumn(Title = "Cập nhật cuối", FieldName = "UpdateAt", DataType = typeof(DateTime))]
-    public class FormProducts : ManageModule<ProductService, ProductModel, FormUpdateProducts>
+    public class FormVariants : ManageModule<ProductService, ProductModel, FormUpdateVariants>
     {
         #region -- Field Search --
         /// <summary>
@@ -31,12 +31,12 @@ namespace AZERP.Web.Modules.Product.Products
         public long? CategoryId { get; set; }
         #endregion
 
-        public FormProducts(IHttpContextAccessor httpContext) : base(httpContext)
+        public FormVariants(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
         protected override void IntData()
         {
-            this.Title = "Quản lý sản phẩm";
+            this.Title = "Quản lý kho";
         }
     }
 }

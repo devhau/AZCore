@@ -30,7 +30,7 @@ namespace AZERP.Data.Entities
         [FieldDisplay]
         public string Name { get; set; }
         /// <summary>
-        /// Mã code BAC
+        /// Mã code
         /// </summary>
         [Field(Length = 500)]
         public string Code { get; set; }

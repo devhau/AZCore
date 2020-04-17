@@ -77,8 +77,6 @@
     <Folder Include="Web\Modules\Product\Suppliers\" />
     <Folder Include="Web\Modules\Product\StockTransfers\" />
     <Folder Include="Web\Modules\Product\StockAdjustments\" />
-    <Folder Include="Web\Modules\Product\PurchaseOrders\" />
-    <Folder Include="Web\Modules\Product\Variants\" />
   </ItemGroup>
 
 </Project>
