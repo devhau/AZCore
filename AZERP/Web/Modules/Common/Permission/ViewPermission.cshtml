@@ -2,7 +2,7 @@
 
 <div class="az-view-permission">
     <az-select-model func-type="()=>Model.TargetType"/>
-    <table class="table table-bordered table-responsive">
+    <table class="table table-bordered az-table table-hover">
         <thead>
             <tr>
                 <th width="120px">Module</th>
@@ -16,11 +16,14 @@
                 <tr>
                     <td>  <az-switch label="@item.Name" value="@item.Code" attr="@Model.CheckItem(item)" name="@item.Key"/></td>
                     <td>
-                        @foreach (var item1 in Model.Permissions.Where(p => p.Key.IndexOf("_") > 0 && p.Code.StartsWith(item.Code))) { 
-                        <span>
-                            <az-switch label="@item1.Name" value="@item1.Code" attr="@Model.CheckItem(item1)" name="@item1.Key"/>
-                        </span>
-                        }
+                        <div class="row">
+                            @foreach (var item1 in Model.Permissions.Where(p => p.Key.IndexOf("_") > 0 && p.Code.StartsWith(item.Code)))
+                            {
+                                <div class="col-2">
+                                    <az-switch label="@item1.Name" value="@item1.Code" attr="@Model.CheckItem(item1)" name="@item1.Key" />
+                                </div>
+                            }
+                        </div>
                     </td>
                 </tr>
             }

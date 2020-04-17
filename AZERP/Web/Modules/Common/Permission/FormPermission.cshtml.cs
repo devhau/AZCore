@@ -7,6 +7,7 @@ using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Pe = AZERP.Web.Permissions.Permission;
 namespace AZERP.Web.Modules.Common.Permission
@@ -52,7 +53,7 @@ namespace AZERP.Web.Modules.Common.Permission
         public async Task<IView> PostPermission() {
            await this.Service.DeleteAll();
             var files=typeof(Pe).GetFields();
-            foreach (var item in typeof(Pe).GetFields()) {
+            foreach (var item in typeof(Pe).GetFields().OrderBy(p=>p.GetAttribute<FieldAttribute>().OrderIndex).ToList()) {
                 var dis = item.GetAttribute<FieldAttribute>();
                 this.Service.Insert(
                     new PermissionModel()
