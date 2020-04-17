@@ -7,32 +7,32 @@ namespace AZERP.Web.Permissions
         /// <summary>
         /// Quyền quản lý Role
         /// </summary>
-        [Field(Display ="Quản lý role")]
-        public const string Role = "10001";
+        [Field(Display ="Quản lý role", OrderIndex = 2)]
+        public const string Role = "10003";
         /// <summary>
         /// Quyền thêm mới role
         /// </summary>
-        [Field(Display = "Thêm mới role")]
-        public const string Role_Add = "10001001";
+        [Field(Display = "Thêm mới role", OrderIndex = 2)]
+        public const string Role_Add = "10003001";
         /// <summary>
         /// Quyền chỉnh sửa role
         /// </summary>
-        [Field(Display = "Chỉ sửa role")]
-        public const string Role_Edit = "10001002";
+        [Field(Display = "Chỉ sửa role", OrderIndex = 2)]
+        public const string Role_Edit = "10003002";
         /// <summary>
         /// Quyền thêm mới role
         /// </summary>
-        [Field(Display = "Xóa role")]
-        public const string Role_Remove = "10001003";
+        [Field(Display = "Xóa role", OrderIndex = 2)]
+        public const string Role_Remove = "10003003";
         /// <summary>
         /// Quyền xuất excel danh sách role
         /// </summary>
-        [Field(Display = "Export role")]
-        public const string Role_Export = "10001004";
+        [Field(Display = "Export role", OrderIndex = 2)]
+        public const string Role_Export = "10003004";
         /// <summary>
         /// Quyền nhập excel danh sách role
         /// </summary>
-        [Field(Display = "Import role")]
-        public const string Role_Import = "10001005";
+        [Field(Display = "Import role", OrderIndex = 2)]
+        public const string Role_Import = "10003005";
     }
 }

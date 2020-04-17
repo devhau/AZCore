@@ -15,6 +15,7 @@ namespace AZCore.Database.Attributes
         public SqlDbType? FieldType { get; set; }
         public bool IsNull { get; set; } = true;
         public int Length { get; set; } = 0;
+        public int OrderIndex { get; set; }
         public Object Value { get; set; }
         public Object ValueDefault { get; set; }
         

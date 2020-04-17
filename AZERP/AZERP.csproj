@@ -8,6 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Web\Modules\Product\PurchaseOrders\**" />
+    <Content Remove="Web\Modules\Product\PurchaseOrders\**" />
+    <EmbeddedResource Remove="Web\Modules\Product\PurchaseOrders\**" />
+    <None Remove="Web\Modules\Product\PurchaseOrders\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Web\Modules\Store\FormStore.cshtml.cs" />
+    <Compile Remove="Web\Modules\Store\FormUpdateStore.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Web\Modules\Store\FormStore.cshtml" />
+    <Content Remove="Web\Modules\Store\FormUpdateStore.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Web\Modules\Recruitment\Worker\js\CheckinCheckout.js" />
   </ItemGroup>
 
@@ -78,6 +95,7 @@
     <Folder Include="Web\Modules\Product\StockAdjustments\" />
     <Folder Include="Web\Modules\Product\Variants\" />
     <Folder Include="Web\Api\" />
+    <Folder Include="Web\Modules\Store\" />
   </ItemGroup>
 
 </Project>
