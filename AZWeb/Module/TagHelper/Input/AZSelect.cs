@@ -73,7 +73,7 @@ namespace AZWeb.Module.TagHelper.Input
             {
                 string ItemActive = "";
                 if (item.Value != null && item.Value.Equals(this.InputValue)) { ItemActive = " selected=\"selected\""; }
-                htmlBuild.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3} >{2}</option>", item.Value, item.Name, item.Display, ItemActive);
+                htmlBuild.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3} data-item='{3}' >{2}</option>", item.Value, item.Name, item.Display, ItemActive,item.Item.ToJson());
             }
             htmlBuild.Append("</select>");
             if(AddJs) this.AddJS("$(function(){ $('." + this.TagId + "').select2({theme: 'bootstrap4', width: 'resolve' }); });");

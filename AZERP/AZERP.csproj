@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Web\Modules\Category\**" />
     <Compile Remove="Web\Modules\Product\PurchaseOrders\**" />
+    <Content Remove="Web\Modules\Category\**" />
     <Content Remove="Web\Modules\Product\PurchaseOrders\**" />
+    <EmbeddedResource Remove="Web\Modules\Category\**" />
     <EmbeddedResource Remove="Web\Modules\Product\PurchaseOrders\**" />
+    <None Remove="Web\Modules\Category\**" />
     <None Remove="Web\Modules\Product\PurchaseOrders\**" />
   </ItemGroup>
 
@@ -86,7 +90,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Web\Modules\Category\" />
     <Folder Include="Web\Modules\Orders\Returns\" />
     <Folder Include="Web\Modules\Orders\Shippers\" />
     <Folder Include="Web\Modules\Orders\Shipments\" />
