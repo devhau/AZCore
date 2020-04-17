@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Web\Modules\Product\PurchaseOrders\js\PurchaseOrders.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Web\Modules\Product\PurchaseOrders\js\PurchaseOrders.js" />
     <Content Include="Web\Modules\Recruitment\Worker\js\CheckinCheckout.js" />
   </ItemGroup>
 
@@ -69,7 +74,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Web\Modules\Category\" />
     <Folder Include="Web\Modules\Orders\Returns\" />
     <Folder Include="Web\Modules\Orders\Shippers\" />
     <Folder Include="Web\Modules\Orders\Shipments\" />
