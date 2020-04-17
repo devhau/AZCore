@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace AZCore.Identity
 {
@@ -11,5 +9,6 @@ namespace AZCore.Identity
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }
+        public List<string> PermissionActive { get; set; }
     }
 }

@@ -4,13 +4,13 @@ using AZCore.Database.Attributes;
 namespace AZCore.Identity
 {
     [TableInfo(TableName ="az_permission")]
-    public class AZPermission<TEntity,TKey> : EntityModel<TEntity, TKey> where TEntity: AZPermission<TEntity, TKey>
+    public class AZPermission<TEntity> : EntityModel<TEntity,long> where TEntity: AZPermission<TEntity>
     {
         [Field]
         public string Key { get; set; }
-        [Field]
+        [Field(Length =50)]
         public string Code { get; set; }
-        [Field]
+        [Field(Length =128)]
         public string Name { get; set; }
       
     }

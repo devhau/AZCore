@@ -15,7 +15,7 @@ namespace AZWeb.Module.Page.Manager
 {
     [Auth]
     public class ManageModule<TService, TModel> :  PageModule, IEntity, IPagination
-         where TModel : IEntityModel, new()
+         where TModel : IEntity, new()
         where TService : EntityService<TService, TModel>
     {
         public List<TModel> Data;
@@ -105,7 +105,7 @@ namespace AZWeb.Module.Page.Manager
         }
     }
     public class ManageModule<TService, TModel, TForm> : ManageModule<TService,TModel>
-        where TModel : IEntityModel, new()
+        where TModel : IEntity, new()
         where TService : EntityService<TService, TModel>
         where TForm : UpdateModule<TService, TModel>
     {

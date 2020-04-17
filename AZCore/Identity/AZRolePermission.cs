@@ -1,19 +1,15 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
 
 namespace AZCore.Identity
 {
     [TableInfo(TableName = "az_role_permission")]
-    public class AZRolePermission<TEntity, TKey> : EntityModel<TEntity> where TEntity : AZRolePermission<TEntity, TKey>
+    public class AZRolePermission<TEntity> : IEntity
     {
         [Field(IsKey =true)]
-        public TKey RoleId { get; set; }
-        [Field(IsKey = true)]
-        public TKey PermissionId { get; set; }
+        public long RoleId { get; set; }
+        [Field(IsKey = true,Length =50)]
+        public string PermissionCode { get; set; }
       
     }
 }

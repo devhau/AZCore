@@ -13,7 +13,7 @@ namespace AZWeb.Module.Page.Manager
 {
     [Auth]
     public class UpdateModule<TService, TModel> : PageModule 
-        where TModel: IEntityModel, new()
+        where TModel: IEntity, new()
         where TService:EntityService<TService,TModel>
     {
         protected TService Service;
@@ -62,13 +62,13 @@ namespace AZWeb.Module.Page.Manager
             {
                 this.Data = this.Service.GetById(Id);
                 DataFormToData(DataForm);
-                this.Data.UpdateAt = DateTime.Now;
+                (this.Data as IEntityModel).UpdateAt = DateTime.Now;
                 Service.Update(this.Data);
                 return Json("Cập nhật dữ liệu thành công", 200);
             }
             else {
                 DataFormToData(DataForm);
-                DataForm.CreateAt = DateTime.Now;
+                (DataForm as IEntityModel).CreateAt = DateTime.Now;
 
                 Service.Insert(DataForm);
                 return Json("Thêm mới dữ liệu thành công", 200);

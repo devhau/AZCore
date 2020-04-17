@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AZCore.Test
 {
-    public class AZUser : AZUser<AZUser, long>
+    public class AZUser : AZUser<AZUser>
     {
         [Field(IsAutoIncrement =true,IsKey =true)]
         public override long Id { get => base.Id; set => base.Id = value; }

@@ -1,14 +1,14 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
-using System.Data;
 
 namespace AZCore.Identity
 {
     [TableInfo(TableName = "az_tenant")]
-    public class AZTenant<TEntity,TKey> : EntityModel<TEntity, TKey> where  TEntity: AZTenant<TEntity, TKey>
+    public class AZTenant<TEntity> : EntityModel<TEntity, long> where  TEntity: AZTenant<TEntity>
     {
-        [Field]
+        [Field(Length = 200)]
         public string Name { get; set; }
+        [Field(Length = 200)]
         public string SubDomain { get; set; }
        
     }

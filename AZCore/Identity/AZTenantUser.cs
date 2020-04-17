@@ -1,19 +1,15 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
 
 namespace AZCore.Identity
 {
     [TableInfo(TableName = "az_tenant_user")]
-    public class AZTenantUser<TEntity, TKey> : EntityModel<TEntity> where TEntity : AZTenantUser<TEntity, TKey>
+    public class AZTenantUser<TEntity> : IEntity where TEntity : AZTenantUser<TEntity>
     {
         [Field(IsKey = true)]
-        public TKey TenantId { get; set; }
+        public long TenantId { get; set; }
         [Field(IsKey = true)]
-        public TKey UserId { get; set; }
+        public long UserId { get; set; }
         
     }
 }

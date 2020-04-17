@@ -6,7 +6,7 @@ namespace AZCore.Identity
 {
 
     [TableInfo(TableName = "az_user")]
-    public class AZUser<TEntity, TKey> : EntityModel<TEntity, TKey> where TEntity : AZUser<TEntity, TKey>
+    public class AZUser<TEntity> : EntityModel<TEntity, long> where TEntity : AZUser<TEntity>
     {
         [FieldDisplay]
         [Field(Length =200)]

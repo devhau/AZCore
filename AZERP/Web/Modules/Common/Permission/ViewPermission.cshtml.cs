@@ -1,7 +1,6 @@
 ﻿using AZERP.Data.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AZERP.Web.Modules.Common.Permission
 {
@@ -12,6 +11,12 @@ namespace AZERP.Web.Modules.Common.Permission
         public object Value { get; set; }
         public List<PermissionModel> Permissions;
         public List<string> PermissionActive;
+        public string CheckItem(PermissionModel item) {
+            if (PermissionActive != null && PermissionActive.IndexOf(item.Code) >= 0) {
+                return " checked ";
+            }
+            return "";
+        }
       
     }
 }

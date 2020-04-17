@@ -11,7 +11,7 @@ namespace AZERP.Data.Entities
         {
         }
     }
-    public class UserPermissionModel : AZUserPermission<UserPermissionModel, long>
+    public class UserPermissionModel : AZUserPermission<UserPermissionModel>
     {
     }
 }

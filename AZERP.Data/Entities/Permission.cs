@@ -15,7 +15,10 @@ namespace AZERP.Data.Entities
           return await this.ExecuteAsync(buildSQL.SQLDelete());        
         }
     }
-    public class PermissionModel : AZPermission<PermissionModel, long>
+    /// <summary>
+    /// Thông tin của quyền
+    /// </summary>
+    public class PermissionModel : AZPermission<PermissionModel>
     {
     }
 }

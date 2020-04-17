@@ -4,12 +4,12 @@ using AZCore.Database.Attributes;
 namespace AZCore.Identity
 {
     [TableInfo(TableName = "az_tenant_role")]
-    public class AZTenantRole<TEntity, TKey> : EntityModel<TEntity> where TEntity : AZTenantRole<TEntity, TKey>
+    public class AZTenantRole<TEntity> : IEntity where TEntity : AZTenantRole<TEntity>
     {
         [Field(IsKey = true)]
-        public TKey TenantId { get; set; }
+        public long TenantId { get; set; }
         [Field(IsKey = true)]
-        public TKey RoleId { get; set; }
+        public long RoleId { get; set; }
        
     }
 }
