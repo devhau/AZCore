@@ -37,7 +37,7 @@ namespace AZWeb.Module.TagHelper.Module
         {
             output.TagName = "";
             StringBuilder htmlTable = new StringBuilder();
-            htmlTable.AppendFormat("<table class=\"table table-bordered table-hover {0}\" role=\"grid\">",this.TagClass);
+            htmlTable.AppendFormat("<table class=\"table table-bordered table-hover az-table {0}\" role=\"grid\">", this.TagClass);
             this.RenderHeader(htmlTable);
             this.RenderBody(htmlTable,Data);
             this.RenderBottom(htmlTable);
@@ -163,7 +163,14 @@ namespace AZWeb.Module.TagHelper.Module
                                         ItemDisplay = itemDic.Display;                                           
                                     }                                       
                                 }
-                                TextDisplay = string.IsNullOrEmpty(col.FormatString)?string.Format("{0}", ItemDisplay) : string.Format(col.FormatString, ItemDisplay);
+                                if (d.GetProperty(col.FieldName).PropertyType == typeof(bool) && !string.IsNullOrEmpty(col.TextTrue))
+                                {
+                                    TextDisplay = (bool)itemValue == true ? col.TextTrue : col.TextFalse;
+                                }
+                                else 
+                                {
+                                    TextDisplay = string.IsNullOrEmpty(col.FormatString) ? string.Format("{0}", ItemDisplay) : string.Format(col.FormatString, ItemDisplay);
+                                }
 
                                 htmlTable.AppendFormat("<td data-value='{1}' data-name='{0}' class='{2}'>", col.FieldName, HttpUtility.UrlEncode(itemValue?.ToString()), col.ClassColumn);
                             }

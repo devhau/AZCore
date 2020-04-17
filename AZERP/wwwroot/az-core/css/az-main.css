@@ -169,6 +169,9 @@
         padding:0px;
     }
 
+.az-table.table td, .az-table.table th {
+    padding: 0.3rem;
+}
     /*Table Freeze*/
 .table-freeze, .table-freeze thead, .table-freeze tbody {
     display: block;

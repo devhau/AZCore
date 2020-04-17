@@ -23,6 +23,8 @@ namespace AZWeb.Module.Attributes
         public string ClassColumn { get; set; }
         public string Icon { get; set; }
         public string Text { get; set; }
+        public string TextTrue { get; set; }
+        public string TextFalse { get; set; }
         public string LinkFormat { get; set; }
         public DisplayColumn Display { get; set; } = DisplayColumn.Text;
         public PopupSize Popup { get; set; } = PopupSize.None;

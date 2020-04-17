@@ -1,0 +1,30 @@
+﻿@model FormUpdateSupplier
+    <div class="az-update row" id="FormUpdateSupplier" role="form">
+        <div class="form-group col-md-10">
+            <az-text-model model="Model.Data" func="(item)=>((SupplierModel)item).Name" label="Tên nhà cung cấp (*)" />
+        </div>
+        <div class="form-group col-md-2">
+            <az-text-model model="Model.Data" func="(item)=>((SupplierModel)item).AbbreviatedName" label="Tên viết tắt" />
+        </div>
+        <div class="form-group col-md-12">
+            <az-text-model model="Model.Data" func="(item)=>((SupplierModel)item).Code" label="Mã nhà cung cấp" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((SupplierModel)item).PhoneNumber" label="Số điện thoại" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((SupplierModel)item).Email" label="Email" />
+        </div>
+        <div class="form-group col-md-12">
+            <az-text-model model="Model.Data" func="(item)=>((SupplierModel)item).Address" label="Địa chỉ" />
+        </div>
+        <div class="form-group col-md-12">
+            <az-text-area-model model="Model.Data" func="(item)=>((SupplierModel)item).Description" label="Mô tả" />
+        </div>
+        <div class="form-group col-md-12">
+            <az-switch-model model="Model.Data" func="(item)=>((SupplierModel)item).SupplierStatus" value="true" label="Cho phép hoạt động" />
+        </div>
+    </div>
+<az-script>
+
+</az-script>

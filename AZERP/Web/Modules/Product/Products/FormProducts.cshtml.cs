@@ -13,7 +13,6 @@ namespace AZERP.Web.Modules.Product.Products
     [TableColumn(Title = "Giá bán lẻ (VNĐ)", FieldName = "RetailPrice", FormatString = "{0:#,###}")]
     [TableColumn(Title = "Giá bán buôn (VNĐ)", FieldName = "WholesalePrice", FormatString = "{0:#,###}")]
     [TableColumn(Title = "Tồn kho", FieldName = "Available")]
-    [TableColumn(Title = "Trạng Thái", FieldName = "Status", DataType = typeof(EntityStatus))]
     [TableColumn(Title = "Ngày khởi tạo", FieldName = "CreateAt", DataType = typeof(DateTime))]
     [TableColumn(Title = "Cập nhật cuối", FieldName = "UpdateAt", DataType = typeof(DateTime))]
     public class FormProducts : ManageModule<ProductService, ProductModel, FormUpdateProducts>
