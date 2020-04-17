@@ -15,7 +15,7 @@ namespace AZERP.Web.Modules.Product.Variants
     [TableColumn(Title = "Hàng đang về", FieldName = "Incoming")]
     [TableColumn(Title = "Hàng đang giao", FieldName = "OnWay")]
     [TableColumn(Title = "Đang giao dịch", FieldName = "Committed")]
-    [TableColumn(Title = "Trạng Thái", FieldName = "Status", DataType = typeof(EntityStatus))]
+    [TableColumn(Title = "Trạng Thái", FieldName = "ProductSellable", TextFalse = "Đang không hoạt động", TextTrue = "Đang hoạt động")]
     public class FormVariants : ManageModule<ProductService, ProductModel, FormUpdateVariants>
     {
         #region -- Field Search --

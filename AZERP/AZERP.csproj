@@ -91,7 +91,6 @@
     <Folder Include="Web\Modules\Orders\Shippers\" />
     <Folder Include="Web\Modules\Orders\Shipments\" />
     <Folder Include="Web\Modules\Orders\Orders\" />
-    <Folder Include="Web\Modules\Product\Suppliers\" />
     <Folder Include="Web\Modules\Product\StockTransfers\" />
     <Folder Include="Web\Modules\Product\StockAdjustments\" />
     <Folder Include="Web\Modules\Product\Variants\" />

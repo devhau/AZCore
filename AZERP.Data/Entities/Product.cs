@@ -32,6 +32,7 @@ namespace AZERP.Data.Entities
         /// Tên nhóm
         /// </summary>
         [Field(Length = 500)]
+        [FieldDisplay]
         public string Name { get; set; }
         /// <summary>
         /// Phân loại sản phẩm

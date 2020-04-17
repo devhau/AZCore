@@ -170,9 +170,9 @@
     }
 
 .az-table.table td, .az-table.table th {
-    padding:0.3rem;
+    padding: 0.3rem;
 }
-/*Table Freeze*/
+    /*Table Freeze*/
 .table-freeze, .table-freeze thead, .table-freeze tbody {
     display: block;
     position: relative;
