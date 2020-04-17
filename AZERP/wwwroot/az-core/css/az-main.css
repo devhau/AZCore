@@ -169,12 +169,14 @@
         padding:0px;
     }
 
-    /*Table Freeze*/
+.az-table.table td, .az-table.table th {
+    padding:0.3rem;
+}
+/*Table Freeze*/
 .table-freeze, .table-freeze thead, .table-freeze tbody {
     display: block;
     position: relative;
     width: 100%;
-
 }
 .table-freeze {
     height: 100%;
