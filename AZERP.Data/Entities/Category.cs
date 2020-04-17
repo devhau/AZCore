@@ -5,9 +5,9 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class CatalogService : EntityService<CatalogService, CatalogModel>, IAZTransient
+    public class CategoryService : EntityService<CategoryService, CategoryModel>, IAZTransient
     {
-        public CatalogService(IDbConnection _connection) : base(_connection)
+        public CategoryService(IDbConnection _connection) : base(_connection)
         {
         }
     }
@@ -15,8 +15,8 @@ namespace AZERP.Data.Entities
     /// Thông tin của nhóm sản phẩm
     /// </summary>
 
-    [TableInfo(TableName = "az_catalog")]
-    public class CatalogModel : EntityModel<CatalogModel, long>
+    [TableInfo(TableName = "az_Category")]
+    public class CategoryModel : EntityModel<CategoryModel, long>
     {
         /// <summary>
         /// Nhóm cha
@@ -30,9 +30,14 @@ namespace AZERP.Data.Entities
         [FieldDisplay]
         public string Name { get; set; }
         /// <summary>
-        /// Mã code BAC
+        /// Mã code
         /// </summary>
         [Field(Length = 500)]
         public string Code { get; set; }
+        /// <summary>
+        /// Ghi chú
+        /// </summary>
+        [Field(Length = 500)]
+        public string Note { get; set; }
     }
 }

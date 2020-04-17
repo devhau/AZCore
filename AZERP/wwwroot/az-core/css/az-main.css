@@ -96,9 +96,10 @@
         border-bottom: 1px solid;
 }
     .az-manager .az-search-manager {
-        margin: 1px 5px;
-        padding: 10px;
+        margin: 1px 1px;
+        padding: 5px;
         border-bottom: 1px solid;
+        border-bottom-color: rgba(0, 0, 0, 0.3);
     }
     .az-manager .az-bottom-manager {
         background:#e6e6e6;

@@ -1,6 +1,7 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
 using AZCore.Domain;
+using AZERP.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -23,29 +24,74 @@ namespace AZERP.Data.Entities
     public class ProductModel : EntityModel<ProductModel, long>
     {
         /// <summary>
-        /// Mã SP
+        /// Mã SP/ SKU
         /// </summary>
         [Field(Length = 500)]
         public string Code { get; set; }
         /// <summary>
         /// Tên nhóm
         /// </summary>
-        [Field]
-        public long CatalogId { get; set; }
-        /// <summary>
-        /// Tên nhóm
-        /// </summary>
         [Field(Length = 500)]
         public string Name { get; set; }
+        /// <summary>
+        /// Phân loại sản phẩm
+        /// </summary>
+        [Field]
+        public long CategoryId { get; set; }
         /// <summary>
         /// Mô tả
         /// </summary>
         [Field(Length = 500)]
         public string Description { get; set; }
         /// <summary>
-        /// Giá SP
+        /// Giá bán lẻ sản phẩm
         /// </summary>
         [Field]
-        public long Price { get; set; }
+        public long RetailPrice { get; set; }
+        /// <summary>
+        /// Giá bán buôn sản phẩm
+        /// </summary>
+        [Field]
+        public long WholesalePrice { get; set; }
+        /// <summary>
+        /// Giá nhập
+        /// </summary>
+        [Field]
+        public long ImportPrice { get; set; }
+        /// <summary>
+        /// Sản phảm có/không được phép bán
+        /// </summary>
+        [Field]
+        public bool ProductSellable { get; set; }
+        /// <summary>
+        /// Sản phẩm có/không áp dụng thuế
+        /// </summary>
+        [Field]
+        public bool ProductTaxable { get; set; }
+        /// <summary>
+        /// Khối lượng sản phẩm
+        /// </summary>
+        [Field]
+        public long WeightValue { get; set; }
+        /// <summary>
+        /// Số lượng hàng có sẵn trong kho
+        /// </summary>
+        [Field]
+        public long Available { get; set; }
+        /// <summary>
+        /// Số lượng hàng đang về
+        /// </summary>
+        [Field]
+        public long Incoming { get; set; }
+        /// <summary>
+        /// Số lượng hàng đang giao
+        /// </summary>
+        [Field]
+        public long OnWay { get; set; }
+        /// <summary>
+        /// Số lượng hàng đang giao dịch
+        /// </summary>
+        [Field]
+        public long Committed { get; set; }
     }
 }
