@@ -30,21 +30,15 @@ namespace AZERP.Web.Modules.Common.Permission
         {
             this.Title = "Phân quyền cho người dùng";
             var viewPer = new ViewPermission();
-            viewPer.TargetType = typeof(UserService);
-            viewPer.Title = "Nguyễn Văn hậu";
-            viewPer.Value = Id;
             viewPer.Permissions = this.GetSearchData(); 
             viewPer.PermissionActive = null;
-            return View("ViewPermission", viewPer);
+            return View("ViewPermission");
         }
         [OnlyAjax]
         public IView GetRole(long Id)
         {
             this.Title = "Phân quyền cho vai trò";
             var viewPer = new ViewPermission();
-            viewPer.TargetType = typeof(RoleService);
-            viewPer.Title = "Nguyễn Văn hậu"; 
-            viewPer.Value = Id;
             viewPer.Permissions = this.GetSearchData();
             viewPer.PermissionActive = null;
             return View("ViewPermission", viewPer);

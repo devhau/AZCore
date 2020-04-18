@@ -21,7 +21,7 @@ namespace AZWeb.Module.TagHelper.Input
         [HtmlAttributeName("attr")]
         public string Attr { get; set; }
         [HtmlAttributeName("class")]
-        public string InputClass { get; set; } = "form-control";
+        public override string TagClass { get; set; } = "form-control";
         [HtmlAttributeName("id")]
         public string InputId { get; set; }
         [HtmlAttributeName("name")]
@@ -34,18 +34,15 @@ namespace AZWeb.Module.TagHelper.Input
         public object InputValue { get; set; }
         [HtmlAttributeName("cmd-key")]
         public string CMD { get; set; }
-        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+        public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
-            InitData();
-            this.InputClass += " " + this.TagId;
-            output.TagName = "";
-            if (!string.IsNullOrEmpty(CMD)) {
+            if (!string.IsNullOrEmpty(CMD))
+            {
                 this.Attr += $"  data-cmd-key='{CMD}' ";
             }
-            StringBuilder htmlBuild = new StringBuilder();
+            InitData();
             RenderHtml(htmlBuild);
-            output.Content.SetHtmlContent(htmlBuild.ToString());
-            await Task.CompletedTask;
+            return Task.CompletedTask;
         }
        
         protected virtual void InitData() { }

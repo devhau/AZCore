@@ -61,6 +61,7 @@ namespace AZWeb.Module
                     itemValue.Display = string.Format("{0}", item.GetValue(obj));
                 }
             }
+            itemValue.Item = obj;
             return itemValue;
         }
         public static ItemValue GetItemValueByEnum(this object obj)
@@ -69,6 +70,7 @@ namespace AZWeb.Module
             var TypeObject = obj.GetType();
             itemValue.Value = obj;
             itemValue.Name = obj.ToString();
+            itemValue.Item = obj;
             var memInfo = TypeObject.GetMember(obj.ToString());
             var field = memInfo[0].GetAttribute<FieldAttribute>();
             if (field != null)

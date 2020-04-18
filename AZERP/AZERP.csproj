@@ -8,10 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Web\Modules\Product\PurchaseOrders\js\PurchaseOrders.js" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Compile Remove="Web\Modules\Category\**" />
+    <Compile Remove="Web\Modules\Product\PurchaseOrders\**" />
+    <Content Remove="Web\Modules\Category\**" />
+    <Content Remove="Web\Modules\Product\PurchaseOrders\**" />
+    <EmbeddedResource Remove="Web\Modules\Category\**" />
+    <EmbeddedResource Remove="Web\Modules\Product\PurchaseOrders\**" />
+    <None Remove="Web\Modules\Category\**" />
+    <None Remove="Web\Modules\Product\PurchaseOrders\**" />
+    <Compile Remove="Web\Modules\Store\FormStore.cshtml.cs" />
+    <Compile Remove="Web\Modules\Store\FormUpdateStore.cshtml.cs" />
+    <Content Remove="Web\Modules\Store\FormStore.cshtml" />
+    <Content Remove="Web\Modules\Store\FormUpdateStore.cshtml" />
     <Content Include="Web\Modules\Product\PurchaseOrders\js\PurchaseOrders.js" />
     <Content Include="Web\Modules\Recruitment\Worker\js\CheckinCheckout.js" />
   </ItemGroup>

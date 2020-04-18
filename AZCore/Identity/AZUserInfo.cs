@@ -10,5 +10,8 @@ namespace AZCore.Identity
         public string Email { get; set; }
         public string UserName { get; set; }
         public List<string> PermissionActive { get; set; }
+        public virtual bool HasPermission(string PermissonCode) {
+            return string.IsNullOrEmpty(PermissonCode)|| (this.PermissionActive != null && this.PermissionActive.IndexOf(PermissonCode)>=0);
+        }
     }
 }

@@ -65,7 +65,7 @@ namespace AZWeb.Module.Common
                 Model = this,
                 Module = this,
                 Path = string.Format("~/{0}", this.GetPathMoule()),
-                ViewName = string.Format("{0}", !string.IsNullOrEmpty(this.LayoutTheme) ? this.LayoutTheme : this.GetType().Name)
+                ViewName = string.Format("{0}", !string.IsNullOrEmpty(this.LayoutTheme) ?  string.Format("Layout{0}", this.LayoutTheme) : this.GetType().Name)
             };
         }
     }

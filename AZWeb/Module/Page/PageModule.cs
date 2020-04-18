@@ -22,6 +22,9 @@ namespace AZWeb.Module.Page
         public string Keyword { get => Html.Keyword; set => Html.Keyword = value; }
         public HtmlContent Html { get => this.HttpContext.Items[AZWebConstant.Html] as HtmlContent; }
         RenderView renderView { get; }
+        public bool HasPermission(string permissionCode) {
+            return User != null && User.HasPermission(permissionCode);
+        }
         public void AddMeta(string name, string content)
         {
             this.Html.AddMeta(name, content);
