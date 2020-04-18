@@ -18,7 +18,7 @@ namespace AZWeb.Module.Common
         public UserInfo User { get; private set; }
         public string TagId { get; private set; }
         [HtmlAttributeName("class")]
-        public virtual string TagClass { get; set; }
+        public string TagClass { get; set; }
         [HtmlAttributeName("for-permission")]
         public virtual string PermissionCode { get; set; }
         [HtmlAttributeName("is-show")]
@@ -70,6 +70,7 @@ namespace AZWeb.Module.Common
                 output.SuppressOutput();
                 return;
             }
+            this.TagClass += $" {TagId}";
             StringBuilder htmlBuild = new StringBuilder();
             await ProcessAsync(context, output,htmlBuild);
             if (htmlBuild.Length > 0) {

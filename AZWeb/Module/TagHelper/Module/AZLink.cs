@@ -11,8 +11,6 @@ namespace AZWeb.Module.TagHelper.Module
     {
         [HtmlAttributeName("id")]
         public string LinkId { get; set; }
-        [HtmlAttributeName("class")]
-        public override string TagClass { get; set; } = "az-link";
         [HtmlAttributeName("text")]
         public string Text { get; set; }
         [HtmlAttributeName("icon")]
@@ -23,9 +21,14 @@ namespace AZWeb.Module.TagHelper.Module
         public string CMD { get; set; }
         [HtmlAttributeName("modal-size")]
         public string ModalSize { get; set; }
+        public override void Init(TagHelperContext context)
+        {
+            if (string.IsNullOrEmpty(TagClass))
+                TagClass = "az-link";
+            base.Init(context);
+        }
         public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
-            //<a href="/danh-sach-quyen.az?h=User" class="btn btn-danger btn-sm az-btn az-link-popup" data-cmd-key="f4" modal-size="{ModalSize}"><i class="fas fa-user-tag"></i> Phân quyền cho người dùng (F4)</a>
             string IconText = string.IsNullOrEmpty(Icon) ? "" : $" <i class='{Icon}'></i> ";
             htmlBuild.Append($"<a href=\"{Link}\" id=\"{LinkId}\" class=\"{TagClass}\" data-cmd-key=\"{CMD}\" modal-size=\"{ModalSize}\" >{IconText}{Text}</a>");
             return Task.CompletedTask;

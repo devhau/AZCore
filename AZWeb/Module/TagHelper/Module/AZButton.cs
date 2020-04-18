@@ -10,8 +10,6 @@ namespace AZWeb.Module.TagHelper.Module
     {
         [HtmlAttributeName("id")]
         public string ButtonId { get; set; }
-        [HtmlAttributeName("class")]
-        public override string TagClass { get; set; } = "";
         [HtmlAttributeName("text")]
         public string Text { get; set; }
         [HtmlAttributeName("icon")]
