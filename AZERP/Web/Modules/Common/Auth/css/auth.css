@@ -1,1 +1,8 @@
-﻿
+﻿.auth-box {
+    width:350px;
+    margin:20px auto;
+}
+
+body {
+    background: url("/img/AZERP.jpg");
+}

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AZWeb.Module.TagHelper.Input
 {
@@ -29,11 +30,11 @@ namespace AZWeb.Module.TagHelper.Input
     [HtmlTargetElement("az-checkbox")]
     public class AZCheckbox : AZInput
     {
-       
+
         protected override void RenderHtml(StringBuilder htmlBuild)
         {
             htmlBuild.Append("<div class=\"icheck-primary d-inline\">");
-            htmlBuild.AppendFormat("<input type=\"{0}\" class=\"{1}\" id=\"{2}\" placeholder=\"{3}\" {4} {5} name=\"{6}\">", "checkbox", InputClass, InputId, InputPlaceholder, Attr, InputValue.IsNullOrEmpty() ? "" : string.Format("value =\"{0}\"", InputValue), InputName);
+            htmlBuild.AppendFormat("<input type=\"{0}\" class=\"{1}\" id=\"{2}\" placeholder=\"{3}\" {4} {5} name=\"{6}\">", "checkbox", TagClass, InputId, InputPlaceholder, Attr, InputValue.IsNullOrEmpty() ? "" : string.Format("value =\"{0}\"", InputValue), InputName);
             htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
             htmlBuild.Append("</div>");
         }

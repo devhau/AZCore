@@ -1,81 +1,71 @@
 ﻿@model FormLogin
-<az-html class="hold-transition login-page">
-    <head>
-        <az-style>
-            .login-page{
-                background:url("/img/AZERP.jpg");
+<az-style module="auth.css"/>
+<div class="auth-box">
+    <div class="auth-logo">
+        <h3 style="color:#fff;">AZ Store</h3>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <h3 class="login-box-msg">Đăng nhập hệ thống</h3>
+            @if (!String.IsNullOrEmpty(Model.Error))
+            {
+                <span style="color:red;font-weight:700;">@Model.Error</span>
             }
-        </az-style>
-    </head>
-    <body>
-        <div class="login-box">
-            <div class="login-logo">
-                <h3 style="color:#fff;">AZ Store</h3>
-            </div>
-            <!-- /.login-logo -->
-            <div class="card">
-                <div class="card-body login-card-body">
-                    <h3 class="login-box-msg">Đăng nhập hệ thống</h3>
-                    @if (!String.IsNullOrEmpty(Model.Error))
-                    {
-                        <span style="color:red;font-weight:700;">@Model.Error</span>
-                    }
 
-                    <form action="" method="post" name="user-login">
-                        <div class="input-group mb-3">
-                            <input type="email" name="azemail" class="form-control" placeholder="Email">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-envelope"></span>
-                                </div>
-                            </div>
+            <form action="" method="post" name="user-login">
+                <div class="input-group mb-3">
+                    <input type="email" name="azemail" class="form-control" placeholder="Email" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
                         </div>
-                        <div class="input-group mb-3">
-                            <input type="password" name="azpassword" class="form-control" placeholder="Password">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="icheck-primary">
-                                    <input type="checkbox" name="azremember" id="remember" value="true">
-                                    <label for="remember">
-                                        Nhớ lần sau đăng nhập
-                                    </label>
-                                </div>
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                    </form>
-
-                    <div class="social-auth-links text-center mb-3">
-                        <p>- OR -</p>
-                        <a href="/dang-nhap-bang-facebook.az" class="btn btn-block btn-primary">
-                            <i class="fab fa-facebook mr-2"></i> Đăng nhập bằng Facebook
-                        </a>
-                        <a href="/dang-nhap-bang-google.az" class="btn btn-block btn-danger">
-                            <i class="fab fa-google-plus mr-2"></i> Đăng nhập bằng Google+
-                        </a>
                     </div>
-                    <!-- /.social-auth-links -->
-
-                    <p class="mb-1">
-                        <a href="/lay-lai-mat-khau.az">Lấy lại mật khẩu</a>
-                    </p>
-                    <p class="mb-0">
-                        <a href="/dang-ky.az" class="text-center">Đăng ký tài khoản mới</a>
-                    </p>
                 </div>
-                <!-- /.login-card-body -->
+                <div class="input-group mb-3">
+                    <input type="password" name="azpassword" class="form-control" placeholder="Password" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="icheck-primary">
+                            <input type="checkbox" name="azremember" id="remember" value="true" />
+                            <label for="remember">
+                                Nhớ lần sau đăng nhập
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+            <div class="social-auth-links text-center mb-3">
+                <p>- OR -</p>
+                <a href="/dang-nhap-bang-facebook.az" class="btn btn-block btn-primary">
+                    <i class="fab fa-facebook mr-2"></i> Đăng nhập bằng Facebook
+                </a>
+                <a href="/dang-nhap-bang-google.az" class="btn btn-block btn-danger">
+                    <i class="fab fa-google-plus mr-2"></i> Đăng nhập bằng Google+
+                </a>
             </div>
+            <!-- /.social-auth-links -->
+
+            <p class="mb-1">
+                <a href="/lay-lai-mat-khau.az">Lấy lại mật khẩu</a>
+            </p>
+            <p class="mb-0">
+                <a href="/dang-ky.az" class="text-center">Đăng ký tài khoản mới</a>
+            </p>
         </div>
-        <!-- /.login-box -->
-    </body>
-</az-html>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
