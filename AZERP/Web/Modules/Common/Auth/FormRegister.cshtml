@@ -1,91 +1,86 @@
 ﻿@model FormRegister
-<az-html class="hold-transition register-page">
-    <head>
-        <az-style>
-            .register-page{
-            background:url("/img/AZERP.jpg");
-            }
-        </az-style>
-    </head>
-    <body>
-        <div class="register-box">
-            <div class="register-logo">
-                <h3 style="color:#fff;">AZ Store</h3>
-            </div>
-            <div class="card">
-                <div class="card-body register-card-body">
-                    <h3 class="login-box-msg">Đăng ký tài khoản</h3>
-                    @if (!String.IsNullOrEmpty(Model.Error))
-                    {
-                        <span style="color:red;font-weight:700;">@Model.Error</span>
-                    }
-                    <form action="" method="post" name="user-register">
-                        <div class="input-group mb-3">
-                            <input type="text" required name="fullname" class="form-control" placeholder="Họ tên">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input type="email" required name="email" class="form-control" placeholder="Tài khoản email">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-envelope"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input type="tel" required name="phone" class="form-control" placeholder="Số điện thoại">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-phone"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="icheck-primary">
-                                    <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                                    <label for="agreeTerms">
-                                        Tôi đồng ý các <a href="#">điều khoản</a>
-                                    </label>
-                                </div>
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                    </form>
-
-                    <div class="social-auth-links text-center">
-                        <p>- OR -</p>
-                        <a href="#" class="btn btn-block btn-primary">
-                            <i class="fab fa-facebook mr-2"></i>
-                            Đăng ký bằng facebook
-                        </a>
-                        <a href="#" class="btn btn-block btn-danger">
-                            <i class="fab fa-google-plus mr-2"></i>
-                            Đăng ký bằng google
-                        </a>
-                    </div>
-
-                    <a href="/dang-nhap.az" class="text-center">Tôi có tài khoản rồi.</a>
-                </div>
-                <!-- /.form-box -->
-            </div><!-- /.card -->
+<az-style>
+    .register-page{
+    background:url("/img/AZERP.jpg");
+    }
+</az-style>
+<div class="register-page">
+    <div class="register-box">
+        <div class="register-logo">
+            <h3 style="color:#fff;">AZ Store</h3>
         </div>
-        <!-- /.register-box -->
-    </body>
-</az-html>
+        <div class="card">
+            <div class="card-body register-card-body">
+                <h3 class="login-box-msg">Đăng ký tài khoản</h3>
+                @if (!String.IsNullOrEmpty(Model.Error))
+                {
+                    <span style="color:red;font-weight:700;">@Model.Error</span>
+                }
+                <form action="" method="post" name="user-register">
+                    <div class="input-group mb-3">
+                        <input type="text" required name="fullname" class="form-control" placeholder="Họ tên" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="email" required name="email" class="form-control" placeholder="Tài khoản email" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="tel" required name="phone" class="form-control" placeholder="Số điện thoại" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-phone"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Mật khẩu" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="agreeTerms" name="terms" value="agree" />
+                                <label for="agreeTerms">
+                                    Tôi đồng ý các <a href="#">điều khoản</a>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <div class="social-auth-links text-center">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i>
+                        Đăng ký bằng facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-danger">
+                        <i class="fab fa-google-plus mr-2"></i>
+                        Đăng ký bằng google
+                    </a>
+                </div>
+
+                <a href="/dang-nhap.az" class="text-center">Tôi có tài khoản rồi.</a>
+            </div>
+            <!-- /.form-box -->
+        </div><!-- /.card -->
+    </div>
+</div>

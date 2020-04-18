@@ -252,6 +252,7 @@ namespace AZWeb.Module
                 if (theme == null)
                     return RenderError.NotFoundTheme;
                 theme.BeforeRequest();
+                theme.LayoutTheme = ModuleCurrent.LayoutTheme;
                 theme.BodyContent = await renderView.GetContentHtmlFromView(rsView as HtmlView);
                 await renderView.RenderHtml(theme.GetTheme());
                 theme.AfterRequest();

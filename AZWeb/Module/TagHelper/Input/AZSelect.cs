@@ -50,7 +50,7 @@ namespace AZWeb.Module.TagHelper.Input
         protected override void InitData()
         {
             
-            this.InputClass += " select2 ";
+            this.TagClass += " select2 ";
             if (Data == null && ListObject != null&& ListObject is IList)
             {
                 Data = new System.Collections.Generic.List<ItemValue>();
@@ -65,7 +65,7 @@ namespace AZWeb.Module.TagHelper.Input
             if (this.Data == null) this.Data = new System.Collections.Generic.List<ItemValue>();
             if (!string.IsNullOrEmpty(InputLabel))
                 htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
-            htmlBuild.AppendFormat("<select class=\"{0}\" name=\"{1}\" {2} {3} placeholder=\"{4}\" style=\"width: 100% \">", InputClass, InputName, string.IsNullOrEmpty(InputId) ? "" : string.Format("id=\"{0}\"", InputId), Attr, InputPlaceholder);
+            htmlBuild.AppendFormat("<select class=\"{0}\" name=\"{1}\" {2} {3} placeholder=\"{4}\" style=\"width: 100% \">", TagClass, InputName, string.IsNullOrEmpty(InputId) ? "" : string.Format("id=\"{0}\"", InputId), Attr, InputPlaceholder);
             if (!string.IsNullOrEmpty(NullText)) {
                 this.Data.Insert(0, new ItemValue() { Value = null, Display = NullText, });
             }
