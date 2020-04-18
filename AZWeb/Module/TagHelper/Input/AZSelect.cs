@@ -50,7 +50,8 @@ namespace AZWeb.Module.TagHelper.Input
         protected override void InitData()
         {
             
-            this.TagClass += " select2 ";
+            if(this.TagClass.IndexOf("select2") >0)
+                this.TagClass += " select2 ";
             if (Data == null && ListObject != null&& ListObject is IList)
             {
                 Data = new System.Collections.Generic.List<ItemValue>();

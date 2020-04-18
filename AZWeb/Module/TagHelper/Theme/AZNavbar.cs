@@ -14,8 +14,6 @@ namespace AZWeb.Module.TagHelper.Theme
         public string Attr { get; set; }
         [HtmlAttributeName("az-link")]
         public string AZLink { get; set; } = "az-link";
-        [HtmlAttributeName("class")]
-        public override string TagClass { get; set; } = "navbar-nav";
         [HtmlAttributeName("class-item")]
         public string NavbarItemClass { get; set; } = "nav-item";
         [HtmlAttributeName("class-link")]
@@ -33,6 +31,13 @@ namespace AZWeb.Module.TagHelper.Theme
 
         [HtmlAttributeName("menus")]
         public List<MenuItemTag> Menus { get; set; }
+        public override void Init(TagHelperContext context)
+        {
+            if (string.IsNullOrEmpty(TagClass)) { 
+                this.TagClass= "navbar-nav";
+            }
+            base.Init(context);
+        }
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {

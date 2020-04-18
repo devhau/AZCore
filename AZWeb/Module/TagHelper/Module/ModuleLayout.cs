@@ -17,11 +17,13 @@ namespace AZWeb.Module.TagHelper.Module
             {
                 this.AddJS(ScriptRandom(this.TagId));
             }
+            
             if (HttpContext.Request.Query.ContainsKey("ActionType") && HttpContext.Request.Query["ActionType"] == "popup")
             {
                 output.Attributes.Add(new TagHelperAttribute("class", "module-popup " + this.TagId));
                 return ;
             }
+          
             var content = await output.GetChildContentAsync();
             htmlBuild.AppendFormat("<div class=\"az-module-layout {0}\">", this.TagId);
             htmlBuild.AppendFormat("<div class=\"az-module-header\"><h4 style=\"padding:2px 0px 2px 7px;;margin-bottom:0px;font-weight:700;\">{0}</h4></div>", this.Html.Title);
