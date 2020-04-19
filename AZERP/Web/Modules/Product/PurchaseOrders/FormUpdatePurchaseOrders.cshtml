@@ -1,11 +1,15 @@
 ﻿@model FormUpdatePurchaseOrders
 <az-style module="PurchaseOrders.css" />
 <az-script module="PurchaseOrders.js" />
-<az-layout class="az-update row" script-random='(id)=> $"PurchaseOrders(\".{id}\");"'>
+<az-layout class="az-update row" >
     <div class="form-group col-md-12">
         <az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />
     </div>
     <div class="form-group col-md-12">
+        <az-supplier-select model="Model.Data" func="(item)=>((PurchaseOrderModel)item).SupplierCode" label="Nhà cung cấp" />
+    </div>
+    <div class="form-group col-md-12">
+        <az-product-select model="Model.Data" func="(item)=>((PurchaseOrderModel)item).ProductCode" label="Sản phẩm" />
     </div>
     <div class="col-md-12 az-data-table">
         <table class="table table-bordered table-hover az-table " role="grid">
@@ -13,25 +17,12 @@
                 <tr>
                     <td>Mã SKU</td>
                     <td>Tên sản phẩm</td>
-                    <td>Nhà cung cấp</td>
                     <td>Số lượng nhập</td>
                     <td>Giá nhập</td>
                     <td>Thành tiền</td>
                 </tr>
             </thead>
             <tbody>
-                <tr class="add-product">
-                    <td></td>
-                    <td>
-                        <az-product-select model="Model.Data" class="list-product form-control select2" null-text="Chọn sản phẩm" />
-                    </td>
-                    <td>
-                        <az-supplier-select model="Model.Data" null-text=" Chọn nhà cung cấp" />
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
             </tbody>
         </table>
     </div>
@@ -39,19 +30,19 @@
         <div class="list-info-money">
             <div class="item-info-money">
                 <div class="label">Số lượng</div>
-                <div class="value">1</div>
+                <div class="value">0</div>
             </div>
             <div class="item-info-money">
-                <div class="label">Tổng tiền</div>
-                <div class="value">1</div>
+                <div class="label">Tổng tiền (VNĐ)</div>
+                <div class="value">0</div>
             </div>
             <div class="item-info-money">
-                <div class="label">Chi phí</div>
-                <div class="value">1</div>
+                <div class="label">Chi phí (VNĐ)</div>
+                <div class="value">0</div>
             </div>
             <div class="item-info-money">
-                <div class="label"><b>Tiền cần trả</b></div>
-                <div class="value">1</div>
+                <div class="label"><b>Tiền cần trả (VNĐ)</b></div>
+                <div class="value">0</div>
             </div>
         </div>
     </div>

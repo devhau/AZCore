@@ -9,7 +9,7 @@ using System;
 namespace AZERP.Web.Modules.Product.Products
 {
     [TableColumn(Title = "Sản phẩm", FieldName = "Name")]
-    [TableColumn(Title = "Nhóm", FieldName = "CategoryId", DataType = typeof(CategoryService))]
+    [TableColumn(Title = "Nhóm sản phẩm", FieldName = "CategoryId", DataType = typeof(CategoryService))]
     [TableColumn(Title = "Giá bán lẻ (VNĐ)", FieldName = "RetailPrice", FormatString = "{0:#,###}")]
     [TableColumn(Title = "Giá bán buôn (VNĐ)", FieldName = "WholesalePrice", FormatString = "{0:#,###}")]
     [TableColumn(Title = "Tồn kho", FieldName = "Available")]
