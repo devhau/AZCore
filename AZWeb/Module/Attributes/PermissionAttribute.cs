@@ -8,5 +8,6 @@ namespace AZWeb.Module.Attributes
     public class PermissionAttribute : AuthAttribute
     {
         public string PermissionCode { get; set; }
+        public string Message { get; set; }
     }
 }

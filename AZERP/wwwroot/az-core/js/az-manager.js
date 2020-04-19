@@ -47,6 +47,9 @@
         var url = $this.location.pathname + "?h=update";
         if ($Id) url = url + "&id=" + $Id;
         $this.DoGet(url, null, function (item) {
+            if (item.statusCode && item.statusCode === 401) {
+                return;
+            }
             var popup = new AZPopup();
             popup.ClearButton();
             popup.IsForm = true;
@@ -90,7 +93,10 @@
             func: function (elem, scope) {
                 var url = $this.location.pathname + "?h=delete";
                 if ($Id) url = url + "&id=" + $Id;
-                $this.DoPost(url, {}, function (item) { $this.ReLoad(); scope.ClosePopup(); toastr.info(item.message);});
+                $this.DoPost(url, {}, function (item) {
+                    if (item.statusCode && item.statusCode === 401) {
+                        return;
+                    } $this.ReLoad(); scope.ClosePopup(); toastr.info(item.message);});
             }
         });
         popup.AddButton({

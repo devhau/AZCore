@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 
 namespace AZWeb.Module.Page.Manager
 {
@@ -18,6 +19,7 @@ namespace AZWeb.Module.Page.Manager
          where TModel : IEntity, new()
         where TService : EntityService<TService, TModel>
     {
+        protected ModulePermissionAttribute Permission;
         public List<TModel> Data;
         protected TService Service;
         public ExcelGrid excelGrid { get; protected set; }
@@ -32,6 +34,7 @@ namespace AZWeb.Module.Page.Manager
         public ManageModule(IHttpContextAccessor httpContext) : base(httpContext)
         {
             Service = this.HttpContext.GetService<TService>();
+            Permission = this.GetType().GetAttribute<ModulePermissionAttribute>();
         }
 
 
@@ -72,8 +75,13 @@ namespace AZWeb.Module.Page.Manager
         }
         public virtual IView Get()
         {
-            Data = GetSearchData();
-            return View();
+            if (Permission == null || this.HasPermission(Permission.ViewCode)) {
+                Data = GetSearchData();
+                return View();
+
+            }
+            return Json($"Bạn không có quyền truy cập : {Title}", HttpStatusCode.Unauthorized);
+           
         }
         public override void BeforeRequest()
         {            
@@ -95,13 +103,18 @@ namespace AZWeb.Module.Page.Manager
         }
         public virtual IView GetDownload()
         {
-            excelGrid = CreateExcelGrid();
-            BeforeDownload();
-            Data = GetSearchData();
-            excelGrid.SetSheet(this.Title);
-            FillExcel(excelGrid, Data, this.Columns.Cast<IExcelColumn>().ToList());
-            AfterDownload();
-            return DownloadFile(excelGrid.Download(), this.Title.ToUrlSlug() + ".xlsx", DownloadFileView.ExcelX);
+            if (Permission==null|| (this.HasPermission(Permission.ViewCode) && this.HasPermission(Permission.ExportCode)))
+            {
+                excelGrid = CreateExcelGrid();
+                BeforeDownload();
+                Data = GetSearchData();
+                excelGrid.SetSheet(this.Title);
+                FillExcel(excelGrid, Data, this.Columns.Cast<IExcelColumn>().ToList());
+                AfterDownload();
+                return DownloadFile(excelGrid.Download(), this.Title.ToUrlSlug() + ".xlsx", DownloadFileView.ExcelX);
+
+            }
+            return Json("Bạn không có quyền xuất file excel", HttpStatusCode.Unauthorized);
         }
     }
     public class ManageModule<TService, TModel, TForm> : ManageModule<TService,TModel>
@@ -110,7 +123,6 @@ namespace AZWeb.Module.Page.Manager
         where TForm : UpdateModule<TService, TModel>
     {
         protected TForm FormUpdate;
-       
         public override void BeforeRequest()
         {
             base.BeforeRequest();
@@ -122,26 +134,38 @@ namespace AZWeb.Module.Page.Manager
         }
         public ManageModule(IHttpContextAccessor httpContext) : base(httpContext)
         {
-            FormUpdate = this.HttpContext.GetService<TForm>();            
+            FormUpdate = this.HttpContext.GetService<TForm>();
         }
        
         public virtual IView GetUpdate(long? Id) {
+            if (Permission == null || (this.HasPermission(Permission.ViewCode) && ((Id ==null && this.HasPermission(Permission.AddCode))||(Id>=0&&this.HasPermission(Permission.EditCode)))))
+            {
+                FormUpdate.BeforeRequest();
+                return FormUpdate.Get(Id);
+            }
+            return Json(Id==null?"Bạn không có quyền thêm mới": "Bạn không có quyền chỉnh sửa", HttpStatusCode.Unauthorized);
 
-            FormUpdate.BeforeRequest();
-           return FormUpdate.Get(Id);
-        }        
+        }
         public virtual IView PostUpdate(long? Id)
         {
-            FormUpdate.BeforeRequest();
-            var DataForm = new TModel();
-            this.HttpContext.BindFormTo(DataForm);
-            return FormUpdate.Post(Id, DataForm);
+            if (Permission == null || (this.HasPermission(Permission.ViewCode) && ((Id == null && this.HasPermission(Permission.AddCode)) || (Id >= 0 && this.HasPermission(Permission.EditCode)))))
+            {
+                FormUpdate.BeforeRequest();
+                var DataForm = new TModel();
+                this.HttpContext.BindFormTo(DataForm);
+                return FormUpdate.Post(Id, DataForm);
+            }
+            return Json(Id == null ? "Bạn không có quyền thêm mới" : "Bạn không có quyền chỉnh sửa", HttpStatusCode.Unauthorized);
         }
         public virtual IView PostDelete(long? Id)
         {
-            var modelId=  Service.GetById(Id);
-            Service.Delete(modelId);
-            return Json("Xóa thành công",200);
+            if (Permission == null || (this.HasPermission(Permission.ViewCode) && this.HasPermission(Permission.RemoveCode)))
+            {
+                var modelId = Service.GetById(Id);
+                Service.Delete(modelId);
+                return Json("Xóa thành công", 200);
+            }
+            return Json("Bạn không có quyền xóa dữ liệu", HttpStatusCode.Unauthorized);
         }
     }
 }

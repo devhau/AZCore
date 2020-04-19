@@ -105,11 +105,11 @@ namespace AZWeb.Module.Page
         }
         public virtual IView Json(string Message)
         {
-            return Json(Message, null, HttpStatusCode.OK);
+            return Json(Message, string.Empty, HttpStatusCode.OK);
         }
         public virtual IView Json(string Message, HttpStatusCode status)
         {
-            return Json(Message, null, status);
+            return Json(Message, string.Empty, status);
         }
         public virtual IView Json(string Message, object data) {
             return Json(Message,data, HttpStatusCode.OK);        

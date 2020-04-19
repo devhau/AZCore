@@ -38,7 +38,7 @@ namespace AZCore.Extensions
         }
 
         /// <summary>
-        /// 
+        /// Lấy thông tin member
         /// </summary>
         /// <param name="propertyLamda"></param>
         /// <returns></returns>

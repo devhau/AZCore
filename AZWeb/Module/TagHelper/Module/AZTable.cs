@@ -56,6 +56,8 @@ namespace AZWeb.Module.TagHelper.Module
             if (this.Columns!=null) {
                 foreach (var item in this.Columns)
                 {
+                    if (!string.IsNullOrEmpty(item.Permisson)&&!this.HasPermission(item.Permisson))
+                        continue;
                     if (item.DataType != null && !this.DataDic.ContainsKey(item.DataType))
                     {
                         this.DataDic[item.DataType] = item.DataType.GetListDataByDataType(this.ViewContext.HttpContext, " ");
@@ -148,6 +150,8 @@ namespace AZWeb.Module.TagHelper.Module
                         var d = item.GetType();
                         foreach (var col in this.Columns)
                         {
+                            if (!string.IsNullOrEmpty(col.Permisson) && !this.HasPermission(col.Permisson))
+                                continue;
                             string TextDisplay = "";
                             if (!string.IsNullOrEmpty(col.FieldName) && d.GetProperty(col.FieldName) != null)
                             {

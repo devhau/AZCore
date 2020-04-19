@@ -13,8 +13,6 @@ namespace AZWeb.Module.TagHelper.Module
     [HtmlTargetElement("az-pagination")]
     public class AZPagination: TagHelperBase
     {
-        [HtmlAttributeName("attr")]
-        public string Attr { get; set; }
         [HtmlAttributeName("class")]
         public string InputClass { get; set; } = "";
         [HtmlAttributeName("pagination")]
