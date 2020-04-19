@@ -4,7 +4,7 @@ using AZCore.Database.Attributes;
 namespace AZCore.Identity
 {
     [TableInfo(TableName = "az_user_role")]
-    public class AZUserRole<TEntity> : IEntity where TEntity : AZUserRole<TEntity>
+    public class AZUserRole<TEntity> : IEntity
     {
         [Field(IsKey = true)]
         public long UserId { get; set; }

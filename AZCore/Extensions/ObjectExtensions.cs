@@ -18,7 +18,7 @@ namespace AZCore.Extensions
             return JsonConvert.DeserializeObject(obj,typeof(TClass)).As<TClass>();
         }
         public static TType To<TType>(this object obj) {
-            return (TType)obj.ToType(typeof(TType));
+            return (TType)(obj.ToType(typeof(TType)));
         }
         public static object ToType(this object obj,Type typeObj) {
             var typeConvert = SqlTypeDescriptor.Inst.GetConverter(typeObj);

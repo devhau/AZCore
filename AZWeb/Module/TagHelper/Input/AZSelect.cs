@@ -24,7 +24,7 @@ namespace AZWeb.Module.TagHelper.Input
             this.BindModel();
             if (DataType != null&& DataType!= this.GetType())
             {
-                this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, NullText.IsNullOrEmpty()&& !this.InputLabel.IsNullOrEmpty()? "Chọn " + this.InputLabel.ToLower():"");
+                this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, NullText.IsNullOrEmpty()&& !this.InputLabel.IsNullOrEmpty()&&IsNullFirst ? "Chọn " + this.InputLabel.ToLower():"");
             }
             base.InitData();
             if (this.InputValue != null  && DataType.IsEnum && !(this.InputValue is TModel)) {
@@ -47,6 +47,8 @@ namespace AZWeb.Module.TagHelper.Input
         [HtmlAttributeName("null-text")]
         public string NullText { get; set; }
         public bool AddJs { get; set; } = true;
+        public bool IsMultiple { get; set; }
+        public bool IsNullFirst { get; set; } = true;
         protected override void InitData()
         {
             
@@ -59,6 +61,9 @@ namespace AZWeb.Module.TagHelper.Input
                     Data.Add(item.GetItemValue());
                 }
             }
+            if (IsMultiple) {
+                this.Attr += "  multiple='multiple' ";
+            }
         }
 
         protected override void RenderHtml(StringBuilder htmlBuild)
@@ -67,17 +72,23 @@ namespace AZWeb.Module.TagHelper.Input
             if (!string.IsNullOrEmpty(InputLabel))
                 htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
             htmlBuild.AppendFormat("<select class=\"{0}\" name=\"{1}\" {2} {3} placeholder=\"{4}\" style=\"width: 100% \">", TagClass, InputName, string.IsNullOrEmpty(InputId) ? "" : string.Format("id=\"{0}\"", InputId), Attr, InputPlaceholder);
-            if (!string.IsNullOrEmpty(NullText)) {
+            if (!string.IsNullOrEmpty(NullText)& IsNullFirst) {
                 this.Data.Insert(0, new ItemValue() { Value = null, Display = NullText, });
+            }
+            IList InputValues =null;
+            if (this.InputValue !=null&& this.InputValue is IList) {
+                InputValues = (IList)this.InputValue;
             }
             foreach (var item in this.Data)
             {
                 string ItemActive = "";
                 if (item.Value != null && item.Value.Equals(this.InputValue)) { ItemActive = " selected=\"selected\""; }
+                if(item.Value != null && IsMultiple&& InputValues!=null&& InputValues.IndexOf(item.Value)>=0) 
+                { ItemActive = " selected=\"selected\""; }
                 htmlBuild.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3} data-item='{3}' >{2}</option>", item.Value, item.Name, item.Display, ItemActive,item.Item.ToJson());
             }
             htmlBuild.Append("</select>");
-            if(AddJs) this.AddJS("$(function(){ $('." + this.TagId + "').select2({theme: 'bootstrap4', width: 'resolve' }); });");
+            if(AddJs) this.AddJS("$('." + this.TagId + "').select2({theme: 'bootstrap4', width: 'resolve' });");
         }
     }
 }

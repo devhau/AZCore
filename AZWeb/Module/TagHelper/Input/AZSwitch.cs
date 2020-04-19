@@ -18,13 +18,12 @@ namespace AZWeb.Module.TagHelper.Input
             this.BindModel();
             if (true.Equals(this.InputValue))
             {
-                this.Attr += " checked";
+                this.Attr += " checked='true'";
             }
             else
             {
                 this.InputValue = true;
             }
-            this.TagClass = "";
         }
     }
 
@@ -34,13 +33,21 @@ namespace AZWeb.Module.TagHelper.Input
         public string On { get; set; } = "Bật";
         public string Off { get; set; } = "Tắt";
         public string size { get; set; } = "small";
+        public override void Init(TagHelperContext context)
+        {
+            base.Init(context);
+            if (!string.IsNullOrEmpty(TagClass)&&TagClass.IndexOf("form-control")>=0)
+            {
+                TagClass=TagClass.Replace(" form-control"," ");
+            }
+        }
         protected override void RenderHtml(StringBuilder htmlBuild)
         {
             if (!string.IsNullOrEmpty(InputLabel))
                 htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label><br/>", InputLabel, InputId);
             htmlBuild.AppendFormat("<input type=\"{0}\" class=\"{1}\" id=\"{2}\" placeholder=\"{3}\" {4} {5} name=\"{6}\" data-bootstrap-switch data-off-text=\"{7}\" data-on-text=\"{8}\" data-off-color=\"danger\" data-on-color=\"success\" data-size=\""+size+"\">", "checkbox", TagClass, InputId, InputPlaceholder, Attr, InputValue.IsNullOrEmpty() ? "" : string.Format("value =\"{0}\"", InputValue), InputName,Off,On);
 
-            this.AddJS("$(function(){ $('." + this.TagId + "').bootstrapSwitch();});");
+            this.AddJS($"$('.{TagId}').bootstrapSwitch('state', $('.{TagId}').prop('checked'));");
         }
     }
    

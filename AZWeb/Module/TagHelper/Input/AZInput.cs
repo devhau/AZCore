@@ -18,8 +18,6 @@ namespace AZWeb.Module.TagHelper.Input
     }
     public abstract class AZInput: TagHelperBase
     {
-        [HtmlAttributeName("attr")]
-        public string Attr { get; set; }
         [HtmlAttributeName("id")]
         public string InputId { get; set; }
         [HtmlAttributeName("name")]

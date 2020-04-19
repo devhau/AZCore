@@ -117,5 +117,15 @@ namespace AZWeb.Module.Page
         public virtual IView Json(string Message, object data, HttpStatusCode status) {         
             return new JsonView() { Module=this,Data=data,StatusCode=status, Message=Message };
         }
+        public virtual IHtmlContent ViewChild(string viewName, object model)
+        {
+            return this.renderView.GetContentHtmlFromView(new HtmlView()
+            {
+                Model = model,
+                ViewName = viewName,
+                Path = this.GetPathMoule(),
+                Module = this
+            }).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
     }
 }
