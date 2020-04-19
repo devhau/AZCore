@@ -2,7 +2,7 @@
 <az-module-layout script-random='(id)=>"$(\"."+id+"\").AZManager();"'>
     <div class="az-manager" id="FormProduct" data-form-size="az-modal-xl">
         <div class="az-toolbar">
-            <a href="/danh-sach-san-pham.az" class="btn btn-secondary btn-sm az-btn" data-cmd-key="f1"><i class="fa fa-list-alt"></i> Xem ds sản phẩm (F1)</a>
+            <az-link href="/danh-sach-san-pham.az" class="btn btn-secondary btn-sm az-btn"cmd-key="f1" icon="fa fa-list-alt" text="Xem ds sản phẩm (F1)"/>
         </div>
         <div class="az-search-manager">
             <div class="row">
@@ -19,8 +19,8 @@
                 </div>
                 <div class="col-md-2">
                     <div class="btn-group float-right ">
-                        <button type="button" class="btn btn-warning  az-btn az-btn-search"><i class="fas fa-search"></i> Tìm kiếm</button>
-                        <button type="button" class="btn btn-warning  dropdown-toggle dropdown-icon az-btn" data-toggle="dropdown">
+                       <az-button class="btn btn-warning  az-btn az-btn-search" icon="fas fa-search" text="Tìm kiếm"/>
+                       <az-button class="btn btn-warning  dropdown-toggle dropdown-icon az-btn" data-toggle="dropdown">
                             <span class="sr-only">Tìm kiếm nâng cao</span>
                             <div class="dropdown-menu" role="menu">
                                 <a class="dropdown-item" href="#">Action</a>
@@ -29,7 +29,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Separated link</a>
                             </div>
-                        </button>
+                       </az-button>
                     </div>
                 </div>
             </div>

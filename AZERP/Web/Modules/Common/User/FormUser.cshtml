@@ -9,7 +9,7 @@
             <az-link href="/danh-sach-quyen.az?h=User" class="btn btn-danger btn-sm az-btn az-link-popup" cmd-key="f5" icon="fas fa-user-tag"  modal-size="az-modal-xl" text="Phân quyền cho người dùng (F5)"/>
         </div>
         <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((UserModel)item).Id" columns="Model.Columns" pagination="Model"></az-table>
+            <az-table data="Model.Data" FunKey="(item)=>((UserModel)item).Id" columns="Model.Columns" pagination="Model" is-edit="Model.HasPermission(PE.User_Edit)" is-delete="Model.HasPermission(PE.User_Remove)"></az-table>
         </div> 
         <div class="az-bottom-manager">
             <az-pagination pagination="Model" />

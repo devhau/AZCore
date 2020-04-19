@@ -2,9 +2,9 @@
 <az-module-layout script-random='(id)=>$"$(\".{id}\").AZManager();"'>
     <div class="az-manager" data-form-size="az-modal-xl">
         <div class="az-toolbar">
-            <button type="button" class="btn btn-success btn-sm az-btn az-btn-add" data-cmd-key="f1"><i class="far fa-plus-square"></i> Thêm Mới (F1)</button>
-            <button type="button" class="btn btn-info btn-sm az-btn az-btn-export" data-cmd-key="f2"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
-            <button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import" data-cmd-key="f3"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
+           <az-button class="btn btn-success btn-sm az-btn az-btn-add"cmd-key="f1" icon="far fa-plus-square" text="Thêm Mới (F1)"/>
+           <az-button class="btn btn-info btn-sm az-btn az-btn-export"cmd-key="f2" icon="fas fa-file-export" text="Xuất Excel (F2)"/>
+           <az-button class="btn btn-secondary btn-sm az-btn az-btn-import"cmd-key="f3" icon="fas fa-file-import" text="Nhập Excel (F3)"/>
         </div>
         <div class="az-search-manager">
             <div class="row">
@@ -33,8 +33,8 @@
                 </div>
                 <div class="col-md-2 align-self-center">
                     <div class="btn-group float-right ">
-                        <button type="button" class="btn btn-warning  az-btn az-btn-search"><i class="fas fa-search"></i> Tìm kiếm</button>
-                        <button type="button" class="btn btn-warning  dropdown-toggle dropdown-icon az-btn" data-toggle="dropdown">
+                       <az-button class="btn btn-warning  az-btn az-btn-search" icon="fas fa-search" text="Tìm kiếm"/>
+                       <az-button class="btn btn-warning  dropdown-toggle dropdown-icon az-btn" data-toggle="dropdown">
                             <span class="sr-only">Tìm kiếm nâng cao</span>
                             <div class="dropdown-menu" role="menu">
                                 <a class="dropdown-item" href="#">Action</a>
@@ -43,7 +43,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Separated link</a>
                             </div>
-                        </button>
+                        </az-button>
                     </div>
                 </div>
             </div>

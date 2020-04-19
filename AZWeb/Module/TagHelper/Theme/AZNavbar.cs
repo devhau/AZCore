@@ -10,8 +10,6 @@ namespace AZWeb.Module.TagHelper.Theme
     [HtmlTargetElement("az-navabar")]
     public class AZNavbar: TagHelperBase
     {
-        [HtmlAttributeName("attr")]
-        public string Attr { get; set; }
         [HtmlAttributeName("az-link")]
         public string AZLink { get; set; } = "az-link";
         [HtmlAttributeName("class-item")]

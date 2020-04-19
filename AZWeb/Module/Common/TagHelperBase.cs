@@ -27,6 +27,9 @@ namespace AZWeb.Module.Common
         public virtual bool TagShow { get; set; } = true;
         [HtmlAttributeName("is-enable")]
         public virtual bool TagEnable { get; set; } = true;
+        public bool HasPermission(string permission) {
+            return User != null && User.HasPermission(permission);
+        }
         [ViewContext]
         public ViewContext ViewContext { get; set; }
         protected HttpContext HttpContext => ViewContext?.HttpContext;

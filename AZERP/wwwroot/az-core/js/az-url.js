@@ -2,9 +2,9 @@
     $.extend(this, new AZAjax());
 }
 AZUrl.prototype.loadHtml = function (url, callback) {
-    this.DoGet(url, {}, function (itemData) {
+    this.DoGet(url, {}, function (itemData) {       
         if (itemData.statusCode && itemData.statusCode === 401) {
-            location.href = itemData.data;
+            window.history.back();
             return;
         }
         $("#ContentAZ").html(itemData.html);
@@ -37,8 +37,7 @@ AZUrl.prototype.Init = function () {
         } else
             LinkHref += "?ActionType=popup"
         $this.DoGet(LinkHref, null, function (item){
-            if(item && item.statusCode && item.statusCode === 401) {
-                toastr.error("Bạn không có quyền với hành động vừa rồi.");
+            if (item.statusCode && item.statusCode === 401) {
                 return;
             }
             let popup = new AZPopup();
