@@ -20,11 +20,5 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
         {
             this.Title = "Quản lý đơn nhập hàng";
         }
-        public  IView PostData2()
-        {
-            var dataclient = this.HttpContext.Request.Form;
-            //dataclient
-            return View();
-        }
     }
 }

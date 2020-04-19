@@ -17,7 +17,7 @@ namespace AZERP.Data.Entities
         }
     }
     /// <summary>
-    /// Thông tin của sản phẩm
+    /// Thông tin hóa đơn nhập
     /// </summary>
 
     [TableInfo(TableName = "az_purchase_order")]

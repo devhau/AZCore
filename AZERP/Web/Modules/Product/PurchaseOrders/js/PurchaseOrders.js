@@ -6,8 +6,9 @@ function calMoney(number, price) {
     return (parseInt(number) * parseInt(price)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
 
-$("#InputProductCode").on('input', function () {
+$("#InputProductCode").on('change', function () {
     let value = $(this).val();
+    console.log(value);
     if (value != "") {
         $(".modal-dialog .az-data-table").show();
         let name = $("#InputProductCode option[value=" + value + "]").text();
@@ -38,15 +39,11 @@ $("#InputProductCode").on('input', function () {
             $(".modal-dialog .az-data-table table tbody tr").each(function () {
                 valueNumber += parseInt($(this).children("td").eq(2).children("input").val());
                 valueMoney += parseInt($(this).children("td").eq(4).children("label").text().replace(/,/g, ""));
-                console.log(valueNumber);
-                console.log(valueMoney);
             });
             valueMoneySum = valueMoney + parseInt(eleCost.text());
             $(eleNumber).text(valueNumber.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
             $(eleMoney).text(valueMoney.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
             $(eleMoneySum).text(valueMoneySum.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
-
-
         });
 
     }

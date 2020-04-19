@@ -11,7 +11,7 @@ namespace AZERP.Web.Modules.Customers
         }
         protected override void IntData()
         {
-            this.Title = "Quản lý công nhân";
+            this.Title = "Khách hàng";
         }
 
     }
