@@ -1,0 +1,15 @@
+﻿@model FormUpdateArea
+    <div class="az-update row" id="FormUpdateArea" role="form">
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((AZERP.Data.Entities.Hotel.AreaModel)item).AreaID" label="Mã khu vực" attr="autofocus" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((AZERP.Data.Entities.Hotel.AreaModel)item).AreaName" label="Tên khu vực" />
+        </div>
+        <div class="form-group col-md-12">
+            <az-text-area-model model="Model.Data" func="(item)=>((AZERP.Data.Entities.Hotel.AreaModel)item).Note" label="Ghi chú" />
+        </div>
+    </div>
+<az-script>
+
+</az-script>
