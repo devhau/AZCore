@@ -1,7 +1,7 @@
 ﻿@model FormUpdatePurchaseOrders
 <az-style module="PurchaseOrders.css" />
 <az-script module="PurchaseOrders.js" />
-<az-layout class="az-update row" script-random='(id)=> $"new PurchaseOrders(\".{id}\");"'>
+<az-layout class="az-update row">
     <div class="form-group col-md-12">
         <az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />
     </div>

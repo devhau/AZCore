@@ -19,7 +19,7 @@
             <az-text-area-model model="Model.Data" func="(item)=>((ProductModel)item).Description" label="Mô tả sản phẩm" />
         </div>
         <div class="form-group col-md-12">
-            <az-category-select model="Model.Data" func="(item)=>((ProductModel)item).CategoryId" label="Nhóm sản phẩm" />
+            <az-category-select model="Model.Data" func="(item)=>((ProductModel)item).CategoryId" label="Nhóm sản phẩm" null-text="Chọn nhóm" />
         </div>
         <div class="form-group col-md-12">
             <az-switch-model model="Model.Data" func="(item)=>((ProductModel)item).ProductSellable" value="true" label="Cho phép bán" />

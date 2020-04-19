@@ -27,7 +27,7 @@ namespace AZERP.Web.Modules.Product.Products
         }
         protected override void IntData()
         {
-            this.Title = "Nhóm sản phẩm";
+            this.Title = "Loại sản phẩm";
         }
     }
 }

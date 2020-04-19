@@ -2,7 +2,7 @@
 <az-module-layout script-random='(id)=>"$(\"."+id+"\").AZManager();"'>
     <div class="az-manager" id="FormCategory" data-form-size="az-modal-xl">
         <div class="az-toolbar">
-            <button type="button" class="btn btn-success btn-sm az-btn az-btn-add" data-hot-key="f1"><i class="far fa-plus-square"></i> Thêm Mới (F1)</button>
+            <az-button class="btn btn-success btn-sm az-btn az-btn-add" hot-key="f1" icon="far fa-plus-square" text="Thêm Mới (F1)" />
         </div>
         <div class="az-search-manager">
             <div class="row">
@@ -10,14 +10,14 @@
                     <form class="az-search-form row">
                         <az-hidden-model model="Model" func="(item)=>((FormCategory)item).PageSize" />
                         <div class="col-md-12">
-                            <az-text-model model="Model" func="(item)=>((FormCategory)item).Name" placeholder="Tìm kiếm loại sản phẩm" />
+                            <az-text-model model="Model" func="(item)=>((FormCategory)item).Name" placeholder="Tìm kiếm nhóm sản phẩm" />
                         </div>
                     </form>
                 </div>
                 <div class="col-md-2">
                     <div class="btn-group float-right ">
-                        <button type="button" class="btn btn-warning  az-btn az-btn-search"><i class="fas fa-search"></i> Tìm kiếm</button>
-                        <button type="button" class="btn btn-warning  dropdown-toggle dropdown-icon az-btn" data-toggle="dropdown">
+                        <az-button class="btn btn-warning  az-btn az-btn-search" icon="fas fa-search" text="Tìm kiếm" />
+                        <az-button class="btn btn-warning  dropdown-toggle dropdown-icon az-btn" data-toggle="dropdown">
                             <span class="sr-only">Tìm kiếm nâng cao</span>
                             <div class="dropdown-menu" role="menu">
                                 <a class="dropdown-item" href="#">Action</a>
@@ -26,7 +26,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Separated link</a>
                             </div>
-                        </button>
+                        </az-button>
                     </div>
                 </div>
             </div>
