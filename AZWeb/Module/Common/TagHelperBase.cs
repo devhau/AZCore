@@ -17,12 +17,16 @@ namespace AZWeb.Module.Common
     {
         public UserInfo User { get; private set; }
         public string TagId { get; private set; }
+        [HtmlAttributeName("attr")]
+        public string Attr { get; set; }
         [HtmlAttributeName("class")]
         public string TagClass { get; set; }
         [HtmlAttributeName("for-permission")]
         public virtual string PermissionCode { get; set; }
         [HtmlAttributeName("is-show")]
         public virtual bool TagShow { get; set; } = true;
+        [HtmlAttributeName("is-enable")]
+        public virtual bool TagEnable { get; set; } = true;
         [ViewContext]
         public ViewContext ViewContext { get; set; }
         protected HttpContext HttpContext => ViewContext?.HttpContext;
@@ -31,6 +35,7 @@ namespace AZWeb.Module.Common
         protected string Keyword { get => Html.Keyword; set => Html.Keyword = value; }
         protected HtmlContent Html { get => this.HttpContext.Items[AZWebConstant.Html] as HtmlContent; }
         public Action<TagHelperBase> TagExtend { get; set; }
+
         protected string PathModule { get; private set; }
         
         protected string GetContentFile(string file) {
@@ -71,6 +76,9 @@ namespace AZWeb.Module.Common
                 return;
             }
             this.TagClass += $" {TagId}";
+            if (!this.TagEnable) {
+                this.Attr += " disabled ";
+            }
             StringBuilder htmlBuild = new StringBuilder();
             await ProcessAsync(context, output,htmlBuild);
             if (htmlBuild.Length > 0) {

@@ -3,7 +3,7 @@ using AZCore.Domain;
 using AZCore.Identity;
 using System.Data;
 
-namespace AZERP.Data.Entities
+namespace AZCore.Test
 {
     public class UserPermissionService : EntityService<UserPermissionService, UserPermissionModel>, IAZTransient
     {

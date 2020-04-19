@@ -30,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AZSocial", "AZSocial\AZSoci
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AZERP.Data", "AZERP.Data\AZERP.Data.csproj", "{45C57274-8A66-460C-8AC7-CDFB4085498D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AZCore.WebTest", "AZCore.WebTest\AZCore.WebTest.csproj", "{6B631410-CA13-4BB3-8EE3-0B10294166CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AZCore.WebTest", "AZCore.WebTest\AZCore.WebTest.csproj", "{6B631410-CA13-4BB3-8EE3-0B10294166CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

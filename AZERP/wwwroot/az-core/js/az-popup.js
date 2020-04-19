@@ -30,6 +30,9 @@
 	$this.link = "";
 	$this.setLink = function (link) {
 		$this.link = link;
+		if ($this.link) {
+			$($this.Modal).attr("link-popup", $this.link);
+		}
 	}
 	$this.setHtml = function ($data) {
 		if ($this.IsForm === true) {
@@ -78,6 +81,9 @@
 			$($this.ModalForm).find("*:input,select,textarea").filter(":not([readonly='readonly']):not([disabled='disabled']):not([type='hidden'])").first().focus();
 
 	}
+	$this.getPathName = function () {
+		return AZCore.getLocation($this.link).pathname;
+	}
 	$this.ShowPopup = function (callbackClose) {
 		let flg = false;
 		$this.Buttons.forEach(function (item) { $($this.ModalFooter).append($this.createButton(item)); flg = true; });
@@ -85,9 +91,7 @@
 			$($this.ModalFooter).remove();
 		}
 		$($this.Modal).addClass($this.ModalSize);
-		if ($this.link) {
-			$($this.Modal).attr("link-popup", $this.link);
-		}
+		
 		$("body").append($this.Modal);
 		$($this.ModalClose).click(function () { $this.ClosePopup(); if (callbackClose) callbackClose($this); });
 		

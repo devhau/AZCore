@@ -4,12 +4,12 @@ using AZCore.Database.Attributes;
 namespace AZCore.Identity
 {
     [TableInfo(TableName = "az_user_permission")]
-    public class AZUserPermission<TEntity> : EntityModel<TEntity> where TEntity : AZUserPermission<TEntity>
+    public class AZUserPermission<TEntity> : IEntity
     {
         [Field(IsKey = true)]
         public long UserId { get; set; }
         [Field(IsKey = true, Length = 50)]
-        public string PermissionCode { get; set; }
+        public long PermissionId { get; set; }
 
     }
 }

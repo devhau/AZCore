@@ -2,6 +2,7 @@
 using AZCore.Database.SQL;
 using AZCore.Domain;
 using AZCore.Extensions;
+using AZWeb.Module.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,9 +21,11 @@ namespace AZERP.Data.Entities
         public void CheckDatabase()
         {
         //    this.BeginTransaction();
-            foreach (var item in this.GetType().GetTypeFromInterface<IEntityModel>()) {
-                Execute(BuildSQL.NewSQL(item).CreateTableIfNotExit());
-               
+            foreach (var item in this.GetType().GetTypeFromInterface<IEntity>()) {
+                if (!item.IsTypeFromInterface<IModule>())
+                {
+                    Execute(BuildSQL.NewSQL(item).CreateTableIfNotExit());
+                }
             }
           //  this.Commit();
         }

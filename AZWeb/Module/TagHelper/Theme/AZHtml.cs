@@ -56,25 +56,37 @@ namespace AZWeb.Module.TagHelper.Theme
         private void RenderJS(StringBuilder htmlBuilder, List<ContentTag> JS)
         {
             if (JS == null) return;
+            string codeJs = string.Empty;
             foreach (var item in JS)
             {
-                var scriptEl = new TagBuilder("script");
-                scriptEl.Attributes.Add("type", "text/javascript");
                 if (!string.IsNullOrEmpty(item.Code))
                 {
-                    scriptEl.InnerHtml.AppendHtml(jsCompressor.Compress(item.Code));
+                    codeJs += item.Code+" ; ";
                 }
                 else
                 if (!string.IsNullOrEmpty(item.CDN))
                 {
+                    var scriptEl = new TagBuilder("script");
+                    scriptEl.Attributes.Add("type", "text/javascript");
                     scriptEl.Attributes.Add("src", item.CDN);
+                    htmlBuilder.Append(scriptEl.GetString());
                 }
                 else
                 if (!string.IsNullOrEmpty(item.Link))
                 {
+                    var scriptEl = new TagBuilder("script");
+                    scriptEl.Attributes.Add("type", "text/javascript");
                     scriptEl.Attributes.Add("src", item.Link);
+                    htmlBuilder.Append(scriptEl.GetString());
                 }
+            }
+            if (!string.IsNullOrEmpty(codeJs)) {
+
+                var scriptEl = new TagBuilder("script");
+                scriptEl.Attributes.Add("type", "text/javascript");
+                scriptEl.InnerHtml.AppendHtml("$(function(){ " + jsCompressor.Compress(codeJs) + " });");
                 htmlBuilder.Append(scriptEl.GetString());
+
             }
         }
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
@@ -101,7 +113,9 @@ namespace AZWeb.Module.TagHelper.Theme
             {
                 htmlBuild.Append(item.InnerHtml.ToString());
             }
+            //Css Base
             RenderCss(htmlBuild, config.Head.Stypes);
+            //Css in function
             RenderCss(htmlBuild, this.Html.CSS);
             htmlBuild.Append("</head>");
             htmlBuild.Append($"<body class=\"{TagClass}\" >");
