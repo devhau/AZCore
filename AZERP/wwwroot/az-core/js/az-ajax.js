@@ -43,6 +43,7 @@
                 // Nếu có xử lý sau khi kết thúc request theo ý người lập trình
                 if (callback != null) callback(res);
 
+                UrlMain.Init();
                 // Thực hiện xử lý javascript mà server gửi về cho client
                 $this.Extends(res);
             }
