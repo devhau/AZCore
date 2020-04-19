@@ -1,0 +1,27 @@
+﻿@model FormUpdateCustomers
+    <div class="az-update row" role="form">
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((CustomersModel)item).Code" label="Mã khách hàng" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((CustomersModel)item).FullName" label="Họ tên" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((CustomersModel)item).PhoneNumber" label="Số điện thoại" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((CustomersModel)item).Email" label="Email" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-date-model model="Model.Data" func="(item)=>((CustomersModel)item).BirthDay" label="Ngày sinh(Nếu chỉ năm sinh:01/01/Năm sinh)" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-gender-select model="Model.Data" func="(item)=>((CustomersModel)item).Gender" label="Giới tínhh" null-text="Chọn giới tính" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((CustomersModel)item).Website" label="Website" />
+        </div>
+        <div class="form-group col-md-12">
+            <az-text-area-model model="Model.Data" func="(item)=>((CustomersModel)item).Note" label="Ghi chú" />
+        </div>
+    </div>

@@ -1,16 +1,46 @@
-﻿using AZCore.Database.Attributes;
+﻿using AZCore.Database;
+using AZCore.Database.Attributes;
+using AZCore.Domain;
 using AZCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace AZCore.Test
 {
-    public class AZUser : AZUser<AZUser>
+    /// <summary>
+    /// Serivce của Tài khoản
+    /// </summary>
+    public class UserService : EntityService<UserService, UserModel>, IAZTransient
     {
-        [Field(IsAutoIncrement =true,IsKey =true)]
-        public override long Id { get => base.Id; set => base.Id = value; }
-       
+        public UserService(IDbConnection _connection) : base(_connection)
+        {
+        }
+        /// <summary>
+        /// Tìm thông tin bởi Email hoặc Tài khoản
+        /// Tao không thích cho mày tìm số điện thoại đó làm gì được nhau.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public UserModel GetEmailOrUsername(string name)
+        {
+            var rs = buildSQL.SQLSelect();
+            rs.SQL = string.Format("{0} where Email=@name or UserName=@name", rs.SQL);
+            rs.Param = new Dapper.DynamicParameters();
+            rs.Param.Add("@name", name);
+            return ExecuteQuery(rs).FirstOrDefault();
+        }
+
+
+    }
+    /// <summary>
+    /// Thông tin tài khoản
+    /// Thằng nào tìm được thông tin của tao thì tao cũng cặn lời
+    /// </summary>
+    public class UserModel : AZUser<UserModel>
+    {
+
     }
 }

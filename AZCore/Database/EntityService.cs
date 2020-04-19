@@ -100,6 +100,14 @@ namespace AZCore.Database
         {
             buildSQL = BuildSQL.NewSQL(typeof(TModel));
         }
+        public IEnumerable<TModel1> ExecuteQuery<TModel1>(SQLResult rs)
+        {
+            return ExecuteQuery<TModel1>(rs.SQL, rs.Param);
+        }
+        public IEnumerable<TModel1> ExecuteQuery<TModel1>(string sql, object param = null, CommandType? commandType = null)
+        {
+            return this.Connection.Query<TModel1>(sql, param, this.transaction, true, this.commandTimeout, commandType);
+        }
         public IEnumerable<TModel> ExecuteQuery(SQLResult rs) {
             return ExecuteQuery(rs.SQL, rs.Param);
         }

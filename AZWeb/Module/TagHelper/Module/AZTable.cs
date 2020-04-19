@@ -11,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace AZWeb.Module.TagHelper.Module
@@ -33,16 +34,14 @@ namespace AZWeb.Module.TagHelper.Module
         [HtmlAttributeName("pagination")]
         public IPagination Pagination { get; set; }
         private Dictionary<Type, List<ItemValue>> DataDic { get; set; }
-        public override void Process(TagHelperContext context, TagHelperOutput output)
+        public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
-            output.TagName = "";
-            StringBuilder htmlTable = new StringBuilder();
-            htmlTable.AppendFormat("<table class=\"table table-bordered table-hover az-table {0}\" role=\"grid\">", this.TagClass);
-            this.RenderHeader(htmlTable);
-            this.RenderBody(htmlTable,Data);
-            this.RenderBottom(htmlTable);
-            htmlTable.Append("</table>");
-            output.Content.SetHtmlContent(htmlTable.ToString());
+            htmlBuild.AppendFormat("<table class=\"table table-bordered table-hover az-table {0}\" role=\"grid\">", this.TagClass);
+            this.RenderHeader(htmlBuild);
+            this.RenderBody(htmlBuild, Data);
+            this.RenderBottom(htmlBuild);
+            htmlBuild.Append("</table>");
+            return Task.CompletedTask;
         }
         private void RenderHeader(StringBuilder htmlTable)
         {
@@ -57,6 +56,8 @@ namespace AZWeb.Module.TagHelper.Module
             if (this.Columns!=null) {
                 foreach (var item in this.Columns)
                 {
+                    if (!string.IsNullOrEmpty(item.Permisson)&&!this.HasPermission(item.Permisson))
+                        continue;
                     if (item.DataType != null && !this.DataDic.ContainsKey(item.DataType))
                     {
                         this.DataDic[item.DataType] = item.DataType.GetListDataByDataType(this.ViewContext.HttpContext, " ");
@@ -149,6 +150,8 @@ namespace AZWeb.Module.TagHelper.Module
                         var d = item.GetType();
                         foreach (var col in this.Columns)
                         {
+                            if (!string.IsNullOrEmpty(col.Permisson) && !this.HasPermission(col.Permisson))
+                                continue;
                             string TextDisplay = "";
                             if (!string.IsNullOrEmpty(col.FieldName) && d.GetProperty(col.FieldName) != null)
                             {
@@ -263,5 +266,7 @@ namespace AZWeb.Module.TagHelper.Module
         private void RenderBottom(StringBuilder htmlTable)
         {
         }
+
+        
     }
 }

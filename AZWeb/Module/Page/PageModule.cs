@@ -22,6 +22,9 @@ namespace AZWeb.Module.Page
         public string Keyword { get => Html.Keyword; set => Html.Keyword = value; }
         public HtmlContent Html { get => this.HttpContext.Items[AZWebConstant.Html] as HtmlContent; }
         RenderView renderView { get; }
+        public bool HasPermission(string permissionCode) {
+            return User != null && User.HasPermission(permissionCode);
+        }
         public void AddMeta(string name, string content)
         {
             this.Html.AddMeta(name, content);
@@ -102,17 +105,27 @@ namespace AZWeb.Module.Page
         }
         public virtual IView Json(string Message)
         {
-            return Json(Message, null, HttpStatusCode.OK);
+            return Json(Message, string.Empty, HttpStatusCode.OK);
         }
         public virtual IView Json(string Message, HttpStatusCode status)
         {
-            return Json(Message, null, status);
+            return Json(Message, string.Empty, status);
         }
         public virtual IView Json(string Message, object data) {
             return Json(Message,data, HttpStatusCode.OK);        
         }
         public virtual IView Json(string Message, object data, HttpStatusCode status) {         
             return new JsonView() { Module=this,Data=data,StatusCode=status, Message=Message };
+        }
+        public virtual IHtmlContent ViewChild(string viewName, object model)
+        {
+            return this.renderView.GetContentHtmlFromView(new HtmlView()
+            {
+                Model = model,
+                ViewName = viewName,
+                Path = this.GetPathMoule(),
+                Module = this
+            }).ConfigureAwait(false).GetAwaiter().GetResult();
         }
     }
 }

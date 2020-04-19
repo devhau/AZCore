@@ -1,34 +1,49 @@
 ﻿@model ViewPermission
-
-<div class="az-view-permission">
-    <az-select-model func-type="()=>Model.TargetType"/>
+<az-layout class="az-view-permission">
     <table class="table table-bordered az-table table-hover">
         <thead>
             <tr>
-                <th width="120px">Module</th>
+                <th style="width: 200px;text-align: center;">Module</th>
+                <th style="width: 38px;text-align: center;">All</th>
                 <th>Chức năng</th>
             </tr>
         </thead>
         @if (Model.Permissions != null)
         {
-            @foreach (var item in Model.Permissions.Where(p=>p.Key.IndexOf("_")<0))
+            @foreach (var item in Model.Permissions.Where(p => p.Key.IndexOf("_") < 0))
             {
-                <tr>
-                    <td>  <az-switch label="@item.Name" value="@item.Code" attr="@Model.CheckItem(item)" name="@item.Key"/></td>
-                    <td>
-                        <div class="row">
-                            @foreach (var item1 in Model.Permissions.Where(p => p.Key.IndexOf("_") > 0 && p.Code.StartsWith(item.Code)))
-                            {
-                                <div class="col-2">
-                                    <az-switch label="@item1.Name" value="@item1.Code" attr="@Model.CheckItem(item1)" name="@item1.Key" />
-                                </div>
-                            }
-                        </div>
-                    </td>
-                </tr>
+                
+                var peChild = Model.Permissions.Where(p => p.Key.IndexOf("_") > 0 && p.Code.StartsWith(item.Code));
+                
+    <tr>
+        <td style="font-weight:700;padding-left:10px;">@item.Name</td>
+
+        <td>
+            @if (peChild.Count() == 0)
+            {
+                <az-checkbox id="@item.Key+'_'" name="@item.Key+'_'" class="all-permission" attr="@(Model.CheckItem(item))" />
+
+
+            }
+            else
+            {
+                <az-checkbox id="@item.Key+'_'" name="@item.Key+'_'" class="all-permission" attr="@((Model.PermissionActive!=null&&peChild.Count()>0&&peChild.All(p=>Model.PermissionActive.Contains(p.Id)))?" checked ":"")" />
+            }
+        </td>
+
+
+            <td class="az-permission-child">
+                <az-checkbox label="Truy cập" value="@item.Id" attr="@Model.CheckItem(item)" id="@item.Key" name="@item.Key" />
+                @foreach (var item1 in peChild)
+                {
+                    <span>
+                        <az-checkbox label="@item1.Name" value="@item1.Id" id="@item1.Key" attr="@Model.CheckItem(item1)" name="@item1.Key" />
+                    </span>
+                }
+            </td>
+        </tr>
             }
         }
 
     </table>
-
-</div>
+</az-layout>

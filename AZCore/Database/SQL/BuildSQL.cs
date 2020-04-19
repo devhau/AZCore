@@ -209,36 +209,178 @@ namespace AZCore.Database.SQL
 
 
         #region AnalyticQuery
-        public SQLResult AnalyticSet(BinaryExpression be, ref int index, DynamicParameters param =null)
+
+        #region Analytic
+        private SQLResult AnalyticQuery(BinaryExpression be, ref int i, DynamicParameters param = null, string prefix = "t")
         {
+            // Biến lưu kết quả gồm Key = Mệnh đề Set, Value = Param
+            var result = new SQLResult();
 
-            var result = new SQLResult()
+            // Khởi tạo biến lưu các Param nếu là lần đầu tiên phân tích BinaryExpressionression
+            result.Param = param.IsNull() ? new DynamicParameters() : param;
+            // Nếu biểu thức bên trái là MemberExpression
+            if (be.Left.Is<MemberExpression>() || be.Left.Is<UnaryExpression>())
             {
-                SQL = string.Empty
-            };
-            result.Param = param == null ? new DynamicParameters() : param;
+                // Tên field
+                string name = be.Left.Is<MemberExpression>() ? be.Left.As<MemberExpression>().Member.Name : be.Left.As<UnaryExpression>().Operand.As<MemberExpression>().Member.Name;
 
+                // Nếu như bên phải là một biểu thức
+                if (be.Right.Is<BinaryExpression>()) result.SQL = "{0}.{1} {3} {2}".Frmat(prefix, name, Analytic(be.Right.As<BinaryExpression>(), ref i, result.Param, prefix).SQL, be.NodeType.GetExpression());
+
+                else
+                {
+                    // Giá trị
+                    object value = be.Right.GetValue();
+
+                    // Khởi tạo Param
+                    result.Param.Add("{0}_{1}".Frmat(name, i),value);
+
+                    // Tạo biểu thức cho mệnh đề where
+                    result.SQL = "{3}.{0} {2} @{0}_{1}".Frmat(name, i, be.NodeType.GetExpression(), prefix);
+
+                    // Tăng biến i
+                    i++;
+                }
+            }
+            else
+            {
+                // Biểu thức bên trái
+                var rl = AnalyticQuery(be.Left.As<BinaryExpression>(), ref i, result.Param, prefix);
+
+                // be.Left.As<UnaryExpression>().Operand is MemberExpression
+
+                // Biểu thức bên phải
+                var rr = AnalyticQuery(be.Right.As<BinaryExpression>(), ref i, result.Param, prefix);
+
+                // Nối hai biểu thức với nhau
+                result.SQL = "({0}) {2} ({1})".Frmat(rl.SQL, rr.SQL, be.NodeType.GetExpression());
+            }
+
+            // return kết quả
             return result;
         }
-        public SQLResult AnalyticQuery(BinaryExpression be, ref int index, DynamicParameters param = null,string prefix="t") 
+        private SQLResult AnalyticSet(BinaryExpression be, ref int i, DynamicParameters param = null, string prefix = "t")
         {
-            var result = new SQLResult()
+            // Biến lưu kết quả gồm Key = Mệnh đề Set, Value = Param
+            var result = new SQLResult();
+
+            // Khởi tạo biến lưu các Param nếu là lần đầu tiên phân tích BinaryExpressionression
+            result.Param = param.IsNull() ? new DynamicParameters() : param;
+
+            // Nếu biểu thức bên trái là MemberExpression
+            if (be.Left.Is<MemberExpression>()|| be.Left.Is<UnaryExpression>())
             {
-                SQL = string.Empty
-            };
-            result.Param = param == null ? new DynamicParameters() : param;
+                // Tên field
+                string name = be.Left.Is<MemberExpression>()?be.Left.As<MemberExpression>().Member.Name: be.Left.As<UnaryExpression>().Operand.As<MemberExpression>().Member.Name;
 
+                // Nếu right là một biểu thức thì phân tích
+                if (be.Right.Is<BinaryExpression>()) result.SQL = "{0}.{1} = {2}".Frmat(prefix, name, Analytic(be.Right.As<BinaryExpression>(), ref i, result.Param, prefix).SQL);
 
+                // Nếu là Constant
+                else
+                {
+                    // Giá trị
+                    object value = be.Right.GetValue();
+
+                    // Khởi tạo Param
+                    result.Param.Add("{0}_{1}".Frmat(name, i),value);
+
+                    // Thiết lập biểu thức
+                    result.SQL = "{2}.{0} = @{0}_{1}".Frmat(name, i, prefix);
+
+                    // Tăng i
+                    i++;
+                }
+            }
+            else
+            {
+                // Biểu thức bên trái
+                var rl = AnalyticSet(be.Left.As<BinaryExpression>(), ref i, result.Param, prefix);
+
+                // Biểu thức bên phải
+                var rr = AnalyticSet(be.Right.As<BinaryExpression>(), ref i, result.Param, prefix);
+
+                // Ghép các mệnh đề
+                result.SQL += "{0},{1},".Frmat(rl.SQL, rr.SQL);
+            }
+
+            // Trim dấu , cuối cùng
+            result.SQL = result.SQL.TrimEnd(',');
+
+            // return kết quả
             return result;
         }
+        private SQLResult Analytic(BinaryExpression be, ref int i, DynamicParameters param = null, string prefix = "t")
+        {
+            // Biến lưu kết quả gồm Key = Mệnh đề Set, Value = Param
+            var result = new SQLResult();
+
+            // Khởi tạo biến lưu các Param nếu là lần đầu tiên phân tích BinaryExpressionression
+            result.Param = param.IsNull() ? new DynamicParameters() : param;
+
+            // Biểu thức trái
+            var rl = AnalyticExpression(be.Left, ref i, result.Param, prefix);
+
+            // Biểu thức phải
+            var rr = AnalyticExpression(be.Right, ref i, result.Param, prefix);
+
+            // Ghép biểu thức trái và phải với nhau
+            result.SQL = "({0} {2} {1})".Frmat(rl.SQL, rr.SQL, be.NodeType.GetExpression());
+
+            // return kết quả
+            return result;
+        }
+        private SQLResult AnalyticExpression(Expression ex, ref int i, DynamicParameters param = null, string prefix = "t")
+        {
+            // Biến lưu kết quả gồm Key = Mệnh đề Set, Value = Param
+            var result = new SQLResult();
+
+            // Khởi tạo biến lưu các Param nếu là lần đầu tiên phân tích BinaryExpression
+            result.Param = param.IsNull() ? new DynamicParameters() : param;
+
+            // Nếu là MemberExpression
+            if (ex.Is<MemberExpression>())
+            {
+                // Gán thành MemberExpression
+                var me = ex.As<MemberExpression>();
+
+                // Nếu Base của me là một Constants thì tạo param
+                if (me.Expression.Is<ConstantExpression>()) CreateParamFromExpression(me, result, ref i);
+
+                // Ngược lại Format như một field của bảng
+                else result.SQL = "{0}.{1}".Frmat(prefix, me.Member.Name);
+            }
+            // Nếu không thì lại phân tích cả biểu thức
+            else if (ex.Is<BinaryExpression>()) result.SQL = Analytic(ex.As<BinaryExpression>(), ref i, result.Param, prefix).SQL;
+
+            // Ngược lại thì coi như một biểu thức trả ra hằng số
+            else CreateParamFromExpression(ex, result, ref i);
+
+            // return kết quả
+            return result;
+        }
+        private void CreateParamFromExpression(Expression ex, SQLResult result, ref int i)
+        {
+            result.Param.Add("azP{0}".Frmat(i), ex.GetValue());
+            result.SQL = "@azP{0}".Frmat(i);
+            i++;
+        }
+        #endregion
+
         public SQLResult SQLSelect<TModel>(Expression<Func<TModel, bool>> funcWhere)
         {
             // Biến lưu thứ tự các Param
-            int i = 0;
             StringBuilder SQL = new StringBuilder();
             DynamicParameters parameter = new DynamicParameters();
-           
-            var where = AnalyticQuery(funcWhere.Body as BinaryExpression, ref i);
+            string prefix = "t";
+            SQL.AppendFormat("SELECT * FROM `{0}`  {1}", this.TableName, prefix);
+            int i = 0;
+            if (funcWhere != null)
+            {
+                SQL.Append(" WHERE ");
+                var where = AnalyticQuery(funcWhere.Body as BinaryExpression, ref i, parameter, prefix);
+                SQL.Append(where.SQL);
+            }
             return new SQLResult()
             {
                 Param = parameter,
@@ -249,6 +391,20 @@ namespace AZCore.Database.SQL
         {
             StringBuilder SQL = new StringBuilder();
             DynamicParameters parameter = new DynamicParameters();
+            string prefix = "t";
+            SQL.AppendFormat("UPDATE `{0}` {1} SET ", this.TableName, prefix);
+            int i = 0;
+            if (updateSet!=null) {
+                var azSet = AnalyticSet(updateSet.Body as BinaryExpression, ref i, parameter, prefix);
+                SQL.Append(azSet.SQL);
+            }
+            if (funcWhere != null)
+            {
+                SQL.Append(" WHERE ");
+                var where = AnalyticQuery(funcWhere.Body as BinaryExpression, ref i, parameter, prefix);
+                SQL.Append(where.SQL);
+               
+            }
             return new SQLResult()
             {
                 Param = parameter,
@@ -258,7 +414,16 @@ namespace AZCore.Database.SQL
         public SQLResult SQLDelete<TModel>(Expression<Func<TModel, bool>> funcWhere)
         {
             StringBuilder SQL = new StringBuilder();
+            string prefix = "t";
+            SQL.AppendFormat("DELETE  {1} FROM `{0}`  {1} ", this.TableName, prefix);
             DynamicParameters parameter = new DynamicParameters();
+            int i = 0;
+            if (funcWhere != null)
+            {
+                SQL.Append(" WHERE ");
+                var where = AnalyticQuery(funcWhere.Body as BinaryExpression, ref i, parameter, prefix);
+                SQL.Append(where.SQL);
+            }
             return new SQLResult()
             {
                 Param = parameter,

@@ -1,0 +1,17 @@
+﻿@model FormPermission
+<az-script module="ViewPermission.js" />
+<az-layout class="row" script-random='(id)=>$"ViewPermission(\".{id}\");"'>
+    <div class="col-12 search-permssion">
+        <form>
+            <input type="hidden" name="h" value="user" />
+            <az-user-select model="@Model" func="(item)=>((FormPermission)item).UserId" label="Tài khoản"   />
+        </form>
+    </div>
+    <div class="col-12 role-control">
+        <az-role-select label="Vai trò của tài khoản"  model="@Model" func="(item)=>((FormPermission)item).Roles" is-multiple="true" is-null-first="false" is-enable="Model.UserId>0" />
+    </div>
+    <div class="col-12">
+        <label>Quyền của tài khoản</label>
+        @Model.ViewChild("ViewPermission", Model.dataView)
+    </div>
+</az-layout>

@@ -141,12 +141,12 @@ namespace AZWeb.Module
 
             var methodName = httpContext.Request.Method.ToUpperFirstChart();
             if (query.ContainsKey("h") && !string.IsNullOrEmpty(query["h"].ToString()))
-                methodName = string.Format("{0}{1}", methodName, query["h"].ToString().ToUpperFirstChart());
+                methodName = string.Format("{0}{1}", methodName, query["h"].ToString());
 
             if (ModuleCurrent == null|| (ModuleCurrent.GetType().GetAttribute<OnlyAjaxAttribute>() != null&&!IsAjax))
                 return RenderError.NotFoundModule;
 
-            var methodFunction = ModuleCurrent.GetType().GetMethod(methodName);
+            var methodFunction = ModuleCurrent.GetType().GetMethods().FirstOrDefault(p=> string.Equals(p.Name, methodName, StringComparison.OrdinalIgnoreCase));
             if (methodFunction == null || (methodFunction.GetAttribute<OnlyAjaxAttribute>() != null && !IsAjax))
                 return RenderError.NotFoundMethod;
 
@@ -252,6 +252,7 @@ namespace AZWeb.Module
                 if (theme == null)
                     return RenderError.NotFoundTheme;
                 theme.BeforeRequest();
+                theme.LayoutTheme = ModuleCurrent.LayoutTheme;
                 theme.BodyContent = await renderView.GetContentHtmlFromView(rsView as HtmlView);
                 await renderView.RenderHtml(theme.GetTheme());
                 theme.AfterRequest();

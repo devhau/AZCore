@@ -17,7 +17,7 @@ namespace AZERP.Web.Modules.Common.Auth
         protected override void IntData()
         {
             this.Title = "Đăng ký tài khoản";
-            this.IsTheme = false;        
+            this.LayoutTheme = "Fullscreen";
         }
         public IView Get() {
             return View();

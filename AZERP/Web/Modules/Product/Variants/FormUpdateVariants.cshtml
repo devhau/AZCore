@@ -1,27 +1,97 @@
 ﻿@model FormUpdateVariants
-    <div class="az-update row" id="FormUpdateCatalog" role="form">
+<az-style module="UpdateVariants.css" />
+<div class="az-update row" id="FormUpdateVariants" role="form">
+    <div class="form-group col-md-8">
         <div class="form-group col-md-12">
             <az-code-model model="Model.Data" func="(item)=>((ProductModel)item).Code" label="Mã sản phẩm (SKU)" />
         </div>
         <div class="form-group col-md-12">
             <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).Name" label="Tên sản phẩm (*)" />
         </div>
-        <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).RetailPrice" label="Giá bán lẻ" />
+    </div>
+    <div class="form-group col-md-4">
+        <az-button class="picture" text="Ảnh sản phẩm"></az-button>
+    </div>
+    <div class="form-group col-md-6">
+        <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).RetailPrice" label="Giá bán lẻ" />
+    </div>
+    <div class="form-group col-md-6">
+        <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).WholesalePrice" label="Giá bán buôn" />
+    </div>
+    <div class="form-group col-md-6">
+        <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).ImportPrice" label="Giá nhập" />
+    </div>
+    <div class="col-md-6"></div>
+    <div class="form-group col-md-6">
+        <az-switch-model model="Model.Data" func="(item)=>((ProductModel)item).ProductSellable" value="true" label="Cho phép bán" />
+    </div>
+    <div class="form-group col-md-6">
+        <az-switch-model model="Model.Data" func="(item)=>((ProductModel)item).ProductTaxable" value="true" label="Áp dụng thuế" />
+    </div>
+    <div class="form-group col-md-12">
+        <div class="variants">
+            <div class="variants-info"> Tồn kho</div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label> Tồn kho: @Model.Data.Available</label>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Hàng đang về: @Model.Data.Incoming</label>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Hàng đang giao: @Model.Data.OnWay</label>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Hàng đang giao dịch: @Model.Data.Committed</label>
+                </div>
+            </div>
         </div>
-        <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).WholesalePrice" label="Giá bán buôn" />
-        </div>
-        <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).ImportPrice" label="Giá nhập" />
-        </div>
-        <div class="form-group col-md-12">
-            <az-switch-model model="Model.Data" func="(item)=>((ProductModel)item).ProductSellable" value="true" label="Cho phép bán" />
-        </div>
-        <div class="form-group col-md-12">
-            <az-switch-model model="Model.Data" func="(item)=>((ProductModel)item).ProductTaxable" value="true" label="Áp dụng thuế" />
+        <div class="variants">
+            <div class="variants-info"> Lịch sử kho</div>
+            <div class="row">
+                <div class="col-md-12 az-data-table">
+                    <table class="table table-bordered table-hover az-table " role="grid">
+                        <thead>
+                            <tr>
+                                <td>Ngày ghi nhận</td>
+                                <td>Thao tác</td>
+                                <td>Số lượng thay đổi</td>
+                                <td>Tồn kho</td>
+                                <td>Mã hóa đơn</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    19/04/2020 15:32:41
+                                </td>
+                                <td>Xuất kho giao hàng cho khách/shipper</td>
+                                <td style="text-align: center">-2</td>
+                                <td style="text-align: center">98</td>
+                                <td>SON00017</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    19/04/2020 15:31:01
+                                </td>
+                                <td>Nhập hàng vào kho</td>
+                                <td style="text-align: center">+100</td>
+                                <td style="text-align: center">100</td>
+                                <td>PCN00004</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    16/04/2020 18:31:46
+                                </td>
+                                <td>Khởi tạo variant</td>
+                                <td style="text-align: center">0</td>
+                                <td style="text-align: center">0</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-<az-script>
-
-</az-script>
+</div>

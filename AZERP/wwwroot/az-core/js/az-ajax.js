@@ -32,12 +32,18 @@
         request.done(
             function (res) {
                 if (res.statusCode && res.statusCode === 401) {
-                    location.href = res.data;
+                    if (res.redirectToUrl && res.redirectToUrl != "")
+                        location.href = itemData.redirectToUrl;
+                    else {
+                        toastr.error(res.message);
+                        if (callback != null) callback(res);
+                    }
                     return;
                 }
                 // Nếu có xử lý sau khi kết thúc request theo ý người lập trình
                 if (callback != null) callback(res);
 
+                UrlMain.Init();
                 // Thực hiện xử lý javascript mà server gửi về cho client
                 $this.Extends(res);
             }

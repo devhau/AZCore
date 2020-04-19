@@ -29,6 +29,7 @@ namespace AZWeb.Module.Attributes
         public DisplayColumn Display { get; set; } = DisplayColumn.Text;
         public PopupSize Popup { get; set; } = PopupSize.None;
         public bool ReLoadAfterPopupClose { get; set; }
+        public string Permisson { get; set; }
     }
     
    

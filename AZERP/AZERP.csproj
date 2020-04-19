@@ -16,25 +16,20 @@
     <EmbeddedResource Remove="Web\Modules\Product\PurchaseOrders\**" />
     <None Remove="Web\Modules\Category\**" />
     <None Remove="Web\Modules\Product\PurchaseOrders\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Web\Modules\Store\FormStore.cshtml.cs" />
-    <Compile Remove="Web\Modules\Store\FormUpdateStore.cshtml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Web\Modules\Store\FormStore.cshtml" />
-    <Content Remove="Web\Modules\Store\FormUpdateStore.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Remove="Web\Modules\Product\StockAdjustments\css\StockAdjustment.css" />
+    <Compile Include="Web\Modules\Product\PurchaseOrders\FormPurchaseOrders.cshtml.cs" />
+    <Compile Include="Web\Modules\Product\PurchaseOrders\FormUpdatePurchaseOrders.cshtml.cs" />
+    <Content Include="Web\Modules\Product\PurchaseOrders\css\PurchaseOrders.css" />
+    <Content Include="Web\Modules\Product\PurchaseOrders\js\PurchaseOrders.js" />
+    <Content Include="Web\Modules\Product\StockAdjustments\css\StockAdjustment.css" />
     <Content Include="Web\Modules\Recruitment\Worker\js\CheckinCheckout.js" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Web\Modules\Common\Auth\FormLogin.cshtml" />
     <None Include="Web\Modules\Common\Auth\FormRegister.cshtml" />
+    <Content Include="Web\Modules\Product\PurchaseOrders\FormPurchaseOrders.cshtml" />
+    <Content Include="Web\Modules\Product\PurchaseOrders\FormUpdatePurchaseOrders.cshtml" />
     <None Include="Web\Modules\Recruitment\Candidate\FormCandidate.cshtml" />
     <None Include="Web\Modules\Recruitment\Candidate\FormSale.cshtml" />
     <None Include="Web\Modules\Recruitment\Candidate\FormUpdateCandidate.cshtml" />
@@ -48,6 +43,8 @@
     <None Include="Web\Modules\Recruitment\Worker\FormCheckinCheckout.cshtml" />
     <None Include="Web\Modules\Recruitment\Worker\FormUpdateWorker.cshtml" />
     <None Include="Web\Modules\Recruitment\Worker\FormWorker.cshtml" />
+    <None Include="Web\Modules\Store\FormStore.cshtml" />
+    <None Include="Web\Modules\Store\FormUpdateStore.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -95,10 +92,7 @@
     <Folder Include="Web\Modules\Orders\Shipments\" />
     <Folder Include="Web\Modules\Orders\Orders\" />
     <Folder Include="Web\Modules\Product\StockTransfers\" />
-    <Folder Include="Web\Modules\Product\StockAdjustments\" />
-    <Folder Include="Web\Modules\Product\Variants\" />
     <Folder Include="Web\Api\" />
-    <Folder Include="Web\Modules\Store\" />
   </ItemGroup>
 
 </Project>

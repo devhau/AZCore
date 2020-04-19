@@ -4,6 +4,7 @@ using AZERP.Data.Entities;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace AZERP.Web.Modules.Common.Auth
 {
@@ -18,7 +19,7 @@ namespace AZERP.Web.Modules.Common.Auth
         protected override void IntData()
         {
             this.Title = "Đăng nhập hệ thống";
-            this.IsTheme = false;
+            this.LayoutTheme = "Fullscreen";
         }
 
         public  IView Get()
@@ -45,7 +46,9 @@ namespace AZERP.Web.Modules.Common.Auth
                         Error = "Tài khoản đã bị khóa";
                         return View();
                     }
-                    this.Login(usr.CopyTo<UserInfo>(), azremember);
+                    var ulogin = usr.CopyTo<UserInfo>();
+                    ulogin.PermissionActive = this.userService.GetPermissionByUserId(usr.Id).Select(p=>p.Code).ToList();
+                    this.Login(ulogin, azremember);
                     return this.GoToHome();
                 }
             }

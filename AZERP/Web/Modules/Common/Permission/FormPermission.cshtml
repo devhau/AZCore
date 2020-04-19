@@ -3,12 +3,13 @@
 <az-module-layout script-random='(id)=>$"ManagerPermission(\".{id}\");"'>
     <div class="az-manager" data-form-size="az-modal-xl">
         <div class="az-toolbar">
-            @*<button type="button" class="btn btn-success btn-sm az-btn az-btn-add" data-cmd-key="f1"><i class="far fa-plus-square"></i> Thêm Mới (F1)</button>*@
-            <button type="button" class="btn btn-info btn-sm az-btn az-btn-export" data-cmd-key="f2"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
-            @*<button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import" data-cmd-key="f3"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>*@
-            <button type="button" class="btn btn-secondary btn-sm az-btn az-btn-update-permission" data-cmd-key="f3"><i class="fas fa-file-import"></i> Cập nhật quyền (F3)</button>
-            <a href="/danh-sach-quyen.az?h=User" class="btn btn-danger btn-sm az-btn az-link-popup" data-cmd-key="f4" modal-size="az-modal-xl"><i class="fas fa-user-tag"></i> Phân quyền cho người dùng (F4)</a>
-            <a href="/danh-sach-quyen.az?h=Role" class="btn btn-dark btn-sm az-btn az-link-popup" data-cmd-key="f5" modal-size="az-modal-xl"><i class="fas fa-user-tag"></i> Phân quyền cho vai trò (F5)</a>
+            @*<button type="button" class="btn btn-success btn-sm az-btn az-btn-add"cmd-key="f1" icon="far fa-plus-square" text="Thêm Mới (F1)"/>*@
+           <az-button class="btn btn-info btn-sm az-btn az-btn-export"cmd-key="f2" icon="fas fa-file-export" text="Xuất Excel (F2)"/>
+            @*<button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import"cmd-key="f3" icon="fas fa-file-import" text="Nhập Excel (F3)"/>*@
+           <az-button class="btn btn-secondary btn-sm az-btn az-btn-update-permission"cmd-key="f3" icon="fas fa-file-import" text="Cập nhật quyền (F3)"/> 
+            <az-link href="/vai-tro.az" class="btn btn-secondary btn-sm az-btn az-link-popup" cmd-key="f4" icon="fas fa-user-tag" modal-size="az-modal-xl" text="Quản lý vai trò (F4)" />
+            <az-link href="/danh-sach-quyen.az?h=User" class="btn btn-danger btn-sm az-btn az-link-popup" cmd-key="f5" icon="fas fa-user-tag" modal-size="az-modal-xl" text="Phân quyền cho người dùng (F5)" />
+
         </div>
         <div class="az-data-table">
             <az-table data="Model.Data" FunKey="(item)=>((PermissionModel)item).Id" columns="Model.Columns" pagination="Model"></az-table>

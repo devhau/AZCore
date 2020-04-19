@@ -52,70 +52,81 @@ namespace AZWeb.Module.TagHelper.Theme
                 }
             }
         }
-
         JavaScriptCompressor jsCompressor = new JavaScriptCompressor();
         private void RenderJS(StringBuilder htmlBuilder, List<ContentTag> JS)
         {
             if (JS == null) return;
+            string codeJs = string.Empty;
             foreach (var item in JS)
             {
-                var scriptEl = new TagBuilder("script");
-                scriptEl.Attributes.Add("type", "text/javascript");
                 if (!string.IsNullOrEmpty(item.Code))
                 {
-                    scriptEl.InnerHtml.AppendHtml(jsCompressor.Compress(item.Code));
+                    codeJs += item.Code+" ; ";
                 }
                 else
                 if (!string.IsNullOrEmpty(item.CDN))
                 {
+                    var scriptEl = new TagBuilder("script");
+                    scriptEl.Attributes.Add("type", "text/javascript");
                     scriptEl.Attributes.Add("src", item.CDN);
+                    htmlBuilder.Append(scriptEl.GetString());
                 }
                 else
                 if (!string.IsNullOrEmpty(item.Link))
                 {
+                    var scriptEl = new TagBuilder("script");
+                    scriptEl.Attributes.Add("type", "text/javascript");
                     scriptEl.Attributes.Add("src", item.Link);
+                    htmlBuilder.Append(scriptEl.GetString());
                 }
+            }
+            if (!string.IsNullOrEmpty(codeJs)) {
+
+                var scriptEl = new TagBuilder("script");
+                scriptEl.Attributes.Add("type", "text/javascript");
+                scriptEl.InnerHtml.AppendHtml("$(function(){ " + jsCompressor.Compress(codeJs) + " });");
                 htmlBuilder.Append(scriptEl.GetString());
+
             }
         }
-        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
-            output.TagName = "";
             var content = await output.GetChildContentAsync();
             var htmlDoc = content.GetContent().LoadHtml();
             var headHtml = htmlDoc.DocumentNode.Descendants("head");
             var bodyHtml = htmlDoc.DocumentNode.Descendants("body");
-            var config = HttpContext.GetService <IPagesConfig>();
-            StringBuilder htmlBuilder = new StringBuilder();
-            htmlBuilder.Append("<!DOCTYPE html>");
-            htmlBuilder.Append($"<html lang=\"{LangHtml}\" >");
-            htmlBuilder.Append("<head>");
-            htmlBuilder.Append("<meta charset=\"utf-8\">");
-            htmlBuilder.Append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
-            htmlBuilder.Append($"<title>{this.Title}</title>");
-            htmlBuilder.Append($"<meta name=\"description\" content=\"{this.Description}\">");
-            htmlBuilder.Append($"<meta name=\"keywords\" content=\"{this.Keyword}\">");
-            if(this.Html.Meta!=null)
-            foreach (var item in this.Html.Meta) {
-                htmlBuilder.Append($"<meta name=\"{item.Name}\" content=\"{item.Content}\">");
-            }
+            var config = HttpContext.GetService<IPagesConfig>();
+            htmlBuild.Append("<!DOCTYPE html>");
+            htmlBuild.Append($"<html lang=\"{LangHtml}\" >");
+            htmlBuild.Append("<head>");
+            htmlBuild.Append("<meta charset=\"utf-8\">");
+            htmlBuild.Append("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
+            htmlBuild.Append($"<title>{this.Title}</title>");
+            htmlBuild.Append($"<meta name=\"description\" content=\"{this.Description}\">");
+            htmlBuild.Append($"<meta name=\"keywords\" content=\"{this.Keyword}\">");
+            if (this.Html.Meta != null)
+                foreach (var item in this.Html.Meta)
+                {
+                    htmlBuild.Append($"<meta name=\"{item.Name}\" content=\"{item.Content}\">");
+                }
             foreach (var item in headHtml)
             {
-                htmlBuilder.Append(item.InnerHtml.ToString());
+                htmlBuild.Append(item.InnerHtml.ToString());
             }
-            RenderCss(htmlBuilder, config.Head.Stypes);
-            RenderCss(htmlBuilder, this.Html.CSS);
-            htmlBuilder.Append("</head>");
-            htmlBuilder.Append($"<body class=\"{TagClass}\" >");
+            //Css Base
+            RenderCss(htmlBuild, config.Head.Stypes);
+            //Css in function
+            RenderCss(htmlBuild, this.Html.CSS);
+            htmlBuild.Append("</head>");
+            htmlBuild.Append($"<body class=\"{TagClass}\" >");
             foreach (var item in bodyHtml)
             {
-                htmlBuilder.Append(item.InnerHtml.ToString());
+                htmlBuild.Append(item.InnerHtml.ToString());
             }
-            RenderJS(htmlBuilder, config.Head.Scripts);
-            RenderJS(htmlBuilder, this.Html.JS);
-            htmlBuilder.Append("</body>");
-            htmlBuilder.Append("</html>");
-            output.Content.SetHtmlContent(htmlBuilder.ToString());
+            RenderJS(htmlBuild, config.Head.Scripts);
+            RenderJS(htmlBuild, this.Html.JS);
+            htmlBuild.Append("</body>");
+            htmlBuild.Append("</html>");
         }
     }
 }

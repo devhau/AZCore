@@ -1,0 +1,21 @@
+﻿.list-info-money {
+    float: right;
+    width: 360px;
+    margin: 20px 0;
+}
+
+    .list-info-money .item-info-money {
+        margin-bottom: 10px;
+        width: 100%;
+        float: left;
+    }
+        .list-info-money .item-info-money .label {
+            float: left;
+            width: 55%;
+            text-align: left;
+        }
+        .list-info-money .item-info-money .value {
+            float: right;
+            width: 45%;
+            text-align: right;
+        }

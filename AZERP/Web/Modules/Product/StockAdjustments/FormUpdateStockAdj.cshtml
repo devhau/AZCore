@@ -1,0 +1,39 @@
+﻿@model FormUpdateStockAdj
+<az-style module="StockAdjustment.css" />
+<az-script module="StockAdjustment.js" />
+<az-layout class="az-update row">
+    <div class="form-group col-md-12">
+        <az-text-model model="Model.Data" func="(item)=>((StockAdjusmentModel)item).Code" label="Mã đơn kiểm hàng" />
+    </div>
+    <div class="form-group col-md-12">
+        <az-product-select model="Model.Data" func="(item)=>((StockAdjusmentModel)item).ProductCode" label="Sản phẩm" />
+    </div>
+    <div class="col-md-12 az-data-table">
+        <table class="table table-bordered table-hover az-table " role="grid">
+            <thead>
+                <tr>
+                    <td>Mã SKU</td>
+                    <td>Tên sản phẩm</td>
+                    <td>Tồn kho</td>
+                    <td>Chênh lệch</td>
+                    <td>Sau điều chỉnh</td>
+                    <td>Lý do</td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <div class="list-info-money">
+            <div class="item-info-money">
+                <div class="label">Tổng số lượng sau điều chỉnh</div>
+                <div class="value">0</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label"><b>Tổng số lượng chênh lệch</b></div>
+                <div class="value">0</div>
+            </div>
+        </div>
+    </div>
+</az-layout>

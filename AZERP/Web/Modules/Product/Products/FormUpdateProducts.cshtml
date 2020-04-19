@@ -1,33 +1,38 @@
 ﻿@model FormUpdateProducts
-    <div class="az-update row" id="FormUpdateCatalog" role="form">
+<az-style module="UpdateProduct.css" />
+<div class="az-update row" role="form">
+    <div class="form-group col-md-8">
         <div class="form-group col-md-12">
             <az-code-model model="Model.Data" func="(item)=>((ProductModel)item).Code" label="Mã sản phẩm (SKU)" />
         </div>
         <div class="form-group col-md-12">
             <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).Name" label="Tên sản phẩm (*)" />
         </div>
-        <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).RetailPrice" label="Giá bán lẻ" />
-        </div>
-        <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).WholesalePrice" label="Giá bán buôn" />
-        </div>
-        <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).ImportPrice" label="Giá nhập" />
-        </div>
-        <div class="form-group col-md-12">
-            <az-text-area-model model="Model.Data" func="(item)=>((ProductModel)item).Description" label="Mô tả sản phẩm" />
-        </div>
-        <div class="form-group col-md-12">
-            <az-category-select model="Model.Data" func="(item)=>((ProductModel)item).CategoryId" label="Nhóm sản phẩm" />
-        </div>
-        <div class="form-group col-md-12">
-            <az-switch-model model="Model.Data" func="(item)=>((ProductModel)item).ProductSellable" value="true" label="Cho phép bán" />
-        </div>
-        <div class="form-group col-md-12">
-            <az-switch-model model="Model.Data" func="(item)=>((ProductModel)item).ProductTaxable" value="true" label="Áp dụng thuế" />
-        </div>
     </div>
-<az-script>
-
-</az-script>
+    <div class="form-group col-md-4">
+        <az-button class="picture" text="Ảnh sản phẩm"></az-button>
+    </div>
+    <div class="form-group col-md-12">
+        <az-category-select model="Model.Data" func="(item)=>((ProductModel)item).CategoryId" label="Nhóm sản phẩm" null-text="Chọn nhóm" />
+    </div>
+    <div class="form-group col-md-6">
+        <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).RetailPrice" label="Giá bán lẻ" />
+    </div>
+    <div class="form-group col-md-6">
+        <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).WholesalePrice" label="Giá bán buôn" />
+    </div>
+    <div class="form-group col-md-6">
+        <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).ImportPrice" label="Giá nhập" />
+    </div>
+    <div class="form-group col-md-6">
+    </div>
+    <div class="form-group col-md-6">
+        <az-switch-model model="Model.Data" func="(item)=>((ProductModel)item).ProductSellable" value="true" label="Cho phép bán" />
+    </div>
+    <div class="form-group col-md-6">
+        <az-switch-model model="Model.Data" func="(item)=>((ProductModel)item).ProductTaxable" value="true" label="Áp dụng thuế" />
+    </div>
+    <div class="form-group col-md-12">
+        <az-text-area-model model="Model.Data" func="(item)=>((ProductModel)item).Description" label="Mô tả sản phẩm" />
+    </div>
+</div>

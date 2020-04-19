@@ -1,6 +1,7 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
 using AZCore.Utility;
+using System.Text.Json.Serialization;
 
 namespace AZCore.Identity
 {
@@ -17,8 +18,10 @@ namespace AZCore.Identity
         public string Email { get; set; }
         [Field(Length =200)] 
         public string UserName { get; set; }
+        [JsonIgnore]
         [Field(Length =128)] 
         public string Password { get; set; }
+        [JsonIgnore]
         [Field(Length = 128)]
         public string Salt { get; set; }
         [Field(Length = 200)]
