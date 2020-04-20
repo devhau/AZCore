@@ -357,5 +357,4 @@ MigrationBackup/
 .ionide/
 *.cache
 *.dgspec.json
-*.cache
 *.csproj.user
