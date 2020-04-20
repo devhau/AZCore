@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using AZCore.Extensions;
 using AZCore.Identity;
 using AZWeb.Module.Attributes;
+using System.Collections;
 
 namespace AZWeb.Extensions
 {
@@ -77,10 +78,10 @@ namespace AZWeb.Extensions
         {
             if (!httpContext.Request.HasFormContentType) return;
             var objType = obj.GetType();
-            foreach (var item in httpContext.Request.Form.Keys)
+            foreach (var item in httpContext.Request.Form.Keys.Where(p => p.IndexOf(".") < 0))
             {
-                var pro = objType.GetProperty(item);
-                if (pro != null && pro.CanWrite&&pro.GetAttribute<BindFormAttribute>()!=null)
+                var pro = objType.GetProperties().FirstOrDefault(p => p.CanWrite && p.Name.Equals(item, StringComparison.OrdinalIgnoreCase));
+                if (pro != null && pro.GetAttribute<BindFormAttribute>() != null)
                 {
                     if (pro.PropertyType.IsArray)
                     {
@@ -90,7 +91,71 @@ namespace AZWeb.Extensions
                     {
                         pro.SetValue(obj, httpContext.Request.Form[item][0].ToType(pro.PropertyType));
                     }
+                }
+            }
+            var listKeys = httpContext.Request.Form.Keys.Where(p => p.IndexOf(".") > 0).Select(p => p.Split(new string[] { "[]", "." }, StringSplitOptions.RemoveEmptyEntries)[0]).Distinct().ToList();
+            foreach (var item in listKeys)
+            {
+                if (httpContext.Request.Form.Keys.Any(p => p.StartsWith(string.Format("{0}.", item), StringComparison.OrdinalIgnoreCase)))
+                {
+                    var keys = httpContext.Request.Form.Keys.Where(p => p.StartsWith(string.Format("{0}.", item), StringComparison.OrdinalIgnoreCase)).ToList();
+                    var pro = objType.GetProperties().FirstOrDefault(p => p.CanWrite && p.Name.Equals(item, StringComparison.OrdinalIgnoreCase));
+                    if (pro != null && pro.GetAttribute<BindFormAttribute>() != null && pro.PropertyType.IsGenericType && keys.Count > 0)
+                    {
 
+                        var objectValue = pro.PropertyType.CreateInstance();
+                        foreach (var key in keys)
+                        {
+                            var proName = key.Split('.')[1];
+                            var pro1 = pro.PropertyType.GetProperties().FirstOrDefault(p => p.Name.Equals(proName, StringComparison.OrdinalIgnoreCase));
+                            if (pro1 != null && pro1.CanWrite)
+                            {
+                                if (pro1.PropertyType.IsArray)
+                                {
+                                    pro1.SetValue(objectValue, httpContext.Request.Form[key][0].Split(',').ToType(pro1.PropertyType));
+                                }
+                                else
+                                {
+                                    pro1.SetValue(objectValue, httpContext.Request.Form[key].ToArray()[0].ToType(pro1.PropertyType));
+                                }
+                            }
+                        }
+                        pro.SetValue(obj, objectValue);
+                    }
+
+                }
+                else if (httpContext.Request.Form.Keys.Any(p => p.StartsWith(string.Format("{0}[].", item), StringComparison.OrdinalIgnoreCase)))
+                {
+                    var keys = httpContext.Request.Form.Keys.Where(p => p.StartsWith(string.Format("{0}[].", item), StringComparison.OrdinalIgnoreCase)).ToList();
+                    var pro = objType.GetProperties().FirstOrDefault(p => p.CanWrite && p.Name.Equals(item, StringComparison.OrdinalIgnoreCase));
+                    if (pro != null && pro.GetAttribute<BindFormAttribute>() != null && pro.PropertyType.IsGenericType && pro.PropertyType.IsTypeFromInterface<IList>() && keys.Count > 0)
+                    {
+                        var objectValues = (IList)pro.PropertyType.CreateInstance();
+                        var len = httpContext.Request.Form[keys[0]].Count;
+                        var typeObject = pro.PropertyType.GetGenericArguments().Single();
+                        for (var index = 0; index < len; index++)
+                        {
+                            var objectValue = typeObject.CreateInstance();
+                            foreach (var key in keys)
+                            {
+                                var proName = key.Split('.')[1];
+                                var pro1 = typeObject.GetProperties().FirstOrDefault(p => p.Name.Equals(proName, StringComparison.OrdinalIgnoreCase));
+                                if (pro1 != null && pro1.CanWrite)
+                                {
+                                    if (pro1.PropertyType.IsArray)
+                                    {
+                                        pro1.SetValue(objectValue, httpContext.Request.Form[key][index].Split(',').ToType(pro1.PropertyType));
+                                    }
+                                    else
+                                    {
+                                        pro1.SetValue(objectValue, httpContext.Request.Form[key].ToArray()[index].ToType(pro1.PropertyType));
+                                    }
+                                }
+                            }
+                            objectValues.Add(objectValue);
+                        }
+                        pro.SetValue(obj, objectValues);
+                    }
                 }
             }
         }
