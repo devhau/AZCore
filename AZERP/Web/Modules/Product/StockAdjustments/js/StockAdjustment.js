@@ -11,9 +11,10 @@ $("#InputProductCode").on('change', function () {
     if (value != "") {
         $(".modal-dialog .az-data-table").show();
         let name = $("#InputProductCode option[value=" + value + "]").text();
-        let inputAfter = '<input type="text" class="form-control test" value="1">';
-        let inputNote = '<input type="text" class="form-control">';
-        $(".modal-dialog .az-data-table table > tbody:last-child").append("<tr><td></td><td>" + name + "</td><td>10</td><td>-9</td><td>" + inputAfter + "</td><td>" + inputNote + "</td></tr>");
+        let inputAfter = '<input type="text" name="DataStock[].StoreCode" class="form-control test" value="1">';
+        let inputNote = '<input type="text" name="DataStock[].Code"  class="form-control">';
+        let codeNew = AZCore.newGuid();
+        $(".modal-dialog .az-data-table table > tbody:last-child").append("<tr><td>" + codeNew + "</td><td>" + name + "</td><td>10</td><td>-9</td><td>" + inputAfter + "</td><td>" + inputNote + "</td></tr>");
         var valueAfter = 0, valueSum = 0;
         $(".modal-dialog .az-data-table table tbody tr").each(function () {
             valueAfter += parseInt($(this).children("td").eq(4).children("input").val());
