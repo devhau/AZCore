@@ -6,7 +6,7 @@ using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace AZERP.Web.Modules.Product.StockAdjustments
 {
@@ -22,18 +22,7 @@ namespace AZERP.Web.Modules.Product.StockAdjustments
         {
             this.Title = "Kiểm hàng";
         }
-        public IView GetProducbyid(long Id)
-        {
-
-            var result = productService.Select(p => p.Id == Id).FirstOrDefault();
-            if (result != null)
-            {
-                return Json("", result);
-            }
-            else
-            {
-                return Json("");
-            }
-        }
+        [BindForm]
+        public List<StockAdjusmentModel> DataStock { get; set; }
     }
 }

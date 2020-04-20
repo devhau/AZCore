@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
@@ -172,40 +173,106 @@ namespace AZWeb.Module
             List<object> paraValues = new List<object>();
             foreach (var param in methodFunction.GetParameters())
             {
-                if (this.httpContext.Request.Query.ContainsKey(param.Name.ToLower()))
+                if (this.httpContext.Request.Query.Keys.Any(p=>p.Equals(param.Name,StringComparison.OrdinalIgnoreCase)))
                 {
+                    var key = this.httpContext.Request.Query.Keys.First(p => p.Equals(param.Name, StringComparison.OrdinalIgnoreCase));
                     if (param.ParameterType.IsArray)
                     {
                         var type = param.ParameterType.GetElementType();
-                        var obj = this.httpContext.Request.Query[param.Name][0].Split(',').Select(p => p.ToType(type)).ToArray();
+                        var obj = this.httpContext.Request.Query[key][0].Split(',').Select(p => p.ToType(type)).ToArray();
                         paraValues.Add(obj);
                     }
                     else
                     {
-                        paraValues.Add(this.httpContext.Request.Query[param.Name].ToArray()[0].ToType(param.ParameterType));
+                        paraValues.Add(this.httpContext.Request.Query[key][0].ToType(param.ParameterType));
+                    }
+                    continue;
+                }
+                else if (this.httpContext.Request.HasFormContentType)
+                {
+                    if (httpContext.Request.Form.Keys.Any(p => string.Equals(p, param.Name, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        var key = this.httpContext.Request.Form.Keys.First(p => string.Equals(p, param.Name, StringComparison.OrdinalIgnoreCase));
+
+                        if (param.ParameterType.IsArray)
+                        {
+                            var type = param.ParameterType.GetElementType();
+                            var obj = this.httpContext.Request.Form[key][0].Split(',').Select(p => p.ToType(type)).ToArray();
+                            paraValues.Add(obj);
+                        }
+                        else
+                        {
+                            paraValues.Add(this.httpContext.Request.Form[key][0].ToType(param.ParameterType));
+                        }
+                        continue;
+                    }
+                    else if (this.httpContext.Request.Form.Keys.Any(p => p.StartsWith(string.Format("{0}.", param.Name), StringComparison.OrdinalIgnoreCase)))
+                    {
+                        var keys = this.httpContext.Request.Form.Keys.Where(p => p.StartsWith(string.Format("{0}.", param.Name), StringComparison.OrdinalIgnoreCase)).ToList();
+                        if (param.ParameterType.IsClass && param.ParameterType.IsGenericType&& keys.Count>0)
+                        {
+                            var objectValue = param.ParameterType.CreateInstance();
+                            foreach (var key in keys) {
+                                var proName = key.Split('.')[1];
+                               var pro= param.ParameterType.GetProperties().FirstOrDefault(p=>p.Name.Equals(proName,StringComparison.OrdinalIgnoreCase));
+                                if (pro != null&& pro.CanWrite) {
+                                    if (pro.PropertyType.IsArray)
+                                    {
+                                        pro.SetValue(objectValue, this.httpContext.Request.Form[key][0].Split(',').ToType(pro.PropertyType));
+                                    }
+                                    else
+                                    {
+                                        pro.SetValue(objectValue, this.httpContext.Request.Form[key].ToArray()[0].ToType(pro.PropertyType));
+                                    }
+                                }
+
+                            }
+                            paraValues.Add(objectValue);
+                            continue;
+                        }
+                    }
+                    else if (this.httpContext.Request.Form.Keys.Any(p => p.StartsWith(string.Format("{0}[].", param.Name), StringComparison.OrdinalIgnoreCase)))
+                    {
+                        var keys = this.httpContext.Request.Form.Keys.Where(p => p.StartsWith(string.Format("{0}.", param.Name), StringComparison.OrdinalIgnoreCase)).ToList();
+                        
+                        if (param.ParameterType.IsTypeFromInterface<IList>() && param.ParameterType.GetElementType().IsGenericType&& keys.Count>0)
+                        {
+                            var typeEle = param.ParameterType.GetGenericArguments().Single();
+                            var objectValues =(IList)param.ParameterType.CreateInstance();
+                            var len =this.httpContext.Request.Form[keys[0]].Count;
+
+                            for (var index = 0; index < len; index++) {
+
+                                var objectValue = typeEle.CreateInstance();
+                                foreach (var key in keys)
+                                {
+                                    var proName = key.Split('.')[1];
+                                    var pro = typeEle.GetProperties().FirstOrDefault(p => p.Name.Equals(proName, StringComparison.OrdinalIgnoreCase));
+                                    if (pro != null && pro.CanWrite)
+                                    {
+                                        if (pro.PropertyType.IsArray)
+                                        {
+                                            pro.SetValue(objectValue, this.httpContext.Request.Form[key][index].Split(',').ToType(pro.PropertyType));
+                                        }
+                                        else
+                                        {
+                                            pro.SetValue(objectValue, this.httpContext.Request.Form[key].ToArray()[index].ToType(pro.PropertyType));
+                                        }
+                                    }
+                                }
+                                objectValues.Add(objectValue);
+                            }                          
+                                paraValues.Add(objectValues);
+                            continue;
+                        }
                     }
 
+
                 }
-                else if (this.httpContext.Request.HasFormContentType  && this.httpContext.Request.Form.Keys.Contains(param.Name.ToLower()))
-                {
-                    if (param.ParameterType.IsArray)
-                    {
-                        var type = param.ParameterType.GetElementType();
-                        var obj = this.httpContext.Request.Form[param.Name][0].Split(',').Select(p => p.ToType(type)).ToArray();
-                        paraValues.Add(obj);
-                    }
-                    else
-                    {
-                        paraValues.Add(this.httpContext.Request.Form[param.Name].ToArray()[0].ToType(param.ParameterType));
-                    }
-                }
+                if (param.HasDefaultValue)
+                    paraValues.Add(param.RawDefaultValue);
                 else
-                {
-                    if (param.HasDefaultValue)
-                        paraValues.Add(param.RawDefaultValue);
-                    else
-                        paraValues.Add(null);
-                }
+                    paraValues.Add(null);
             }
             #endregion
 
