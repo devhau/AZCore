@@ -358,5 +358,4 @@ MigrationBackup/
 *.cache
 *.dgspec.json
 *.cache
-*.cache
-*.cache
+*.csproj.user
