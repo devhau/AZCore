@@ -75,4 +75,14 @@ namespace AZWeb.Module.Page.Manager
             }
         }
     }
+    public class UpdateModule<TService, TModel, TManager> : UpdateModule<TService, TModel>
+        where TModel : IEntity, new()
+        where TService : EntityService<TService, TModel>
+    {
+        public UpdateModule(IHttpContextAccessor httpContext) : base(httpContext)
+        {
+        }
+
+        public TManager ManagerForm { get; set; }
+    }
 }
