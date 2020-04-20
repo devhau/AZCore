@@ -13,6 +13,7 @@ namespace AZWeb.Module.TagHelper.Input
 {
     public class AZSelect<TModel> : AZSelect,IAZModelInput
     {
+        public Expression<Func<object, bool>> WhereFunc { get; set; }
         public IEntity Model { get; set; }
         public Expression<Func<IEntity, object>> Func { get; set; }
         public Expression<Func<Type>> FuncType { get; set; }
@@ -26,7 +27,7 @@ namespace AZWeb.Module.TagHelper.Input
             this.BindModel();
             if (DataType != null&& DataType!= this.GetType())
             {
-                this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, NullText.IsNullOrEmpty()&& !this.InputLabel.IsNullOrEmpty()&&IsNullFirst ? "Chọn " + this.InputLabel.ToLower():"");
+                this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, NullText.IsNullOrEmpty()&& !this.InputLabel.IsNullOrEmpty()&&IsNullFirst ? "Chọn " + this.InputLabel.ToLower():"", WhereFunc);
             }
             base.InitData();
             if (this.InputValue != null  && DataType.IsEnum && !(this.InputValue is TModel)) {
@@ -42,7 +43,6 @@ namespace AZWeb.Module.TagHelper.Input
     [HtmlTargetElement("az-select")]
     public class AZSelect: AZInput
     {
-        public Expression<Func<object, bool>> WhereFunc { get; set; }
         [HtmlAttributeName("list-object")]
         public object ListObject { get; set; }
         [HtmlAttributeName("data")]
@@ -84,11 +84,11 @@ namespace AZWeb.Module.TagHelper.Input
             }
 
 
-            System.Collections.Generic.List<ItemValue> ListData=this.Data;
-            if (WhereFunc != null) {
-                ListData = this.Data.Where(p => WhereFunc.Compile()(p.Item)).ToList();
-            }
-            foreach (var item in ListData)
+            //System.Collections.Generic.List<ItemValue> ListData=this.Data;
+            //if (WhereFunc != null) {
+            //    ListData = this.Data.Where(p => WhereFunc.Compile()(p.Item)).ToList();
+            //}
+            foreach (var item in this.Data)
             {
                 string ItemActive = "";
                 if (item.Value != null && item.Value.Equals(this.InputValue)) { ItemActive = " selected=\"selected\""; }

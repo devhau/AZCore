@@ -60,7 +60,7 @@ namespace AZWeb.Module.TagHelper.Module
                         continue;
                     if (item.DataType != null && !this.DataDic.ContainsKey(item.DataType))
                     {
-                        this.DataDic[item.DataType] = item.DataType.GetListDataByDataType(this.ViewContext.HttpContext, " ");
+                        this.DataDic[item.DataType] = item.DataType.GetListDataByDataType(this.ViewContext.HttpContext, " ", item.WhereFunc);
                     }
                     htmlTable.AppendFormat("<th {0} name='{1}'>", item.Width==0?"":string.Format("width='{0}px'", item.Width), item.FieldName);
                     htmlTable.Append(item.Title);
