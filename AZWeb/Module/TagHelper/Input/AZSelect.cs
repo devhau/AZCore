@@ -4,6 +4,7 @@ using AZWeb.Module;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Web;
@@ -41,6 +42,7 @@ namespace AZWeb.Module.TagHelper.Input
     [HtmlTargetElement("az-select")]
     public class AZSelect: AZInput
     {
+        public Expression<Func<object, bool>> WhereFunc { get; set; }
         [HtmlAttributeName("list-object")]
         public object ListObject { get; set; }
         [HtmlAttributeName("data")]
@@ -80,7 +82,13 @@ namespace AZWeb.Module.TagHelper.Input
             if (this.InputValue !=null&& this.InputValue is IList) {
                 InputValues = (IList)this.InputValue;
             }
-            foreach (var item in this.Data)
+
+
+            System.Collections.Generic.List<ItemValue> ListData=this.Data;
+            if (WhereFunc != null) {
+                ListData = this.Data.Where(p => WhereFunc.Compile()(p.Item)).ToList();
+            }
+            foreach (var item in ListData)
             {
                 string ItemActive = "";
                 if (item.Value != null && item.Value.Equals(this.InputValue)) { ItemActive = " selected=\"selected\""; }
