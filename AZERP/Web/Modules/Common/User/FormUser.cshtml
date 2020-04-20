@@ -5,9 +5,7 @@
             <az-button for-permission="@PE.User_Add" class="btn-success btn-sm az-btn-add" cmd-key="f1" icon="far fa-plus-square" text="Thêm Mới (F1)" />
             <az-button for-permission="@PE.User_Export" class="btn-info btn-sm az-btn-export" cmd-key="f2" icon="fas fa-file-export" text="Xuất Excel (F2)" />
             <az-button for-permission="@PE.User_Import" class="btn-secondary btn-sm az-btn-import" cmd-key="f2" icon="fas fa-file-import" text="Nhập Excel (F3)" />
-            <az-link href="/vai-tro.az" class="btn btn-secondary btn-sm az-btn az-link-popup" cmd-key="f4" icon="fas fa-user-tag"  modal-size="az-modal-xl" text="Quản lý vai trò (F4)"/>
-            <az-link href="/danh-sach-quyen.az?h=User" class="btn btn-danger btn-sm az-btn az-link-popup" cmd-key="f5" icon="fas fa-user-tag"  modal-size="az-modal-xl" text="Phân quyền cho người dùng (F5)"/>
-        </div>
+           </div>
         <div class="az-data-table">
             <az-table data="Model.Data" FunKey="(item)=>((UserModel)item).Id" columns="Model.Columns" pagination="Model" is-edit="Model.HasPermission(PE.User_Edit)" is-delete="Model.HasPermission(PE.User_Remove)"></az-table>
         </div> 

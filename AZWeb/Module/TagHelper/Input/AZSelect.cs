@@ -1,17 +1,15 @@
 ﻿using AZCore.Database;
 using AZCore.Extensions;
-using AZWeb.Module;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Web;
 
 namespace AZWeb.Module.TagHelper.Input
 {
-    public class AZSelect<TModel> : AZSelect,IAZModelInput
+    public class AZSelect<TService> : AZSelect,IAZModelInput        
     {
         public Expression<Func<object, bool>> WhereFunc { get; set; }
         public IEntity Model { get; set; }
@@ -21,7 +19,7 @@ namespace AZWeb.Module.TagHelper.Input
         {
             Type DataType;
             if (FuncType == null)
-                DataType = typeof(TModel);
+                DataType = typeof(TService);
             else
                 DataType = FuncType.Compile().Invoke();
             this.BindModel();
@@ -30,8 +28,8 @@ namespace AZWeb.Module.TagHelper.Input
                 this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, NullText.IsNullOrEmpty()&& !this.InputLabel.IsNullOrEmpty()&&IsNullFirst ? "Chọn " + this.InputLabel.ToLower():"", WhereFunc);
             }
             base.InitData();
-            if (this.InputValue != null  && DataType.IsEnum && !(this.InputValue is TModel)) {
-                this.InputValue=(TModel)this.InputValue;
+            if (this.InputValue != null  && DataType.IsEnum && !(this.InputValue is TService)) {
+                this.InputValue=(TService)this.InputValue;
             }
         }
     }

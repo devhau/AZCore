@@ -21,21 +21,23 @@ namespace AZWeb.Module
         {
             var Data = new List<ItemValue>();
             if (DataType.IsEnum)
+            {
                 foreach (var item in Enum.GetValues(DataType))
                 {
-                    if(whereFunc==null|| whereFunc.Compile()(item))
+                    if (whereFunc == null || whereFunc.Compile()(item))
                         Data.Add(item.GetItemValueByEnum());
                 }
+            }
             else if (DataType.IsTypeFromInterface<IEntityService>())
             {
                 var service = httpContext.RequestServices.GetService(DataType) as IEntityService;
-                System.Collections.IList rsData=null;
+                System.Collections.IList rsData = null;
                 if (whereFunc != null)
                 {
-                    var fnGetAll = DataType.GetMethod("Select");
+                    var fnGetAll = DataType.GetMethod("SelectObject");
                     if (fnGetAll != null)
                     {
-                        rsData = (System.Collections.IList)fnGetAll.Invoke(service, new[] { whereFunc });
+                           rsData = (System.Collections.IList)fnGetAll.Invoke(service, new[] { whereFunc});
                     }
                 }
                 else
@@ -46,7 +48,8 @@ namespace AZWeb.Module
                         rsData = (System.Collections.IList)fnGetAll.Invoke(service, null);
                     }
                 }
-                if (rsData != null) {
+                if (rsData != null)
+                {
                     foreach (var item in rsData)
                     {
                         Data.Add(item.GetItemValue());
