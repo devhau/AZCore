@@ -31,6 +31,7 @@ namespace AZERP.Data.Entities.Hotel
         /// Ví dụ : 15m2, 25m2, 50m2, 100m2
         /// </summary>
         [Field(Length = 500)]
+        [FieldDisplay]
         public string TypeOfHotelName { get; set; }
         /// <summary>
         /// Ghi chú

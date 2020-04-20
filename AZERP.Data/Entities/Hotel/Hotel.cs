@@ -40,8 +40,8 @@ namespace AZERP.Data.Entities.Hotel
         /// <summary>
         /// Mã khu vực
         /// </summary>
-        [Field(Length = 500)]
-        public string AreaID { get; set; }
+        [Field]
+        public long AreaID { get; set; }
         /// <summary>
         /// Trạng thái sử dụng của nhà trọ
         /// 1. Chưa hoạt động
