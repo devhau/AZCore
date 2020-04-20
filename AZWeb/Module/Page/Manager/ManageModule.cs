@@ -135,6 +135,9 @@ namespace AZWeb.Module.Page.Manager
         public ManageModule(IHttpContextAccessor httpContext) : base(httpContext)
         {
             FormUpdate = this.HttpContext.GetService<TForm>();
+            if (FormUpdate.GetType().GetProperty("ManagerForm") != null) {
+                FormUpdate.GetType().GetProperty("ManagerForm").SetValue(FormUpdate, this);
+            }
         }
        
         public virtual IView GetUpdate(long? Id) {
