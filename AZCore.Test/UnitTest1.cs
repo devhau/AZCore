@@ -18,6 +18,7 @@ namespace AZCore.Test
         public void Test1()
         {
             Setup();
+           var id= user.Insert(new UserModel() { Email="admin@cd.com"});
             user.Update(p => p.Status == Database.EntityStatus.NoActive ,p2=>p2.Id>1);
             user.Delete( p2 => p2.Id > 2);
             Assert.Pass();

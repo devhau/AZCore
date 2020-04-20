@@ -12,6 +12,7 @@ namespace AZCore.Database.SQL
 {
     public sealed class BuildSQL
     {
+        public TypeSQL typeSQL;
         public static BuildSQL NewSQL(Type typeEntity)
         {
             return new BuildSQL(typeEntity);
@@ -98,6 +99,14 @@ namespace AZCore.Database.SQL
                 prex = ",";
             }
             SQL.AppendFormat("INSERT INTO `{0}` ({1}) VALUES({2});", this.TableName, SQLField.ToString(), SQLValue.ToString());
+            if (typeSQL == TypeSQL.MySql)
+            {
+                SQL.Append(" SELECT LAST_INSERT_ID(); ");
+            }
+            if (typeSQL == TypeSQL.SqlServer)
+            {
+                SQL.Append(" SELECT CAST(SCOPE_IDENTITY() as BIGINT); ");
+            }
             return new SQLResult()
             {
                 Param = parameter,
