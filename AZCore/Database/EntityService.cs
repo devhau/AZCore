@@ -15,7 +15,7 @@ namespace AZCore.Database
     { }
     public class EntityService: IEntityService
     {
-        private TypeSQL typeSQL;
+        protected TypeSQL typeSQL;
         public IDbConnection Connection;
         public EntityService(IDbConnection _connection)
         {
@@ -98,6 +98,7 @@ namespace AZCore.Database
         public EntityService(IDbConnection _connection) : base(_connection)
         {
             buildSQL = BuildSQL.NewSQL(typeof(TModel));
+            buildSQL.typeSQL = this.typeSQL;
         }
         public IEnumerable<TModel1> ExecuteQuery<TModel1>(SQLResult rs)
         {
@@ -150,9 +151,10 @@ namespace AZCore.Database
         {
             return ExecuteQuery(buildSQL.SQLSelect());
         }
-        public virtual int Insert(TModel model)
+        public virtual long Insert(TModel model)
         {
-            return Execute(buildSQL.SQLInsert(model));
+            var rs = buildSQL.SQLInsert(model);
+            return this.Connection.Query<long>(rs.SQL, rs.Param, this.transaction).Single();
         }
         public virtual int InsertRange(IEnumerable<TModel> models,bool isThrow=false)
         {

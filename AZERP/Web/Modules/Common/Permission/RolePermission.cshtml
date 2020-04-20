@@ -4,7 +4,7 @@
     <div class="col-12 search-permssion">
         <form>
             <input type="hidden" name="h" value="role" />
-            <az-role-select model="@Model" func="(item)=>((FormPermission)item).RoleId" label="Vai trò" />
+            <az-role-select model="@Model" func="(item)=>((FormPermission)item).RoleId" where-func="(Item)=>((RoleModel)Item).Status==AZCore.Database.EntityStatus.Active&&((RoleModel)Item).IsDelete==false" label="Vai trò" />
         </form>
     </div>
     <div class="col-12">
