@@ -179,9 +179,51 @@ namespace AZCore.Database
         {
             return Execute(buildSQL.SQLUpdate(model));
         }
+        public virtual int UpdateRange(IEnumerable<TModel> models, bool isThrow = false)
+        {
+            this.BeginTransaction();
+            try
+            {
+                int count = 0;
+                foreach (var model in models)
+                {
+                    count += Execute(buildSQL.SQLUpdate(model));
+                }
+                this.Commit();
+                return count;
+            }
+            catch (Exception ex)
+            {
+                this.Rollback();
+                if (isThrow)
+                    throw ex;
+                return -1;
+            }
+        }
         public virtual int Delete(TModel model)
         {
             return Execute(buildSQL.SQLDelete(model));
+        }
+        public virtual int DeleteRange(IEnumerable<TModel> models, bool isThrow = false)
+        {
+            this.BeginTransaction();
+            try
+            {
+                int count = 0;
+                foreach (var model in models)
+                {
+                    count += Execute(buildSQL.SQLDelete(model));
+                }
+                this.Commit();
+                return count;
+            }
+            catch (Exception ex)
+            {
+                this.Rollback();
+                if (isThrow)
+                    throw ex;
+                return -1;
+            }
         }
         public virtual TModel GetById(object id) 
         {
