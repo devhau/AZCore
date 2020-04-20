@@ -7,6 +7,8 @@ namespace AZWeb.Module.Common
     {
         public QueryString UrlVirtual { get; }
         public HttpContext HttpContext { get; }
+        public HttpRequest Request { get => HttpContext.Request; }
+        public HttpResponse Response { get => HttpContext.Response; }
         public bool IsAjax { get; }
         private string path { get; }
         public ModuleBase(IHttpContextAccessor httpContextAccessor)
