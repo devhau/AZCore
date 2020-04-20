@@ -155,6 +155,27 @@ namespace AZCore.Database
         {
             return Execute(buildSQL.SQLInsert(model));
         }
+        public virtual int InsertRange(IEnumerable<TModel> models,bool isThrow=false)
+        {
+            this.BeginTransaction();
+            try
+            {
+                int count = 0;
+                foreach (var model in models)
+                {
+                    count += Execute(buildSQL.SQLInsert(model));
+                }
+                this.Commit();
+                return count;
+            }
+            catch (Exception ex){
+                this.Rollback();
+                if (isThrow)
+                    throw ex;
+                return -1;
+            }
+           
+        }
         public virtual int Update(TModel model)
         {
             return Execute(buildSQL.SQLUpdate(model));
