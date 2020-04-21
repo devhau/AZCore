@@ -81,6 +81,12 @@ namespace AZCore.Extensions
         {
             return (T)type.CreateInstance(param);
         }
+        public static T CreateInstance<T>(this Type type, Action<T> action, params object[] param)
+        {
+            var t= (T)type.CreateInstance(param);
+            action(t);
+            return t;
+        }
         /// <summary>
         /// Khởi tạo một đối tượng theo Type
         /// </summary>
