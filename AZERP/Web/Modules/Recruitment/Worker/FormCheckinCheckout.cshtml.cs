@@ -1,5 +1,4 @@
-﻿using AZCore.Database;
-using AZCore.Excel;
+﻿using AZCore.Excel;
 using AZERP.Data.Entities;
 using AZERP.Data.Enums;
 using AZWeb.Extensions;
@@ -12,7 +11,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AZERP.Web.Modules.Recruitment.Worker
