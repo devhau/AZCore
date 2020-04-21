@@ -1,4 +1,5 @@
-﻿using AZCore.Domain;
+﻿using AZCore.Database;
+using AZCore.Domain;
 using AZCore.Extensions;
 using AZCore.Utility.Xml;
 using AZWeb.Configs;
@@ -66,7 +67,8 @@ namespace AZWeb.Extensions
                 if (item.IsTypeFromInterface<IHostedService>())
                     services.AddTransient(typeof(IHostedService), item);
             }
-
+            // Add EntityTransaction
+            services.AddScoped(typeof(EntityTransaction));
         }
         public static IObject CreateInstance<IObject>(this Type obj) where IObject:class => Activator.CreateInstance(obj) as IObject;
         public static IObject CreateInstance<IObject>(this string strObj,string strAssembly) where IObject : class => Activator.CreateInstance(strAssembly,strObj) as IObject;
