@@ -17,9 +17,9 @@ namespace AZCore.Types
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value, AZTypeCode typeCode)
         {
             switch (typeCode)
-            {                
-                default: return value.ToString();
+            {
                 case AZTypeCode.DBNull: return string.Empty;
+                default: return value.ToString();
             }
         }
 

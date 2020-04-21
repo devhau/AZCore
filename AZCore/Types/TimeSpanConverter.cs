@@ -14,7 +14,7 @@ namespace AZCore.Types
             {
                 case AZTypeCode.DBNull: return null; 
                 case AZTypeCode.TimeSpan: return value;
-                case AZTypeCode.String: return value.ToString().IsNull() ? (TimeSpan?)null : TimeSpan.Parse(value.ToString());
+                case AZTypeCode.String: return value.IsNullOrEmpty() ? (TimeSpan?)null : TimeSpan.Parse(value.ToString());
             }
 
             return base.ConvertFrom(context, culture, value, typeCode);
