@@ -1,32 +1,29 @@
 ﻿@model FormUpdatePurchaseOrders
 <az-style module="PurchaseOrders.css" />
-<az-script module="PurchaseOrders.js" />
 <az-layout class="az-update row" >
     <div class="form-group col-md-12">
-        <az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />
+        @*<az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />*@
     </div>
     <div class="form-group col-md-12">
-        <az-supplier-select model="Model.Data" func="(item)=>((PurchaseOrderModel)item).SupplierCode" class="supplierClass" label="Nhà cung cấp" />
         <div class="list-info-supplier">
-            <div class="list-info-header"></div>
+            <div class="list-info-header">@Model.SupplierModel.Name</div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="list-info-item">
                         <div class="list-info-item-header">ĐỊA CHỈ XUẤT HÀNG</div>
-                        <div class="list-info-item-content"></div>
+                        <div class="list-info-item-content">@Model.SupplierModel.Address</div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="list-info-item">
                         <div class="list-info-item-header">SỐ ĐIỆN THOẠI LIÊN HỆ</div>
-                        <div class="list-info-item-content"></div>
+                        <div class="list-info-item-content">@Model.SupplierModel.PhoneNumber</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="form-group col-md-12">
-        <az-product-select class="productClass" label="Sản phẩm" />
     </div>
     <div class="col-md-12 az-data-table">
         <table class="table table-bordered table-hover az-table " role="grid">
@@ -37,10 +34,19 @@
                     <td>Số lượng nhập</td>
                     <td>Giá nhập</td>
                     <td>Thành tiền</td>
-                    <td></td>
                 </tr>
             </thead>
             <tbody>
+                @foreach (PurchaseOrderProductModel item in Model.listProductOrder)
+                {
+                <tr>
+                    <td>@Model.getProduct(item.ProductId)?.Code</td>
+                    <td>@Model.getProduct(item.ProductId)?.Name</td>
+                    <td>@item.ImportNumber</td>
+                    <td>@item.ImportPrice</td>
+                    <td>@String.Format("{0:#,###}", @item.ImportNumber * @item.ImportPrice)</td>
+                </tr>
+                }
             </tbody>
         </table>
     </div>
@@ -64,14 +70,4 @@
             </div>
         </div>
     </div>
-    @*<div class="form-group col-md-4">
-            <az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).ImportNumber" value="1" label="Số lượng nhập" />
-        </div>
-        <div class="form-group col-md-4">
-            <az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).ImportPrice" value="100000" label="Giá nhập (VNĐ)" />
-        </div>
-        <div class="form-group col-md-4">
-            <label>Thành tiền (VNĐ)</label>
-            <label class="form-purchase-order" id="LabelThanhTien">100,000</label>
-        </div>*@
 </az-layout>

@@ -37,6 +37,9 @@ namespace AZCore.Database
         }
         public void BeginTransaction()
         {
+            if (this.transaction != null) return;
+            if (this.Connection.State != ConnectionState.Open)
+                this.Connection.Open();
             this.transaction = this.Connection.BeginTransaction();
         }
         public void Commit()

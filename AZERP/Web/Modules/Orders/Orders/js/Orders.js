@@ -1,5 +1,5 @@
 ﻿$(".modal-dialog .az-data-table").hide();
-$(".list-info-supplier").hide();
+$(".list-info-customer").hide();
 var valueNumber = 0, valueMoney = 0, valueMoneySum = 0;
 function calMoney(number, price) {
     if (isNaN(number) && isNaN(price)) {
@@ -31,16 +31,16 @@ $(".productClass").on('change', function () {
         dataItem = JSON.parse(dataItem);
     }
     if (value != "") {
-        $(".modal-dialog .az-data-table").show();
-        let inputID = "<input type='hidden' name='listDataOrder[].ProductId' value='" + dataItem.Id + "' />";
-        let inputNumber = '<input type="number" name="listDataOrder[].ImportNumber" class="form-control" value="1">';
-        let inputPrice = '<input type="number" name="listDataOrder[].ImportPrice" class="form-control" value="' + dataItem.ImportPrice + '"';
-        $(".modal-dialog .az-data-table table > tbody:last-child").append("<tr><td>" + dataItem.Code + inputID+ "</td><td>" + dataItem.Name + "</td><td>" + inputNumber + "</td><td>" + inputPrice + "</td><td><label class='LabelThanhTien'>" + dataItem.ImportPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + "</label></td><td><a href='javascript:'><i class='fa fa-minus-circle'></i></a></td></tr>");
+        $(".modal-dialog .az-data-table").show()
+        let inputNumber = '<input type="number" class="form-control" value="1">';
+        let inputPrice = '<input type="number" class="form-control" value="' + dataItem.RetailPrice + '" name="inputPrice">';
+        $(".modal-dialog .az-data-table table > tbody:last-child").
+            append("<tr data-item-id='" + dataItem.Id + "'><td>" + dataItem.Code + "</td><td>" + dataItem.Name + "</td><td>" + inputNumber + "</td><td>" + inputPrice + "</td><td><label class='LabelThanhTien'>" + dataItem.RetailPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + "</label></td><td><a href='javascript:'><i class='fa fa-minus-circle'></i></a></td></tr>");
         caculatorAll();
         $(".modal-dialog .az-data-table table input").on('input', function () {
             let number = $(this).parent().parent().children("td").eq(2).children("input").val();
             let price = $(this).parent().parent().children("td").eq(3).children("input").val();
-            $(this).parent().parent().children("td").eq(5).children("label").text(calMoney(number, price));
+            $(this).parent().parent().children("td").eq(4).children("label").text(calMoney(number, price));
             caculatorAll();
         });
         $(".modal-dialog .az-data-table table a").on('click', function () {
@@ -51,19 +51,15 @@ $(".productClass").on('change', function () {
     $(this).val(null);
 });
 
-$(".supplierClass").on('change', function () {
+$(".customerClass").on('change', function () {
     var dataItem = decodeURIComponent($(this).children("option:selected").attr("data-item"));
     if (dataItem != "") {
-        $(".list-info-supplier").show();
-        console.log(dataItem);
+        $(".list-info-customer").show();
         dataItem = JSON.parse(dataItem);
-        if (dataItem.AbbreviatedName == "") {
-            $(".list-info-supplier .list-info-header").text(dataItem.Name);
-        } else {
-            $(".list-info-supplier .list-info-header").text(dataItem.Name + " - " + dataItem.AbbreviatedName);
-        }
-        $(".list-info-supplier .list-info-item .list-info-item-content").eq(0).text(dataItem.Address);
-        $(".list-info-supplier .list-info-item .list-info-item-content").eq(1).text(dataItem.PhoneNumber);
+        $(".list-info-customer .list-info-header").text(dataItem.FullName);
+        $(".list-info-customer .list-info-item .list-info-item-content").eq(0).text(dataItem.Address);
+        $(".list-info-customer .list-info-item .list-info-item-content").eq(1).text(dataItem.PhoneNumber);
     }
+    $(this).val(null);
 });
   
