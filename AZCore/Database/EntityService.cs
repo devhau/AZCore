@@ -170,49 +170,34 @@ namespace AZCore.Database
             var rs = buildSQL.SQLInsert(model);
             return this.Connection.Query<long>(rs.SQL, rs.Param, this.Transaction).Single();
         }
-        public virtual int InsertRange(IEnumerable<TModel> models,bool isThrow=false)
+        public virtual int InsertRange(IEnumerable<TModel> models)
         {
-            this.BeginTransaction();
-            try
+            int count = 0;
+            foreach (var model in models)
             {
-                int count = 0;
-                foreach (var model in models)
-                {
-                    count += Execute(buildSQL.SQLInsert(model));
-                }
-                this.Commit();
-                return count;
+                count += Execute(buildSQL.SQLInsert(model));
             }
-            catch (Exception ex){
-                this.Rollback();
-                if (isThrow)
-                    throw ex;
-                return -1;
-            }
-           
+            return count;
         }
         public virtual int Update(TModel model)
         {
             return Execute(buildSQL.SQLUpdate(model));
         }
-        public virtual int UpdateRange(IEnumerable<TModel> models, bool isThrow = false)
+        public virtual int UpdateRange(IEnumerable<TModel> models)
         {
-           
-                int count = 0;
-                foreach (var model in models)
-                {
-                    count += Execute(buildSQL.SQLUpdate(model));
-                }
-                return count;
-           
+            int count = 0;
+            foreach (var model in models)
+            {
+                count += Execute(buildSQL.SQLUpdate(model));
+            }
+            return count;
         }
         public virtual int Delete(TModel model)
         {
             return Execute(buildSQL.SQLDelete(model));
         }
-        public virtual int DeleteRange(IEnumerable<TModel> models, bool isThrow = false)
+        public virtual int DeleteRange(IEnumerable<TModel> models)
         {
-
             int count = 0;
             foreach (var model in models)
             {
