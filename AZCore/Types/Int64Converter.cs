@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 using System;
+using AZCore.Extensions;
+
 namespace AZCore.Types
 {
     [ConverterOf(Target = typeof(long))]
@@ -10,7 +12,8 @@ namespace AZCore.Types
         {
             switch (typeCode)
             {
-                case AZTypeCode.String:                  
+                case AZTypeCode.String:
+                    return value.IsNullOrEmpty() ? 0 : Convert.ToInt64(value.ToString().GetOnlyDigital());
                 case AZTypeCode.Int16:                
                 case AZTypeCode.Int32:                
                 case AZTypeCode.Decimal:

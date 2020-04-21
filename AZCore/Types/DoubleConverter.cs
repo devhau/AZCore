@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 using System;
+using AZCore.Extensions;
+
 namespace AZCore.Types
 {
     [ConverterOf(Target = typeof(double))]
@@ -10,7 +12,7 @@ namespace AZCore.Types
         {
             switch (typeCode)
             {
-                case AZTypeCode.String:
+                case AZTypeCode.String: return value.IsNullOrEmpty() ? 0 : Convert.ToDouble(value.ToString().GetOnlyDigital());
                 case AZTypeCode.Single: return Convert.ToDouble(value);                   
                 case AZTypeCode.Double: return value;
                 case AZTypeCode.DBNull: return 0;

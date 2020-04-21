@@ -20,8 +20,7 @@ namespace AZCore.Types
         {
             switch (typeCode)
             {
-                case AZTypeCode.String: return value.ToString().IsNull() ? 0 : Convert.ToInt32(value);
-
+                case AZTypeCode.String: return value.IsNullOrEmpty()  ? 0 : Convert.ToInt32(value.ToString().GetOnlyDigital());
                 case AZTypeCode.Int16:                
                 case AZTypeCode.Byte:
                 case AZTypeCode.Decimal:
