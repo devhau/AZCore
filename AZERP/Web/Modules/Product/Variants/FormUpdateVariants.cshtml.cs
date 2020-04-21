@@ -12,7 +12,7 @@ namespace AZERP.Web.Modules.Product.Variants
         }
         protected override void IntData()
         {
-            this.Title = "Sửa sản phẩm";
+            this.Title = "Cập nhật sản phẩm";
         }
     }
 }

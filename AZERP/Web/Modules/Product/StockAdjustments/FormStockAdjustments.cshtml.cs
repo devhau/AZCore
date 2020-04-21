@@ -13,10 +13,8 @@ namespace AZERP.Web.Modules.Product.StockAdjustments
     [TableColumn(Title = "Mã đơn", FieldName = "Code")]
     public class FormStockAdjustments : ManageModule<StockAdjusmentService, StockAdjusmentModel, FormUpdateStockAdj>
     {
-        ProductService productService;
-        public FormStockAdjustments(IHttpContextAccessor httpContext, ProductService productService) : base(httpContext)
+        public FormStockAdjustments(IHttpContextAccessor httpContext) : base(httpContext)
         {
-            this.productService = productService;
         }
         protected override void IntData()
         {

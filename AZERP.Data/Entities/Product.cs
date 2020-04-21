@@ -29,7 +29,7 @@ namespace AZERP.Data.Entities
         [Field(Length = 500)]
         public string Code { get; set; }
         /// <summary>
-        /// Tên nhóm
+        /// Tên sản phẩm
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
