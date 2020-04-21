@@ -23,7 +23,11 @@ String.prototype.splice = function (idx, s) {
     return (this.slice(0, idx) + s + this.slice(idx));
 };
 $.fn.singleDatePicker = function () {
-   var rs= $(this).daterangepicker({ singleDatePicker: true, autoUpdateInput: false, ShowDropdowns: true, minYear: 1901, locale: { format: 'DD/MM/YYYY' }, maxYear: parseInt(moment().format('YYYY'), 10) });
+    var rs = $(this).daterangepicker({ singleDatePicker: true, autoUpdateInput: false, ShowDropdowns: true, minYear: 1901, locale: { format: 'DD/MM/YYYY' }, maxYear: parseInt(moment().format('YYYY'), 100) }).inputmask('datetime' , {
+        inputFormat: "dd/mm/yyyy",
+       showMaskOnHover: true,
+       showMaskOnFocus: true
+   })
     $(this).on("apply.daterangepicker", function (e, picker) {
         picker.element.val(picker.startDate.format(picker.locale.format));
     });

@@ -1,4 +1,5 @@
 ﻿using AZCore.Database.SQL;
+using AZCore.Extensions;
 using Dapper;
 using System;
 
@@ -6,24 +7,23 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AZCore.Database
 {
-    public interface IEntityService 
+    public interface IEntityService:IDisposable
     { }
     public class EntityService: IEntityService
     {
         protected TypeSQL typeSQL;
         public IDbConnection Connection;
+        public IDbTransaction Transaction = null;
         public EntityService(IDbConnection _connection)
         {
             Connection = _connection;
             CheckTypeSQL();
         }
         protected int? commandTimeout = null;
-        public IDbTransaction transaction = null;
         private void CheckTypeSQL() {
             string name = Connection.GetType().FullName;
             if (name.EndsWith(".SqlConnection"))
@@ -37,19 +37,19 @@ namespace AZCore.Database
         }
         public void BeginTransaction()
         {
-            if (this.transaction != null) return;
-            if (this.Connection.State != ConnectionState.Open)
+            if (this.Connection.State != ConnectionState.Open) {
                 this.Connection.Open();
-            this.transaction = this.Connection.BeginTransaction();
+            }
+            this.Transaction = this.Connection.BeginTransaction();
         }
         public void Commit()
         {
-            if (this.transaction != null) { this.transaction.Commit(); this.transaction = null; }
+            if (this.Transaction != null) { this.Transaction.Commit(); this.Transaction = null; }
 
         }
         public void Rollback()
         {
-            if (this.transaction != null) { this.transaction.Rollback(); this.transaction = null; }
+            if (this.Transaction != null) { this.Transaction.Rollback(); this.Transaction = null; }
         }
         public IDataReader ExecuteReader(SQLResult rs)
         {
@@ -57,7 +57,7 @@ namespace AZCore.Database
         }
         protected IDataReader ExecuteReader(string sql, object param = null, CommandType? commandType = null)
         {
-            return this.Connection.ExecuteReader(sql, param, this.transaction, commandTimeout, commandType);
+            return this.Connection.ExecuteReader(sql, param, this.Transaction, commandTimeout, commandType);
         }
         public int Execute(SQLResult rs)
         {
@@ -65,7 +65,7 @@ namespace AZCore.Database
         }
         protected int Execute(string sql, object param = null, CommandType? commandType = null)
         {
-            return this.Connection.Execute(sql, param, this.transaction, commandTimeout, commandType);
+            return this.Connection.Execute(sql, param, this.Transaction, commandTimeout, commandType);
         }
         public async Task<IDataReader> ExecuteReaderAsync(SQLResult rs)
         {
@@ -73,7 +73,7 @@ namespace AZCore.Database
         }
         protected async Task<IDataReader> ExecuteReaderAsync(string sql, object param = null, CommandType? commandType = null)
         {
-            return await this.Connection.ExecuteReaderAsync(sql, param, this.transaction, commandTimeout, commandType);
+            return await this.Connection.ExecuteReaderAsync(sql, param, this.Transaction, commandTimeout, commandType);
         }
         public async Task<int> ExecuteAsync(SQLResult rs)
         {
@@ -81,7 +81,7 @@ namespace AZCore.Database
         }
         protected async Task<int> ExecuteAsync(string sql, object param = null, CommandType? commandType = null)
         {
-            return await this.Connection.ExecuteAsync(sql, param, this.transaction, commandTimeout, commandType);
+            return await this.Connection.ExecuteAsync(sql, param, this.Transaction, commandTimeout, commandType);
         }
         public SQLResult Query(string tablename, Action<QuerySQL> action) {
 
@@ -92,9 +92,20 @@ namespace AZCore.Database
             }
             return query.ToResult();
         }
+
+        public void Dispose()
+        {
+            if (this.Connection != null) {
+                this.Connection.Dispose();
+            }
+            this.Connection = null;
+            if (Transaction != null)
+                Transaction.Dispose();
+            Transaction = null;
+        }
     }
     public partial class EntityService<TService, TModel> : EntityService
-        where TService : EntityService
+        where TService : EntityService<TService, TModel>
         where TModel : IEntity
     {
         protected BuildSQL buildSQL;
@@ -109,14 +120,14 @@ namespace AZCore.Database
         }
         public IEnumerable<TModel1> ExecuteQuery<TModel1>(string sql, object param = null, CommandType? commandType = null)
         {
-            return this.Connection.Query<TModel1>(sql, param, this.transaction, true, this.commandTimeout, commandType);
+            return this.Connection.Query<TModel1>(sql, param, this.Transaction, true, this.commandTimeout, commandType);
         }
         public IEnumerable<TModel> ExecuteQuery(SQLResult rs) {
             return ExecuteQuery(rs.SQL, rs.Param);
         }
         public IEnumerable<TModel> ExecuteQuery(string sql, object param = null, CommandType? commandType = null)
         {
-            return this.Connection.Query<TModel>(sql, param, this.transaction, true, this.commandTimeout, commandType);
+            return this.Connection.Query<TModel>(sql, param, this.Transaction, true, this.commandTimeout, commandType);
         }
         public async Task<IEnumerable<TModel>> ExecuteQueryAsync(SQLResult rs)
         {
@@ -124,7 +135,7 @@ namespace AZCore.Database
         }
         public async Task<IEnumerable<TModel>> ExecuteQueryAsync(string sql, object param = null, CommandType? commandType = null)
         {
-            return await this.Connection.QueryAsync<TModel>(sql, param, this.transaction, this.commandTimeout, commandType);
+            return await this.Connection.QueryAsync<TModel>(sql, param, this.Transaction, this.commandTimeout, commandType);
         }
         public async Task<IEnumerable<TModel>> ExecuteQueryAsync(Action<QuerySQL> action)
         {
@@ -157,7 +168,7 @@ namespace AZCore.Database
         public virtual long Insert(TModel model)
         {
             var rs = buildSQL.SQLInsert(model);
-            return this.Connection.Query<long>(rs.SQL, rs.Param, this.transaction).Single();
+            return this.Connection.Query<long>(rs.SQL, rs.Param, this.Transaction).Single();
         }
         public virtual int InsertRange(IEnumerable<TModel> models,bool isThrow=false)
         {
@@ -186,24 +197,14 @@ namespace AZCore.Database
         }
         public virtual int UpdateRange(IEnumerable<TModel> models, bool isThrow = false)
         {
-            this.BeginTransaction();
-            try
-            {
+           
                 int count = 0;
                 foreach (var model in models)
                 {
                     count += Execute(buildSQL.SQLUpdate(model));
                 }
-                this.Commit();
                 return count;
-            }
-            catch (Exception ex)
-            {
-                this.Rollback();
-                if (isThrow)
-                    throw ex;
-                return -1;
-            }
+           
         }
         public virtual int Delete(TModel model)
         {
@@ -211,24 +212,13 @@ namespace AZCore.Database
         }
         public virtual int DeleteRange(IEnumerable<TModel> models, bool isThrow = false)
         {
-            this.BeginTransaction();
-            try
+
+            int count = 0;
+            foreach (var model in models)
             {
-                int count = 0;
-                foreach (var model in models)
-                {
-                    count += Execute(buildSQL.SQLDelete(model));
-                }
-                this.Commit();
-                return count;
+                count += Execute(buildSQL.SQLDelete(model));
             }
-            catch (Exception ex)
-            {
-                this.Rollback();
-                if (isThrow)
-                    throw ex;
-                return -1;
-            }
+            return count;
         }
         public virtual TModel GetById(object id) 
         {
@@ -239,6 +229,10 @@ namespace AZCore.Database
         }
     }
     public partial class EntityService<TService, TModel> {
+        public IEnumerable<TModel> SelectObject(Expression<Func<Object, bool>> funcWhere)
+        {
+            return this.Select(funcWhere.ConvertTo<object,TModel>());
+        }
         public IEnumerable<TModel> Select(Expression<Func<TModel, bool>> funcWhere)
         {
             return ExecuteQuery(buildSQL.SQLSelect(funcWhere));

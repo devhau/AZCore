@@ -1,5 +1,4 @@
 ﻿using AZERP.Data.Entities;
-using AZERP.Data.Enums;
 using AZWeb.Module.TagHelper.Input;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
