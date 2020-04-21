@@ -1,4 +1,5 @@
 ﻿$(".modal-dialog .az-data-table").hide();
+var valueAfter = 0, valueSum = 0;
 function difference(before, after) {
     if (isNaN(after) && isNaN(before)) {
         return 0;
@@ -6,8 +7,28 @@ function difference(before, after) {
     return (parseInt(after) - parseInt(before)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
 
-$("#InputProductCode").on('change', function () {
+function caculatorAll() {
+    valueAfter = 0, valueSum = 0;
+    $(".modal-dialog .az-data-table table tbody tr").each(function () {
+        valueAfter += parseInt($(this).children("td").eq(4).children("input").val());
+        valueSum += Math.abs(parseInt($(this).children("td").eq(3).text()));
+    });
+    let eleAfter = $(".modal-dialog .list-info-money .item-info-money").eq(0).children(".value");
+    let eleSum = $(".modal-dialog .list-info-money .item-info-money").eq(1).children(".value");
+    $(eleAfter).text(valueAfter);
+    $(eleSum).text(valueSum);
+}
+
+$("#InputId").on('change', function () {
     let value = $(this).val();
+    var dataItem = decodeURIComponent($(this).children("option:selected").attr("data-item"));
+    if (dataItem != "") {
+        dataItem = JSON.parse(dataItem);
+    }
+    console.log(dataItem);
+    console.log("Ma Product: " + dataItem.Available);
+    console.log("Link: " + PopupMain.PopupCurrent().Link);
+    console.log("Link: " + PopupMain.PopupCurrent().getPathName());
     if (value != "") {
         $(".modal-dialog .az-data-table").show();
         let name = $("#InputProductCode option[value=" + value + "]").text();
@@ -26,20 +47,12 @@ $("#InputProductCode").on('change', function () {
 
         $(eleAfter).text(valueAfter);
         $(eleSum).text(valueSum);
-
         $(".modal-dialog .az-data-table table input.test").on('input', function () {
             let before = $(this).parent().parent().children("td").eq(2).text();
             let after = $(this).parent().parent().children("td").eq(4).children("input").val();
             let result = $(this).parent().parent().children("td").eq(3);
             result.text(difference(before, after));
-
-            valueAfter = 0, valueSum = 0;
-            $(".modal-dialog .az-data-table table tbody tr").each(function () {
-                valueAfter += parseInt($(this).children("td").eq(4).children("input").val());
-                valueSum += Math.abs(parseInt($(this).children("td").eq(3).text()));
-            });
-            $(eleAfter).text(valueAfter);
-            $(eleSum).text(valueSum);
+            caculatorAll();
         });
 
     }
