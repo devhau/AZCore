@@ -13,13 +13,13 @@
         <az-button class="picture" text="Ảnh sản phẩm"></az-button>
     </div>
     <div class="form-group col-md-6">
-        <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).RetailPrice" label="Giá bán lẻ" />
+        <az-number-model model="Model.Data" func="(item)=>((ProductModel)item).RetailPrice" label="Giá bán lẻ" />
     </div>
     <div class="form-group col-md-6">
-        <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).WholesalePrice" label="Giá bán buôn" />
+        <az-number-model model="Model.Data" func="(item)=>((ProductModel)item).WholesalePrice" label="Giá bán buôn" />
     </div>
     <div class="form-group col-md-6">
-        <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).ImportPrice" label="Giá nhập" />
+        <az-number-model model="Model.Data" func="(item)=>((ProductModel)item).ImportPrice" label="Giá nhập" />
     </div>
     <div class="col-md-6"></div>
     <div class="form-group col-md-6">
@@ -32,17 +32,25 @@
         <div class="variants">
             <div class="variants-info"> Tồn kho</div>
             <div class="row">
-                <div class="form-group col-md-3">
-                    <label> Tồn kho: @Model.Data.Available</label>
-                </div>
-                <div class="form-group col-md-3">
-                    <label>Hàng đang về: @Model.Data.Incoming</label>
-                </div>
-                <div class="form-group col-md-3">
-                    <label>Hàng đang giao: @Model.Data.OnWay</label>
-                </div>
-                <div class="form-group col-md-3">
-                    <label>Hàng đang giao dịch: @Model.Data.Committed</label>
+                <div class="col-md-12 az-data-table">
+                    <table class="table table-bordered table-hover az-table " role="grid">
+                        <thead>
+                            <tr>
+                                <td>Tồn kho</td>
+                                <td>Hàng đang về</td>
+                                <td>Hàng đang giao</td>
+                                <td>Hàng đang giao dịch</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.Data.Available</td>
+                                <td>@Model.Data.Incoming</td>
+                                <td>@Model.Data.OnWay</td>
+                                <td>@Model.Data.Committed</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

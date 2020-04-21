@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AZERP.Data.Enums
 {
-    public enum PurchaseOrderStatus:int
+    public enum OrderStatus:int
     {
         [Field(Display = "Đang thực hiện")] Waiting = 0,
         [Field(Display = "Kết thúc")] Close = 1,

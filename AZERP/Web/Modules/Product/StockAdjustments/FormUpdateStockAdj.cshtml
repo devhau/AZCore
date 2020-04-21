@@ -6,7 +6,7 @@
         <az-text-model model="Model.Data" func="(item)=>((StockAdjusmentModel)item).Code" label="Mã đơn kiểm hàng" />
     </div>
     <div class="form-group col-md-12">
-        <az-product-select model="Model.Data" func="(item)=>((StockAdjusmentModel)item).ProductCode" label="Sản phẩm" />
+        <az-product-select model="Model.Data" func="(item)=>((ProductModel)item).Id" label="Sản phẩm" />
     </div>
     <div class="col-md-12 az-data-table">
         <table class="table table-bordered table-hover az-table " role="grid">

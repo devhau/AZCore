@@ -6,6 +6,8 @@ using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AZERP.Web.Modules.Product.PurchaseOrders
 {
@@ -20,5 +22,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
         {
             this.Title = "Quản lý đơn nhập hàng";
         }
+        [BindForm]
+        public List<PurchaseOrderProductModel> listDataOrder { get; set; }
     }
 }
