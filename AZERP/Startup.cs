@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AZCore.Extensions;
+using AZWeb.Module.Common;
 
 namespace AZERP
 {
@@ -22,7 +24,7 @@ namespace AZERP
             Configuration = configuration;
 
             AZCoreWeb.env = env;
-            this.GetType().Assembly.GetTypes().Where(p => p.FullName.Contains(".Web.")).Any(p =>
+            this.GetType().Assembly.GetTypes().Where(p => p.FullName.Contains(".Web.")&&p.IsTypeFromInterface<IModule>()).Any(p =>
             {
                 var indexWeb= p.FullName.IndexOf(".Web.");
                 var key = p.FullName.Substring(indexWeb+1).ToLower().Trim();

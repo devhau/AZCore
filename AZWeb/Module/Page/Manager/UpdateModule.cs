@@ -63,16 +63,29 @@ namespace AZWeb.Module.Page.Manager
                 this.Data = this.Service.GetById(Id);
                 DataFormToData(DataForm);
                 (this.Data as IEntityModel).UpdateAt = DateTime.Now;
+                (this.Data as IEntityModel).UpdateBy = User.Id;
                 Service.Update(this.Data);
                 return Json("Cập nhật dữ liệu thành công", 200);
             }
             else {
                 DataFormToData(DataForm);
                 (DataForm as IEntityModel).CreateAt = DateTime.Now;
+                (DataForm as IEntityModel).CreateBy = User.Id;
 
                 Service.Insert(DataForm);
                 return Json("Thêm mới dữ liệu thành công", 200);
             }
         }
+    }
+    public class UpdateModule<TService, TModel, TManager> : UpdateModule<TService, TModel>
+        where TModel : IEntity, new()
+        where TService : EntityService<TService, TModel>
+        where TManager: ManageModule<TService, TModel>
+    {
+        public UpdateModule(IHttpContextAccessor httpContext) : base(httpContext)
+        {
+        }
+
+        public TManager ManagerForm { get; set; }
     }
 }

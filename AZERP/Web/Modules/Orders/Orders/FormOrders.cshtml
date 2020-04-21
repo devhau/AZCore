@@ -1,0 +1,38 @@
+﻿@model FormOrders
+<az-module-layout script-random='(id)=>"$(\"."+id+"\").AZManager();"'>
+    <div class="az-manager" id="FormProduct" data-form-size="az-modal-xl">
+        <div class="az-toolbar">
+            <az-button class="btn btn-success btn-sm az-btn az-btn-add" cmd-key="f1" icon="far fa-plus-square" text="Tạo đơn hàng (F1)" />
+        </div>
+        <div class="az-search-manager">
+            <div class="row">
+                <div class="col-md-10">
+                    <form class="az-search-form row">
+                        <az-hidden-model model="Model" func="(item)=>((FormOrders)item).PageSize" />
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <div class="btn-group float-right ">
+                        <az-button class="btn btn-warning  az-btn az-btn-search" icon="fas fa-search" text="Tìm kiếm" />
+                        <az-button class="btn btn-warning  dropdown-toggle dropdown-icon az-btn" data-toggle="dropdown">
+                            <span class="sr-only">Tìm kiếm nâng cao</span>
+                            <div class="dropdown-menu" role="menu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
+                        </az-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="az-data-table">
+            <az-table data="Model.Data" FunKey="(item)=>((OrderModel)item).Id" columns="Model.Columns" pagination="Model"></az-table>
+        </div>
+        <div class="az-bottom-manager">
+            <az-pagination pagination="Model" />
+        </div>
+    </div>
+</az-module-layout>

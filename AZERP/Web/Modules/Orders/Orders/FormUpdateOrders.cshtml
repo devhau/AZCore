@@ -1,0 +1,80 @@
+﻿@model FormUpdateOrders
+<az-style module="Orders.css" />
+<az-script module="Orders.js" />
+<az-layout class="az-update row">
+    <div class="form-group col-md-12">
+        <az-text-model model="Model.Data" func="(item)=>((OrderModel)item).Code" label="Mã đơn hàng" />
+    </div>
+    <div class="form-group col-md-12">
+        <az-customer-select model="Model.Data" func="(item)=>((OrderModel)item).CustomerId" class="customerClass" label="Khách hàng" />
+        <div class="list-info-customer">
+            <div class="list-info-header"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="list-info-item">
+                        <div class="list-info-item-header">ĐỊA CHỈ</div>
+                        <div class="list-info-item-content"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="list-info-item">
+                        <div class="list-info-item-header">SỐ ĐIỆN THOẠI LIÊN HỆ</div>
+                        <div class="list-info-item-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+
+    </div>
+    <div class="form-group col-md-12">
+        <az-product-select class="productClass" model="Model.Data" func="(item)=>((ProductModel)item).Id" label="Sản phẩm" />
+    </div>
+    <div class="col-md-12 az-data-table">
+        <table class="table table-bordered table-hover az-table " role="grid">
+            <thead>
+                <tr>
+                    <td>Mã SKU</td>
+                    <td>Tên sản phẩm</td>
+                    <td>Số lượng</td>
+                    <td>Giá bán</td>
+                    <td>Thành tiền</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <div class="list-info-money">
+            <div class="item-info-money">
+                <div class="label">Số lượng</div>
+                <div class="value">0</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label">Tổng tiền (VNĐ)</div>
+                <div class="value">0</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label">Chi phí (VNĐ)</div>
+                <div class="value">0</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label"><b>Tiền cần trả (VNĐ)</b></div>
+                <div class="value">0</div>
+            </div>
+        </div>
+    </div>
+    @*<div class="form-group col-md-4">
+            <az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).ImportNumber" value="1" label="Số lượng nhập" />
+        </div>
+        <div class="form-group col-md-4">
+            <az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).ImportPrice" value="100000" label="Giá nhập (VNĐ)" />
+        </div>
+        <div class="form-group col-md-4">
+            <label>Thành tiền (VNĐ)</label>
+            <label class="form-purchase-order" id="LabelThanhTien">100,000</label>
+        </div>*@
+</az-layout>

@@ -38,6 +38,7 @@ namespace AZERP.Web.Modules.Common.Auth
                 FullName = Fullname,
                 Email = Email,
                 PhoneNumber = Phone,
+                Status = AZCore.Database.EntityStatus.Active,
                 CreateAt = DateTime.Now
             };
             user.SetPassword(Password);

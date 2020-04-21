@@ -19,3 +19,17 @@
             width: 45%;
             text-align: right;
         }
+
+.list-info-supplier {
+    margin-top: 15px;
+}
+
+    .list-info-supplier .list-info-header {
+        font-weight: bold;
+        border-bottom: 1px solid rgba(0, 0, 0, .2);
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+    .list-info-supplier .list-info-item .list-info-item-content {
+        margin-left: 10px;
+    }

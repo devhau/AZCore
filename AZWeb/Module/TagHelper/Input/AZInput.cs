@@ -30,6 +30,9 @@ namespace AZWeb.Module.TagHelper.Input
         public object InputValue { get; set; }
         [HtmlAttributeName("cmd-key")]
         public string CMD { get; set; }
+        [HtmlAttributeName("max-length")]
+        public int MaxLength { get; set; }
+        public Func<string, string> ScriptInput { get; set; }
         public override void Init(TagHelperContext context)
         {
             if (string.IsNullOrEmpty(TagClass))
@@ -44,9 +47,14 @@ namespace AZWeb.Module.TagHelper.Input
             {
                 this.Attr += $"  data-cmd-key='{CMD}' ";
             }
-         
+            if (MaxLength > 0) {
+                this.Attr += $" maxlength='{MaxLength}' ";
+            }
             InitData();
             RenderHtml(htmlBuild);
+            if (ScriptInput != null) {
+                this.AddJS(ScriptInput(TagId));
+            }
             return Task.CompletedTask;
         }
        

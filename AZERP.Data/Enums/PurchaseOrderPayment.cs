@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AZERP.Data.Enums
 {
-    public enum PurchaseOrderPayment:int
+    public enum OrderPayment:int
     {
         [Field(Display = "Đã thanh toán")] Paid = 0,
         [Field(Display = "Chưa thanh toán")] Unpaid = 1,

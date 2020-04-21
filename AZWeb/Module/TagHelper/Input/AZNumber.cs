@@ -17,15 +17,29 @@ namespace AZWeb.Module.TagHelper.Input
             this.BindModel();
         }
     }
-
+  
     [HtmlTargetElement("az-number")]
     public class AZNumber : AZInput
     {
+        public NumberType type { get; set; } = NumberType.Integer;
+        public int digits { get; set; } = 0;
         protected override void RenderHtml(StringBuilder htmlBuild)
         {
+            this.Attr+= " data-inputmask=\"'alias': '"+ type.ToString().ToLower()+ "'\" ";
             if (!string.IsNullOrEmpty(InputLabel))
                 htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
-            htmlBuild.AppendFormat("<input type=\"{0}\" class=\"{1}\" id=\"{2}\" placeholder=\"{3}\" {4} {5} name=\"{6}\">", "number", TagClass, InputId, InputPlaceholder, Attr, InputValue.IsNullOrEmpty() ? "" : string.Format("value =\"{0}\"", InputValue), InputName);
+            htmlBuild.AppendFormat("<input class=\"{1}\" id=\"{2}\" placeholder=\"{3}\" {4} {5} name=\"{6}\">", "number", TagClass, InputId, InputPlaceholder, Attr, InputValue.IsNullOrEmpty() ? "" : string.Format("value =\"{0}\"", InputValue), InputName);
+            if (digits <= 0 || type == NumberType.Integer) {
+                digits = 0;
+            }
+            this.AddJS("$('."+TagId+ "').inputmask({ rightAlign: false,groupSeparator:',' ,digits:'"+this.digits+ "',autoGroup: true });");
         }
+    }
+    public enum NumberType
+    {
+        Integer,
+        Decimal,
+        Currency
+
     }
 }

@@ -4,7 +4,8 @@ using AZCore.Extensions;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-
+using System.Linq.Expressions;
+using System.Linq;
 namespace AZWeb.Module
 {
     public class ItemValue
@@ -16,23 +17,39 @@ namespace AZWeb.Module
     }
     public static class ItemValueExtend
     {
-        public static List<ItemValue> GetListDataByDataType(this Type DataType, HttpContext httpContext, string txtDefault = "")
+        public static List<ItemValue> GetListDataByDataType(this Type DataType, HttpContext httpContext, string txtDefault = "", Expression<Func<object, bool>> whereFunc =null)
         {
             var Data = new List<ItemValue>();
             if (DataType.IsEnum)
             {
                 foreach (var item in Enum.GetValues(DataType))
                 {
-                    Data.Add(item.GetItemValueByEnum());
+                    if (whereFunc == null || whereFunc.Compile()(item))
+                        Data.Add(item.GetItemValueByEnum());
                 }
             }
             else if (DataType.IsTypeFromInterface<IEntityService>())
             {
                 var service = httpContext.RequestServices.GetService(DataType) as IEntityService;
-                var fnGetAll = DataType.GetMethod("GetAll");
-                if (fnGetAll != null)
+                System.Collections.IList rsData = null;
+                if (whereFunc != null)
                 {
-                    var rsData = (System.Collections.IList)fnGetAll.Invoke(service, null);
+                    var fnGetAll = DataType.GetMethod("SelectObject");
+                    if (fnGetAll != null)
+                    {
+                           rsData = (System.Collections.IList)fnGetAll.Invoke(service, new[] { whereFunc});
+                    }
+                }
+                else
+                {
+                    var fnGetAll = DataType.GetMethod("GetAll");
+                    if (fnGetAll != null)
+                    {
+                        rsData = (System.Collections.IList)fnGetAll.Invoke(service, null);
+                    }
+                }
+                if (rsData != null)
+                {
                     foreach (var item in rsData)
                     {
                         Data.Add(item.GetItemValue());

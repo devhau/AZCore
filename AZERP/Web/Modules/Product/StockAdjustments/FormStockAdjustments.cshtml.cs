@@ -6,6 +6,7 @@ using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 
 namespace AZERP.Web.Modules.Product.StockAdjustments
 {
@@ -19,5 +20,7 @@ namespace AZERP.Web.Modules.Product.StockAdjustments
         {
             this.Title = "Kiểm hàng";
         }
+        [BindForm]
+        public List<StockAdjusmentModel> DataStock { get; set; }
     }
 }

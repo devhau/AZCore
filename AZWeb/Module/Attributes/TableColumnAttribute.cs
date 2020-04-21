@@ -2,6 +2,7 @@
 using AZWeb.Module.Enums;
 using System;
 using System.Drawing;
+using System.Linq.Expressions;
 
 namespace AZWeb.Module.Attributes
 {
@@ -30,6 +31,7 @@ namespace AZWeb.Module.Attributes
         public PopupSize Popup { get; set; } = PopupSize.None;
         public bool ReLoadAfterPopupClose { get; set; }
         public string Permisson { get; set; }
+        public Expression<Func<object, bool>> WhereFunc { get; set; }
     }
     
    

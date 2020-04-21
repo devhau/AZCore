@@ -1,0 +1,35 @@
+﻿.list-info-money {
+    float: right;
+    width: 300px;
+    margin: 20px 0;
+}
+
+    .list-info-money .item-info-money {
+        margin-bottom: 10px;
+        width: 100%;
+        float: left;
+    }
+        .list-info-money .item-info-money .label {
+            float: left;
+            width: 55%;
+            text-align: left;
+        }
+        .list-info-money .item-info-money .value {
+            float: right;
+            width: 45%;
+            text-align: right;
+        }
+
+.list-info-customer {
+    margin-top: 15px;
+}
+
+    .list-info-customer .list-info-header {
+        font-weight: bold;
+        border-bottom: 1px solid rgba(0, 0, 0, .2);
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+    .list-info-customer .list-info-item .list-info-item-content {
+        margin-left: 10px;
+    }

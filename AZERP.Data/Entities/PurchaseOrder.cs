@@ -34,26 +34,6 @@ namespace AZERP.Data.Entities
         [Field]
         public long SupplierCode { get; set; }
         /// <summary>
-        /// Mã Sản phẩm (SKU)
-        /// </summary>
-        [Field]
-        public long ProductCode { get; set; }
-        /// <summary>
-        /// Giá nhập sản phẩm
-        /// </summary>
-        [Field]
-        public long ImportPrice { get; set; }
-        /// <summary>
-        /// Số lượng nhập
-        /// </summary>
-        [Field]
-        public long ImportNumber{ get; set; }
-        /// <summary>
-        /// Nhân viên tạo đơn
-        /// </summary>
-        [Field]
-        public long AccountId { get; set; }
-        /// <summary>
         /// Nhân viên duyệt đơn
         /// </summary>
         [Field]
@@ -87,12 +67,12 @@ namespace AZERP.Data.Entities
         /// Trạng thái hóa đơn
         /// </summary>
         [Field]
-        public PurchaseOrderStatus PurchaseOrderStatus { get; set; }
+        public OrderStatus PurchaseOrderStatus { get; set; }
         /// <summary>
         /// Trạng thái thanh toán
         /// </summary>
         [Field]
-        public PurchaseOrderPayment PurchaseOrderPayment { get; set; }
+        public OrderPayment PurchaseOrderPayment { get; set; }
         /// <summary>
         /// Trạng thái nhập kho
         /// </summary>

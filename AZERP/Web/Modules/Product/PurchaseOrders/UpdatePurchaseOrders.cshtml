@@ -1,0 +1,73 @@
+﻿@model FormUpdatePurchaseOrders
+<az-style module="PurchaseOrders.css" />
+<az-layout class="az-update row" >
+    <div class="form-group col-md-12">
+        @*<az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />*@
+    </div>
+    <div class="form-group col-md-12">
+        <div class="list-info-supplier">
+            <div class="list-info-header">@Model.SupplierModel.Name</div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="list-info-item">
+                        <div class="list-info-item-header">ĐỊA CHỈ XUẤT HÀNG</div>
+                        <div class="list-info-item-content">@Model.SupplierModel.Address</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="list-info-item">
+                        <div class="list-info-item-header">SỐ ĐIỆN THOẠI LIÊN HỆ</div>
+                        <div class="list-info-item-content">@Model.SupplierModel.PhoneNumber</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-md-12">
+    </div>
+    <div class="col-md-12 az-data-table">
+        <table class="table table-bordered table-hover az-table " role="grid">
+            <thead>
+                <tr>
+                    <td>Mã SKU</td>
+                    <td>Tên sản phẩm</td>
+                    <td>Số lượng nhập</td>
+                    <td>Giá nhập</td>
+                    <td>Thành tiền</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (PurchaseOrderProductModel item in Model.listProductOrder)
+                {
+                <tr>
+                    <td>@Model.getProduct(item.ProductId)?.Code</td>
+                    <td>@Model.getProduct(item.ProductId)?.Name</td>
+                    <td>@item.ImportNumber</td>
+                    <td>@item.ImportPrice</td>
+                    <td>@String.Format("{0:#,###}", @item.ImportNumber * @item.ImportPrice)</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <div class="list-info-money">
+            <div class="item-info-money">
+                <div class="label">Số lượng</div>
+                <div class="value">0</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label">Tổng tiền (VNĐ)</div>
+                <div class="value">0</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label">Chi phí (VNĐ)</div>
+                <div class="value">0</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label"><b>Tiền cần trả (VNĐ)</b></div>
+                <div class="value">0</div>
+            </div>
+        </div>
+    </div>
+</az-layout>

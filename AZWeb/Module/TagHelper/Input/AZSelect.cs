@@ -1,6 +1,5 @@
 ﻿using AZCore.Database;
 using AZCore.Extensions;
-using AZWeb.Module;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections;
@@ -10,8 +9,9 @@ using System.Web;
 
 namespace AZWeb.Module.TagHelper.Input
 {
-    public class AZSelect<TModel> : AZSelect,IAZModelInput
+    public class AZSelect<TService> : AZSelect,IAZModelInput        
     {
+        public Expression<Func<object, bool>> WhereFunc { get; set; }
         public IEntity Model { get; set; }
         public Expression<Func<IEntity, object>> Func { get; set; }
         public Expression<Func<Type>> FuncType { get; set; }
@@ -19,17 +19,17 @@ namespace AZWeb.Module.TagHelper.Input
         {
             Type DataType;
             if (FuncType == null)
-                DataType = typeof(TModel);
+                DataType = typeof(TService);
             else
                 DataType = FuncType.Compile().Invoke();
             this.BindModel();
             if (DataType != null&& DataType!= this.GetType())
             {
-                this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, NullText.IsNullOrEmpty()&& !this.InputLabel.IsNullOrEmpty()&&IsNullFirst ? "Chọn " + this.InputLabel.ToLower():"");
+                this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, NullText.IsNullOrEmpty()&& !this.InputLabel.IsNullOrEmpty()&&IsNullFirst ? "Chọn " + this.InputLabel.ToLower():"", WhereFunc);
             }
             base.InitData();
-            if (this.InputValue != null  && DataType.IsEnum && !(this.InputValue is TModel)) {
-                this.InputValue=(TModel)this.InputValue;
+            if (this.InputValue != null  && DataType.IsEnum && !(this.InputValue is TService)) {
+                this.InputValue=(TService)this.InputValue;
             }
         }
     }
@@ -80,13 +80,19 @@ namespace AZWeb.Module.TagHelper.Input
             if (this.InputValue !=null&& this.InputValue is IList) {
                 InputValues = (IList)this.InputValue;
             }
+
+
+            //System.Collections.Generic.List<ItemValue> ListData=this.Data;
+            //if (WhereFunc != null) {
+            //    ListData = this.Data.Where(p => WhereFunc.Compile()(p.Item)).ToList();
+            //}
             foreach (var item in this.Data)
             {
                 string ItemActive = "";
                 if (item.Value != null && item.Value.Equals(this.InputValue)) { ItemActive = " selected=\"selected\""; }
                 if(item.Value != null && IsMultiple&& InputValues!=null&& InputValues.IndexOf(item.Value)>=0) 
                 { ItemActive = " selected=\"selected\""; }
-                htmlBuild.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3} data-item='{4}' >{2}</option>", item.Value, item.Name, item.Display, ItemActive, HttpUtility.UrlEncode(item.Item.ToJson()));
+                htmlBuild.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3} data-item='{4}' >{2}</option>", item.Value, item.Name, item.Display, ItemActive, HttpUtility.UrlPathEncode(Uri.EscapeUriString(item.Item.ToJson())));
             }
             htmlBuild.Append("</select>");
             if(AddJs) this.AddJS("$('." + this.TagId + "').select2({theme: 'bootstrap4', width: 'resolve' });");

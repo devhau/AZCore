@@ -59,6 +59,11 @@ namespace AZERP.Data.Entities
         [Field(Length = 500)]
         public string Website { get; set; }
         /// <summary>
+        /// Địa chỉ giao hàng của khách
+        /// </summary>
+        [Field(Length = 1000)]
+        public string Address { get; set; }
+        /// <summary>
         /// Ghi chú
         /// </summary>
         [Field]

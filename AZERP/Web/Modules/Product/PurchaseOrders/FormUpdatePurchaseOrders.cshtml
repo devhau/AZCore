@@ -6,14 +6,27 @@
         <az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />
     </div>
     <div class="form-group col-md-12">
-        <az-supplier-select model="Model.Data" func="(item)=>((PurchaseOrderModel)item).SupplierCode" class="az-bind-data-item" attr=' data-form-bind=".supplier-form-bind" ' label="Nhà cung cấp" />
-        <div class="supplier-form-bind">
-            <label data-bind-by-name="Code"></label>
-            <label data-bind-by-name="Name"></label>
+        <az-supplier-select model="Model.Data" func="(item)=>((PurchaseOrderModel)item).SupplierCode" class="supplierClass" label="Nhà cung cấp" />
+        <div class="list-info-supplier">
+            <div class="list-info-header"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="list-info-item">
+                        <div class="list-info-item-header">ĐỊA CHỈ XUẤT HÀNG</div>
+                        <div class="list-info-item-content"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="list-info-item">
+                        <div class="list-info-item-header">SỐ ĐIỆN THOẠI LIÊN HỆ</div>
+                        <div class="list-info-item-content"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="form-group col-md-12">
-        <az-product-select model="Model.Data" func="(item)=>((PurchaseOrderModel)item).ProductCode" label="Sản phẩm" />
+        <az-product-select class="productClass" label="Sản phẩm" />
     </div>
     <div class="col-md-12 az-data-table">
         <table class="table table-bordered table-hover az-table " role="grid">
@@ -24,6 +37,7 @@
                     <td>Số lượng nhập</td>
                     <td>Giá nhập</td>
                     <td>Thành tiền</td>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
