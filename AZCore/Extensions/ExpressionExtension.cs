@@ -80,6 +80,22 @@ namespace AZCore.Extensions
             // return
             return dic;
         }
+        public static Expression<Func<TDest, bool>> ConvertTo<TSrc, TDest>(this Expression<Func<TSrc, bool>> srcExp)
+        {
+            ParameterExpression destPE = Expression.Parameter(typeof(TDest));
+
+            ExpressionConverter ec = new ExpressionConverter(typeof(TSrc), destPE);
+            Expression body = ec.Visit(srcExp.Body);
+            return Expression.Lambda<Func<TDest, bool>>(body, destPE);
+        }
+        public static Expression<Func<TDest, bool>> ConvertTo<TSrc, TDest>(this Expression<Func<TSrc, bool>> srcExp, TDest @default)
+        {
+            ParameterExpression destPE = Expression.Parameter(typeof(TDest));
+
+            ExpressionConverter ec = new ExpressionConverter(typeof(TSrc), destPE);
+            Expression body = ec.Visit(srcExp.Body);
+            return Expression.Lambda<Func<TDest, bool>>(body, destPE);
+        }
     }
 
     /// <summary>
@@ -127,6 +143,26 @@ namespace AZCore.Extensions
         public static object[] GetValueOfParameter(this MethodCallExpression mce)
         {
             return mce.Arguments.Select(c => Expression.Lambda(c is UnaryExpression ? ((UnaryExpression)c).Operand : c).Compile().DynamicInvoke()).ToArray();
+        }
+    }
+    public class ExpressionConverter : ExpressionVisitor
+    {
+
+        private Type srcType;
+        private ParameterExpression destParameter;
+
+        public ExpressionConverter(Type src, ParameterExpression dest)
+        {
+            this.srcType = src;
+            this.destParameter = dest;
+        }
+
+        protected override Expression
+           VisitParameter(ParameterExpression node)
+        {
+            if (node.Type == srcType)
+                return this.destParameter;
+            return base.VisitParameter(node);
         }
     }
 }

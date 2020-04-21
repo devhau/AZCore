@@ -22,6 +22,10 @@ namespace AZERP.Web.Modules.Recruitment.Worker
     [TableColumn(Title = "Ngày đi làm", FieldName = "StartWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Ngày nghỉ việc", FieldName = "LastWork", Width = 100, FormatString = "{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Chấm công", LinkFormat = "/cham-cong-cong-nhan.az?CompanyId={CompanyId}&WorkerId={Id}" ,ReLoadAfterPopupClose =false ,Popup =PopupSize.FullScreen, Text ="Chấm công", Icon="fas fa-check-double", Width = 70,Display = DisplayColumn.Icon)]
+    [TableColumn(Title = "Thời gian tạo", FieldName = "CreateAt", Width = 150, FormatString = "{0:HH:mm dd/MM/yyyy}")]
+    [TableColumn(Title = "Người tạo", FieldName = "CreateBy", Width = 150, DataType = typeof(UserService))]
+    [TableColumn(Title = "Thời gian cập nhật", FieldName = "UpdateAt", Width = 150, FormatString = "{0:HH:mm dd/MM/yyyy}")]
+    [TableColumn(Title = "Người cập nhật", FieldName = "UpdateBy", Width = 150, DataType = typeof(UserService))]
     public class FormWorker : ManageModule<WorkerService, WorkerModel, FormUpdateWorker>
     {
         #region -- Field Search --

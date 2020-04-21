@@ -12,6 +12,10 @@ namespace AZERP.Web.Modules.Recruitment.CompanyWorker
     [TableColumn(Title = "Địa chỉ", FieldName = "Address", Width = 250)]
     [TableColumn(Title = "Khu vực", FieldName = "AtAddress", Width = 150, DataType = typeof(AddressWorker))]
     [TableColumn(Title = "Mô tả", FieldName = "Description")]
+    [TableColumn(Title = "Thời gian tạo", FieldName = "CreateAt", Width = 150, FormatString = "{0:HH:mm dd/MM/yyyy}")]
+    [TableColumn(Title = "Người tạo", FieldName = "CreateBy", Width = 150, DataType = typeof(UserService))]
+    [TableColumn(Title = "Thời gian cập nhật", FieldName = "UpdateAt", Width = 150, FormatString = "{0:HH:mm dd/MM/yyyy}")]
+    [TableColumn(Title = "Người cập nhật", FieldName = "UpdateBy", Width = 150, DataType = typeof(UserService))]
     public class FormCompanyWorker : ManageModule<CompanyWorkerService, CompanyWorkerModel, FormUpdateCompanyWorker>
     {
         #region -- Field Search --
