@@ -65,6 +65,5 @@ $(".supplierClass").on('change', function () {
         $(".list-info-supplier .list-info-item .list-info-item-content").eq(0).text(dataItem.Address);
         $(".list-info-supplier .list-info-item .list-info-item-content").eq(1).text(dataItem.PhoneNumber);
     }
-    $(this).val(null);
 });
   

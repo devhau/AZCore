@@ -1,4 +1,8 @@
-﻿.list-info-money {
+﻿.az-page-info-body .az-data-table {
+    padding-top: 25px;
+}
+
+.list-info-money {
     float: right;
     width: 360px;
     margin: 20px 0;

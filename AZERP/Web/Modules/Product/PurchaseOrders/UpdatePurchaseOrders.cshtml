@@ -1,12 +1,17 @@
 ﻿@model FormUpdatePurchaseOrders
 <az-style module="PurchaseOrders.css" />
-<az-layout class="az-update row">
-    <div class="form-group col-md-12">
+<div class="az-update row" role="form">
+    <div class="form-group col-md-6">
+        <az-text-model is-enable="false" value="@Model.Data.Code" label="Mã đơn nhập hàng" />
+    </div>
+    <div class="form-group col-md-6">
+        <az-text-model is-enable="false" value="@Model.UserModel.FullName" label="Nhân viên tạo đơn" />
     </div>
     <div class="form-group col-md-12">
         <div class="az-page-info">
             <div class="az-page-info-title">Nhà cung cấp</div>
             <div class="az-page-info-body">
+                <az-supplier-select model="Model.Data" func="(item)=>((PurchaseOrderModel)item).SupplierCode" where-func="(item)=>((SupplierModel)item).SupplierStatus == true" class="supplierClass" null-text="Chọn nhà cung cấp" />
                 <div class="list-info-supplier">
                     <div class="list-info-header">@Model.SupplierModel.Name</div>
                     <div class="row">
@@ -31,6 +36,7 @@
         <div class="az-page-info">
             <div class="az-page-info-title">Sản phẩm</div>
             <div class="az-page-info-body">
+                <az-product-select class="productClass" null-text="Chọn sản phẩm" />
                 <div class="az-data-table">
                     <table class="table table-bordered table-hover az-table " role="grid">
                         <thead>
@@ -43,6 +49,8 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @{ long valueSum = 0; }
+                            @{ long valueMoney = 0;}
                             @foreach (PurchaseOrderProductModel item in Model.listProductOrder)
                             {
                                 <tr>
@@ -51,6 +59,8 @@
                                     <td>@item.ImportNumber</td>
                                     <td>@item.ImportPrice</td>
                                     <td>@String.Format("{0:#,###}", @item.ImportNumber * @item.ImportPrice)</td>
+                                    @{ valueSum += item.ImportNumber; }
+                                    @{ valueMoney += (item.ImportPrice * item.ImportNumber); }
                                 </tr>
                             }
                         </tbody>
@@ -59,22 +69,28 @@
             </div>
         </div>
     </div>
-    <div class="list-info-money">
-        <div class="item-info-money">
-            <div class="label">Số lượng</div>
-            <div class="value">0</div>
-        </div>
-        <div class="item-info-money">
-            <div class="label">Tổng tiền (VNĐ)</div>
-            <div class="value">0</div>
-        </div>
-        <div class="item-info-money">
-            <div class="label">Chi phí (VNĐ)</div>
-            <div class="value">0</div>
-        </div>
-        <div class="item-info-money">
-            <div class="label"><b>Tiền cần trả (VNĐ)</b></div>
-            <div class="value">0</div>
+    <div class="col-md-12">
+        <div class="list-info-money">
+            <div class="item-info-money">
+                <div class="label">Số lượng</div>
+                <div class="value">@String.Format("{0:#,###}", valueSum)</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label">Tổng tiền (VNĐ)</div>
+                <div class="value">@String.Format("{0:#,###}", valueMoney)</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label">Chi phí (VNĐ)</div>
+                <div class="value">0</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label"><b>Tiền cần trả (VNĐ)</b></div>
+                <div class="value">@String.Format("{0:#,###}", valueMoney)</div>
+            </div>
         </div>
     </div>
-</az-layout>
+    <div class="col-md-12">
+        <az-button class="btn btn-secondary" text="Xác nhận thanh toán"></az-button>
+        <az-button class="btn btn-primary" text="Nhập kho"></az-button>
+    </div>
+</div>

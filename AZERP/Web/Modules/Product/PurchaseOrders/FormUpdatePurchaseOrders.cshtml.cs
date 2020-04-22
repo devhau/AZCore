@@ -17,6 +17,8 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
         PurchaseOrderProductService purchaseOrderProductService;
         SupplierService supplierService;
         ProductService productService;
+        UserService userService;
+        public UserModel UserModel;
         public SupplierModel SupplierModel;
         public List<PurchaseOrderProductModel> listProductOrder;
         public List<ProductModel> listProduct;
@@ -25,11 +27,14 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
             IHttpContextAccessor httpContext, 
             PurchaseOrderProductService purchaseOrderProductService, 
             SupplierService supplierService,
-            ProductService productService, EntityTransaction entityTransaction) : base(httpContext)
+            ProductService productService,
+            UserService userService,
+            EntityTransaction entityTransaction) : base(httpContext)
         {
             this.purchaseOrderProductService = purchaseOrderProductService;
             this.supplierService = supplierService;
             this.productService = productService;
+            this.userService = userService;
             this.entityTransaction = entityTransaction;
         }
 
@@ -59,6 +64,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
             {
                 this.Data = this.Service.GetById(Id);
                 SupplierModel = this.supplierService.Select(p => p.Id == this.Data.SupplierCode).FirstOrDefault();
+                UserModel = this.userService.Select(p=>p.Id == this.Data.CreateBy).FirstOrDefault();
                 listProductOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == this.Data.Id).ToList();
                 this.Title = "Duyệt đơn hàng (" + this.Data.Code + ") - " + this.Data.PurchaseOrderStatus.GetItemValueByEnum().Display;
                 return View("UpdatePurchaseOrders");
@@ -78,6 +84,8 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 DataForm.CreateAt = DateTime.Now;
                 DataForm.CreateBy = User.Id;
                 DataForm.PurchaseOrderStatus = OrderStatus.Waiting;
+                DataForm.PurchaseOrderPayment = OrderPayment.Unpaid;
+                DataForm.PurchaseOrderImport = PurchaseOrderImport.Waiting;
                 DataFormToData(DataForm);
                 var orderId = this.Service.Insert(DataForm);
 
