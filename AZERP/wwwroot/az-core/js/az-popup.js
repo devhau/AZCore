@@ -32,7 +32,7 @@
 	$this.DataItem = undefined;
 	$this.link = "";
 	$this.setDataItem = function (DataItem) {
-		$this.DataItem = id;
+		$this.DataItem = DataItem;
 		if ($this.DataItem) {
 			$($this.Modal).attr("data-item", $this.DataItem);
 		}
