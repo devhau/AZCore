@@ -1,77 +1,75 @@
 ﻿@model FormUpdatePurchaseOrders
 <az-style module="PurchaseOrders.css" />
 <az-script module="PurchaseOrders.js" />
-<az-layout class="az-update row" >
+<az-layout class="az-update row">
     <div class="form-group col-md-12">
         <az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />
     </div>
     <div class="form-group col-md-12">
-        <az-supplier-select model="Model.Data" func="(item)=>((PurchaseOrderModel)item).SupplierCode" where-func="(item)=>((SupplierModel)item).SupplierStatus == true" class="supplierClass" label="Nhà cung cấp" />
-        <div class="list-info-supplier">
-            <div class="list-info-header"></div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="list-info-item">
-                        <div class="list-info-item-header">ĐỊA CHỈ XUẤT HÀNG</div>
-                        <div class="list-info-item-content"></div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="list-info-item">
-                        <div class="list-info-item-header">SỐ ĐIỆN THOẠI LIÊN HỆ</div>
-                        <div class="list-info-item-content"></div>
+        <div class="az-page-info">
+            <div class="az-page-info-title">Nhà cung cấp</div>
+            <div class="az-page-info-body">
+                <az-supplier-select model="Model.Data" func="(item)=>((PurchaseOrderModel)item).SupplierCode" where-func="(item)=>((SupplierModel)item).SupplierStatus == true" class="supplierClass" null-text="Chọn nhà cung cấp" />
+                <div class="list-info-supplier">
+                    <div class="list-info-header"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="list-info-item">
+                                <div class="list-info-item-header">ĐỊA CHỈ XUẤT HÀNG</div>
+                                <div class="list-info-item-content"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="list-info-item">
+                                <div class="list-info-item-header">SỐ ĐIỆN THOẠI LIÊN HỆ</div>
+                                <div class="list-info-item-content"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="form-group col-md-12">
-        <az-product-select class="productClass" label="Sản phẩm" />
-    </div>
-    <div class="col-md-12 az-data-table">
-        <table class="table table-bordered table-hover az-table " role="grid">
-            <thead>
-                <tr>
-                    <td>Mã SKU</td>
-                    <td>Tên sản phẩm</td>
-                    <td>Số lượng nhập</td>
-                    <td>Giá nhập</td>
-                    <td>Thành tiền</td>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
-    <div class="col-md-12">
-        <div class="list-info-money">
-            <div class="item-info-money">
-                <div class="label">Số lượng</div>
-                <div class="value">0</div>
-            </div>
-            <div class="item-info-money">
-                <div class="label">Tổng tiền (VNĐ)</div>
-                <div class="value">0</div>
-            </div>
-            <div class="item-info-money">
-                <div class="label">Chi phí (VNĐ)</div>
-                <div class="value">0</div>
-            </div>
-            <div class="item-info-money">
-                <div class="label"><b>Tiền cần trả (VNĐ)</b></div>
-                <div class="value">0</div>
+        <div class="az-page-info">
+            <div class="az-page-info-title">Sản phẩm</div>
+            <div class="az-page-info-body">
+                <az-product-select class="productClass" null-text="Chọn sản phẩm" />
+                <div class="az-data-table">
+                    <table class="table table-bordered table-hover az-table " role="grid">
+                        <thead>
+                            <tr>
+                                <td>Mã SKU</td>
+                                <td>Tên sản phẩm</td>
+                                <td>Số lượng nhập</td>
+                                <td>Giá nhập</td>
+                                <td>Thành tiền</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    @*<div class="form-group col-md-4">
-            <az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).ImportNumber" value="1" label="Số lượng nhập" />
+    <div class="list-info-money">
+        <div class="item-info-money">
+            <div class="label">Số lượng</div>
+            <div class="value">0</div>
         </div>
-        <div class="form-group col-md-4">
-            <az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).ImportPrice" value="100000" label="Giá nhập (VNĐ)" />
+        <div class="item-info-money">
+            <div class="label">Tổng tiền (VNĐ)</div>
+            <div class="value">0</div>
         </div>
-        <div class="form-group col-md-4">
-            <label>Thành tiền (VNĐ)</label>
-            <label class="form-purchase-order" id="LabelThanhTien">100,000</label>
-        </div>*@
+        <div class="item-info-money">
+            <div class="label">Chi phí (VNĐ)</div>
+            <div class="value">0</div>
+        </div>
+        <div class="item-info-money">
+            <div class="label"><b>Tiền cần trả (VNĐ)</b></div>
+            <div class="value">0</div>
+        </div>
+    </div>
 </az-layout>

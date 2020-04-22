@@ -10,7 +10,8 @@ namespace AZERP.Web.Modules.Product.Supplier
 {
     [TableColumn(Title = "Mã nhà cung cấp", FieldName = "Code")]
     [TableColumn(Title = "Tên nhà cung cấp", FieldName = "Name")]
-    [TableColumn(Title = "Số điện thoại", FieldName = "AbbreviatedName")]
+    [TableColumn(Title = "Tên viết tắt", FieldName = "AbbreviatedName")]
+    [TableColumn(Title = "Số điện thoại", FieldName = "PhoneNumber")]
     [TableColumn(Title = "Email", FieldName = "AbbreviatedName")]
     [TableColumn(Title = "Trạng thái", FieldName = "SupplierStatus", TextFalse = "Ngưng hoạt động", TextTrue = "Đang hoạt động")]
     public class FormSupplier : ManageModule<SupplierService, SupplierModel, FormUpdateSupplier>

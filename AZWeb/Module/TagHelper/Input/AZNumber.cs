@@ -23,6 +23,8 @@ namespace AZWeb.Module.TagHelper.Input
     {
         public NumberType Type { get; set; } = NumberType.Integer;
         public int Digits { get; set; } = 2;
+        public string GroupSeparator { get; set; } = ",";
+        public bool AutoGroup { get; set; } = true;
         protected override void RenderHtml(StringBuilder htmlBuild)
         {
             //pattern=\"^\+?(?:[0-9]??).{5,14}[0-9]$\"
@@ -57,6 +59,5 @@ namespace AZWeb.Module.TagHelper.Input
         Decimal,
         Currency,
         OnlyNumber
-
     }
 }
