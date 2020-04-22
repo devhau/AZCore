@@ -15,6 +15,7 @@ namespace AZERP.Web.Modules.Product.Products
     [TableColumn(Title = "Tồn kho", FieldName = "Available")]
     [TableColumn(Title = "Ngày khởi tạo", FieldName = "CreateAt", DataType = typeof(DateTime))]
     [TableColumn(Title = "Cập nhật cuối", FieldName = "UpdateAt", DataType = typeof(DateTime))]
+    [TableColumn(Title = "Trạng Thái", FieldName = "ProductSellable", TextFalse = "Đang không hoạt động", TextTrue = "Đang hoạt động")]
     public class FormProducts : ManageModule<ProductService, ProductModel, FormUpdateProducts>
     {
         #region -- Field Search --

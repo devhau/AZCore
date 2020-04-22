@@ -1,4 +1,7 @@
-﻿using AZERP.Data.Entities;
+﻿using AZCore.Database;
+using AZERP.Data.Entities;
+using AZERP.Data.Enums;
+using AZWeb.Module;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
@@ -14,19 +17,25 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
         PurchaseOrderProductService purchaseOrderProductService;
         SupplierService supplierService;
         ProductService productService;
+        UserService userService;
+        public UserModel UserModel;
         public SupplierModel SupplierModel;
         public List<PurchaseOrderProductModel> listProductOrder;
         public List<ProductModel> listProduct;
-        
+        EntityTransaction entityTransaction;
         public FormUpdatePurchaseOrders(
             IHttpContextAccessor httpContext, 
             PurchaseOrderProductService purchaseOrderProductService, 
             SupplierService supplierService,
-            ProductService productService) : base(httpContext)
+            ProductService productService,
+            UserService userService,
+            EntityTransaction entityTransaction) : base(httpContext)
         {
             this.purchaseOrderProductService = purchaseOrderProductService;
             this.supplierService = supplierService;
             this.productService = productService;
+            this.userService = userService;
+            this.entityTransaction = entityTransaction;
         }
 
         protected override void IntData()
@@ -39,23 +48,44 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
             return this.productService.Select(p => p.Id == Id).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Override popup Form
+        /// </summary>
+        /// <param name="Id">Id of Purchase Order</param>
+        /// <returns></returns>
         public override IView Get(long? Id)
         {
-            if(Id == 0 || Id == null) return base.Get(Id);
-            
-            this.Data = this.Service.GetById(Id);
-            SupplierModel = this.supplierService.Select(p => p.Id == this.Data.SupplierCode).FirstOrDefault();
-            listProductOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == this.Data.Id).ToList();
-            this.Title = "Duyệt đơn hàng";
-            return View("UpdatePurchaseOrders");
+            // Create Purchase Order
+            if (Id == 0 || Id == null) 
+            { 
+                return base.Get(Id); 
+            } else
+            // View Purchase Order
+            {
+                this.Data = this.Service.GetById(Id);
+                SupplierModel = this.supplierService.Select(p => p.Id == this.Data.SupplierCode).FirstOrDefault();
+                UserModel = this.userService.Select(p=>p.Id == this.Data.CreateBy).FirstOrDefault();
+                listProductOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == this.Data.Id).ToList();
+                this.Title = "Duyệt đơn hàng (" + this.Data.Code + ") - " + this.Data.PurchaseOrderStatus.GetItemValueByEnum().Display;
+                return View("UpdatePurchaseOrders");
+            }
         }
 
+        /// <summary>
+        /// Override Post method
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="DataForm"></param>
+        /// <returns></returns>
         public override IView Post(long? Id, PurchaseOrderModel DataForm)
         {
             try
             {
                 DataForm.CreateAt = DateTime.Now;
                 DataForm.CreateBy = User.Id;
+                DataForm.PurchaseOrderStatus = OrderStatus.Waiting;
+                DataForm.PurchaseOrderPayment = OrderPayment.Unpaid;
+                DataForm.PurchaseOrderImport = PurchaseOrderImport.Waiting;
                 DataFormToData(DataForm);
                 var orderId = this.Service.Insert(DataForm);
 
@@ -67,11 +97,11 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
 
                 if (this.purchaseOrderProductService.InsertRange(this.ManagerForm.listDataOrder) > 0)
                 {
-                    this.Service.Commit();
                     return Json("Tạo đơn nhập hàng thành công");
                 }
 
                 this.Service.Delete(p => p.Id == orderId);
+
             } catch(Exception ex)
             {
                 Debug.WriteLine(ex);

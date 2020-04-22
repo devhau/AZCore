@@ -1,7 +1,4 @@
 ﻿using AZCore.Database.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AZERP.Data.Enums
 {
@@ -9,6 +6,6 @@ namespace AZERP.Data.Enums
     {
         [Field(Display = "Nam")] Male = 1, 
         [Field(Display = "Nữ")] Female = 2,
-        [Field(Display = "Chuyển giới")] Transgender = 3,
+        [Field(Display = "Khác")] Other = 3,
     }
 }

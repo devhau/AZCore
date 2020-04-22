@@ -17,7 +17,8 @@
 							</div>\
 					</div>\
 				</div>';
-	$this.Buttons = [{ value: "Đóng", cls: "btn btn-default az-btn az-btn-close",icon:"", func: function (elem, scope) { scope.CloseForm(); } }];
+	$this.Buttons = [{ value: "Đóng", cls: "btn btn-default az-btn az-btn-close", icon: "", func: function (elem, scope) { scope.CloseForm(); } }];
+	$this.clsButtonDefault = "btn btn-default az-btn";
 	$this.Modal = $($this.template);
 	$this.ModalBody = $($this.Modal).find(".modal-body");
 	$this.ModalForm = $($this.Modal).find(".modal-body");
@@ -27,7 +28,21 @@
 	$this.ModalTitle = $($this.Modal).find(".modal-header").find(".modal-title");
 	$this.ModalSize = "az-modal-none";
 	$this.IsForm = false;
+	$this.id = undefined;
+	$this.DataItem = undefined;
 	$this.link = "";
+	$this.setDataItem = function (DataItem) {
+		$this.DataItem = DataItem;
+		if ($this.DataItem) {
+			$($this.Modal).attr("data-item", $this.DataItem);
+		}
+	}
+	$this.setId = function (id) {
+		$this.id = id;
+		if ($this.id) {
+			$($this.Modal).attr("link-id", $this.id);
+		}
+	}
 	$this.setLink = function (link) {
 		$this.link = link;
 		if ($this.link) {
@@ -55,7 +70,7 @@
 	$this.createButton = function (btnInfo) {
 		let btn = $("<button></button>");
 		$(btn).html("<i class=\"" + btnInfo.icon + "\"></i> " + btnInfo.value);
-		btn.addClass(btnInfo.cls == null || btnInfo.cls == "" ? clsButtonDefault : btnInfo.cls);
+		btn.addClass(btnInfo.cls == undefined || btnInfo.cls == "" ? $this.clsButtonDefault : btnInfo.cls);
 		if (btnInfo.cmd) {
 			$(btn).attr("data-cmd-key", btnInfo.cmd);
 			if (btnInfo.cmdfunc) {
@@ -68,8 +83,6 @@
 	$this.ClosePopup = function () {
 		$($this.Modal).remove();
 		PopupMain.ClosePopup();
-		console.log("ClosePopup");
-		console.log(PopupMain.PopupCurrent());
 		if (!PopupMain.isEmpty()) {
 			PopupMain.PopupCurrent().focusPopup();
 		}

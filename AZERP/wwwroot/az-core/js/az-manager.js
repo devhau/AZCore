@@ -1,6 +1,30 @@
-﻿function AZManager($callback) {
+﻿function AZManager(option,$callback) {
     let $this = $(this).hasClass("az-manager") ? this : $(this).find(".az-manager");
     $.extend($this, new AZAjax());
+    $optiondefault = {
+        clear: false,
+        ButtonValue: "Lưu lại (F2)",
+        ButtonEditValue: "",
+        ButtonCMD: "f2",
+        ButtonClass: "btn btn-success az-btn az-btn-update",
+        ButtonIcon: "far fa-save",
+        Edit: [],
+        Add: []
+    };
+
+    /*
+    {
+        ButtonValue: "Lưu lại (F2)",
+        ButtonIcon: "far fa-save",
+        ButtonClass: "btn btn-success az-btn az-btn-update",
+        ButtonCMD: "f2",
+        func: function (elem, scope,manager) {
+            manager.SaveData(url, scope);
+        }
+    }
+     */
+    if(option)
+    $.extend($optiondefault, option);
     $this.FormSize = $($this).data("form-size");
     $this.FormSearch = $($this).find(".az-search-form");
     $this.DataTable = $($this).find("table");
@@ -43,7 +67,7 @@
 
         })
     }
-    $this.ShowFormUpdate = function ($Id) {
+    $this.ShowFormUpdate = function ($Id, $DataItem) {
         var url = $this.location.pathname + "?h=update";
         if ($Id) url = url + "&id=" + $Id;
         $this.DoGet(url, null, function (item) {
@@ -52,16 +76,53 @@
             }
             var popup = new AZPopup();
             popup.ClearButton();
+            popup.setLink(url);
+            popup.setId($Id);
+            popup.setDataItem($DataItem);
             popup.IsForm = true;
-            popup.AddButton({
-                value: "Lưu lại (F2)",
-                icon: "far fa-save",
-                cls: "btn btn-success az-btn az-btn-update",
-                cmd: "f2",
-                func: function (elem, scope) {
-                    $this.SaveData(url, scope);
+            if ($optiondefault.clear == true) {
+                if ($Id) {
+                    $.each($optiondefault.Edit, function (i, el) {
+                        popup.AddButton({
+                            value: el.ButtonValue,
+                            icon: el.ButtonIcon,
+                            cls: el.ButtonClass,
+                            cmd: el.ButtonCMD,
+                            func: function (elem, scope) {
+                                if (el.func)
+                                    el.func(elem, scope, $this);
+                            }
+                        });
+                    });
+
+                } else {
+
+                    $.each($optiondefault.Add, function (i, el) {
+                        popup.AddButton({
+                            value: el.ButtonValue,
+                            icon: el.ButtonIcon,
+                            cls: el.ButtonClass,
+                            cmd: el.ButtonCMD,
+                            func: function (elem, scope) {
+                                if (el.func)
+                                    el.func(elem, scope, $this);
+                            }
+                        });
+                    })
                 }
-            });
+            }
+            else
+            {
+                popup.AddButton({
+                    value: $Id && $optiondefault.ButtonEditValue != "" ? $optiondefault.ButtonEditValue:$optiondefault.ButtonValue,
+                    icon: $optiondefault.ButtonIcon,
+                    cls: $optiondefault.ButtonClass,
+                    cmd: $optiondefault.ButtonCMD,
+                    func: function (elem, scope) {
+                        $this.SaveData(url, scope);
+                    }
+                });
+            }
             popup.setHtml(item.html);
             popup.setTitle(item.title);
             popup.ModalSize = $this.FormSize;
@@ -72,12 +133,12 @@
         $this.ShowFormUpdate();
     });
     $($this).find("table tbody tr").on("dblclick", function () {
-        var $Id = $(this).attr("data-item-id");
-        $this.ShowFormUpdate($Id);    
+        $(this).parents("tr").find(".az-btn-edit").click();
     });
     $($this).find(".az-btn-edit").on("click", function (e) {    
         var $Id = $(this).parents("tr").attr("data-item-id");
-        $this.ShowFormUpdate($Id);       
+        var $DataItem = $(this).parents("tr").attr("data-item");
+        $this.ShowFormUpdate($Id, $DataItem);       
     });
     $($this).find(".az-btn-delete").on("click", function () {
 

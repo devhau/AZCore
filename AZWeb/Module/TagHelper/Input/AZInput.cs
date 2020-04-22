@@ -32,6 +32,7 @@ namespace AZWeb.Module.TagHelper.Input
         public string CMD { get; set; }
         [HtmlAttributeName("max-length")]
         public int MaxLength { get; set; }
+        public bool AddJs { get; set; } = true;
         public Func<string, string> ScriptInput { get; set; }
         public override void Init(TagHelperContext context)
         {

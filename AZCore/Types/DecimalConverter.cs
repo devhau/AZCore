@@ -22,7 +22,7 @@ namespace AZCore.Types
             switch (typeCode)
             {
                 case AZTypeCode.String:
-                    var strValue = value.ToString().GetOnlyDigital();
+                    var strValue = value.ToString().GetOnlyDigitalAndDot();
                     return strValue.IsNull() ? (decimal?)null : Convert.ToDecimal(strValue); // hanhth
                 //case AZTypeCode.String: return value.ToString().Trim().IsNull() ? (decimal?)null : Convert.ToDecimal(value.ToString().Replace(",",""), CultureInfo.GetCultureInfo("vi-VN"));//sonpc
                 case AZTypeCode.Int64:

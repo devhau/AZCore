@@ -33,7 +33,7 @@ namespace AZWeb.Module.TagHelper.Input
                 htmlBuild.Append(InputValue);
             }
             htmlBuild.Append("</textarea>");
-            this.AddJS("$('." + this.TagId + "').summernote();");
+            if(AddJs) this.AddJS("$('." + this.TagId + "').summernote();");
         }
     }
 }

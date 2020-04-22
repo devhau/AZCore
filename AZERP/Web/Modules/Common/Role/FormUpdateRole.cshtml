@@ -1,16 +1,16 @@
 ﻿@model FormUpdateRole
-    <div class="az-update row" role="form">
-        <div class="col-md-12">
-            <div class="form-group">
-                <az-text-model model="Model.Data" func="(item)=>((RoleModel)item).Name" label="Tên vai trò" />
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <az-status-select model="Model.Data" func="(item)=>((RoleModel)item).Status" label="Trạng thái" />
-            </div>
+<div class="az-update row" role="form">
+    <div class="col-md-12">
+        <div class="form-group">
+            <az-text-model model="Model.Data" func="(item)=>((RoleModel)item).Name" label="Tên vai trò" />
         </div>
     </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <az-status-select model="Model.Data" func="(item)=>((RoleModel)item).Status" label="Trạng thái" />
+        </div>
+    </div>
+</div>
 <az-script>
 
 </az-script>

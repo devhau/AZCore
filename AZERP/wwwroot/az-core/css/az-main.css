@@ -123,6 +123,7 @@
     .az-modal .modal-content {
         border-radius:0px;
         position:relative;
+        background-color: #f4f6f8;
     }
     .az-modal .modal-header {
         padding:5px 10px;
@@ -208,3 +209,20 @@ table-freeze thead th {
     vertical-align: middle;
     z-index: 100;
 }
+
+.az-page-info {
+    background-color: #fff;
+    box-shadow: 0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15);
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-bottom: 15px;
+}
+
+    .az-page-info .az-page-info-title {
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    .az-page-info .az-page-info-body {
+        width: 100%;
+    }
