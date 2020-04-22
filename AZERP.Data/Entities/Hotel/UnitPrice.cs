@@ -8,9 +8,9 @@ using System.Text;
 
 namespace AZERP.Data.Entities.Hotel
 {
-    public class CostService : EntityService<CostService, CostModel>, IAZTransient
+    public class UnitPriceService : EntityService<UnitPriceService, UnitPriceModel>, IAZTransient
     {
-        public CostService(IDbConnection _connection) : base(_connection)
+        public UnitPriceService(IDbConnection _connection) : base(_connection)
         {
         }
     }
@@ -18,29 +18,29 @@ namespace AZERP.Data.Entities.Hotel
     /// Thông tin của các chi phí
     /// </summary>
 
-    [TableInfo(TableName = "az_hotel_cost")]
-    public class CostModel : EntityModel<CostModel, long>
+    [TableInfo(TableName = "az_hotel_unitprice")]
+    public class UnitPriceModel : EntityModel<UnitPriceModel, long>
     {
         /// <summary>
         /// Mã chi phí
         /// </summary>
         [Field(Length = 500)]
-        public string CostID { get; set; }
+        public string UnitPriceID { get; set; }
         /// <summary>
         /// Tiền điện
         /// </summary>
         [Field]
-        public decimal ElectricityBill { get; set; }
+        public decimal ElectricityCharge { get; set; }
         /// <summary>
         /// Tiền nước
         /// </summary>
         [Field]
-        public decimal WaterBill { get; set; }
+        public decimal WaterCharge { get; set; }
         /// <summary>
-        /// Chi phí khác: tiền internet, tiền rác, ...
+        /// Tiền khác: tiền internet, tiền rác, ...
         /// </summary>
         [Field]
-        public decimal CostOther { get; set; }
+        public decimal ChargeOther { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>
