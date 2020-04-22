@@ -47,7 +47,6 @@ namespace AZWeb.Module.TagHelper.Input
         public System.Collections.Generic.List<ItemValue> Data { get; set; }
         [HtmlAttributeName("null-text")]
         public string NullText { get; set; }
-        public bool AddJs { get; set; } = true;
         public bool IsMultiple { get; set; }
         public bool IsNullFirst { get; set; } = true;
         protected override void InitData()
@@ -95,6 +94,7 @@ namespace AZWeb.Module.TagHelper.Input
                 htmlBuild.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3} data-item='{4}' >{2}</option>", item.Value, item.Name, item.Display, ItemActive, HttpUtility.UrlPathEncode(Uri.EscapeUriString(item.Item.ToJson())));
             }
             htmlBuild.Append("</select>");
+            
             if(AddJs) this.AddJS("$('." + this.TagId + "').select2({theme: 'bootstrap4', width: 'resolve' });");
         }
     }
