@@ -28,6 +28,8 @@ namespace AZERP.Web.Modules.Product.Products
         /// </summary>
         [QuerySearch]
         public long? CategoryId { get; set; }
+        [QuerySearch]
+        public bool ProductSellable { get; set; } = true;
         #endregion
 
         public FormProducts(IHttpContextAccessor httpContext) : base(httpContext)
