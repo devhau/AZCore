@@ -2,12 +2,12 @@
 <az-style module="auth.css"/>
 <div class="auth-box">
     <div class="auth-logo">
-        <h3 style="color:#fff;">AZ Store</h3>
+        <h3>AZ Store</h3>
     </div>
     <!-- /.login-logo -->
     <div class="card">
         <div class="card-body login-card-body">
-            <h3 class="login-box-msg">Đăng nhập hệ thống</h3>
+            <h4 class="login-box-msg">Đăng nhập</h4>
             @if (!String.IsNullOrEmpty(Model.Error))
             {
                 <span style="color:red;font-weight:700;">@Model.Error</span>
@@ -41,7 +41,7 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                        <button type="submit" class="btn btn-primary btn-block az-btn">Đăng nhập</button>
                     </div>
                     <!-- /.col -->
                 </div>
@@ -49,23 +49,30 @@
 
             <div class="social-auth-links text-center mb-3">
                 <p>- OR -</p>
-                <a href="/dang-nhap-bang-facebook.az" class="btn btn-block btn-primary">
-                    <i class="fab fa-facebook mr-2"></i> Đăng nhập bằng Facebook
-                </a>
-                <a href="/dang-nhap-bang-google.az" class="btn btn-block btn-danger">
-                    <i class="fab fa-google-plus mr-2"></i> Đăng nhập bằng Google+
-                </a>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="/dang-nhap-bang-facebook.az" class="btn btn-block btn-primary az-btn">
+                            <i class="fab fa-facebook mr-2"></i>Facebook
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="/dang-nhap-bang-google.az" class="btn btn-block btn-danger az-btn">
+                            <i class="fab fa-google-plus mr-2"></i>Google+
+                        </a>
+                    </div>
+                </div>
             </div>
             <!-- /.social-auth-links -->
-
-            <p class="mb-1">
-                <a href="/lay-lai-mat-khau.az">Lấy lại mật khẩu</a>
-            </p>
-            <p class="mb-0">
-                <a href="/dang-ky.az" class="text-center">Đăng ký tài khoản mới</a>
-            </p>
+            <div class="row text-center">
+                <div class="col-12">
+                    <p>- OR -</p>
+                </div>
+                <div class="col-12">
+                    <a href="/dang-ky.az" class="btn az-btn btn-danger  text-center form-control">Đăng ký tài khoản mới</a>
+                </div>
+            </div>
         </div>
         <!-- /.login-card-body -->
     </div>
-</div>
+        </div>
 <!-- /.login-box -->

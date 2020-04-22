@@ -13,7 +13,7 @@ namespace AZCore.Types
             switch (typeCode)
             {
                 case AZTypeCode.String:
-                    return value.IsNullOrEmpty() ? 0 : Convert.ToInt64(value.ToString().GetOnlyDigital());
+                    return value.IsNullOrEmpty() ? 0 : Convert.ToInt64(value.ToString().GetOnlyDigitalAndDot());
                 case AZTypeCode.Int16:                
                 case AZTypeCode.Int32:                
                 case AZTypeCode.Decimal:

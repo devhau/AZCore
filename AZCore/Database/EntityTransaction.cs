@@ -39,10 +39,10 @@ namespace AZCore.Database
                 action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection));
                 this.Commit();return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Rollback();
-                if (isThrow) throw ex; return false;
+                if (isThrow) throw; return false;
             }
 
         }
@@ -59,10 +59,10 @@ namespace AZCore.Database
                 action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection), typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection));
                 this.Commit();return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Rollback();
-                if (isThrow) throw ex; return false;
+                if (isThrow) throw; return false;
             }
 
         }
@@ -80,10 +80,10 @@ namespace AZCore.Database
                 action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection), typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection), typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection));
                 this.Commit();return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Rollback();
-                if (isThrow) throw ex; return false;
+                if (isThrow) throw; return false;
             }
 
         }
@@ -106,10 +106,10 @@ namespace AZCore.Database
                     );
                 this.Commit();return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Rollback();
-                if (isThrow) throw ex; return false;
+                if (isThrow) throw; return false;
             }
 
         }
@@ -133,10 +133,10 @@ namespace AZCore.Database
                      , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this.Connection)
                      ); this.Commit();return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Rollback();
-                if (isThrow) throw ex; return false;
+                if (isThrow) throw; return false;
             }
 
         }
@@ -162,10 +162,10 @@ namespace AZCore.Database
                      , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this.Connection)
                      ); this.Commit();return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Rollback();
-                if (isThrow) throw ex; return false;
+                if (isThrow) throw; return false;
             }
 
         }
@@ -193,10 +193,10 @@ namespace AZCore.Database
                      , typeof(TService7).CreateInstance<TService7>((t)=>  t.Transaction = Transaction,this.Connection)
                      ); this.Commit();return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Rollback();
-                if (isThrow) throw ex; return false;
+                if (isThrow) throw; return false;
             }
 
         }
@@ -227,10 +227,10 @@ namespace AZCore.Database
                      , typeof(TService8).CreateInstance<TService8>((t)=>  t.Transaction = Transaction,this.Connection)
                      ); this.Commit();return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Rollback();
-                if (isThrow) throw ex; return false;
+                if (isThrow) throw; return false;
             }
 
         }
@@ -263,10 +263,10 @@ namespace AZCore.Database
                      , typeof(TService9).CreateInstance<TService9>((t)=>  t.Transaction = Transaction,this.Connection)
                      ); this.Commit();return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Rollback();
-                if (isThrow) throw ex; return false;
+                if (isThrow) throw; return false;
             }
 
         }
@@ -301,10 +301,10 @@ namespace AZCore.Database
                      , typeof(TService10).CreateInstance<TService10>((t)=>  t.Transaction = Transaction,this.Connection)
                      ); this.Commit();return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Rollback();
-                if (isThrow) throw ex; return false;
+                if (isThrow) throw; return false;
             }
 
         }

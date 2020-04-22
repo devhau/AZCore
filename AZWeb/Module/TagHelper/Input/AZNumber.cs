@@ -22,7 +22,7 @@ namespace AZWeb.Module.TagHelper.Input
     public class AZNumber : AZInput
     {
         public NumberType Type { get; set; } = NumberType.Integer;
-        public int Digits { get; set; } = 0;
+        public int Digits { get; set; } = 2;
         protected override void RenderHtml(StringBuilder htmlBuild)
         {
             this.Attr+= " data-inputmask=\"'alias': '"+ Type.ToString().ToLower()+ "'\" ";

@@ -47,6 +47,7 @@
   <ItemGroup>
     <Folder Include="Middleware\" />
     <Folder Include="Module\HostedService\" />
+    <Folder Include="Module\MultiTenancy\" />
   </ItemGroup>
 
 </Project>

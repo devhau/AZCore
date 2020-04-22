@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Linq;
+using System.Text.Json.Serialization;
+
 namespace AZWeb.Module
 {
     public class ItemValue
@@ -13,7 +14,9 @@ namespace AZWeb.Module
         public string Display { get; set; }
         public string Name { get; set; }
         public object Value { get; set; }
+        [JsonIgnore]
         public object Item { get; set; }
+        public string Message { get; set; }
     }
     public static class ItemValueExtend
     {
