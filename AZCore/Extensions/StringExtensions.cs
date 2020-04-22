@@ -19,6 +19,12 @@ namespace AZCore.Extensions
         public static string Frmat(this string str,params object[] param) {
             return string.Format(str, param);
         }
+        public static string GetOnlyDigitalAndDot(this string str)
+        {
+            int lastIndex = str.LastIndexOf('.');
+            if (lastIndex < 0|| lastIndex>str.Length) return Regex.Replace(str, @"[^\d]", string.Empty);
+            return string.Format("{0}.{1}", str.Substring(0, lastIndex).GetOnlyDigital(), str.Substring(lastIndex + 1).GetOnlyDigital());
+        }
         public static string GetOnlyDigital(this string str)
         {
             return Regex.Replace(str, @"[^\d]", string.Empty);

@@ -58,7 +58,7 @@ namespace AZERP.Data.Entities
         /// Giá nhập
         /// </summary>
         [Field]
-        public long ImportPrice { get; set; }
+        public Decimal ImportPrice { get; set; }
         /// <summary>
         /// Sản phảm có/không được phép bán
         /// </summary>

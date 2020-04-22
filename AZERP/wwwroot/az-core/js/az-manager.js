@@ -1,6 +1,30 @@
-﻿function AZManager($callback) {
+﻿function AZManager(option,$callback) {
     let $this = $(this).hasClass("az-manager") ? this : $(this).find(".az-manager");
     $.extend($this, new AZAjax());
+    $optiondefault = {
+        clear: false,
+        ButtonValue: "Lưu lại (F2)",
+        ButtonEditValue: "",
+        ButtonCMD: "f2",
+        ButtonClass: "btn btn-success az-btn az-btn-update",
+        ButtonIcon: "far fa-save",
+        Edit: [],
+        Add: []
+    };
+
+    /*
+    {
+        ButtonValue: "Lưu lại (F2)",
+        ButtonIcon: "far fa-save",
+        ButtonClass: "btn btn-success az-btn az-btn-update",
+        ButtonCMD: "f2",
+        func: function (elem, scope,manager) {
+            manager.SaveData(url, scope);
+        }
+    }
+     */
+    if(option)
+    $.extend($optiondefault, option);
     $this.FormSize = $($this).data("form-size");
     $this.FormSearch = $($this).find(".az-search-form");
     $this.DataTable = $($this).find("table");
@@ -53,15 +77,49 @@
             var popup = new AZPopup();
             popup.ClearButton();
             popup.IsForm = true;
-            popup.AddButton({
-                value: "Lưu lại (F2)",
-                icon: "far fa-save",
-                cls: "btn btn-success az-btn az-btn-update",
-                cmd: "f2",
-                func: function (elem, scope) {
-                    $this.SaveData(url, scope);
+            if ($optiondefault.clear == true) {
+                if ($Id) {
+                    $.each($optiondefault.Edit, function (i, el) {
+                        popup.AddButton({
+                            value: el.ButtonValue,
+                            icon: el.ButtonIcon,
+                            cls: el.ButtonClass,
+                            cmd: el.ButtonCMD,
+                            func: function (elem, scope) {
+                                if (el.func)
+                                    el.func(elem, scope, $this);
+                            }
+                        });
+                    });
+
+                } else {
+
+                    $.each($optiondefault.Add, function (i, el) {
+                        popup.AddButton({
+                            value: el.ButtonValue,
+                            icon: el.ButtonIcon,
+                            cls: el.ButtonClass,
+                            cmd: el.ButtonCMD,
+                            func: function (elem, scope) {
+                                if (el.func)
+                                    el.func(elem, scope, $this);
+                            }
+                        });
+                    })
                 }
-            });
+            }
+            else
+            {
+                popup.AddButton({
+                    value: $Id && $optiondefault.ButtonEditValue != "" ? $optiondefault.ButtonEditValue:$optiondefault.ButtonValue,
+                    icon: $optiondefault.ButtonIcon,
+                    cls: $optiondefault.ButtonClass,
+                    cmd: $optiondefault.ButtonCMD,
+                    func: function (elem, scope) {
+                        $this.SaveData(url, scope);
+                    }
+                });
+            }
             popup.setHtml(item.html);
             popup.setTitle(item.title);
             popup.ModalSize = $this.FormSize;

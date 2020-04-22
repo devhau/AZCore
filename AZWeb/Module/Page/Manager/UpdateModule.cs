@@ -18,6 +18,7 @@ namespace AZWeb.Module.Page.Manager
     {
         protected TService Service;
         public TModel Data;
+        public List<ItemValue> Errors = new List<ItemValue>();
         public List<TableColumnAttribute> Columns { get; set; }
         public virtual void BindTableColumn()
         {
@@ -33,6 +34,10 @@ namespace AZWeb.Module.Page.Manager
 
             this.IsTheme = false;
             base.IntData();
+        }
+        public virtual bool DoValidate(TModel DataForm,bool isNew=false) {
+
+            return true;
         }
         public UpdateModule(IHttpContextAccessor httpContext) : base(httpContext)
         {
@@ -64,16 +69,31 @@ namespace AZWeb.Module.Page.Manager
                 DataFormToData(DataForm);
                 (this.Data as IEntityModel).UpdateAt = DateTime.Now;
                 (this.Data as IEntityModel).UpdateBy = User.Id;
-                Service.Update(this.Data);
-                return Json("Cập nhật dữ liệu thành công", 200);
+                if (DoValidate(this.Data))
+                {
+                    Service.Update(this.Data);
+                    return Json("Cập nhật dữ liệu thành công");
+                }
+                else {
+                    return Json("Cập nhật dữ liệu không thành công",this.Errors,System.Net.HttpStatusCode.BadRequest);
+
+                }
+
             }
             else {
                 DataFormToData(DataForm);
                 (DataForm as IEntityModel).CreateAt = DateTime.Now;
                 (DataForm as IEntityModel).CreateBy = User.Id;
+                if (DoValidate(this.Data))
+                {
+                    Service.Insert(DataForm);
+                    return Json("Thêm mới dữ liệu thành công");
+                }
+                else
+                {
+                    return Json("Thêm mới dữ liệu không thành công", this.Errors, System.Net.HttpStatusCode.BadRequest);
 
-                Service.Insert(DataForm);
-                return Json("Thêm mới dữ liệu thành công", 200);
+                }
             }
         }
     }
