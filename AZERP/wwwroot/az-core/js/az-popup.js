@@ -28,7 +28,21 @@
 	$this.ModalTitle = $($this.Modal).find(".modal-header").find(".modal-title");
 	$this.ModalSize = "az-modal-none";
 	$this.IsForm = false;
+	$this.id = undefined;
+	$this.DataItem = undefined;
 	$this.link = "";
+	$this.setDataItem = function (DataItem) {
+		$this.DataItem = id;
+		if ($this.DataItem) {
+			$($this.Modal).attr("data-item", $this.DataItem);
+		}
+	}
+	$this.setId = function (id) {
+		$this.id = id;
+		if ($this.id) {
+			$($this.Modal).attr("link-id", $this.id);
+		}
+	}
 	$this.setLink = function (link) {
 		$this.link = link;
 		if ($this.link) {

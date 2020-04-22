@@ -67,7 +67,7 @@
 
         })
     }
-    $this.ShowFormUpdate = function ($Id) {
+    $this.ShowFormUpdate = function ($Id, $DataItem) {
         var url = $this.location.pathname + "?h=update";
         if ($Id) url = url + "&id=" + $Id;
         $this.DoGet(url, null, function (item) {
@@ -76,6 +76,9 @@
             }
             var popup = new AZPopup();
             popup.ClearButton();
+            popup.setLink(url);
+            popup.setId($Id);
+            popup.setDataItem($DataItem);
             popup.IsForm = true;
             if ($optiondefault.clear == true) {
                 if ($Id) {
@@ -130,12 +133,12 @@
         $this.ShowFormUpdate();
     });
     $($this).find("table tbody tr").on("dblclick", function () {
-        var $Id = $(this).attr("data-item-id");
-        $this.ShowFormUpdate($Id);    
+        $($this).find(".az-btn-edit").click();
     });
     $($this).find(".az-btn-edit").on("click", function (e) {    
         var $Id = $(this).parents("tr").attr("data-item-id");
-        $this.ShowFormUpdate($Id);       
+        var $DataItem = $(this).parents("tr").attr("data-item");
+        $this.ShowFormUpdate($Id, $DataItem);       
     });
     $($this).find(".az-btn-delete").on("click", function () {
 
