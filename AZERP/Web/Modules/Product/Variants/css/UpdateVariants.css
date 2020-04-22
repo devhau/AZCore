@@ -3,21 +3,3 @@
     height: 100%;
     width: 100%;
 }
-
-.variants {
-    background-color: #fff;
-    box-shadow: 0 0 0 2px rgba(63,63,68,0.3), 0 1px 3px 0 rgba(63,63,68,.15);
-    border-radius: 3px;
-    padding: 5px 10px;
-    margin-bottom: 15px;
-}
-    .variants .variants-info {
-        margin-bottom: 15px;
-        font-weight: bold;
-    }
-    .variants .row label {
-        font-weight: normal;
-    }
-    .variants table thead {
-        font-weight: bold;
-    }
