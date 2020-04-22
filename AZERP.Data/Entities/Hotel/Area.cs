@@ -30,6 +30,7 @@ namespace AZERP.Data.Entities.Hotel
         /// Tên khu vực/ tòa nhà
         /// </summary>
         [Field(Length = 500)]
+        [FieldDisplay]
         public string AreaName { get; set; }
         /// <summary>
         /// Ghi chú

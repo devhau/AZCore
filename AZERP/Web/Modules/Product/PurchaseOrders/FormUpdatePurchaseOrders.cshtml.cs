@@ -84,7 +84,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                     item.CreateAt = DateTime.Now;
                 }
 
-                if (this.purchaseOrderProductService.InsertRange(this.ManagerForm.listDataOrder, true) > 0)
+                if (this.purchaseOrderProductService.InsertRange(this.ManagerForm.listDataOrder) > 0)
                 {
                     this.Service.Commit();
                     return Json("Tạo đơn nhập hàng thành công");

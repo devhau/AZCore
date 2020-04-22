@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 using System;
+using AZCore.Extensions;
+
 namespace AZCore.Types
 {
     [ConverterOf(Target = typeof(float))]
@@ -10,7 +12,7 @@ namespace AZCore.Types
         {
             switch (typeCode)
             {
-                case AZTypeCode.String: return value == null || string.IsNullOrEmpty(value.ToString()) ? 0 : Convert.ToSingle(value);
+                case AZTypeCode.String: return value.IsNullOrEmpty() ? 0 : Convert.ToSingle(value.ToString().GetOnlyDigital());
                 case AZTypeCode.Double: return Convert.ToSingle(value);                
                 case AZTypeCode.Single: return value;
                 case AZTypeCode.DBNull: return 0;

@@ -30,46 +30,46 @@ namespace AZCore.Database
         }
 
         #region TService1
-        public void DoTransantion<TService1>(Action<EntityTransaction, TService1> action, bool isThrow = false)
+        public bool DoTransantion<TService1>(Action<EntityTransaction, TService1> action, bool isThrow = false)
                 where TService1 : EntityService
         {
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>(this.Connection));
-                this.Commit();
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection));
+                this.Commit();return true;
             }
             catch (Exception ex)
             {
                 this.Rollback();
-                if (isThrow) throw ex;
+                if (isThrow) throw ex; return false;
             }
 
         }
         #endregion
 
         #region TService2
-        public void DoTransantion<TService1, TService2>(Action<EntityTransaction, TService1, TService2> action, bool isThrow = false)
+        public bool DoTransantion<TService1, TService2>(Action<EntityTransaction, TService1, TService2> action, bool isThrow = false)
                 where TService1 : EntityService
                 where TService2 : EntityService
         {
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>(this.Connection), typeof(TService2).CreateInstance<TService2>(this.Connection));
-                this.Commit();
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection), typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection));
+                this.Commit();return true;
             }
             catch (Exception ex)
             {
                 this.Rollback();
-                if (isThrow) throw ex;
+                if (isThrow) throw ex; return false;
             }
 
         }
         #endregion
 
         #region TService3
-        public void DoTransantion<TService1, TService2, TService3>(Action<EntityTransaction, TService1, TService2, TService3> action, bool isThrow = false)
+        public bool DoTransantion<TService1, TService2, TService3>(Action<EntityTransaction, TService1, TService2, TService3> action, bool isThrow = false)
                 where TService1 : EntityService
                 where TService2 : EntityService
                 where TService3 : EntityService
@@ -77,20 +77,20 @@ namespace AZCore.Database
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>(this.Connection), typeof(TService2).CreateInstance<TService2>(this.Connection), typeof(TService3).CreateInstance<TService3>(this.Connection));
-                this.Commit();
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection), typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection), typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection));
+                this.Commit();return true;
             }
             catch (Exception ex)
             {
                 this.Rollback();
-                if (isThrow) throw ex;
+                if (isThrow) throw ex; return false;
             }
 
         }
         #endregion
 
         #region TService4
-        public void DoTransantion<TService1, TService2, TService3, TService4>(Action<EntityTransaction, TService1, TService2, TService3, TService4> action, bool isThrow = false)
+        public bool DoTransantion<TService1, TService2, TService3, TService4>(Action<EntityTransaction, TService1, TService2, TService3, TService4> action, bool isThrow = false)
                 where TService1 : EntityService
                 where TService2 : EntityService
                 where TService3 : EntityService
@@ -99,24 +99,24 @@ namespace AZCore.Database
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>(this.Connection)
-                    , typeof(TService2).CreateInstance<TService2>(this.Connection)
-                    , typeof(TService3).CreateInstance<TService3>(this.Connection)
-                    , typeof(TService4).CreateInstance<TService4>(this.Connection)
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
+                    , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
+                    , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
+                    , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
                     );
-                this.Commit();
+                this.Commit();return true;
             }
             catch (Exception ex)
             {
                 this.Rollback();
-                if (isThrow) throw ex;
+                if (isThrow) throw ex; return false;
             }
 
         }
         #endregion
 
         #region TService5
-        public void DoTransantion<TService1, TService2, TService3, TService4, TService5>(Action<EntityTransaction, TService1, TService2, TService3, TService4, TService5> action, bool isThrow = false)
+        public bool DoTransantion<TService1, TService2, TService3, TService4, TService5>(Action<EntityTransaction, TService1, TService2, TService3, TService4, TService5> action, bool isThrow = false)
                 where TService1 : EntityService
                 where TService2 : EntityService
                 where TService3 : EntityService
@@ -126,24 +126,24 @@ namespace AZCore.Database
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>(this.Connection)
-                     , typeof(TService2).CreateInstance<TService2>(this.Connection)
-                     , typeof(TService3).CreateInstance<TService3>(this.Connection)
-                     , typeof(TService4).CreateInstance<TService4>(this.Connection)
-                     , typeof(TService5).CreateInstance<TService5>(this.Connection)
-                     ); this.Commit();
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this.Connection)
+                     ); this.Commit();return true;
             }
             catch (Exception ex)
             {
                 this.Rollback();
-                if (isThrow) throw ex;
+                if (isThrow) throw ex; return false;
             }
 
         }
         #endregion
 
         #region TService6
-        public void DoTransantion<TService1, TService2, TService3, TService4, TService5, TService6>(Action<EntityTransaction, TService1, TService2, TService3, TService4, TService5, TService6> action, bool isThrow = false)
+        public bool DoTransantion<TService1, TService2, TService3, TService4, TService5, TService6>(Action<EntityTransaction, TService1, TService2, TService3, TService4, TService5, TService6> action, bool isThrow = false)
                 where TService1 : EntityService
                 where TService2 : EntityService
                 where TService3 : EntityService
@@ -154,25 +154,25 @@ namespace AZCore.Database
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>(this.Connection)
-                     , typeof(TService2).CreateInstance<TService2>(this.Connection)
-                     , typeof(TService3).CreateInstance<TService3>(this.Connection)
-                     , typeof(TService4).CreateInstance<TService4>(this.Connection)
-                     , typeof(TService5).CreateInstance<TService5>(this.Connection)
-                     , typeof(TService6).CreateInstance<TService6>(this.Connection)
-                     ); this.Commit();
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this.Connection)
+                     ); this.Commit();return true;
             }
             catch (Exception ex)
             {
                 this.Rollback();
-                if (isThrow) throw ex;
+                if (isThrow) throw ex; return false;
             }
 
         }
         #endregion
 
         #region TService7
-        public void DoTransantion<TService1, TService2, TService3, TService4, TService5, TService6, TService7>(Action<EntityTransaction, TService1, TService2, TService3, TService4, TService5, TService6, TService7> action, bool isThrow = false)
+        public bool DoTransantion<TService1, TService2, TService3, TService4, TService5, TService6, TService7>(Action<EntityTransaction, TService1, TService2, TService3, TService4, TService5, TService6, TService7> action, bool isThrow = false)
                 where TService1 : EntityService
                 where TService2 : EntityService
                 where TService3 : EntityService
@@ -184,26 +184,26 @@ namespace AZCore.Database
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>(this.Connection)
-                     , typeof(TService2).CreateInstance<TService2>(this.Connection)
-                     , typeof(TService3).CreateInstance<TService3>(this.Connection)
-                     , typeof(TService4).CreateInstance<TService4>(this.Connection)
-                     , typeof(TService5).CreateInstance<TService5>(this.Connection)
-                     , typeof(TService6).CreateInstance<TService6>(this.Connection)
-                     , typeof(TService7).CreateInstance<TService7>(this.Connection)
-                     ); this.Commit();
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService7).CreateInstance<TService7>((t)=>  t.Transaction = Transaction,this.Connection)
+                     ); this.Commit();return true;
             }
             catch (Exception ex)
             {
                 this.Rollback();
-                if (isThrow) throw ex;
+                if (isThrow) throw ex; return false;
             }
 
         }
         #endregion
 
         #region TService8
-        public void DoTransantion<TService1, TService2, TService3, TService4, TService5, TService6, TService7, TService8>(Action<EntityTransaction, TService1, TService2, TService3, TService4, TService5, TService6, TService7, TService8> action, bool isThrow = false)
+        public bool DoTransantion<TService1, TService2, TService3, TService4, TService5, TService6, TService7, TService8>(Action<EntityTransaction, TService1, TService2, TService3, TService4, TService5, TService6, TService7, TService8> action, bool isThrow = false)
                 where TService1 : EntityService
                 where TService2 : EntityService
                 where TService3 : EntityService
@@ -217,27 +217,27 @@ namespace AZCore.Database
             try
             {
                 action?.Invoke(this
-                     , typeof(TService1).CreateInstance<TService1>(this.Connection)
-                     , typeof(TService2).CreateInstance<TService2>(this.Connection)
-                     , typeof(TService3).CreateInstance<TService3>(this.Connection)
-                     , typeof(TService4).CreateInstance<TService4>(this.Connection)
-                     , typeof(TService5).CreateInstance<TService5>(this.Connection)
-                     , typeof(TService6).CreateInstance<TService6>(this.Connection)
-                     , typeof(TService7).CreateInstance<TService7>(this.Connection)
-                     , typeof(TService8).CreateInstance<TService8>(this.Connection)
-                     ); this.Commit();
+                     , typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService7).CreateInstance<TService7>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService8).CreateInstance<TService8>((t)=>  t.Transaction = Transaction,this.Connection)
+                     ); this.Commit();return true;
             }
             catch (Exception ex)
             {
                 this.Rollback();
-                if (isThrow) throw ex;
+                if (isThrow) throw ex; return false;
             }
 
         }
         #endregion
 
         #region TService9
-        public void DoTransantion<TService1, TService2, TService3, TService4, TService5, TService6, TService7, TService8, TService9>(Action<EntityTransaction, TService1, TService2, TService3, TService4, TService5, TService6, TService7, TService8, TService9> action, bool isThrow = false)
+        public bool DoTransantion<TService1, TService2, TService3, TService4, TService5, TService6, TService7, TService8, TService9>(Action<EntityTransaction, TService1, TService2, TService3, TService4, TService5, TService6, TService7, TService8, TService9> action, bool isThrow = false)
                 where TService1 : EntityService
                 where TService2 : EntityService
                 where TService3 : EntityService
@@ -252,28 +252,28 @@ namespace AZCore.Database
             try
             {
                 action?.Invoke(this
-                     , typeof(TService1).CreateInstance<TService1>(this.Connection)
-                     , typeof(TService2).CreateInstance<TService2>(this.Connection)
-                     , typeof(TService3).CreateInstance<TService3>(this.Connection)
-                     , typeof(TService4).CreateInstance<TService4>(this.Connection)
-                     , typeof(TService5).CreateInstance<TService5>(this.Connection)
-                     , typeof(TService6).CreateInstance<TService6>(this.Connection)
-                     , typeof(TService7).CreateInstance<TService7>(this.Connection)
-                     , typeof(TService8).CreateInstance<TService8>(this.Connection)
-                     , typeof(TService9).CreateInstance<TService9>(this.Connection)
-                     ); this.Commit();
+                     , typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService7).CreateInstance<TService7>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService8).CreateInstance<TService8>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService9).CreateInstance<TService9>((t)=>  t.Transaction = Transaction,this.Connection)
+                     ); this.Commit();return true;
             }
             catch (Exception ex)
             {
                 this.Rollback();
-                if (isThrow) throw ex;
+                if (isThrow) throw ex; return false;
             }
 
         }
         #endregion
 
         #region TService9
-        public void DoTransantion<TService1, TService2, TService3, TService4, TService5, TService6, TService7, TService8, TService9, TService10>(Action<EntityTransaction, TService1, TService2, TService3, TService4, TService5, TService6, TService7, TService8, TService9, TService10> action, bool isThrow = false)
+        public bool DoTransantion<TService1, TService2, TService3, TService4, TService5, TService6, TService7, TService8, TService9, TService10>(Action<EntityTransaction, TService1, TService2, TService3, TService4, TService5, TService6, TService7, TService8, TService9, TService10> action, bool isThrow = false)
                 where TService1 : EntityService
                 where TService2 : EntityService
                 where TService3 : EntityService
@@ -289,22 +289,22 @@ namespace AZCore.Database
             try
             {
                 action?.Invoke(this
-                     , typeof(TService1).CreateInstance<TService1>(this.Connection)
-                     , typeof(TService2).CreateInstance<TService2>(this.Connection)
-                     , typeof(TService3).CreateInstance<TService3>(this.Connection)
-                     , typeof(TService4).CreateInstance<TService4>(this.Connection)
-                     , typeof(TService5).CreateInstance<TService5>(this.Connection)
-                     , typeof(TService6).CreateInstance<TService6>(this.Connection)
-                     , typeof(TService7).CreateInstance<TService7>(this.Connection)
-                     , typeof(TService8).CreateInstance<TService8>(this.Connection)
-                     , typeof(TService9).CreateInstance<TService9>(this.Connection)
-                     , typeof(TService10).CreateInstance<TService10>(this.Connection)
-                     ); this.Commit();
+                     , typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService7).CreateInstance<TService7>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService8).CreateInstance<TService8>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService9).CreateInstance<TService9>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService10).CreateInstance<TService10>((t)=>  t.Transaction = Transaction,this.Connection)
+                     ); this.Commit();return true;
             }
             catch (Exception ex)
             {
                 this.Rollback();
-                if (isThrow) throw ex;
+                if (isThrow) throw ex; return false;
             }
 
         }
