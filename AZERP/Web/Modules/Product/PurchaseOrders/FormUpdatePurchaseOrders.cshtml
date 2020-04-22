@@ -6,7 +6,7 @@
         <az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />
     </div>
     <div class="form-group col-md-12">
-        <az-supplier-select model="Model.Data" func="(item)=>((PurchaseOrderModel)item).SupplierCode" class="supplierClass" label="Nhà cung cấp" />
+        <az-supplier-select model="Model.Data" func="(item)=>((PurchaseOrderModel)item).SupplierCode" where-func="(item)=>((SupplierModel)item).SupplierStatus == true" class="supplierClass" label="Nhà cung cấp" />
         <div class="list-info-supplier">
             <div class="list-info-header"></div>
             <div class="row">

@@ -1,4 +1,5 @@
-﻿using AZERP.Data.Entities;
+﻿using AZCore.Database;
+using AZERP.Data.Entities;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
@@ -17,16 +18,17 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
         public SupplierModel SupplierModel;
         public List<PurchaseOrderProductModel> listProductOrder;
         public List<ProductModel> listProduct;
-        
+        EntityTransaction entityTransaction;
         public FormUpdatePurchaseOrders(
             IHttpContextAccessor httpContext, 
             PurchaseOrderProductService purchaseOrderProductService, 
             SupplierService supplierService,
-            ProductService productService) : base(httpContext)
+            ProductService productService, EntityTransaction entityTransaction) : base(httpContext)
         {
             this.purchaseOrderProductService = purchaseOrderProductService;
             this.supplierService = supplierService;
             this.productService = productService;
+            this.entityTransaction = entityTransaction;
         }
 
         protected override void IntData()
@@ -39,17 +41,34 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
             return this.productService.Select(p => p.Id == Id).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Override popup Form
+        /// </summary>
+        /// <param name="Id">Id of Purchase Order</param>
+        /// <returns></returns>
         public override IView Get(long? Id)
         {
-            if(Id == 0 || Id == null) return base.Get(Id);
-            
-            this.Data = this.Service.GetById(Id);
-            SupplierModel = this.supplierService.Select(p => p.Id == this.Data.SupplierCode).FirstOrDefault();
-            listProductOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == this.Data.Id).ToList();
-            this.Title = "Duyệt đơn hàng";
-            return View("UpdatePurchaseOrders");
+            // Create Purchase Order
+            if (Id == 0 || Id == null) 
+            { 
+                return base.Get(Id); 
+            } else
+            // View Purchase Order
+            {
+                this.Data = this.Service.GetById(Id);
+                SupplierModel = this.supplierService.Select(p => p.Id == this.Data.SupplierCode).FirstOrDefault();
+                listProductOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == this.Data.Id).ToList();
+                this.Title = "Duyệt đơn hàng";
+                return View("UpdatePurchaseOrders");
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="DataForm"></param>
+        /// <returns></returns>
         public override IView Post(long? Id, PurchaseOrderModel DataForm)
         {
             try
