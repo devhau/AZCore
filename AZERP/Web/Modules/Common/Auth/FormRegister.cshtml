@@ -2,11 +2,10 @@
 <az-style module="auth.css" />
 <div class="auth-box">
     <div class="auth-logo">
-        <h3>AZ Store</h3>
+        <h3>Đăng ký tài khoản</h3>
     </div>
     <div class="card">
         <div class="card-body register-card-body">
-            <h3 class="login-box-msg">Đăng ký tài khoản</h3>
             @if (!String.IsNullOrEmpty(Model.Error))
             {
                 <span style="color:red;font-weight:700;">@Model.Error</span>
@@ -21,7 +20,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="email" required name="email" class="form-control" placeholder="Tài khoản email" />
+                    <input type="email" required name="email" class="form-control" placeholder="Email" />
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -72,8 +71,14 @@
                     Đăng ký bằng google
                 </a>
             </div>
-
-            <a href="/dang-nhap.az" class="text-center">Tôi có tài khoản rồi.</a>
+            <div class="row text-center">
+                <div class="col-12">
+                    <p>- OR -</p>
+                </div>
+                <div class="col-12">
+                    <a href="/dang-nhap.az" class="btn az-btn btn-danger  text-center form-control">Đăng nhập</a>
+                </div>
+            </div>
         </div>
         <!-- /.form-box -->
     </div><!-- /.card -->
