@@ -20,18 +20,21 @@ namespace AZERP.Web.Modules.Common.Permission
     public class FormPermission : ManageModule<PermissionService, PermissionModel, FormUpdatePermission>
     {
         public ViewPermission dataView;
-        UserPermissionService userPermissionService;
-        RolePermissionService rolePermissionService;
-        UserRoleService userRoleService;
-        public FormPermission(IHttpContextAccessor httpContext, UserPermissionService userPermissionService, RolePermissionService rolePermissionService, UserRoleService userRoleService) : base(httpContext)
+
+        #region --- Service ---
+        [BindService]
+        public UserPermissionService UserPermissionService { get; set; }
+        [BindService]
+        public RolePermissionService RolePermissionService { get; set; }
+        [BindService]
+        public UserRoleService UserRoleService;
+        #endregion
+
+        public FormPermission(IHttpContextAccessor httpContext) : base(httpContext)
         {
-            this.rolePermissionService = rolePermissionService;
-            this.userPermissionService = userPermissionService;
-            this.userRoleService = userRoleService;
         }
         protected override void IntData()
         {
-            this.PageSize = 100000;
             this.Title = "Danh sách quyền hệ thống";
         }
         [BindQuery]
@@ -46,8 +49,8 @@ namespace AZERP.Web.Modules.Common.Permission
             dataView = new ViewPermission();
             if (UserId > 0) {
                 dataView.Permissions = this.Service.GetAll().ToList();
-                dataView.PermissionActive = userPermissionService.Select(p => p.UserId == this.UserId).Select(p => p.PermissionId).ToList();
-                this.Roles = this.userRoleService.Select(p => p.UserId == this.UserId).Select(p => p.RoleId).ToList();
+                dataView.PermissionActive = UserPermissionService.Select(p => p.UserId == this.UserId).Select(p => p.PermissionId).ToList();
+                this.Roles = this.UserRoleService.Select(p => p.UserId == this.UserId).Select(p => p.RoleId).ToList();
             }
             
             return View("UserPermission");
@@ -55,9 +58,9 @@ namespace AZERP.Web.Modules.Common.Permission
         [OnlyAjax]
         public IView PutUser(long code, bool flg) {
             if (flg) {
-                if (!userRoleService.Select(p => p.UserId == UserId && p.RoleId == code).Any())
+                if (!UserRoleService.Select(p => p.UserId == UserId && p.RoleId == code).Any())
                 {
-                    userRoleService.Insert(new UserRoleModel()
+                    UserRoleService.Insert(new UserRoleModel()
                     {
                         UserId = UserId,
                         RoleId = code
@@ -66,7 +69,7 @@ namespace AZERP.Web.Modules.Common.Permission
             }
             else
             {
-                userRoleService.Delete(p => p.RoleId == code && p.UserId == UserId);
+                UserRoleService.Delete(p => p.RoleId == code && p.UserId == UserId);
             }
 
             return Json("Cập nhật vai trò thành công"+ code);
@@ -78,9 +81,9 @@ namespace AZERP.Web.Modules.Common.Permission
             {
                 if (flg)
                 {
-                    if (!userPermissionService.Select(p => p.UserId == UserId && p.PermissionId == code).Any())
+                    if (!UserPermissionService.Select(p => p.UserId == UserId && p.PermissionId == code).Any())
                     {
-                        userPermissionService.Insert(new UserPermissionModel()
+                        UserPermissionService.Insert(new UserPermissionModel()
                         {
                             UserId = UserId,
                             PermissionId = code
@@ -91,7 +94,7 @@ namespace AZERP.Web.Modules.Common.Permission
                 }
                 else
                 {
-                    userPermissionService.Delete(p => p.PermissionId == code && p.UserId == UserId);
+                    UserPermissionService.Delete(p => p.PermissionId == code && p.UserId == UserId);
                 }
             }
             else {
@@ -100,9 +103,9 @@ namespace AZERP.Web.Modules.Common.Permission
                 {
                     if (flg)
                     {
-                        if (!userPermissionService.Select(p => p.UserId == UserId && p.PermissionId == item).Any())
+                        if (!UserPermissionService.Select(p => p.UserId == UserId && p.PermissionId == item).Any())
                         {
-                            userPermissionService.Insert(new UserPermissionModel()
+                            UserPermissionService.Insert(new UserPermissionModel()
                             {
                                 UserId = UserId,
                                 PermissionId = item
@@ -113,7 +116,7 @@ namespace AZERP.Web.Modules.Common.Permission
                     }
                     else
                     {
-                        userPermissionService.Delete(p => p.UserId == UserId && p.PermissionId == item );
+                        UserPermissionService.Delete(p => p.UserId == UserId && p.PermissionId == item );
                     }
 
                 }
@@ -129,7 +132,7 @@ namespace AZERP.Web.Modules.Common.Permission
             dataView = new ViewPermission();
             if (RoleId > 0) {             
                 dataView.Permissions = this.Service.GetAll().ToList();
-                dataView.PermissionActive = this.rolePermissionService.Select(p => p.RoleId == this.RoleId).Select(p => p.PermissionId).ToList();
+                dataView.PermissionActive = this.RolePermissionService.Select(p => p.RoleId == this.RoleId).Select(p => p.PermissionId).ToList();
             }
             return View("RolePermission");
         }
@@ -140,9 +143,9 @@ namespace AZERP.Web.Modules.Common.Permission
             {
                 if (flg)
                 {
-                    if (rolePermissionService.Select(p => p.RoleId == RoleId && p.PermissionId == code).Count() == 0)
+                    if (RolePermissionService.Select(p => p.RoleId == RoleId && p.PermissionId == code).Count() == 0)
                     {
-                        rolePermissionService.Insert(new RolePermissionModel()
+                        RolePermissionService.Insert(new RolePermissionModel()
                         {
                             RoleId = RoleId,
                             PermissionId = code
@@ -153,7 +156,7 @@ namespace AZERP.Web.Modules.Common.Permission
                 }
                 else
                 {
-                    rolePermissionService.Delete(p => p.PermissionId == code && p.RoleId == RoleId);
+                    RolePermissionService.Delete(p => p.PermissionId == code && p.RoleId == RoleId);
                 }
             }
             else
@@ -163,9 +166,9 @@ namespace AZERP.Web.Modules.Common.Permission
                 {
                     if (flg)
                     {
-                        if (!rolePermissionService.Select(p => p.RoleId == RoleId && p.PermissionId == item).Any())
+                        if (!RolePermissionService.Select(p => p.RoleId == RoleId && p.PermissionId == item).Any())
                         {
-                            rolePermissionService.Insert(new RolePermissionModel()
+                            RolePermissionService.Insert(new RolePermissionModel()
                             {
                                 RoleId = RoleId,
                                 PermissionId = item
@@ -176,7 +179,7 @@ namespace AZERP.Web.Modules.Common.Permission
                     }
                     else
                     {
-                        rolePermissionService.Delete(p => p.RoleId == RoleId && p.PermissionId == item);
+                        RolePermissionService.Delete(p => p.RoleId == RoleId && p.PermissionId == item);
                     }
                 }
             }

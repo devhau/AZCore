@@ -15,7 +15,8 @@ using System.Linq;
 namespace AZERP.Web.Modules.Hotel.Hotel
 {
     [TableColumn(Title = "Tên phòng", FieldName = "HotelName", Width = 100)]
-    [TableColumn(Title = "Tên khu vực", FieldName = "AreaID", Width = 130,DataType =typeof(AreaService))]
+    [TableColumn(Title = "Tên khu vực", FieldName = "AreaID", Width = 150,DataType =typeof(AreaService))]
+    [TableColumn(Title = "Loại phòng trọ", FieldName = "TypeOfHotelID", Width = 150, DataType = typeof(TypeOfHotelService))]
     [TableColumn(Title = "Trạng thái", FieldName = "HotelStatus", Width =200, DataType = typeof(HotelStatus))]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 

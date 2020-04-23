@@ -1,5 +1,6 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
+using System;
 
 namespace AZCore.Identity
 {
@@ -46,7 +47,7 @@ namespace AZCore.Identity
         /// A random value that must change whenever a tenant is persisted to the store.
         /// </summary>
         [Field(Length = 200)]
-        public string ConcurrencyStamp { get; set; }
+        public string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
     }
     public interface ITenant {
         long Id { get; set; }

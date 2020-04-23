@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace AZWeb.Module.Page
 {
