@@ -1,19 +1,20 @@
 ﻿using AZCore.Database;
 using AZCore.Domain;
 using AZCore.Extensions;
+using AZCore.Identity;
 using AZCore.Utility.Xml;
 using AZWeb.Configs;
 using AZWeb.Module.Middleware;
-using AZWeb.Utilities;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Data;
-using System.IO;
 using System.Linq;
+using IStartupAZ = AZWeb.Utilities.IStartup;
 
 namespace AZWeb.Extensions
 {
@@ -22,14 +23,7 @@ namespace AZWeb.Extensions
         public static void AddMySQL(this IServiceCollection services,string connectString="") {
             services.AddScoped<IDbConnection>((_) => new MySql.Data.MySqlClient.MySqlConnection(connectString));
         }
-        public static void UseAZCore(this IApplicationBuilder app)
-        {
-            app.UseCookiePolicy();
-            app.UseSession();
-            app.UseMiddleware<ModuleMiddleware>();
-            
-        }
-        public static void AddAZCore(this IServiceCollection services, IStartup startup)
+        public static void AddAZCore(this IServiceCollection services, IStartupAZ startup)
         {
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
@@ -47,10 +41,9 @@ namespace AZWeb.Extensions
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddRazorPages();
-            var PagesConfig = ReadConfig<PagesConfig>.Load(null, (t) => t.MapPath());
             services.AddHttpContextAccessor();
-            services.AddSingleton<IPagesConfig>(PagesConfig);
-            services.AddSingleton<IStartup>(startup);
+            services.AddSingleton<IPagesConfig>((p)=> ReadConfig<PagesConfig>.Load(null, (t) => string.Format("{0}/{1}", p.GetRequiredService<IWebHostEnvironment>().ContentRootPath,t)));
+            services.AddSingleton<IStartupAZ>(startup);
             //IHostedService
             foreach (var item in AppDomain.CurrentDomain.GetAssemblies().SelectMany(p => p.GetTypeFromInterface<IAZDomain>())) {
                 if (item.IsTypeFromInterface<IAZTransient>()) {
@@ -66,29 +59,26 @@ namespace AZWeb.Extensions
                 }
                 if (item.IsTypeFromInterface<IHostedService>())
                     services.AddTransient(typeof(IHostedService), item);
+                if (item.IsTypeFromInterface<IPermissionService>())
+                {
+                    services.AddTransient(typeof(IPermissionService), item);
+
+                }
             }
             // Add EntityTransaction
             services.AddScoped(typeof(EntityTransaction));
         }
-        public static IObject CreateInstance<IObject>(this Type obj) where IObject:class => Activator.CreateInstance(obj) as IObject;
-        public static IObject CreateInstance<IObject>(this string strObj,string strAssembly) where IObject : class => Activator.CreateInstance(strAssembly,strObj) as IObject;
-       
-        public static string LoadTextFile(this string path)
+        public static void UseAZCore(this IApplicationBuilder app)
         {
-            var file= AZCoreWeb.env.ContentRootFileProvider.GetFileInfo(path);
-            if (file.Exists) {
-                return File.ReadAllText(file.PhysicalPath);
-            }
-            return "";
-        }
-        public static string MapPath(this string path) {
-           return AZCoreWeb.env.ContentRootFileProvider.GetFileInfo(path).PhysicalPath;
+            app.UseCookiePolicy();
+            app.UseSession();
+            app.UseMiddleware<ModuleMiddleware>();
+
         }
         public static HtmlDocument LoadHtml(this string content) {
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(content);
             return htmlDoc;
         } 
-
     }
 }

@@ -6,6 +6,7 @@ using AZWeb.Module.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,7 +25,14 @@ namespace AZERP.Data.Entities
             foreach (var item in this.GetType().GetTypeFromInterface<IEntity>()) {
                 if (!item.IsTypeFromInterface<IModule>())
                 {
-                    Execute(BuildSQL.NewSQL(item).CreateTableIfNotExit());
+                    try
+                    {
+                        Debug.WriteLine(item.Name);
+                        Execute(BuildSQL.NewSQL(item).CreateTableIfNotExit());
+                    }
+                    catch {
+                        throw new Exception("");
+                    }
                 }
             }
           //  this.Commit();

@@ -30,11 +30,11 @@ namespace AZERP.Data.Entities
         public string Code { get; set; }
     }
     [TableInfo(TableName = "az_module_permssion")]
-    public class ModulePermssionModel : EntityModel<ModulePermssionModel, long>
-    {   
-        [Field]
+    public class ModulePermssionModel : IEntity
+    {
+        [Field(IsKey = true)]
         public long ModuleId { get; set; }
-        [Field]
-        public long PermissionId { get; set; }
+        [Field(IsKey = true, Length = 50)]
+        public string PermissionCode { get; set; }
     }
 }

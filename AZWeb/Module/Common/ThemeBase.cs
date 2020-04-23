@@ -15,15 +15,7 @@ namespace AZWeb.Module.Common
         RenderView renderView { get; }
         public ThemeBase(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
-            this.User = this.HttpContext.GetSession<UserInfo>(AZWebConstant.SessionUser);
-            if (this.User == null)
-            {
-                this.User = this.HttpContext.GetCookie<UserInfo>(AZWebConstant.CookieUser);
-                if (this.User != null)
-                {
-                    this.HttpContext.SetSession(AZWebConstant.SessionUser, this.User);
-                }
-            }
+            this.User = this.HttpContext.Items[AZWebConstant.SessionUser] as UserInfo;
             this.renderView = new RenderView(this.HttpContext);
         }
         public IHtmlContent BodyContent { get; set; }

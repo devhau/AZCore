@@ -1,11 +1,13 @@
 ﻿using AZCore.Identity;
 using AZWeb.Extensions;
+using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Constant;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using System.Linq;
 using System.Net;
 
 namespace AZWeb.Module.Page
@@ -41,14 +43,7 @@ namespace AZWeb.Module.Page
             if (this.HttpContext.Items[AZWebConstant.Html] == null) {
                 this.HttpContext.Items[AZWebConstant.Html] = new HtmlContent();
             }
-            this.User = this.HttpContext.GetSession<UserInfo>(AZWebConstant.SessionUser);
-            if (this.User == null)
-            {
-                this.User = this.HttpContext.GetCookie<UserInfo>(AZWebConstant.CookieUser);
-                if (this.User != null) {
-                    this.HttpContext.SetSession(AZWebConstant.SessionUser,this.User);
-                }
-            }
+            this.User = this.HttpContext.Items[AZWebConstant.SessionUser] as UserInfo;
             this.renderView = new RenderView(this.HttpContext);
         }
         public virtual IView GoToAuth() {

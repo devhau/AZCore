@@ -6,9 +6,9 @@ namespace AZERP.Web.Modules.Common.Permission
     public class ViewPermission
     {
         public List<PermissionModel> Permissions;
-        public List<long> PermissionActive;
+        public List<string> PermissionActive;
         public string CheckItem(PermissionModel item) {
-            if (PermissionActive != null && PermissionActive.Contains(item.Id)) {
+            if (PermissionActive != null && PermissionActive.Contains(item.Code)) {
                 return " checked ";
             }
             return "";

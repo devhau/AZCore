@@ -8,8 +8,8 @@ namespace AZCore.Identity
     {
         [Field(IsKey =true)]
         public long RoleId { get; set; }
-        [Field(IsKey = true)]
-        public long PermissionId { get; set; }
+        [Field(IsKey = true,Length =50)]
+        public string PermissionCode { get; set; }
       
     }
 }

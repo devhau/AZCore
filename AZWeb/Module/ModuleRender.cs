@@ -1,8 +1,10 @@
 ﻿using AZCore.Extensions;
+using AZCore.Identity;
 using AZWeb.Configs;
 using AZWeb.Extensions;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
+using AZWeb.Module.Constant;
 using AZWeb.Module.Page;
 using AZWeb.Module.View;
 using AZWeb.Utilities;
@@ -38,14 +40,15 @@ namespace AZWeb.Module
         readonly IPagesConfig PageConfigs = null;
         bool IsAjax { get; }
         readonly string urlPath;
+        IPermissionService permissionService = null;
         ModuleRender(HttpContext _httpContext)
         {
             httpContext = _httpContext;
             renderView = new RenderView(httpContext);
             startup = httpContext.GetService<IStartup>();
+            permissionService = httpContext.GetService<IPermissionService>();
             this.PageConfigs = this.httpContext.GetService<IPagesConfig>();
             this.IsAjax = httpContext.IsAjax();
-
             urlPath = this.httpContext.Request.Path.Value;
         }
         /// <summary>
@@ -96,12 +99,27 @@ namespace AZWeb.Module
             }
             return null;
         }
+        private void RefreshUser() {
+           var user = this.httpContext.GetSession<UserInfo>(AZWebConstant.SessionUser);
+            if (user == null)
+            {
+                user = this.httpContext.GetCookie<UserInfo>(AZWebConstant.CookieUser);
+                if (user != null)
+                {
+                    this.httpContext.SetSession(AZWebConstant.SessionUser, user);
+                }
+            }
+            if (user != null && this.permissionService != null)
+                user.PermissionActive = this.permissionService.GetPermissionByUserId(user.Id).ToList();
+            this.httpContext.Items[AZWebConstant.SessionUser] = user;
+        }
         /// <summary>
         /// Get Module
         /// </summary>
         /// <returns></returns>
         private async Task<RenderError> GetModule()
         {
+            RefreshUser();
             if (urlPath != "/" && !urlPath.EndsWith(PageConfigs.extenstion)) return RenderError.OK;
             #region --- Get Path & Merge Path ---
             var pathReal = GetPathReal();

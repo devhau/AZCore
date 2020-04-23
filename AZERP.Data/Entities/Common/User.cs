@@ -10,7 +10,7 @@ namespace AZERP.Data.Entities
     /// <summary>
     /// Serivce của Tài khoản
     /// </summary>
-    public class UserService : EntityService<UserService, UserModel>, IAZTransient
+    public class UserService : EntityService<UserService, UserModel>, IAZTransient, IPermissionService
     {
         public UserService(IDbConnection _connection) : base(_connection)
         {
@@ -22,45 +22,32 @@ namespace AZERP.Data.Entities
         /// <param name="name"></param>
         /// <returns></returns>
         public UserModel GetEmailOrUsername(string name) {
-            var rs = buildSQL.SQLSelect();
-            rs.SQL = string.Format("{0} where Email=@name or UserName=@name", rs.SQL);
-            rs.Param = new Dapper.DynamicParameters();
-            rs.Param.Add("@name",name);
-            return ExecuteQuery(rs).FirstOrDefault();
+            return this.Select(p => p.Email == name || p.UserName == name).FirstOrDefault();
         }
-        public IEnumerable<PermissionModel> GetPermissionByUserId(long UserId) {
-
-            var que = new AZCore.Database.SQL.SQLResult()
-            {
-
-            };
+        public IEnumerable<string> GetPermissionByUserId(long UserId)
+        {
+            var que = new AZCore.Database.SQL.SQLResult();
             que.SQL = @"
-            SELECT DISTINCT *
+            SELECT DISTINCT T6.Code
                 FROM
-                  ((SELECT T1.Code
-
-                   FROM az_permission T1
-
-                   JOIN az_user_permission T2 ON T1.Id = T2.PermissionId
-                   WHERE T2.UserId=@UserId
+                  ((
+                        SELECT T2.PermissionCode as Code
+                       FROM az_user_permission T2
+                       WHERE T2.UserId=@UserId
                     )
                    UNION 
-                    (SELECT T3.Code
-                   FROM az_permission T3
-
-                   JOIN az_role_permission T4 ON T3.Id = T4.PermissionId
-
-                   JOIN az_user_role T5 ON T4.RoleId = T5.RoleId
-                    WHERE T5.UserId=@UserId)
-                    ) T6
+                    (SELECT T4.PermissionCode as Code
+                       FROM  az_role_permission T4
+                       JOIN az_user_role T5 ON T4.RoleId = T5.RoleId
+                        WHERE T5.UserId=@UserId
+)
+                ) T6
                     
         ";
             que.Param = new Dapper.DynamicParameters();
-            que.Param.Add("@UserId",UserId);
-            return ExecuteQuery<PermissionModel>(que);
+            que.Param.Add("@UserId", UserId);
+            return ExecuteQuery<PermissionModel>(que).Select(p=>p.Code);
         }
-      
-        
     }
     /// <summary>
     /// Thông tin tài khoản

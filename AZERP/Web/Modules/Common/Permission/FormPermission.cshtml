@@ -12,7 +12,7 @@
 
         </div>
         <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((PermissionModel)item).Id" columns="Model.Columns" pagination="Model"></az-table>
+            <az-table data="Model.Data" FunKey="(item)=>((PermissionModel)item).Code" columns="Model.Columns" pagination="Model" is-delete="false" is-edit="false" />
         </div>
         <div class="az-bottom-manager">
             <az-pagination pagination="Model" />

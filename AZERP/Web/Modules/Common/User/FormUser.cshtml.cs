@@ -10,7 +10,7 @@ namespace AZERP.Web.Modules.Common.User
     [TableColumn(Title = "Email", FieldName = "Email", Width = 100)]
     [TableColumn(Title = "Số điện thoại", FieldName = "PhoneNumber", Width = 150)]
     [TableColumn(Title = "Trạng thái", FieldName = "Status" ,DataType =typeof(EntityStatus))]
-    [TableColumn(Title ="Đổi mật khẩu",LinkFormat = "/tai-khoan/doi-mat-khau.az?UserId={Id}", Text ="Đổi mật khẩu",Display =AZWeb.Module.Enums.DisplayColumn.IconText,Icon ="fas fa-key",Popup =AZWeb.Module.Enums.PopupSize.Popup)]
+    [TableColumn(Title ="Đổi mật khẩu",LinkFormat = "/tai-khoan/doi-mat-khau.az?UserId={Id}", Text ="Đổi mật khẩu",Display =AZWeb.Module.Enums.DisplayColumn.IconText,Icon ="fas fa-key",Popup =AZWeb.Module.Enums.PopupSize.Popup,Permisson =Permissions.Permission.User_ChangePassword)]
     [TableColumn(Title = "Thời gian tạo", FieldName = "CreateAt", Width = 150, FormatString = "{0:HH:mm dd/MM/yyyy}")]
     [TableColumn(Title = "Người tạo", FieldName = "CreateBy", Width = 150, DataType = typeof(UserService))]
     [TableColumn(Title = "Thời gian cập nhật", FieldName = "UpdateAt", Width = 150, FormatString = "{0:HH:mm dd/MM/yyyy}")]

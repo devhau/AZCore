@@ -37,7 +37,6 @@
     <None Include="Web\Modules\Recruitment\CompanyWorker\FormCompanyWorker.cshtml" />
     <None Include="Web\Modules\Recruitment\CompanyWorker\FormUpdateCompanyWorker.cshtml" />
     <None Include="Web\Modules\Common\Permission\FormPermission.cshtml" />
-    <None Include="Web\Modules\Common\Permission\FormUpdatePermission.cshtml" />
     <None Include="Web\Modules\Common\User\FormUpdateUser.cshtml" />
     <None Include="Web\Modules\Common\User\FormUser.cshtml" />
     <None Include="Web\Modules\Recruitment\Worker\FormCheckinCheckout.cshtml" />
