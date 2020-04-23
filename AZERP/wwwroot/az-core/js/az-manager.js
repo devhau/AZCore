@@ -133,7 +133,7 @@
         $this.ShowFormUpdate();
     });
     $($this).find("table tbody tr").on("dblclick", function () {
-        $(this).parents("tr").find(".az-btn-edit").click();
+        $(this).find(".az-btn-edit").click();
     });
     $($this).find(".az-btn-edit").on("click", function (e) {    
         var $Id = $(this).parents("tr").attr("data-item-id");
