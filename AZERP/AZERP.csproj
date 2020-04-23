@@ -19,8 +19,6 @@
     <None Remove="Web\Modules\Orders\Orders\css\Orders.css" />
     <None Remove="Web\Modules\Orders\Orders\js\Orders.js" />
     <None Remove="Web\Modules\Product\StockAdjustments\css\StockAdjustment.css" />
-    <Compile Include="Web\Modules\Product\PurchaseOrders\FormPurchaseOrders.cshtml.cs" />
-    <Compile Include="Web\Modules\Product\PurchaseOrders\FormUpdatePurchaseOrders.cshtml.cs" />
     <Content Include="Web\Modules\Orders\Orders\css\Orders.css" />
     <Content Include="Web\Modules\Orders\Orders\js\Orders.js" />
     <Content Include="Web\Modules\Product\PurchaseOrders\css\PurchaseOrders.css" />

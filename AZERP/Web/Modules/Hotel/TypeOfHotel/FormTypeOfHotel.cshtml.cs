@@ -16,6 +16,7 @@ namespace AZERP.Web.Modules.Hotel.TypeOfHotel
 {
     [TableColumn(Title = "Mã loại phòng trọ ", FieldName = "TypeOfHotelID", Width = 180)]
     [TableColumn(Title = "Loại phòng trọ", FieldName = "TypeOfHotelName", Width = 180)]
+    [TableColumn(Title = "Tiền phòng", FieldName = "RoomCharge", Width = 180)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
     public class FormTypeOfHotel : ManageModule<TypeOfHotelService, TypeOfHotelModel, FormUpdateTypeOfHotel>

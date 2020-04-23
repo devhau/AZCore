@@ -28,7 +28,7 @@ namespace AZWeb.Module.Page.Manager
         public int PageIndex { get; set; }
         public int PageMax { get; set; }
         [BindQuery]
-        public int PageSize { get; set; } = 10;
+        public int PageSize { get; set; } = 20;
         public long PageTotal { get; set; }
         public long PageTotalAll { get; set; }
         public ManageModule(IHttpContextAccessor httpContext) : base(httpContext)

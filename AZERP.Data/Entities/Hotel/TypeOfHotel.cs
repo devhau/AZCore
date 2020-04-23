@@ -34,6 +34,11 @@ namespace AZERP.Data.Entities.Hotel
         [FieldDisplay]
         public string TypeOfHotelName { get; set; }
         /// <summary>
+        /// Tiền phòng
+        /// </summary>
+        [Field]
+        public decimal RoomCharge { get; set; }
+        /// <summary>
         /// Ghi chú
         /// </summary>
         [Field]
