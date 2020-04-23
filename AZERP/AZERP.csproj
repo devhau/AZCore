@@ -24,7 +24,7 @@
     <Content Include="Web\Modules\Orders\Orders\css\Orders.css" />
     <Content Include="Web\Modules\Orders\Orders\js\Orders.js" />
     <Content Include="Web\Modules\Product\PurchaseOrders\css\PurchaseOrders.css" />
-    <Content Include="Web\Modules\Product\PurchaseOrders\UpdatePurchaseOrders.cshtml" />
+    <Content Include="Web\Modules\Product\PurchaseOrders\FormCommitOrders.cshtml" />
     <Content Include="Web\Modules\Product\PurchaseOrders\js\PurchaseOrders.js" />
     <Content Include="Web\Modules\Product\StockAdjustments\css\StockAdjustment.css" />
     <Content Include="Web\Modules\Recruitment\Worker\js\CheckinCheckout.js" />
@@ -35,6 +35,7 @@
     <None Include="Web\Modules\Common\Auth\FormRegister.cshtml" />
     <Content Include="Web\Modules\Product\PurchaseOrders\FormPurchaseOrders.cshtml" />
     <Content Include="Web\Modules\Product\PurchaseOrders\FormUpdatePurchaseOrders.cshtml" />
+    <None Include="Web\Modules\Product\PurchaseOrders\js\ManagerPurchaseOrder.js" />
     <None Include="Web\Modules\Recruitment\Candidate\FormCandidate.cshtml" />
     <None Include="Web\Modules\Recruitment\Candidate\FormSale.cshtml" />
     <None Include="Web\Modules\Recruitment\Candidate\FormUpdateCandidate.cshtml" />
