@@ -40,7 +40,7 @@ namespace AZERP.Data.Entities
                        FROM  az_role_permission T4
                        JOIN az_user_role T5 ON T4.RoleId = T5.RoleId
                         WHERE T5.UserId=@UserId
-)
+                )
                 ) T6
                     
         ";

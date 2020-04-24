@@ -16,7 +16,6 @@ namespace AZERP.Web.Modules.Common.Permission
     [TableColumn(Title = "Key", FieldName = "Key", Width = 200)]
     [TableColumn(Title = "Mã quyền", FieldName = "Code", Width = 150)]
     [TableColumn(Title = "Quyền", FieldName = "Name")]
-    [TableColumn(Title = "Trạng thái", FieldName = "Status", Width = 150 ,DataType =typeof(EntityStatus))]
     public class FormPermission : ManageModule<PermissionService, PermissionModel>
     {
         public ViewPermission dataView;

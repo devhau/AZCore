@@ -12,7 +12,8 @@ namespace AZERP.Web.Modules.Common.Role
     [TableColumn(Title = "Người tạo", FieldName = "CreateBy", Width = 150, DataType = typeof(UserService))]
     [TableColumn(Title = "Thời gian cập nhật", FieldName = "UpdateAt", Width = 150, FormatString = "{0:HH:mm dd/MM/yyyy}")]
     [TableColumn(Title = "Người cập nhật", FieldName = "UpdateBy", Width = 150, DataType = typeof(UserService))]
-    [ModulePermission(
+    [ModuleInfo(
+        Title = "Quản lý vai trò",
         ViewCode =Permissions.Permission.Role,
         AddCode =Permissions.Permission.Role_Add,
         EditCode =Permissions.Permission.Role_Edit,
@@ -24,10 +25,6 @@ namespace AZERP.Web.Modules.Common.Role
     {
         public FormRole(IHttpContextAccessor httpContext) : base(httpContext)
         {
-        }
-        protected override void IntData()
-        {
-            this.Title = "Quản lý vai trò";
         }
     }
 }

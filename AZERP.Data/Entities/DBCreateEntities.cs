@@ -27,11 +27,10 @@ namespace AZERP.Data.Entities
                 {
                     try
                     {
-                        Debug.WriteLine(item.Name);
                         Execute(BuildSQL.NewSQL(item).CreateTableIfNotExit());
                     }
-                    catch {
-                        throw new Exception("");
+                    catch(Exception ex) {
+                        throw new Exception(ex.Message);
                     }
                 }
             }

@@ -19,7 +19,7 @@ namespace AZWeb.Module.Page.Manager
          where TModel : IEntity, new()
         where TService : EntityService<TService, TModel>
     {
-        protected ModulePermissionAttribute Permission;
+        protected ModuleInfoAttribute ModuleInfo;
         public List<TModel> Data;
         protected TService Service;
         public ExcelGrid excelGrid { get; protected set; }
@@ -34,7 +34,7 @@ namespace AZWeb.Module.Page.Manager
         public ManageModule(IHttpContextAccessor httpContext) : base(httpContext)
         {
             Service = this.HttpContext.GetService<TService>();
-            Permission = this.GetType().GetAttribute<ModulePermissionAttribute>();
+            ModuleInfo = this.GetType().GetAttribute<ModuleInfoAttribute>();
         }
 
 
@@ -75,7 +75,7 @@ namespace AZWeb.Module.Page.Manager
         }
         public virtual IView Get()
         {
-            if (Permission == null || this.HasPermission(Permission.ViewCode)) {
+            if (ModuleInfo == null || this.HasPermission(ModuleInfo.ViewCode)) {
                 Data = GetSearchData();
                 return View();
 
@@ -84,7 +84,11 @@ namespace AZWeb.Module.Page.Manager
            
         }
         public override void BeforeRequest()
-        {            
+        {
+            if (ModuleInfo != null)
+            {
+                this.Title = ModuleInfo.Title;
+            }
             base.BeforeRequest();
             this.BindTableColumn();
         }
@@ -103,7 +107,7 @@ namespace AZWeb.Module.Page.Manager
         }
         public virtual IView GetDownload()
         {
-            if (Permission==null|| (this.HasPermission(Permission.ViewCode) && this.HasPermission(Permission.ExportCode)))
+            if (ModuleInfo == null|| (this.HasPermission(ModuleInfo.ViewCode) && this.HasPermission(ModuleInfo.ExportCode)))
             {
                 excelGrid = CreateExcelGrid();
                 BeforeDownload();
@@ -125,6 +129,7 @@ namespace AZWeb.Module.Page.Manager
         protected TForm FormUpdate;
         public override void BeforeRequest()
         {
+            
             base.BeforeRequest();
         }
         public override void AfterRequest()
@@ -141,7 +146,7 @@ namespace AZWeb.Module.Page.Manager
         }
        
         public virtual IView GetUpdate(long? Id) {
-            if (Permission == null || (this.HasPermission(Permission.ViewCode) && ((Id ==null && this.HasPermission(Permission.AddCode))||(Id>=0&&this.HasPermission(Permission.EditCode)))))
+            if (ModuleInfo == null || (this.HasPermission(ModuleInfo.ViewCode) && ((Id ==null && this.HasPermission(ModuleInfo.AddCode))||(Id>=0&&this.HasPermission(ModuleInfo.EditCode)))))
             {
                 FormUpdate.BeforeRequest();
                 return FormUpdate.Get(Id);
@@ -151,7 +156,7 @@ namespace AZWeb.Module.Page.Manager
         }
         public virtual IView PostUpdate(long? Id)
         {
-            if (Permission == null || (this.HasPermission(Permission.ViewCode) && ((Id == null && this.HasPermission(Permission.AddCode)) || (Id >= 0 && this.HasPermission(Permission.EditCode)))))
+            if (ModuleInfo == null || (this.HasPermission(ModuleInfo.ViewCode) && ((Id == null && this.HasPermission(ModuleInfo.AddCode)) || (Id >= 0 && this.HasPermission(ModuleInfo.EditCode)))))
             {
                 FormUpdate.BeforeRequest();
                 var DataForm = new TModel();
@@ -162,7 +167,7 @@ namespace AZWeb.Module.Page.Manager
         }
         public virtual IView PostDelete(long? Id)
         {
-            if (Permission == null || (this.HasPermission(Permission.ViewCode) && this.HasPermission(Permission.RemoveCode)))
+            if (ModuleInfo == null || (this.HasPermission(ModuleInfo.ViewCode) && this.HasPermission(ModuleInfo.RemoveCode)))
             {
                 var modelId = Service.GetById(Id);
                 Service.Delete(modelId);
