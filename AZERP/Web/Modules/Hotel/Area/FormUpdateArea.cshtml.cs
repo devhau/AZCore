@@ -1,6 +1,4 @@
 ﻿using AZERP.Data.Entities;
-using AZERP.Data.Entities.Hotel;
-using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 

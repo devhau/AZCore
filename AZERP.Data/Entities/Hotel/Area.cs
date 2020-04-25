@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace AZERP.Data.Entities.Hotel
+namespace AZERP.Data.Entities
 {
     public class AreaService : EntityService<AreaService, AreaModel>, IAZTransient
     {

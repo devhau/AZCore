@@ -1,12 +1,9 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
 using AZCore.Domain;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
-namespace AZERP.Data.Entities.Hotel
+namespace AZERP.Data.Entities
 {
     public class TypeOfHotelService : EntityService<TypeOfHotelService, TypeOfHotelModel>, IAZTransient
     {
@@ -15,7 +12,7 @@ namespace AZERP.Data.Entities.Hotel
         }
     }
     /// <summary>
-    /// Thông tin các loại của nhà trọ
+    /// Thông tin loại nhà trọ
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_typeofhotel")]
@@ -33,11 +30,6 @@ namespace AZERP.Data.Entities.Hotel
         [Field(Length = 500)]
         [FieldDisplay]
         public string TypeOfHotelName { get; set; }
-        /// <summary>
-        /// Tiền phòng
-        /// </summary>
-        [Field]
-        public decimal RoomCharge { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>
