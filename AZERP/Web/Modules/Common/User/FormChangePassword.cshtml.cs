@@ -21,15 +21,16 @@ namespace AZERP.Web.Modules.Common.User
             this.Title = "Đổi mật khẩu";
             base.IntData();
         }
-        public IView Get() {
-            if (!this.IsAjax) {
-                return GoToRedirect("/tai-khoan.az");
-            }
+        [OnlyAjax]
+        [Permission(PermissionCode = Permissions.Permission.User_ChangePassword)]
+        public IView Get() {           
             if (this.UserId == null) {
                 this.UserId = this.User.Id;
             }
             return View();
         }
+        [OnlyAjax]
+        [Permission(PermissionCode = Permissions.Permission.User_ChangePassword)]
         public IView Post(string pass,long id)
         {
            var user= userService.GetById(id);

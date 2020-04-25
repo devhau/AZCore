@@ -47,7 +47,6 @@ namespace AZERP.Web.Modules.Common.Auth
                         return View();
                     }
                     var ulogin = usr.CopyTo<UserInfo>();
-                    ulogin.PermissionActive = this.userService.GetPermissionByUserId(usr.Id).Select(p=>p.Code).ToList();
                     this.Login(ulogin, azremember);
                     return this.GoToHome();
                 }

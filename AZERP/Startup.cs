@@ -19,11 +19,10 @@ namespace AZERP
     public class Startup: AZWeb.Utilities.IStartup
     {
         private static Dictionary<String, Type> dicType = new Dictionary<string, Type>();
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
 
-            AZCoreWeb.env = env;
             this.GetType().Assembly.GetTypes().Where(p => p.FullName.Contains(".Web.")&&p.IsTypeFromInterface<IModule>()).Any(p =>
             {
                 var indexWeb= p.FullName.IndexOf(".Web.");

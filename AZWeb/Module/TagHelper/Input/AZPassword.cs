@@ -23,8 +23,6 @@ namespace AZWeb.Module.TagHelper.Input
     {
         protected override void RenderHtml(StringBuilder htmlBuild)
         {
-            if (!string.IsNullOrEmpty(InputLabel))
-                htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
             htmlBuild.AppendFormat("<input type=\"{0}\" class=\"{1}\" id=\"{2}\" placeholder=\"{3}\" {4} {5} name=\"{6}\">", "password", TagClass, InputId, InputPlaceholder, Attr, InputValue.IsNullOrEmpty() ? "" : string.Format("value =\"{0}\"", InputValue), InputName);
         }
     }

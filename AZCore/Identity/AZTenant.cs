@@ -44,6 +44,11 @@ namespace AZCore.Identity
         [Field(Length = 200)]
         public string NormalizedCanonicalName { get; set; }
         /// <summary>
+        /// Gets or sets the domain name for this tenant.
+        /// </summary>
+        [Field(Length = 200)] 
+        public string DomainName { get; set; }
+        /// <summary>
         /// A random value that must change whenever a tenant is persisted to the store.
         /// </summary>
         [Field(Length = 200)]
@@ -60,6 +65,10 @@ namespace AZCore.Identity
         /// Gets or sets the normalized canonical name for this tenant.
         /// </summary>
          string NormalizedCanonicalName { get; set; }
+        /// <summary>
+        /// Gets or sets the domain name for this tenant.
+        /// </summary>
+        string DomainName { get; set; }
 
         /// <summary>
         /// A random value that must change whenever a tenant is persisted to the store.
