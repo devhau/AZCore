@@ -1,28 +1,35 @@
-﻿@model FormUpdatePurchaseOrders
+﻿@model FormPurchaseOrders
 <az-style module="PurchaseOrders.css" />
 <az-script module="PurchaseOrders.js" />
-<az-layout class="az-update row">
-    <div class="form-group col-md-12">
-        <az-text-model model="Model.Data" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />
+
+<az-layout class="az-update row az-update-purchase-order">
+
+    <div class="form-group @(Model.DataCurrent == null ? "col-md-12" : "col-md-6") ">
+        <az-text-model is-enable="Model.DataCurrent == null" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />
     </div>
+    <az-layout is-show="Model.DataCurrent != null" class="form-group col-md-6">
+        <az-text-model is-enable="false" model="Model.UserModel" func="(item)=>((UserModel)item).FullName" label="Nhân viên tạo đơn" />
+    </az-layout>
     <div class="form-group col-md-12">
         <div class="az-page-info">
             <div class="az-page-info-title">Nhà cung cấp</div>
             <div class="az-page-info-body">
-                <az-supplier-select model="Model.Data" func="(item)=>((PurchaseOrderModel)item).SupplierCode" where-func="(item)=>((SupplierModel)item).SupplierStatus == true" class="supplierClass" null-text="Chọn nhà cung cấp" />
+                <az-supplier-select is-show="@(Model.CanEdit)" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).SupplierCode" where-func="(item)=>((SupplierModel)item).SupplierStatus == true" class="supplierClass" null-text="Chọn nhà cung cấp" />
                 <div class="list-info-supplier">
-                    <div class="list-info-header"></div>
+                    <div class="list-info-header">
+                        @(Model.DataCurrent == null ? "" : (Model.SupplierModel.AbbreviatedName == "" ? Model.SupplierModel.Name : Model.SupplierModel.Name + " - " + Model.SupplierModel.AbbreviatedName))
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="list-info-item">
                                 <div class="list-info-item-header">ĐỊA CHỈ XUẤT HÀNG</div>
-                                <div class="list-info-item-content"></div>
+                                <div class="list-info-item-content">@(Model.DataCurrent == null ? "" : Model.SupplierModel.Address)</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="list-info-item">
                                 <div class="list-info-item-header">SỐ ĐIỆN THOẠI LIÊN HỆ</div>
-                                <div class="list-info-item-content"></div>
+                                <div class="list-info-item-content">@(Model.DataCurrent == null ? "" : Model.SupplierModel.PhoneNumber)</div>
                             </div>
                         </div>
                     </div>
@@ -34,7 +41,7 @@
         <div class="az-page-info">
             <div class="az-page-info-title">Sản phẩm</div>
             <div class="az-page-info-body">
-                <az-product-select class="productClass" null-text="Chọn sản phẩm" />
+                <az-product-select is-show="@(Model.CanEdit)" class="productClass" null-text="Chọn sản phẩm" />
                 <div class="az-data-table">
                     <table class="table table-bordered table-hover az-table " role="grid">
                         <thead>
@@ -44,32 +51,81 @@
                                 <td>Số lượng nhập</td>
                                 <td>Giá nhập</td>
                                 <td>Thành tiền</td>
-                                <td></td>
+                                @if (Model.CanEdit)
+                                {
+                                    <td></td>
+                                }
                             </tr>
                         </thead>
                         <tbody>
+                            @{ long valueSum = 0; }
+                            @{ long valueMoney = 0;}
+                            @if (Model.DataCurrent != null)
+                            {
+                                @foreach (var item in Model.ListDataOrder)
+                                {
+                                    var obj = Model.getProduct(item.ProductId);
+                                    var input = "<input type='hidden' name='listDataOrder[].ProductId' value='" + obj.Id + "' />";
+                            <tr>
+                                <td>@obj.Code <input type="hidden" name="listDataOrder[].ProductId" value="@obj.Id" /> </td>
+                                <td>@obj.Name</td>
+                                <td>
+                                    @if (Model.CanEdit)
+                                    {
+                                        <input type="number" name="listDataOrder[].ImportNumber" class="form-control" value="@item.ImportNumber">
+                                    }
+                                    else
+                                    {
+                                        @item.ImportNumber
+                                    }
+                                </td>
+                                <td>
+                                    @if (Model.CanEdit)
+                                    {
+                                        <input type="number" name="listDataOrder[].ImportPrice" class="form-control" value="@item.ImportPrice">
+                                    }
+                                    else
+                                    {
+                                        @item.ImportPrice
+                                    }
+                                </td>
+                                <td><label>@String.Format("{0:#,###}", @item.ImportNumber * @item.ImportPrice)</label></td>
+                                @if (Model.CanEdit)
+                                {
+                                    <td><a href='javascript:'><i class='fa fa-minus-circle'></i></a></td>
+                                }
+                                @{ valueSum += item.ImportNumber; }
+                                @{ valueMoney += (item.ImportPrice * item.ImportNumber); }
+                            </tr>
+                                }
+                            }
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    <div class="list-info-money">
-        <div class="item-info-money">
-            <div class="label">Số lượng</div>
-            <div class="value">0</div>
-        </div>
-        <div class="item-info-money">
-            <div class="label">Tổng tiền (VNĐ)</div>
-            <div class="value">0</div>
-        </div>
-        <div class="item-info-money">
-            <div class="label">Chi phí (VNĐ)</div>
-            <div class="value">0</div>
-        </div>
-        <div class="item-info-money">
-            <div class="label"><b>Tiền cần trả (VNĐ)</b></div>
-            <div class="value">0</div>
+    <div class="col-md-6">
+        <az-text-area-model add-js="false" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).Note" label="Ghi chú"></az-text-area-model>
+    </div>
+    <div class="col-md-6">
+        <div class="list-info-money">
+            <div class="item-info-money">
+                <div class="label">Số lượng</div>
+                <div class="value">@String.Format("{0:#,###}", valueSum)</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label">Tổng tiền (VNĐ)</div>
+                <div class="value">@String.Format("{0:#,###}", valueMoney)</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label">Chi phí (VNĐ)</div>
+                <div class="value">0</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label"><b>Tiền cần trả (VNĐ)</b></div>
+                <div class="value">@String.Format("{0:#,###}", valueMoney)</div>
+            </div>
         </div>
     </div>
 </az-layout>
