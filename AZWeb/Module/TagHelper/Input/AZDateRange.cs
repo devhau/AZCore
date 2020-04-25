@@ -26,7 +26,7 @@ namespace AZWeb.Module.TagHelper.Input
             htmlBuild.AppendFormat("<input type=\"{0}\" class=\"{1}\" id=\"{2}\" placeholder=\"{3}\" {4} {5} name=\"{6}\" >", "text", TagClass, InputId, InputPlaceholder, Attr, InputValue.IsNullOrEmpty() ? "" : string.Format("value =\"{0}\"", InputValue), InputName);
             if (AddJs)
             {
-                this.AddJS("$(function(){ $('." + this.TagId + "').daterangepicker(); });");
+                this.AddJS("$('." + this.TagId + "').daterangepicker();");
             }
         
         }

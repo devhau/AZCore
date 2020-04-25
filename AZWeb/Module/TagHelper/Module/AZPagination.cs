@@ -84,7 +84,7 @@ namespace AZWeb.Module.TagHelper.Module
             htmlBuild.Append("</ul>");
             htmlBuild.Append("</div>");
 
-            this.AddJS("$(function(){ $('." + this.TagId + " select2').select2({theme: 'bootstrap4', width: 'resolve' }); });");
+            this.AddJS(" $('." + this.TagId + " select2').select2({theme: 'bootstrap4', width: 'resolve' });");
             output.Content.SetHtmlContent(htmlBuild.ToString());
             await Task.CompletedTask;
         }

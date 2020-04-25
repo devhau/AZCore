@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using AZCore.Extensions;
 using AZWeb.Module.Common;
+using Microsoft.AspNetCore.SignalR;
+using AZERP.Web.Hubs;
 
 namespace AZERP
 {
@@ -38,6 +40,11 @@ namespace AZERP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMySQL(Configuration.GetConnectionString("Mysql"));
+            services.AddSignalR(hubOptions =>
+            {
+                hubOptions.EnableDetailedErrors = true;
+                hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(1);
+            });
             services.AddAZCore(this); 
             // If using Kestrel:
             services.Configure<KestrelServerOptions>(options =>
@@ -63,15 +70,10 @@ namespace AZERP
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles(); 
-            app.Use(next =>
-            {
-                return async ctx =>
-                {
-                    ctx.RequestServices.GetRequiredService<DBCreateEntities>()?.CheckDatabase();
-                    await next(ctx);
-                };
-            });
+            app.UseStaticFiles();
+
+            app.UseSignalRAZCore();
+           // app.ApplicationServices.GetRequiredService<DBCreateEntities>()?.CheckDatabase();
             app.UseAZCore();
           
 
@@ -85,4 +87,5 @@ namespace AZERP
             return null;
         }
     }
+  
 }

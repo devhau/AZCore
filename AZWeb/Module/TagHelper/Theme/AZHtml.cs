@@ -20,17 +20,15 @@ namespace AZWeb.Module.TagHelper.Theme
             if (string.IsNullOrEmpty(this.TagClass)) this.TagClass = "hold-transition sidebar-mini layout-navbar-fixed";
             base.Init(context);
         }
+        static CssCompressor cssCompressor = new CssCompressor();
         private void RenderCss(StringBuilder htmlBuilder, List<ContentTag> Css) {
             if (Css == null) return;
+            string codeCss = string.Empty;
             foreach (var item in Css)
             {
                 if (!string.IsNullOrEmpty(item.Code))
                 {
-                    var styleCssEl = new TagBuilder("style");
-                    styleCssEl.Attributes.Add("type", "text/css");
-                    styleCssEl.Attributes.Add("rel", "stylesheet");
-                    styleCssEl.InnerHtml.AppendHtml(item.Code);
-                    htmlBuilder.Append(styleCssEl.GetString());
+                    codeCss += item.Code + " ";
                 }
                 else if (!string.IsNullOrEmpty(item.CDN))
                 {
@@ -51,8 +49,15 @@ namespace AZWeb.Module.TagHelper.Theme
                     htmlBuilder.Append(libCssEl.GetString());
                 }
             }
+               if (!string.IsNullOrEmpty(codeCss)) {
+                var styleCssEl = new TagBuilder("style");
+                styleCssEl.Attributes.Add("type", "text/css");
+                styleCssEl.Attributes.Add("rel", "stylesheet");
+                styleCssEl.InnerHtml.AppendHtml( cssCompressor.Compress(codeCss));
+                htmlBuilder.Append(styleCssEl.GetString());
+            }
         }
-        JavaScriptCompressor jsCompressor = new JavaScriptCompressor();
+        static JavaScriptCompressor jsCompressor = new JavaScriptCompressor();
         private void RenderJS(StringBuilder htmlBuilder, List<ContentTag> JS)
         {
             if (JS == null) return;
@@ -61,7 +66,8 @@ namespace AZWeb.Module.TagHelper.Theme
             {
                 if (!string.IsNullOrEmpty(item.Code))
                 {
-                    codeJs += item.Code+" ; ";
+                    if(item.Code.Trim().Length>0)
+                    codeJs += item.Code.Trim()+" ; ";
                 }
                 else
                 if (!string.IsNullOrEmpty(item.CDN))
@@ -80,6 +86,7 @@ namespace AZWeb.Module.TagHelper.Theme
                     htmlBuilder.Append(scriptEl.GetString());
                 }
             }
+            codeJs = codeJs.Trim();
             if (!string.IsNullOrEmpty(codeJs)) {
 
                 var scriptEl = new TagBuilder("script");
