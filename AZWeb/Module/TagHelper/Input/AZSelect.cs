@@ -64,13 +64,12 @@ namespace AZWeb.Module.TagHelper.Input
             if (IsMultiple) {
                 this.Attr += "  multiple='multiple' ";
             }
+            base.InitData();
         }
 
         protected override void RenderHtml(StringBuilder htmlBuild)
         {
             if (this.Data == null) this.Data = new System.Collections.Generic.List<ItemValue>();
-            if (!string.IsNullOrEmpty(InputLabel))
-                htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
             htmlBuild.AppendFormat("<select class=\"{0}\" name=\"{1}\" {2} {3} placeholder=\"{4}\" style=\"width: 100% \">", TagClass, InputName, string.IsNullOrEmpty(InputId) ? "" : string.Format("id=\"{0}\"", InputId), Attr, InputPlaceholder);
             if (!string.IsNullOrEmpty(NullText)& IsNullFirst) {
                 this.Data.Insert(0, new ItemValue() { Value = null, Display = NullText, });
@@ -79,12 +78,6 @@ namespace AZWeb.Module.TagHelper.Input
             if (this.InputValue !=null&& this.InputValue is IList) {
                 InputValues = (IList)this.InputValue;
             }
-
-
-            //System.Collections.Generic.List<ItemValue> ListData=this.Data;
-            //if (WhereFunc != null) {
-            //    ListData = this.Data.Where(p => WhereFunc.Compile()(p.Item)).ToList();
-            //}
             foreach (var item in this.Data)
             {
                 string ItemActive = "";

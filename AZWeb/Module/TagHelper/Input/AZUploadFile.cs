@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AZWeb.Module.TagHelper.Input
 {
-    [HtmlTargetElement("az-text-model")]
+    [HtmlTargetElement("az-upload-file-model")]
     public class AZUploadFileModel : AZUploadFile, IAZModelInput
     {
         public IEntity Model { get; set; }
@@ -17,7 +17,7 @@ namespace AZWeb.Module.TagHelper.Input
         }
     }
 
-    [HtmlTargetElement("az-text")]
+    [HtmlTargetElement("az-upload-file")]
     public class AZUploadFile : AZInput
     {
         protected override void RenderHtml(StringBuilder htmlBuild)

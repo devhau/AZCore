@@ -33,5 +33,10 @@ namespace AZERP.Web.Permissions
         /// </summary>
         [Field(Display = "Nhập excel", OrderIndex = 1)]
         public const string User_Import = "10002005";
+        /// <summary>
+        /// Quyền đổi mật khẩu của người khác
+        /// </summary>
+        [Field(Display = "Đổi mật khẩu", OrderIndex = 1)]
+        public const string User_ChangePassword = "10002006";
     }
 }

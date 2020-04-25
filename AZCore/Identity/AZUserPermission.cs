@@ -9,7 +9,7 @@ namespace AZCore.Identity
         [Field(IsKey = true)]
         public long UserId { get; set; }
         [Field(IsKey = true, Length = 50)]
-        public long PermissionId { get; set; }
+        public string PermissionCode { get; set; }
 
     }
 }

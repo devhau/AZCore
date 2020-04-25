@@ -15,6 +15,7 @@ namespace AZWeb.Module.Common
         public IServiceProvider RequestServices { get => HttpContext.RequestServices; }
         public bool IsAjax { get; }
         private string path { get; }
+       
         public ModuleBase(IHttpContextAccessor httpContextAccessor)
         {
             HttpContext = httpContextAccessor.HttpContext;

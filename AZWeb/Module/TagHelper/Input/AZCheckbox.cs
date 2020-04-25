@@ -30,6 +30,11 @@ namespace AZWeb.Module.TagHelper.Input
     [HtmlTargetElement("az-checkbox")]
     public class AZCheckbox : AZInput
     {
+        protected override void InitData()
+        {
+            this.LabelAfter = null;
+            base.InitData();
+        }
 
         protected override void RenderHtml(StringBuilder htmlBuild)
         {
