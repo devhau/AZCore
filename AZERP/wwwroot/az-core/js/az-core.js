@@ -11,6 +11,7 @@ AZCore.newGuid = function () {
         return v.toString(16);
     });
 }
+AZCore.token = undefined;
 String.format = function () {
     var s = arguments[0];
     for (var i = 0; i < arguments.length - 1; i++) {

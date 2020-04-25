@@ -1,13 +1,21 @@
 ﻿using AZCore.Extensions;
+using AZCore.Identity;
 using AZWeb.Extensions;
 using AZWeb.Module.Attributes;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Linq;
 
 namespace AZWeb.Module.Common
 {
     public class ModuleBase : IModule, IUrlVirtual
     {
+        public bool HasPermission(string permissionCode)
+        {
+            return User != null && User.HasPermission(permissionCode);
+        }
+        public UserInfo User { get; private set; }
+        public bool IsAuth { get => User != null; }
         public QueryString UrlVirtual { get; }
         public HttpContext HttpContext { get; }
         public HttpRequest Request { get => HttpContext.Request; }
@@ -15,7 +23,7 @@ namespace AZWeb.Module.Common
         public IServiceProvider RequestServices { get => HttpContext.RequestServices; }
         public bool IsAjax { get; }
         private string path { get; }
-       
+
         public ModuleBase(IHttpContextAccessor httpContextAccessor)
         {
             HttpContext = httpContextAccessor.HttpContext;
@@ -41,6 +49,15 @@ namespace AZWeb.Module.Common
                 {
                     item.SetValue(this, RequestServices.GetService(item.FieldType));
                 }
+            }
+            if (this.HttpContext.User.Identity.IsAuthenticated)
+            {
+                this.User = this.HttpContext.User.GetUserInfo();
+                IPermissionService permissionService = this.HttpContext.GetService<IPermissionService>();
+                if (permissionService != null) {
+                    this.User.PermissionActive = permissionService.GetPermissionByUserId(this.User.Id).ToList();
+                }
+                this.HttpContext.Items[TagHelperBase.KeyUser] = this.User;
             }
         }
         public virtual void BeforeRequest() { IntData(); }
