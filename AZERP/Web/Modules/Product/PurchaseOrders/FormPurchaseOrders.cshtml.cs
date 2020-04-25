@@ -1,5 +1,6 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Enums;
+using AZCore.Database.SQL;
 using AZERP.Data.Entities;
 using AZERP.Data.Enums;
 using AZWeb.Extensions;
@@ -22,10 +23,10 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
     [TableColumn(Title = "Trạng thái", FieldName = "PurchaseOrderStatus", DataType = typeof(OrderStatus))]
     [TableColumn(Title = "Thanh toán", FieldName = "PurchaseOrderPayment", DataType = typeof(OrderPayment))]
     [TableColumn(Title = "Nhập kho", FieldName = "PurchaseOrderImport", DataType = typeof(PurchaseOrderImport))]
-    [TableColumn(Title = "Tổng tiền")]
-    [TableColumn(Title = "Nhân viên tạo", FieldName = "CreateBy")]
+    [TableColumn(Title = "Tổng tiền", FieldName = "TotalNumber", FormatString = "{0:#,###}")]
+    [TableColumn(Title = "Nhân viên tạo", FieldName = "CreateBy", DataType = typeof(UserService))]
     [TableColumn(Title = "Ngày tạo", FieldName = "CreateAt")]
-    [TableColumn(Title = "Thao tác", LinkFormat = "nhap-hang/commit-nhap-hang.az?Id={Id}", Text = "Duyệt hóa đơn", Display = AZWeb.Module.Enums.DisplayColumn.IconText, Icon = "fas fa-key", Popup = AZWeb.Module.Enums.PopupSize.Extralarge)]
+    [TableColumn(Title = "Thao tác", LinkFormat = "nhap-hang/commit-nhap-hang.az?Id={Id}", Text = "Duyệt hóa đơn", Display = AZWeb.Module.Enums.DisplayColumn.IconText, Popup = AZWeb.Module.Enums.PopupSize.Extralarge)]
     public class FormPurchaseOrders : ManageModule<PurchaseOrderService, PurchaseOrderModel, FormUpdatePurchaseOrders>
     {
         [BindService]
@@ -52,6 +53,41 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
         public FormPurchaseOrders(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
+
+        public override List<PurchaseOrderModel> GetSearchData()
+        {
+            var proper = this.GetType().GetPropertyByQuerySearch();
+            Action<QuerySQL> actionWhere = (T) =>
+            {
+                foreach (var p in proper)
+                {
+                    if (p.Property.GetValue(this) != null)
+                        T.AddWhere(p.Property.Name, p.Property.GetValue(this), p.OperatorSQL);
+                }
+            };
+            this.PageTotalAll = Service.ExecuteNoneQuery((T) => {
+
+                T.SetColumn("count(0)");
+
+            });
+            this.PageTotal = Service.ExecuteNoneQuery((T) => {
+                T.SetColumn("count(0)");
+                actionWhere(T);
+            });
+            this.PageMax = (int)Math.Ceiling((decimal)this.PageTotal / (decimal)this.PageSize);
+            return Service.ExecuteQuery((T) => {
+                if (PageIndex <= 0)
+                {
+                    PageIndex = 1;
+                }
+                T.Pagination(PageIndex, PageSize);
+                actionWhere(T);
+                T.Join("az_purchase_order_product", (t1, t2) => string.Format("{0}.Id={1}.PurchaseOrderId", t1, t2));
+                T.SetColumn("az_purchase_order.*,sum(az_purchase_order_product.ImportPrice * az_purchase_order_product.ImportNumber) TotalNumber");
+                T.AddGroup("az_purchase_order.id");
+            }).ToList();
+        }
+
         protected override void IntData()
         {
             this.Title = "Nhập hàng";
