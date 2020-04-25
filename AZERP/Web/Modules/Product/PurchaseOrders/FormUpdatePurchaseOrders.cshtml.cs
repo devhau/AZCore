@@ -12,101 +12,10 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Product.PurchaseOrders
 {
-    public class FormUpdatePurchaseOrders : UpdateModule<PurchaseOrderService, PurchaseOrderModel, FormPurchaseOrders>
+    public class FormUpdatePurchaseOrders : UpdateModule<PurchaseOrderService, PurchaseOrderModel>
     {
-        PurchaseOrderProductService purchaseOrderProductService;
-        SupplierService supplierService;
-        ProductService productService;
-        UserService userService;
-        public UserModel UserModel;
-        public SupplierModel SupplierModel;
-        public List<PurchaseOrderProductModel> listProductOrder;
-        public List<ProductModel> listProduct;
-        EntityTransaction entityTransaction;
-        public FormUpdatePurchaseOrders(
-            IHttpContextAccessor httpContext, 
-            PurchaseOrderProductService purchaseOrderProductService, 
-            SupplierService supplierService,
-            ProductService productService,
-            UserService userService,
-            EntityTransaction entityTransaction) : base(httpContext)
+        public FormUpdatePurchaseOrders(IHttpContextAccessor httpContext) : base(httpContext)
         {
-            this.purchaseOrderProductService = purchaseOrderProductService;
-            this.supplierService = supplierService;
-            this.productService = productService;
-            this.userService = userService;
-            this.entityTransaction = entityTransaction;
-        }
-
-        protected override void IntData()
-        {
-            this.Title = "Thêm đơn nhập hàng";
-        }
-
-        public ProductModel getProduct(long Id)
-        {
-            return this.productService.Select(p => p.Id == Id).FirstOrDefault();
-        }
-
-        /// <summary>
-        /// Override popup Form
-        /// </summary>
-        /// <param name="Id">Id of Purchase Order</param>
-        /// <returns></returns>
-        public override IView Get(long? Id)
-        {
-            // Create Purchase Order
-            if (Id == 0 || Id == null) 
-            { 
-                return base.Get(Id); 
-            } else
-            // View Purchase Order
-            {
-                this.Data = this.Service.GetById(Id);
-                SupplierModel = this.supplierService.Select(p => p.Id == this.Data.SupplierCode).FirstOrDefault();
-                UserModel = this.userService.Select(p=>p.Id == this.Data.CreateBy).FirstOrDefault();
-                listProductOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == this.Data.Id).ToList();
-                this.Title = "Duyệt đơn hàng (" + this.Data.Code + ") - " + this.Data.PurchaseOrderStatus.GetItemValueByEnum().Display;
-                return View("UpdatePurchaseOrders");
-            }
-        }
-
-        /// <summary>
-        /// Override Post method
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <param name="DataForm"></param>
-        /// <returns></returns>
-        public override IView Post(long? Id, PurchaseOrderModel DataForm)
-        {
-            try
-            {
-                DataForm.CreateAt = DateTime.Now;
-                DataForm.CreateBy = User.Id;
-                DataForm.PurchaseOrderStatus = OrderStatus.Waiting;
-                DataForm.PurchaseOrderPayment = OrderPayment.Unpaid;
-                DataForm.PurchaseOrderImport = PurchaseOrderImport.Waiting;
-                DataFormToData(DataForm);
-                var orderId = this.Service.Insert(DataForm);
-
-                foreach (PurchaseOrderProductModel item in this.ManagerForm.listDataOrder)
-                {
-                    item.PurchaseOrderId = orderId;
-                    item.CreateAt = DateTime.Now;
-                }
-
-                if (this.purchaseOrderProductService.InsertRange(this.ManagerForm.listDataOrder) > 0)
-                {
-                    return Json("Tạo đơn nhập hàng thành công");
-                }
-
-                this.Service.Delete(p => p.Id == orderId);
-
-            } catch(Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            return Json("Nhập hàng không thành công",System.Net.HttpStatusCode.InternalServerError);
         }
     }
 }
