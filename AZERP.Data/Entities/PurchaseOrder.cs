@@ -93,5 +93,6 @@ namespace AZERP.Data.Entities
         /// </summary>
         [Field]
         public DateTime ClosedOn { get; set; }
+        public long TotalNumber { get; set; }
     }
 }

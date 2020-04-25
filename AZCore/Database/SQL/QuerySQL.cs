@@ -75,7 +75,7 @@ namespace AZCore.Database.SQL
         }
         public QuerySQL AddGroup(string column)
         {
-            this.SqlOrder.Add(new ColumnValue() { Column= column });
+            this.SqlGroup.Add(new ColumnValue() { Column= column });
             return this;
         }
         public QuerySQL Pagination(int pageIndex = 1, int pageSize = 20)
@@ -141,7 +141,7 @@ namespace AZCore.Database.SQL
                 }
             }
             if (SqlGroup.Count > 0) {
-                sql.Append(" ORDER BY ");
+                sql.Append(" GROUP BY ");
                 bool first = true;
                 foreach (var item in SqlGroup)
                 {
