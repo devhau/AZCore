@@ -24,8 +24,10 @@ namespace AZWeb.Module.TagHelper.Module
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+
+            // AZCore.UserId
             var token = tokenHandler.CreateEncodedJwt(tokenDescriptor);
-            this.AddJS(string.Format("AZCore.Token= \"{0}\";", token));
+            this.AddJS(string.Format("AZCore.Token= \"{0}\"; AZCore.UserId={1};", token,this.User.Id));
             output.SuppressOutput();
             return Task.CompletedTask;
         }

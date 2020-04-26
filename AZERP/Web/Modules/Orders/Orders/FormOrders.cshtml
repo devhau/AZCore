@@ -1,6 +1,7 @@
 ﻿@model FormOrders
-<az-module-layout script-random='(id)=>"$(\"."+id+"\").AZManager();"'>
-    <div class="az-manager" id="FormProduct" data-form-size="az-modal-xl">
+<az-script module="ManagerOrder.js" />
+<az-module-layout script-random='(id)=>"ManagerOrder(\"."+id+"\");"'>
+    <div class="az-manager" data-form-size="az-modal-xl">
         <div class="az-toolbar">
             <az-button class="btn btn-success btn-sm az-btn az-btn-add" cmd-key="f1" icon="far fa-plus-square" text="Tạo đơn hàng (F1)" />
         </div>
@@ -29,7 +30,7 @@
             </div>
         </div>
         <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((OrderModel)item).Id" columns="Model.Columns" pagination="Model"></az-table>
+            <az-table data="Model.Data" FunKey="(item)=>((PurchaseOrderModel)item).Id" columns="Model.Columns" pagination="Model" is-delete="false"></az-table>
         </div>
         <div class="az-bottom-manager">
             <az-pagination pagination="Model" />
