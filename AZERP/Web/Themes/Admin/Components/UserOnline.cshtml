@@ -1,10 +1,28 @@
 ﻿<az-script module="UserOnline.js"/>
 <az-style module="UserOnline.css"/>
 <az-layout script-random='(id) => $"UserOnline(\".{id}\");"' class="UserOnline show">
-    <div class="layout-logo"><img class="logo" src="~/img/support.png" /><label>Hỗ trợ khách hàng</label></div>
-    
+    <div class="layout-icon"><img src="~/img/support.png"/> </div>
     <div class="layout-chat">
-        <i class="far fa-times-circle btn-chat-close"></i>
-        <div class="user-online"></div>
-    </div>
+        <div class="layout-header">
+            <i class="fas fa-angle-double-left float-left btn-show-chat"></i>
+            <i class="fas fa-angle-double-right float-left btn-hide-chat"></i>
+            <i class="fas fa-window-close float-right btn-close-layout-chat"></i>
+        </div>
+        <div class="layout-content">
+            <div class="user-chat">
+                <div class="send-user"></div>
+                <div class="chat-message"></div>
+
+                <div class="input-group chat-input">
+                    <input type="text" class="form-control txt-chat" placeholder="Tin nhắn">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary btn-sm btn-warning btn-send-chat"  type="button">Gửi</button>
+                    </div>
+                </div>
+            </div>
+            <ul class="user-list">
+
+            </ul>
+        </div>
+        </div>
 </az-layout>
