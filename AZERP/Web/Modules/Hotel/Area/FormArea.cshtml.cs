@@ -1,16 +1,8 @@
 ﻿using AZCore.Database.Enums;
-using AZCore.Extensions;
 using AZERP.Data.Entities;
-using AZERP.Data.Entities.Hotel;
-using AZERP.Data.Enums;
-using AZERP.Web.Modules.Hotel.Area;
-using AZWeb.Extensions;
 using AZWeb.Module.Attributes;
-using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.Area
 {

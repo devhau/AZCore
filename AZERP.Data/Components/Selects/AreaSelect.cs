@@ -1,4 +1,4 @@
-﻿using AZERP.Data.Entities.Hotel;
+﻿using AZERP.Data.Entities;
 using AZWeb.Module.TagHelper.Input;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 

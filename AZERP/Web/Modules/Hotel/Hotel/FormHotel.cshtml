@@ -12,17 +12,20 @@
                 <div class="col-md-10">
                     <form class="az-search-form row">
                         <az-hidden-model model="Model" func="(item)=>((FormHotel)item).PageSize" />
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <az-text-model model="Model" func="(item)=>((FormHotel)item).HotelName" label="Tên phòng trọ" />
                         </div>
-                        <div class="form-group col-md-3">
-                            <az-typeOfHotel-select model="Model" func="(item)=>((FormHotel)item).TypeOfHotel" label="Loại phòng trọ" />
+                        <div class="form-group col-md-2">
+                            <az-area-select model="Model" func="(item)=>((FormHotel)item).AreaID" label="Tên khu vực" />
                         </div>
-                        <div class="form-group col-md-3">
-                            <az-area-select model="Model" func="(item)=>((FormHotel)item).Area" label="Tên khu vực" />
+                        <div class="form-group col-md-2">
+                            <az-typeOfHotel-select model="Model" func="(item)=>((FormHotel)item).TypeOfHotelID" label="Loại phòng trọ" />
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <az-hotel-status-select model="Model" func="(item)=>((FormHotel)item).HotelStatus" label="Trạng thái phòng trọ" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-text-model model="Model" func="(item)=>((FormHotel)item).RoomCharge" label="Tiền phòng" />
                         </div>
                     </form>
                 </div>
@@ -44,7 +47,7 @@
             </div>
         </div>
         <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((AZERP.Data.Entities.Hotel.HotelModel)item).Id" columns="Model.Columns" pagination="Model" />
+            <az-table data="Model.Data" FunKey="(item)=>((HotelModel)item).Id" columns="Model.Columns" pagination="Model" />
         </div>
         <div class="az-bottom-manager">
             <az-pagination pagination="Model" />

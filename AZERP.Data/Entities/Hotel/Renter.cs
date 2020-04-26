@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace AZERP.Data.Entities.Hotel
+namespace AZERP.Data.Entities
 {
     public class RenterService : EntityService<RenterService, RenterModel>, IAZTransient
     {
@@ -37,15 +37,15 @@ namespace AZERP.Data.Entities.Hotel
         [Field]
         public int CMND { get; set; }
         /// <summary>
-        /// Số lượng người trong 1 phòng
+        /// Số bạn cùng phòng
         /// </summary>
         [Field]
         public int Quantity { get; set; }
         /// <summary>
         /// Mã phòng trọ
         /// </summary>
-        [Field(Length = 500)]
-        public string HotelID { get; set; }
+        [Field]
+        public long HotelID { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>

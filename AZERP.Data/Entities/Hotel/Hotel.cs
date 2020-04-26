@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace AZERP.Data.Entities.Hotel
+namespace AZERP.Data.Entities
 {
     public class HotelService : EntityService<HotelService, HotelModel>, IAZTransient
     {
@@ -35,11 +35,11 @@ namespace AZERP.Data.Entities.Hotel
         /// <summary>
         /// Mã loại phòng trọ
         /// </summary>
-        [Field(Length = 500)]
-        public string TypeOfHotelID { get; set; }
+        [Field]
+        public long TypeOfHotelID { get; set; }
         /// <summary>
         /// Mã khu vực
-        /// </summary>
+        /// </summary>xóa
         [Field]
         public long AreaID { get; set; }
         /// <summary>
@@ -51,6 +51,11 @@ namespace AZERP.Data.Entities.Hotel
         /// </summary>
         [Field]
         public HotelStatus? HotelStatus { get; set; }
+        /// <summary>
+        /// Tiền phòng
+        /// </summary>
+        [Field]
+        public decimal RoomCharge { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>

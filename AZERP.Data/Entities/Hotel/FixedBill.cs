@@ -6,42 +6,42 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace AZERP.Data.Entities.Hotel
+namespace AZERP.Data.Entities
 {
-    public class BillService : EntityService<BillService, BillModel>, IAZTransient
+    public class FixedBillService : EntityService<FixedBillService, FixedBillModel>, IAZTransient
     {
-        public BillService(IDbConnection _connection) : base(_connection)
+        public FixedBillService(IDbConnection _connection) : base(_connection)
         {
         }
     }
     /// <summary>
-    /// Thông tin của hóa đơn
+    /// Thông tin của hóa đơn cố định
     /// </summary>
 
-    [TableInfo(TableName = "az_hotel_bill")]
-    public class BillModel : EntityModel<BillModel, long>
+    [TableInfo(TableName = "az_hotel_fixedbill")]
+    public class FixedBillModel : EntityModel<FixedBillModel, long>
     {
         /// <summary>
         /// Mã hóa đơn
         /// </summary>
         [Field(Length = 500)]
-        public string BillID { get; set; }
+        public string FixedBillID { get; set; }
         /// <summary>
         /// Tên hóa đơn
         /// ví dụ: tháng 3-2020
         /// </summary>
         [Field(Length = 500)]
-        public string BillName { get; set; }
+        public string FixedBillName { get; set; }
         /// <summary>
         /// Mã người thuê trọ
         /// </summary>
-        [Field(Length = 500)]
-        public string RenterID { get; set; }
+        [Field]
+        public long RenterID { get; set; }
         /// <summary>
         /// Mã chi phí
         /// </summary>
-        [Field(Length = 500)]
-        public string CostID { get; set; }
+        [Field]
+        public decimal RoomCharge { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>
