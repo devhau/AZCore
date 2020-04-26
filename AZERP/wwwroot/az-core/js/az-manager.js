@@ -60,9 +60,13 @@
     }
     $this.SaveData = function (url, scope) {
         $this.DoPost(url, scope.SerializeData(), function (item) {
-            $this.ReLoad(function () {});
-            scope.ClosePopup();
-            toastr.success(item.message);
+            if (item.statusCode == 200 || item.statusCode == 201) {
+                $this.ReLoad(function () { });
+                scope.ClosePopup();
+                toastr.success(item.message);
+            } else {
+                toastr.error(item.message);
+            }
         }, function (error) {
 
         })
@@ -154,10 +158,18 @@
             func: function (elem, scope) {
                 var url = $this.location.pathname + "?h=delete";
                 if ($Id) url = url + "&id=" + $Id;
-                $this.DoPost(url, {}, function (item) {
+                $this.DoPost(url, {}, function (item) {                   
                     if (item.statusCode && item.statusCode === 401) {
                         return;
-                    } $this.ReLoad(); scope.ClosePopup(); toastr.info(item.message);});
+                    }
+                    if (item.statusCode == 200 || item.statusCode == 201) {
+                        $this.ReLoad();
+                        scope.ClosePopup();
+                        toastr.info(item.message);
+                    } else {
+                        toastr.error(item.message);
+                    }
+                });
             }
         });
         popup.AddButton({

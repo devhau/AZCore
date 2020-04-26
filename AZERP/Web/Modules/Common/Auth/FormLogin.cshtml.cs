@@ -5,6 +5,7 @@ using AZWeb.Module.Common;
 using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AZERP.Web.Modules.Common.Auth
 {
@@ -26,12 +27,12 @@ namespace AZERP.Web.Modules.Common.Auth
         {
             return View();
         }
-        public IView GetLogout() {
-            this.Logout();
+        public async Task<IView> GetLogout() {
+            await this.LogoutAsync();
             return GoToHome();
         }
         
-        public IView Post(string azemail,string azpassword,bool azremember) {
+        public async  Task<IView> Post(string azemail,string azpassword,bool azremember) {
             var usr = this.userService.GetEmailOrUsername(azemail);
             if (usr != null) {
                 if (usr.HasPassword(azpassword))      
@@ -47,8 +48,7 @@ namespace AZERP.Web.Modules.Common.Auth
                         return View();
                     }
                     var ulogin = usr.CopyTo<UserInfo>();
-                    ulogin.PermissionActive = this.userService.GetPermissionByUserId(usr.Id).Select(p=>p.Code).ToList();
-                    this.Login(ulogin, azremember);
+                   await this.LoginAsync(ulogin, azremember);
                     return this.GoToHome();
                 }
             }

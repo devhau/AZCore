@@ -1,19 +1,20 @@
 ﻿using AZCore.Identity;
-using AZWeb.Extensions;
 using AZWeb.Module.Common;
 using AZWeb.Module.Constant;
 using AZWeb.Module.View;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System.IO;
 using System.Net;
+using System.Security.Claims;
 
 namespace AZWeb.Module.Page
 {
     public class PageModule : ModuleBase
     {   
-        public UserInfo User { get; private set; }
-        public bool IsAuth { get => User != null; }
         public bool IsTheme { get; set; } = true;
         public string LayoutTheme { get; set; } = "";
         public string Title { get => Html.Title; set => Html.Title = value; }
@@ -21,9 +22,7 @@ namespace AZWeb.Module.Page
         public string Keyword { get => Html.Keyword; set => Html.Keyword = value; }
         public HtmlContent Html { get => this.HttpContext.Items[AZWebConstant.Html] as HtmlContent; }
         RenderView renderView { get; }
-        public bool HasPermission(string permissionCode) {
-            return User != null && User.HasPermission(permissionCode);
-        }
+       
         public void AddMeta(string name, string content)
         {
             this.Html.AddMeta(name, content);
@@ -41,14 +40,7 @@ namespace AZWeb.Module.Page
             if (this.HttpContext.Items[AZWebConstant.Html] == null) {
                 this.HttpContext.Items[AZWebConstant.Html] = new HtmlContent();
             }
-            this.User = this.HttpContext.GetSession<UserInfo>(AZWebConstant.SessionUser);
-            if (this.User == null)
-            {
-                this.User = this.HttpContext.GetCookie<UserInfo>(AZWebConstant.CookieUser);
-                if (this.User != null) {
-                    this.HttpContext.SetSession(AZWebConstant.SessionUser,this.User);
-                }
-            }
+           
             this.renderView = new RenderView(this.HttpContext);
         }
         public virtual IView GoToAuth() {
@@ -60,18 +52,23 @@ namespace AZWeb.Module.Page
         public virtual IView GoToRedirect(string url) {
             return new RedirectView() {Module=this,RedirectToUrl=url };
         }
-
-        public void Login(UserInfo user, bool rememberMe = false)
+        public async System.Threading.Tasks.Task LoginAsync(UserInfo user, bool rememberMe = false)
         {
-            this.User = user;
-            this.HttpContext.SetSession(AZWebConstant.SessionUser, this.User);
-            if (rememberMe)
-                this.HttpContext.SetCookie(AZWebConstant.CookieUser, this.User,10*360*24*60); // nhớ tới 10 năm khi bạn già thì vẫn nhớ tới bạn
+            var claimIdenties = new ClaimsIdentity(user.CreateClaim(), IdentityConstants.ApplicationScheme);
+            var claimPrincipal = new ClaimsPrincipal(claimIdenties);
+
+            await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme,
+                   claimPrincipal,
+                 new AuthenticationProperties() { IsPersistent=rememberMe});
         }
-        public void Logout() {
-            this.HttpContext.Response.Cookies.RemoveCookie(AZWebConstant.CookieUser);
-            this.HttpContext.Session.Clear();
+        public async System.Threading.Tasks.Task LogoutAsync() {
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            await HttpContext.SignOutAsync(IdentityConstants.TwoFactorUserIdScheme);
         }
+
+
+        #region --- View ---
         public virtual IView View() {
             return View(this);
         }
@@ -95,13 +92,18 @@ namespace AZWeb.Module.Page
                 Module=this,
             };
         }
-      
+        #endregion
+
+        #region --- File ----
         public virtual IView DownloadFile(Stream file, string fileName) {
             return DownloadFile(file, fileName,DownloadFileView.Text);
         }
         public virtual IView DownloadFile(Stream file,string fileName, string contentType) {
             return new DownloadFileView() { File=file,ContentType= contentType ,Name= fileName,Module=this};
         }
+        #endregion
+
+        #region --- Json ----
         public virtual IView Json(string Message)
         {
             return Json(Message, string.Empty, HttpStatusCode.OK);
@@ -116,6 +118,8 @@ namespace AZWeb.Module.Page
         public virtual IView Json(string Message, object data, HttpStatusCode status) {         
             return new JsonView() { Module=this,Data=data,StatusCode=status, Message=Message };
         }
+        #endregion
+
         public virtual IHtmlContent ViewChild(string viewName, object model)
         {
             return this.renderView.GetContentHtmlFromView(new HtmlView()

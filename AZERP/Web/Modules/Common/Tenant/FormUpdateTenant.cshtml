@@ -1,14 +1,28 @@
 ﻿@model FormUpdateTenant
     <div class="az-update row" role="form">
-        <div class="col-md-12">
-            <div class="form-group">
-                <az-text-model model="Model.Data" func="(item)=>((RoleModel)item).Name" label="Tên vai trò" />
-            </div>
+        <div class="col-md-6 form-group">
+            <az-text-model model="Model.Data" func="(item)=>((TenantModel)item).Name" label="Tên đối tác" />
         </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <az-status-select model="Model.Data" func="(item)=>((RoleModel)item).Status" label="Trạng thái" />
-            </div>
+        <div class="col-md-6 form-group">
+            <az-text-model model="Model.Data" func="(item)=>((TenantModel)item).Email" label="Email" />
+        </div>
+        <div class="col-md-6 form-group">
+            <az-text-model model="Model.Data" func="(item)=>((TenantModel)item).Website" label="Website" />
+        </div>
+        <div class="col-md-6 form-group">
+            <az-number-model type="OnlyNumber" model="Model.Data" func="(item)=>((TenantModel)item).Phone" label="Số điện thoại" />
+        </div>
+        <div class="col-md-6 form-group">
+            <az-text-model model="Model.Data" func="(item)=>((TenantModel)item).CanonicalName" label="Viết tắt" addon-after=".domainazcore.com" />
+        </div>
+        <div class="col-md-6 form-group">
+            <az-text-model model="Model.Data" func="(item)=>((TenantModel)item).DomainName" label="Domain"/>
+        </div>
+        <div class="col-md-6 form-group">
+            <az-text-model model="Model.Data" func="(item)=>((TenantModel)item).ConcurrencyStamp" label="Mã code" is-enable="false" />
+        </div>
+        <div class="col-md-6 form-group">
+            <az-status-select model="Model.Data" func="(item)=>((TenantModel)item).Status" label="Trạng thái" />
         </div>
     </div>
 <az-script>

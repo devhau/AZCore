@@ -1,8 +1,10 @@
 ﻿using AZCore.Extensions;
+using AZCore.Identity;
 using AZWeb.Configs;
 using AZWeb.Extensions;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
+using AZWeb.Module.Constant;
 using AZWeb.Module.Page;
 using AZWeb.Module.View;
 using AZWeb.Utilities;
@@ -32,20 +34,18 @@ namespace AZWeb.Module
 
         }
         RenderView renderView;
-
         HttpContext httpContext;
-        IStartup startup;
         readonly IPagesConfig PageConfigs = null;
         bool IsAjax { get; }
         readonly string urlPath;
+        IPermissionService permissionService = null;
         ModuleRender(HttpContext _httpContext)
         {
             httpContext = _httpContext;
             renderView = new RenderView(httpContext);
-            startup = httpContext.GetService<IStartup>();
+            permissionService = httpContext.GetService<IPermissionService>();
             this.PageConfigs = this.httpContext.GetService<IPagesConfig>();
             this.IsAjax = httpContext.IsAjax();
-
             urlPath = this.httpContext.Request.Path.Value;
         }
         /// <summary>
@@ -389,15 +389,17 @@ namespace AZWeb.Module
        
         private async Task<bool> DoRouterAsync() {
             var statusModule = await GetModule();
-            if (statusModule != RenderError.OK && statusModule != RenderError.None && statusModule != RenderError.NoAuth &&statusModule!= RenderError.NotFoundMethod)
+            if (statusModule == RenderError.OK)
+                return true;
+            if (statusModule != RenderError.OK && statusModule != RenderError.None && statusModule != RenderError.NoAuth &&statusModule!= RenderError.NotFoundMethod && statusModule != RenderError.NotFoundMethod)
             {
                 return await GetError(statusModule);
             }
-            return true;
+            return false;
         }
         private Type GetType(string type)
         {
-            return startup.GetType(type);
+            return AZCoreExtensions.startup.GetType(type);
         }
         public static async Task<bool> RouterAsync(HttpContext httpContext) {
             return await new ModuleRender(httpContext).DoRouterAsync();

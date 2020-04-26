@@ -2,20 +2,17 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
-
-using System;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc.Razor;
-using System.IO;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using AZWeb.Utilities;
 using Microsoft.Extensions.DependencyInjection;
-using AZCore.Extensions;
-using AZCore.Identity;
-using AZWeb.Module.Attributes;
+using System;
+using System.Linq;
+using System.IO;
 using System.Collections;
+using AZCore.Extensions;
+using AZWeb.Module.Attributes;
 
 namespace AZWeb.Extensions
 {
@@ -191,12 +188,10 @@ namespace AZWeb.Extensions
                     {
                         pro.SetValue(obj, httpContext.Request.Form[item][0].ToType(pro.PropertyType));
                     }
-
                 }
             }
         }
         public static bool IsAjax(this HttpContext httpContext) {
-
             if (httpContext == null)
                 throw new ArgumentNullException(nameof(httpContext));
             return httpContext.Request.IsAjax();
@@ -217,24 +212,6 @@ namespace AZWeb.Extensions
             if (request.Headers != null)
                 return request.Headers["X-Requested-With"] == "XMLHttpRequest";
             return false;
-        }
-      
-
-        public static UserInfo GeUserModule(this HttpContext httpContext)
-        {
-            if (httpContext.Items[AZCoreWeb.KeyHtmlModule] == null) return null;
-            return httpContext.Items[AZCoreWeb.KeyAuth] as UserInfo;
-        }
-        public static UserInfo GetUser(this HttpContext httpContext)
-        {
-            var User = httpContext.GetSession<UserInfo>(AZCoreWeb.KeyAuth);
-            if (User == null)
-            {
-                User = httpContext.GetCookie<UserInfo>(AZCoreWeb.KeyAuth);
-            }
-
-            httpContext.Items[AZCoreWeb.KeyAuth] = User;
-            return User;
         }
         public static TClass GetService<TClass>(this HttpContext httpContext) {
             return httpContext.RequestServices.GetRequiredService<TClass>();
