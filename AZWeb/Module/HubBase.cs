@@ -1,6 +1,8 @@
 ﻿using AZCore.Extensions;
 using AZCore.Identity;
 using AZWeb.Module.Attributes;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Connections.Features;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -33,6 +35,8 @@ namespace AZWeb.Module
                 return _user;
             }
         }
+        //((IHttpContextFeature) Context.Features[typeof(IHttpContextFeature)]).HttpContext
+        public HttpContext HttpContext => ((IHttpContextFeature)Context?.Features[typeof(IHttpContextFeature)]).HttpContext;
         internal virtual void MapRouter(HubRouteBuilder hubRouteBuilder) 
         {
         }
@@ -79,47 +83,47 @@ namespace AZWeb.Module
         }
 
         #region --- SendUser ---
-        protected virtual async Task SendUserAsync(long UserId, string method, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, object arg7, object arg8, object arg9, object arg10, CancellationToken cancellationToken = default)
+        protected virtual async Task SendUserAsync(object UserId, string method, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, object arg7, object arg8, object arg9, object arg10, CancellationToken cancellationToken = default)
         {
            await this.Clients.Groups(string.Format("{0}_{1}", this.GroupName, UserId)).SendAsync(method, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, cancellationToken);
         }
-        protected virtual async Task SendUserAsync(long UserId, string method, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, object arg7, object arg8, object arg9, CancellationToken cancellationToken = default)
+        protected virtual async Task SendUserAsync(object UserId, string method, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, object arg7, object arg8, object arg9, CancellationToken cancellationToken = default)
         {
            await this.Clients.Groups(string.Format("{0}_{1}", this.GroupName, UserId)).SendAsync(method, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, cancellationToken);
         }
-        protected virtual async Task SendUserAsync(long UserId, string method, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, object arg7, object arg8, CancellationToken cancellationToken = default)
+        protected virtual async Task SendUserAsync(object UserId, string method, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, object arg7, object arg8, CancellationToken cancellationToken = default)
         {
            await this.Clients.Groups(string.Format("{0}_{1}", this.GroupName, UserId)).SendAsync(method, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, cancellationToken);
         }
-        protected virtual async Task SendUserAsync(long UserId, string method, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, object arg7, CancellationToken cancellationToken = default)
+        protected virtual async Task SendUserAsync(object UserId, string method, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, object arg7, CancellationToken cancellationToken = default)
         {
            await this.Clients.Groups(string.Format("{0}_{1}", this.GroupName, UserId)).SendAsync(method, arg1, arg2, arg3, arg4, arg5, arg6, arg7, cancellationToken);
         }
-        protected virtual async Task SendUserAsync(long UserId, string method, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, CancellationToken cancellationToken = default)
+        protected virtual async Task SendUserAsync(object UserId, string method, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, CancellationToken cancellationToken = default)
         {
            await this.Clients.Groups(string.Format("{0}_{1}", this.GroupName, UserId)).SendAsync(method, arg1, arg2, arg3, arg4, arg5, arg6, cancellationToken);
         }
-        protected virtual async Task SendUserAsync(long UserId, string method, object arg1, object arg2, object arg3, object arg4, object arg5, CancellationToken cancellationToken = default)
+        protected virtual async Task SendUserAsync(object UserId, string method, object arg1, object arg2, object arg3, object arg4, object arg5, CancellationToken cancellationToken = default)
         {
            await this.Clients.Groups(string.Format("{0}_{1}", this.GroupName, UserId)).SendAsync(method, arg1, arg2, arg3, arg4, arg5, cancellationToken);
         }
-        protected virtual async Task SendUserAsync(long UserId, string method, object arg1, object arg2, object arg3, object arg4, CancellationToken cancellationToken = default)
+        protected virtual async Task SendUserAsync(object UserId, string method, object arg1, object arg2, object arg3, object arg4, CancellationToken cancellationToken = default)
         {
            await this.Clients.Groups(string.Format("{0}_{1}", this.GroupName, UserId)).SendAsync(method, arg1, arg2, arg3, arg4, cancellationToken);
         }
-        protected virtual async Task SendUserAsync(long UserId, string method, object arg1, object arg2, object arg3, CancellationToken cancellationToken = default)
+        protected virtual async Task SendUserAsync(object UserId, string method, object arg1, object arg2, object arg3, CancellationToken cancellationToken = default)
         {
            await this.Clients.Groups(string.Format("{0}_{1}", this.GroupName, UserId)).SendAsync(method, arg1, arg2, arg3, cancellationToken);
         }
-        protected virtual async Task SendUserAsync(long UserId, string method, object arg1, object arg2, CancellationToken cancellationToken = default)
+        protected virtual async Task SendUserAsync(object UserId, string method, object arg1, object arg2, CancellationToken cancellationToken = default)
         {
            await this.Clients.Groups(string.Format("{0}_{1}", this.GroupName, UserId)).SendAsync(method, arg1, arg2, cancellationToken);
         }
-        protected virtual async Task SendUserAsync(long UserId, string method, object arg1, CancellationToken cancellationToken = default)
+        protected virtual async Task SendUserAsync(object UserId, string method, object arg1, CancellationToken cancellationToken = default)
         {
            await this.Clients.Groups(string.Format("{0}_{1}", this.GroupName, UserId)).SendAsync(method, arg1, cancellationToken);
         }
-        protected virtual async Task SendUserAsync(long UserId, string method, CancellationToken cancellationToken = default)
+        protected virtual async Task SendUserAsync(object UserId, string method, CancellationToken cancellationToken = default)
         {
            await this.Clients.Groups(string.Format("{0}_{1}", this.GroupName, UserId)).SendAsync(method, cancellationToken);
         }

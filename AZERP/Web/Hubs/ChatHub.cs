@@ -3,7 +3,6 @@ using AZWeb.Module.Attributes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,9 +14,9 @@ namespace AZERP.Web.Hubs
     {
         protected override string GroupName => "UserOnline";
 
-        public async Task SendMessage(string user, string message)
+        public async Task SendMessage(string userId, string message)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, this.User?.FullName);
+           await this.SendUserAsync(userId, "ReceiveMessage",this.User.Id, message);
         }
         protected override async Task UpdateUserAsync()
         {
