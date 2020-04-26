@@ -148,7 +148,14 @@ namespace AZERP.Web.Modules.Orders.Orders
 
                 if (dataForm.Code == "" || dataForm.Code == null)
                 {
-                    dataForm.Code = "CON" + String.Format("{0:D5}", this.Service.GetAll().Count() + 1);
+                    var allCount = this.Service.Select(p => p.Type == OrderType.Out).Count() + 1;
+                    var tmpCode = "CON" + String.Format("{0:D5}", allCount);
+                    while (this.Service.Select(p => p.Code == tmpCode).Count() > 0)
+                    {
+                        allCount++;
+                        tmpCode = "CON" + String.Format("{0:D5}", allCount);
+                    }
+                    dataForm.Code = tmpCode;
                 }
 
                 var result = entityTransaction.DoTransantion<PurchaseOrderService, PurchaseOrderProductService>((t, t1, t2) =>

@@ -16,7 +16,7 @@ namespace AZERP.Web.Modules.Customers
     [TableColumn(Title = "Email", FieldName = "Email")]
     [TableColumn(Title = "Số điện thoại", FieldName = "PhoneNumber")]
     [TableColumn(Title = "Trạng thái", FieldName = "CustomersStatus", TextFalse = "Ngưng hoạt động", TextTrue = "Đang hoạt động")]
-    [TableColumn(Title = "Lịch sử", LinkFormat = "/khach-hang/lich-su-mua-hang.az", Text = "Lịch sử mua hàng", Display = AZWeb.Module.Enums.DisplayColumn.IconText, Icon = "fa fa-history", Popup = AZWeb.Module.Enums.PopupSize.Extralarge)]
+    [TableColumn(Title = "Lịch sử", LinkFormat = "/khach-hang/lich-su-mua-hang.az?Id={Id}", Text = "Lịch sử mua hàng", Display = AZWeb.Module.Enums.DisplayColumn.IconText, Icon = "fa fa-history", Popup = AZWeb.Module.Enums.PopupSize.Extralarge)]
     public class FormCustomers : ManageModule<CustomersService, CustomersModel, FormUpdateCustomers>
     {
         #region -- Field Search --
@@ -36,6 +36,9 @@ namespace AZERP.Web.Modules.Customers
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string PhoneNumber { get; set; }
         #endregion
+
+        [BindQuery]
+        public long Id { get; set; }
 
         public FormCustomers(IHttpContextAccessor httpContext) : base(httpContext)
         {
