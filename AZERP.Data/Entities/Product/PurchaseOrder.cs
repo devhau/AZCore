@@ -29,10 +29,10 @@ namespace AZERP.Data.Entities
         [Field(Length = 500)]
         public string Code { get; set; }
         /// <summary>
-        /// Mã nhà cung cấp
+        /// Id nhà cung cấp / khách hàng
         /// </summary>
         [Field]
-        public long SupplierCode { get; set; }
+        public long PartnerId { get; set; }
         /// <summary>
         /// Nhân viên duyệt đơn
         /// </summary>
@@ -74,10 +74,15 @@ namespace AZERP.Data.Entities
         [Field]
         public OrderPayment PurchaseOrderPayment { get; set; }
         /// <summary>
-        /// Trạng thái nhập kho
+        /// Trạng thái nhập / xuất kho
         /// </summary>
         [Field]
         public PurchaseOrderImport PurchaseOrderImport { get; set; }
+        /// <summary>
+        /// Kiểu hóa đơn nhập/xuất
+        /// </summary>
+        [Field]
+        public OrderType Type { get; set; }
         /// <summary>
         /// Ngày duyệt
         /// </summary>
@@ -89,7 +94,7 @@ namespace AZERP.Data.Entities
         [Field]
         public DateTime CompleteOn { get; set; }
         /// <summary>
-        /// Ngày duyệt
+        /// Ngày kết thúc
         /// </summary>
         [Field]
         public DateTime ClosedOn { get; set; }

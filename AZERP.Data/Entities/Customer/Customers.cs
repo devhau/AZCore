@@ -72,6 +72,6 @@ namespace AZERP.Data.Entities
         /// Trạng thái khách hàng
         /// </summary>
         [Field]
-        public CustomersStatus CustomersStatus { get; set; }
+        public bool CustomersStatus { get; set; }
     }
 }

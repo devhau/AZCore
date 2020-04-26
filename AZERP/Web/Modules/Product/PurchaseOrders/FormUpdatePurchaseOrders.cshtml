@@ -14,7 +14,7 @@
         <div class="az-page-info">
             <div class="az-page-info-title">Nhà cung cấp</div>
             <div class="az-page-info-body">
-                <az-supplier-select is-show="@(Model.CanEdit)" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).SupplierCode" where-func="(item)=>((SupplierModel)item).SupplierStatus == true" class="supplierClass" null-text="Chọn nhà cung cấp" />
+                <az-supplier-select is-show="@(Model.CanEdit)" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).PartnerId" where-func="(item)=>((SupplierModel)item).SupplierStatus == true" class="supplierClass" null-text="Chọn nhà cung cấp" />
                 <div class="list-info-supplier">
                     <div class="list-info-header">
                         @(Model.DataCurrent == null ? "" : (Model.SupplierModel.AbbreviatedName == "" ? Model.SupplierModel.Name : Model.SupplierModel.Name + " - " + Model.SupplierModel.AbbreviatedName))
@@ -41,7 +41,7 @@
         <div class="az-page-info">
             <div class="az-page-info-title">Sản phẩm</div>
             <div class="az-page-info-body">
-                <az-product-select is-show="@(Model.CanEdit)" class="productClass" null-text="Chọn sản phẩm" />
+                <az-product-select where-func="(item)=>((ProductModel)item).ProductSellable == true" is-show="@(Model.CanEdit)" class="productClass" null-text="Chọn sản phẩm" />
                 <div class="az-data-table">
                     <table class="table table-bordered table-hover az-table " role="grid">
                         <thead>
