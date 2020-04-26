@@ -1,8 +1,9 @@
-﻿@model FormUpdatePurchaseOrders
+﻿@model FormPurchaseOrders
 <az-style module="PurchaseOrders.css" />
-<div class="az-update row" role="form">
+<az-script module="UpdatePurchaseOrders.js"/>
+<az-layout class="az-update row az-commit-purchase-order" script-random='(id)=>$"UpdatePurchaseOrders(\".{id}\")"'>
     <div class="form-group col-md-6">
-        <az-text-model is-enable="false" value="@Model.Data.Code" label="Mã đơn nhập hàng" />
+        <az-text-model is-enable="false" value="@Model.DataCurrent.Code" label="Mã đơn nhập hàng" />
     </div>
     <div class="form-group col-md-6">
         <az-text-model is-enable="false" value="@Model.UserModel.FullName" label="Nhân viên tạo đơn" />
@@ -11,7 +12,6 @@
         <div class="az-page-info">
             <div class="az-page-info-title">Nhà cung cấp</div>
             <div class="az-page-info-body">
-                <az-supplier-select model="Model.Data" func="(item)=>((PurchaseOrderModel)item).SupplierCode" where-func="(item)=>((SupplierModel)item).SupplierStatus == true" class="supplierClass" null-text="Chọn nhà cung cấp" />
                 <div class="list-info-supplier">
                     <div class="list-info-header">@Model.SupplierModel.Name</div>
                     <div class="row">
@@ -36,7 +36,6 @@
         <div class="az-page-info">
             <div class="az-page-info-title">Sản phẩm</div>
             <div class="az-page-info-body">
-                <az-product-select class="productClass" null-text="Chọn sản phẩm" />
                 <div class="az-data-table">
                     <table class="table table-bordered table-hover az-table " role="grid">
                         <thead>
@@ -51,7 +50,7 @@
                         <tbody>
                             @{ long valueSum = 0; }
                             @{ long valueMoney = 0;}
-                            @foreach (PurchaseOrderProductModel item in Model.listProductOrder)
+                            @foreach (var item in Model.ListDataOrder)
                             {
                                 <tr>
                                     <td>@Model.getProduct(item.ProductId)?.Code</td>
@@ -69,7 +68,10 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-6">
+        <az-text-area-model is-enable="false" add-js="false" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).Note" label="Ghi chú"></az-text-area-model>
+    </div>
+    <div class="col-md-6">
         <div class="list-info-money">
             <div class="item-info-money">
                 <div class="label">Số lượng</div>
@@ -89,8 +91,12 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <az-button class="btn btn-secondary" text="Xác nhận thanh toán"></az-button>
-        <az-button class="btn btn-primary" text="Nhập kho"></az-button>
+    <div class="col-md-12 row footer">
+        <az-layout is-show="@(Model.DataCurrent.PurchaseOrderPayment != OrderPayment.Paid && Model.DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)" class="col-md-10">
+            <button class="btn btn-secondary az-btn az-payment" data-cmd-key="f4"><i class="far fa-finish"></i> Xác nhận thanh toán (F4)</button>
+        </az-layout>
+        <az-layout is-show="@(Model.DataCurrent.PurchaseOrderImport != PurchaseOrderImport.Import && Model.DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)" class="col-md-2">
+            <button class="btn btn-primary az-btn az-import-store" data-cmd-key="f3"><i class="far fa-finish"></i> Nhập kho (F3)</button>
+        </az-layout>
     </div>
-</div>
+</az-layout>

@@ -1,0 +1,10 @@
+﻿<az-script module="UserOnline.js"/>
+<az-style module="UserOnline.css"/>
+<az-layout script-random='(id) => $"UserOnline(\".{id}\");"' class="UserOnline show">
+    <div class="layout-logo"><img class="logo" src="~/img/support.png" /><label>Hỗ trợ khách hàng</label></div>
+    
+    <div class="layout-chat">
+        <i class="far fa-times-circle btn-chat-close"></i>
+        <div class="user-online"></div>
+    </div>
+</az-layout>

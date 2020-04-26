@@ -1,0 +1,24 @@
+﻿@model FormUpdateRenter
+    <div class="az-update row" id="FormUpdateRenter" role="form">
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((RenterModel)item).RenterID" label="Mã người thuê" attr="autofocus" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((RenterModel)item).RenterName" label="Tên người thuê" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((RenterModel)item).CMND" label="Số CMND/CCCD" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((RenterModel)item).Quantity" label="Số bạn cùng phòng" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((RenterModel)item).HotelID" label="Tên phòng trọ" />
+        </div>
+        <div class="form-group col-md-12">
+            <az-text-area-model model="Model.Data" func="(item)=>((RenterModel)item).Note" label="Ghi chú" />
+        </div>
+    </div>
+<az-script>
+
+</az-script>

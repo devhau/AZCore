@@ -1,21 +1,15 @@
-﻿using AZCore.Identity;
-using AZWeb.Extensions;
-using AZWeb.Module.Constant;
+﻿using AZWeb.Module.Constant;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
 
 namespace AZWeb.Module.Common
 {
     public class ThemeBase : ModuleBase
     {
-        public UserInfo User { get; private set; }
-        public bool IsAuth { get => User != null; }
         RenderView renderView { get; }
         public ThemeBase(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
-            this.User = this.HttpContext.Items[AZWebConstant.SessionUser] as UserInfo;
             this.renderView = new RenderView(this.HttpContext);
         }
         public IHtmlContent BodyContent { get; set; }

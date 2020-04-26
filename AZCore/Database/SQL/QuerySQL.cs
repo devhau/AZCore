@@ -34,6 +34,7 @@ namespace AZCore.Database.SQL
         private List<JoinTable> joinTable = new List<JoinTable>();
         private List<ColumnValue> SqlWhere = new List<ColumnValue>();
         private List<ColumnValue> SqlOrder = new List<ColumnValue>();
+        private List<ColumnValue> SqlGroup = new List<ColumnValue>();
         private int PageSize = 0;
         private int PageIndex = 0;       
         private QuerySQL(TypeSQL _type) {
@@ -70,6 +71,11 @@ namespace AZCore.Database.SQL
         public QuerySQL AddOrder(string column, SortType sort)
         {
             this.SqlOrder.Add(new ColumnValue(column, sort));
+            return this;
+        }
+        public QuerySQL AddGroup(string column)
+        {
+            this.SqlGroup.Add(new ColumnValue() { Column= column });
             return this;
         }
         public QuerySQL Pagination(int pageIndex = 1, int pageSize = 20)
@@ -132,6 +138,18 @@ namespace AZCore.Database.SQL
                     else
                         first = false;
                     sql.AppendFormat(" {0} {1}", item.Column.Trim(), item.Sort.ToString());
+                }
+            }
+            if (SqlGroup.Count > 0) {
+                sql.Append(" GROUP BY ");
+                bool first = true;
+                foreach (var item in SqlGroup)
+                {
+                    if (!first)
+                        sql.Append(" , ");
+                    else
+                        first = false;
+                    sql.AppendFormat(" {0}", item.Column.Trim());
                 }
             }
             if (PageIndex > 0 && PageSize > 0) {

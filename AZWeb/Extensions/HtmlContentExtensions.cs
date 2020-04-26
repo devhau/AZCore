@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Html;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using HtmlAgilityPack;
+using Microsoft.AspNetCore.Html;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 
 namespace AZWeb.Extensions
 {
@@ -16,6 +13,12 @@ namespace AZWeb.Extensions
 				content.WriteTo(writer, HtmlEncoder.Default);
 				return writer.ToString();
 			}
+		}
+		public static HtmlDocument LoadHtml(this string content)
+		{
+			var htmlDoc = new HtmlDocument();
+			htmlDoc.LoadHtml(content);
+			return htmlDoc;
 		}
 	}
 }

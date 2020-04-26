@@ -7,8 +7,8 @@ namespace AZERP.Data.Enums
 {
     public enum PurchaseOrderImport:int
     {
-        [Field(Display = "Đã nhập hàng")] Import = 0,
-        [Field(Display = "Chờ nhập hàng")] Waiting = 1,
+        [Field(Display = "Chờ nhập hàng")] Waiting = 0,
+        [Field(Display = "Đã nhập hàng")] Import = 1,
         [Field(Display = "Không nhập hàng")] NotImport = 2
     }
 }

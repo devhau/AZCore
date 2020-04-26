@@ -34,9 +34,7 @@ namespace AZWeb.Module
 
         }
         RenderView renderView;
-
         HttpContext httpContext;
-        IStartup startup;
         readonly IPagesConfig PageConfigs = null;
         bool IsAjax { get; }
         readonly string urlPath;
@@ -45,7 +43,6 @@ namespace AZWeb.Module
         {
             httpContext = _httpContext;
             renderView = new RenderView(httpContext);
-            startup = httpContext.GetService<IStartup>();
             permissionService = httpContext.GetService<IPermissionService>();
             this.PageConfigs = this.httpContext.GetService<IPagesConfig>();
             this.IsAjax = httpContext.IsAjax();
@@ -99,27 +96,12 @@ namespace AZWeb.Module
             }
             return null;
         }
-        private void RefreshUser() {
-           var user = this.httpContext.GetSession<UserInfo>(AZWebConstant.SessionUser);
-            if (user == null)
-            {
-                user = this.httpContext.GetCookie<UserInfo>(AZWebConstant.CookieUser);
-                if (user != null)
-                {
-                    this.httpContext.SetSession(AZWebConstant.SessionUser, user);
-                }
-            }
-            if (user != null && this.permissionService != null)
-                user.PermissionActive = this.permissionService.GetPermissionByUserId(user.Id).ToList();
-            this.httpContext.Items[AZWebConstant.SessionUser] = user;
-        }
         /// <summary>
         /// Get Module
         /// </summary>
         /// <returns></returns>
         private async Task<RenderError> GetModule()
         {
-            RefreshUser();
             if (urlPath != "/" && !urlPath.EndsWith(PageConfigs.extenstion)) return RenderError.OK;
             #region --- Get Path & Merge Path ---
             var pathReal = GetPathReal();
@@ -407,15 +389,17 @@ namespace AZWeb.Module
        
         private async Task<bool> DoRouterAsync() {
             var statusModule = await GetModule();
-            if (statusModule != RenderError.OK && statusModule != RenderError.None && statusModule != RenderError.NoAuth &&statusModule!= RenderError.NotFoundMethod)
+            if (statusModule == RenderError.OK)
+                return true;
+            if (statusModule != RenderError.OK && statusModule != RenderError.None && statusModule != RenderError.NoAuth &&statusModule!= RenderError.NotFoundMethod && statusModule != RenderError.NotFoundMethod)
             {
                 return await GetError(statusModule);
             }
-            return true;
+            return false;
         }
         private Type GetType(string type)
         {
-            return startup.GetType(type);
+            return AZCoreExtensions.startup.GetType(type);
         }
         public static async Task<bool> RouterAsync(HttpContext httpContext) {
             return await new ModuleRender(httpContext).DoRouterAsync();

@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using AZCore.Extensions;
 using AZWeb.Module.Common;
+using Microsoft.AspNetCore.SignalR;
+using AZERP.Web.Hubs;
 
 namespace AZERP
 {
@@ -31,25 +33,23 @@ namespace AZERP
                 return false;
             });
         }
-
         public IConfiguration Configuration { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMySQL(Configuration.GetConnectionString("Mysql"));
+            services.AddSignalR(hubOptions =>
+            {
+                hubOptions.EnableDetailedErrors = false;
+             //   hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(1);
+            });
             services.AddAZCore(this); 
             // If using Kestrel:
-            services.Configure<KestrelServerOptions>(options =>
-            {
-                options.AllowSynchronousIO = true;
-            });
+            services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
 
             // If using IIS:
-            services.Configure<IISServerOptions>(options =>
-            {
-                options.AllowSynchronousIO = true;
-            }); 
+            services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true); 
             //
 
         }
@@ -63,7 +63,7 @@ namespace AZERP
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles(); 
+            app.UseStaticFiles();
             app.Use(next =>
             {
                 return async ctx =>
@@ -72,6 +72,7 @@ namespace AZERP
                     await next(ctx);
                 };
             });
+            app.UseSignalRAZCore();
             app.UseAZCore();
           
 
@@ -85,4 +86,5 @@ namespace AZERP
             return null;
         }
     }
+  
 }

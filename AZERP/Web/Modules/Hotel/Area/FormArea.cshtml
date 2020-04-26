@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((AZERP.Data.Entities.Hotel.AreaModel)item).Id" columns="Model.Columns" is-edit="Model.HasPermission(PE.Area_Edit)" is-delete="Model.HasPermission(PE.Area_Remove)" pagination="Model" />
+            <az-table data="Model.Data" FunKey="(item)=>((AreaModel)item).Id" columns="Model.Columns" is-edit="Model.HasPermission(PE.Area_Edit)" is-delete="Model.HasPermission(PE.Area_Remove)" pagination="Model" />
         </div>
         <div class="az-bottom-manager">
             <az-pagination pagination="Model" />

@@ -5,7 +5,7 @@
 .list-info-money {
     float: right;
     width: 300px;
-    margin: 20px 0;
+    margin: 0 20px;
 }
 
     .list-info-money .item-info-money {
@@ -27,7 +27,6 @@
 .list-info-supplier {
     margin-top: 15px;
 }
-
     .list-info-supplier .list-info-header {
         font-weight: bold;
         border-bottom: 1px solid rgba(0, 0, 0, .2);
@@ -37,3 +36,20 @@
     .list-info-supplier .list-info-item .list-info-item-content {
         margin-left: 10px;
     }
+
+.ManagerPurchaseOrder[link-id] .modal-footer {
+    display: inline-block;
+}
+
+button.az-import-store, button.az-payment {
+    float:right
+}
+
+.az-update-purchase-order textarea {
+    height: 100px;
+}
+
+.az-commit-purchase-order .footer {
+    padding-top: 1rem;
+    border-top: 1px solid #e9ecef;
+}
