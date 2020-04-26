@@ -33,7 +33,6 @@ namespace AZERP
                 return false;
             });
         }
-
         public IConfiguration Configuration { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -42,21 +41,15 @@ namespace AZERP
             services.AddMySQL(Configuration.GetConnectionString("Mysql"));
             services.AddSignalR(hubOptions =>
             {
-                hubOptions.EnableDetailedErrors = true;
-                hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(1);
+                hubOptions.EnableDetailedErrors = false;
+             //   hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(1);
             });
             services.AddAZCore(this); 
             // If using Kestrel:
-            services.Configure<KestrelServerOptions>(options =>
-            {
-                options.AllowSynchronousIO = true;
-            });
+            services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
 
             // If using IIS:
-            services.Configure<IISServerOptions>(options =>
-            {
-                options.AllowSynchronousIO = true;
-            }); 
+            services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true); 
             //
 
         }
@@ -71,9 +64,15 @@ namespace AZERP
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.Use(next =>
+            {
+                return async ctx =>
+                {
+                    ctx.RequestServices.GetRequiredService<DBCreateEntities>()?.CheckDatabase();
+                    await next(ctx);
+                };
+            });
             app.UseSignalRAZCore();
-           // app.ApplicationServices.GetRequiredService<DBCreateEntities>()?.CheckDatabase();
             app.UseAZCore();
           
 

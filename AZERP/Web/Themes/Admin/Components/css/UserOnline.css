@@ -47,5 +47,26 @@
     }
         .UserOnline.show .layout-logo {
             display: none;
-        } 
-       
+        }
+.user-online {
+    margin-top: 35px;
+    width: 100%;
+    max-height: calc(100% - 35px);
+    overflow: auto;
+}
+    .user-online .item-user {
+        padding: 5px;
+        border: 1px solid #ccc;
+        background: #808080;
+        color: #eee;
+        font-weight: 600;
+        font-size: 19px;
+    }
+        .user-online .item-user.me {
+            background: #929081;
+        }
+        .user-online .item-user:hover {
+            background: #ff0000;
+            cursor:pointer;
+        }
+        
