@@ -12,13 +12,19 @@
     SignalrMain.Connect("/UserOnline", function (connection, flg) {
         if (flg) {
             $this.connection = connection;
-            $this.connection.on("UserOnline", function (connectId) {
-                $($id).find(".user-online").append("<div>" + connectId+"</div>");
-
+            $this.connection.on("UserOnline", function (users,me) {
+                console.log(users);
+                $($id).find(".user-online").html("");
+                $.each(users, function (e, el) {
+                    if (el.id === me.id) {
+                        $($id).find(".user-online").prepend("<div class='item-user me' id=\"user" + el.id + "\">" + el.fullName + " (Tôi)</div>");
+                    } else {
+                        $($id).find(".user-online").append("<div class='item-user' id=\"user" + el.id + "\">" + el.fullName + "</div>");
+                    }
+                })
             });
             connection.on("ReceiveMessage", function (user, message) {
 
-                alert(message);
             });
         }
 

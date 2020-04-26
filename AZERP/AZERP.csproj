@@ -96,11 +96,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Web\Api\v1\" />
     <Folder Include="Web\Modules\Orders\Returns\" />
     <Folder Include="Web\Modules\Orders\Shippers\" />
     <Folder Include="Web\Modules\Orders\Shipments\" />
     <Folder Include="Web\Modules\Product\StockTransfers\" />
-    <Folder Include="Web\Api\" />
   </ItemGroup>
 
 </Project>
