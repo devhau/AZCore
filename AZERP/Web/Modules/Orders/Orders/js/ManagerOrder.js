@@ -1,4 +1,4 @@
-﻿function ManagerPurchaseOrder($id) {
+﻿function ManagerOrder($id) {
 
     $($id).AZManager({
         clear: true,

@@ -1,0 +1,102 @@
+﻿@model FormOrders
+<az-style module="Orders.css" />
+<az-script module="UpdateOrders.js"/>
+<az-layout class="az-update row az-commit-order" script-random='(id)=>$"UpdateOrders(\".{id}\")"'>
+    <div class="form-group col-md-6">
+        <az-text-model is-enable="false" value="@Model.DataCurrent.Code" label="Mã đơn nhập hàng" />
+    </div>
+    <div class="form-group col-md-6">
+        <az-text-model is-enable="false" value="@Model.UserModel.FullName" label="Nhân viên tạo đơn" />
+    </div>
+    <div class="form-group col-md-12">
+        <div class="az-page-info">
+            <div class="az-page-info-title">Khách hàng</div>
+            <div class="az-page-info-body">
+                <div class="list-info-customer">
+                    <div class="list-info-header">@Model.CustomersModel.FullName</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="list-info-item">
+                                <div class="list-info-item-header">ĐỊA CHỈ NHẬN HÀNG</div>
+                                <div class="list-info-item-content">@Model.CustomersModel.Address</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="list-info-item">
+                                <div class="list-info-item-header">SỐ ĐIỆN THOẠI LIÊN HỆ</div>
+                                <div class="list-info-item-content">@Model.CustomersModel.PhoneNumber</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-md-12">
+        <div class="az-page-info">
+            <div class="az-page-info-title">Sản phẩm</div>
+            <div class="az-page-info-body">
+                <div class="az-data-table">
+                    <table class="table table-bordered table-hover az-table " role="grid">
+                        <thead>
+                            <tr>
+                                <td>Mã SKU</td>
+                                <td>Tên sản phẩm</td>
+                                <td>Số lượng nhập</td>
+                                <td>Giá nhập</td>
+                                <td>Thành tiền</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ long valueSum = 0; }
+                            @{ long valueMoney = 0;}
+                            @foreach (var item in Model.ListDataOrder)
+                            {
+                                <tr>
+                                    <td>@Model.getProduct(item.ProductId)?.Code</td>
+                                    <td>@Model.getProduct(item.ProductId)?.Name</td>
+                                    <td>@item.ImportNumber</td>
+                                    <td>@item.ImportPrice</td>
+                                    <td>@String.Format("{0:#,###}", @item.ImportNumber * @item.ImportPrice)</td>
+                                    @{ valueSum += item.ImportNumber; }
+                                    @{ valueMoney += (item.ImportPrice * item.ImportNumber); }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <az-text-area-model is-enable="false" add-js="false" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).Note" label="Ghi chú"></az-text-area-model>
+    </div>
+    <div class="col-md-6">
+        <div class="list-info-money">
+            <div class="item-info-money">
+                <div class="label">Số lượng</div>
+                <div class="value">@String.Format("{0:#,###}", valueSum)</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label">Tổng tiền (VNĐ)</div>
+                <div class="value">@String.Format("{0:#,###}", valueMoney)</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label">Chi phí (VNĐ)</div>
+                <div class="value">0</div>
+            </div>
+            <div class="item-info-money">
+                <div class="label"><b>Tiền cần trả (VNĐ)</b></div>
+                <div class="value">@String.Format("{0:#,###}", valueMoney)</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 row footer">
+        <az-layout is-show="@(Model.DataCurrent.PurchaseOrderPayment != OrderPayment.Paid && Model.DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)" class="col-md-10">
+            <button class="btn btn-secondary az-btn az-payment" data-cmd-key="f4"><i class="far fa-finish"></i> Xác nhận thanh toán (F4)</button>
+        </az-layout>
+        <az-layout is-show="@(Model.DataCurrent.PurchaseOrderImport != PurchaseOrderImport.Export && Model.DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)" class="col-md-2">
+            <button class="btn btn-primary az-btn az-export-store" data-cmd-key="f3"><i class="far fa-finish"></i> Xuất kho (F3)</button>
+        </az-layout>
+    </div>
+</az-layout>

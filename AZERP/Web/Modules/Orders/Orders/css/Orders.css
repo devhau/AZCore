@@ -1,4 +1,8 @@
-﻿.list-info-money {
+﻿.az-page-info-body .az-data-table {
+    padding-top: 25px;
+}
+
+.list-info-money {
     float: right;
     width: 300px;
     margin: 20px 0;
@@ -33,3 +37,20 @@
     .list-info-customer .list-info-item .list-info-item-content {
         margin-left: 10px;
     }
+
+.ManagerOrder[link-id] .modal-footer {
+    display: inline-block;
+}
+
+button.az-export-store, button.az-payment {
+    float: right
+}
+
+.az-update-order textarea {
+    height: 100px;
+}
+
+.az-commit-order .footer {
+    padding-top: 1rem;
+    border-top: 1px solid #e9ecef;
+}
