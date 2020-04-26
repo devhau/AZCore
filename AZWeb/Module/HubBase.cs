@@ -51,8 +51,8 @@ namespace AZWeb.Module
                 if (!UserOnline.ContainsKey(this.User.Id))
                 {
                     UserOnline.Add(this.User.Id, this.User);
-                    await UpdateUserAsync();
                 }
+                await UpdateUserAsync();
             }
             await base.OnConnectedAsync();
         }

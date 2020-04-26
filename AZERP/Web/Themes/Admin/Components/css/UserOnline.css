@@ -3,70 +3,52 @@
     bottom:50px;
     right:5px;
 }
-    .UserOnline .layout-chat {
-        position: relative;
-        display: none;
-        width: 300px;
-        height: 400px;
-        background: #ccc;
-        border: 2px solid #808080;
-        border-radius: 5px 5px 0px 0px;
-    }
-        .UserOnline .layout-chat .btn-chat-close {
-            font-size:25px;
-            position:absolute;
-            top:5px;
-            right:5px;
-        }
-            .UserOnline .layout-chat .btn-chat-close:hover {
-                cursor:pointer;
-            }
-    .UserOnline .layout-logo .logo {
-        width: 50px;
-    }
-    .UserOnline .layout-logo label {
-        display:none;
-    }
-    .UserOnline:hover .layout-logo label {
-        display:block;
-    }
-    .UserOnline:hover .layout-logo {
-        width: 150px;
-        text-align: center;
-        padding: 5px;
-        background: #f5fa00;
-        cursor: pointer;
-        border: 2px solid #808080;
-        border-radius: 5px;
-    }
-    .UserOnline.show {
-      bottom:0px;
-    }
-    .UserOnline.show .layout-chat {
-        display: block;
-    }
-        .UserOnline.show .layout-logo {
-            display: none;
-        }
-.user-online {
-    margin-top: 35px;
-    width: 100%;
-    max-height: calc(100% - 35px);
-    overflow: auto;
+.UserOnline .layout-icon {
+    width: 60px;
+    height: 60px;
 }
-    .user-online .item-user {
-        padding: 5px;
-        border: 1px solid #ccc;
-        background: #808080;
-        color: #eee;
-        font-weight: 600;
-        font-size: 19px;
-    }
-        .user-online .item-user.me {
-            background: #929081;
-        }
-        .user-online .item-user:hover {
-            background: #ff0000;
-            cursor:pointer;
-        }
-        
+.UserOnline .layout-icon  img{
+    width:100%;
+}
+.UserOnline .layout-icon:hover {
+    padding: 5px;
+    width: 67px;
+    height: 67px;
+    border:1px solid #0094ff;
+    border-radius:5px;
+    background:#00ffff;
+    cursor:pointer;
+}
+.UserOnline.show{
+    bottom:0px;
+    right:5px;
+}
+.UserOnline.show .layout-icon,.layout-chat,.layout-chat .user-chat {
+    display:none;
+}
+.UserOnline.show .layout-chat{
+    display:block;
+    height:400px;
+}
+.layout-chat .layout-header{
+    height:40px;
+    background:#2f6bdb;
+    width:100%;
+}
+.layout-chat .layout-content{
+    height:360px;
+    background:#2f6bdb;
+}
+.layout-chat .layout-header .fas{
+    margin:9px;
+    font-size:25px;
+    color:#fff;
+}
+.UserOnline.show .layout-chat .user-list,.UserOnline.show .layout-chat .user-chat{
+    width:300px;
+    height:100%;
+    float:left;
+    background:#00ffff;
+    border:1px solid #0094ff;
+
+}

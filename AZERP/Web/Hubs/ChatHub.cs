@@ -21,7 +21,7 @@ namespace AZERP.Web.Hubs
         }
         protected override async Task UpdateUserAsync()
         {
-            await this.SendAllAsync("UserOnline", UserOnline.Values.ToList(),this.User);
+            await this.SendAllAsync("UserOnline", UserOnline.Values.ToList());
         }
     }
 }
