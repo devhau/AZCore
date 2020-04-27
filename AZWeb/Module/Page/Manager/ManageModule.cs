@@ -36,9 +36,6 @@ namespace AZWeb.Module.Page.Manager
             Service = this.HttpContext.GetService<TService>();
             ModuleInfo = this.GetType().GetAttribute<ModuleInfoAttribute>();
         }
-
-
-
         public virtual void BindTableColumn()
         {
             this.Columns = this.GetType().GetAttributes<TableColumnAttribute>().ToList();
@@ -64,11 +61,11 @@ namespace AZWeb.Module.Page.Manager
                 actionWhere(T);
             });
             this.PageMax = (int)Math.Ceiling((decimal)this.PageTotal / (decimal)this.PageSize);
-            return Service.ExecuteQuery((T) => {
-                if (PageIndex <= 0)
-                {
-                    PageIndex = 1;
-                }
+            if (PageIndex <= 0)
+            {
+                PageIndex = 1;
+            }
+            return Service.ExecuteQuery((T) => {             
                 T.Pagination(PageIndex, PageSize);
                 actionWhere(T);
             }).ToList();
@@ -127,11 +124,6 @@ namespace AZWeb.Module.Page.Manager
         where TForm : UpdateModule<TService, TModel>
     {
         protected TForm FormUpdate;
-        public override void BeforeRequest()
-        {
-            
-            base.BeforeRequest();
-        }
         public override void AfterRequest()
         {
             base.AfterRequest();
@@ -159,9 +151,7 @@ namespace AZWeb.Module.Page.Manager
             if (ModuleInfo == null || (this.HasPermission(ModuleInfo.ViewCode) && ((Id == null && this.HasPermission(ModuleInfo.AddCode)) || (Id >= 0 && this.HasPermission(ModuleInfo.EditCode)))))
             {
                 FormUpdate.BeforeRequest();
-                var DataForm = new TModel();
-                this.HttpContext.BindFormTo(DataForm);
-                return FormUpdate.Post(Id, DataForm);
+                return FormUpdate.Post(Id);
             }
             return Json(Id == null ? "Bạn không có quyền thêm mới" : "Bạn không có quyền chỉnh sửa", HttpStatusCode.Unauthorized);
         }

@@ -88,9 +88,7 @@ namespace AZWeb.Extensions
             services.AddRazorPages();
             services.AddHttpContextAccessor();
             services.AddSingleton<IPagesConfig>((p)=> ReadConfig<PagesConfig>.Load(null, (t) => string.Format("{0}/{1}", p.GetRequiredService<IWebHostEnvironment>().ContentRootPath,t)));
-
             services.AddSingleton<ISecurityStampValidator, AZSecurityStampValidator>();
-            //IHostedService
             foreach (var item in AppDomain.CurrentDomain.GetAssemblies().SelectMany(p => p.GetTypeFromInterface<IAZDomain>())) {
                 if (item.IsTypeFromInterface<IAZTransient>()) {
                     services.AddTransient(item);
@@ -108,7 +106,10 @@ namespace AZWeb.Extensions
                 if (item.IsTypeFromInterface<IPermissionService>())
                 {
                     services.AddTransient(typeof(IPermissionService), item);
-
+                }
+                if (item.IsTypeFromInterface<IGetGenCodeService>())
+                {
+                    services.AddTransient(typeof(IGetGenCodeService), item);
                 }
             }
             // Add EntityTransaction
