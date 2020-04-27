@@ -20,7 +20,7 @@ namespace AZWeb.Module.TagHelper.Module
     public class AZTable : TagHelperBase
     {
         [HtmlAttributeName("FunKey")]
-        public Func<object, object> FunKey { get; set; }
+        public Func<dynamic, object> FunKey { get; set; }
         [HtmlAttributeName("is-index")]
         public bool IsIndex { get; set; } = true;
         [HtmlAttributeName("is-edit")]

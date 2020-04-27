@@ -1,4 +1,5 @@
 ﻿using AZCore.Identity;
+using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Constant;
 using AZWeb.Module.View;
@@ -14,7 +15,8 @@ using System.Security.Claims;
 namespace AZWeb.Module.Page
 {
     public class PageModule : ModuleBase
-    {   
+    {
+        #region --- Init ----
         public bool IsTheme { get; set; } = true;
         public string LayoutTheme { get; set; } = "";
         public string Title { get => Html.Title; set => Html.Title = value; }
@@ -35,14 +37,17 @@ namespace AZWeb.Module.Page
         {
             this.Html.AddCSS(Code, link, CDN);
         }
+        #endregion
+
         public PageModule(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             if (this.HttpContext.Items[AZWebConstant.Html] == null) {
                 this.HttpContext.Items[AZWebConstant.Html] = new HtmlContent();
-            }
-           
+            }           
             this.renderView = new RenderView(this.HttpContext);
         }
+
+        #region --- Auth ---
         public virtual IView GoToAuth() {
             return GoToRedirect("/dang-nhap.az");
         }
@@ -66,7 +71,7 @@ namespace AZWeb.Module.Page
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             await HttpContext.SignOutAsync(IdentityConstants.TwoFactorUserIdScheme);
         }
-
+        #endregion
 
         #region --- View ---
         public virtual IView View() {
@@ -120,6 +125,10 @@ namespace AZWeb.Module.Page
         }
         #endregion
 
+        [OnlyAjax]
+        public IView PostUpload() {
+            return Json("");
+        }
         public virtual IHtmlContent ViewChild(string viewName, object model)
         {
             return this.renderView.GetContentHtmlFromView(new HtmlView()
