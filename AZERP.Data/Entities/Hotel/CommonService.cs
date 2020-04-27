@@ -1,10 +1,9 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
 using AZCore.Domain;
-using System;
-using System.Collections.Generic;
+using AZERP.Data.Enums;
+using AZWeb.Module.Attributes;
 using System.Data;
-using System.Text;
 
 namespace AZERP.Data.Entities
 {
@@ -24,6 +23,7 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Mã dịch vụ cho khu vực
         /// </summary>
+        [FieldAutoGenCode(Key = SystemCode.CommonServiceCode)]
         [Field(Length = 500)]
         public string CommonServiceID { get; set; }
         /// <summary>

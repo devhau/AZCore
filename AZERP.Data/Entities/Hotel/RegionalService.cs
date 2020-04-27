@@ -1,10 +1,9 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
 using AZCore.Domain;
-using System;
-using System.Collections.Generic;
+using AZERP.Data.Enums;
+using AZWeb.Module.Attributes;
 using System.Data;
-using System.Text;
 
 namespace AZERP.Data.Entities
 {
@@ -24,14 +23,15 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Mã dịch vụ cho khu vực
         /// </summary>
+        [FieldAutoGenCode(Key = SystemCode.RegionalService)]
         [Field(Length = 500)]
         public string RegionalServiceID { get; set; }
         /// <summary>
         /// Tên dịch vụ cho khu vực
         /// </summary>
-        [Field(Length = 500)]
+        [Field]
         [FieldDisplay]
-        public string RegionalServiceName { get; set; }
+        public long CommonServiceID { get; set; }
         /// <summary>
         /// Đơn giá
         /// </summary>
