@@ -11,7 +11,7 @@ AZCore.newGuid = function () {
         return v.toString(16);
     });
 }
-AZCore.token = undefined;
+AZCore.Token = undefined;
 String.format = function () {
     var s = arguments[0];
     for (var i = 0; i < arguments.length - 1; i++) {
@@ -80,4 +80,7 @@ $.fn.TableFreeze = function () {
         $($this).find('thead').css("left", - $scrollLeft); //fix the thead relative to the body scrolling
         $isCroll = false;
     });
+}
+$.fn.UploadFile = function () {
+
 }

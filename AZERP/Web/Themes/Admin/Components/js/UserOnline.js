@@ -6,10 +6,7 @@
     $this.ChatMessage = $($id).find(".user-chat .chat-message");
     $this.SenderUser = $($id).find(".user-chat .send-user");
     $($id).find(".layout-icon").on("click", function () {
-        $($id).addClass("show");
-        $this.connection.invoke("SendMessage", "1", "Xin chào1").catch(function (err) {
-            return console.error(err.toString());
-        });
+        $($id).addClass("show");      
     });
     $($id).find(".btn-show-chat").on("click", function () {
         if (!$(this).parents(".layout-chat ").hasClass("show-chat"))
