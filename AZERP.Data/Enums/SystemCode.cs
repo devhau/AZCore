@@ -7,6 +7,12 @@ namespace AZERP.Data.Enums
         [Field(Display ="Tao thử mày thôi")]
         Demo,
         [Field(Display = "Khu nhà trọ")]
-        AreaCode
+        AreaCode,
+        [Field(Display = "Mã đơn nhập")]
+        ImportCode,
+        [Field(Display = "Mã đơn xuất")]
+        ExportCode,
+        [Field(Display = "Mã sản phẩm")]
+        ProdcutCode,
     }
 }

@@ -65,7 +65,7 @@ namespace AZERP.Data.Entities
         /// Chỉ số bắt đầu.
         /// </summary>
         [Field]
-        public long PrefixIndex { get; set; }=1;
+        public long PrefixIndex { get; set; } = 0;
         /// <summary>
         /// Đối tác
         /// </summary>
