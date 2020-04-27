@@ -20,6 +20,11 @@ namespace AZWeb.Module.Page.Manager
         public TModel Data;
         public List<ItemValue> Errors = new List<ItemValue>();
         public List<TableColumnAttribute> Columns { get; set; }
+        [BindService]
+        public IGetGenCodeService getGenCodeService;
+        public virtual IView Vaildate(TModel model, bool isNew) {
+            return null;
+        }
         public virtual void BindTableColumn()
         {
             this.Columns = this.GetType().GetAttributes<TableColumnAttribute>().ToList();
@@ -35,10 +40,6 @@ namespace AZWeb.Module.Page.Manager
             this.IsTheme = false;
             base.IntData();
         }
-        public virtual bool DoValidate(TModel DataForm,bool isNew=false) {
-
-            return true;
-        }
         public UpdateModule(IHttpContextAccessor httpContext) : base(httpContext)
         {
             Service = this.HttpContext.GetService<TService>();
@@ -52,7 +53,15 @@ namespace AZWeb.Module.Page.Manager
         }
         public virtual void DataFormToData(TModel DataForm, Func<PropertyInfo, bool> funProper = null)
         {
-            if (this.Data == null) return;
+            if (this.Data == null) {
+                foreach(var item in typeof(TModel).GetProperties()){
+                    var attr = item.GetAttribute<FieldAutoGenCodeAttribute>();
+                    if (attr != null&& item.GetValue(DataForm).IsNullOrEmpty()) {
+                        item.SetValue(DataForm, getGenCodeService.GetGenCode(attr.Key, this.TenantId));
+                    }
+                }
+                return;
+            }
             var ModelType = typeof(TModel);
             foreach (var item in ModelType.GetProperties()) {
                 if (this.HttpContext.Request.Form.ContainsKey(item.Name) && (funProper==null||funProper(item))) 
@@ -61,42 +70,39 @@ namespace AZWeb.Module.Page.Manager
                 }
             }
         }
-        public virtual IView Post(long? Id, TModel DataForm)
+        public virtual IView Post(long? Id)
         {
+            var DataForm = new TModel();
+            this.HttpContext.BindFormTo(DataForm);
             if (Id != null&& 0!=Id)
             {
                 this.Data = this.Service.GetById(Id);
                 DataFormToData(DataForm);
                 (this.Data as IEntityModel).UpdateAt = DateTime.Now;
                 (this.Data as IEntityModel).UpdateBy = User.Id;
-                if (DoValidate(this.Data))
+                var rs = Vaildate(this.Data,false);
+                if (rs==null)
                 {
                     Service.Update(this.Data);
                     return Json("Cập nhật dữ liệu thành công");
                 }
-                else {
-                    return Json("Cập nhật dữ liệu không thành công",this.Errors,System.Net.HttpStatusCode.BadRequest);
-
-                }
-
+                return rs;
             }
             else {
                 DataFormToData(DataForm);
                 (DataForm as IEntityModel).CreateAt = DateTime.Now;
                 (DataForm as IEntityModel).CreateBy = User.Id;
-                if (DoValidate(this.Data))
+                var rs = Vaildate(DataForm,true);
+                if (rs == null)
                 {
                     Service.Insert(DataForm);
                     return Json("Thêm mới dữ liệu thành công");
                 }
-                else
-                {
-                    return Json("Thêm mới dữ liệu không thành công", this.Errors, System.Net.HttpStatusCode.BadRequest);
-
-                }
+                return rs;
             }
         }
     }
+
     public class UpdateModule<TService, TModel, TManager> : UpdateModule<TService, TModel>
         where TModel : IEntity, new()
         where TService : EntityService<TService, TModel>

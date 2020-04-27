@@ -1,10 +1,8 @@
-﻿using AZCore.Database;
-using AZERP.Data.Entities;
+﻿using AZERP.Data.Entities;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Linq;
 
 namespace AZERP.Web.Modules.Product.StockAdjustments
 {
@@ -17,11 +15,12 @@ namespace AZERP.Web.Modules.Product.StockAdjustments
         {
             this.Title = "Thêm/Sửa đơn kiểm hàng";
         }
-        public override IView Post(long? Id, StockAdjusmentModel DataForm)
+        public override IView Post(long? Id)
         {
             this.Service.BeginTransaction();
             try
             {
+                var DataForm = new StockAdjusmentModel();
                 DataFormToData(DataForm);
 
                 DataForm.CreateAt = DateTime.Now;
@@ -30,7 +29,7 @@ namespace AZERP.Web.Modules.Product.StockAdjustments
               
                 foreach (StockAdjusmentModel model in this.ManagerForm.DataStock)
                 {
-                    model.ProductCode = id; ;
+                    model.ProductCode = id; 
                 }
 
                 if (this.Service.InsertRange(this.ManagerForm.DataStock) > 0)
