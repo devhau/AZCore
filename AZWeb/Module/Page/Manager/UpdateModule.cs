@@ -22,7 +22,7 @@ namespace AZWeb.Module.Page.Manager
         public List<TableColumnAttribute> Columns { get; set; }
         [BindService]
         public IGetGenCodeService getGenCodeService;
-        public virtual IView Vaildate(TModel model, bool isNew) {
+        public virtual IView Validate(TModel model, bool isNew) {
             return null;
         }
         public virtual void BindTableColumn()
@@ -80,7 +80,7 @@ namespace AZWeb.Module.Page.Manager
                 DataFormToData(DataForm);
                 (this.Data as IEntityModel).UpdateAt = DateTime.Now;
                 (this.Data as IEntityModel).UpdateBy = User.Id;
-                var rs = Vaildate(this.Data,false);
+                var rs = Validate(this.Data,false);
                 if (rs==null)
                 {
                     Service.Update(this.Data);
@@ -92,7 +92,7 @@ namespace AZWeb.Module.Page.Manager
                 DataFormToData(DataForm);
                 (DataForm as IEntityModel).CreateAt = DateTime.Now;
                 (DataForm as IEntityModel).CreateBy = User.Id;
-                var rs = Vaildate(DataForm,true);
+                var rs = Validate(DataForm,true);
                 if (rs == null)
                 {
                     Service.Insert(DataForm);

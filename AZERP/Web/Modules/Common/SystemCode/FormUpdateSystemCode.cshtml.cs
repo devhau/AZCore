@@ -15,7 +15,7 @@ namespace AZERP.Web.Modules.Common.SystemCode
         {
             this.Title = "Quản lý mã code";
         }
-        public override IView Vaildate(SystemCodeModel model, bool isNew)
+        public override IView Validate(SystemCodeModel model, bool isNew)
         {
             if (isNew) {
                 if (this.TenantId == null)
