@@ -1,6 +1,8 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
 using AZCore.Domain;
+using AZERP.Data.Enums;
+using AZWeb.Module.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -24,6 +26,7 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Mã khu vực/ tòa nhà
         /// </summary>
+        [FieldAutoGenCode(Key =SystemCode.AreaCode)]
         [Field(Length = 500)]
         public string AreaID { get; set; }
         /// <summary>

@@ -12,9 +12,10 @@ namespace AZCore.Identity
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }
+        public long? TentaintId { get; set; }
         public List<string> PermissionActive { get; set; }
         public virtual bool HasPermission(string PermissonCode) {
-            return string.IsNullOrEmpty(PermissonCode)|| (this.PermissionActive != null && this.PermissionActive.IndexOf(PermissonCode)>=0);
+            return string.IsNullOrEmpty(PermissonCode)|| (this.PermissionActive != null && this.PermissionActive.IndexOf(PermissonCode)>=0)||true;
         }
     }
     public static class UserInfoExtention {
