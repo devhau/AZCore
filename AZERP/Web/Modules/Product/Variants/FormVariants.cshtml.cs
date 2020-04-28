@@ -61,8 +61,8 @@ namespace AZERP.Web.Modules.Product.Variants
             }
             return Service.ExecuteQuery((T) => {
                 T.Pagination(PageIndex, PageSize);
-                T.Join("az_purchase_order_product", (t1, t2) =>$"{t1}.Id={t2}.ProductId");
-                T.Join("az_purchase_order_product", "az_purchase_order", (t1, t2) => $"{ t1}.PurchaseOrderId={t2}.Id");
+                T.Join("az_purchase_order_product", (t1, t2) =>$"{t1}.Id={t2}.ProductId", JoinType.LeftOuterJoin);
+                T.Join("az_purchase_order_product", "az_purchase_order", (t1, t2) => $"{ t1}.PurchaseOrderId={t2}.Id", JoinType.LeftOuterJoin);
                 T.SetColumn(@" az_product.* , 
                   SUM(CASE  WHEN az_purchase_order.Type = 0 AND az_purchase_order.PurchaseOrderImport = 0 AND az_purchase_order.PurchaseOrderStatus = 0 THEN az_purchase_order_product.ImportNumber ELSE 0 END) Incoming,
                   SUM(CASE  WHEN az_purchase_order.Type = 1 AND az_purchase_order.PurchaseOrderImport = 3 AND az_purchase_order.PurchaseOrderStatus = 0 THEN az_purchase_order_product.ImportNumber ELSE 0 END) OnWay,

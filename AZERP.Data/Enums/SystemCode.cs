@@ -12,5 +12,11 @@ namespace AZERP.Data.Enums
         ExportCode,
         [Field(Display = "Mã sản phẩm")]
         ProdcutCode,
+        [Field(Display = "Mã khách hàng")]
+        CustomerCode,
+        [Field(Display = "Mã nhà cung cấp")]
+        SupplierCode,
+        [Field(Display = "Mã kho")]
+        StoreCode
     }
 }
