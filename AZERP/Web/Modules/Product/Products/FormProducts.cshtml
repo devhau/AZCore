@@ -2,9 +2,9 @@
 <az-module-layout script-random='(id)=>"$(\"."+id+"\").AZManager();"'>
     <div class="az-manager" data-form-size="az-modal-xl">
         <div class="az-toolbar">
-            <az-button class="btn btn-success btn-sm az-btn az-btn-add" cmd-key="f1" icon="far fa-plus-square" text="Thêm Mới (F1)" />
-            <az-button class="btn btn-info btn-sm az-btn az-btn-export" cmd-key="f2" icon="fas fa-file-export" text="Xuất Excel (F2)" />
-            <az-button class="btn btn-secondary btn-sm az-btn az-btn-import" cmd-key="f3" icon="fas fa-file-import" text="Nhập Excel (F3)" />
+            <az-button class="btn btn-success btn-sm az-btn az-btn-add" cmd-key="f1" icon="far fa-plus-square" for-permission="@PE.Product_Add" text="Thêm Mới (F1)" />
+            <az-button class="btn btn-info btn-sm az-btn az-btn-export" cmd-key="f2" icon="fas fa-file-export" for-permission="@PE.Product_Export" text="Xuất Excel (F2)" />
+            <az-button class="btn btn-secondary btn-sm az-btn az-btn-import" cmd-key="f3" icon="fas fa-file-import" for-permission="@PE.Product_Import" text="Nhập Excel (F3)" />
             <az-link href="/loai-san-pham.az" class="btn btn-secondary btn-sm az-btn" cmd-key="f4" icon="fa fa-list-alt" text="Nhóm sản phẩm (F4)" />
         </div>
         <div class="az-search-manager">
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((ProductModel)item).Id" columns="Model.Columns" pagination="Model"></az-table>
+            <az-table data="Model.Data" FunKey="(item)=>((ProductModel)item).Id" columns="Model.Columns" is-edit="Model.HasPermission(PE.Product_Edit)" is-delete="Model.HasPermission(PE.Product_Remove)" pagination="Model"></az-table>
         </div>
         <div class="az-bottom-manager">
             <az-pagination pagination="Model" />

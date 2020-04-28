@@ -15,7 +15,7 @@ namespace AZCore.Identity
         public long? TentaintId { get; set; }
         public List<string> PermissionActive { get; set; }
         public virtual bool HasPermission(string PermissonCode) {
-            return string.IsNullOrEmpty(PermissonCode)|| (this.PermissionActive != null && this.PermissionActive.IndexOf(PermissonCode)>=0)||true;
+            return string.IsNullOrEmpty(PermissonCode)|| (this.PermissionActive != null && this.PermissionActive.IndexOf(PermissonCode)>=0);
         }
     }
     public static class UserInfoExtention {

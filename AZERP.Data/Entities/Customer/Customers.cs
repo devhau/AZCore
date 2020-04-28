@@ -2,6 +2,7 @@
 using AZCore.Database.Attributes;
 using AZCore.Domain;
 using AZERP.Data.Enums;
+using AZWeb.Module.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,6 +26,7 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Mã khách hàng
         /// </summary>
+        [FieldAutoGenCode(Key = SystemCode.CustomerCode)]
         [Field(Length = 500)]
         public string Code { get; set; }
         /// <summary>

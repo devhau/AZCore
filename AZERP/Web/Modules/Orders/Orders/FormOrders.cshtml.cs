@@ -47,7 +47,8 @@ namespace AZERP.Web.Modules.Orders.Orders
         public UserService userService;
         [BindService]
         public EntityTransaction entityTransaction;
-
+        [BindService]
+        public IGetGenCodeService genCodeService;
         [BindQuery]
         public long Id { get; set; }
         [BindForm]
@@ -148,14 +149,15 @@ namespace AZERP.Web.Modules.Orders.Orders
 
                 if (dataForm.Code == "" || dataForm.Code == null)
                 {
-                    var allCount = this.Service.Select(p => p.Type == OrderType.Out).Count() + 1;
-                    var tmpCode = "CON" + String.Format("{0:D5}", allCount);
-                    while (this.Service.Select(p => p.Code == tmpCode).Count() > 0)
-                    {
-                        allCount++;
-                        tmpCode = "CON" + String.Format("{0:D5}", allCount);
-                    }
-                    dataForm.Code = tmpCode;
+                    dataForm.Code = this.genCodeService.GetGenCode(SystemCode.ExportCode);
+                    //var allCount = this.Service.Select(p => p.Type == OrderType.Out).Count() + 1;
+                    //var tmpCode = "CON" + String.Format("{0:D5}", allCount);
+                    //while (this.Service.Select(p => p.Code == tmpCode).Count() > 0)
+                    //{
+                    //    allCount++;
+                    //    tmpCode = "CON" + String.Format("{0:D5}", allCount);
+                    //}
+                    //dataForm.Code = tmpCode;
                 }
 
                 var result = entityTransaction.DoTransantion<PurchaseOrderService, PurchaseOrderProductService>((t, t1, t2) =>
@@ -259,6 +261,11 @@ namespace AZERP.Web.Modules.Orders.Orders
             return View("UpdateOrders");
 
         }
+        /// <summary>
+        /// Duyệt hóa đơn
+        /// </summary>
+        /// <param name="commit"></param>
+        /// <returns></returns>
         [OnlyAjax]
         public IView PostCommit(long commit)
         {
@@ -269,7 +276,7 @@ namespace AZERP.Web.Modules.Orders.Orders
 
             var data = this.Service.GetById(this.Id);
             
-            if(commit == 1)
+            if(commit == 1) // Xuất kho
             {
                 var result = entityTransaction.DoTransantion<PurchaseOrderProductService, ProductService, PurchaseOrderService>((t, t1, t2, t3) =>
                 {
@@ -281,6 +288,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                         t2.Update(product);
                     }
                     data.PurchaseOrderImport = PurchaseOrderImport.Export;
+                    data.UpdateAt = DateTime.Now;
 
                     if (data.PurchaseOrderPayment == OrderPayment.Paid)
                     {
@@ -297,11 +305,12 @@ namespace AZERP.Web.Modules.Orders.Orders
                 {
                     return Json("Xuất kho thất bại", System.Net.HttpStatusCode.BadRequest);
                 }
-            } else if (commit == 2)
+            } else if (commit == 2) // Xác nhận thanh toán
             {
                 var result = entityTransaction.DoTransantion<PurchaseOrderService>((t, t1) =>
                 {
                     data.PurchaseOrderPayment = OrderPayment.Paid;
+                    data.UpdateAt = DateTime.Now;
                     if (data.PurchaseOrderImport == PurchaseOrderImport.Export)
                     {
                         data.PurchaseOrderStatus = OrderStatus.Complete;
