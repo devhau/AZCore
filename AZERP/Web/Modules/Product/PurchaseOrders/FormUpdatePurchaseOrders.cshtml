@@ -3,16 +3,9 @@
 <az-script module="PurchaseOrders.js" />
 
 <az-layout class="az-update row az-update-purchase-order">
-
-    <div class="form-group @(Model.DataCurrent == null ? "col-md-12" : "col-md-6") ">
-        <az-text-model is-enable="Model.DataCurrent == null" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />
-    </div>
-    <az-layout is-show="Model.DataCurrent != null" class="form-group col-md-6">
-        <az-text-model is-enable="false" model="Model.UserModel" func="(item)=>((UserModel)item).FullName" label="Nhân viên tạo đơn" />
-    </az-layout>
-    <div class="form-group col-md-12">
+    <div class="form-group col-md-8">
         <div class="az-page-info">
-            <div class="az-page-info-title">Nhà cung cấp</div>
+            <div class="az-page-info-title">Thông tin nhà cung cấp</div>
             <div class="az-page-info-body">
                 <az-supplier-select is-show="@(Model.CanEdit)" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).PartnerId" where-func="(item)=>((SupplierModel)item).SupplierStatus == true" class="supplierClass" null-text="Chọn nhà cung cấp" />
                 <div class="list-info-supplier">
@@ -37,9 +30,25 @@
             </div>
         </div>
     </div>
+    <div class="form-group col-md-4">
+        <div class="az-page-info">
+            <div class="az-page-info-title">Thông tin đơn nhập hàng</div>
+            <div class="az-page-info-body">
+                <div class="form-group col-md-12">
+                    <az-text-model is-enable="Model.DataCurrent == null" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />
+                </div>
+                <az-layout is-show="Model.DataCurrent != null" class="form-group col-md-12">
+                    <az-text-model is-enable="false" model="Model.UserModel" func="(item)=>((UserModel)item).FullName" label="Nhân viên tạo đơn" />
+                </az-layout>
+                <div class="form-group col-md-12">
+                    <az-store-select is-show="@(Model.CanEdit)" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).StoreId" where-func="(item)=>((StoreModel)item).Status == AZCore.Database.EntityStatus.Active" label="Kho nhập hàng" null-text="Chọn kho" />
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="form-group col-md-12">
         <div class="az-page-info">
-            <div class="az-page-info-title">Sản phẩm</div>
+            <div class="az-page-info-title">Thông tin sản phẩm</div>
             <div class="az-page-info-body">
                 <az-product-select where-func="(item)=>((ProductModel)item).ProductSellable == true" is-show="@(Model.CanEdit)" class="productClass" null-text="Chọn sản phẩm" />
                 <div class="az-data-table">

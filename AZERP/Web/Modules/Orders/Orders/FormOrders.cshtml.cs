@@ -278,14 +278,19 @@ namespace AZERP.Web.Modules.Orders.Orders
             
             if(commit == 1) // Xuất kho
             {
-                var result = entityTransaction.DoTransantion<PurchaseOrderProductService, ProductService, PurchaseOrderService>((t, t1, t2, t3) =>
+                var result = entityTransaction.DoTransantion<PurchaseOrderProductService, PurchaseOrderService, StoreProductService>((t, t1, t2, t3) =>
                 {
                     var listDetail = t1.Select(p => p.PurchaseOrderId == this.Id).ToList();
                     foreach (var item in listDetail)
                     {
-                        var product = t2.Select(p => p.Id == item.ProductId).First();
-                        product.Available -= item.ImportNumber;
-                        t2.Update(product);
+                        // Sản phẩm đã có trong kho
+                        // Tồn kho (trong kho) = Tồn kho - lượng xuất
+                        // Tồn kho (theo từng hóa đơn) = Tồn kho - lượng xuất
+                        var storeProduct = t3.Select(p => p.ProductId == item.ProductId && p.StoreId == data.StoreId).First();
+                        item.Available = storeProduct.Available - item.ImportNumber;
+                        storeProduct.Available = storeProduct.Available - item.ImportNumber;
+                        t1.Update(item);
+                        t3.Update(storeProduct);
                     }
                     data.PurchaseOrderImport = PurchaseOrderImport.Export;
                     data.UpdateAt = DateTime.Now;
@@ -296,7 +301,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                         data.CompleteOn = DateTime.Now;
                     }
 
-                    t3.Update(data);
+                    t2.Update(data);
                 });
                 if(result)
                 {

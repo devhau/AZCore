@@ -38,5 +38,10 @@ namespace AZERP.Data.Entities
         /// </summary>
         [Field]
         public long Available { get; set; }
+        /// <summary>
+        /// Số lượng tối đa
+        /// </summary>
+        [Field]
+        public long MaxAvailable { get; set; }
     }
 }

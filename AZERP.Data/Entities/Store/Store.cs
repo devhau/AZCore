@@ -27,14 +27,14 @@ namespace AZERP.Data.Entities
         /// Mã kho
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.StoreCode)]
-        [Field]
+        [Field(Length = 50)]
         public string Code { get; set; }
         /// <summary>
         /// Tên Kho
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
-        public string StoreName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Tên viết tắt
         /// </summary>
@@ -53,7 +53,7 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Mô tả kho
         /// </summary>
-        [Field]
+        [Field(Length = 500)]
         public string Description { get; set; }
     }
 }

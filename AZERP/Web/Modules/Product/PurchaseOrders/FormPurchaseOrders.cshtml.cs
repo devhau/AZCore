@@ -138,6 +138,8 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 this.HttpContext.BindFormTo(dataForm);
                 if (dataForm.PartnerId == 0)
                     return Json("Chưa chọn nhà cung cấp", System.Net.HttpStatusCode.BadRequest);
+                if (dataForm.StoreId == 0)
+                    return Json("Chưa chọn kho nhập hàng", System.Net.HttpStatusCode.BadRequest);
                 if (this.ListDataOrder == null || this.ListDataOrder.Count == 0)
                     return Json("Không được để trống danh sách sản phẩm", System.Net.HttpStatusCode.BadRequest);
                 
@@ -193,6 +195,8 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 {
                     if (dataForm.PartnerId == 0)
                         return Json("Chưa chọn nhà cung cấp", System.Net.HttpStatusCode.BadRequest);
+                    if (dataForm.StoreId == 0)
+                        return Json("Chưa chọn kho nhập hàng", System.Net.HttpStatusCode.BadRequest);
                     if (this.ListDataOrder == null || this.ListDataOrder.Count == 0)
                         return Json("Không được để trống danh sách sản phẩm", System.Net.HttpStatusCode.BadRequest);
 
@@ -274,14 +278,37 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
             
             if(commit == 1) // Nhập kho
             {
-                var result = entityTransaction.DoTransantion<PurchaseOrderProductService, ProductService, PurchaseOrderService>((t, t1, t2, t3) =>
+                var result = entityTransaction.DoTransantion<PurchaseOrderProductService, PurchaseOrderService, StoreProductService>((t, t1, t2, t3) =>
                 {
                     var listDetail = t1.Select(p => p.PurchaseOrderId == this.Id).ToList();
                     foreach (var item in listDetail)
                     {
-                        var product = t2.Select(p => p.Id == item.ProductId).First();
-                        product.Available += item.ImportNumber;
-                        t2.Update(product);
+                        var storeProduct = new StoreProductModel();
+                        var selectStorePro = t3.Select(p => p.ProductId == item.ProductId && p.StoreId == data.StoreId);
+                        
+                        // Sản phẩm đã có trong kho
+                        // Tồn kho (trong kho) = Tồn kho + lượng nhập
+                        // Tồn kho (theo từng hóa đơn) = Tồn kho + lượng nhập
+                        if (selectStorePro.Count() > 0)
+                        {
+                            storeProduct = selectStorePro.First();
+                            item.Available = storeProduct.Available + item.ImportNumber;
+                            storeProduct.Available = storeProduct.Available + item.ImportNumber;
+                            t3.Update(storeProduct);
+                        }
+                        // Sản phẩm chưa có trong kho
+                        // Tồn kho (trong kho) = lượng nhập
+                        // Tồn kho (theo từng hóa đơn) = lượng nhập
+                        else
+                        {
+                            item.Available = item.ImportNumber;
+                            storeProduct.ProductId = item.ProductId;
+                            storeProduct.StoreId = data.StoreId;
+                            storeProduct.Available = item.ImportNumber;
+                            storeProduct.CreateAt = DateTime.Now;
+                            t3.Insert(storeProduct);
+                        }
+                        t1.Update(item);
                     }
                     data.PurchaseOrderImport = PurchaseOrderImport.Import;
                     data.UpdateAt = DateTime.Now;
@@ -292,7 +319,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                         data.CompleteOn = DateTime.Now;
                     }
 
-                    t3.Update(data);
+                    t2.Update(data);
                 });
                 if(result)
                 {

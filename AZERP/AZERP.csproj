@@ -52,8 +52,6 @@
     <None Include="Web\Modules\Recruitment\Worker\FormCheckinCheckout.cshtml" />
     <None Include="Web\Modules\Recruitment\Worker\FormUpdateWorker.cshtml" />
     <None Include="Web\Modules\Recruitment\Worker\FormWorker.cshtml" />
-    <None Include="Web\Modules\Store\FormStore.cshtml" />
-    <None Include="Web\Modules\Store\FormUpdateStore.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
