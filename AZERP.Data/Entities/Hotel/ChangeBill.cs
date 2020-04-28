@@ -1,10 +1,9 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
 using AZCore.Domain;
-using System;
-using System.Collections.Generic;
+using AZERP.Data.Enums;
+using AZWeb.Module.Attributes;
 using System.Data;
-using System.Text;
 
 namespace AZERP.Data.Entities
 {
@@ -24,6 +23,7 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Mã hóa đơn
         /// </summary>
+        [FieldAutoGenCode(Key = SystemCode.ChangeBillCode)]
         [Field(Length = 500)]
         public string ChangeBillID { get; set; }
         /// <summary>

@@ -2,10 +2,8 @@
 using AZCore.Database.Attributes;
 using AZCore.Domain;
 using AZERP.Data.Enums;
-using System;
-using System.Collections.Generic;
+using AZWeb.Module.Attributes;
 using System.Data;
-using System.Text;
 
 namespace AZERP.Data.Entities
 {
@@ -25,12 +23,14 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Mã phòng trọ
         /// </summary>
+        [FieldAutoGenCode(Key = SystemCode.HotelCode)]
         [Field(Length = 500)]
         public string HotelID { get; set; }
         /// <summary>
         /// Tên phòng trọ
         /// </summary>
         [Field(Length = 500)]
+        [FieldDisplay]
         public string HotelName { get; set; }
         /// <summary>
         /// Mã loại phòng trọ

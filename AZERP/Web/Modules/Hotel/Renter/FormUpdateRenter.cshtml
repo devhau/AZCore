@@ -13,7 +13,8 @@
             <az-text-model model="Model.Data" func="(item)=>((RenterModel)item).Quantity" label="Số bạn cùng phòng" />
         </div>
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((RenterModel)item).HotelID" label="Tên phòng trọ" />
+            <az-hotel-select model="Model.Data" func="(item)=>((RenterModel)item).HotelID" where-func="(item) => ((HotelModel)item).HotelStatus == Data.Enums.HotelStatus.Active_NonUsed;" label="Tên phòng trọ" />
+            <a href="/danh-sach-phong-tro.az" >Chọn</a>
         </div>
         <div class="form-group col-md-12">
             <az-text-area-model model="Model.Data" func="(item)=>((RenterModel)item).Note" label="Ghi chú" />
