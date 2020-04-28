@@ -88,5 +88,9 @@ namespace AZERP.Data.Entities
         /// Số lượng hàng đang giao dịch
         /// </summary>
         public long Committed { get; set; }
+        /// <summary>
+        /// Tổng số lượng có thể bán (từ nhiều kho)
+        /// </summary>
+        public long Available { get; set; }
     }
 }

@@ -37,7 +37,7 @@
                     <az-text-model is-enable="false" value="@Model.UserModel.FullName" label="Nhân viên tạo đơn" />
                 </div>
                 <div class="form-group col-md-12">
-                    <az-store-select is-enable="false" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).StoreId" where-func="(item)=>((StoreModel)item).Status == AZCore.Database.EntityStatus.Active" label="Kho nhập hàng" null-text="Chọn kho" />
+                    <az-store-select is-enable="false" value="@Model.DataCurrent.StoreId" label="Kho nhập hàng" null-text="Chọn kho" />
                 </div>
             </div>
         </div>

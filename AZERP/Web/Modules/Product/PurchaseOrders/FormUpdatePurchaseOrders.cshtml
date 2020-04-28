@@ -41,7 +41,7 @@
                     <az-text-model is-enable="false" model="Model.UserModel" func="(item)=>((UserModel)item).FullName" label="Nhân viên tạo đơn" />
                 </az-layout>
                 <div class="form-group col-md-12">
-                    <az-store-select is-show="@(Model.CanEdit)" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).StoreId" where-func="(item)=>((StoreModel)item).Status == AZCore.Database.EntityStatus.Active" label="Kho nhập hàng" null-text="Chọn kho" />
+                    <az-store-select is-enable="@(Model.CanEdit)" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).StoreId" where-func="(item)=>((StoreModel)item).Status == AZCore.Database.EntityStatus.Active" label="Kho nhập hàng" null-text="Chọn kho" />
                 </div>
             </div>
         </div>

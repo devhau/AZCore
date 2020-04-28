@@ -153,14 +153,6 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 if (dataForm.Code == "" || dataForm.Code == null)
                 {
                     dataForm.Code = this.genCodeService.GetGenCode(SystemCode.ImportCode);
-                    //var allCount = this.Service.Select(p => p.Type == OrderType.In).Count() + 1;
-                    //var tmpCode = "PON" + String.Format("{0:D5}", allCount);
-                    //while(this.Service.Select(p=>p.Code == tmpCode).Count() > 0)
-                    //{
-                    //    allCount++;
-                    //    tmpCode = "PON" + String.Format("{0:D5}", allCount);
-                    //}
-                    //dataForm.Code = tmpCode;
                 }
 
                 var result = entityTransaction.DoTransantion<PurchaseOrderService, PurchaseOrderProductService>((t, t1, t2) =>
@@ -180,7 +172,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 }
                 else
                 {
-                    return Json("Nhập hàng không thành công", System.Net.HttpStatusCode.InternalServerError);
+                    return Json("Tạo đơn hàng không thành công", System.Net.HttpStatusCode.BadRequest);
                 }
 
             } else
@@ -220,6 +212,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                             data.UpdateBy = User.Id;
                             data.UpdateAt = DateTime.Now;
                             data.Note = dataForm.Note;
+                            data.StoreId = dataForm.StoreId;
                             t1.Update(data);
                         });
                         if (result)
@@ -266,6 +259,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
             return View("UpdatePurchaseOrders");
 
         }
+
         [OnlyAjax]
         public IView PostCommit(long commit)
         {
@@ -288,7 +282,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                         
                         // Sản phẩm đã có trong kho
                         // Tồn kho (trong kho) = Tồn kho + lượng nhập
-                        // Tồn kho (theo từng hóa đơn) = Tồn kho + lượng nhập
+                        // Tồn kho (lịch sử theo từng hóa đơn) = Tồn kho + lượng nhập
                         if (selectStorePro.Count() > 0)
                         {
                             storeProduct = selectStorePro.First();
@@ -298,7 +292,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                         }
                         // Sản phẩm chưa có trong kho
                         // Tồn kho (trong kho) = lượng nhập
-                        // Tồn kho (theo từng hóa đơn) = lượng nhập
+                        // Tồn kho (lịch sử theo từng hóa đơn) = lượng nhập
                         else
                         {
                             item.Available = item.ImportNumber;
