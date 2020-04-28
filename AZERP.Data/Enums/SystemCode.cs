@@ -5,6 +5,18 @@ namespace AZERP.Data.Enums
     public enum SystemCode:int
     {
         [Field(Display = "Khu nhà trọ")]
-        AreaCode
+        AreaCode,
+        [Field(Display = "Mã đơn nhập")]
+        ImportCode,
+        [Field(Display = "Mã đơn xuất")]
+        ExportCode,
+        [Field(Display = "Mã sản phẩm")]
+        ProdcutCode,
+        [Field(Display = "Mã khách hàng")]
+        CustomerCode,
+        [Field(Display = "Mã nhà cung cấp")]
+        SupplierCode,
+        [Field(Display = "Mã kho")]
+        StoreCode
     }
 }

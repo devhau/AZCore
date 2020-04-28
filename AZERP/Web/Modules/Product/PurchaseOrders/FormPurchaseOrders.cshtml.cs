@@ -47,6 +47,8 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
         public UserService userService;
         [BindService]
         public EntityTransaction entityTransaction;
+        [BindService]
+        public IGetGenCodeService genCodeService;
 
         [BindQuery]
         public long Id { get; set; }
@@ -148,14 +150,15 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
 
                 if (dataForm.Code == "" || dataForm.Code == null)
                 {
-                    var allCount = this.Service.Select(p => p.Type == OrderType.In).Count() + 1;
-                    var tmpCode = "PON" + String.Format("{0:D5}", allCount);
-                    while(this.Service.Select(p=>p.Code == tmpCode).Count() > 0)
-                    {
-                        allCount++;
-                        tmpCode = "PON" + String.Format("{0:D5}", allCount);
-                    }
-                    dataForm.Code = tmpCode;
+                    dataForm.Code = this.genCodeService.GetGenCode(SystemCode.ImportCode);
+                    //var allCount = this.Service.Select(p => p.Type == OrderType.In).Count() + 1;
+                    //var tmpCode = "PON" + String.Format("{0:D5}", allCount);
+                    //while(this.Service.Select(p=>p.Code == tmpCode).Count() > 0)
+                    //{
+                    //    allCount++;
+                    //    tmpCode = "PON" + String.Format("{0:D5}", allCount);
+                    //}
+                    //dataForm.Code = tmpCode;
                 }
 
                 var result = entityTransaction.DoTransantion<PurchaseOrderService, PurchaseOrderProductService>((t, t1, t2) =>
@@ -269,7 +272,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
 
             var data = this.Service.GetById(this.Id);
             
-            if(commit == 1)
+            if(commit == 1) // Nhập kho
             {
                 var result = entityTransaction.DoTransantion<PurchaseOrderProductService, ProductService, PurchaseOrderService>((t, t1, t2, t3) =>
                 {
@@ -281,6 +284,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                         t2.Update(product);
                     }
                     data.PurchaseOrderImport = PurchaseOrderImport.Import;
+                    data.UpdateAt = DateTime.Now;
 
                     if (data.PurchaseOrderPayment == OrderPayment.Paid)
                     {
@@ -297,11 +301,12 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 {
                     return Json("Nhập kho thất bại", System.Net.HttpStatusCode.BadRequest);
                 }
-            } else if (commit == 2)
+            } else if (commit == 2) // Xác nhận thanh toán
             {
                 var result = entityTransaction.DoTransantion<PurchaseOrderService>((t, t1) =>
                 {
                     data.PurchaseOrderPayment = OrderPayment.Paid;
+                    data.UpdateAt = DateTime.Now;
                     if (data.PurchaseOrderImport == PurchaseOrderImport.Import)
                     {
                         data.PurchaseOrderStatus = OrderStatus.Complete;

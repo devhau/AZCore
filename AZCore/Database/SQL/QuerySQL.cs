@@ -13,6 +13,7 @@ namespace AZCore.Database.SQL
         private class JoinTable
         {
             public string TableName { get; set; }
+            public string TableName2 { get; set; }
             public Func<string, string, string> WhereJoin { get; set; }
             public JoinType JoinType { get; set; } = JoinType.InnerJoin;
         }
@@ -53,6 +54,17 @@ namespace AZCore.Database.SQL
         {
             joinTable.Add(new JoinTable() {
                 TableName= nameTable,
+                WhereJoin = whereJoin,
+                JoinType = joinType,
+            });
+            return this;
+        }
+        public QuerySQL Join(string nameTable, string nameTable2, Func<string, string, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
+        {
+            joinTable.Add(new JoinTable()
+            {
+                TableName2=nameTable2,
+                TableName = nameTable,
                 WhereJoin = whereJoin,
                 JoinType = joinType,
             });
@@ -100,7 +112,10 @@ namespace AZCore.Database.SQL
                 if (item.JoinType == JoinType.RightOuterJoin){
                     joinStr = " FULL OUTER JOIN ";
                 }
-                sql.AppendFormat(" {0} `{1}`  on {2}", joinStr,item.TableName,item.WhereJoin(this.TableName,item.TableName));
+                if (string.IsNullOrEmpty(item.TableName2))
+                    sql.AppendFormat(" {0} `{1}`  on {2}", joinStr, item.TableName, item.WhereJoin(this.TableName, item.TableName));
+                else
+                    sql.AppendFormat(" {0} `{1}`  on {2}", joinStr, item.TableName2, item.WhereJoin(item.TableName, item.TableName2));
             }
             if (SqlWhere.Count > 0) {
                 int indexWhere = 0;
