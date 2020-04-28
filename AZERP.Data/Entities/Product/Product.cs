@@ -2,6 +2,7 @@
 using AZCore.Database.Attributes;
 using AZCore.Domain;
 using AZERP.Data.Enums;
+using AZWeb.Module.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -26,6 +27,7 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Mã SP/ SKU
         /// </summary>
+        [FieldAutoGenCode(Key = SystemCode.ProdcutCode)]
         [Field(Length = 500)]
         public string Code { get; set; }
         /// <summary>
@@ -82,17 +84,14 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Số lượng hàng đang về
         /// </summary>
-        [Field]
         public long Incoming { get; set; }
         /// <summary>
         /// Số lượng hàng đang giao
         /// </summary>
-        [Field]
         public long OnWay { get; set; }
         /// <summary>
         /// Số lượng hàng đang giao dịch
         /// </summary>
-        [Field]
         public long Committed { get; set; }
     }
 }

@@ -3,10 +3,10 @@
 <div class="az-update row" role="form">
     <div class="form-group col-md-8">
         <div class="form-group col-md-12">
-            <az-code-model model="Model.Data" func="(item)=>((ProductModel)item).Code" label="Mã sản phẩm (SKU)" />
+            <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).Name" label="Tên sản phẩm (*)" />
         </div>
         <div class="form-group col-md-12">
-            <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).Name" label="Tên sản phẩm (*)" />
+            <az-text-model model="Model.Data" func="(item)=>((ProductModel)item).Code" label="Mã sản phẩm (SKU)" />
         </div>
     </div>
     <div class="form-group col-md-4">
