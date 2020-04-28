@@ -1,4 +1,5 @@
 ﻿@model FormVariants
+<az-style module="UpdateVariants.css" />
 <az-module-layout script-random='(id)=>"$(\"."+id+"\").AZManager();"'>
     <div class="az-manager" id="FormProduct" data-form-size="az-modal-xl">
         <div class="az-toolbar">
@@ -10,11 +11,14 @@
                 <div class="col-md-10">
                     <form class="az-search-form row">
                         <az-hidden-model model="Model" func="(item)=>((FormVariants)item).PageSize" />
-                        <div class="col-md-10">
+                        <div class="col-md-5">
+                            <az-text-model model="Model" func="(item)=>((FormVariants)item).Code" placeholder="Tìm kiếm mã sản phẩm" />
+                        </div>
+                        <div class="col-md-5">
                             <az-text-model model="Model" func="(item)=>((FormVariants)item).Name" placeholder="Tìm kiếm tên sản phẩm" />
                         </div>
                         <div class="col-md-2">
-                            <az-category-select model="Model" func="(item)=>((FormVariants)item).CategoryId" null-text="Tất cả nhóm" />
+                            <az-store-select model="Model" func="(item)=>((FormVariants)item).StoreId" null-text="Tất cả kho" />
                         </div>
                     </form>
                 </div>
@@ -30,13 +34,76 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Separated link</a>
                             </div>
-                       </az-button>
+                        </az-button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((ProductModel)item).Id" columns="Model.Columns" pagination="Model" is-delete="false"/>
+        <div class="az-data-table table-responsive">
+            <table class="table table-bordered table-hover variant-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2" width="35px">#</th>
+                        <th rowspan="2" width="85px">SKU</th>
+                        <th rowspan="2" width="200px">Sản phẩm</th>
+                        @foreach (var item in Model.storeModels)
+                        {
+                            <th colspan="4">@item.Name</th>
+                        }
+                        <th colspan="4">Tổng</th>
+                    </tr>
+                    <tr>
+                        @foreach (var item in Model.storeModels)
+                        {
+                            <th>Tồn kho</th>
+                            <th>Đang về</th>
+                            <th>Đang giao</th>
+                            <th>Đang giao dịch</th>
+                        }
+                        <th>Tồn kho</th>
+                        <th>Đang về</th>
+                        <th>Đang giao</th>
+                        <th>Đang giao dịch</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ var index = 1;}
+                    @foreach (var item in Model.Data)
+                    {
+                        <tr>
+                            <td>@index</td>
+                            <td>@item.Code</td>
+                            <td>@item.Name</td>
+                            @{  long sumAvai = 0;
+                                long sumIn = 0;
+                                long sumOnway = 0;
+                                long sumCommit = 0;
+                             }
+                            @foreach (var item1 in Model.storeModels)
+                            {
+                                long available = @Model.GetInfo(item1.Id, item.Id, (item) => item.Available);
+                                long incoming = @Model.GetInfo(item1.Id, item.Id, (item) => item.Incoming);
+                                long onway = @Model.GetInfo(item1.Id, item.Id, (item) => item.OnWay);
+                                long commited = @Model.GetInfo(item1.Id, item.Id, (item) => item.Committed);
+                                <td>@(available == 0 ? "-" : string.Format("{0:#,####}", available))</td>
+                                <td>@(incoming == 0 ? "-" : string.Format("{0:#,####}", incoming))</td>
+                                <td>@(onway == 0 ? "-" : string.Format("{0:#,####}", onway))</td>
+                                <td>@(commited == 0 ? "-" : string.Format("{0:#,####}", commited))</td>
+                                sumAvai += @available;
+                                sumIn += incoming;
+                                sumOnway += onway;
+                                sumCommit += commited;
+                            }
+                            <td>@(sumAvai == 0 ? "-" : string.Format("{0:#,####}", sumAvai))</td>
+                            <td>@(sumIn == 0 ? "-" : string.Format("{0:#,####}", sumIn))</td>
+                            <td>@(sumOnway == 0 ? "-" : string.Format("{0:#,####}", sumOnway))</td>
+                            <td>@(sumCommit == 0 ? "-" : string.Format("{0:#,####}", sumCommit))</td>
+                        </tr>
+                        index++;
+                    }
+                </tbody>
+            </table>
+            @*<az-table data="Model.Data" FunKey="(item)=>((ProductModel)item).Id" columns="Model.Columns" pagination="Model" is-delete="false" />*@
         </div>
         <div class="az-bottom-manager">
             <az-pagination pagination="Model" />
