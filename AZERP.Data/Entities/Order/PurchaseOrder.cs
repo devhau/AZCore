@@ -49,15 +49,10 @@ namespace AZERP.Data.Entities
         [Field]
         public long ClosedAccountId { get; set; }
         /// <summary>
-        /// Mã kho hàng
+        /// Mã chi phí
         /// </summary>
         [Field]
-        public long StoreCode { get; set; }
-        /// <summary>
-        /// Chi phí
-        /// </summary>
-        [Field]
-        public long LandedCost { get; set; }
+        public long CostId { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>
@@ -98,6 +93,9 @@ namespace AZERP.Data.Entities
         /// </summary>
         [Field]
         public DateTime ClosedOn { get; set; }
+        /// <summary>
+        /// Tổng số tiền trên 1 hóa đơn
+        /// </summary>
         public long TotalNumber { get; set; }
     }
 }
