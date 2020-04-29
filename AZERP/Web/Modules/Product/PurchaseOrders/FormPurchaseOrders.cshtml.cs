@@ -31,6 +31,11 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
     {
         #region -- Field Search --
         /// <summary>
+        /// Lọc trạng thái hóa đơn
+        /// </summary>
+        [QuerySearch]
+        public OrderStatus? PurchaseOrderStatus { get; set; }
+        /// <summary>
         /// Lọc hóa đơn nhập
         /// </summary>
         [QuerySearch]
@@ -175,7 +180,8 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                     return Json("Tạo đơn hàng không thành công", System.Net.HttpStatusCode.BadRequest);
                 }
 
-            } else
+            } 
+            else
             {
                 var data = this.Service.GetById(Id);
                 var dataForm = new PurchaseOrderModel();
@@ -231,6 +237,10 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 }
                 else // Update - đã thanh toán - chưa nhập kho || chưa thanh toán - đã nhập kho
                 {
+                    if(data.PurchaseOrderImport == PurchaseOrderImport.WaitingImport)
+                    {
+                        data.StoreId = dataForm.StoreId;
+                    }
                     data.Note = dataForm.Note;
                     var result = entityTransaction.DoTransantion<PurchaseOrderService>((t, t1) =>
                     {

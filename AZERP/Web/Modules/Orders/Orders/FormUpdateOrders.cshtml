@@ -41,15 +41,17 @@
                     <az-text-model is-enable="false" model="Model.UserModel" func="(item)=>((UserModel)item).FullName" label="Nhân viên tạo đơn" />
                 </az-layout>
                 <div class="form-group col-md-12">
-                    <az-store-select is-enable="@(Model.CanEdit)" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).StoreId" where-func="(item)=>((StoreModel)item).Status == AZCore.Database.EntityStatus.Active" label="Kho xuất hàng" null-text="Chọn kho" />
+                    <az-store-select is-enable="@(Model.DataCurrent == null || Model.DataCurrent.PurchaseOrderImport == PurchaseOrderImport.WaitingExport)" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).StoreId" where-func="(item)=>((StoreModel)item).Status == AZCore.Database.EntityStatus.Active" label="Kho xuất hàng" null-text="Chọn kho" />
                 </div>
             </div>
         </div>
     </div>
     <div class="form-group col-md-12">
-        <div class="az-page-info">
-            <div class="az-page-info-title">Sản phẩm</div>
-            <div class="az-page-info-body">
+        <div class="card">
+            <div class="card-header">Sản phẩm
+                <az-button class="btn btn-outline-info btn-sm float-right az-btn-check-store" text="Kiểm tra tồn kho" />
+            </div>
+            <div class="card-body">
                 <az-product-select where-func="(item)=>((ProductModel)item).ProductSellable == true" is-show="@(Model.CanEdit)" class="productClass" null-text="Chọn sản phẩm" />
                 <div class="az-data-table">
                     <table class="table table-bordered table-hover az-table " role="grid">

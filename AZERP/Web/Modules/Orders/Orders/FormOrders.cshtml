@@ -10,6 +10,15 @@
                 <div class="col-md-10">
                     <form class="az-search-form row">
                         <az-hidden-model model="Model" func="(item)=>((FormOrders)item).PageSize" />
+                        <div class="col-md-3">
+                            <az-order-status-select model="Model" func="(item)=>((FormOrders)item).PurchaseOrderStatus" null-text="Chọn trạng thái" label="Trạng thái hóa đơn"></az-order-status-select>
+                        </div>
+                        <div class="col-md-3">
+                            <az-payment-select model="Model" func="(item)=>((FormOrders)item).PurchaseOrderPayment" null-text="Chọn trạng thái" label="Trạng thái thanh toán"></az-payment-select>
+                        </div>
+                        <div class="col-md-3">
+                            <az-store-select model="Model" func="(item)=>((FormOrders)item).PurchaseOrderImport" null-text="Chọn trạng thái" label="Trạng thái xuất kho"></az-store-select>
+                        </div>
                     </form>
                 </div>
                 <div class="col-md-2">

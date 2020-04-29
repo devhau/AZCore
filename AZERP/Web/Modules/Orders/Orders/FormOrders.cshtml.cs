@@ -31,7 +31,22 @@ namespace AZERP.Web.Modules.Orders.Orders
     {
         #region -- Field Search --
         /// <summary>
-        /// Lọc hóa đơn xuất
+        /// Lọc trạng thái hóa đơn
+        /// </summary>
+        [QuerySearch]
+        public OrderStatus? PurchaseOrderStatus { get; set; }
+        /// <summary>
+        /// Lọc trạng thái thanh toán
+        /// </summary>
+        [QuerySearch]
+        public OrderPayment? PurchaseOrderPayment { get; set; }
+        /// <summary>
+        /// Lọc trạng thái xuất kho
+        /// </summary>
+        [QuerySearch]
+        public PurchaseOrderImport? PurchaseOrderImport { get; set; }
+        /// <summary>
+        /// Lọc đơn xuất
         /// </summary>
         [QuerySearch]
         public OrderType Type { get; set; } = OrderType.Out;
@@ -115,7 +130,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                 CustomersModel = this.CustomersService.Select(p => p.Id == DataCurrent.PartnerId).FirstOrDefault();
                 UserModel = this.userService.Select(p => p.Id == DataCurrent.CreateBy).FirstOrDefault();
                 ListDataOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == DataCurrent.Id).ToList();
-                if (DataCurrent.PurchaseOrderImport == PurchaseOrderImport.WaitingExport && DataCurrent.PurchaseOrderPayment == OrderPayment.Unpaid && DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)
+                if (DataCurrent.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.WaitingExport && DataCurrent.PurchaseOrderPayment == OrderPayment.Unpaid && DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)
                 {
                     CanEdit = true;
                 } else
@@ -144,7 +159,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                 dataForm.CreateBy = User.Id;
                 dataForm.PurchaseOrderStatus = OrderStatus.Waiting;
                 dataForm.PurchaseOrderPayment = OrderPayment.Unpaid;
-                dataForm.PurchaseOrderImport = PurchaseOrderImport.WaitingExport;
+                dataForm.PurchaseOrderImport = AZERP.Data.Enums.PurchaseOrderImport.WaitingExport;
                 dataForm.Type = OrderType.Out;
 
                 if (dataForm.Code == "" || dataForm.Code == null)
@@ -178,7 +193,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                 var dataForm = new PurchaseOrderModel();
                 this.HttpContext.BindFormTo(dataForm);
                 // Update - chưa thanh toán - chưa xuất kho
-                if ( data.PurchaseOrderImport == PurchaseOrderImport.WaitingExport
+                if ( data.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.WaitingExport
                     && data.PurchaseOrderPayment == OrderPayment.Unpaid
                     && data.PurchaseOrderStatus == OrderStatus.Waiting)
                 {
@@ -224,8 +239,13 @@ namespace AZERP.Web.Modules.Orders.Orders
                         return Json("Cập nhật không thành công", System.Net.HttpStatusCode.InternalServerError);
                     }
                 }
-                else // Update - đã thanh toán - chưa xuất kho || chưa thanh toán - đã xuất kho
+                // Update - đã thanh toán - chưa xuất kho || chưa thanh toán - đã xuất kho
+                else
                 {
+                    if (data.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.WaitingExport)
+                    {
+                        data.StoreId = dataForm.StoreId;
+                    }
                     data.Note = dataForm.Note;
                     var result = entityTransaction.DoTransantion<PurchaseOrderService>((t, t1) =>
                     {
@@ -285,7 +305,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                         t1.Update(item);
                         t3.Update(storeProduct);
                     }
-                    data.PurchaseOrderImport = PurchaseOrderImport.Export;
+                    data.PurchaseOrderImport = AZERP.Data.Enums.PurchaseOrderImport.Export;
                     data.UpdateAt = DateTime.Now;
 
                     if (data.PurchaseOrderPayment == OrderPayment.Paid)
@@ -309,7 +329,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                 {
                     data.PurchaseOrderPayment = OrderPayment.Paid;
                     data.UpdateAt = DateTime.Now;
-                    if (data.PurchaseOrderImport == PurchaseOrderImport.Export)
+                    if (data.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.Export)
                     {
                         data.PurchaseOrderStatus = OrderStatus.Complete;
                         data.CompleteOn = DateTime.Now;

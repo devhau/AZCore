@@ -10,6 +10,9 @@
                 <div class="col-md-10">
                     <form class="az-search-form row">
                         <az-hidden-model model="Model" func="(item)=>((FormPurchaseOrders)item).PageSize" />
+                        <div class="col-md-3">
+                            <az-order-status-select model="Model" func="(item)=>((FormPurchaseOrders)item).PurchaseOrderStatus" null-text="Chọn trạng thái" label="Trạng thái hóa đơn"></az-order-status-select>
+                        </div>
                     </form>
                 </div>
                 <div class="col-md-2">
