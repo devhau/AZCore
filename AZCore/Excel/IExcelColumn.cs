@@ -14,5 +14,7 @@ namespace AZCore.Excel
         Type DataType { get; set; }
         Color? BackColor { get; set; }
         Color? ForeColor { get; set; }
+        int TotalMergeRows { get; set; }
+        int TotalMergeColumns { get; set; }
     }   
 }

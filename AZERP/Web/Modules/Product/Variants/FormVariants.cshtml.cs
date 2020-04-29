@@ -1,5 +1,4 @@
 ﻿using Aspose.Cells;
-using AZCore.Database;
 using AZCore.Database.Enums;
 using AZCore.Database.SQL;
 using AZCore.Excel;
@@ -14,6 +13,7 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Product.Variants
 {
+    
     //[TableColumn(Title = "Mã SKU", FieldName = "Code")]
     //[TableColumn(Title = "Sản phẩm", FieldName = "Name")]
     //[TableColumn(Title = "Nhóm", FieldName = "CategoryId", DataType = typeof(CategoryService))]
@@ -117,15 +117,16 @@ namespace AZERP.Web.Modules.Product.Variants
         {
             Workbook wb = new Workbook();
             Worksheet sheet = wb.Worksheets[0];
+            sheet.Cells.Merge(1, 1, 2, 2);
 
             columns = new List<IExcelColumn>();
             var dataTable = new DataTable();
             dataTable.Columns.Add("Index", typeof(long));
             dataTable.Columns.Add("Code", typeof(string));
             dataTable.Columns.Add("Name", typeof(string));
-            columns.Add(new TableColumnAttribute() { FieldName = "Index", Title = "#", Width = 40 });
-            columns.Add(new TableColumnAttribute() { FieldName = "Code", Title = "SKU", Width = 120, Height = 40 });
-            columns.Add(new TableColumnAttribute() { FieldName = "Name", Title = "Sản phẩm", Width = 400 });
+            columns.Add(new TableColumnAttribute() { FieldName = "Index", Title = "#", Width = 40, TotalMergeRows =2 });
+            columns.Add(new TableColumnAttribute() { FieldName = "Code", Title = "SKU", Width = 120,  TotalMergeRows = 2 });
+            columns.Add(new TableColumnAttribute() { FieldName = "Name", Title = "Sản phẩm", Width = 400, TotalMergeRows = 2, Height = 40 });
             var rowTitle = dataTable.NewRow();
             foreach (var item in this.storeModels)
             {
@@ -133,7 +134,7 @@ namespace AZERP.Web.Modules.Product.Variants
                 dataTable.Columns.Add(item.Code + "Incoming", typeof(string));
                 dataTable.Columns.Add(item.Code + "Onway", typeof(string));
                 dataTable.Columns.Add(item.Code + "Commited", typeof(string));
-                columns.Add(new TableColumnAttribute() { FieldName = item.Code + "Available", Title = item.Name, Width = 70 });
+                columns.Add(new TableColumnAttribute() { FieldName = item.Code + "Available", Title = item.Name, Width = 70, TotalMergeColumns = 4 });
                 columns.Add(new TableColumnAttribute() { FieldName = item.Code + "Incoming", Width = 80 });
                 columns.Add(new TableColumnAttribute() { FieldName = item.Code + "Onway", Width = 90 });
                 columns.Add(new TableColumnAttribute() { FieldName = item.Code + "Commited", Width = 120 });
@@ -146,7 +147,7 @@ namespace AZERP.Web.Modules.Product.Variants
             dataTable.Columns.Add("sumIncoming", typeof(string));
             dataTable.Columns.Add("sumOnway", typeof(string));
             dataTable.Columns.Add("sumCommited", typeof(string));
-            columns.Add(new TableColumnAttribute() { FieldName = "sumAvailable", Title = "Tổng", Width = 70 });
+            columns.Add(new TableColumnAttribute() { FieldName = "sumAvailable", Title = "Tổng", Width = 70, TotalMergeColumns = 4 });
             columns.Add(new TableColumnAttribute() { FieldName = "sumIncoming", Width = 80 });
             columns.Add(new TableColumnAttribute() { FieldName = "sumOnway", Width = 90 });
             columns.Add(new TableColumnAttribute() { FieldName = "sumCommited", Width = 120 });
