@@ -84,12 +84,14 @@ namespace AZCore.Excel
                 else
                     azWorksheet.Cells.SetColumnWidthPixel(colIndex, WidthDefault);
                 if (item.Height > 0)
-                    azWorksheet.Cells.SetRowHeightPixel(colIndex, item.Height);
-               
+                    azWorksheet.Cells.SetRowHeightPixel(StartRow, item.Height);                
 
                 SetHeader(azWorksheet.Cells[StartRow, colIndex],false,item.BackColor, item.ForeColor);
-             
-                    
+               if(item.TotalMergeColumns > 0 || item.TotalMergeRows > 0)
+                {
+                    azWorksheet.Cells.Merge(StartRow, colIndex, item.TotalMergeRows > 0 ? item.TotalMergeRows : 1, item.TotalMergeColumns > 0 ? item.TotalMergeColumns : 1);
+                   
+                }
                 colIndex++;
             }
         }

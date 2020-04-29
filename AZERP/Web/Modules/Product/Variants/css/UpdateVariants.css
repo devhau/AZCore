@@ -1,5 +1,21 @@
-﻿.picture {
-    border: 1px solid darkgray;
-    height: 100%;
-    width: 100%;
+﻿.variant-table.table td, .variant-table.table th {
+    text-align: center;
+}
+
+.variant-table thead tr th[colspan='4'] {
+    border: 1px solid;
+    border-left: 2px solid;
+    border-right: 2px solid;
+}
+
+.variant-table thead tr th:nth-child(4n) {
+    border-right: 2px solid;
+}
+
+.variant-table tbody tr td:nth-child(4n + 3) {
+    border-right: 2px solid;
+}
+
+.variant-table tbody tr:last-child td:nth-child(n + 4) {
+    border-bottom: 2px solid;
 }

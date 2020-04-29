@@ -150,14 +150,6 @@ namespace AZERP.Web.Modules.Orders.Orders
                 if (dataForm.Code == "" || dataForm.Code == null)
                 {
                     dataForm.Code = this.genCodeService.GetGenCode(SystemCode.ExportCode);
-                    //var allCount = this.Service.Select(p => p.Type == OrderType.Out).Count() + 1;
-                    //var tmpCode = "CON" + String.Format("{0:D5}", allCount);
-                    //while (this.Service.Select(p => p.Code == tmpCode).Count() > 0)
-                    //{
-                    //    allCount++;
-                    //    tmpCode = "CON" + String.Format("{0:D5}", allCount);
-                    //}
-                    //dataForm.Code = tmpCode;
                 }
 
                 var result = entityTransaction.DoTransantion<PurchaseOrderService, PurchaseOrderProductService>((t, t1, t2) =>
@@ -215,6 +207,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                             data.UpdateBy = User.Id;
                             data.UpdateAt = DateTime.Now;
                             data.Note = dataForm.Note;
+                            data.StoreId = dataForm.StoreId;
                             t1.Update(data);
                         });
                         if (result)
@@ -278,14 +271,19 @@ namespace AZERP.Web.Modules.Orders.Orders
             
             if(commit == 1) // Xuất kho
             {
-                var result = entityTransaction.DoTransantion<PurchaseOrderProductService, ProductService, PurchaseOrderService>((t, t1, t2, t3) =>
+                var result = entityTransaction.DoTransantion<PurchaseOrderProductService, PurchaseOrderService, StoreProductService>((t, t1, t2, t3) =>
                 {
                     var listDetail = t1.Select(p => p.PurchaseOrderId == this.Id).ToList();
                     foreach (var item in listDetail)
                     {
-                        var product = t2.Select(p => p.Id == item.ProductId).First();
-                        product.Available -= item.ImportNumber;
-                        t2.Update(product);
+                        // Sản phẩm đã có trong kho
+                        // Tồn kho (trong kho) = Tồn kho - lượng xuất
+                        // Tồn kho (theo từng hóa đơn) = Tồn kho - lượng xuất
+                        var storeProduct = t3.Select(p => p.ProductId == item.ProductId && p.StoreId == data.StoreId).First();
+                        item.Available = storeProduct.Available - item.ImportNumber;
+                        storeProduct.Available = storeProduct.Available - item.ImportNumber;
+                        t1.Update(item);
+                        t3.Update(storeProduct);
                     }
                     data.PurchaseOrderImport = PurchaseOrderImport.Export;
                     data.UpdateAt = DateTime.Now;
@@ -296,7 +294,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                         data.CompleteOn = DateTime.Now;
                     }
 
-                    t3.Update(data);
+                    t2.Update(data);
                 });
                 if(result)
                 {

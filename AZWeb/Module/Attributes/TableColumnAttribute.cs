@@ -32,6 +32,8 @@ namespace AZWeb.Module.Attributes
         public bool ReLoadAfterPopupClose { get; set; }
         public string Permisson { get; set; }
         public Expression<Func<object, bool>> WhereFunc { get; set; }
+        public int TotalMergeRows { get; set; } = 0;
+        public int TotalMergeColumns { get; set; } = 0;
     }
     
    

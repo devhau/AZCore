@@ -2,13 +2,7 @@
 <az-style module="Orders.css" />
 <az-script module="UpdateOrders.js"/>
 <az-layout class="az-update row az-commit-order" script-random='(id)=>$"UpdateOrders(\".{id}\")"'>
-    <div class="form-group col-md-6">
-        <az-text-model is-enable="false" value="@Model.DataCurrent.Code" label="Mã đơn nhập hàng" />
-    </div>
-    <div class="form-group col-md-6">
-        <az-text-model is-enable="false" value="@Model.UserModel.FullName" label="Nhân viên tạo đơn" />
-    </div>
-    <div class="form-group col-md-12">
+    <div class="form-group col-md-8">
         <div class="az-page-info">
             <div class="az-page-info-title">Khách hàng</div>
             <div class="az-page-info-body">
@@ -32,6 +26,22 @@
             </div>
         </div>
     </div>
+    <div class="form-group col-md-4">
+        <div class="az-page-info">
+            <div class="az-page-info-title">Thông tin đơn hàng</div>
+            <div class="az-page-info-body">
+                <div class="form-group col-md-12">
+                    <az-text-model is-enable="false" value="@Model.DataCurrent.Code" label="Mã đơn xuất hàng" />
+                </div>
+                <az-layout class="form-group col-md-12">
+                    <az-text-model is-enable="false" value="@Model.UserModel.FullName" label="Nhân viên tạo đơn" />
+                </az-layout>
+                <div class="form-group col-md-12">
+                    <az-store-select is-enable="false" value="@Model.DataCurrent.StoreId" label="Kho xuất hàng" null-text="Chọn kho" />
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="form-group col-md-12">
         <div class="az-page-info">
             <div class="az-page-info-title">Sản phẩm</div>
@@ -42,8 +52,8 @@
                             <tr>
                                 <td>Mã SKU</td>
                                 <td>Tên sản phẩm</td>
-                                <td>Số lượng nhập</td>
-                                <td>Giá nhập</td>
+                                <td>Số lượng mua</td>
+                                <td>Giá bán</td>
                                 <td>Thành tiền</td>
                             </tr>
                         </thead>
