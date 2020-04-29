@@ -81,6 +81,6 @@ $.fn.TableFreeze = function () {
         $isCroll = false;
     });
 }
-$.fn.UploadFile = function () {
-
+$.fn.AZUploadFile = function () {
+    bsCustomFileInput.init();
 }

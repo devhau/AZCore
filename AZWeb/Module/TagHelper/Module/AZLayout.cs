@@ -17,7 +17,8 @@ namespace AZWeb.Module.TagHelper.Module
             {
                 this.AddJS(ScriptRandom(this.TagId));
             }
-            output.Attributes.Add(new TagHelperAttribute("class", string.Format(" {0} {1}",this.TagId,this.TagClass)));          
+            output.Attributes.Add(new TagHelperAttribute("class", string.Format(" {0} ",this.TagClass)));
+            output.Attributes.Add(new TagHelperAttribute("class", string.Format(" {0} ", this.TagId)));
             var content = await output.GetChildContentAsync();
             htmlBuild.Append(content.GetContent());
         }

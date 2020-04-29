@@ -29,7 +29,7 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Tên dịch vụ cho phòng
         /// </summary>
-        [Field(Length = 500)]
+        [Field]
         [FieldDisplay]
         public long RegionalServiceID { get; set; }
         /// <summary>

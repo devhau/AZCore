@@ -38,7 +38,7 @@ namespace AZWeb.Module.TagHelper.Input
         public Func<string, string> ScriptInput { get; set; }
         public string AddonBefore { get; set; }
         public string AddonAfter { get; set; }
-        protected bool? LabelAfter = false;
+        protected bool? LabelAfter=true;
         public override void Init(TagHelperContext context)
         {
             if (string.IsNullOrEmpty(TagClass))
@@ -54,8 +54,8 @@ namespace AZWeb.Module.TagHelper.Input
             {
                 this.Attr += $"  data-cmd-key='{CMD}' ";
             }
-            if (LabelAfter==false && !string.IsNullOrEmpty(InputLabel)) {
-                htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
+            if (LabelAfter == false  && !string.IsNullOrEmpty(InputLabel)) {
+                htmlBuild.AppendFormat(" <label for=\"{1}\">{0}</label> ", InputLabel, InputId);
             }
             if (MaxLength > 0) {
                 this.Attr += $" maxlength='{MaxLength}' ";
@@ -77,7 +77,7 @@ namespace AZWeb.Module.TagHelper.Input
             }
             if (LabelAfter == true && !string.IsNullOrEmpty(InputLabel))
             {
-                    htmlBuild.AppendFormat("<label for=\"{1}\">{0}</label>", InputLabel, InputId);
+                    htmlBuild.AppendFormat(" <label for=\"{1}\">{0}</label> ", InputLabel, InputId);
             }
             if (ScriptInput != null) {
                 this.AddJS(ScriptInput(TagId));

@@ -7,7 +7,7 @@
             <az-button class="btn btn-secondary btn-sm az-btn az-btn-import" cmd-key="f3" icon="fas fa-file-import" for-permission="@PE.Role_Import" text="Nhập Excel (F3)"/>
         </div>
             <div class="az-data-table">
-                <az-table data="Model.Data" FunKey="(item)=>item.Id" columns="Model.Columns" pagination="Model" is-edit="Model.HasPermission(PE.Role_Edit)" is-delete="Model.HasPermission(PE.Role_Remove)"></az-table>
+                <az-table data="Model.Data" FunKey="(item)=>item.Id" columns="Model.Columns" fun-where-edit="(item)=>item.PrefixIndex==0" fun-where-remove="(item)=>item.PrefixIndex==0" pagination="Model" is-edit="Model.HasPermission(PE.Role_Edit)" is-delete="Model.HasPermission(PE.Role_Remove)"></az-table>
             </div>
             <div class="az-bottom-manager">
                 <az-pagination pagination="Model" />

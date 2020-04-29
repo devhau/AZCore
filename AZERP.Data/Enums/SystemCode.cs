@@ -21,7 +21,7 @@ namespace AZERP.Data.Enums
         [Field(Display = "Dịch vụ phòng")]
         RoomServiceCode,
         [Field(Display = "Loại phòng trọ")]
-        TypeOfHotelCode
+        TypeOfHotelCode,
         [Field(Display ="Ứng viên tuyển dụng")]
         CandidateCode,
         [Field(Display = "Công nhân")]
