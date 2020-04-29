@@ -2,7 +2,8 @@
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.Store
+
+namespace AZERP.Web.Modules.Product.Variants
 {
     public class FormUpdateStore : UpdateModule<StoreService, StoreModel>
     {
@@ -11,8 +12,7 @@ namespace AZERP.Web.Modules.Store
         }
         protected override void IntData()
         {
-            this.Title = "Thêm/sửa kho";
+            this.Title = "Cập nhật kho";
         }
-
     }
 }

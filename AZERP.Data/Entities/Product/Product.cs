@@ -77,11 +77,6 @@ namespace AZERP.Data.Entities
         [Field]
         public long WeightValue { get; set; }
         /// <summary>
-        /// Số lượng hàng có sẵn trong kho
-        /// </summary>
-        [Field]
-        public long Available { get; set; }
-        /// <summary>
         /// Số lượng hàng đang về
         /// </summary>
         public long Incoming { get; set; }
@@ -93,5 +88,9 @@ namespace AZERP.Data.Entities
         /// Số lượng hàng đang giao dịch
         /// </summary>
         public long Committed { get; set; }
+        /// <summary>
+        /// Tổng số lượng có thể bán (từ nhiều kho)
+        /// </summary>
+        public long Available { get; set; }
     }
 }

@@ -216,6 +216,7 @@ table-freeze thead th {
     border-radius: 3px;
     padding: 5px 10px;
     margin-bottom: 15px;
+    height: 100%;
 }
 
     .az-page-info .az-page-info-title {
