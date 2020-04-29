@@ -30,6 +30,7 @@
 	$this.IsForm = false;
 	$this.id = undefined;
 	$this.DataItem = undefined;
+	$this.Manager = undefined;
 	$this.link = "";
 	$this.setDataItem = function (DataItem) {
 		$this.DataItem = DataItem;
@@ -81,10 +82,9 @@
 		return btn;
 	}
 	$this.ClosePopup = function () {
-		$($this.Modal).remove();
-		PopupMain.ClosePopup();
+		PopupMain.Remove();
 		if (!PopupMain.isEmpty()) {
-			PopupMain.PopupCurrent().focusPopup();
+			PopupMain.Current().focusPopup();
 		}
 		HotKeyMain.Init();
 	}
@@ -113,40 +113,37 @@
 		
 	}
 	$this.SerializeData = function () {
-		$data = $($this.ModalForm).serializeArray();
+		var data = new FormData();
+		var $data = $($this.ModalForm).serializeArray();
 		$($this.ModalForm).find('input[type="checkbox"]:not(:checked)').each(function () {
 			if ($data.indexOf(this.name) < 0) {
 				$data.push({ name: this.name, value: false });
 			}
 		});
-		return $data;
+		$.each($data, function (key, input) {
+			data.append(input.name, input.value);
+		});
+		$($this.ModalForm).find('input[type="file"]').each(function () {
+			if ($data.indexOf(this.name) < 0) {
+				var file_data = $(this)[0].files;
+				if (file_data) {
+
+					for (var i = 0; i < file_data.length; i++) {
+						console.log(file_data[i]);
+						data.append(this.name, file_data[i]);
+					}
+				}
+			}
+		});
+		return data;
 	}
-	PopupMain.PushPopup($this);
+	$this.destroy = function () {
+		if ($this.Manager) ManagerMain.Remove();
+		$($this.Modal).remove();
+		delete $this;
+		delete this;
+		$this = undefined;
+	}
+	PopupMain.Push($this);
 }
-function ManagerPopup() {
-	this.data = {};
-	this.size = 0;
-	this.isEmpty = function () {
-		return this.size === 0;
-	}
-	this.PopupCurrent = function () {	
-		if (this.isEmpty()) return undefined;
-		return this.data[this.size-1];
-	}
-	this.PushPopup = function (popup) {
-		this.data[this.size] = popup;
-		this.size++;
-		return true;
-	}
-	this.ClosePopup = function () {
-		if (this.isEmpty()) return false;
-		delete this.data[this.size - 1];
-		this.size--;
-		return true;
-	}
-	this.clear = function () {
-		while (!this.isEmpty()) this.ClosePopup();
-		this.size = 0;
-	}
-}
-var PopupMain = new ManagerPopup();
+var PopupMain = new LinkedList();

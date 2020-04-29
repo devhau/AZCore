@@ -1,4 +1,4 @@
-﻿if (!PopupMain.isEmpty() && PopupMain.PopupCurrent().id===undefined) {
+﻿if (!PopupMain.isEmpty() && PopupMain.Current().id===undefined) {
     $(".az-update-purchase-order .az-data-table").hide();
     $(".az-update-purchase-order .list-info-supplier").hide();
 }

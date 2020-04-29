@@ -38,7 +38,7 @@ namespace AZWeb.Module.TagHelper.Input
         public Func<string, string> ScriptInput { get; set; }
         public string AddonBefore { get; set; }
         public string AddonAfter { get; set; }
-        protected bool? LabelAfter=true;
+        protected bool? LabelAfter=false;
         public override void Init(TagHelperContext context)
         {
             if (string.IsNullOrEmpty(TagClass))

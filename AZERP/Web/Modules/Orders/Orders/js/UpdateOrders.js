@@ -1,5 +1,5 @@
 ﻿function UpdateOrders($id) {
-    var popup = PopupMain.PopupCurrent();
+    var popup = PopupMain.Current();
     $($id).find(".az-export-store").on("click", function () {
         new AZAjax().DoPost(popup.link, { commit: 1 }, function (item) {
             if (item.statusCode) {

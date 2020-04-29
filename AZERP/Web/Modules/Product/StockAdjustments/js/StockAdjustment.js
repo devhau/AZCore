@@ -27,8 +27,8 @@ $("#InputId").on('change', function () {
     }
     console.log(dataItem);
     console.log("Ma Product: " + dataItem.Available);
-    console.log("Link: " + PopupMain.PopupCurrent().Link);
-    console.log("Link: " + PopupMain.PopupCurrent().getPathName());
+    console.log("Link: " + PopupMain.Current().Link);
+    console.log("Link: " + PopupMain.Current().getPathName());
     if (value != "") {
         $(".modal-dialog .az-data-table").show();
         let name = $("#InputProductCode option[value=" + value + "]").text();
