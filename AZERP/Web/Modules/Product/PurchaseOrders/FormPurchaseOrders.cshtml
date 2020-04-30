@@ -13,6 +13,15 @@
                         <div class="col-md-3">
                             <az-order-status-select model="Model" func="(item)=>((FormPurchaseOrders)item).PurchaseOrderStatus" null-text="Chọn trạng thái" label="Trạng thái hóa đơn"></az-order-status-select>
                         </div>
+                        <div class="col-md-3">
+                            <az-payment-select model="Model" func="(item) => ((FormPurchaseOrders)item).PurchaseOrderPayment" null-text="Chọn trạng thái" label="Trạng thái thanh toán"></az-payment-select>
+                        </div>
+                        <div class="col-md-3">
+                            <az-store-status-select model="Model"
+                                                    func="(item)=>((FormPurchaseOrders)item).PurchaseOrderImport"
+                                                    null-text="Chọn trạng thái" label="Trạng thái xuất kho">
+                            </az-store-status-select>
+                        </div>
                     </form>
                 </div>
                 <div class="col-md-2">

@@ -264,6 +264,13 @@ namespace AZERP.Web.Modules.Orders.Orders
         }
 
         [OnlyAjax]
+        public IView GetCheckStore()
+        {
+            this.Title = "Kiểm tra tồn kho";
+            return View("CheckAvailable");
+        }
+
+        [OnlyAjax]
         public IView GetCommit()
         {
             DataCurrent = this.Service.GetById(this.Id);

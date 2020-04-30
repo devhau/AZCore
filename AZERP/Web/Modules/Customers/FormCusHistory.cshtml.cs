@@ -70,6 +70,7 @@ namespace AZERP.Web.Modules.Customers
             this.PageTotalAll = Service.ExecuteNoneQuery((T) => {
 
                 T.SetColumn("count(0)");
+                T.AddWhere("Type", OrderType.Out);
 
             });
             this.PageTotal = Service.ExecuteNoneQuery((T) => {

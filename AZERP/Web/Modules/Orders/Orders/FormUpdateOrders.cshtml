@@ -48,8 +48,10 @@
     </div>
     <div class="form-group col-md-12">
         <div class="card">
-            <div class="card-header">Sản phẩm
-                <az-button class="btn btn-outline-info btn-sm float-right az-btn-check-store" text="Kiểm tra tồn kho" />
+            <div class="card-header">
+                Sản phẩm
+                <az-link href="don-hang/check-ton-kho.az" class="btn btn-outline-info btn-sm float-right az-btn-check-store az-link-popup" modal-size="az-modal-xl" text="Kiểm tra tồn kho" />
+                @*<az-button class="btn btn-outline-info btn-sm float-right az-btn-check-store" text="Kiểm tra tồn kho" />*@
             </div>
             <div class="card-body">
                 <az-product-select where-func="(item)=>((ProductModel)item).ProductSellable == true" is-show="@(Model.CanEdit)" class="productClass" null-text="Chọn sản phẩm" />

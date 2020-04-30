@@ -36,6 +36,16 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
         [QuerySearch]
         public OrderStatus? PurchaseOrderStatus { get; set; }
         /// <summary>
+        /// Lọc trạng thái thanh toán
+        /// </summary>
+        [QuerySearch]
+        public OrderPayment? PurchaseOrderPayment { get; set; }
+        /// <summary>
+        /// Lọc trạng thái xuất kho
+        /// </summary>
+        [QuerySearch]
+        public PurchaseOrderImport? PurchaseOrderImport { get; set; }
+        /// <summary>
         /// Lọc hóa đơn nhập
         /// </summary>
         [QuerySearch]
@@ -121,7 +131,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 SupplierModel = this.supplierService.Select(p => p.Id == DataCurrent.PartnerId).FirstOrDefault();
                 UserModel = this.userService.Select(p => p.Id == DataCurrent.CreateBy).FirstOrDefault();
                 ListDataOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == DataCurrent.Id).ToList();
-                if (DataCurrent.PurchaseOrderImport == PurchaseOrderImport.WaitingImport && DataCurrent.PurchaseOrderPayment == OrderPayment.Unpaid && DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)
+                if (DataCurrent.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.WaitingImport && DataCurrent.PurchaseOrderPayment == OrderPayment.Unpaid && DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)
                 {
                     CanEdit = true;
                 } else
@@ -152,7 +162,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 dataForm.CreateBy = User.Id;
                 dataForm.PurchaseOrderStatus = OrderStatus.Waiting;
                 dataForm.PurchaseOrderPayment = OrderPayment.Unpaid;
-                dataForm.PurchaseOrderImport = PurchaseOrderImport.WaitingImport;
+                dataForm.PurchaseOrderImport = AZERP.Data.Enums.PurchaseOrderImport.WaitingImport;
                 dataForm.Type = OrderType.In;
 
                 if (dataForm.Code == "" || dataForm.Code == null)
@@ -187,7 +197,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 var dataForm = new PurchaseOrderModel();
                 this.HttpContext.BindFormTo(dataForm);
                 // Update - chưa thanh toán - chưa nhập kho
-                if ( data.PurchaseOrderImport == PurchaseOrderImport.WaitingImport
+                if ( data.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.WaitingImport
                     && data.PurchaseOrderPayment == OrderPayment.Unpaid
                     && data.PurchaseOrderStatus == OrderStatus.Waiting)
                 {
@@ -237,7 +247,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 }
                 else // Update - đã thanh toán - chưa nhập kho || chưa thanh toán - đã nhập kho
                 {
-                    if(data.PurchaseOrderImport == PurchaseOrderImport.WaitingImport)
+                    if(data.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.WaitingImport)
                     {
                         data.StoreId = dataForm.StoreId;
                     }
@@ -314,7 +324,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                         }
                         t1.Update(item);
                     }
-                    data.PurchaseOrderImport = PurchaseOrderImport.Import;
+                    data.PurchaseOrderImport = AZERP.Data.Enums.PurchaseOrderImport.Import;
                     data.UpdateAt = DateTime.Now;
 
                     if (data.PurchaseOrderPayment == OrderPayment.Paid)
@@ -338,7 +348,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 {
                     data.PurchaseOrderPayment = OrderPayment.Paid;
                     data.UpdateAt = DateTime.Now;
-                    if (data.PurchaseOrderImport == PurchaseOrderImport.Import)
+                    if (data.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.Import)
                     {
                         data.PurchaseOrderStatus = OrderStatus.Complete;
                         data.CompleteOn = DateTime.Now;
