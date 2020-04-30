@@ -1,23 +1,27 @@
 ﻿@model FormUpdateUser
-<div class="az-update row" role="form">
-    <div class="form-group col-md-6">
-        <az-text-model model="Model.Data" func="(item)=>((UserModel)item).FullName" label="[H]ọ tên" cmd-key="alt+h" />
+    <div class="az-update row" role="form">
+        <div class="col-md-8">
+            <div class="form-group">
+                <az-text-model model="Model.Data" func="(item)=>((UserModel)item).FullName" label="[H]ọ tên" cmd-key="alt+h" />
+            </div>
+            <div class="form-group">
+                <az-text-model model="Model.Data" func="(item)=>((UserModel)item).Email" label="[E]mail" cmd-key="alt+e" />
+            </div>
+            <div class="form-group">
+                <az-text-model model="Model.Data" func="(item)=>((UserModel)item).PhoneNumber" label="[S]ố điện thoại" cmd-key="alt+s" />
+            </div>
+            <div class="form-group">
+                <az-status-select model="Model.Data" func="(item)=>((UserModel)item).Status" label="[T]rạng thái" cmd-key="alt+t" />
+            </div>
+            <az-layout class="form-group" is-show="Model.Data==null">
+                <az-password-model model="Model.Data" func="(item)=>((UserModel)item).Password" label="[M]ật khẩu" cmd-key="alt+m" />
+            </az-layout>
+        </div>  
+        <div class="form-group col-md-4">
+            <az-upload-file-model model="Model.Data" func="(item)=>((UserModel)item).Avatar" label="Chọn ảnh đại diện" />
+        </div>
+       
     </div>
-    <div class="form-group col-md-6">
-        <az-text-model model="Model.Data" func="(item)=>((UserModel)item).Email" label="[E]mail" cmd-key="alt+e" />
-    </div>
-    <div class="form-group col-md-6">
-        <az-text-model  model="Model.Data" func="(item)=>((UserModel)item).PhoneNumber" label="[S]ố điện thoại" cmd-key="alt+s"/>
-    </div>
-    <div class="col-md-6">
-    <div class="form-group">
-        <az-status-select model="Model.Data" func="(item)=>((UserModel)item).Status" label="[T]rạng thái"  cmd-key="alt+t" />
-    </div>
-</div>
-    <div class="form-group col-md-6">
-        <az-password-model model="Model.Data" func="(item)=>((UserModel)item).Password" label="[M]ật khẩu"  cmd-key="alt+m"  />
-    </div>
-</div>
 <az-script>
 
 </az-script>

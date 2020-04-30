@@ -15,6 +15,7 @@ using AZCore.Extensions;
 using AZWeb.Module.Common;
 using Microsoft.AspNetCore.SignalR;
 using AZERP.Web.Hubs;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace AZERP
 {
@@ -49,8 +50,9 @@ namespace AZERP
             services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
 
             // If using IIS:
-            services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true); 
+            services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
             //
+            services.Configure<FormOptions>(options => options.MultipartBodyLengthLimit = long.MaxValue);
 
         }
 

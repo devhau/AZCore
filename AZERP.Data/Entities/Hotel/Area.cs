@@ -3,10 +3,7 @@ using AZCore.Database.Attributes;
 using AZCore.Domain;
 using AZERP.Data.Enums;
 using AZWeb.Module.Attributes;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace AZERP.Data.Entities
 {

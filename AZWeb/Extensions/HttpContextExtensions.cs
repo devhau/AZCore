@@ -1,58 +1,20 @@
-﻿using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
-using System.IO;
 using System.Collections;
 using AZCore.Extensions;
 using AZWeb.Module.Attributes;
+using System.Collections.Generic;
+using System.IO;
 
 namespace AZWeb.Extensions
 {
     public static class HttpContextExtensions
     {
-        public static string RenderToHtml(this HttpContext httpContext,string path,string viewName, object model) {
-
-            var actionContext = new ActionContext(httpContext, httpContext.GetRouteData(), new ActionDescriptor());
-            var _razorViewEngine = httpContext.GetService<IRazorViewEngine>();
-            var _tempDataProvider= httpContext.GetService<ITempDataProvider>();
-            
-            using (var sw = new StringWriter())
-            {
-                var viewResult = _razorViewEngine.GetView(path+"/"+ viewName, viewName, false);
-                if (viewResult.View == null)
-                {
-                    throw new ArgumentNullException($"{viewName} does not match any available view");
-                }
-
-                var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
-                {
-                    Model = model
-                };
-
-                var viewContext = new ViewContext(
-                    actionContext,
-                    viewResult.View,
-                    viewDictionary,
-                    new TempDataDictionary(actionContext.HttpContext, _tempDataProvider),
-                    sw,
-                    new HtmlHelperOptions()
-                );
-
-                var rs =  viewResult.View.RenderAsync(viewContext);
-                rs.Wait();
-                return sw.GetStringBuilder().ToString();
-            }
-        }
         public static void BindQueryAttributeTo(this HttpContext httpContext, object obj)
         {
+           
             var objType = obj.GetType();
             foreach (var item in httpContext.Request.Query.Keys)
             {
@@ -75,85 +37,186 @@ namespace AZWeb.Extensions
         {
             if (!httpContext.Request.HasFormContentType) return;
             var objType = obj.GetType();
-            foreach (var item in httpContext.Request.Form.Keys.Where(p => p.IndexOf(".") < 0))
-            {
-                var pro = objType.GetProperties().FirstOrDefault(p => p.CanWrite && p.Name.Equals(item, StringComparison.OrdinalIgnoreCase));
-                if (pro != null && pro.GetAttribute<BindFormAttribute>() != null)
+            var uploads = "uploads";
+            var file = httpContext.Request.Form.Files;
+            foreach (var pro in objType.GetPropertyByAttribute<BindFormAttribute>()) {
+                FieldUploadFileAttribute fieldFile = null;
+                IReadOnlyList<IFormFile> fileValues = null;
+                if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = file.GetFiles(pro.Name)) != null)
                 {
-                    if (pro.PropertyType.IsArray)
+                    if (fileValues.Count == 1)
                     {
-                        pro.SetValue(obj, httpContext.Request.Form[item][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
+                        var valueFile = fileValues[0];
+                        if (valueFile.Length > 0)
+                        {
+                            var filePath = Path.Combine(uploads, valueFile.FileName);
+                            using (var fileStream = new FileStream(filePath, FileMode.Create))
+                            {
+                                valueFile.OpenReadStream().CopyTo(fileStream);
+                            }
+                            pro.SetValue(obj, filePath);
+                        }
                     }
                     else
                     {
-                        pro.SetValue(obj, httpContext.Request.Form[item][0].ToType(pro.PropertyType));
-                    }
-                }
-            }
-            var listKeys = httpContext.Request.Form.Keys.Where(p => p.IndexOf(".") > 0).Select(p => p.Split(new string[] { "[]", "." }, StringSplitOptions.RemoveEmptyEntries)[0]).Distinct().ToList();
-            foreach (var item in listKeys)
-            {
-                if (httpContext.Request.Form.Keys.Any(p => p.StartsWith(string.Format("{0}.", item), StringComparison.OrdinalIgnoreCase)))
-                {
-                    var keys = httpContext.Request.Form.Keys.Where(p => p.StartsWith(string.Format("{0}.", item), StringComparison.OrdinalIgnoreCase)).ToList();
-                    var pro = objType.GetProperties().FirstOrDefault(p => p.CanWrite && p.Name.Equals(item, StringComparison.OrdinalIgnoreCase));
-                    if (pro != null && pro.GetAttribute<BindFormAttribute>() != null && pro.PropertyType.IsGenericType && keys.Count > 0)
-                    {
-
-                        var objectValue = pro.PropertyType.CreateInstance();
-                        foreach (var key in keys)
+                        var proValue = "";
+                        foreach (var valueFile in fileValues)
                         {
-                            var proName = key.Split('.')[1];
-                            var pro1 = pro.PropertyType.GetProperties().FirstOrDefault(p => p.Name.Equals(proName, StringComparison.OrdinalIgnoreCase));
-                            if (pro1 != null && pro1.CanWrite)
+                            if (valueFile.Length > 0)
                             {
-                                if (pro1.PropertyType.IsArray)
+                                var filePath = Path.Combine(uploads, valueFile.FileName);
+                                using (var fileStream = new FileStream(filePath, FileMode.Create))
                                 {
-                                    pro1.SetValue(objectValue, httpContext.Request.Form[key][0].Split(',').ToType(pro1.PropertyType));
+                                    valueFile.OpenReadStream().CopyTo(fileStream);
                                 }
-                                else
-                                {
-                                    pro1.SetValue(objectValue, httpContext.Request.Form[key].ToArray()[0].ToType(pro1.PropertyType));
-                                }
+                                proValue += filePath + fieldFile.Separator;
                             }
                         }
-                        pro.SetValue(obj, objectValue);
+                        pro.SetValue(obj, proValue);
                     }
-
+                    continue;
                 }
-                else if (httpContext.Request.Form.Keys.Any(p => p.StartsWith(string.Format("{0}[].", item), StringComparison.OrdinalIgnoreCase)))
+                else if (pro.PropertyType.IsTypeFromInterface<IList>())
                 {
-                    var keys = httpContext.Request.Form.Keys.Where(p => p.StartsWith(string.Format("{0}[].", item), StringComparison.OrdinalIgnoreCase)).ToList();
-                    var pro = objType.GetProperties().FirstOrDefault(p => p.CanWrite && p.Name.Equals(item, StringComparison.OrdinalIgnoreCase));
-                    if (pro != null && pro.GetAttribute<BindFormAttribute>() != null && pro.PropertyType.IsGenericType && pro.PropertyType.IsTypeFromInterface<IList>() && keys.Count > 0)
-                    {
+                     if (httpContext.Request.Form.Keys.Any(p => p.StartsWith(string.Format("{0}[].", pro.Name), StringComparison.OrdinalIgnoreCase))) {
+                        var keys = httpContext.Request.Form.Keys.Where(p => p.StartsWith(string.Format("{0}.", pro.Name), StringComparison.OrdinalIgnoreCase)).ToList();
                         var objectValues = (IList)pro.PropertyType.CreateInstance();
                         var len = httpContext.Request.Form[keys[0]].Count;
                         var typeObject = pro.PropertyType.GetGenericArguments().Single();
                         for (var index = 0; index < len; index++)
                         {
                             var objectValue = typeObject.CreateInstance();
-                            foreach (var key in keys)
+                            foreach (var pro1 in typeObject.GetProperties())
                             {
-                                var proName = key.Split('.')[1];
-                                var pro1 = typeObject.GetProperties().FirstOrDefault(p => p.Name.Equals(proName, StringComparison.OrdinalIgnoreCase));
-                                if (pro1 != null && pro1.CanWrite)
+                                fieldFile = null;
+                                fileValues = null;
+                                if ((fieldFile = pro1.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = file.GetFiles(pro.Name)) != null)
                                 {
-                                    if (pro1.PropertyType.IsArray)
+                                    if (fileValues.Count == 1)
                                     {
-                                        pro1.SetValue(objectValue, httpContext.Request.Form[key][index].Split(',').ToType(pro1.PropertyType));
+                                        var valueFile = fileValues[0];
+                                        if (valueFile.Length > 0)
+                                        {
+                                            var filePath = Path.Combine(uploads, valueFile.FileName);
+                                            using (var fileStream = new FileStream(filePath, FileMode.Create))
+                                            {
+                                                valueFile.OpenReadStream().CopyTo(fileStream);
+                                            }
+                                            pro1.SetValue(obj, filePath);
+                                        }
                                     }
                                     else
                                     {
-                                        pro1.SetValue(objectValue, httpContext.Request.Form[key].ToArray()[index].ToType(pro1.PropertyType));
+                                        var proValue = "";
+                                        foreach (var valueFile in fileValues)
+                                        {
+                                            if (valueFile.Length > 0)
+                                            {
+                                                var filePath = Path.Combine(uploads, valueFile.FileName);
+                                                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                                                {
+                                                    valueFile.OpenReadStream().CopyTo(fileStream);
+                                                }
+                                                proValue += filePath + fieldFile.Separator;
+                                            }
+                                        }
+                                        pro1.SetValue(obj, proValue);
+                                    }
+                                    continue;
+                                }
+                                else if (httpContext.Request.Form.Keys.Any(p => p == string.Format("{0}.{1}", pro.Name, pro1.Name)))
+                                {
+                                    if (pro.PropertyType.IsArray)
+                                    {
+                                        pro1.SetValue(objectValue, httpContext.Request.Form[string.Format("{0}.{1}", pro.Name, pro1.Name)][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
+                                    }
+                                    else
+                                    {
+                                        pro1.SetValue(objectValue, httpContext.Request.Form[string.Format("{0}.{1}", pro.Name, pro1.Name)][0].ToType(pro.PropertyType));
                                     }
                                 }
+
                             }
+
                             objectValues.Add(objectValue);
                         }
                         pro.SetValue(obj, objectValues);
                     }
+                    continue;
                 }
+                else if (pro.PropertyType.IsGenericType)
+                {
+                    if (httpContext.Request.Form.Keys.Any(p => p.StartsWith(string.Format("{0}.", pro.Name), StringComparison.OrdinalIgnoreCase)))
+                    {
+                        var objectValue = pro.PropertyType.CreateInstance();
+                        foreach (var pro1 in pro.PropertyType.GetProperties()) {
+                                fieldFile = null;
+                                fileValues = null;
+                            if ((fieldFile = pro1.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = file.GetFiles(pro.Name)) != null)
+                            {
+                                if (fileValues.Count == 1)
+                                {
+                                    var valueFile = fileValues[0];
+                                    if (valueFile.Length > 0)
+                                    {
+                                        var filePath = Path.Combine(uploads, valueFile.FileName);
+                                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                                        {
+                                            valueFile.OpenReadStream().CopyTo(fileStream);
+                                        }
+                                        pro1.SetValue(obj, filePath);
+                                    }
+                                }
+                                else
+                                {
+                                    var proValue = "";
+                                    foreach (var valueFile in fileValues)
+                                    {
+                                        if (valueFile.Length > 0)
+                                        {
+                                            var filePath = Path.Combine(uploads, valueFile.FileName);
+                                            using (var fileStream = new FileStream(filePath, FileMode.Create))
+                                            {
+                                                valueFile.OpenReadStream().CopyTo(fileStream);
+                                            }
+                                            proValue += filePath + fieldFile.Separator;
+                                        }
+                                    }
+                                    pro1.SetValue(obj, proValue);
+                                }
+                                continue;
+                            }
+                            else  if (httpContext.Request.Form.Keys.Any(p=>p==string.Format("{0}.{1}", pro.Name, pro1.Name))) {
+                                if (pro.PropertyType.IsArray)
+                                {
+                                    pro1.SetValue(objectValue, httpContext.Request.Form[string.Format("{0}.{1}", pro.Name, pro1.Name)][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
+                                }
+                                else
+                                {
+                                    pro1.SetValue(objectValue, httpContext.Request.Form[string.Format("{0}.{1}", pro.Name, pro1.Name)][0].ToType(pro.PropertyType));
+                                }
+                            }
+                           
+                        }
+                        pro.SetValue(obj, objectValue);
+                    }
+
+                    continue;
+                }
+                else if(httpContext.Request.Form.Keys.Contains(pro.Name))
+                {
+                    if (pro.PropertyType.IsArray)
+                    {
+                        pro.SetValue(obj, httpContext.Request.Form[pro.Name][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
+                    }
+                    else
+                    {
+                        pro.SetValue(obj, httpContext.Request.Form[pro.Name][0].ToType(pro.PropertyType));
+                    }
+
+                }
+
+
             }
         }
         public static void BindQueryTo( this HttpContext httpContext,object obj) {
@@ -174,19 +237,57 @@ namespace AZWeb.Extensions
         }
         public static void BindFormTo(this HttpContext httpContext, object obj)
         {
+            var uploads = "uploads";
+            var file = httpContext.Request.Form.Files;
             var objType = obj.GetType();
-            foreach (var item in httpContext.Request.Form.Keys)
-            {
-                var pro = objType.GetProperty(item);
-                if (pro != null && pro.CanWrite)
+            foreach (var pro in objType.GetProperties()) {
+                if (pro.CanWrite)
                 {
-                    if (pro.PropertyType.IsArray)
+                    FieldUploadFileAttribute fieldFile = null;
+                    IReadOnlyList<IFormFile> fileValues = null;
+                    if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = file.GetFiles(pro.Name)) != null)
                     {
-                        pro.SetValue(obj, httpContext.Request.Form[item][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
+                        if (fileValues.Count == 1)
+                        {
+                            var valueFile = fileValues[0];
+                            if (valueFile.Length > 0)
+                            {
+                                var filePath = Path.Combine(uploads, valueFile.FileName);
+                                using (var fileStream = new FileStream(filePath.MapWebRootPath(), FileMode.Create))
+                                {
+                                    valueFile.OpenReadStream().CopyTo(fileStream);
+                                }
+                                pro.SetValue(obj, filePath);
+                            }
+                        }
+                        else
+                        {
+                            var proValue = "";
+                            foreach (var valueFile in fileValues)
+                            {
+                                if (valueFile.Length > 0)
+                                {
+                                    var filePath = Path.Combine(uploads, valueFile.FileName);
+                                    using (var fileStream = new FileStream(filePath.MapWebRootPath(), FileMode.Create))
+                                    {
+                                        valueFile.OpenReadStream().CopyTo(fileStream);
+                                    }
+                                    proValue += filePath + fieldFile.Separator;
+                                }
+                            }
+                            pro.SetValue(obj, proValue);
+                        }
                     }
-                    else
+                    else if(httpContext.Request.Form.ContainsKey(pro.Name))
                     {
-                        pro.SetValue(obj, httpContext.Request.Form[item][0].ToType(pro.PropertyType));
+                        if (pro.PropertyType.IsArray)
+                        {
+                            pro.SetValue(obj, httpContext.Request.Form[pro.Name][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
+                        }
+                        else
+                        {
+                            pro.SetValue(obj, httpContext.Request.Form[pro.Name][0].ToType(pro.PropertyType));
+                        }
                     }
                 }
             }

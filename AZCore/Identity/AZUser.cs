@@ -25,6 +25,8 @@ namespace AZCore.Identity
         public string Salt { get; set; }
         [Field(Length = 200)]
         public string Address { get; set; }
+        [Field(Length = 1000)]
+        public virtual string Avatar { get; set; }
         public void SetPassword(string pass) 
         {
             this.Salt = AzPassword.CreateSalt();

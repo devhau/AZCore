@@ -25,7 +25,9 @@
                 data: dataPost,
 
                 // ContentType dữ liệu trả về
-                dataType: "json"
+                dataType: "json",
+                processData: false,
+                contentType: false,
             });
 
         // Nếu như request thực hiện thành công
