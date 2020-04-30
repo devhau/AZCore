@@ -60,7 +60,7 @@ namespace AZWeb.Extensions
                 }
                 else if (pro.PropertyType.IsTypeFromInterface<IList>())
                 {
-                    if (httpContext.Request.Form.Keys.Any(p => p.StartsWith(string.Format("{0}[].", pro.Name), StringComparison.OrdinalIgnoreCase)))
+                    if (httpContext.Request.Form.Keys.Any(p => p.StartsWith(string.Format("{0}[]", pro.Name), StringComparison.OrdinalIgnoreCase)))
                     {
                         var keys = httpContext.Request.Form.Keys.Where(p => p.StartsWith(string.Format("{0}[]", pro.Name), StringComparison.OrdinalIgnoreCase)).ToList();
                         var objectValues = (IList)pro.PropertyType.CreateInstance();
@@ -379,12 +379,19 @@ namespace AZWeb.Extensions
                 var valueFile = fileValues[0];
                 if (valueFile.Length > 0)
                 {
-                    var filePath = Path.Combine(pathUpload, valueFile.FileName);
+                    var nameFile = Path.GetFileNameWithoutExtension(valueFile.FileName);
+                    var extensionFile = Path.GetExtension(valueFile.FileName);
+                    if (IsGenAutoNamFile)
+                        nameFile = Guid.NewGuid().ToString();
+                    var filePath = Path.Combine(pathUpload, string.Format("{0}.{1}",nameFile,extensionFile));
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         valueFile.OpenReadStream().CopyTo(fileStream);
                     }
-                    return filePath;
+                    if (UseFullPath)
+                        return filePath;
+                    else
+                        return Path.GetFileName(filePath);
                 }
             }
             else
@@ -394,12 +401,19 @@ namespace AZWeb.Extensions
                 {
                     if (valueFile.Length > 0)
                     {
-                        var filePath = Path.Combine(pathUpload, valueFile.FileName);
+                        var nameFile = Path.GetFileNameWithoutExtension(valueFile.FileName);
+                        var extensionFile = Path.GetExtension(valueFile.FileName);
+                        if (IsGenAutoNamFile)
+                            nameFile = Guid.NewGuid().ToString();
+                        var filePath = Path.Combine(pathUpload, string.Format("{0}.{1}", nameFile, extensionFile));
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
                             valueFile.OpenReadStream().CopyTo(fileStream);
                         }
-                        proValue += filePath + Separator;
+                        if (UseFullPath)
+                            proValue += filePath + Separator;
+                        else
+                            proValue += Path.GetFileName(filePath) + Separator;
                     }
                 }
                 return proValue;
