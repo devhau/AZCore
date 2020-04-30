@@ -97,7 +97,7 @@ namespace AZERP.Web.Modules.Common.Permission
                 }
             }
             else {
-                Codes = Codes.Trim(',');
+                if (Codes == null) return Json("Không thể thay đổi quyền",System.Net.HttpStatusCode.BadRequest);
                 foreach (var item in Codes.Split(','))
                 {
                     if (flg)

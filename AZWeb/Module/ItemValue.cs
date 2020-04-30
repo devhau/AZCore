@@ -17,6 +17,8 @@ namespace AZWeb.Module
         [JsonIgnore]
         public object Item { get; set; }
         public string Message { get; set; }
+        [JsonIgnore]
+        public FieldAttribute Attr { get; set; }
     }
     public static class ItemValueExtend
     {
@@ -95,6 +97,7 @@ namespace AZWeb.Module
             var field = memInfo[0].GetAttribute<FieldAttribute>();
             if (field != null)
             {
+                itemValue.Attr = field;
                 itemValue.Display = field.Display;
             }
             else

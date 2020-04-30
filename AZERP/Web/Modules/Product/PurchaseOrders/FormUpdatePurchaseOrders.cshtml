@@ -71,7 +71,7 @@
                             @{ long valueMoney = 0;}
                             @if (Model.DataCurrent != null)
                             {
-                                @foreach (var item in Model.ListDataOrder)
+                                @foreach (var item in Model.listDataOrder)
                                 {
                                     var obj = Model.getProduct(item.ProductId);
                                     var input = "<input type='hidden' name='listDataOrder[].ProductId' value='" + obj.Id + "' />";

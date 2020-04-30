@@ -1,9 +1,9 @@
 ﻿function AZAjax() {
     var $this = this;
-    this.DoGet =  function (methodServer, data, callback, onerror) { return this.DoAjax("GET", methodServer, data, callback, onerror); };
-    this.DoPost = function (methodServer, data, callback, onerror) {  return this.DoAjax("POST", methodServer, data, callback, onerror); };
-    this.DoPut =  function (methodServer, data, callback, onerror) { return this.DoAjax("PUT", methodServer, data, callback, onerror); };
-    this.DoAjax = function (methodAjax, methodServer, data, callback, onerror) {
+    this.DoGet = function (methodServer, data, callback, onerror, options) { return this.DoAjax("GET", methodServer, data, callback, onerror, options); };
+    this.DoPost = function (methodServer, data, callback, onerror, options) { return this.DoAjax("POST", methodServer, data, callback, onerror, options); };
+    this.DoPut = function (methodServer, data, callback, onerror, options) { return this.DoAjax("PUT", methodServer, data, callback, onerror, options); };
+    this.DoAjax = function (methodAjax, methodServer, data, callback, onerror, options) {
         
         urlRequest = methodServer
         // kiểm tra xem data có phải là một function lấy data hay không
@@ -12,6 +12,13 @@
         if (dataPost == null) dataPost = {};
        // dataPost.path = window.location.pathname + window.location.search;
         dataPost.time = new Date().getTime();
+        if (methodAjax != "GET" && !(dataPost instanceof FormData)) {
+            var temp = dataPost;
+            dataPost = new FormData();
+            $.each(temp, function (key, value) {
+                dataPost.append(key, value);
+            });
+        }
         //var request ajax
         var request = $.ajax(
             {

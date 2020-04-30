@@ -11,7 +11,10 @@
             codes += $(this).val()+ ","
         })
         UrlMain.DoPost(PopupMain.Current().link, { Codes: codes, flg: ck }, function (item) {
-            toastr.success(item.message);
+            if (item.statusCode == 200)
+                toastr.success(item.message);
+            else
+                toastr.error(item.message);
         });
         flgCheck = false;
     });
@@ -22,7 +25,10 @@
         flgCheck = true;
         var ck = $(this).is(":checked");
         UrlMain.DoPost(PopupMain.Current().link, { Code: $(this).val(), flg: ck }, function (item) {
-            toastr.success(item.message);
+            if (item.statusCode==200)
+                toastr.success(item.message);
+            else
+                toastr.error(item.message);
         });
         if (ck) {
             $(this).parents("tr").find(".all-permission").prop("checked", true);

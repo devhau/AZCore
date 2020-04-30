@@ -3,6 +3,7 @@ using AZCore.Database.Attributes;
 using AZCore.Domain;
 using AZERP.Data.Enums;
 using AZWeb.Module;
+using System;
 using System.Data;
 using System.Linq;
 
@@ -15,7 +16,7 @@ namespace AZERP.Data.Entities
         }
         public string GetGenCode(SystemCode Key, long? TenantId=null) {
             if (TenantId == null) {
-                var systemCode = Select(p => p.Key == Key && p.Status == EntityStatus.Active).FirstOrDefault();
+                var systemCode = Select(p => p.Name == Key.ToString() && p.Status == EntityStatus.Active).FirstOrDefault();
                 if (systemCode != null)
                 {
                     systemCode.PrefixIndex++;
@@ -23,7 +24,7 @@ namespace AZERP.Data.Entities
                     return systemCode.GenCode;
                 }
             } else {
-                var systemCode = Select(p => p.Key == Key && p.TenantId == TenantId && p.Status == EntityStatus.Active).FirstOrDefault();
+                var systemCode = Select(p => p.Name == Key.ToString() && p.TenantId == TenantId && p.Status == EntityStatus.Active).FirstOrDefault();
                 if (systemCode != null)
                 {
                     systemCode.PrefixIndex++;
@@ -46,8 +47,12 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Key để sử dụng lấy ra để tạo mã cho hệ thống
         /// </summary>
+        public SystemCode Key { get { return  (SystemCode)Enum.Parse(typeof(SystemCode), Name) ; } set { Name = Enum.GetName(typeof(SystemCode), value); } }
+        /// <summary>
+        /// Sử dụng name của enum để lưu lại
+        /// </summary>
         [Field]
-        public SystemCode Key { get; set; }
+        public string Name { get;  set; }
         /// <summary>
         /// Tiền tố của mã cần gen ra.
         /// Ví dụ: 
