@@ -51,15 +51,11 @@
 
     });
     $($id).find(".role-control select").on("select2:select", function (e) {
-        console.log("select");
-        console.log(e);
         UrlMain.DoPut(PopupMain.Current().link, { code: e.params.data.id, flg: true }, function (item) {
             toastr.success(item.message);
         });
     });
     $($id).find(".role-control select").on("select2:unselect", function (e) {
-        console.log("unselect");
-        console.log(e);
         UrlMain.DoPut(PopupMain.Current().link, { code: e.params.data.id, flg: false }, function (item) {
             toastr.success(item.message);
         });

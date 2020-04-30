@@ -129,7 +129,6 @@
 				if (file_data) {
 
 					for (var i = 0; i < file_data.length; i++) {
-						console.log(file_data[i]);
 						data.append(this.name, file_data[i]);
 					}
 				}

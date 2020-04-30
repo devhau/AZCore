@@ -186,7 +186,6 @@ namespace AZWeb.Extensions
         }
         public static void BindFormTo(this HttpContext httpContext, object obj)
         {
-            var uploads = "uploads";
             var file = httpContext.Request.Form.Files;
             var objType = obj.GetType();
             foreach (var pro in objType.GetProperties()) {
@@ -196,36 +195,7 @@ namespace AZWeb.Extensions
                     IReadOnlyList<IFormFile> fileValues = null;
                     if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = file.GetFiles(pro.Name)) != null)
                     {
-                        if (fileValues.Count == 1)
-                        {
-                            var valueFile = fileValues[0];
-                            if (valueFile.Length > 0)
-                            {
-                                var filePath = Path.Combine(uploads, valueFile.FileName);
-                                using (var fileStream = new FileStream(filePath.MapWebRootPath(), FileMode.Create))
-                                {
-                                    valueFile.OpenReadStream().CopyTo(fileStream);
-                                }
-                                pro.SetValue(obj, filePath);
-                            }
-                        }
-                        else
-                        {
-                            var proValue = "";
-                            foreach (var valueFile in fileValues)
-                            {
-                                if (valueFile.Length > 0)
-                                {
-                                    var filePath = Path.Combine(uploads, valueFile.FileName);
-                                    using (var fileStream = new FileStream(filePath.MapWebRootPath(), FileMode.Create))
-                                    {
-                                        valueFile.OpenReadStream().CopyTo(fileStream);
-                                    }
-                                    proValue += filePath + fieldFile.Separator;
-                                }
-                            }
-                            pro.SetValue(obj, proValue);
-                        }
+                        pro.SetValue(obj, httpContext.UploadFile(fileValues, fieldFile));
                     }
                     else if(httpContext.Request.Form.ContainsKey(pro.Name))
                     {
@@ -384,7 +354,7 @@ namespace AZWeb.Extensions
                     if (IsGenAutoNamFile)
                         nameFile = Guid.NewGuid().ToString();
                     var filePath = Path.Combine(pathUpload, string.Format("{0}.{1}",nameFile,extensionFile));
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    using (var fileStream = new FileStream(filePath.MapWebRootPath(), FileMode.Create))
                     {
                         valueFile.OpenReadStream().CopyTo(fileStream);
                     }

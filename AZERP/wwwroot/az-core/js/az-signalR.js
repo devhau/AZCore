@@ -16,7 +16,6 @@
             if (callback)
                 callback(AZConnect, true);
         }).catch(function (err) {
-            console.log(err);
             if (callback)
                 callback(AZConnect, false);
         });
