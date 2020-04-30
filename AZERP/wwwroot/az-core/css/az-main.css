@@ -227,3 +227,30 @@ table-freeze thead th {
     .az-page-info .az-page-info-body {
         width: 100%;
     }
+    .az-upload-file.drop{
+        width:100%;
+        background:#ccc;
+        height:400px;
+    }
+     .az-upload-file.drop:hover{
+         background:#eee;
+     }
+     .az-upload-file.drop input{
+         display:none;
+     }
+     .az-upload-file.drop .custom-file-label{   
+        background: unset;
+        border: none;
+        height: 100%;
+        width:100%;
+        text-align:center;
+        padding-top:45%;
+     }
+     .az-upload-file.drop .custom-file-label::after{
+         content:unset;
+     }
+     .az-upload-file .az-image{
+        width:100%;
+        height:100%;
+
+     }

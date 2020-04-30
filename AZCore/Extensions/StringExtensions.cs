@@ -22,8 +22,8 @@ namespace AZCore.Extensions
         public static string GetOnlyDigitalAndDot(this string str)
         {
             int lastIndex = str.LastIndexOf('.');
-            if (lastIndex < 0|| lastIndex>str.Length) return Regex.Replace(str, @"[^\d]", string.Empty);
-            return string.Format("{0}.{1}", str.Substring(0, lastIndex).GetOnlyDigital(), str.Substring(lastIndex + 1).GetOnlyDigital());
+            if (lastIndex < 0|| lastIndex>str.Length) return string.Format("{0}{1}", str.Trim().StartsWith("-") ? "-" : "",str.GetOnlyDigital());
+            return string.Format("{2}{0}.{1}", str.Substring(0, lastIndex).GetOnlyDigital(), str.Substring(lastIndex + 1).GetOnlyDigital(),str.Trim().StartsWith("-")?"-":"");
         }
         public static string GetOnlyDigital(this string str)
         {

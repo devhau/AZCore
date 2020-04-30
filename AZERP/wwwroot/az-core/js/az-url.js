@@ -13,6 +13,7 @@ AZUrl.prototype.loadHtml = function (url, callback) {
     }, function (e) { window.history.back(); toastr.error("Không thể đến đường dẫn này:" + url) });
 }
 AZUrl.prototype.changeUrl = function (url) {
+    if (!ManagerMain.isEmpty()) ManagerMain.Remove();
     this.loadHtml(url);
     window.history.pushState("data", "Title", url);
 }

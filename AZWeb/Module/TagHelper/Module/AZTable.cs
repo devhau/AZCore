@@ -21,6 +21,10 @@ namespace AZWeb.Module.TagHelper.Module
     {
         [HtmlAttributeName("FunKey")]
         public Func<dynamic, object> FunKey { get; set; }
+        [HtmlAttributeName("fun-where-edit")]
+        public Func<dynamic, bool> FunEdit { get; set; }
+        [HtmlAttributeName("fun-where-remove")]
+        public Func<dynamic, bool> FunRemove { get; set; }
         [HtmlAttributeName("is-index")]
         public bool IsIndex { get; set; } = true;
         [HtmlAttributeName("is-edit")]
@@ -118,7 +122,9 @@ namespace AZWeb.Module.TagHelper.Module
                     if (this.IsEdit)
                     {
                         htmlTable.Append("<td>");
+                        
                         htmlTable.Append("<i class=\"far fa-edit az-btn-edit\"></i>");
+
                         htmlTable.Append("</td>");
                     }
                     if (this.IsDelete)
@@ -248,13 +254,15 @@ namespace AZWeb.Module.TagHelper.Module
                     if (this.IsEdit)
                     {
                         htmlTable.Append("<td>");
-                        htmlTable.Append("<i class=\"far fa-edit az-btn-edit\"></i>");
+                        if(FunEdit==null|| FunEdit(item))
+                            htmlTable.Append("<i class=\"far fa-edit az-btn-edit\"></i>");
                         htmlTable.Append("</td>");
                     }
                     if (this.IsDelete)
                     {
                         htmlTable.Append("<td>");
-                        htmlTable.Append("<i class=\"far fa-trash-alt az-btn-delete\"></i>");
+                        if (FunRemove == null || FunRemove(item))
+                            htmlTable.Append("<i class=\"far fa-trash-alt az-btn-delete\"></i>");
                         htmlTable.Append("</td>");
                     }
                     htmlTable.Append("</tr>");

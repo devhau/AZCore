@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace AZWeb.Extensions
 {
@@ -131,6 +132,23 @@ namespace AZWeb.Extensions
                     typeHubg.CreateInstance<HubBase>().MapRouter(routes);
             });
         }
+        //params string[] paths
+        public static string MapWebRootPath(this string path) {
+           return Path.Combine(ModuleRender._hostingEnvironment.WebRootPath, path);
 
+        }
+        public static string MapWebRootPath(this object obj, params string[] paths)
+        {
+            return Path.Combine(paths).MapWebRootPath();
+        }
+        public static string MapContentRootPath(this string path)
+        {
+            return Path.Combine(ModuleRender._hostingEnvironment.ContentRootPath, path);
+
+        }
+        public static string MapContentRootPath(this object obj, params string[] paths)
+        {
+            return Path.Combine(paths).MapContentRootPath();
+        }
     }
 }

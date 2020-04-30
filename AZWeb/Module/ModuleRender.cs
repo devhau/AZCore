@@ -8,6 +8,7 @@ using AZWeb.Module.Constant;
 using AZWeb.Module.Page;
 using AZWeb.Module.View;
 using AZWeb.Utilities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
@@ -21,6 +22,7 @@ namespace AZWeb.Module
 {
     sealed class ModuleRender
     {
+        internal static IHostingEnvironment _hostingEnvironment;
         private enum RenderError
         {
             None,
@@ -47,6 +49,9 @@ namespace AZWeb.Module
             this.PageConfigs = this.httpContext.GetService<IPagesConfig>();
             this.IsAjax = httpContext.IsAjax();
             urlPath = this.httpContext.Request.Path.Value;
+            if (_hostingEnvironment == null) {
+                _hostingEnvironment = _httpContext.GetService<IHostingEnvironment>();
+            }
         }
         /// <summary>
         /// Get Path Real

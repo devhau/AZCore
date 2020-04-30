@@ -10,7 +10,7 @@
         $(this).parents("tr").find(".az-permission-child input").each(function (i, el) {
             codes += $(this).val()+ ","
         })
-        UrlMain.DoPost(PopupMain.PopupCurrent().link, { Codes: codes, flg: ck }, function (item) {
+        UrlMain.DoPost(PopupMain.Current().link, { Codes: codes, flg: ck }, function (item) {
             toastr.success(item.message);
         });
         flgCheck = false;
@@ -21,7 +21,7 @@
         if (flgCheck) return;
         flgCheck = true;
         var ck = $(this).is(":checked");
-        UrlMain.DoPost(PopupMain.PopupCurrent().link, { Code: $(this).val(), flg: ck }, function (item) {
+        UrlMain.DoPost(PopupMain.Current().link, { Code: $(this).val(), flg: ck }, function (item) {
             toastr.success(item.message);
         });
         if (ck) {
@@ -37,24 +37,24 @@
         flgCheck = false;
     });
     $($id).find(".search-permssion form").find("*:input,select,textarea").on("change", function () {
-        var url = PopupMain.PopupCurrent().getPathName()+"?"+decodeURIComponent($.param($(this).parents("form").serializeArray()));
+        var url = PopupMain.Current().getPathName()+"?"+decodeURIComponent($.param($(this).parents("form").serializeArray()));
         UrlMain.DoGet(url, {}, function (item) {
-            PopupMain.PopupCurrent().setHtml(item.html);
-            PopupMain.PopupCurrent().setLink(url);
+            PopupMain.Current().setHtml(item.html);
+            PopupMain.Current().setLink(url);
         });
 
     });
     $($id).find(".role-control select").on("select2:select", function (e) {
         console.log("select");
         console.log(e);
-        UrlMain.DoPut(PopupMain.PopupCurrent().link, { code: e.params.data.id, flg: true }, function (item) {
+        UrlMain.DoPut(PopupMain.Current().link, { code: e.params.data.id, flg: true }, function (item) {
             toastr.success(item.message);
         });
     });
     $($id).find(".role-control select").on("select2:unselect", function (e) {
         console.log("unselect");
         console.log(e);
-        UrlMain.DoPut(PopupMain.PopupCurrent().link, { code: e.params.data.id, flg: false }, function (item) {
+        UrlMain.DoPut(PopupMain.Current().link, { code: e.params.data.id, flg: false }, function (item) {
             toastr.success(item.message);
         });
     });

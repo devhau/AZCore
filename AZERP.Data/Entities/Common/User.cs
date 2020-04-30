@@ -1,6 +1,8 @@
 ﻿using AZCore.Database;
+using AZCore.Database.Attributes;
 using AZCore.Domain;
 using AZCore.Identity;
+using AZWeb.Module.Attributes;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -55,6 +57,9 @@ namespace AZERP.Data.Entities
     /// </summary>
     public class UserModel : AZUser<UserModel>
     {
-              
+
+        [Field(Length = 1000)]
+        [FieldUploadFile]
+        public override string Avatar { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using AZERP.Data.Entities;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace AZERP.Web.Modules.Common.User
 {

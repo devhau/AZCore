@@ -2,6 +2,7 @@
 using AZCore.Database.Attributes;
 using AZCore.Domain;
 using AZERP.Data.Enums;
+using AZWeb.Module.Attributes;
 using System;
 using System.Data;
 
@@ -20,6 +21,9 @@ namespace AZERP.Data.Entities
     [TableInfo(TableName = "az_candidate")]
     public class CandidateModel : EntityModel<CandidateModel, long>
     {
+        [FieldAutoGenCode(Key =SystemCode.CandidateCode )]
+        [Field(Length =256)]
+        public string Code { get; set; }
         /// <summary>
         /// Họ Tên
         /// </summary>

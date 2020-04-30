@@ -12,6 +12,7 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Recruitment.Candidate
 {
+    [TableColumn(Title = "Mã ứng viên", FieldName = "Code", Width = 130)]
     [TableColumn(Title = "Ngày tạo", FieldName = "CreateAt", Width = 100,FormatString ="{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Họ Tên", FieldName = "FullName", Width = 130)]
     [TableColumn(Title = "Giới tính", FieldName = "Gender", Width = 80,DataType =typeof(Gender))]
