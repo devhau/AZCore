@@ -29,9 +29,9 @@ namespace AZERP.Data.Entities
 
             sql.SQL = string.Format(@"
                 SELECT `az_purchase_order`.StoreId ,`az_purchase_order_product`.ProductId, `az_store_product`.Available , 
-                SUM(CASE WHEN az_purchase_order.Type = 0 AND az_purchase_order.PurchaseOrderImport = 0 AND az_purchase_order.PurchaseOrderStatus = 0 THEN az_purchase_order_product.ImportNumber ELSE 0 END) Incoming,
-                SUM(CASE WHEN az_purchase_order.Type = 1 AND az_purchase_order.PurchaseOrderImport = 3 AND az_purchase_order.PurchaseOrderStatus = 0 THEN az_purchase_order_product.ImportNumber ELSE 0 END) OnWay,
-                SUM(CASE WHEN az_purchase_order.Type = 1 AND az_purchase_order.PurchaseOrderImport = 2 AND az_purchase_order.PurchaseOrderStatus = 0 THEN az_purchase_order_product.ImportNumber ELSE 0 END) Committed
+                SUM(CASE WHEN az_purchase_order.Type = 1 AND az_purchase_order.PurchaseOrderImport = 1 AND az_purchase_order.PurchaseOrderStatus = 1 THEN az_purchase_order_product.ImportNumber ELSE 0 END) Incoming,
+                SUM(CASE WHEN az_purchase_order.Type = 2 AND az_purchase_order.PurchaseOrderImport = 4 AND az_purchase_order.PurchaseOrderStatus = 1 THEN az_purchase_order_product.ImportNumber ELSE 0 END) OnWay,
+                SUM(CASE WHEN az_purchase_order.Type = 2 AND az_purchase_order.PurchaseOrderImport = 3 AND az_purchase_order.PurchaseOrderStatus = 1 THEN az_purchase_order_product.ImportNumber ELSE 0 END) Committed
                 FROM `az_purchase_order`
 	                LEFT JOIN `az_purchase_order_product` on `az_purchase_order`.Id = `az_purchase_order_product`.PurchaseOrderId
                     LEFT JOIN `az_store_product`  on `az_purchase_order`.StoreId = `az_store_product`.StoreId AND `az_purchase_order_product`.ProductId = `az_store_product`.ProductId

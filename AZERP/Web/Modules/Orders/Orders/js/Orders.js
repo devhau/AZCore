@@ -29,6 +29,10 @@ function caculatorAll() {
     $(eleMoneySum).text(valueMoneySum.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"));
 }
 
+$(".az-btn-check-store").on("click", function () {
+
+})
+
 function addEvent() {
     $(".az-update-order .az-data-table table input").on('input', function () {
         let number = $(this).parent().parent().children("td").eq(2).children("input").val();

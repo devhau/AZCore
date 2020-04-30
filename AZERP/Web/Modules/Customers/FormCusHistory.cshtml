@@ -7,6 +7,9 @@
                     <div class="col-md-12 az-data-table">
                         <az-table is-edit="false" is-delete="false" data="Model.Data" FunKey="(item)=>((PurchaseOrderModel)item).Id" columns="Model.Columns" pagination="Model" />
                     </div>
+                    <div class="az-bottom-manager">
+                        <az-pagination pagination="Model" />
+                    </div>
                 </div>
             </div>
         </div>

@@ -7,8 +7,8 @@ namespace AZERP.Data.Enums
 {
     public enum OrderStatus:int
     {
-        [Field(Display = "Đang thực hiện")] Waiting = 0,
-        [Field(Display = "Kết thúc")] Close = 1,
-        [Field(Display = "Hoàn thành")] Complete = 2,
+        [Field(Display = "Đang thực hiện")] Waiting = 1,
+        [Field(Display = "Kết thúc")] Close = 2,
+        [Field(Display = "Hoàn thành")] Complete = 3,
     }
 }
