@@ -1,12 +1,10 @@
-﻿using AZCore.Database;
-using AZCore.Database.Attributes;
+﻿using AZCore.Database.Attributes;
 using AZCore.Extensions;
 using AZERP.Data.Entities;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -51,7 +49,6 @@ namespace AZERP.Web.Modules.Common.Permission
                 dataView.PermissionActive = UserPermissionService.Select(p => p.UserId == this.UserId).Select(p => p.PermissionCode).ToList();
                 this.Roles = this.UserRoleService.Select(p => p.UserId == this.UserId).Select(p => p.RoleId).ToList();
             }
-            
             return View("UserPermission");
         }
         [OnlyAjax]
@@ -70,8 +67,7 @@ namespace AZERP.Web.Modules.Common.Permission
             {
                 UserRoleService.Delete(p => p.RoleId == code && p.UserId == UserId);
             }
-
-            return Json("Cập nhật vai trò thành công"+ code);
+            return Json("Cập nhật vai trò thành công");
         }
         [OnlyAjax]
         public IView PostUser(string code,string Codes, bool flg)
@@ -88,8 +84,6 @@ namespace AZERP.Web.Modules.Common.Permission
                             PermissionCode = code
                         });
                     }
-
-                    // this.userPermissionService
                 }
                 else
                 {
@@ -115,9 +109,7 @@ namespace AZERP.Web.Modules.Common.Permission
                     {
                         UserPermissionService.Delete(p => p.UserId == UserId && p.PermissionCode == item );
                     }
-
                 }
-
             }
            
             return Json("Cập nhật quyền thành công");
@@ -148,8 +140,6 @@ namespace AZERP.Web.Modules.Common.Permission
                             PermissionCode = code
                         });
                     }
-
-                    // this.userPermissionService
                 }
                 else
                 {
@@ -171,8 +161,6 @@ namespace AZERP.Web.Modules.Common.Permission
                                 PermissionCode = item
                             });
                         }
-
-                        // this.userPermissionService
                     }
                     else
                     {
@@ -197,7 +185,6 @@ namespace AZERP.Web.Modules.Common.Permission
                         Name = dis.Display
                     });
             }
-            
             return Json("cập nhật danh sách quyền thành công");
         }
     }
