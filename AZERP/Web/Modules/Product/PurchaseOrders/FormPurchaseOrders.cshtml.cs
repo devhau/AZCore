@@ -68,7 +68,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
         [BindQuery]
         public long Id { get; set; }
         [BindForm]
-        public List<PurchaseOrderProductModel> ListDataOrder { get; set; }
+        public List<PurchaseOrderProductModel> listDataOrder { get; set; }
 
         public UserModel UserModel;
         public SupplierModel SupplierModel;
@@ -130,7 +130,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 DataCurrent = this.Service.GetById(Id);
                 SupplierModel = this.supplierService.Select(p => p.Id == DataCurrent.PartnerId).FirstOrDefault();
                 UserModel = this.userService.Select(p => p.Id == DataCurrent.CreateBy).FirstOrDefault();
-                ListDataOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == DataCurrent.Id).ToList();
+                listDataOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == DataCurrent.Id).ToList();
                 if (DataCurrent.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.WaitingImport && DataCurrent.PurchaseOrderPayment == OrderPayment.Unpaid && DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)
                 {
                     CanEdit = true;
@@ -155,7 +155,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                     return Json("Chưa chọn nhà cung cấp", System.Net.HttpStatusCode.BadRequest);
                 if (dataForm.StoreId == 0)
                     return Json("Chưa chọn kho nhập hàng", System.Net.HttpStatusCode.BadRequest);
-                if (this.ListDataOrder == null || this.ListDataOrder.Count == 0)
+                if (this.listDataOrder == null || this.listDataOrder.Count == 0)
                     return Json("Không được để trống danh sách sản phẩm", System.Net.HttpStatusCode.BadRequest);
                 
                 dataForm.CreateAt = DateTime.Now;
@@ -173,12 +173,12 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 var result = entityTransaction.DoTransantion<PurchaseOrderService, PurchaseOrderProductService>((t, t1, t2) =>
                 {
                     var orderId = t1.Insert(dataForm);
-                    foreach (PurchaseOrderProductModel item in this.ListDataOrder)
+                    foreach (PurchaseOrderProductModel item in this.listDataOrder)
                     {
                         item.PurchaseOrderId = orderId;
                         item.CreateAt = DateTime.Now;
                     }
-                    t2.InsertRange(this.ListDataOrder);
+                    t2.InsertRange(this.listDataOrder);
                 });
 
                 if (result)
@@ -205,7 +205,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                         return Json("Chưa chọn nhà cung cấp", System.Net.HttpStatusCode.BadRequest);
                     if (dataForm.StoreId == 0)
                         return Json("Chưa chọn kho nhập hàng", System.Net.HttpStatusCode.BadRequest);
-                    if (this.ListDataOrder == null || this.ListDataOrder.Count == 0)
+                    if (this.listDataOrder == null || this.listDataOrder.Count == 0)
                         return Json("Không được để trống danh sách sản phẩm", System.Net.HttpStatusCode.BadRequest);
 
                     var resultDel = entityTransaction.DoTransantion<PurchaseOrderProductService>((t, t1) =>
@@ -217,12 +217,12 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                     {
                         var result = entityTransaction.DoTransantion<PurchaseOrderService, PurchaseOrderProductService>((t, t1, t2) =>
                         {
-                            foreach (var item in this.ListDataOrder)
+                            foreach (var item in this.listDataOrder)
                             {
                                 item.PurchaseOrderId = Id.GetValueOrDefault();
                                 item.CreateAt = DateTime.Now;
                             }
-                            t2.InsertRange(this.ListDataOrder);
+                            t2.InsertRange(this.listDataOrder);
 
                             data.PartnerId = dataForm.PartnerId;
                             data.UpdateBy = User.Id;
@@ -274,7 +274,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
             DataCurrent = this.Service.GetById(this.Id);
             SupplierModel = this.supplierService.Select(p => p.Id == DataCurrent.PartnerId).FirstOrDefault();
             UserModel = this.userService.Select(p => p.Id == DataCurrent.CreateBy).FirstOrDefault();
-            ListDataOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == this.Id).ToList();
+            listDataOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == this.Id).ToList();
             this.Title = "Duyệt hóa đơn";
             return View("UpdatePurchaseOrders");
 

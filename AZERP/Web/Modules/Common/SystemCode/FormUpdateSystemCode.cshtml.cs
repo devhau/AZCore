@@ -20,13 +20,13 @@ namespace AZERP.Web.Modules.Common.SystemCode
             if (isNew) {
                 if (this.TenantId == null)
                 {
-                    if (this.Service.Select(p => p.Key == model.Key).Count() > 0)
+                    if (this.Service.Select(p => p.Name == model.Name).Count() > 0)
                     {
                         return Json("Đã tồn tại key này rồi.<br/>vui lòng chọn key khác.", System.Net.HttpStatusCode.BadRequest);
                     }
                 }
                 else {
-                    if (this.Service.Select(p => p.Key == model.Key && p.TenantId==this.TenantId).Count() > 0)
+                    if (this.Service.Select(p => p.Name == model.Name && p.TenantId==this.TenantId).Count() > 0)
                     {
                         return Json("Đã tồn tại key này rồi.<br/>vui lòng chọn key khác.", System.Net.HttpStatusCode.BadRequest);
                     }

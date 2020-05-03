@@ -111,7 +111,7 @@
 		$($this.TergetManger).focus();
     }
 	$this.EventKeyUp = function (e) {
-		code = undefined;
+		var code = undefined;
 		//Find Which key is pressed
 		if (e.keyCode) code = e.keyCode;
 		else if (e.which) code = e.which;

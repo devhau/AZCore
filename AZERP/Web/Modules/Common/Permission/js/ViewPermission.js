@@ -11,7 +11,10 @@
             codes += $(this).val()+ ","
         })
         UrlMain.DoPost(PopupMain.Current().link, { Codes: codes, flg: ck }, function (item) {
-            toastr.success(item.message);
+            if (item.statusCode == 200)
+                toastr.success(item.message);
+            else
+                toastr.error(item.message);
         });
         flgCheck = false;
     });
@@ -22,7 +25,10 @@
         flgCheck = true;
         var ck = $(this).is(":checked");
         UrlMain.DoPost(PopupMain.Current().link, { Code: $(this).val(), flg: ck }, function (item) {
-            toastr.success(item.message);
+            if (item.statusCode==200)
+                toastr.success(item.message);
+            else
+                toastr.error(item.message);
         });
         if (ck) {
             $(this).parents("tr").find(".all-permission").prop("checked", true);
@@ -45,15 +51,11 @@
 
     });
     $($id).find(".role-control select").on("select2:select", function (e) {
-        console.log("select");
-        console.log(e);
         UrlMain.DoPut(PopupMain.Current().link, { code: e.params.data.id, flg: true }, function (item) {
             toastr.success(item.message);
         });
     });
     $($id).find(".role-control select").on("select2:unselect", function (e) {
-        console.log("unselect");
-        console.log(e);
         UrlMain.DoPut(PopupMain.Current().link, { code: e.params.data.id, flg: false }, function (item) {
             toastr.success(item.message);
         });

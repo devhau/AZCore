@@ -112,30 +112,8 @@
 		$this.focusPopup();
 		
 	}
-	$this.SerializeData = function () {
-		var data = new FormData();
-		var $data = $($this.ModalForm).serializeArray();
-		$($this.ModalForm).find('input[type="checkbox"]:not(:checked)').each(function () {
-			if ($data.indexOf(this.name) < 0) {
-				$data.push({ name: this.name, value: false });
-			}
-		});
-		$.each($data, function (key, input) {
-			data.append(input.name, input.value);
-		});
-		$($this.ModalForm).find('input[type="file"]').each(function () {
-			if ($data.indexOf(this.name) < 0) {
-				var file_data = $(this)[0].files;
-				if (file_data) {
-
-					for (var i = 0; i < file_data.length; i++) {
-						console.log(file_data[i]);
-						data.append(this.name, file_data[i]);
-					}
-				}
-			}
-		});
-		return data;
+	$this.SerializeData = function () {		
+		return $($this.ModalForm).AZSerializeForm();
 	}
 	$this.destroy = function () {
 		if ($this.Manager) ManagerMain.Remove();

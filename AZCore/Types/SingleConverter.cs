@@ -12,7 +12,7 @@ namespace AZCore.Types
         {
             switch (typeCode)
             {
-                case AZTypeCode.String: return value.IsNullOrEmpty() ? 0 : Convert.ToSingle(value.ToString().GetOnlyDigitalAndDot());
+                case AZTypeCode.String: return value.IsNullOrEmpty() ? (float?)null : Convert.ToSingle(value.ToString().GetOnlyDigitalAndDot());
                 case AZTypeCode.Double: return Convert.ToSingle(value);                
                 case AZTypeCode.Single: return value;
                 case AZTypeCode.DBNull: return 0;

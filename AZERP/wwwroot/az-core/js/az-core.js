@@ -130,13 +130,36 @@ function getSelectedFiles(input) {
     }
     return input.value;
 };
+$.fn.AZSerializeForm = function () {
+    var $data = $(this).serializeArray();
+    $(this).find('input[type="checkbox"]:not(:checked)').each(function () {
+            $data.push({ name: this.name, value: false });
+    });
+    if ($(this).find('input[type="file"]').length > 0) {
+        var data = new FormData();
+        $.each($data, function (key, input) {
+            data.append(input.name, input.value);
+        });
+        $(this).find('input[type="file"]').each(function () {
+            var file_data = $(this)[0].files;
+            if (file_data) {
+                for (var i = 0; i < file_data.length; i++) {
+                    data.append(this.name, file_data[i]);
+                }
+            }
+        });
+        return data;
+    } else {
+        return $data;
+    }
+};
 $.fn.AZUploadFile = function () {
     var labelUpload = $(this).parents(".az-upload-file").find(".custom-file-label")
     var imageUpload = $(this).parents(".az-upload-file").find(".az-image");
 
     $(this).on("change", function (event) {
         $(labelUpload).html(getSelectedFiles(this));
-        if(imageUpload)
+        if (imageUpload)
             $(imageUpload).attr("src", URL.createObjectURL(event.target.files[0]));
     });
-}
+};
