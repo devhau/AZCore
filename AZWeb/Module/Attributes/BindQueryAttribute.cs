@@ -8,5 +8,6 @@ namespace AZWeb.Module.Attributes
     [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
     public class BindQueryAttribute :  System.Attribute
     {
+        public string FromName { get; set; }
     }
 }

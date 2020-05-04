@@ -98,7 +98,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                 T.SetColumn("count(0)");
                 actionWhere(T);
             });
-            this.PageMax = (int)Math.Ceiling((decimal)this.PageTotal / (decimal)this.PageSize);
+            this.PageMax = this.PageSize>0?(int)Math.Ceiling(PageTotal / (decimal)PageSize):0;
             return Service.ExecuteQuery((T) => {
                 if (PageIndex <= 0)
                 {

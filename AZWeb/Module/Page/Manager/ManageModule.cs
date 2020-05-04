@@ -60,7 +60,7 @@ namespace AZWeb.Module.Page.Manager
                 T.SetColumn("count(0)");
                 actionWhere(T);
             });
-            this.PageMax = (int)Math.Ceiling((decimal)this.PageTotal / (decimal)this.PageSize);
+            this.PageMax = PageSize>0?(int)Math.Ceiling(PageTotal / (decimal)PageSize):0;
             if (PageIndex <= 0)
             {
                 PageIndex = 1;
