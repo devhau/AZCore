@@ -163,3 +163,29 @@ $.fn.AZUploadFile = function () {
             $(imageUpload).attr("src", URL.createObjectURL(event.target.files[0]));
     });
 };
+$.fn.ShowLinkPopup = function () {
+    let ModalSize = $(this).attr("modal-size");
+    let reload = $(this).attr("reload");
+    let LinkHref = $(this).attr("href");
+    let link = $(this).attr("href");
+    if (LinkHref.indexOf("?") > 0) {
+        LinkHref += "&ActionType=popup"
+    } else
+        LinkHref += "?ActionType=popup"
+    AjaxMain.DoGet(LinkHref, null, function (item) {
+        if (item.statusCode && item.statusCode === 401) {
+            return;
+        }
+        let popup = new AZPopup();
+        popup.ClearButton();
+        popup.setHtml(item.html);
+        popup.setTitle(item.title);
+        popup.setLink(link);
+        popup.ModalSize = ModalSize;
+        popup.ShowPopup(function () {
+            if (reload && reload === 'true') {
+                $this.loadHtml(location.href);
+            }
+        });
+    });
+}
