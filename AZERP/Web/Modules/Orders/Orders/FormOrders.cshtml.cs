@@ -1,6 +1,7 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Enums;
 using AZCore.Database.SQL;
+using AZCore.Extensions;
 using AZERP.Data.Entities;
 using AZERP.Data.Enums;
 using AZWeb.Extensions;
@@ -9,9 +10,11 @@ using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Mozilla;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
@@ -72,7 +75,14 @@ namespace AZERP.Web.Modules.Orders.Orders
         public UserModel UserModel;
         public CustomersModel CustomersModel;
         public PurchaseOrderModel DataCurrent = null;
+        public ProductModel ProductModel;
         public bool CanEdit = true;
+
+        [BindService]
+        public StoreService StoreService;
+        public List<ProductModel> ListProduct;
+        public List<StoreModel> storeModels;
+        public List<VariantData> variantDatas;
 
         public FormOrders(IHttpContextAccessor httpContext) : base(httpContext)
         {
@@ -92,10 +102,11 @@ namespace AZERP.Web.Modules.Orders.Orders
             this.PageTotalAll = Service.ExecuteNoneQuery((T) => {
 
                 T.SetColumn("count(0)");
-
+                T.AddWhere("Type", OrderType.Out);
             });
             this.PageTotal = Service.ExecuteNoneQuery((T) => {
                 T.SetColumn("count(0)");
+                T.AddWhere("Type", OrderType.Out);
                 actionWhere(T);
             });
             this.PageMax = (int)Math.Ceiling((decimal)this.PageTotal / (decimal)this.PageSize);
@@ -151,7 +162,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                 var dataForm = new PurchaseOrderModel();
                 this.HttpContext.BindFormTo(dataForm);
                 if (dataForm.PartnerId == 0)
-                    return Json("Chưa chọn nhà cung cấp", System.Net.HttpStatusCode.BadRequest);
+                    return Json("Chưa chọn khách hàng", System.Net.HttpStatusCode.BadRequest);
                 if (this.ListDataOrder == null || this.ListDataOrder.Count == 0)
                     return Json("Không được để trống danh sách sản phẩm", System.Net.HttpStatusCode.BadRequest);
                 
@@ -198,7 +209,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                     && data.PurchaseOrderStatus == OrderStatus.Waiting)
                 {
                     if (dataForm.PartnerId == 0)
-                        return Json("Chưa chọn nhà cung cấp", System.Net.HttpStatusCode.BadRequest);
+                        return Json("Chưa chọn khách hàng", System.Net.HttpStatusCode.BadRequest);
                     if (this.ListDataOrder == null || this.ListDataOrder.Count == 0)
                         return Json("Không được để trống danh sách sản phẩm", System.Net.HttpStatusCode.BadRequest);
 
@@ -264,10 +275,24 @@ namespace AZERP.Web.Modules.Orders.Orders
         }
 
         [OnlyAjax]
-        public IView GetCheckStore()
+        public IView GetCheckStore(string data)
         {
             this.Title = "Kiểm tra tồn kho";
+            this.storeModels = StoreService.GetAll().ToList();
+            this.variantDatas = StoreService.GetObject(0).ToList();
+            this.ListProduct = new List<ProductModel>();
+            foreach (var item in data.Split(","))
+            {
+                var proModel = this.productService.Select(p => p.Id == item.To<long>()).First();
+                ListProduct.Add(proModel);
+            }
             return View("CheckAvailable");
+        }
+
+        public long GetInfo(long storeId, long productId, Func<VariantData, long> func)
+        {
+            var item = this.variantDatas.FirstOrDefault(p => p.StoreId == storeId && p.ProductId == productId);
+            return item == null ? 0 : func(item);
         }
 
         [OnlyAjax]

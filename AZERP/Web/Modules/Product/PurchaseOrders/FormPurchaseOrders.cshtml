@@ -19,7 +19,8 @@
                         <div class="col-md-3">
                             <az-store-status-select model="Model"
                                                     func="(item)=>((FormPurchaseOrders)item).PurchaseOrderImport"
-                                                    null-text="Chọn trạng thái" label="Trạng thái xuất kho">
+                                                    where-func="(item) => (item ==null|| item.Equals(PurchaseOrderImport.Import) || item.Equals(PurchaseOrderImport.WaitingImport))"
+                                                    null-text="Chọn trạng thái" label="Trạng thái nhập kho">
                             </az-store-status-select>
                         </div>
                     </form>

@@ -1,9 +1,7 @@
-﻿using AZCore.Database;
-using AZCore.Database.Enums;
+﻿using AZCore.Database.Enums;
 using AZCore.Database.SQL;
 using AZERP.Data.Entities;
 using AZWeb.Module.Attributes;
-using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -12,6 +10,7 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Product.Products
 {
+    [TableColumn(Title = "", FieldName = "Picture")]
     [TableColumn(Title = "Mã SKU", FieldName = "Code")]
     [TableColumn(Title = "Sản phẩm", FieldName = "Name")]
     [TableColumn(Title = "Nhóm sản phẩm", FieldName = "CategoryId", DataType = typeof(CategoryService))]
