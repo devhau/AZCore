@@ -50,6 +50,7 @@
                     <table class="table table-bordered table-hover az-table " role="grid">
                         <thead>
                             <tr>
+                                <td></td>
                                 <td>Mã SKU</td>
                                 <td>Tên sản phẩm</td>
                                 <td>Số lượng mua</td>
@@ -62,15 +63,16 @@
                             @{ long valueMoney = 0;}
                             @foreach (var item in Model.ListDataOrder)
                             {
-                                <tr>
-                                    <td>@Model.getProduct(item.ProductId)?.Code</td>
-                                    <td>@Model.getProduct(item.ProductId)?.Name</td>
-                                    <td>@item.ImportNumber</td>
-                                    <td>@item.ImportPrice</td>
-                                    <td>@String.Format("{0:#,###}", @item.ImportNumber * @item.ImportPrice)</td>
-                                    @{ valueSum += item.ImportNumber; }
-                                    @{ valueMoney += (item.ImportPrice * item.ImportNumber); }
-                                </tr>
+                            <tr>
+                                <td style="width: 60px"><img style="width: 100%" src="@Model.getProduct(item.ProductId)?.Picture"></td>
+                                <td>@Model.getProduct(item.ProductId)?.Code</td>
+                                <td>@Model.getProduct(item.ProductId)?.Name</td>
+                                <td>@item.ImportNumber</td>
+                                <td>@item.ImportPrice</td>
+                                <td>@String.Format("{0:#,###}", @item.ImportNumber * @item.ImportPrice)</td>
+                                @{ valueSum += item.ImportNumber; }
+                                @{ valueMoney += (item.ImportPrice * item.ImportNumber); }
+                            </tr>
                             }
                         </tbody>
                     </table>

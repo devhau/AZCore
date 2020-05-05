@@ -13,15 +13,6 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Product.Variants
 {
-    
-    //[TableColumn(Title = "Mã SKU", FieldName = "Code")]
-    //[TableColumn(Title = "Sản phẩm", FieldName = "Name")]
-    //[TableColumn(Title = "Nhóm", FieldName = "CategoryId", DataType = typeof(CategoryService))]
-    //[TableColumn(Title = "Tồn kho", FieldName = "Available")]
-    //[TableColumn(Title = "Hàng đang về", FieldName = "Incoming")]
-    //[TableColumn(Title = "Hàng đang giao", FieldName = "OnWay")]
-    //[TableColumn(Title = "Đang giao dịch", FieldName = "Committed")]
-    //[TableColumn(Title = "Trạng Thái", FieldName = "ProductSellable", TextFalse = "Đang không hoạt động", TextTrue = "Đang hoạt động")]
     public class FormVariants : ManageModule<ProductService, ProductModel, FormUpdateVariants>
     {
         #region -- Field Search --
@@ -104,6 +95,7 @@ namespace AZERP.Web.Modules.Product.Variants
                 actionWhere(T);
             }).ToList();
         }
+        
         public FormVariants(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }

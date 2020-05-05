@@ -1,6 +1,50 @@
 ﻿@model FormOrders
-<div class="card">
-    <div class="card-header"> Duy dai ca</div>
-    <div>
+    <div class="az-data-table table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th rowspan="2"></th>
+                    <th rowspan="2" width="85px">SKU</th>
+                    <th rowspan="2" width="200px">Sản phẩm</th>
+                    @foreach (var item in Model.storeModels)
+                    {
+                        <th colspan="2">@item.Name</th>
+                    }
+                    <th colspan="2">Tổng</th>
+                </tr>
+                <tr>
+                    @foreach (var item in Model.storeModels)
+                    {
+                        <th>Tồn kho</th>
+                        <th>Đang về</th>
+                    }
+                    <th>Tồn kho</th>
+                    <th>Đang về</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ListProduct)
+                {
+                    <tr>
+                        <td width="80px"><img style="width: 100%" src="@item.Picture" /></td>
+                        <td>@item.Code</td>
+                        <td>@item.Name</td>
+                        @{ long sumAvai = 0;
+                            long sumIn = 0;
+                        }
+                        @foreach (var item1 in Model.storeModels)
+                        {
+                            long available = @Model.GetInfo(item1.Id, item.Id, (item) => item.Available);
+                            long incoming = @Model.GetInfo(item1.Id, item.Id, (item) => item.Incoming);
+                            <td>@(available == 0 ? "-" : string.Format("{0:#,####}", available))</td>
+                            <td>@(incoming == 0 ? "-" : string.Format("{0:#,####}", incoming))</td>
+                            sumAvai += @available;
+                            sumIn += incoming;
+                        }
+                        <td>@(sumAvai == 0 ? "-" : string.Format("{0:#,####}", sumAvai))</td>
+                        <td>@(sumIn == 0 ? "-" : string.Format("{0:#,####}", sumIn))</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-</div>
