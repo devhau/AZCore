@@ -44,6 +44,7 @@ namespace AZWeb.Extensions
                     pro.SetValue(obj, objValue);
             }
         }
+        
         public static object GetObjectValueByQuery(this HttpContext httpContext, Type objType, string name)
         {
             if (objType.IsArray)
@@ -162,7 +163,7 @@ namespace AZWeb.Extensions
                         {
                             fieldFile = null;
                             fileValues = null;
-                            if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetFiles(string.Format("{0}[].{1}", name, pro.Name))) != null)
+                            if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetListFiles(string.Format("{0}[].{1}", name, pro.Name))) != null)
                             {
                                 pro.SetValue(objValue, httpContext.UploadFile(fileValues, fieldFile));
                             }
@@ -203,7 +204,7 @@ namespace AZWeb.Extensions
                         {
                             fieldFile = null;
                             fileValues = null;
-                            if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetFiles(string.Format("{0}[].{1}", name, pro.Name))) != null)
+                            if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetListFiles(string.Format("{0}[].{1}", name, pro.Name))) != null)
                             {
                                 pro.SetValue(objValue, httpContext.UploadFile(fileValues, fieldFile));
                             }
@@ -229,7 +230,7 @@ namespace AZWeb.Extensions
             {
                 fieldFile = null;
                 fileValues = null;
-                if ((fieldFile = objType.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetFiles(name)) != null)
+                if ((fieldFile = objType.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetListFiles(name)) != null)
                 {
                     return httpContext.UploadFile(fileValues, fieldFile);
                 }
@@ -251,7 +252,7 @@ namespace AZWeb.Extensions
                 {
                     fieldFile = null;
                     fileValues = null;
-                    if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetFiles(string.Format("{0}.{1}", name, pro.Name))) != null)
+                    if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetListFiles(string.Format("{0}.{1}", name, pro.Name))) != null)
                     {
                         pro.SetValue(objValue, httpContext.UploadFile(fileValues, fieldFile));
                     }
@@ -294,7 +295,7 @@ namespace AZWeb.Extensions
             {
                 fieldFile = null;
                 fileValues = null;
-                if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetFiles(string.Format("{0}{1}", name, pro.Name))) != null)
+                if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetListFiles(string.Format("{0}{1}", name, pro.Name))) != null)
                 {
                     pro.SetValue(obj, httpContext.UploadFile(fileValues, fieldFile));
                 }
@@ -422,7 +423,7 @@ namespace AZWeb.Extensions
         }
         public static string UploadFile(this HttpContext httpContext,string nameFile, string Prefix="", bool IsGenAutoNamFile=false, string Separator=";", bool UseFullPath=true) {
             IReadOnlyList<IFormFile> fileValues = null;
-            if ((fileValues = httpContext.Request.Form.Files.GetFiles(nameFile)) != null)
+            if ((fileValues = httpContext.Request.Form.Files.GetListFiles(nameFile)) != null)
             {
                 return httpContext.UploadFile(fileValues, Prefix, IsGenAutoNamFile, Separator, UseFullPath);
             }
@@ -483,6 +484,9 @@ namespace AZWeb.Extensions
                 return proValue;
             }
             return string.Empty;
+        }
+        public static IReadOnlyList<IFormFile> GetListFiles(this IFormFileCollection files, string name) {
+            return files.Where(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
         }
     }
 }
