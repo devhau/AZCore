@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Product.Products
 {
-    [TableColumn(Title = "", FieldName = "Picture")]
+    [TableColumn(Title = "", FieldName = "Picture", Width = 80, FormatString = "<img style='width: 100%' src='{0}'/>")]
     [TableColumn(Title = "Mã SKU", FieldName = "Code")]
     [TableColumn(Title = "Sản phẩm", FieldName = "Name")]
     [TableColumn(Title = "Nhóm sản phẩm", FieldName = "CategoryId", DataType = typeof(CategoryService))]

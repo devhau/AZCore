@@ -76,6 +76,7 @@
                             <table class="table table-bordered table-hover az-table " role="grid">
                                 <thead>
                                     <tr>
+                                        <td></td>
                                         <td>Mã SKU</td>
                                         <td>Tên sản phẩm</td>
                                         <td>Số lượng mua</td>
@@ -97,6 +98,7 @@
                                             var obj = Model.getProduct(item.ProductId);
                                             var input = "<input type='hidden' name='ListDataOrder[].ProductId' value='" + obj.Id + "' />";
                                             <tr>
+                                                <td style="width: 60px"><img style="width: 100%" src="@obj.Picture"></td>
                                                 <td>@obj.Code <input type="hidden" name="ListDataOrder[].ProductId" value="@obj.Id" /> </td>
                                                 <td>@obj.Name</td>
                                                 <td>

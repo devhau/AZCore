@@ -3,6 +3,7 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
+                    <th rowspan="2"></th>
                     <th rowspan="2" width="85px">SKU</th>
                     <th rowspan="2" width="200px">Sản phẩm</th>
                     @foreach (var item in Model.storeModels)
@@ -25,6 +26,7 @@
                 @foreach (var item in Model.ListProduct)
                 {
                     <tr>
+                        <td width="80px"><img style="width: 100%" src="@item.Picture" /></td>
                         <td>@item.Code</td>
                         <td>@item.Name</td>
                         @{ long sumAvai = 0;

@@ -51,8 +51,8 @@ function calMoney(number, price) {
 function caculatorAll() {
     valueNumber = 0, valueMoney = 0, valueMoneySum = 0;
     $(".az-update-order .az-data-table table tbody tr").each(function () {
-        valueNumber += parseInt($(this).children("td").eq(2).children("input").val());
-        valueMoney += parseInt($(this).children("td").eq(4).children("label").text().replace(/,/g, ""));
+        valueNumber += parseInt($(this).children("td").eq(3).children("input").val());
+        valueMoney += parseInt($(this).children("td").eq(5).children("label").text().replace(/,/g, ""));
     });
     let eleNumber = $(".az-update-order .list-info-money .item-info-money").eq(0).children(".value");
     let eleMoney = $(".az-update-order .list-info-money .item-info-money").eq(1).children(".value");
@@ -66,9 +66,9 @@ function caculatorAll() {
 
 function addEvent() {
     $(".az-update-order .az-data-table table input").on('input', function () {
-        let number = $(this).parent().parent().children("td").eq(2).children("input").val();
-        let price = $(this).parent().parent().children("td").eq(3).children("input").val();
-        $(this).parent().parent().children("td").eq(4).children("label").text(calMoney(number, price));
+        let number = $(this).parent().parent().children("td").eq(3).children("input").val();
+        let price = $(this).parent().parent().children("td").eq(4).children("input").val();
+        $(this).parent().parent().children("td").eq(5).children("label").text(calMoney(number, price));
         caculatorAll();
     });
     $(".az-update-order .az-data-table table a").on('click', function () {
@@ -88,11 +88,12 @@ $(".az-update-order .productClass").on('change', function () {
     }
     if (value != "") {
         $(".az-update-order .az-data-table").show();
+        let img = "<img style='width: 100%' src='" + dataItem.Picture + "'>"
         let inputID = "<input type='hidden' name='ListDataOrder[].ProductId' value='" + dataItem.Id + "' />";
         let inputNumber = '<input type="number" name="ListDataOrder[].ImportNumber" class="form-control" value="1">';
         let inputPrice = '<input type="number" name="ListDataOrder[].ImportPrice" class="form-control" value="' + dataItem.RetailPrice + '"';
         $(".az-update-order .az-data-table table > tbody:last-child").
-            append("<tr><td>" + dataItem.Code + inputID + "</td><td>" + dataItem.Name + "</td><td>" + inputNumber + "</td><td>" + inputPrice + "</td><td><label>" + dataItem.RetailPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + "</label></td><td><a href='javascript:'><i class='fa fa-minus-circle'></i></a></td></tr>");
+            append("<tr><td style='width: 60px'>" + img + "</td><td>" + dataItem.Code + inputID + "</td><td>" + dataItem.Name + "</td><td>" + inputNumber + "</td><td>" + inputPrice + "</td><td><label>" + dataItem.RetailPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + "</label></td><td><a href='javascript:'><i class='fa fa-minus-circle'></i></a></td></tr>");
         addEvent();
         caculatorAll();   
     }
