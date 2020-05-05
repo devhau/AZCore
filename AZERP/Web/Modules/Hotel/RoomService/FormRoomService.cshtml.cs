@@ -22,7 +22,7 @@ namespace AZERP.Web.Modules.Hotel.RoomService
         [QuerySearch]
         public decimal? Price { get; set; }
         [QuerySearch]
-        public string? RoomServiceName { get; set; }
+        public string RoomServiceName { get; set; }
         #endregion
 
         public FormRoomService(IHttpContextAccessor httpContext) : base(httpContext)

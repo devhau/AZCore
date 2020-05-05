@@ -1,6 +1,7 @@
 ﻿using AZCore.Extensions;
 using AZCore.Identity;
 using AZERP.Data.Entities;
+using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;
@@ -32,7 +33,7 @@ namespace AZERP.Web.Modules.Common.Auth
             return GoToHome();
         }
         
-        public async  Task<IView> Post(string azemail,string azpassword,bool azremember) {
+        public async  Task<IView> Post([BindForm]string azemail, [BindForm]string azpassword, [BindForm]bool azremember) {
             var usr = this.userService.GetEmailOrUsername(azemail);
             if (usr != null) {
                 if (usr.HasPassword(azpassword))      

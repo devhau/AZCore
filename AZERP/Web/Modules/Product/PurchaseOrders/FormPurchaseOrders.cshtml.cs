@@ -100,7 +100,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
                 T.AddWhere("Type", OrderType.In);
                 actionWhere(T);
             });
-            this.PageMax = (int)Math.Ceiling((decimal)this.PageTotal / (decimal)this.PageSize);
+            this.PageMax = PageSize>0?(int)Math.Ceiling((decimal)this.PageTotal / (decimal)this.PageSize):0;
             return Service.ExecuteQuery((T) => {
                 if (PageIndex <= 0)
                 {

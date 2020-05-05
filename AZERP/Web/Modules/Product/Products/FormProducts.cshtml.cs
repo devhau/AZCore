@@ -68,7 +68,7 @@ namespace AZERP.Web.Modules.Product.Products
                 T.SetColumn("count(0)");
                 actionWhere(T);
             });
-            this.PageMax = (int)Math.Ceiling((decimal)this.PageTotal / (decimal)this.PageSize);
+            this.PageMax = this.PageSize>0?(int)Math.Ceiling((decimal)this.PageTotal / (decimal)this.PageSize):0;
             return Service.ExecuteQuery((T) => {
                 if (PageIndex <= 0)
                 {

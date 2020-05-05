@@ -7,7 +7,15 @@ namespace AZCore.Extensions
 {
     public static class TypeExtensions
     {
-       
+        
+        public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this ParameterInfo type)
+        {
+            return type.GetCustomAttributes(true).OfType<TAttribute>();
+        }
+        public static TAttribute GetAttribute<TAttribute>(this ParameterInfo type)
+        {
+            return type.GetAttributes<TAttribute>().FirstOrDefault();
+        }
         public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this Type type)
         {
             return type.GetCustomAttributes(true).OfType<TAttribute>();
@@ -96,6 +104,8 @@ namespace AZCore.Extensions
         {
             return Activator.CreateInstance(type, param);
         }
-
+        public static bool IsValueType(this Type type) {
+            return type.IsValueType || typeof(string) == type;
+        }
     }
 }
