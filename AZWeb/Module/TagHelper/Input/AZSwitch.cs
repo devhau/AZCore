@@ -40,6 +40,7 @@ namespace AZWeb.Module.TagHelper.Input
             {
                 TagClass=TagClass.Replace(" form-control"," ");
             }
+            this.LabelAfter = true;
         }
         protected override void RenderHtml(StringBuilder htmlBuild)
         {

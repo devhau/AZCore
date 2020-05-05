@@ -1,6 +1,7 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Enums;
 using AZCore.Database.SQL;
+using AZCore.Extensions;
 using AZERP.Data.Entities;
 using AZERP.Data.Enums;
 using AZWeb.Extensions;
@@ -9,9 +10,11 @@ using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Mozilla;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
@@ -31,7 +34,22 @@ namespace AZERP.Web.Modules.Orders.Orders
     {
         #region -- Field Search --
         /// <summary>
-        /// Lọc hóa đơn xuất
+        /// Lọc trạng thái hóa đơn
+        /// </summary>
+        [QuerySearch]
+        public OrderStatus? PurchaseOrderStatus { get; set; }
+        /// <summary>
+        /// Lọc trạng thái thanh toán
+        /// </summary>
+        [QuerySearch]
+        public OrderPayment? PurchaseOrderPayment { get; set; }
+        /// <summary>
+        /// Lọc trạng thái xuất kho
+        /// </summary>
+        [QuerySearch]
+        public PurchaseOrderImport? PurchaseOrderImport { get; set; }
+        /// <summary>
+        /// Lọc đơn xuất
         /// </summary>
         [QuerySearch]
         public OrderType Type { get; set; } = OrderType.Out;
@@ -57,7 +75,14 @@ namespace AZERP.Web.Modules.Orders.Orders
         public UserModel UserModel;
         public CustomersModel CustomersModel;
         public PurchaseOrderModel DataCurrent = null;
+        public ProductModel ProductModel;
         public bool CanEdit = true;
+
+        [BindService]
+        public StoreService StoreService;
+        public List<ProductModel> ListProduct;
+        public List<StoreModel> storeModels;
+        public List<VariantData> variantDatas;
 
         public FormOrders(IHttpContextAccessor httpContext) : base(httpContext)
         {
@@ -77,13 +102,15 @@ namespace AZERP.Web.Modules.Orders.Orders
             this.PageTotalAll = Service.ExecuteNoneQuery((T) => {
 
                 T.SetColumn("count(0)");
-
+                T.AddWhere("Type", OrderType.Out);
             });
             this.PageTotal = Service.ExecuteNoneQuery((T) => {
                 T.SetColumn("count(0)");
+                T.AddWhere("Type", OrderType.Out);
                 actionWhere(T);
             });
-            this.PageMax = (int)Math.Ceiling((decimal)this.PageTotal / (decimal)this.PageSize);
+            //this.PageMax = (int)Math.Ceiling((decimal)this.PageTotal / (decimal)this.PageSize);
+            this.PageMax = this.PageSize > 0 ? (int)Math.Ceiling(PageTotal / (decimal)PageSize) : 0;
             return Service.ExecuteQuery((T) => {
                 if (PageIndex <= 0)
                 {
@@ -115,7 +142,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                 CustomersModel = this.CustomersService.Select(p => p.Id == DataCurrent.PartnerId).FirstOrDefault();
                 UserModel = this.userService.Select(p => p.Id == DataCurrent.CreateBy).FirstOrDefault();
                 ListDataOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == DataCurrent.Id).ToList();
-                if (DataCurrent.PurchaseOrderImport == PurchaseOrderImport.WaitingExport && DataCurrent.PurchaseOrderPayment == OrderPayment.Unpaid && DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)
+                if (DataCurrent.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.WaitingExport && DataCurrent.PurchaseOrderPayment == OrderPayment.Unpaid && DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)
                 {
                     CanEdit = true;
                 } else
@@ -136,7 +163,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                 var dataForm = new PurchaseOrderModel();
                 this.HttpContext.BindFormTo(dataForm);
                 if (dataForm.PartnerId == 0)
-                    return Json("Chưa chọn nhà cung cấp", System.Net.HttpStatusCode.BadRequest);
+                    return Json("Chưa chọn khách hàng", System.Net.HttpStatusCode.BadRequest);
                 if (this.ListDataOrder == null || this.ListDataOrder.Count == 0)
                     return Json("Không được để trống danh sách sản phẩm", System.Net.HttpStatusCode.BadRequest);
                 
@@ -144,20 +171,12 @@ namespace AZERP.Web.Modules.Orders.Orders
                 dataForm.CreateBy = User.Id;
                 dataForm.PurchaseOrderStatus = OrderStatus.Waiting;
                 dataForm.PurchaseOrderPayment = OrderPayment.Unpaid;
-                dataForm.PurchaseOrderImport = PurchaseOrderImport.WaitingExport;
+                dataForm.PurchaseOrderImport = AZERP.Data.Enums.PurchaseOrderImport.WaitingExport;
                 dataForm.Type = OrderType.Out;
 
                 if (dataForm.Code == "" || dataForm.Code == null)
                 {
                     dataForm.Code = this.genCodeService.GetGenCode(SystemCode.ExportCode);
-                    //var allCount = this.Service.Select(p => p.Type == OrderType.Out).Count() + 1;
-                    //var tmpCode = "CON" + String.Format("{0:D5}", allCount);
-                    //while (this.Service.Select(p => p.Code == tmpCode).Count() > 0)
-                    //{
-                    //    allCount++;
-                    //    tmpCode = "CON" + String.Format("{0:D5}", allCount);
-                    //}
-                    //dataForm.Code = tmpCode;
                 }
 
                 var result = entityTransaction.DoTransantion<PurchaseOrderService, PurchaseOrderProductService>((t, t1, t2) =>
@@ -186,12 +205,12 @@ namespace AZERP.Web.Modules.Orders.Orders
                 var dataForm = new PurchaseOrderModel();
                 this.HttpContext.BindFormTo(dataForm);
                 // Update - chưa thanh toán - chưa xuất kho
-                if ( data.PurchaseOrderImport == PurchaseOrderImport.WaitingExport
+                if ( data.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.WaitingExport
                     && data.PurchaseOrderPayment == OrderPayment.Unpaid
                     && data.PurchaseOrderStatus == OrderStatus.Waiting)
                 {
                     if (dataForm.PartnerId == 0)
-                        return Json("Chưa chọn nhà cung cấp", System.Net.HttpStatusCode.BadRequest);
+                        return Json("Chưa chọn khách hàng", System.Net.HttpStatusCode.BadRequest);
                     if (this.ListDataOrder == null || this.ListDataOrder.Count == 0)
                         return Json("Không được để trống danh sách sản phẩm", System.Net.HttpStatusCode.BadRequest);
 
@@ -215,6 +234,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                             data.UpdateBy = User.Id;
                             data.UpdateAt = DateTime.Now;
                             data.Note = dataForm.Note;
+                            data.StoreId = dataForm.StoreId;
                             t1.Update(data);
                         });
                         if (result)
@@ -231,8 +251,13 @@ namespace AZERP.Web.Modules.Orders.Orders
                         return Json("Cập nhật không thành công", System.Net.HttpStatusCode.InternalServerError);
                     }
                 }
-                else // Update - đã thanh toán - chưa xuất kho || chưa thanh toán - đã xuất kho
+                // Update - đã thanh toán - chưa xuất kho || chưa thanh toán - đã xuất kho
+                else
                 {
+                    if (data.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.WaitingExport)
+                    {
+                        data.StoreId = dataForm.StoreId;
+                    }
                     data.Note = dataForm.Note;
                     var result = entityTransaction.DoTransantion<PurchaseOrderService>((t, t1) =>
                     {
@@ -248,6 +273,27 @@ namespace AZERP.Web.Modules.Orders.Orders
                     }
                 }
             }
+        }
+
+        [OnlyAjax]
+        public IView GetCheckStore(string data)
+        {
+            this.Title = "Kiểm tra tồn kho";
+            this.storeModels = StoreService.GetAll().ToList();
+            this.variantDatas = StoreService.GetObject(0).ToList();
+            this.ListProduct = new List<ProductModel>();
+            foreach (var item in data.Split(","))
+            {
+                var proModel = this.productService.Select(p => p.Id == item.To<long>()).First();
+                ListProduct.Add(proModel);
+            }
+            return View("CheckAvailable");
+        }
+
+        public long GetInfo(long storeId, long productId, Func<VariantData, long> func)
+        {
+            var item = this.variantDatas.FirstOrDefault(p => p.StoreId == storeId && p.ProductId == productId);
+            return item == null ? 0 : func(item);
         }
 
         [OnlyAjax]
@@ -278,16 +324,21 @@ namespace AZERP.Web.Modules.Orders.Orders
             
             if(commit == 1) // Xuất kho
             {
-                var result = entityTransaction.DoTransantion<PurchaseOrderProductService, ProductService, PurchaseOrderService>((t, t1, t2, t3) =>
+                var result = entityTransaction.DoTransantion<PurchaseOrderProductService, PurchaseOrderService, StoreProductService>((t, t1, t2, t3) =>
                 {
                     var listDetail = t1.Select(p => p.PurchaseOrderId == this.Id).ToList();
                     foreach (var item in listDetail)
                     {
-                        var product = t2.Select(p => p.Id == item.ProductId).First();
-                        product.Available -= item.ImportNumber;
-                        t2.Update(product);
+                        // Sản phẩm đã có trong kho
+                        // Tồn kho (trong kho) = Tồn kho - lượng xuất
+                        // Tồn kho (theo từng hóa đơn) = Tồn kho - lượng xuất
+                        var storeProduct = t3.Select(p => p.ProductId == item.ProductId && p.StoreId == data.StoreId).First();
+                        item.Available = storeProduct.Available - item.ImportNumber;
+                        storeProduct.Available = storeProduct.Available - item.ImportNumber;
+                        t1.Update(item);
+                        t3.Update(storeProduct);
                     }
-                    data.PurchaseOrderImport = PurchaseOrderImport.Export;
+                    data.PurchaseOrderImport = AZERP.Data.Enums.PurchaseOrderImport.Export;
                     data.UpdateAt = DateTime.Now;
 
                     if (data.PurchaseOrderPayment == OrderPayment.Paid)
@@ -296,7 +347,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                         data.CompleteOn = DateTime.Now;
                     }
 
-                    t3.Update(data);
+                    t2.Update(data);
                 });
                 if(result)
                 {
@@ -311,7 +362,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                 {
                     data.PurchaseOrderPayment = OrderPayment.Paid;
                     data.UpdateAt = DateTime.Now;
-                    if (data.PurchaseOrderImport == PurchaseOrderImport.Export)
+                    if (data.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.Export)
                     {
                         data.PurchaseOrderStatus = OrderStatus.Complete;
                         data.CompleteOn = DateTime.Now;

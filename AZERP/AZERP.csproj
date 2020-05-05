@@ -52,8 +52,6 @@
     <None Include="Web\Modules\Recruitment\Worker\FormCheckinCheckout.cshtml" />
     <None Include="Web\Modules\Recruitment\Worker\FormUpdateWorker.cshtml" />
     <None Include="Web\Modules\Recruitment\Worker\FormWorker.cshtml" />
-    <None Include="Web\Modules\Store\FormStore.cshtml" />
-    <None Include="Web\Modules\Store\FormUpdateStore.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -96,11 +94,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Web\Api\v1\" />
+    <Folder Include="Web\Modules\Common\Widget\" />
     <Folder Include="Web\Modules\Orders\Returns\" />
     <Folder Include="Web\Modules\Orders\Shippers\" />
     <Folder Include="Web\Modules\Orders\Shipments\" />
     <Folder Include="Web\Modules\Product\StockTransfers\" />
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>

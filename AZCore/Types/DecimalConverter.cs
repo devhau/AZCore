@@ -23,7 +23,7 @@ namespace AZCore.Types
             {
                 case AZTypeCode.String:
                     var strValue = value.ToString().GetOnlyDigitalAndDot();
-                    return strValue.IsNull() ? (decimal?)null : Convert.ToDecimal(strValue); // hanhth
+                    return strValue.IsNullOrEmpty() ? (decimal?)null : Convert.ToDecimal(strValue); // hanhth
                 //case AZTypeCode.String: return value.ToString().Trim().IsNull() ? (decimal?)null : Convert.ToDecimal(value.ToString().Replace(",",""), CultureInfo.GetCultureInfo("vi-VN"));//sonpc
                 case AZTypeCode.Int64:
                 case AZTypeCode.Int32:

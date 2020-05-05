@@ -32,7 +32,8 @@ namespace AZWeb.Module.Common
             UrlVirtual = HttpContext.Request.QueryString;
 
             this.HttpContext.BindFormAttributeTo(this);
-            this.HttpContext.BindQueryAttributeTo(this); var pathFull = this.GetType().FullName;
+            this.HttpContext.BindQueryAttributeTo(this); 
+            var pathFull = this.GetType().FullName;
             var indexEnd = pathFull.LastIndexOf('.');
             var indexStart = pathFull.IndexOf(".Web.");
             path = pathFull.Substring(indexStart + 1, indexEnd - indexStart - 1).Replace(".", "/");

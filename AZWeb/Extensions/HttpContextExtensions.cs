@@ -1,193 +1,308 @@
-﻿using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
-using System.IO;
 using System.Collections;
 using AZCore.Extensions;
 using AZWeb.Module.Attributes;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace AZWeb.Extensions
 {
     public static class HttpContextExtensions
     {
-        public static string RenderToHtml(this HttpContext httpContext,string path,string viewName, object model) {
-
-            var actionContext = new ActionContext(httpContext, httpContext.GetRouteData(), new ActionDescriptor());
-            var _razorViewEngine = httpContext.GetService<IRazorViewEngine>();
-            var _tempDataProvider= httpContext.GetService<ITempDataProvider>();
-            
-            using (var sw = new StringWriter())
-            {
-                var viewResult = _razorViewEngine.GetView(path+"/"+ viewName, viewName, false);
-                if (viewResult.View == null)
-                {
-                    throw new ArgumentNullException($"{viewName} does not match any available view");
-                }
-
-                var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
-                {
-                    Model = model
-                };
-
-                var viewContext = new ViewContext(
-                    actionContext,
-                    viewResult.View,
-                    viewDictionary,
-                    new TempDataDictionary(actionContext.HttpContext, _tempDataProvider),
-                    sw,
-                    new HtmlHelperOptions()
-                );
-
-                var rs =  viewResult.View.RenderAsync(viewContext);
-                rs.Wait();
-                return sw.GetStringBuilder().ToString();
-            }
-        }
+        /// <summary>
+        /// Xử lý dữ liệu trên Query
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <param name="obj"></param>
         public static void BindQueryAttributeTo(this HttpContext httpContext, object obj)
         {
-            var objType = obj.GetType();
-            foreach (var item in httpContext.Request.Query.Keys)
+            foreach (var pro in obj.GetType().GetPropertyByAttribute<BindQueryAttribute>())
             {
-                var pro = objType.GetProperty(item);
-                if (pro != null && pro.CanWrite && pro.GetAttribute<BindQueryAttribute>() != null)
-                {
-                    if (pro.PropertyType.IsArray)
-                    {
-                        pro.SetValue(obj, httpContext.Request.Query[item][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
-                    }
-                    else
-                    {
-                        pro.SetValue(obj, httpContext.Request.Query[item][0].ToType(pro.PropertyType));
-                    }
-
-                }
+                var att = pro.GetAttribute<BindQueryAttribute>(); 
+                var objValue = httpContext.GetObjectValueByQuery(pro.PropertyType, string.IsNullOrEmpty(att.FromName) ? pro.Name : att.FromName);
+                if (objValue != null)
+                    pro.SetValue(obj, objValue);
             }
         }
+        /// <summary>
+        ///  Xử lý dữ liệu trên Form
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <param name="obj"></param>
         public static void BindFormAttributeTo(this HttpContext httpContext, object obj)
         {
             if (!httpContext.Request.HasFormContentType) return;
-            var objType = obj.GetType();
-            foreach (var item in httpContext.Request.Form.Keys.Where(p => p.IndexOf(".") < 0))
+            foreach (var pro in obj.GetType().GetPropertyByAttribute<BindFormAttribute>())
             {
-                var pro = objType.GetProperties().FirstOrDefault(p => p.CanWrite && p.Name.Equals(item, StringComparison.OrdinalIgnoreCase));
-                if (pro != null && pro.GetAttribute<BindFormAttribute>() != null)
-                {
-                    if (pro.PropertyType.IsArray)
-                    {
-                        pro.SetValue(obj, httpContext.Request.Form[item][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
-                    }
-                    else
-                    {
-                        pro.SetValue(obj, httpContext.Request.Form[item][0].ToType(pro.PropertyType));
-                    }
-                }
-            }
-            var listKeys = httpContext.Request.Form.Keys.Where(p => p.IndexOf(".") > 0).Select(p => p.Split(new string[] { "[]", "." }, StringSplitOptions.RemoveEmptyEntries)[0]).Distinct().ToList();
-            foreach (var item in listKeys)
-            {
-                if (httpContext.Request.Form.Keys.Any(p => p.StartsWith(string.Format("{0}.", item), StringComparison.OrdinalIgnoreCase)))
-                {
-                    var keys = httpContext.Request.Form.Keys.Where(p => p.StartsWith(string.Format("{0}.", item), StringComparison.OrdinalIgnoreCase)).ToList();
-                    var pro = objType.GetProperties().FirstOrDefault(p => p.CanWrite && p.Name.Equals(item, StringComparison.OrdinalIgnoreCase));
-                    if (pro != null && pro.GetAttribute<BindFormAttribute>() != null && pro.PropertyType.IsGenericType && keys.Count > 0)
-                    {
-
-                        var objectValue = pro.PropertyType.CreateInstance();
-                        foreach (var key in keys)
-                        {
-                            var proName = key.Split('.')[1];
-                            var pro1 = pro.PropertyType.GetProperties().FirstOrDefault(p => p.Name.Equals(proName, StringComparison.OrdinalIgnoreCase));
-                            if (pro1 != null && pro1.CanWrite)
-                            {
-                                if (pro1.PropertyType.IsArray)
-                                {
-                                    pro1.SetValue(objectValue, httpContext.Request.Form[key][0].Split(',').ToType(pro1.PropertyType));
-                                }
-                                else
-                                {
-                                    pro1.SetValue(objectValue, httpContext.Request.Form[key].ToArray()[0].ToType(pro1.PropertyType));
-                                }
-                            }
-                        }
-                        pro.SetValue(obj, objectValue);
-                    }
-
-                }
-                else if (httpContext.Request.Form.Keys.Any(p => p.StartsWith(string.Format("{0}[].", item), StringComparison.OrdinalIgnoreCase)))
-                {
-                    var keys = httpContext.Request.Form.Keys.Where(p => p.StartsWith(string.Format("{0}[].", item), StringComparison.OrdinalIgnoreCase)).ToList();
-                    var pro = objType.GetProperties().FirstOrDefault(p => p.CanWrite && p.Name.Equals(item, StringComparison.OrdinalIgnoreCase));
-                    if (pro != null && pro.GetAttribute<BindFormAttribute>() != null && pro.PropertyType.IsGenericType && pro.PropertyType.IsTypeFromInterface<IList>() && keys.Count > 0)
-                    {
-                        var objectValues = (IList)pro.PropertyType.CreateInstance();
-                        var len = httpContext.Request.Form[keys[0]].Count;
-                        var typeObject = pro.PropertyType.GetGenericArguments().Single();
-                        for (var index = 0; index < len; index++)
-                        {
-                            var objectValue = typeObject.CreateInstance();
-                            foreach (var key in keys)
-                            {
-                                var proName = key.Split('.')[1];
-                                var pro1 = typeObject.GetProperties().FirstOrDefault(p => p.Name.Equals(proName, StringComparison.OrdinalIgnoreCase));
-                                if (pro1 != null && pro1.CanWrite)
-                                {
-                                    if (pro1.PropertyType.IsArray)
-                                    {
-                                        pro1.SetValue(objectValue, httpContext.Request.Form[key][index].Split(',').ToType(pro1.PropertyType));
-                                    }
-                                    else
-                                    {
-                                        pro1.SetValue(objectValue, httpContext.Request.Form[key].ToArray()[index].ToType(pro1.PropertyType));
-                                    }
-                                }
-                            }
-                            objectValues.Add(objectValue);
-                        }
-                        pro.SetValue(obj, objectValues);
-                    }
-                }
+                var att = pro.GetAttribute<BindFormAttribute>();
+                var objValue = httpContext.GetObjectValueByForm(pro.PropertyType, string.IsNullOrEmpty(att.FromName) ? pro.Name : att.FromName);
+                if(objValue!=null)
+                    pro.SetValue(obj, objValue);
             }
         }
-        public static void BindQueryTo( this HttpContext httpContext,object obj) {
-            var objType = obj.GetType();
-            foreach (var item in httpContext.Request.Query.Keys) {
-                var pro = objType.GetProperty(item);
-                if (pro != null && pro.CanWrite) {
-                    if (pro.PropertyType.IsArray)
-                    {
-                        pro.SetValue(obj, httpContext.Request.Query[item][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
-                    }
-                    else {
-                        pro.SetValue(obj, httpContext.Request.Query[item][0].ToType(pro.PropertyType));
-                    }
-                    
-                }
-             }
-        }
-        public static void BindFormTo(this HttpContext httpContext, object obj)
+        
+        public static object GetObjectValueByQuery(this HttpContext httpContext, Type objType, string name)
         {
-            var objType = obj.GetType();
-            foreach (var item in httpContext.Request.Form.Keys)
+            if (objType.IsArray)
             {
-                var pro = objType.GetProperty(item);
-                if (pro != null && pro.CanWrite)
+                var typeOfElementOnObject = objType.GetElementType();
+
+                var keys = httpContext.Request.Query.Keys.Where(p => p.StartsWith(string.Format("{0}[]", name), StringComparison.OrdinalIgnoreCase)).ToList();
+                if (keys.Count == 0)
+                    return null;
+                var len = httpContext.Request.Query[keys[0]].Count;
+                var objValues = Array.CreateInstance(typeOfElementOnObject, len);
+                if (!typeOfElementOnObject.IsValueType())
                 {
-                    if (pro.PropertyType.IsArray)
+                    var pros = typeOfElementOnObject.GetProperties();
+
+                    for (var i = 0; i < len; i++)
                     {
-                        pro.SetValue(obj, httpContext.Request.Form[item][0].Split(',').Select(p => p.ToType(pro.PropertyType.GetElementType())).ToArray());
+                        var objValue = typeOfElementOnObject.CreateInstance();
+                        foreach (var pro in pros)
+                        {
+                            var key = keys.FirstOrDefault(p => p.EndsWith(string.Format("[].{0}", pro.Name), StringComparison.OrdinalIgnoreCase));
+                            if (key != null) pro.SetValue(objValue, httpContext.Request.Query[key][i].ToType(pro.PropertyType));
+                        }
+                        objValues.SetValue(objValue, i);
+                    }
+                }
+                else
+                {
+                    for (var i = 0; i < len; i++)
+                    {
+                        objValues.SetValue(httpContext.Request.Query[keys[0]][i].ToType(typeOfElementOnObject), i);
+                    }
+                }
+                return objValues;
+            }
+            else if (objType.IsTypeFromInterface<IList>())
+            {
+                var objValues = objType.CreateInstance<IList>();
+                var typeOfElementOnObject = objType.GetGenericArguments().Single();
+                var keys = httpContext.Request.Query.Keys.Where(p => p.StartsWith(string.Format("{0}[]", name), StringComparison.OrdinalIgnoreCase)).ToList();
+                if (keys.Count == 0)
+                    return null;
+                var len = httpContext.Request.Query[keys[0]].Count;
+                if (!typeOfElementOnObject.IsValueType())
+                {
+                    var pros = typeOfElementOnObject.GetProperties();
+
+                    for (var i = 0; i < len; i++)
+                    {
+                        var objValue = typeOfElementOnObject.CreateInstance();
+                        foreach (var pro in pros)
+                        {
+                            var key = keys.FirstOrDefault(p => p.EndsWith(string.Format("[].{0}", pro.Name), StringComparison.OrdinalIgnoreCase));
+                            if (key != null) pro.SetValue(objValue, httpContext.Request.Query[key][i].ToType(pro.PropertyType));
+                        }
+                        objValues.Add(objValue);
+                    }
+                }
+                else
+                {
+                    for (var i = 0; i < len; i++)
+                    {
+                        objValues.Add(httpContext.Request.Query[keys[0]][i].ToType(typeOfElementOnObject));
+                    }
+                }
+                return objValues;
+            }
+            else
+                if (objType.IsValueType()) 
+            {
+
+                var key = httpContext.Request.Query.Keys.FirstOrDefault(p => p.Equals(string.Format("{0}", name), StringComparison.OrdinalIgnoreCase));
+                if (key == null)
+                    return null;
+                return httpContext.Request.Query[key][0].ToType(objType);
+            }
+            else
+            {
+                var pros = objType.GetProperties();
+                var keys = httpContext.Request.Query.Keys.Where(p => p.StartsWith(string.Format("{0}.", name), StringComparison.OrdinalIgnoreCase)).ToList();
+                if (keys.Count == 0)
+                    keys = httpContext.Request.Form.Keys.Where(p => p.IndexOf(".") < 0 && p.IndexOf("[]") < 0).ToList();
+                if (keys.Count == 0)
+                    return null;
+                var objValue = objType.CreateInstance();
+                foreach (var pro in pros)
+                {
+                    var key = keys.FirstOrDefault(p => p.EndsWith(string.Format(".{0}", pro.Name), StringComparison.OrdinalIgnoreCase) || p.Equals(string.Format("{0}", pro.Name), StringComparison.OrdinalIgnoreCase));
+                    if (key != null) pro.SetValue(objValue, httpContext.Request.Query[key][0].ToType(pro.PropertyType));
+                }
+                return objValue;
+            }
+        }
+        public static object GetObjectValueByForm(this HttpContext httpContext, Type objType, string name)
+        {
+            FieldUploadFileAttribute fieldFile = null;
+            IReadOnlyList<IFormFile> fileValues = null;
+            IFormFileCollection files = httpContext.Request.Form.Files;
+            if (objType.IsArray)
+            {
+                var typeOfElementOnObject = objType.GetElementType();
+
+                var keys = httpContext.Request.Form.Keys.Where(p => p.StartsWith(string.Format("{0}[]", name), StringComparison.OrdinalIgnoreCase)).ToList();
+                if (keys.Count == 0)
+                    return null;
+                var len = httpContext.Request.Form[keys[0]].Count;
+                var objValues = Array.CreateInstance(typeOfElementOnObject, len);
+                if (!typeOfElementOnObject.IsValueType())
+                {
+                    var pros = typeOfElementOnObject.GetProperties();
+
+                    for (var i = 0; i < len; i++)
+                    {
+                        var objValue = typeOfElementOnObject.CreateInstance();
+                        foreach (var pro in pros)
+                        {
+                            fieldFile = null;
+                            fileValues = null;
+                            if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetListFiles(string.Format("{0}[].{1}", name, pro.Name))) != null)
+                            {
+                                pro.SetValue(objValue, httpContext.UploadFile(fileValues, fieldFile));
+                            }
+                            else
+                            {
+                                var key = keys.FirstOrDefault(p => p.EndsWith(string.Format("[].{0}", pro.Name), StringComparison.OrdinalIgnoreCase));
+                                if (key != null) pro.SetValue(objValue, httpContext.Request.Form[key][i].ToType(pro.PropertyType));
+                            }
+                        }
+                        objValues.SetValue(objValue, i);
+                    }
+                }
+                else
+                {
+                    for (var i = 0; i < len; i++)
+                    {
+                        objValues.SetValue(httpContext.Request.Form[keys[0]][i].ToType(typeOfElementOnObject), i);
+                    }
+                }
+                return objValues;
+            }
+            else if (objType.IsTypeFromInterface<IList>())
+            {
+                var objValues = objType.CreateInstance<IList>();
+                var typeOfElementOnObject = objType.GetGenericArguments().Single();
+                var keys = httpContext.Request.Form.Keys.Where(p => p.StartsWith(string.Format("{0}[]", name), StringComparison.OrdinalIgnoreCase)).ToList();
+                if (keys.Count == 0)
+                    return null;
+                var len = httpContext.Request.Form[keys[0]].Count;
+                if (!typeOfElementOnObject.IsValueType())
+                {
+                    var pros = typeOfElementOnObject.GetProperties();
+
+                    for (var i = 0; i < len; i++)
+                    {
+                        var objValue = typeOfElementOnObject.CreateInstance();
+                        foreach (var pro in pros)
+                        {
+                            fieldFile = null;
+                            fileValues = null;
+                            if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetListFiles(string.Format("{0}[].{1}", name, pro.Name))) != null)
+                            {
+                                pro.SetValue(objValue, httpContext.UploadFile(fileValues, fieldFile));
+                            }
+                            else
+                            {
+                                var key = keys.FirstOrDefault(p => p.EndsWith(string.Format("[].{0}", pro.Name), StringComparison.OrdinalIgnoreCase));
+                                if(key!=null) pro.SetValue(objValue, httpContext.Request.Form[key][i].ToType(pro.PropertyType));
+                            }
+                        }
+                        objValues.Add(objValue);
+                    }
+                }
+                else
+                {
+                    for (var i = 0; i < len; i++)
+                    {
+                        objValues.Add(httpContext.Request.Form[keys[0]][i].ToType(typeOfElementOnObject));
+                    }
+                }
+                return objValues;
+            }
+            else if (objType.IsValueType())
+            {
+                fieldFile = null;
+                fileValues = null;
+                if ((fieldFile = objType.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetListFiles(name)) != null)
+                {
+                    return httpContext.UploadFile(fileValues, fieldFile);
+                }
+                var key = httpContext.Request.Form.Keys.FirstOrDefault(p => p.Equals(string.Format("{0}", name), StringComparison.OrdinalIgnoreCase));
+                if (key == null)
+                    return null;
+                return httpContext.Request.Form[key][0].ToType(objType);
+            }
+            else
+            {
+                var pros = objType.GetProperties();
+                var keys = httpContext.Request.Form.Keys.Where(p => p.StartsWith(string.Format("{0}.", name), StringComparison.OrdinalIgnoreCase)).ToList();
+                if (keys.Count == 0)
+                    keys = httpContext.Request.Form.Keys.Where(p => p.IndexOf(".")<0 && p.IndexOf("[]") < 0).ToList();
+                if (keys.Count == 0)
+                    return null;
+                var objValue = objType.CreateInstance();
+                foreach (var pro in pros)
+                {
+                    fieldFile = null;
+                    fileValues = null;
+                    if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetListFiles(string.Format("{0}.{1}", name, pro.Name))) != null)
+                    {
+                        pro.SetValue(objValue, httpContext.UploadFile(fileValues, fieldFile));
                     }
                     else
                     {
-                        pro.SetValue(obj, httpContext.Request.Form[item][0].ToType(pro.PropertyType));
+                        var key = keys.FirstOrDefault(p => p.EndsWith(string.Format(".{0}", pro.Name), StringComparison.OrdinalIgnoreCase) || p.Equals(string.Format("{0}", pro.Name), StringComparison.OrdinalIgnoreCase));
+                        if (key != null) pro.SetValue(objValue, httpContext.Request.Form[key][0].ToType(pro.PropertyType));
                     }
+                }
+                return objValue;
+            }
+        
+        }
+       
+        public static void BindQueryTo( this HttpContext httpContext,object obj, string name = "") {
+            if (name != "") name = name + ".";
+            var objType = obj.GetType();
+            var pros = objType.GetProperties();
+            var keys = httpContext.Request.Form.Keys.Where(p => ((name != "" && p.StartsWith(name, StringComparison.OrdinalIgnoreCase)) || p.IndexOf(".") < 0) && p.IndexOf("[]") < 0).ToList();
+            if (keys.Count == 0)
+                return;
+            foreach (var pro in pros)
+            {               
+                    var key = keys.FirstOrDefault(p => p.Equals(string.Format("{0}{1}", name, pro.Name), StringComparison.OrdinalIgnoreCase));
+                    if (key != null) pro.SetValue(obj, httpContext.Request.Form[key][0].ToType(pro.PropertyType));
+            }
+        }
+        public static void BindFormTo(this HttpContext httpContext, object obj,string name="")
+        {
+            FieldUploadFileAttribute fieldFile = null;
+            IReadOnlyList<IFormFile> fileValues = null;
+            var files=httpContext.Request.Form.Files;
+            if (name != "") name = name +  ".";
+           var objType = obj.GetType(); 
+            var pros = objType.GetProperties();
+            var  keys = httpContext.Request.Form.Keys.Where(p =>((name!=""&& p.StartsWith(name, StringComparison.OrdinalIgnoreCase))|| p.IndexOf(".") < 0 ) && p.IndexOf("[]") < 0).ToList();
+            if (keys.Count == 0)
+                return;
+            foreach (var pro in pros)
+            {
+                fieldFile = null;
+                fileValues = null;
+                if ((fieldFile = pro.GetAttribute<FieldUploadFileAttribute>()) != null && (fileValues = files.GetListFiles(string.Format("{0}{1}", name, pro.Name))) != null)
+                {
+                    pro.SetValue(obj, httpContext.UploadFile(fileValues, fieldFile));
+                }
+                else
+                {
+                    var key = keys.FirstOrDefault(p => p.Equals(string.Format("{0}{1}", name, pro.Name), StringComparison.OrdinalIgnoreCase));
+                    if (key != null) pro.SetValue(obj, httpContext.Request.Form[key][0].ToType(pro.PropertyType));
                 }
             }
         }
@@ -302,6 +417,76 @@ namespace AZWeb.Extensions
                 return null;
             }
             return str.ToObject<TClass>();
+        }
+        public static string UploadFile(this HttpContext httpContext, string nameFile, FieldUploadFileAttribute fileInfo) {
+            return httpContext.UploadFile(nameFile, fileInfo.Prefix, fileInfo.IsGenAutoNamFile, fileInfo.Separator, fileInfo.UseFullPath);
+        }
+        public static string UploadFile(this HttpContext httpContext,string nameFile, string Prefix="", bool IsGenAutoNamFile=false, string Separator=";", bool UseFullPath=true) {
+            IReadOnlyList<IFormFile> fileValues = null;
+            if ((fileValues = httpContext.Request.Form.Files.GetListFiles(nameFile)) != null)
+            {
+                return httpContext.UploadFile(fileValues, Prefix, IsGenAutoNamFile, Separator, UseFullPath);
+            }
+                return string.Empty;
+        }
+        public static string UploadFile(this HttpContext httpContext, IReadOnlyList<IFormFile> fileValues, FieldUploadFileAttribute fileInfo)
+        {
+            return httpContext.UploadFile(fileValues, fileInfo.Prefix, fileInfo.IsGenAutoNamFile, fileInfo.Separator, fileInfo.UseFullPath);
+        }
+        public static string UploadFile(this HttpContext httpContext, IReadOnlyList<IFormFile> fileValues, string Prefix = "", bool IsGenAutoNamFile = false, string Separator = ";", bool UseFullPath = true)
+        {
+            var pathUpload = Path.Combine("uploads", string.Format("{0:yyyy}/{0:MM}/{0:dd}", DateTime.Now));
+            if (!Directory.Exists(pathUpload.MapWebRootPath()))
+                Directory.CreateDirectory(pathUpload.MapWebRootPath());
+
+            if (fileValues.Count == 1)
+            {
+                var valueFile = fileValues[0];
+                if (valueFile.Length > 0)
+                {
+                    var nameFile = Path.GetFileNameWithoutExtension(valueFile.FileName);
+                    var extensionFile = Path.GetExtension(valueFile.FileName);
+                    if (IsGenAutoNamFile)
+                        nameFile = Guid.NewGuid().ToString();
+                    var filePath = Path.Combine(pathUpload, string.Format("{0}.{1}",nameFile,extensionFile));
+                    using (var fileStream = new FileStream(filePath.MapWebRootPath(), FileMode.Create))
+                    {
+                        valueFile.OpenReadStream().CopyTo(fileStream);
+                    }
+                    if (UseFullPath)
+                        return filePath;
+                    else
+                        return Path.GetFileName(filePath);
+                }
+            }
+            else
+            {
+                var proValue = string.Empty;
+                foreach (var valueFile in fileValues)
+                {
+                    if (valueFile.Length > 0)
+                    {
+                        var nameFile = Path.GetFileNameWithoutExtension(valueFile.FileName);
+                        var extensionFile = Path.GetExtension(valueFile.FileName);
+                        if (IsGenAutoNamFile)
+                            nameFile = Guid.NewGuid().ToString();
+                        var filePath = Path.Combine(pathUpload, string.Format("{0}.{1}", nameFile, extensionFile));
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            valueFile.OpenReadStream().CopyTo(fileStream);
+                        }
+                        if (UseFullPath)
+                            proValue += filePath + Separator;
+                        else
+                            proValue += Path.GetFileName(filePath) + Separator;
+                    }
+                }
+                return proValue;
+            }
+            return string.Empty;
+        }
+        public static IReadOnlyList<IFormFile> GetListFiles(this IFormFileCollection files, string name) {
+            return files.Where(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
         }
     }
 }

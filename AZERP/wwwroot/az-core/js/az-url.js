@@ -13,6 +13,7 @@ AZUrl.prototype.loadHtml = function (url, callback) {
     }, function (e) { window.history.back(); toastr.error("Không thể đến đường dẫn này:" + url) });
 }
 AZUrl.prototype.changeUrl = function (url) {
+    if (!ManagerMain.isEmpty()) ManagerMain.Remove();
     this.loadHtml(url);
     window.history.pushState("data", "Title", url);
 }
@@ -28,30 +29,7 @@ AZUrl.prototype.Init = function () {
     });
     $("a.az-link-popup").on("click", function (e) {
         e.preventDefault();
-        let ModalSize = $(this).attr("modal-size");
-        let reload = $(this).attr("reload");
-        let LinkHref = $(this).attr("href");
-        let link = $(this).attr("href");
-        if (LinkHref.indexOf("?") > 0) {
-            LinkHref += "&ActionType=popup"
-        } else
-            LinkHref += "?ActionType=popup"
-        $this.DoGet(LinkHref, null, function (item){
-            if (item.statusCode && item.statusCode === 401) {
-                return;
-            }
-            let popup = new AZPopup();
-            popup.ClearButton();         
-            popup.setHtml(item.html);
-            popup.setTitle(item.title);
-            popup.setLink(link);
-            popup.ModalSize = ModalSize;
-            popup.ShowPopup(function () {
-                if (reload && reload==='true') {
-                    $this.loadHtml(location.href);
-                }
-            });
-        });
+        $(this).ShowLinkPopup();
     });
     $(".az-change-ajax").on("change", function (e) {
         if ($(this).parents(".az-manager") === undefined) {

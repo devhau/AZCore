@@ -288,6 +288,26 @@
     if ($this.FormSearch)
         $($this.FormSearch).find("*:input,select,textarea").filter(":not([readonly='readonly']):not([disabled='disabled']):not([type='hidden'])").first().focus();
     if ($callback) $callback($this);
+    $this.destroy = function () {
+        $($this).find(".az-btn-add").off("click");
+        $($this).find("table tbody tr").off("dblclick");
+        $($this).find(".az-btn-edit").off("click");
+        $($this).find(".az-btn-delete").off("click");
+        $($this).find(".az-btn-export").off("click");
+        $($this).find(".az-btn-import").off("click");
+        $($this).find(".az-search-form .az-input-change-search").off("change");
+        $($this).find(".az-btn-search").off("click");
+        $($this).find(".az-change-ajax").off("change");
+        $($this).find(".az-link").off("click");
+        $($this).remove();
+        $(this).remove();
+        delete $this;
+        delete this;
+        $this = undefined;
+    }
+    if (!PopupMain.isEmpty()) PopupMain.Current().Manager = $this;
+    ManagerMain.Push($this);
+   
 }
-
 $.fn.AZManager = AZManager;
+let ManagerMain = new LinkedList();

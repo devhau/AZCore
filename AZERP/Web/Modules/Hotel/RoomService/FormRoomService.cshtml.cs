@@ -21,6 +21,8 @@ namespace AZERP.Web.Modules.Hotel.RoomService
         public long? RegionalServiceID { get; set; }
         [QuerySearch]
         public decimal? Price { get; set; }
+        [QuerySearch]
+        public string RoomServiceName { get; set; }
         #endregion
 
         public FormRoomService(IHttpContextAccessor httpContext) : base(httpContext)

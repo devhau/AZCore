@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 using System;
+using AZCore.Extensions;
+
 namespace AZCore.Types
 {
     [ConverterOf(Target = typeof(byte))]
@@ -11,7 +13,7 @@ namespace AZCore.Types
             switch (typeCode)
             {
                 case AZTypeCode.Int32:
-                case AZTypeCode.String: return Convert.ToByte(value);                
+                case AZTypeCode.String: return value.IsNullOrEmpty() ? (byte?)null : Convert.ToByte(value.ToString().GetOnlyDigitalAndDot());                 
                 case AZTypeCode.Byte: return value;
                 case AZTypeCode.DBNull: return 0;
             }

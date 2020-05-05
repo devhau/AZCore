@@ -34,6 +34,11 @@ namespace AZERP.Data.Entities
         [Field]
         public long PartnerId { get; set; }
         /// <summary>
+        /// Mã kho hàng xuất/ nhập
+        /// </summary>
+        [Field]
+        public long StoreId { get; set; }
+        /// <summary>
         /// Nhân viên duyệt đơn
         /// </summary>
         [Field]

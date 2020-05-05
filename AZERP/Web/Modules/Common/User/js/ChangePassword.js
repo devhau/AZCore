@@ -15,6 +15,6 @@
             $(formChangePassword).find("input[name=password]").focus();
             return;
         }
-        UrlMain.DoPost(url, { pass: password1, id: userId }, function (item) { toastr.success(item.message); PopupMain.PopupCurrent().ClosePopup(); }, function () { });
+        UrlMain.DoPost(url, { pass: password1, id: userId }, function (item) { toastr.success(item.message); PopupMain.Current().ClosePopup(); }, function () { });
     });
 })

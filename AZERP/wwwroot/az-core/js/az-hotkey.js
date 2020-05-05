@@ -83,7 +83,7 @@
         if (PopupMain.isEmpty()) {
             $this.TergetManger = document;
         } else {
-			$this.TergetManger = PopupMain.PopupCurrent().Modal;
+			$this.TergetManger = PopupMain.Current().Modal;
 		}
 		$this.scopeHotKey = [];
 		$this.countKey = 0;
@@ -111,9 +111,11 @@
 		$($this.TergetManger).focus();
     }
 	$this.EventKeyUp = function (e) {
+		var code = undefined;
 		//Find Which key is pressed
 		if (e.keyCode) code = e.keyCode;
 		else if (e.which) code = e.which;
+		if (code===undefined) return;
 		var character = String.fromCharCode(code).toLowerCase();
 		
 		if (code == 188) character = ","; //If the user presses , when the type is onkeydown

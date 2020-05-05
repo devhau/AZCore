@@ -7,7 +7,7 @@ namespace AZERP.Data.Enums
 {
     public enum OrderType:int
     {
-        [Field] In = 0,
-        [Field] Out = 1,
+        [Field] In = 1,
+        [Field] Out = 2,
     }
 }

@@ -37,6 +37,12 @@ namespace AZERP.Data.Entities
         [FieldDisplay]
         public string Name { get; set; }
         /// <summary>
+        /// Ảnh sản phẩm
+        /// </summary>
+        [Field(Length = 1000)]
+        [FieldUploadFile(IsGenAutoNamFile = true)]
+        public string Picture { get; set; }
+        /// <summary>
         /// Phân loại sản phẩm
         /// </summary>
         [Field]
@@ -77,11 +83,6 @@ namespace AZERP.Data.Entities
         [Field]
         public long WeightValue { get; set; }
         /// <summary>
-        /// Số lượng hàng có sẵn trong kho
-        /// </summary>
-        [Field]
-        public long Available { get; set; }
-        /// <summary>
         /// Số lượng hàng đang về
         /// </summary>
         public long Incoming { get; set; }
@@ -93,5 +94,9 @@ namespace AZERP.Data.Entities
         /// Số lượng hàng đang giao dịch
         /// </summary>
         public long Committed { get; set; }
+        /// <summary>
+        /// Tổng số lượng có thể bán (từ nhiều kho)
+        /// </summary>
+        public long Available { get; set; }
     }
 }

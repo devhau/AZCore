@@ -1,14 +1,8 @@
 ﻿@model FormPurchaseOrders
 <az-style module="PurchaseOrders.css" />
 <az-script module="UpdatePurchaseOrders.js"/>
-<az-layout class="az-update row az-commit-purchase-order" script-random='(id)=>$"UpdatePurchaseOrders(\".{id}\")"'>
-    <div class="form-group col-md-6">
-        <az-text-model is-enable="false" value="@Model.DataCurrent.Code" label="Mã đơn nhập hàng" />
-    </div>
-    <div class="form-group col-md-6">
-        <az-text-model is-enable="false" value="@Model.UserModel.FullName" label="Nhân viên tạo đơn" />
-    </div>
-    <div class="form-group col-md-12">
+<az-layout class="az-update row az-commit-purchase-order" script-random='(id)=>$"UpdatePurchaseOrders(\".{id}\");"'>
+    <div class="form-group col-md-8">
         <div class="az-page-info">
             <div class="az-page-info-title">Nhà cung cấp</div>
             <div class="az-page-info-body">
@@ -32,6 +26,22 @@
             </div>
         </div>
     </div>
+    <div class="form-group col-md-4">
+        <div class="az-page-info">
+            <div class="az-page-info-title"></div>
+            <div class="az-page-info-body">
+                <div class="form-group col-md-12">
+                    <az-text-model is-enable="false" value="@Model.DataCurrent.Code" label="Mã đơn nhập hàng" />
+                </div>
+                <div class="form-group col-md-12">
+                    <az-text-model is-enable="false" value="@Model.UserModel.FullName" label="Nhân viên tạo đơn" />
+                </div>
+                <div class="form-group col-md-12">
+                    <az-store-select is-enable="false" value="@Model.DataCurrent.StoreId" label="Kho nhập hàng" null-text="Chọn kho" />
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="form-group col-md-12">
         <div class="az-page-info">
             <div class="az-page-info-title">Sản phẩm</div>
@@ -40,6 +50,7 @@
                     <table class="table table-bordered table-hover az-table " role="grid">
                         <thead>
                             <tr>
+                                <td></td>
                                 <td>Mã SKU</td>
                                 <td>Tên sản phẩm</td>
                                 <td>Số lượng nhập</td>
@@ -50,17 +61,18 @@
                         <tbody>
                             @{ long valueSum = 0; }
                             @{ long valueMoney = 0;}
-                            @foreach (var item in Model.ListDataOrder)
+                            @foreach (var item in Model.listDataOrder)
                             {
-                                <tr>
-                                    <td>@Model.getProduct(item.ProductId)?.Code</td>
-                                    <td>@Model.getProduct(item.ProductId)?.Name</td>
-                                    <td>@item.ImportNumber</td>
-                                    <td>@item.ImportPrice</td>
-                                    <td>@String.Format("{0:#,###}", @item.ImportNumber * @item.ImportPrice)</td>
-                                    @{ valueSum += item.ImportNumber; }
-                                    @{ valueMoney += (item.ImportPrice * item.ImportNumber); }
-                                </tr>
+                            <tr>
+                                <td style="width: 60px"><img style="width: 100%" src="@Model.getProduct(item.ProductId)?.Picture"></td>
+                                <td>@Model.getProduct(item.ProductId)?.Code</td>
+                                <td>@Model.getProduct(item.ProductId)?.Name</td>
+                                <td>@item.ImportNumber</td>
+                                <td>@item.ImportPrice</td>
+                                <td>@String.Format("{0:#,###}", @item.ImportNumber * @item.ImportPrice)</td>
+                                @{ valueSum += item.ImportNumber; }
+                                @{ valueMoney += (item.ImportPrice * item.ImportNumber); }
+                            </tr>
                             }
                         </tbody>
                     </table>

@@ -31,6 +31,10 @@ namespace AZWeb.Module.TagHelper.Input
             if (this.InputValue != null  && DataType.IsEnum && !(this.InputValue is TService)) {
                 this.InputValue=(TService)this.InputValue;
             }
+            if (this.InputValue == null && this.Model == null)
+            {
+                this.InputValue = this.InputValueDefault;
+            }
         }
     }
     [HtmlTargetElement("az-select-model")]
@@ -82,7 +86,7 @@ namespace AZWeb.Module.TagHelper.Input
             {
                 string ItemActive = "";
                 if (item.Value != null && item.Value.Equals(this.InputValue)) { ItemActive = " selected=\"selected\""; }
-                if(item.Value != null && IsMultiple&& InputValues!=null&& InputValues.IndexOf(item.Value)>=0) 
+                if (item.Value != null && IsMultiple && InputValues != null && InputValues.IndexOf(item.Value) >= 0)
                 { ItemActive = " selected=\"selected\""; }
                 htmlBuild.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3} data-item='{4}' >{2}</option>", item.Value, item.Name, item.Display, ItemActive, HttpUtility.UrlPathEncode(Uri.EscapeUriString(item.Item.ToJson())));
             }

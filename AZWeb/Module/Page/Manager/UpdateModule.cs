@@ -64,7 +64,7 @@ namespace AZWeb.Module.Page.Manager
             }
             var ModelType = typeof(TModel);
             foreach (var item in ModelType.GetProperties()) {
-                if (this.HttpContext.Request.Form.ContainsKey(item.Name) && (funProper==null||funProper(item))) 
+                if ((this.HttpContext.Request.Form.ContainsKey(item.Name)||(this.HttpContext.Request.Form.Files.GetListFiles(item.Name).Count>0&&item.GetAttribute<FieldUploadFileAttribute>()!=null)) && (funProper==null||funProper(item))) 
                 {
                     item.SetValue(this.Data, item.GetValue(DataForm));
                 }

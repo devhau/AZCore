@@ -1,32 +1,42 @@
 ﻿function AZAjax() {
     var $this = this;
-    this.DoGet =  function (methodServer, data, callback, onerror) { return this.DoAjax("GET", methodServer, data, callback, onerror); };
-    this.DoPost = function (methodServer, data, callback, onerror) {  return this.DoAjax("POST", methodServer, data, callback, onerror); };
-    this.DoPut =  function (methodServer, data, callback, onerror) { return this.DoAjax("PUT", methodServer, data, callback, onerror); };
-    this.DoAjax = function (methodAjax, methodServer, data, callback, onerror) {
-        
+    this.DoGet = function (methodServer, data, callback, onerror, options) { return this.DoAjax("GET", methodServer, data, callback, onerror, options); };
+    this.DoPost = function (methodServer, data, callback, onerror, options) { return this.DoAjax("POST", methodServer, data, callback, onerror, options); };
+    this.DoPut = function (methodServer, data, callback, onerror, options) { return this.DoAjax("PUT", methodServer, data, callback, onerror, options); };
+    this.DoAjax = function (methodAjax, methodServer, data, callback, onerror, options) {
+
         urlRequest = methodServer
         // kiểm tra xem data có phải là một function lấy data hay không
         // nếu là một function lấy data thì thực hiện lấy data
-        var dataPost = typeof (data) == "function" ? data() : data;
+        var dataPost = typeof (data) === "function" ? data() : data;
         if (dataPost == null) dataPost = {};
-       // dataPost.path = window.location.pathname + window.location.search;
-        dataPost.time = new Date().getTime();
-        //var request ajax
-        var request = $.ajax(
-            {
-                // Url thực hiện request
-                url: urlRequest,
 
-                // method post hoặc get
-                type: methodAjax,
+        var optionAjax = {
+            // Url thực hiện request
+            url: urlRequest,
 
-                // data cần truyền đi
+            // method post hoặc get
+            type: methodAjax,
+
+            // data cần truyền đi
+            data: dataPost,
+
+            // ContentType dữ liệu trả về
+            dataType: "json"
+        };
+        
+        if (dataPost instanceof FormData) {
+            dataPost.append("time", new Date().getTime());
+            $.extend(optionAjax, {
                 data: dataPost,
-
-                // ContentType dữ liệu trả về
-                dataType: "json"
+                processData: false,
+                contentType: false
             });
+        } else {
+            dataPost.time = new Date().getTime();
+        }
+        //var request ajax
+        var request = $.ajax(optionAjax);
 
         // Nếu như request thực hiện thành công
         request.done(
@@ -70,9 +80,8 @@
         if (CodeJS && CodeJS!="")
             eval(CodeJS);
     }
-    
 }
-
+var AjaxMain = new AZAjax();
 jQuery.cachedScript = function (url, options) {
     // Allow user to set any option except for dataType, cache, and url
     options = $.extend(options || {}, {

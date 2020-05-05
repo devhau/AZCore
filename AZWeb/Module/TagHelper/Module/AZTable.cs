@@ -21,6 +21,10 @@ namespace AZWeb.Module.TagHelper.Module
     {
         [HtmlAttributeName("FunKey")]
         public Func<dynamic, object> FunKey { get; set; }
+        [HtmlAttributeName("fun-where-edit")]
+        public Func<dynamic, bool> FunEdit { get; set; }
+        [HtmlAttributeName("fun-where-remove")]
+        public Func<dynamic, bool> FunRemove { get; set; }
         [HtmlAttributeName("is-index")]
         public bool IsIndex { get; set; } = true;
         [HtmlAttributeName("is-edit")]
@@ -34,6 +38,8 @@ namespace AZWeb.Module.TagHelper.Module
         [HtmlAttributeName("pagination")]
         public IPagination Pagination { get; set; }
         private Dictionary<Type, List<ItemValue>> DataDic { get; set; }
+
+        static Regex regex = new Regex(@"{[a-zA-Z][a-zA-Z0-1]+\}");
         public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
             htmlBuild.AppendFormat("<table class=\"table table-bordered table-hover az-table {0}\" role=\"grid\">", this.TagClass);
@@ -118,7 +124,9 @@ namespace AZWeb.Module.TagHelper.Module
                     if (this.IsEdit)
                     {
                         htmlTable.Append("<td>");
+                        
                         htmlTable.Append("<i class=\"far fa-edit az-btn-edit\"></i>");
+
                         htmlTable.Append("</td>");
                     }
                     if (this.IsDelete)
@@ -173,6 +181,17 @@ namespace AZWeb.Module.TagHelper.Module
                                 else 
                                 {
                                     TextDisplay = string.IsNullOrEmpty(col.FormatString) ? string.Format("{0}", ItemDisplay) : string.Format(col.FormatString, ItemDisplay);
+                                    foreach (Match match in regex.Matches(TextDisplay))
+                                    {
+                                        foreach (Group m in match.Groups)
+                                        {
+                                            var pro = m.Value.TrimStart('{').TrimEnd('}');
+                                            if (d.GetProperty(pro) != null)
+                                            {
+                                                TextDisplay = TextDisplay.Replace(m.Value, string.Format("{0}", d.GetProperty(pro).GetValue(item)));
+                                            }
+                                        }
+                                    }
                                 }
 
                                 htmlTable.AppendFormat("<td data-value='{1}' data-name='{0}' class='{2}'>", col.FieldName, HttpUtility.UrlEncode(itemValue?.ToString()), col.ClassColumn);
@@ -182,7 +201,6 @@ namespace AZWeb.Module.TagHelper.Module
                                 TextDisplay = col.Text;
                             }
                             if (!string.IsNullOrEmpty(col.LinkFormat)) {
-                                Regex regex = new Regex(@"{[a-zA-Z][a-zA-Z0-1]+\}");
                                 var link = col.LinkFormat;
                                 foreach (Match match in regex.Matches(link))
                                 {
@@ -248,13 +266,15 @@ namespace AZWeb.Module.TagHelper.Module
                     if (this.IsEdit)
                     {
                         htmlTable.Append("<td>");
-                        htmlTable.Append("<i class=\"far fa-edit az-btn-edit\"></i>");
+                        if(FunEdit==null|| FunEdit(item))
+                            htmlTable.Append("<i class=\"far fa-edit az-btn-edit\"></i>");
                         htmlTable.Append("</td>");
                     }
                     if (this.IsDelete)
                     {
                         htmlTable.Append("<td>");
-                        htmlTable.Append("<i class=\"far fa-trash-alt az-btn-delete\"></i>");
+                        if (FunRemove == null || FunRemove(item))
+                            htmlTable.Append("<i class=\"far fa-trash-alt az-btn-delete\"></i>");
                         htmlTable.Append("</td>");
                     }
                     htmlTable.Append("</tr>");
