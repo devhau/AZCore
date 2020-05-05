@@ -1,4 +1,5 @@
 ﻿using AZERP.Data.Entities;
+using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;
@@ -22,7 +23,7 @@ namespace AZERP.Web.Modules.Common.Auth
         public IView Get() {
             return View();
         }
-        public IView Post(string Fullname, string Email, string Password, string Phone)
+        public IView Post([BindForm]string Fullname, [BindForm]string Email, [BindForm]string Password, [BindForm]string Phone)
         {
             if (this.userService.ExecuteNoneQuery(p => { p.AddWhere("Email", Email); p.SetColumn("count(0)"); }) > 0) {
                 Error = "Email đã được người khác đăng ký rồi!";
