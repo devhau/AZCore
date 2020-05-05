@@ -167,8 +167,8 @@ namespace AZWeb.Module
                     paraValues.Add(httpContext.GetObjectValueByForm(param.ParameterType, string.IsNullOrEmpty(attr.FromName)? param.Name: attr.FromName));
                 }
                 else {
-
-                    paraValues.Add(httpContext.GetObjectValueByQuery(param.ParameterType, param.Name));
+                    var attr1 = param.GetAttribute<BindQueryAttribute>();
+                    paraValues.Add(httpContext.GetObjectValueByQuery(param.ParameterType,( attr1==null|| string.IsNullOrEmpty(attr1.FromName)) ? param.Name : attr1.FromName));
                 }
             }
             #endregion
