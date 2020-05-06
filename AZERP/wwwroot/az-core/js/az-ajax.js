@@ -37,7 +37,6 @@
         }
         //var request ajax
         var request = $.ajax(optionAjax);
-
         // Nếu như request thực hiện thành công
         request.done(
             function (res) {
@@ -59,6 +58,7 @@
             }
         );
         request.fail(function (error) {
+             toastr.error("Lỗi hệ thống!");
             if (onerror != null) onerror(error);
         });
         return request;
