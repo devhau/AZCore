@@ -1,7 +1,7 @@
 ﻿@model FormPurchaseOrders
 <az-script module="ManagerPurchaseOrder.js" />
 <az-module-layout script-random='(id)=>"ManagerPurchaseOrder(\"."+id+"\");"'>
-    <div class="az-manager" data-form-size="az-modal-xl">
+    <div class="az-manager" data-form-size="az-modal-80">
         <div class="az-toolbar">
             <az-button class="btn btn-success btn-sm az-btn az-btn-add" cmd-key="f1" icon="far fa-plus-square" text="Tạo đơn nhập hàng (F1)" />
         </div>
@@ -19,7 +19,8 @@
                         <div class="col-md-3">
                             <az-store-status-select model="Model"
                                                     func="(item)=>((FormPurchaseOrders)item).PurchaseOrderImport"
-                                                    null-text="Chọn trạng thái" label="Trạng thái xuất kho">
+                                                    where-func="(item) => (item ==null|| item.Equals(PurchaseOrderImport.Import) || item.Equals(PurchaseOrderImport.WaitingImport))"
+                                                    null-text="Chọn trạng thái" label="Trạng thái nhập kho">
                             </az-store-status-select>
                         </div>
                     </form>

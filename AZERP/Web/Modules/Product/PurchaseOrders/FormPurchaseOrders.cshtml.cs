@@ -93,10 +93,11 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
             this.PageTotalAll = Service.ExecuteNoneQuery((T) => {
 
                 T.SetColumn("count(0)");
-
+                T.AddWhere("Type", OrderType.In);
             });
             this.PageTotal = Service.ExecuteNoneQuery((T) => {
                 T.SetColumn("count(0)");
+                T.AddWhere("Type", OrderType.In);
                 actionWhere(T);
             });
             this.PageMax = PageSize>0?(int)Math.Ceiling((decimal)this.PageTotal / (decimal)this.PageSize):0;

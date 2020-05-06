@@ -3,10 +3,10 @@
 <az-script module="PurchaseOrders.js" />
 
 <az-layout class="az-update row az-update-purchase-order">
-    <div class="form-group col-md-8">
-        <div class="az-page-info">
-            <div class="az-page-info-title">Thông tin nhà cung cấp</div>
-            <div class="az-page-info-body">
+    <div class="form-group col-md-6">
+        <div class="card" style="height: 100%">
+            <div class="card-header">Nhà cung cấp</div>
+            <div class="card-body">
                 <az-supplier-select is-show="@(Model.CanEdit)" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).PartnerId" where-func="(item)=>((SupplierModel)item).SupplierStatus == true" class="supplierClass" null-text="Chọn nhà cung cấp" />
                 <div class="list-info-supplier">
                     <div class="list-info-header">
@@ -30,86 +30,102 @@
             </div>
         </div>
     </div>
-    <div class="form-group col-md-4">
-        <div class="az-page-info">
-            <div class="az-page-info-title">Thông tin đơn nhập hàng</div>
-            <div class="az-page-info-body">
-                <div class="form-group col-md-12">
-                    <az-text-model is-enable="Model.DataCurrent == null" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />
+    <div class="form-group col-md-6">
+        <div class="card" style="height: 100%">
+            <div class="card-header">Thông tin đơn nhập hàng</div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <az-text-model is-show="Model.DataCurrent != null" is-enable="Model.DataCurrent == null" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).Code" label="Mã đơn nhập hàng" />
+                    </div>
+                    <az-layout is-show="Model.DataCurrent != null" class="col-md-6">
+                        <az-text-model is-enable="false" model="Model.UserModel" func="(item)=>((UserModel)item).FullName" label="Nhân viên tạo đơn" />
+                    </az-layout>
                 </div>
-                <az-layout is-show="Model.DataCurrent != null" class="form-group col-md-12">
-                    <az-text-model is-enable="false" model="Model.UserModel" func="(item)=>((UserModel)item).FullName" label="Nhân viên tạo đơn" />
-                </az-layout>
-                <div class="form-group col-md-12">
-                    <az-store-select is-enable="@(Model.DataCurrent == null || Model.DataCurrent.PurchaseOrderImport == PurchaseOrderImport.WaitingImport)" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).StoreId" where-func="(item)=>((StoreModel)item).Status == AZCore.Database.EntityStatus.Active" label="Kho nhập hàng" null-text="Chọn kho" />
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <az-store-select is-enable="@(Model.DataCurrent == null || Model.DataCurrent.PurchaseOrderImport == PurchaseOrderImport.WaitingExport)" model="Model.DataCurrent" func="(item)=>((PurchaseOrderModel)item).StoreId" where-func="(item)=>((StoreModel)item).Status == AZCore.Database.EntityStatus.Active" label="Kho nhập hàng" null-text="Chọn kho" />
+                    </div>
+                    <div class="col-md-6">
+                        <az-store-select label="Đơn vị vận chuyển" null-text="Đơn vị mặc định" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="form-group col-md-12">
-        <div class="az-page-info">
-            <div class="az-page-info-title">Thông tin sản phẩm</div>
-            <div class="az-page-info-body">
-                <az-product-select where-func="(item)=>((ProductModel)item).ProductSellable == true" is-show="@(Model.CanEdit)" class="productClass" null-text="Chọn sản phẩm" />
-                <div class="az-data-table">
-                    <table class="table table-bordered table-hover az-table " role="grid">
-                        <thead>
-                            <tr>
-                                <td>Mã SKU</td>
-                                <td>Tên sản phẩm</td>
-                                <td>Số lượng nhập</td>
-                                <td>Giá nhập</td>
-                                <td>Thành tiền</td>
-                                @if (Model.CanEdit)
-                                {
-                                    <td></td>
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{ long valueSum = 0; }
-                            @{ long valueMoney = 0;}
-                            @if (Model.DataCurrent != null)
-                            {
-                                @foreach (var item in Model.listDataOrder)
-                                {
-                                    var obj = Model.getProduct(item.ProductId);
-                                    var input = "<input type='hidden' name='listDataOrder[].ProductId' value='" + obj.Id + "' />";
-                            <tr>
-                                <td>@obj.Code <input type="hidden" name="listDataOrder[].ProductId" value="@obj.Id" /> </td>
-                                <td>@obj.Name</td>
-                                <td>
-                                    @if (Model.CanEdit)
+        <div class="card">
+            <div class="card-header">Thông tin sản phẩm</div>
+            <div class="card-body">
+                <az-product-select 
+                                   where-func="(item)=>((ProductModel)item).ProductSellable == true" 
+                                   is-show="@(Model.CanEdit)" class="productClass" 
+                                   null-text="Chọn sản phẩm" />
+                <div class="row">
+                    <div class="col" style="margin-top: 1rem">
+                        <div class="az-data-table">
+                            <table class="table table-bordered table-hover az-table " role="grid">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <td>Mã SKU</td>
+                                        <td>Tên sản phẩm</td>
+                                        <td>Số lượng nhập</td>
+                                        <td>Giá nhập</td>
+                                        <td>Thành tiền</td>
+                                        @if (Model.CanEdit)
+                                        {
+                                            <td></td>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ long valueSum = 0; }
+                                    @{ long valueMoney = 0;}
+                                    @if (Model.DataCurrent != null)
                                     {
-                                        <input type="number" name="listDataOrder[].ImportNumber" class="form-control" value="@item.ImportNumber">
+                                        @foreach (var item in Model.listDataOrder)
+                                        {
+                                            var obj = Model.getProduct(item.ProductId);
+                                            var input = "<input type='hidden' name='listDataOrder[].ProductId' value='" + obj.Id + "' />";
+                                            <tr>
+                                                <td style="width: 60px"><img style="width: 100%" src="@obj.Picture"></td>
+                                                <td>@obj.Code <input type="hidden" name="listDataOrder[].ProductId" value="@obj.Id" /> </td>
+                                                <td>@obj.Name</td>
+                                                <td>
+                                                    @if (Model.CanEdit)
+                                                    {
+                                                        <input type="number" name="listDataOrder[].ImportNumber" class="form-control" value="@item.ImportNumber">
+                                                    }
+                                                    else
+                                                    {
+                                                        @item.ImportNumber
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (Model.CanEdit)
+                                                    {
+                                                        <input type="number" name="listDataOrder[].ImportPrice" class="form-control" value="@item.ImportPrice">
+                                                    }
+                                                    else
+                                                    {
+                                                        @item.ImportPrice
+                                                    }
+                                                </td>
+                                                <td><label>@String.Format("{0:#,###}", @item.ImportNumber * @item.ImportPrice)</label></td>
+                                                @if (Model.CanEdit)
+                                                {
+                                                    <td><a href='javascript:'><i class='fa fa-minus-circle'></i></a></td>
+                                                }
+                                                @{ valueSum += item.ImportNumber; }
+                                                @{ valueMoney += (item.ImportPrice * item.ImportNumber); }
+                                            </tr>
+                                        }
                                     }
-                                    else
-                                    {
-                                        @item.ImportNumber
-                                    }
-                                </td>
-                                <td>
-                                    @if (Model.CanEdit)
-                                    {
-                                        <input type="number" name="listDataOrder[].ImportPrice" class="form-control" value="@item.ImportPrice">
-                                    }
-                                    else
-                                    {
-                                        @item.ImportPrice
-                                    }
-                                </td>
-                                <td><label>@String.Format("{0:#,###}", @item.ImportNumber * @item.ImportPrice)</label></td>
-                                @if (Model.CanEdit)
-                                {
-                                    <td><a href='javascript:'><i class='fa fa-minus-circle'></i></a></td>
-                                }
-                                @{ valueSum += item.ImportNumber; }
-                                @{ valueMoney += (item.ImportPrice * item.ImportNumber); }
-                            </tr>
-                                }
-                            }
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -37,6 +37,12 @@ namespace AZERP.Data.Entities
         [FieldDisplay]
         public string Name { get; set; }
         /// <summary>
+        /// Ảnh sản phẩm
+        /// </summary>
+        [Field(Length = 1000)]
+        [FieldUploadFile(IsGenAutoNamFile = true)]
+        public string Picture { get; set; }
+        /// <summary>
         /// Phân loại sản phẩm
         /// </summary>
         [Field]

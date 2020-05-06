@@ -155,6 +155,10 @@
 .az-modal-xl .modal-dialog {
     max-width:1050px;
 }
+
+.az-modal-80 .modal-dialog {
+    max-width: 80%;
+}
 .az-module-layout {
     width: 100%;
     height: 100%;

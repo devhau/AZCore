@@ -45,6 +45,7 @@
                 <thead>
                     <tr>
                         <th rowspan="2" width="35px">#</th>
+                        <th rowspan="2" width="80px"></th>
                         <th rowspan="2" width="85px">SKU</th>
                         <th rowspan="2" width="200px">Sản phẩm</th>
                         @foreach (var item in Model.storeModels)
@@ -71,40 +72,40 @@
                     @{ var index = 1;}
                     @foreach (var item in Model.Data)
                     {
-                        <tr>
-                            <td>@index</td>
-                            <td>@item.Code</td>
-                            <td>@item.Name</td>
-                            @{  long sumAvai = 0;
-                                long sumIn = 0;
-                                long sumOnway = 0;
-                                long sumCommit = 0;
-                             }
-                            @foreach (var item1 in Model.storeModels)
-                            {
-                                long available = @Model.GetInfo(item1.Id, item.Id, (item) => item.Available);
-                                long incoming = @Model.GetInfo(item1.Id, item.Id, (item) => item.Incoming);
-                                long onway = @Model.GetInfo(item1.Id, item.Id, (item) => item.OnWay);
-                                long commited = @Model.GetInfo(item1.Id, item.Id, (item) => item.Committed);
-                                <td>@(available == 0 ? "-" : string.Format("{0:#,####}", available))</td>
-                                <td>@(incoming == 0 ? "-" : string.Format("{0:#,####}", incoming))</td>
-                                <td>@(onway == 0 ? "-" : string.Format("{0:#,####}", onway))</td>
-                                <td>@(commited == 0 ? "-" : string.Format("{0:#,####}", commited))</td>
-                                sumAvai += @available;
-                                sumIn += incoming;
-                                sumOnway += onway;
-                                sumCommit += commited;
-                            }
-                            <td>@(sumAvai == 0 ? "-" : string.Format("{0:#,####}", sumAvai))</td>
-                            <td>@(sumIn == 0 ? "-" : string.Format("{0:#,####}", sumIn))</td>
-                            <td>@(sumOnway == 0 ? "-" : string.Format("{0:#,####}", sumOnway))</td>
-                            <td>@(sumCommit == 0 ? "-" : string.Format("{0:#,####}", sumCommit))</td>
-                        </tr>
+                    <tr>
+                        <td>@index</td>
+                        <td><img style="width: 100%" src=@item.Picture></td>
+                        <td>@item.Code</td>
+                        <td>@item.Name</td>
+                        @{ long sumAvai = 0;
+                            long sumIn = 0;
+                            long sumOnway = 0;
+                            long sumCommit = 0;
+                        }
+                        @foreach (var item1 in Model.storeModels)
+                        {
+                            long available = @Model.GetInfo(item1.Id, item.Id, (item) => item.Available);
+                            long incoming = @Model.GetInfo(item1.Id, item.Id, (item) => item.Incoming);
+                            long onway = @Model.GetInfo(item1.Id, item.Id, (item) => item.OnWay);
+                            long commited = @Model.GetInfo(item1.Id, item.Id, (item) => item.Committed);
+                            <td>@(available == 0 ? "-" : string.Format("{0:#,####}", available))</td>
+                            <td>@(incoming == 0 ? "-" : string.Format("{0:#,####}", incoming))</td>
+                            <td>@(onway == 0 ? "-" : string.Format("{0:#,####}", onway))</td>
+                            <td>@(commited == 0 ? "-" : string.Format("{0:#,####}", commited))</td>
+                            sumAvai += @available;
+                            sumIn += incoming;
+                            sumOnway += onway;
+                            sumCommit += commited;
+                        }
+                        <td>@(sumAvai == 0 ? "-" : string.Format("{0:#,####}", sumAvai))</td>
+                        <td>@(sumIn == 0 ? "-" : string.Format("{0:#,####}", sumIn))</td>
+                        <td>@(sumOnway == 0 ? "-" : string.Format("{0:#,####}", sumOnway))</td>
+                        <td>@(sumCommit == 0 ? "-" : string.Format("{0:#,####}", sumCommit))</td>
+                    </tr>
                         index++;
                     }
                 </tbody>
             </table>
-            @*<az-table data="Model.Data" FunKey="(item)=>((ProductModel)item).Id" columns="Model.Columns" pagination="Model" is-delete="false" />*@
         </div>
         <div class="az-bottom-manager">
             <az-pagination pagination="Model" />
