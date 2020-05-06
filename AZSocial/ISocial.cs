@@ -4,6 +4,8 @@ using System.Text;
 
 namespace AZSocial
 {
+    //
+    //private static HttpClient _Client { get; } = new HttpClient();
     public interface ISocial
     {
     }

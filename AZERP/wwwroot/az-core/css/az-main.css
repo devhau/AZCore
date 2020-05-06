@@ -1,4 +1,9 @@
-﻿.az-wrapper {
+﻿html,body{
+    height:100%;
+    width:100%;
+    overflow:hidden;
+}
+.az-wrapper {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -27,7 +32,17 @@
     position: fixed;
     right: 0;
     top: 0;
+    padding: 2px 10px;
     z-index: 1037;
+}
+.az-layout .wrapper .main-header .navbar-nav .nav-link{
+    color:#fff;
+    font-weight:400;
+}
+.az-layout .wrapper .main-header .navbar-brand{
+    color:#222;
+    font-weight:700;
+
 }
 .az-layout .main-sidebar {
     bottom: 0;
@@ -38,7 +53,7 @@
     top: 0;
 }
 .az-layout .wrapper .content-wrapper {
-    margin-top: calc(3.5rem + 1px);
+    margin-top: 45px;
     height: calc(100% - 3.5rem - 2px);
     position:relative;
     padding:0px;
@@ -95,23 +110,23 @@
         left: 0px;
         border-bottom: 1px solid;
 }
-    .az-manager .az-search-manager {
-        margin: 1px 1px;
-        padding: 5px;
-        border-bottom: 1px solid;
-        border-bottom-color: rgba(0, 0, 0, 0.3);
-    }
-    .az-manager .az-bottom-manager {
-        background:#e6e6e6;
-        width:100%;
-    }
-    .az-manager .az-pagination {
-        padding:5px;
-    }
-    .az-manager .az-pagination .pagination {
-        padding: 0px;
-        margin: 0px;
-    }
+.az-manager .az-search-manager {
+    margin: 1px 1px;
+    padding: 5px;
+    border-bottom: 1px solid;
+    border-bottom-color: rgba(0, 0, 0, 0.3);
+}
+.az-manager .az-bottom-manager {
+    background:#e6e6e6;
+    width:100%;
+}
+.az-manager .az-pagination {
+    padding:5px;
+}
+.az-manager .az-pagination .pagination {
+    padding: 0px;
+    margin: 0px;
+}
 .az-modal .module-popup {
     margin: -1rem;
     min-height:500px;
@@ -120,21 +135,21 @@
     background: rgba(0, 0, 0, 0.75);
     overflow: auto;
 }
-    .az-modal .modal-content {
-        border-radius:0px;
-        position:relative;
-        background-color: #f4f6f8;
-    }
-    .az-modal .modal-header {
-        padding:5px 10px;
-    }
-        .az-modal .modal-header .close {
-            padding: 5px 10px;
-            margin: 0;
-            color: #fff;
-            background-color: #0069d9;
-            border-color: #0062cc;
-        }
+.az-modal .modal-content {
+    border-radius:0px;
+    position:relative;
+    background-color: #f4f6f8;
+}
+.az-modal .modal-header {
+    padding:5px 10px;
+}
+.az-modal .modal-header .close {
+    padding: 5px 10px;
+    margin: 0;
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
 .az-modal-full, .az-modal-full .modal-dialog, .az-modal-full .modal-dialog .modal-content {
     width: 100%;
     height: 100%;
@@ -159,20 +174,32 @@
     display: flex;
     flex-direction: column;
 }
-    .az-module-layout .az-module-header {
-        width: 100%;
-        position: relative;
-        margin: 0;
-        padding: 0;
-    }
-    .az-module-layout .az-module-body {
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        position: relative;
-        margin: 0;
-        padding:0px;
-    }
+.az-module-layout .az-module-header {
+    width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 10px 0px;
+}
+.az-module-layout .az-module-header .az-btn {
+   margin-right: 8px;
+}
+.az-module-layout .az-module-header .az-btn label {
+    margin:0px;
+    padding:0px;
+    
+}
+.az-module-layout .az-module-header .az-btn label:hover ,.az-module-layout .az-module-header .az-btn:hover label{
+    color:#fff !important;
+}
+
+.az-module-layout .az-module-body {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    position: relative;
+    margin: 0;
+    padding:0px;
+}
 
 .az-table.table td, .az-table.table th {
     padding: 0.3rem;

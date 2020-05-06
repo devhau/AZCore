@@ -1,16 +1,9 @@
 ﻿@model FormUser
-<az-module-layout script-random='(id)=>$"$(\".{id}\").AZManager();"'>
-    <div class="az-manager " data-form-size="az-modal-xl">
-        <div class="az-toolbar">
-            <az-button for-permission="@PE.User_Add" class="btn-success btn-sm az-btn-add" cmd-key="f1" icon="far fa-plus-square" text="Thêm Mới (F1)" />
-            <az-button for-permission="@PE.User_Export" class="btn-info btn-sm az-btn-export" cmd-key="f2" icon="fas fa-file-export" text="Xuất Excel (F2)" />
-            <az-button for-permission="@PE.User_Import" class="btn-secondary btn-sm az-btn-import" cmd-key="f2" icon="fas fa-file-import" text="Nhập Excel (F3)" />
-           </div>
+<az-module-layout script-random='(id)=>$"$(\".{id}\").AZManager();"'  buttons="Model.GetButtonInfo()" class="az-manager" attr='data-form-size="az-modal-xl"'>
         <div class="az-data-table">
             <az-table data="Model.Data" FunKey="(item)=>((UserModel)item).Id" columns="Model.Columns" pagination="Model" is-edit="Model.HasPermission(PE.User_Edit)" is-delete="Model.HasPermission(PE.User_Remove)"></az-table>
         </div> 
         <div class="az-bottom-manager">
             <az-pagination pagination="Model" />
         </div>
-    </div>
 </az-module-layout>
