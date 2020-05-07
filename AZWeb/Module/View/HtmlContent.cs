@@ -1,5 +1,4 @@
 ﻿using AZWeb.Configs;
-using Microsoft.AspNetCore.Html;
 using System.Collections.Generic;
 
 namespace AZWeb.Module.View
@@ -7,6 +6,7 @@ namespace AZWeb.Module.View
     public class HtmlContent
     {
         public string Title { get; set; }
+        public string Icon { get; set; }
         public string Description { get; set; }
         public string Keyword { get; set; }
         public string Html { get; set; }

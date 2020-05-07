@@ -21,25 +21,41 @@
     <None Remove="Web\Modules\Product\StockAdjustments\css\StockAdjustment.css" />
     <Compile Include="Web\Modules\Product\PurchaseOrders\FormPurchaseOrders.cshtml.cs" />
     <Compile Include="Web\Modules\Product\PurchaseOrders\FormUpdatePurchaseOrders.cshtml.cs" />
-    <Content Include="Web\Modules\Orders\Orders\css\Orders.css" />
-    <Content Include="Web\Modules\Orders\Orders\js\Orders.js" />
-    <Content Include="Web\Modules\Product\PurchaseOrders\css\PurchaseOrders.css" />
+    <Content Include="Web\Modules\Orders\Orders\css\Orders.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\Modules\Orders\Orders\js\Orders.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\Modules\Product\PurchaseOrders\css\PurchaseOrders.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web\Modules\Product\PurchaseOrders\FormUpdatePurchaseOrders.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Web\Modules\Product\PurchaseOrders\js\PurchaseOrders.js" />
-    <Content Include="Web\Modules\Product\StockAdjustments\css\StockAdjustment.css" />
-    <Content Include="Web\Modules\Recruitment\Worker\js\CheckinCheckout.js" />
+    <Content Include="Web\Modules\Product\PurchaseOrders\js\PurchaseOrders.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\Modules\Product\StockAdjustments\css\StockAdjustment.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\Modules\Recruitment\Worker\js\CheckinCheckout.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Web\Modules\Common\Auth\FormLogin.cshtml" />
     <None Include="Web\Modules\Common\Auth\FormRegister.cshtml" />
     <Content Include="Web\Modules\Product\PurchaseOrders\FormPurchaseOrders.cshtml" />
-    <None Include="Web\Modules\Product\PurchaseOrders\js\ManagerPurchaseOrder.js" />
+    <None Include="Web\Modules\Product\PurchaseOrders\js\ManagerPurchaseOrder.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Web\Modules\Product\PurchaseOrders\UpdatePurchaseOrders.cshtml" />
-    <None Include="Web\Modules\Product\PurchaseOrders\js\UpdatePurchaseOrders.js" />
+    <None Include="Web\Modules\Product\PurchaseOrders\js\UpdatePurchaseOrders.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Web\Modules\Recruitment\Candidate\FormCandidate.cshtml" />
     <None Include="Web\Modules\Recruitment\Candidate\FormSale.cshtml" />
     <None Include="Web\Modules\Recruitment\Candidate\FormUpdateCandidate.cshtml" />
@@ -102,6 +118,48 @@
     <Folder Include="Web\Modules\Social\Facebook\" />
     <Folder Include="Web\Modules\Social\Shopee\" />
     <Folder Include="wwwroot\uploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Web\Modules\Common\Auth\css\auth.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Web\Modules\Common\Permission\js\Permission.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Web\Modules\Common\Permission\js\ViewPermission.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Web\Modules\Common\SystemCode\js\SystemCode.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Web\Modules\Common\User\js\ChangePassword.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Web\Modules\Orders\Orders\js\ManagerOrder.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Web\Modules\Orders\Orders\js\UpdateOrders.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Web\Modules\Product\Products\css\UpdateProduct.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Web\Modules\Product\StockAdjustments\js\StockAdjustment.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Web\Modules\Product\Variants\css\UpdateVariants.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Web\Modules\Recruitment\Worker\css\CheckinCheckout.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Web\Themes\Admin\Components\css\UserOnline.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Web\Themes\Admin\Components\js\UserOnline.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

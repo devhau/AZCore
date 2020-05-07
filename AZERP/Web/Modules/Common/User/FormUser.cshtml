@@ -1,5 +1,5 @@
 ﻿@model FormUser
-<az-module-layout script-random='(id)=>$"$(\".{id}\").AZManager();"'  buttons="Model.GetButtonInfo()" class="az-manager" attr='data-form-size="az-modal-xl"'>
+<az-module-layout script-random='(id)=>$"$(\".{id}\").AZManager();"' icon="fas fa-users" buttons="Model.GetButtonInfo()" class="az-manager" attr='data-form-size="az-modal-xl"'>
         <div class="az-data-table">
             <az-table data="Model.Data" FunKey="(item)=>((UserModel)item).Id" columns="Model.Columns" pagination="Model" is-edit="Model.HasPermission(PE.User_Edit)" is-delete="Model.HasPermission(PE.User_Remove)"></az-table>
         </div> 

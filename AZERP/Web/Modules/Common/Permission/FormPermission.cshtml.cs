@@ -49,7 +49,7 @@ namespace AZERP.Web.Modules.Common.Permission
             yield return new ButtonInfo()
             {
                 Link= "/vai-tro.az",
-                ClassName = "btn btn-success btn-sm az-btn az-btn-add az-link-popup",
+                ClassName = "btn btn-success btn-sm az-btn az-btn-role az-link-popup",
                 CMD = "f4",
                 PermisisonCode = this.ModuleInfo?.AddCode,
                 Icon = "fas fa-user-tag",
@@ -59,7 +59,7 @@ namespace AZERP.Web.Modules.Common.Permission
             yield return new ButtonInfo()
             {
                 Link = "/danh-sach-quyen.az?h=User",
-                ClassName = "btn btn-danger btn-sm az-btn az-btn-add az-link-popup",
+                ClassName = "btn btn-danger btn-sm az-btn az-btn-permission-user az-link-popup",
                 CMD = "f4",
                 PermisisonCode = this.ModuleInfo?.AddCode,
                 Icon = "fas fa-user-tag",

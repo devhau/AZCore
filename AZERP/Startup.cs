@@ -16,14 +16,19 @@ using AZWeb.Module.Common;
 using Microsoft.AspNetCore.SignalR;
 using AZERP.Web.Hubs;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
 
 namespace AZERP
 {
     public class Startup: AZWeb.Utilities.IStartup
     {
         private static Dictionary<String, Type> dicType = new Dictionary<string, Type>();
-        public Startup(IConfiguration configuration)
+        IWebHostEnvironment env;
+        public Startup(
+            IConfiguration configuration,
+            IWebHostEnvironment env)
         {
+            this.env = env;
             Configuration = configuration;
 
             this.GetType().Assembly.GetTypes().Where(p => p.FullName.Contains(".Web.")&&p.IsTypeFromInterface<IModule>()).Any(p =>
@@ -39,6 +44,13 @@ namespace AZERP
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var physicalProvider = env.ContentRootFileProvider;
+            //var manifestEmbeddedProvider =
+            //    new ManifestEmbeddedFileProvider(typeof(Program).Assembly);
+            //var compositeProvider =
+            //    new CompositeFileProvider(physicalProvider, manifestEmbeddedProvider);
+
+            services.AddSingleton<IFileProvider>(physicalProvider);
             services.AddMySQL(Configuration.GetConnectionString("Mysql"));
             services.AddSignalR(hubOptions =>
             {
@@ -63,7 +75,7 @@ namespace AZERP
             {
                 app.UseDeveloperExceptionPage();
             }
-
+           
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.Use(next =>

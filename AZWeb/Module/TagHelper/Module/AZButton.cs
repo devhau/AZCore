@@ -1,4 +1,5 @@
-﻿using AZWeb.Module.Common;
+﻿using AZCore.Extensions;
+using AZWeb.Module.Common;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,9 +16,10 @@ namespace AZWeb.Module.TagHelper.Module
         public string PermisisonCode { get; set; }
         public string Link { get; set; }
         public string ModalSize { get; set; }
+        public string Html { get; set; }
         public override string ToString()
         {
-
+            if (!Html.IsNullOrEmpty()) return Html;
             string IconText = string.IsNullOrEmpty(Icon) ? "" : $" <i class='{Icon}'></i> ";
             if (string.IsNullOrEmpty(Link)) {
                 return ($"<button type=\"button\" id=\"{Id}\" title=\"{Text}\" class=\"btn az-btn {ClassName}\" data-cmd-key=\"{CMD}\" >{IconText}<label>{Text}</label></button>");

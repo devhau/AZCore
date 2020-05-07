@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.FileProviders;
 using System;
 using System.IO;
 using System.Linq;
@@ -40,7 +41,6 @@ namespace AZWeb.Module.Common
         protected string Keyword { get => Html.Keyword; set => Html.Keyword = value; }
         protected HtmlContent Html { get => this.HttpContext.Items[AZWebConstant.Html] as HtmlContent; }
         public Action<TagHelperBase> TagExtend { get; set; }
-
         protected string PathModule { get; private set; }
         
         protected string GetContentFile(string file) {

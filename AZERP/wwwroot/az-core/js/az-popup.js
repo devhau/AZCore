@@ -58,6 +58,10 @@
 		} else {
 			$($this.ModalBody).html($data);
 		}
+		if ($($this.ModalBody).find(".az-manager").length>0) {
+			$($this.ModalBody).addClass("has-manage");
+
+		}
 	}
 	$this.setTitle = function ($data) {
 		$($this.ModalTitle).html($data);
