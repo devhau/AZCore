@@ -6,6 +6,9 @@
         <div class="form-group col-md-6">
             <az-text-model model="Model.Data" func="(item)=>((AreaModel)item).AreaName" label="Tên khu vực" />
         </div>
+        <div class="form-group col-md-6">
+            <az-common-service-select model="Model.Data" func="(item)=>((CommonServiceModel)item).CommonServiceName" label="Tên dịch vụ" />
+        </div>
         <div class="form-group col-md-12">
             <az-text-area-model model="Model.Data" func="(item)=>((AreaModel)item).Note" label="Ghi chú" />
         </div>

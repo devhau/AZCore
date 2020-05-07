@@ -31,7 +31,7 @@ namespace AZERP.Data.Entities
         /// </summary>
         [Field]
         [FieldDisplay]
-        public long RegionalServiceID { get; set; }
+        public long CommonServiceID { get; set; }
         /// <summary>
         /// Đơn giá
         /// </summary>

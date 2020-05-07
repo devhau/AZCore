@@ -1,0 +1,35 @@
+﻿@model FormArea
+@{
+}
+<az-script module="RegionalService.js"/>
+<az-layout script-random='(id)=>$"RegionalService(\".{id}\");"'>
+    <az-common-service-select null-text="Chọn dịch vụ"/>
+    <br />
+    <form >
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Mã dịch vụ</th>
+                <th>Tên dịch vụ</th>
+                <th>Đơn giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td><az-common-service-select null-text="Chọn dịch vụ" /></td>
+                <td></td>
+            </tr>
+            @*@foreach (var item in Model.ListDataService)
+        {
+            <tr>
+                <td>@item.RegionalServiceID</td>
+                <td>@Model.getService(item.CommonServiceID)?.CommonServiceName</td>
+                <td>@item.Price</td>
+            </tr>
+        }*@
+        </tbody>
+    </table>
+    </form>
+    <az-button text="Lưu " class="btn-luu" />
+</az-layout>
