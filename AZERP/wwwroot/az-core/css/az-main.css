@@ -44,9 +44,8 @@
     border-radius:0px;
 }
 .az-layout .wrapper .main-header .navbar-brand{
-    color:#222;
-    font-weight:700;
-
+    color:#f5f10c !important;
+    font-weight:700 !important;
 }
 .az-layout .main-sidebar {
     bottom: 0;

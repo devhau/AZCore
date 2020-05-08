@@ -6,7 +6,7 @@ namespace AZWeb.Extensions
 {
     public static class HtmlContentExtensions
     {
-		internal static string GetString(this IHtmlContent content)
+		public static string GetString(this IHtmlContent content)
 		{
 			using (var writer = new System.IO.StringWriter())
 			{

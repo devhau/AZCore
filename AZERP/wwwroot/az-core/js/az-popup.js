@@ -58,10 +58,7 @@
 		} else {
 			$($this.ModalBody).html($data);
 		}
-		if ($($this.ModalBody).find(".az-manager").length>0) {
-			$($this.ModalBody).addClass("has-manage");
-
-		}
+		
 	}
 	$this.setTitle = function ($data) {
 		$($this.ModalTitle).html($data);
@@ -111,7 +108,9 @@
 		
 		$("body").append($this.Modal);
 		$($this.ModalClose).click(function () { $this.ClosePopup(); if (callbackClose) callbackClose($this); });
-		
+		if ($($this.ModalBody).find(".az-manager").length > 0) {
+			$($this.ModalBody).addClass("has-manage");
+		}
 		HotKeyMain.Init();
 		$this.focusPopup();
 		
