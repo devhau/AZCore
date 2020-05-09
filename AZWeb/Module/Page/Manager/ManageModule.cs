@@ -5,6 +5,7 @@ using AZCore.Extensions;
 using AZWeb.Extensions;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
+using AZWeb.Module.TagHelper.Module;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -19,6 +20,33 @@ namespace AZWeb.Module.Page.Manager
          where TModel : IEntity, new()
         where TService : EntityService<TService, TModel>
     {
+        public List<ButtonInfo> GetButtonInfo() => this.CreateButtons().ToList();
+        protected virtual IEnumerable<ButtonInfo> CreateButtons() {
+
+            yield return new ButtonInfo() {            
+                 ClassName= "btn btn-success btn-sm az-btn az-btn-add",
+                 CMD= "f1",
+                 PermisisonCode=this.ModuleInfo?.AddCode,
+                 Icon= "far fa-plus-square",
+                 Text= "Thêm Mới (F1)"
+            };
+            yield return new ButtonInfo()
+            {
+                ClassName = "btn btn-info btn-sm az-btn az-btn-export",
+                CMD = "f2",
+                PermisisonCode = this.ModuleInfo?.ExportCode,
+                Icon = "fas fa-file-export",
+                Text = "Xuất Excel (F2)"
+            };
+            yield return new ButtonInfo()
+            {
+                ClassName = "btn btn-secondary btn-sm az-btn az-btn-import",
+                CMD = "f3",
+                PermisisonCode = this.ModuleInfo?.ImportCode,
+                Icon = "fas fa-file-upload",
+                Text = "Nhập Excel (F3)"
+            };
+        }
         protected ModuleInfoAttribute ModuleInfo;
         public List<TModel> Data;
         protected TService Service;

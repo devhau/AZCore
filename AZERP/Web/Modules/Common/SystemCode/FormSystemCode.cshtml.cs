@@ -4,8 +4,11 @@ using AZWeb.Module;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
+using AZWeb.Module.TagHelper.Module;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
+using Yahoo.Yui.Compressor;
 
 namespace AZERP.Web.Modules.Common.SystemCode
 {
@@ -30,6 +33,40 @@ namespace AZERP.Web.Modules.Common.SystemCode
         )]
     public class FormSystemCode : ManageModule<SystemCodeService, SystemCodeModel, FormUpdateSystemCode>
     {
+        protected override IEnumerable<ButtonInfo> CreateButtons()
+        {
+            yield return new ButtonInfo()
+            {
+                ClassName = "btn btn-success btn-sm az-btn az-btn-add",
+                CMD = "f1",
+                PermisisonCode = this.ModuleInfo?.AddCode,
+                Icon = "far fa-plus-square",
+                Text = "Thêm Mới (F1)"
+            };
+            yield return new ButtonInfo()
+            {
+                ClassName = "btn btn-info btn-sm az-btn az-btn-export",
+                CMD = "f2",
+                PermisisonCode = this.ModuleInfo?.ExportCode,
+                Icon = "fas fa-file-export",
+                Text = "Xuất Excel (F2)"
+            };
+            yield return new ButtonInfo()
+            {
+                ClassName = "btn btn-secondary btn-sm az-btn az-btn-import",
+                CMD = "f3",
+                PermisisonCode = this.ModuleInfo?.ImportCode,
+                Icon = "fas fa-file-upload",
+                Text = "Nhập Excel (F3)"
+            };
+            yield return new ButtonInfo()
+            {
+                ClassName = "btn btn-secondary btn-sm az-btn az-btn-update-default",
+                CMD = "f4",
+                Icon = "fas fa-qrcode",
+                Text = "Cập nhật mã mặc định (F4)"
+            };
+        }
         public FormSystemCode(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }

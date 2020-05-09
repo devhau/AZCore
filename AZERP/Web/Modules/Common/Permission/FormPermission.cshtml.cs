@@ -4,6 +4,7 @@ using AZERP.Data.Entities;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
+using AZWeb.Module.TagHelper.Module;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,45 @@ namespace AZERP.Web.Modules.Common.Permission
         public UserRoleService UserRoleService;
         #endregion
 
+        protected override IEnumerable<ButtonInfo> CreateButtons()
+        {           
+            yield return new ButtonInfo()
+            {
+                ClassName = "btn btn-info btn-sm az-btn az-btn-export",
+                CMD = "f2",
+                PermisisonCode = this.ModuleInfo?.ExportCode,
+                Icon = "fas fa-file-export",
+                Text = "Xuất Excel (F2)"
+            };
+            yield return new ButtonInfo()
+            {
+                ClassName = "btn btn-secondary btn-sm az-btn az-btn-update-permission",
+                CMD = "f3",
+                PermisisonCode = this.ModuleInfo?.ImportCode,
+                Icon = "fas fa-file-import",
+                Text = "Cập nhật quyền (F3)"
+            };
+            yield return new ButtonInfo()
+            {
+                Link= "/vai-tro.az",
+                ClassName = "btn btn-success btn-sm az-btn az-btn-role az-link-popup",
+                CMD = "f4",
+                PermisisonCode = this.ModuleInfo?.AddCode,
+                Icon = "fas fa-user-tag",
+                ModalSize= "az-modal-xl",
+                Text = "Quản lý vai trò (F4)"
+            };
+            yield return new ButtonInfo()
+            {
+                Link = "/danh-sach-quyen.az?h=User",
+                ClassName = "btn btn-danger btn-sm az-btn az-btn-permission-user az-link-popup",
+                CMD = "f4",
+                PermisisonCode = this.ModuleInfo?.AddCode,
+                Icon = "fas fa-user-tag",
+                ModalSize = "az-modal-xl",
+                Text = "Phân quyền cho người dùng (F5)"
+            };
+        }
         public FormPermission(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
@@ -70,7 +110,7 @@ namespace AZERP.Web.Modules.Common.Permission
             return Json("Cập nhật vai trò thành công");
         }
         [OnlyAjax]
-        public IView PostUser(string code,string Codes, bool flg)
+        public IView PostUser([BindForm]string code, [BindForm]string Codes, [BindForm] bool flg)
         {
             if (string.IsNullOrEmpty(Codes) && !string.IsNullOrEmpty(code))
             {

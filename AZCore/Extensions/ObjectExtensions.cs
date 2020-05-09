@@ -3,15 +3,18 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web;
 
 namespace AZCore.Extensions
 {
     public static class ObjectExtensions
     {
-        public static string ToJson(this object obj) {
+        public static string ToJson(this object obj,bool isEncode=false) {
 
             if (obj == null) return "";
-            return JsonConvert.SerializeObject(obj); 
+            if(isEncode)
+            return HttpUtility.UrlPathEncode(Uri.EscapeUriString(JsonConvert.SerializeObject(obj)));
+            return JsonConvert.SerializeObject(obj);
         }
         public static TClass ToObject<TClass>(this string obj)
         {
