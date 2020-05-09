@@ -1,4 +1,5 @@
-﻿using AZWeb.Extensions;
+﻿using AZCore.Database.Attributes;
+using AZWeb.Extensions;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,32 @@ using System.Threading.Tasks;
 
 namespace AZWeb.Module.Common
 {
+    public enum WidgetWidth {
+        [Field(Display ="Column 1",Value = "col-12 col-sm-2 col-md-1")]
+        Col1,
+        [Field(Display = "Column 2", Value = "col-12 col-sm-4 col-md-2")]
+        Col2,
+        [Field(Display = "Column 3", Value = "col-12 col-sm-6 col-md-3")]
+        Col3,
+        [Field(Display = "Column 4", Value = "col-12 col-sm-6 col-md-4")]
+        Col4,
+        [Field(Display = "Column 5", Value = "col-12 col-sm-6 col-md-5")]
+        Col5,
+        [Field(Display = "Column 6", Value = "col-12 col-sm-6 col-md-6")]
+        Col6,
+        [Field(Display = "Column 7", Value = "col-12 col-sm-6 col-md-7")]
+        Col7,
+        [Field(Display = "Column 8", Value = "col-12 col-sm-12 col-md-8")]
+        Col8,
+        [Field(Display = "Column 9", Value = "col-12 col-sm-12 col-md-9")]
+        Col19,
+        [Field(Display = "Column 10", Value = "col-12 col-sm-12 col-md-10")]
+        Col10,
+        [Field(Display = "Column 11", Value = "col-12 col-sm-12 col-md-11")]
+        Col11,
+        [Field(Display = "Column 12", Value = "col-12 col-sm-12 col-md-12")]
+        Col12
+    }
     public interface IWidget {
         string Icon { get; set; }
         string Title { get; set; }
@@ -28,6 +55,7 @@ namespace AZWeb.Module.Common
         {
         }
     }
+    
     public class WidgetBase<TSetting> : ModuleBase, IWidget
         where TSetting:WidgetSetting,new()
     {
@@ -38,7 +66,11 @@ namespace AZWeb.Module.Common
         public string Icon { get; set; } = "fas fa-cog";
         public string Title { get; set; }
         public object Value { get; set; }
+        public string BackgroundColorClass { get; set; } = "";
+        public string IconColorClass { get; set; } = "bg-info";
+        public WidgetWidth WidthClass { get; set; } = WidgetWidth.Col2;
         public WidgetType Type { get; set; } = WidgetType.PanelBox;
+
         public TSetting Setting { get; set; } = new TSetting();
         RenderView renderView { get; }
         public WidgetBase(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
@@ -50,13 +82,16 @@ namespace AZWeb.Module.Common
             var rs= await renderView.GetContentHtmlFromView(View() as HtmlView);
             return rs;
         }
+        public string GetWidth(WidgetWidth _widthClass) {
+            return string.Format("{0}  ", _widthClass.GetItemValueByEnum()?.FieldValue);
+        }
         public virtual string LayoutWidget(string layoutContent) {
             StringBuilder widget = new StringBuilder();
-            widget.Append("<div class=\"col-12 col-sm-6 col-md-3\">");
+            widget.AppendFormat("<div class=\"{0}\">", GetWidth(this.WidthClass));
             if (this.Type == WidgetType.InfoBox)
             {
-                widget.Append("<div class=\"info-box\">");
-                widget.AppendFormat("<span class=\"info-box-icon bg-info elevation-1\"><i class=\"{0}\"></i></span>",Icon);
+                widget.AppendFormat("<div class=\"info-box {0}\">", BackgroundColorClass);
+                widget.AppendFormat("<span class=\"info-box-icon {1}\"><i class=\"{0}\"></i></span>",Icon, IconColorClass);
                 widget.Append("<div class=\"info-box-content\">");
                 widget.AppendFormat("<span class=\"info-box-text\">{0}</span>", this.Title);
                 widget.AppendFormat("<span class=\"info-box-number\">{0}</span>", this.Value);
@@ -65,7 +100,7 @@ namespace AZWeb.Module.Common
             }
             else if(this.Type == WidgetType.PanelBox)
             {
-                widget.Append("<div class=\"card\">");
+                widget.AppendFormat("<div class=\"card {0}\">", BackgroundColorClass);
                 widget.Append("<div class=\"card-header\">");
                 widget.AppendFormat("<h3 class=\"card-title\">{0}</h3>", this.Title);
                 widget.Append("<div class=\"card-tools\">");

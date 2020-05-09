@@ -1,4 +1,5 @@
-﻿using AZERP.Web.Widgets.User;
+﻿using AZERP.Web.Widgets.Order;
+using AZERP.Web.Widgets.User;
 using AZWeb.Extensions;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
@@ -8,12 +9,12 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AZERP.Web.Modules.Home
+namespace AZERP.Web.Modules.Dashboard
 {
     [Auth]
-    public class FormHome:PageModule
+    public class FormDashboard:PageModule
     {
-        public FormHome(IHttpContextAccessor httpContext) : base(httpContext)
+        public FormDashboard(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
         public List<ButtonInfo> GetButtonInfo() => this.CreateButtons().ToList();
@@ -28,8 +29,9 @@ namespace AZERP.Web.Modules.Home
             };
            
         }
-        public IEnumerable<IWidget> GetWidgets()
+        public IEnumerable<IWidget> Widgets()
         {
+            yield return this.HttpContext.GetService<OrderWidget>().DoSetting((t) => {  t.WidthClass = WidgetWidth.Col3; });
             yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => { t.Title = "Số lượng tài khoản"; t.WidthClass = WidgetWidth.Col3; });
         
     }
