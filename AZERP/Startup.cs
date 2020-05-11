@@ -49,7 +49,7 @@ namespace AZERP
             //    new ManifestEmbeddedFileProvider(typeof(Program).Assembly);
             //var compositeProvider =
             //    new CompositeFileProvider(physicalProvider, manifestEmbeddedProvider);
-
+            services.AddSingleton<AZWeb.Utilities.IStartup>(_=>this);
             services.AddSingleton<IFileProvider>(physicalProvider);
             services.AddMySQL(Configuration.GetConnectionString("Mysql"));
             services.AddSignalR(hubOptions =>

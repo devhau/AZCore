@@ -28,11 +28,7 @@ namespace AZERP.Web.Modules.Home
             };
            
         }
-        public IEnumerable<IWidget> GetWidgets()
-        {
-            yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => { t.Title = "Số lượng tài khoản"; t.WidthClass = WidgetWidth.Col3; });
         
-    }
         protected override void IntData()
         {
             this.Title = "Bảng điền khiển";

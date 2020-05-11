@@ -18,15 +18,30 @@ namespace AZERP.Data.Entities
     public class WidgetModel : EntityModel<WidgetModel, long>
     {
         /// <summary>
+        /// Cấu hình cho đơn vị nào
+        /// </summary>
+        [Field]
+        public long? TenantId { get; set; }
+        /// <summary>
+        /// Cấu hình theo từng người
+        /// </summary>
+        [Field]
+        public long? UserId { get; set; }
+        /// <summary>
         /// Tên Widget
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
         public string Name { get; set; }
         /// <summary>
-        /// Mã code
+        /// Widget
         /// </summary>
         [Field(Length = 500)]
-        public string Code { get; set; }
+        public string Widget { get; set; }
+        /// <summary>
+        /// Thiết lập
+        /// </summary>
+        [Field(Length = 10000)]
+        public string Setting { get; set; }
     }
 }

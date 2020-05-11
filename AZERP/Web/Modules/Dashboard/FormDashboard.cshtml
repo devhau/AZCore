@@ -1,11 +1,13 @@
 ﻿@model FormDashboard
-    <az-module-layout buttons="Model.GetButtonInfo()" icon="fas fa-tachometer-alt">
-        <div class="az-dashboard container-fluid">
-            <div class="row">
-                @foreach (var item in Model.Widgets())
-                {
-                    @item.GetContent();
-                }
-            </div>
+<az-script module="Dashboard.js" />
+<az-style module="Dashboard.css" />
+<az-module-layout buttons="Model.GetButtonInfo()" icon="fas fa-tachometer-alt" script-random='(t)=>$"DashboardForm(\".{t}\")"'>
+    <div class="az-dashboard container-fluid">
+        <div class="row">
+            @foreach (var item in Model.Widgets())
+            {
+                @item.GetContent();
+            }
         </div>
-    </az-module-layout>
+    </div>
+</az-module-layout>

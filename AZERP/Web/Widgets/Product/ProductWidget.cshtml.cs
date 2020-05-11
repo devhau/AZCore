@@ -11,10 +11,11 @@ namespace AZERP.Web.Widgets.Product
         }
         protected override void IntData()
         {
-            this.Title = "Đơn hàng trong ngày";            
-            this.Type = WidgetType.InfoBox;
-            this.Value = 10000;
-            this.Icon = "fas fa-shopping-cart";
+            this.Setting.Title = "Đơn hàng trong ngày";            
+            this.Setting.Type = WidgetType.InfoBox;
+            this.Setting.Value = 10000;
+            this.Setting.Icon = "fas fa-users";
+
             base.IntData();
         }
     }
