@@ -12,6 +12,18 @@ AZCore.newGuid = function () {
         return v.toString(16);
     });
 }
+function userAgent(pattern) {
+    if (typeof window !== 'undefined' && window.navigator) {
+        return !!/*@__PURE__*/navigator.userAgent.match(pattern);
+    }
+}
+
+const AZ_IE11OrLess = userAgent(/(?:Trident.*rv[ :]?11\.|msie|iemobile|Windows Phone)/i);
+const AZ_Edge = userAgent(/Edge/i);
+const AZ_FireFox = userAgent(/firefox/i);
+const AZ_Safari = userAgent(/safari/i) && !userAgent(/chrome/i) && !userAgent(/android/i);
+const AZ_IOS = userAgent(/iP(ad|od|hone)/i);
+const AZ_ChromeForAndroid = userAgent(/chrome/i) && userAgent(/android/i);
 /* Class LinkedList */
 function LinkedList() {
     let $this = this;
