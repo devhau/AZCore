@@ -40,6 +40,22 @@ namespace AZERP.Web.Modules.Dashboard
             };
            
         }
+        public IView PostViewSetting(string WidgetName)
+        {
+            var widget = getWidget(WidgetName);
+            var wid = widget.GetSettingObject();
+            var wid2 = wid.CopyTo(wid.GetType()).As<WidgetSetting>();
+            this.HttpContext.BindFormTo(wid2);
+            widgetService.Insert(new WidgetModel() { 
+                CreateAt=DateTime.Now,
+                CreateBy=User.Id,
+                Name=wid2.Title,
+                Widget=WidgetName,
+                Setting=wid2.ToJson()
+            });
+            
+            return Json("Thành công");
+        }
         public IView GetViewSetting(string WidgetName) {
             return getWidget(WidgetName).GetViewSetting();
         }
@@ -60,7 +76,7 @@ namespace AZERP.Web.Modules.Dashboard
         public IEnumerable<IWidget> Widgets()
         {
             foreach (var item in widgetService.GetAll()) {
-                yield return getWidget(item.Widget).SetSetting(item.Setting).DoSetting(p=>p.Title=item.Name);
+                yield return getWidget(item.Widget).SetSetting(item.Setting).DoSetting(p =>{ p.Title = item.Name; p.Id = item.Id; });
             }
         }
         public IView GetSetting() {

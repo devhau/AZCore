@@ -4,8 +4,11 @@ using AZWeb.Module.Common;
 
 namespace AZERP.Web.Widgets.User
 {
+    public class UsertWidgetSetting : WidgetSetting
+    {
+    }
     [WidgetInfo(Name = "Tài khoản")]
-    public class UserWidget : WidgetBase
+    public class UserWidget : WidgetBase<UsertWidgetSetting>
     {
         [BindService]
         public UserService UserService { get; set; }

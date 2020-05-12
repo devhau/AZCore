@@ -12,6 +12,15 @@ AZCore.newGuid = function () {
         return v.toString(16);
     });
 }
+AZCore.ReLoad = function () {
+    if (PopupMain.isEmpty() && ManagerMain.isEmpty())
+        UrlMain.loadHtml(Location.href);
+    else if (ManagerMain.isEmpty() == false)
+    {
+
+        ManagerMain.Current().ReLoad();
+    }
+}
 function userAgent(pattern) {
     if (typeof window !== 'undefined' && window.navigator) {
         return !!/*@__PURE__*/navigator.userAgent.match(pattern);

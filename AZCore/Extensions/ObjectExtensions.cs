@@ -27,19 +27,31 @@ namespace AZCore.Extensions
             var typeConvert = SqlTypeDescriptor.Inst.GetConverter(typeObj);
             return typeConvert.ConvertFrom(obj);
         }
-        public static TTarget CopyTo<TTarget>(this object obj) where TTarget:class,new()
+        public static object CopyTo(this object obj,Type @type)
         {
             if (obj == null) return null;
-            var obj2 = new TTarget();
-            var objType2 = typeof(TTarget);
+            var obj2 = @type.CreateInstance();
             var objType = obj.GetType();
-            foreach (var item in objType2.GetProperties()) {
-                var pro =objType.GetProperty(item.Name);
-                if (pro != null&& pro.CanRead&&item.CanWrite) {
-                    item.SetValue(obj2, pro.GetValue(obj).ToType(item.PropertyType));
+            foreach (var item in @type.GetProperties())
+            {
+                var pro = objType.GetProperty(item.Name);
+                if (pro != null && pro.CanRead && item.CanWrite)
+                {
+                    if (item.PropertyType == typeof(object) || item.PropertyType.IsEnum)
+                    {
+                        item.SetValue(obj2, pro.GetValue(obj));
+                    }
+                    else
+                    {
+                        item.SetValue(obj2, pro.GetValue(obj).ToType(item.PropertyType));
+                    }
                 }
             }
             return obj2;
+        }
+        public static TTarget CopyTo<TTarget>(this object obj)
+        {
+            return obj.CopyTo(typeof(TTarget)).As<TTarget>();
         }
         public static bool IsNull(this object obj) {
             return obj == null;
