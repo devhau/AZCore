@@ -3,6 +3,7 @@ using AZWeb.Extensions;
 using AZWeb.Module.Common;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Org.BouncyCastle.Crypto.Tls;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,7 +58,12 @@ namespace AZWeb.Module.TagHelper.Theme
                 htmlBuilder.Append(styleCssEl.GetString());
             }
         }
-        static JavaScriptCompressor jsCompressor = new JavaScriptCompressor();
+        static JavaScriptCompressor jsCompressor = new JavaScriptCompressor()
+        {
+            ObfuscateJavascript = false,
+            CompressionType=CompressionType.Standard,
+            IgnoreEval=true
+        };
         private void RenderJS(StringBuilder htmlBuilder, List<ContentTag> JS)
         {
             if (JS == null) return;
