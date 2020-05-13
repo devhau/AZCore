@@ -123,7 +123,7 @@ namespace AZWeb.Module.Common
                     </button>
                     <div class='dropdown-menu dropdown-menu-right' role='menu' x-placement='bottom-end' style='position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(46px, 19px, 0px);'>
                       <a href='#' class='dropdown-item'>Làm mới</a>
-                      <a href='#' class='dropdown-item'>Thiết lập</a>
+                      <a href='#' class='dropdown-item az-widget-setting'>Thiết lập</a>
                     </div>
                   </div>");
                 widget.Append("</div>");
@@ -171,6 +171,7 @@ namespace AZWeb.Module.Common
 
         }
         public IView GetViewSetting() {
+            this.Title = "Thiết lập : " + this.Setting?.Title;
             return View("Setting");
         }
         #region --- View ---

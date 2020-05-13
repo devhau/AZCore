@@ -1,5 +1,53 @@
 ﻿function DashboardForm($id) {
-   
+    $($id).find(".az-widget .az-widget-setting").on("click", function () {
+        var widgetId = $(this).parents(".az-widget").attr("widget-id");
+        var url = "/?h=ViewSetting&id=" + widgetId;
+        AjaxMain.DoGet(url, null, function (item) {
+            if (item.statusCode && item.statusCode === 401) {
+                return;
+            }
+            var popup = new AZPopup();
+            popup.ClearButton();
+            popup.setLink(url);
+            popup.setId(widgetId);
+            popup.IsForm = true;
+            popup.AddButton({
+                value: "Xóa (F3)",
+                icon: "far fa-delete",
+                cls: "btn btn-danger az-btn az-btn-delete",
+                cmd: "f3",
+                func: function (elem, scope) {
+                    AjaxMain.DoDelete(url, scope.SerializeData(), function () {
+                        toastr.success("Xóa thành công");
+                        scope.ClosePopup();
+                        AZCore.ReLoad();
+                    });
+                }
+            });
+            popup.AddButton({
+                value: "Lưu lại (F2)",
+                icon: "far fa-save",
+                cls: "btn btn-success az-btn az-btn-update",
+                cmd: "f2",
+                func: function (elem, scope) {
+                    AjaxMain.DoPost(url, scope.SerializeData(), function () {
+                        toastr.success("Thiết lập thành công");
+                        scope.ClosePopup();
+                        AZCore.ReLoad();
+                    });
+                }
+            });
+          
+            popup.setHtml(item.html);
+            $icon = '<i class="fas fa-edit"></i> ';
+            if (item.icon && item.icon != "") {
+                $icon = '<i class="' + item.icon + '"></i> ';
+            }
+            popup.setTitle($icon + item.title);
+            popup.ModalSize = "az-modal-xl";
+            popup.ShowPopup();
+        });
+    });
 }
 
 function AddWidget($id) {

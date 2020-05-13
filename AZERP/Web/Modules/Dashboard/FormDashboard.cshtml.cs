@@ -40,24 +40,49 @@ namespace AZERP.Web.Modules.Dashboard
             };
            
         }
-        public IView PostViewSetting(string WidgetName)
+        public IView DeleteViewSetting(long? Id)
         {
-            var widget = getWidget(WidgetName);
-            var wid = widget.GetSettingObject();
-            var wid2 = wid.CopyTo(wid.GetType()).As<WidgetSetting>();
-            this.HttpContext.BindFormTo(wid2);
-            widgetService.Insert(new WidgetModel() { 
-                CreateAt=DateTime.Now,
-                CreateBy=User.Id,
-                Name=wid2.Title,
-                Widget=WidgetName,
-                Setting=wid2.ToJson()
-            });
-            
+            widgetService.Delete(p => p.Id == Id);
+            return Json("Xóa thành công");
+        
+        }
+            public IView PostViewSetting(string WidgetName, long? Id)
+        {
+            if (Id == null || Id <= 0)
+            {
+                var widget = getWidget(WidgetName);
+                var wid = widget.GetSettingObject();
+                var wid2 = wid.CopyTo(wid.GetType()).As<WidgetSetting>();
+                this.HttpContext.BindFormTo(wid2);
+                widgetService.Insert(new WidgetModel()
+                {
+                    CreateAt = DateTime.Now,
+                    CreateBy = User.Id,
+                    Name = wid.Title,
+                    Widget = WidgetName,
+                    Setting = wid2.ToJson()
+                });
+            }
+            else
+            {
+                var widget = widgetService.GetById(Id); 
+                var widget2 = getWidget(widget.Widget);
+                this.HttpContext.BindFormTo(widget2.GetSettingObject());
+                widget.Setting = widget2.GetSetting();
+                widget.UpdateAt = DateTime.Now;
+                widget.UpdateBy = User.Id;
+                widgetService.Update(widget);
+            }
             return Json("Thành công");
         }
-        public IView GetViewSetting(string WidgetName) {
-            return getWidget(WidgetName).GetViewSetting();
+        public IView GetViewSetting(string WidgetName,long? Id) {
+            if (Id == null || Id <= 0)
+                return getWidget(WidgetName).GetViewSetting();
+            else {
+                var widget = widgetService.GetById(Id);
+                
+                return getWidget(widget.Widget).SetSetting(widget.Setting).GetViewSetting();
+            }
         }
         public IView GetAddWidget()
         {
@@ -88,7 +113,6 @@ namespace AZERP.Web.Modules.Dashboard
             this.Title = "Bảng điền khiển";
             base.IntData();
         }
-        public string id { get; set; }
         public IView Get(){
            return View();
         }
