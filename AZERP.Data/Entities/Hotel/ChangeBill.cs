@@ -11,6 +11,7 @@ namespace AZERP.Data.Entities
     {
         public ChangeBillService(IDbConnection _connection) : base(_connection)
         {
+
         }
     }
     /// <summary>
@@ -24,8 +25,8 @@ namespace AZERP.Data.Entities
         /// Mã hóa đơn
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.ChangeBillCode)]
-        [Field(Length = 500)]
-        public string ChangeBillID { get; set; }
+        [Field]
+        public long ChangeBillID { get; set; }
         /// <summary>
         /// Tháng thuê trọ
         /// </summary>
@@ -69,7 +70,7 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Ghi chú
         /// </summary>
-        [Field]
+        [Field(Length = 500)]
         public string Note { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 namespace AZERP.Web.Modules.Hotel.RoomService
 {
     [TableColumn(Title = "Mã dịch vụ ", FieldName = "RoomServiceID", Width = 180)]
-    [TableColumn(Title = "Tên dịch vụ", FieldName = "RegionalServiceID", Width = 180, DataType = typeof(AZERP.Data.Entities.RegionalService))]
+    [TableColumn(Title = "Mã phòng trọ", FieldName = "RegionalServiceID", Width = 180, DataType = typeof(AZERP.Data.Entities.RegionalService))]
     [TableColumn(Title = "Đơn giá", FieldName = "Price", Width = 180)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
@@ -15,15 +15,26 @@ namespace AZERP.Web.Modules.Hotel.RoomService
     {
         #region -- Field Search --
         /// <summary>
-        /// Tên khu vực
+        /// Mã dịch vụ
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public long? RegionalServiceID { get; set; }
         [QuerySearch]
+        /// <summary>
+        /// Giá
+        /// </summary>
         public decimal? Price { get; set; }
         [QuerySearch]
-        public string RoomServiceName { get; set; }
+        /// <summary>
+        /// Mã phòng
+        /// </summary>
+        public long RoomServiceID { get; set; }
         #endregion
+        [QuerySearch]
+        /// <summary>
+        /// Mã phòng
+        /// </summary>
+        public string RoomServiceName { get; set; }
 
         public FormRoomService(IHttpContextAccessor httpContext) : base(httpContext)
         {

@@ -1,10 +1,10 @@
 ﻿@model FormUpdateRoomService
     <div class="az-update row" id="FormUpdateRoomService" role="form">
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((RoomServiceModel)item).RoomServiceID" label="Mã dịch vụ" attr="autofocus" />
+            <az-text-model model="Model.Data" func="(item)=>((RoomServiceModel)item).RoomServiceID" label="Mã phòng" attr="autofocus" />
         </div>
         <div class="form-group col-md-6">
-            <az-regional-service-select model="Model.Data" func="(item)=>((RoomServiceModel)item).RegionalServiceID" label="Tên dịch vụ" />
+            <az-regional-service-select model="Model.Data" func="(item)=>((RoomServiceModel)item).RegionalServiceID" label="Mã dịch vụ" />
         </div>
         <div class="form-group col-md-6">
             <az-text-model model="Model.Data" func="(item)=>((RoomServiceModel)item).Price" label="Đơn giá" />

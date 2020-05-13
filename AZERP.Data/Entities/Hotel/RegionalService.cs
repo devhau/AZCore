@@ -24,8 +24,8 @@ namespace AZERP.Data.Entities
         /// Mã dịch vụ cho khu vực
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.RegionalService)]
-        [Field(Length = 500)]
-        public string RegionalServiceID { get; set; }
+        [Field]
+        public long RegionalServiceID { get; set; }
         /// <summary>
         /// Tên dịch vụ cho khu vực
         /// </summary>

@@ -24,8 +24,8 @@ namespace AZERP.Data.Entities
         /// Mã dịch vụ cho phòng
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.RoomServiceCode)]
-        [Field(Length = 500)]
-        public string RoomServiceID { get; set; }
+        [Field]
+        public long RoomServiceID { get; set; }
         /// <summary>
         /// Tên dịch vụ cho phòng
         /// </summary>

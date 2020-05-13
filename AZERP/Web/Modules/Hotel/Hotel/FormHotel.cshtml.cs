@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace AZERP.Web.Modules.Hotel.Hotel
 {
+    [TableColumn(Title = "Mã phòng", FieldName = "HotelID", Width = 100)]
     [TableColumn(Title = "Tên phòng", FieldName = "HotelName", Width = 100)]
     [TableColumn(Title = "Tên khu vực", FieldName = "AreaID", Width = 150, DataType = typeof(AreaService))]
     [TableColumn(Title = "Loại phòng trọ", FieldName = "TypeOfHotelID", Width = 150, DataType = typeof(TypeOfHotelService))]
@@ -23,8 +24,10 @@ namespace AZERP.Web.Modules.Hotel.Hotel
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string HotelName { get; set; }
         /// <summary>
-        /// Loại phòng trọ
+        /// ID phòng trọ
         /// </summary>
+        [QuerySearch]
+        public long? HotelID { get; set; }
         [QuerySearch]
         public long? TypeOfHotelID { get; set; }
         /// <summary>
