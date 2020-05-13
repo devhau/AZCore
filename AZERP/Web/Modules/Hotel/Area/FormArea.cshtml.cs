@@ -25,12 +25,12 @@ namespace AZERP.Web.Modules.Hotel.Area
         public string AreaName { get; set; }
         #endregion
 
-        [BindService]
-        public AZERP.Data.Entities.CommonService commonService;
-        public List<AZERP.Data.Entities.RegionalServiceModel> ListDataService { get; set; }
-        public AZERP.Data.Entities.RegionalServiceModel DataCurrent = null;
-        private List<RegionalServiceModel> listDataOrder;
-        public bool CanEdit = true;
+        //[BindService]
+        //public AZERP.Data.Entities.CommonService commonService;
+        //public List<AZERP.Data.Entities.RegionalServiceModel> ListDataService { get; set; }
+        //public AZERP.Data.Entities.RegionalServiceModel DataCurrent = null;
+        //private List<RegionalServiceModel> listDataOrder;
+        //public bool CanEdit = true;
         public FormArea(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
@@ -57,9 +57,9 @@ namespace AZERP.Web.Modules.Hotel.Area
             return View("RegionalService");
         }
 
-        public CommonServiceModel getService(long Id)
-        {
-            return this.commonService.Select(p => p.Id == Id).FirstOrDefault();
-        }
+        //public CommonServiceModel getService(long Id)
+        //{
+        ////    return this.commonService.Select(p => p.Id == Id).FirstOrDefault();
+        //}
     }
 }
