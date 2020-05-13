@@ -88,7 +88,7 @@ namespace AZWeb.Module.TagHelper.Input
                 if (item.Value != null && item.Value.Equals(this.InputValue)) { ItemActive = " selected=\"selected\""; }
                 if (item.Value != null && IsMultiple && InputValues != null && InputValues.IndexOf(item.Value) >= 0)
                 { ItemActive = " selected=\"selected\""; }
-                htmlBuild.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3} data-item='{4}' >{2}</option>", item.Value, item.Name, item.Display, ItemActive, HttpUtility.UrlPathEncode(Uri.EscapeUriString(item.Item.ToJson())));
+                htmlBuild.AppendFormat("<option value=\"{0}\" name=\"{1}\" {3} data-item='{4}' >{2}</option>", item.Value, item.Name, item.Display, ItemActive,item.Item.ToJson(true));
             }
             htmlBuild.Append("</select>");
             

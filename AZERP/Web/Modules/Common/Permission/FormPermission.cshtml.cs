@@ -110,7 +110,7 @@ namespace AZERP.Web.Modules.Common.Permission
             return Json("Cập nhật vai trò thành công");
         }
         [OnlyAjax]
-        public IView PostUser(string code,string Codes, bool flg)
+        public IView PostUser([BindForm]string code, [BindForm]string Codes, [BindForm] bool flg)
         {
             if (string.IsNullOrEmpty(Codes) && !string.IsNullOrEmpty(code))
             {
