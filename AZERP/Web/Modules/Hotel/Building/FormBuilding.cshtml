@@ -1,27 +1,33 @@
-﻿@model FormRenter
+﻿@model FormBuilding
 <az-module-layout script-random='(id)=>$"$(\".{id}\").AZManager();"'>
     <div class="az-manager"  data-form-size="az-modal-xl">
         <div class="az-toolbar">
-            <az-button class="btn btn-success btn-sm az-btn az-btn-add" cmd-key="f1" icon="far fa-plus-square" text="Thêm Mới (F1)" />
-            <az-button class="btn btn-info btn-sm az-btn az-btn-export" cmd-key="f2" icon="fas fa-file-export" text="Xuất Excel (F2)" />
-            <az-button class="btn btn-secondary btn-sm az-btn az-btn-import" cmd-key="f3" icon="fas fa-file-import" text="Nhập Excel (F3)" />
+            <button type="button" class="btn btn-success btn-sm az-btn az-btn-add" data-cmd-key="f1"><i class="far fa-plus-square"></i> Thêm Mới (F1)</button>
+            <button type="button" class="btn btn-info btn-sm az-btn az-btn-export" data-cmd-key="f2"><i class="fas fa-file-export"></i> Xuất Excel (F2)</button>
+            <button type="button" class="btn btn-secondary btn-sm az-btn az-btn-import" data-cmd-key="f3"><i class="fas fa-file-import"></i> Nhập Excel (F3)</button>
         </div>
         <div class="az-search-manager">
             <div class="row">
                 <div class="col-md-10">
                     <form class="az-search-form row">
-                        <az-hidden-model model="Model" func="(item)=>((FormRenter)item).PageSize" />
+                        <az-hidden-model model="Model" func="(item)=>((FormBuilding)item).PageSize" />
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormRenter)item).RenterName" label="Tên khu vực" />
+                            <az-date-model model="Model" func="(item)=>((FormBuilding)item).CreateAt" label="Ngày tạo" />
                         </div>
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormRenter)item).Address" label="Địa chỉ" />
+                            <az-text-model model="Model" func="(item)=>((FormBuilding)item).FullName" label="Họ tên" />
                         </div>
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormRenter)item).CMND" label="CMND" />
+                            <az-text-model model="Model" func="(item)=>((FormBuilding)item).PhoneNumber" label="Số điện thoại" />
                         </div>
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormRenter)item).Tel" label="Số điện thoại" />
+                            <az-gender-select model="Model" func="(item)=>((FormBuilding)item).Gender" label="Giới tính" null-text="Chọn Tất cả" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-call-status-select model="Model" func="(item)=>((FormBuilding)item).CallStatus" label="Trạng thái gọi" null-text="Chọn Tất cả" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-address-worker-select model="Model" func="(item)=>((FormBuilding)item).TargetToAddress" label="Nơi làm việc" null-text="Chọn Tất cả" />
                         </div>
                     </form>
                 </div>
@@ -43,7 +49,7 @@
             </div>
         </div>
         <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((RenterModel)item).Id" columns="Model.Columns" pagination="Model" />
+            <az-table data="Model.Data" FunKey="(item)=>((BuildingModel)item).Id" columns="Model.Columns" pagination="Model" />
         </div>
         <div class="az-bottom-manager">
             <az-pagination pagination="Model" />
