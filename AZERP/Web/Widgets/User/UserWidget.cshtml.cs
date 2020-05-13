@@ -4,11 +4,7 @@ using AZWeb.Module.Common;
 
 namespace AZERP.Web.Widgets.User
 {
-    public class UsertWidgetSetting : WidgetSetting
-    {
-    }
-    [WidgetInfo(Name = "Tài khoản")]
-    public class UserWidget : WidgetBase<UsertWidgetSetting>
+    public class UserWidget : WidgetBase
     {
         [BindService]
         public UserService UserService { get; set; }
@@ -17,10 +13,10 @@ namespace AZERP.Web.Widgets.User
         }
         protected override void IntData()
         {
-            this.Setting.Title = "Số lượng tài khoản";            
-            this.Setting.Type = WidgetType.InfoBox;
-            this.Setting.Value = UserService.ExecuteNoneQuery((T) =>T.SetColumn("count(0)"));
-            this.Setting.Icon = "fas fa-users";
+            this.Title = "Số lượng tài khoản";            
+            this.Type = WidgetType.InfoBox;
+            this.Value = UserService.ExecuteNoneQuery((T) =>T.SetColumn("count(0)"));
+            this.Icon = "fas fa-users";
             base.IntData();
         }
     }

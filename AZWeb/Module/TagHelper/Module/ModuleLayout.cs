@@ -12,7 +12,7 @@ namespace AZWeb.Module.TagHelper.Module
     public class ModuleLayout : TagHelperBase
     {
         public Func<string, string> ScriptRandom { get; set; }
-        public IEnumerable<ButtonInfo> Buttons { get; set; }
+        public List<ButtonInfo> Buttons { get; set; }
         public string Icon { get; set; } = "fas fa-home";
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {

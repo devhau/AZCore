@@ -15,36 +15,25 @@ namespace AZERP.Data.Entities
         {
         }
         public string GetGenCode(SystemCode Key, long? TenantId=null) {
-            string strCode = string.Empty;
-            this.BeginTransaction();
-            try
-            {
-                if (TenantId == null)
+            if (TenantId == null) {
+                var systemCode = Select(p => p.Name == Key.ToString() && p.Status == EntityStatus.Active).FirstOrDefault();
+                if (systemCode != null)
                 {
-                    var systemCode = Select(p => p.Name == Key.ToString() && p.Status == EntityStatus.Active).FirstOrDefault();
-                    if (systemCode != null)
-                    {
-                        systemCode.PrefixIndex++;
-                        this.Update(systemCode);
-                        strCode = systemCode.GenCode;
-                    }
+                    systemCode.PrefixIndex++;
+                    this.Update(systemCode);
+                    return systemCode.GenCode;
                 }
-                else
+            } else {
+                var systemCode = Select(p => p.Name == Key.ToString() && p.TenantId == TenantId && p.Status == EntityStatus.Active).FirstOrDefault();
+                if (systemCode != null)
                 {
-                    var systemCode = Select(p => p.Name == Key.ToString() && p.TenantId == TenantId && p.Status == EntityStatus.Active).FirstOrDefault();
-                    if (systemCode != null)
-                    {
-                        systemCode.PrefixIndex++;
-                        this.Update(systemCode);
-                        strCode = systemCode.GenCode;
-                    }
+                    systemCode.PrefixIndex++;
+                    this.Update(systemCode);
+                    return systemCode.GenCode;
                 }
-                this.Commit();
             }
-            catch (Exception) {
-                this.Rollback();
-            }
-            return strCode;
+            
+            return string.Empty;
         }
 
         public string GetGenCode(object Key, long? TenantId = null)

@@ -3,10 +3,8 @@ using AZWeb.Extensions;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page;
-using AZWeb.Module.TagHelper.Module;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AZERP.Web.Modules.Home
 {
@@ -16,19 +14,22 @@ namespace AZERP.Web.Modules.Home
         public FormHome(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
-        public List<ButtonInfo> GetButtonInfo() => this.CreateButtons().ToList();
-        protected virtual IEnumerable<ButtonInfo> CreateButtons()
+        public IEnumerable<IWidget> GetWidgets()
         {
-            yield return new ButtonInfo()
-            {
-                ClassName = "btn btn-success btn-sm az-btn",
-                CMD = "f1",
-                Icon = "fas fa-cog",
-                Text = "Thiết lập bảng điều khiển (F1)"
-            };
-           
-        }
+            yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => t.Title = "Test dữ liệu 1");
+            yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => t.Title = "Test dữ liệu 2");
+            yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => t.Title = "Test dữ liệu 3");
+            yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => t.Title = "Test dữ liệu 4");
+            yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => { t.Title = "Test dữ liệu 6";t.Type = WidgetType.PanelBox; });
+            yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => { t.Title = "Test dữ liệu 7"; t.Type = WidgetType.PanelBox; });
+            yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => { t.Title = "Test dữ liệu 8"; t.Type = WidgetType.PanelBox; });
+            yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => { t.Title = "Test dữ liệu 9"; t.Type = WidgetType.PanelBox; });
+            yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => { t.Title = "Test dữ liệu 10"; t.Type = WidgetType.PanelBox; });
+            yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => { t.Title = "Test dữ liệu 11"; t.Type = WidgetType.PanelBox; });
+            yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => { t.Title = "Test dữ liệu 12"; t.Type = WidgetType.PanelBox; });
+            yield return this.HttpContext.GetService<UserWidget>().DoSetting((t) => { t.Title = "Test dữ liệu 13"; t.Type = WidgetType.PanelBox; });
         
+    }
         protected override void IntData()
         {
             this.Title = "Bảng điền khiển";

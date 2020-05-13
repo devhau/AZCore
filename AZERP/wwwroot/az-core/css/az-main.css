@@ -62,9 +62,6 @@
     padding:0px;
     overflow: auto;
 }
-.az-btn *:hover{
-    cursor:pointer;
-}
 .az-btn {
     border-radius: 0px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
@@ -302,7 +299,3 @@ table-freeze thead th {
         height:100%;
 
      }
- .az-chartjs{
-     width:100%;
-     padding-bottom:10px;
- }

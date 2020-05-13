@@ -77,7 +77,7 @@ namespace AZWeb.Module.TagHelper.Input
 
             if (IsUseLable) {
                 htmlBuild.AppendFormat("<lable class=\"{0}\" name=\"{1}\" {2} {3} placeholder=\"{4}\"  data-item='{5}'>", TagClass, InputName, string.IsNullOrEmpty(InputId) ? "" : string.Format("id=\"{0}\"", InputId), Attr, 
-                    InputPlaceholder, item.Item.ToJson(true));
+                    InputPlaceholder, HttpUtility.UrlPathEncode(Uri.EscapeUriString(item.Item.ToJson())));
             }
             if (item != null)
             {

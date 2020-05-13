@@ -1,4 +1,11 @@
 ﻿@model FormHome 
-    <az-module-layout buttons="Model.GetButtonInfo()" icon="fas fa-tachometer-alt">
-      
+    <az-module-layout>
+        <div class="az-dashboard container-fluid">
+            <div class="row">
+                @foreach (var item in Model.GetWidgets())
+                {
+                    @item.GetContent();
+                }
+            </div>
+        </div>
     </az-module-layout>
