@@ -17,15 +17,20 @@ namespace AZERP.Data.Entities
     /// Thông tin của hóa đơn cố định
     /// </summary>
 
-    [TableInfo(TableName = "az_hotel_changebill")]
+    [TableInfo(TableName = "az_hotel_change_bill")]
     public class ChangeBillModel : EntityModel<ChangeBillModel, long>
     {
         /// <summary>
         /// Mã hóa đơn
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.ChangeBillCode)]
+<<<<<<< Updated upstream
         [Field(Length = 500)]
         public string ChangeBillID { get; set; }
+=======
+        [Field]
+        public string ChangeBillCode { get; set; }
+>>>>>>> Stashed changes
         /// <summary>
         /// Tháng thuê trọ
         /// </summary>

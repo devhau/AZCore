@@ -4,27 +4,28 @@ using AZWeb.Module.Attributes;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.Hotel.TypeOfHotel
+namespace AZERP.Web.Modules.Hotel.Device
 {
-    [TableColumn(Title = "Loại phòng trọ", FieldName = "TypeOfHotelName", Width = 180)]
+    [TableColumn(Title = "Mã thiết bị ", FieldName = "DeviceID", Width = 100)]
+    [TableColumn(Title = "Tên thiết bị", FieldName = "DeviceName", Width = 130)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
-    public class FormTypeOfHotel : ManageModule<TypeOfHotelService, TypeOfHotelModel, FormUpdateTypeOfHotel>
+    public class FormDevice : ManageModule<DeviceService, DeviceModel, FormUpdateDevice>
     {
         #region -- Field Search --
         /// <summary>
         /// Tên khu vực
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public string TypeOfHotelName { get; set; }
+        public string DeviceName { get; set; }
         #endregion
 
-        public FormTypeOfHotel(IHttpContextAccessor httpContext) : base(httpContext)
+        public FormDevice(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
         protected override void IntData()
         {
-            this.Title = "Quản lý loại phòng trọ";
+            this.Title = "Quản lý thiết bị";
         }
     }
 }

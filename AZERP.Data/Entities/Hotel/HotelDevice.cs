@@ -7,9 +7,9 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class AreaService : EntityService<AreaService, AreaModel>, IAZTransient
+    public class HotelDeviceService : EntityService<HotelDeviceService, HotelDeviceModel>, IAZTransient
     {
-        public AreaService(IDbConnection _connection) : base(_connection)
+        public HotelDeviceService(IDbConnection _connection) : base(_connection)
         {
         }
     }
@@ -17,21 +17,19 @@ namespace AZERP.Data.Entities
     /// Thông tin của khu vực
     /// </summary>
 
-    [TableInfo(TableName = "az_hotel_area")]
-    public class AreaModel : EntityModel<AreaModel, long>
+    [TableInfo(TableName = "az_hotel_device")]
+    public class HotelDeviceModel : EntityModel<HotelDeviceModel, long>
     {
         /// <summary>
-        /// Mã khu vực/ tòa nhà
+        /// Tên phòng trọ
         /// </summary>
-        [FieldAutoGenCode(Key =SystemCode.AreaCode)]
         [Field]
-        public string AreaCode { get; set; }
+        public long HotelID { get; set; }
         /// <summary>
-        /// Tên khu vực/ tòa nhà
+        /// Tên thiết bị
         /// </summary>
-        [Field(Length = 500)]
-        [FieldDisplay]
-        public string AreaName { get; set; }
+        [Field]
+        public long DeviceID { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>

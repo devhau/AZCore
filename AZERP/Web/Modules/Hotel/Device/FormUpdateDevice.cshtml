@@ -1,0 +1,15 @@
+﻿@model FormUpdateDevice
+    <div class="az-update row" id="FormUpdateArea" role="form">
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((DeviceModel)item).DeviceCode" label="Mã thiết bị" attr="autofocus" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((DeviceModel)item).DeviceName" label="Tên thiết bị" />
+        </div>
+        <div class="form-group col-md-12">
+            <az-text-area-model model="Model.Data" func="(item)=>((DeviceModel)item).Note" label="Ghi chú" />
+        </div>
+    </div>
+<az-script>
+
+</az-script>

@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.Building
 {
-    [TableColumn(Title = "Ngày tạo faasdfaf", FieldName = "CreateAt", Width = 100,FormatString ="{0:dd/MM/yyyy}")]
+    [TableColumn(Title = "Ngày tạo", FieldName = "CreateAt", Width = 100,FormatString ="{0:dd/MM/yyyy}")]
     [TableColumn(Title = "Họ Tên", FieldName = "Name", Width = 130)]
     [TableColumn(Title = "Giới tính", FieldName = "Gender", Width = 80,DataType =typeof(Gender))]
     [TableColumn(Title = "Số điện thoại", FieldName = "PhoneNumber", Width = 100)]

@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace AZERP.Web.Modules.Hotel.Hotel
 {
+<<<<<<< Updated upstream
+=======
+    [TableColumn(Title = "Mã phòng", FieldName = "HotelCode", Width = 100)]
+>>>>>>> Stashed changes
     [TableColumn(Title = "Tên phòng", FieldName = "HotelName", Width = 100)]
     [TableColumn(Title = "Tên khu vực", FieldName = "AreaID", Width = 150, DataType = typeof(AreaService))]
     [TableColumn(Title = "Loại phòng trọ", FieldName = "TypeOfHotelID", Width = 150, DataType = typeof(TypeOfHotelService))]

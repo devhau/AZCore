@@ -17,20 +17,24 @@ namespace AZERP.Data.Entities
     /// Thông tin dịch vụ cho phòng
     /// </summary>
 
-    [TableInfo(TableName = "az_hotel_roomservice")]
+    [TableInfo(TableName = "az_hotel_room_service")]
     public class RoomServiceModel : EntityModel<RoomServiceModel, long>
     {
         /// <summary>
-        /// Mã dịch vụ cho phòng
+        /// Mã phòng trọ
         /// </summary>
+<<<<<<< Updated upstream
         [FieldAutoGenCode(Key = SystemCode.RoomServiceCode)]
         [Field(Length = 500)]
         public string RoomServiceID { get; set; }
+=======
+        [Field]
+        public long HotelID { get; set; }
+>>>>>>> Stashed changes
         /// <summary>
-        /// Tên dịch vụ cho phòng
+        /// Tên dịch vụ chung
         /// </summary>
         [Field]
-        [FieldDisplay]
         public long CommonServiceID { get; set; }
         /// <summary>
         /// Đơn giá

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AZERP.Web.Modules.Hotel.Renter
 {
-    [TableColumn(Title = "Mã người thuê ", FieldName = "RenterID", Width = 150)]
+    [TableColumn(Title = "Mã người thuê ", FieldName = "RenterCode", Width = 150)]
     [TableColumn(Title = "Tên người thuê", FieldName = "RenterName", Width = 150)]
     [TableColumn(Title = "Địa chỉ", FieldName = "Address", Width = 300)]
     [TableColumn(Title = "Số CMND/CCCD", FieldName = "CMND", Width = 200)]

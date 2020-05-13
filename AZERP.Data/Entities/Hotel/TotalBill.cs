@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// Thông tin của hóa đơn tổng
     /// </summary>
 
-    [TableInfo(TableName = "az_hotel_totalbill")]
+    [TableInfo(TableName = "az_hotel_total_bill")]
     public class TotalBillModel : EntityModel<TotalBillModel, long>
     {
         /// <summary>
@@ -26,7 +26,7 @@ namespace AZERP.Data.Entities
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.TotalBillCode)]
         [Field]
-        public long TotalBillID { get; set; }
+        public string TotalBillCode { get; set; }
         /// <summary>
         /// Tên hóa đơn
         /// ví dụ: tháng 3-2020
@@ -63,7 +63,7 @@ namespace AZERP.Data.Entities
         /// Trạng thái hóa đơn
         /// </summary>
         [Field]
-        public string StatusBill { get; set; }
+        public BillStatus? StatusBill { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>
