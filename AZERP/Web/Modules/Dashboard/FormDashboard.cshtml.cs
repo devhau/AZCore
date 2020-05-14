@@ -76,12 +76,18 @@ namespace AZERP.Web.Modules.Dashboard
             return Json("Thành công");
         }
         public IView GetViewSetting(string WidgetName,long? Id) {
-            if (Id == null || Id <= 0)
-                return getWidget(WidgetName).GetViewSetting();
+           
+            if (Id == null || Id <= 0) {
+                var widget = getWidget(WidgetName);
+
+                return widget.GetViewSetting();
+            }
             else {
-                var widget = widgetService.GetById(Id);
-                
-                return getWidget(widget.Widget).SetSetting(widget.Setting).GetViewSetting();
+                var widgetModel = widgetService.GetById(Id);
+                var widget = getWidget(widgetModel.Widget);
+
+                this.Title = widget.GetName();
+                return widget.SetSetting(widgetModel.Setting).GetViewSetting();
             }
         }
         public IView GetAddWidget()
