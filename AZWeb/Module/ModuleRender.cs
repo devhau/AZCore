@@ -117,6 +117,7 @@ namespace AZWeb.Module
 
             #region --- Get Module & Process Module ----
             var query = QueryHelpers.ParseQuery(pathReal);
+
             if (!query.ContainsKey("m") || string.IsNullOrEmpty(query["m"].ToString())) return RenderError.NotFoundPath;
             string moduleName = query["m"].ToString();
             string viewName = moduleName;
@@ -127,6 +128,7 @@ namespace AZWeb.Module
                 gm = "."+query["gm"].ToString();
             string typeModuleString = string.Format("Web.Modules{2}.{0}.Form{1}", moduleName, viewName, gm);
             var ModuleCurrent = LoadModule(typeModuleString);
+            
 
             var methodName = httpContext.Request.Method.ToUpperFirstChart();
             if (query.ContainsKey("h") && !string.IsNullOrEmpty(query["h"].ToString()))

@@ -170,8 +170,10 @@ namespace AZWeb.Module.Common
         {
 
         }
+        public string getTitle() {
+            return "Thiết lập : " + this.Setting?.Title; 
+        }
         public IView GetViewSetting() {
-            this.Title = "Thiết lập : " + this.Setting?.Title;
             return View("Setting");
         }
         #region --- View ---

@@ -11,6 +11,9 @@
             popup.setLink(url);
             popup.setId(widgetId);
             popup.IsForm = true;
+            popup.SetEventClose(function () {
+                AZCore.ReLoad();
+            });
             popup.AddButton({
                 value: "Xóa (F3)",
                 icon: "far fa-delete",
@@ -20,7 +23,6 @@
                     AjaxMain.DoDelete(url, scope.SerializeData(), function () {
                         toastr.success("Xóa thành công");
                         scope.ClosePopup();
-                        AZCore.ReLoad();
                     });
                 }
             });
@@ -33,7 +35,6 @@
                     AjaxMain.DoPost(url, scope.SerializeData(), function () {
                         toastr.success("Thiết lập thành công");
                         scope.ClosePopup();
-                        AZCore.ReLoad();
                     });
                 }
             });
