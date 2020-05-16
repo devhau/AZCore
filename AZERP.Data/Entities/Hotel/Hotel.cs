@@ -24,13 +24,8 @@ namespace AZERP.Data.Entities
         /// Mã phòng trọ
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.HotelCode)]
-<<<<<<< Updated upstream
-        [Field(Length = 500)]
-        public string HotelID { get; set; }
-=======
         [Field]
         public string HotelCode { get; set; }
->>>>>>> Stashed changes
         /// <summary>
         /// Tên phòng trọ
         /// </summary>

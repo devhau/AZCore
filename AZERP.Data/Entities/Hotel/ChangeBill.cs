@@ -14,7 +14,7 @@ namespace AZERP.Data.Entities
         }
     }
     /// <summary>
-    /// Thông tin của hóa đơn cố định
+    /// Thông tin của hóa đơn thay đổi
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_change_bill")]
@@ -24,28 +24,23 @@ namespace AZERP.Data.Entities
         /// Mã hóa đơn
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.ChangeBillCode)]
-<<<<<<< Updated upstream
-        [Field(Length = 500)]
-        public string ChangeBillID { get; set; }
-=======
         [Field]
         public string ChangeBillCode { get; set; }
->>>>>>> Stashed changes
         /// <summary>
         /// Tháng thuê trọ
         /// </summary>
-        [Field(Length = 2)]
-        public int Month { get; set; }
+        [Field]
+        public Month? Month { get; set; }
         /// <summary>
         /// Năm thuê trọ
         /// </summary>
         [Field(Length = 4)]
         public int Year { get; set; }
         /// <summary>
-        /// Loại dịch vụ
+        /// Mã dịch vụ
         /// </summary>
         [Field]
-        public long TypeOfService { get; set; }
+        public long CommonServiceID { get; set; }
         /// <summary>
         /// Đơn giá
         /// </summary>
