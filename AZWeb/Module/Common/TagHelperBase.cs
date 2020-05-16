@@ -1,4 +1,5 @@
-﻿using AZCore.Identity;
+﻿using AZCore.Extensions;
+using AZCore.Identity;
 using AZWeb.Extensions;
 using AZWeb.Module.Constant;
 using AZWeb.Module.View;
@@ -24,6 +25,8 @@ namespace AZWeb.Module.Common
         public string Attr { get; set; }
         [HtmlAttributeName("class")]
         public string TagClass { get; set; }
+        [HtmlAttributeName("style")]
+        public string TagStyle { get; set; }
         [HtmlAttributeName("for-permission")]
         public virtual string PermissionCode { get; set; }
         [HtmlAttributeName("is-show")]
@@ -74,6 +77,9 @@ namespace AZWeb.Module.Common
             if (User!=null&&!User.HasPermission(PermissionCode)||!TagShow) {
                 output.SuppressOutput();
                 return;
+            }
+            if (!TagStyle.IsNullOrEmpty()) {
+                this.Attr += $" style='{TagStyle}' ";
             }
             this.TagClass += $" {TagId}";
             if (!this.TagEnable) {

@@ -70,7 +70,7 @@ namespace AZWeb.Module.TagHelper.Input
             }
             if (this.HttpContext.Items.ContainsKey(GroupInput) &&!this.HttpContext.Items[GroupInput].IsNullOrEmpty())
             {
-                this.InputName= this.HttpContext.Items[GroupInput].ToString()+ this.InputName;
+                this.InputName = string.Format("{0}.{1}", this.HttpContext.Items[GroupInput],this.InputName);
             }
             RenderHtml(htmlBuild);
             if (!AddonAfter.IsNullOrEmpty())

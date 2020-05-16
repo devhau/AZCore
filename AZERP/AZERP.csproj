@@ -10,6 +10,8 @@
   <ItemGroup>
     <None Remove="Web\*.js" />
     <None Remove="Web\*.css" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Web\*.cs" />
     <Content Include="Web\*.js" />
     <Content Include="Web\*.css" />
