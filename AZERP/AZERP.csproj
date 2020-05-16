@@ -8,58 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Web\Modules\Category\**" />
-    <Compile Remove="Web\Modules\Product\PurchaseOrders\**" />
-    <Content Remove="Web\Modules\Category\**" />
-    <Content Remove="Web\Modules\Product\PurchaseOrders\**" />
-    <EmbeddedResource Remove="Web\Modules\Category\**" />
-    <EmbeddedResource Remove="Web\Modules\Product\PurchaseOrders\**" />
-    <None Remove="Web\Modules\Category\**" />
-    <None Remove="Web\Modules\Product\PurchaseOrders\**" />
-    <None Remove="Web\Modules\Orders\Orders\css\Orders.css" />
-    <None Remove="Web\Modules\Orders\Orders\js\Orders.js" />
-    <None Remove="Web\Modules\Product\StockAdjustments\css\StockAdjustment.css" />
-    <Compile Include="Web\Modules\Product\PurchaseOrders\FormPurchaseOrders.cshtml.cs" />
-    <Compile Include="Web\Modules\Product\PurchaseOrders\FormUpdatePurchaseOrders.cshtml.cs" />
-    <Content Include="Web\Modules\Orders\Orders\css\Orders.css" />
-    <Content Include="Web\Modules\Orders\Orders\js\Orders.js" />
-    <Content Include="Web\Modules\Product\PurchaseOrders\css\PurchaseOrders.css" />
-    <Content Include="Web\Modules\Product\PurchaseOrders\FormUpdatePurchaseOrders.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Web\Modules\Product\PurchaseOrders\js\PurchaseOrders.js" />
-    <Content Include="Web\Modules\Product\StockAdjustments\css\StockAdjustment.css" />
-    <Content Include="Web\Modules\Recruitment\Worker\js\CheckinCheckout.js" />
+    <None Remove="Web\*.js" />
+    <None Remove="Web\*.css" />
   </ItemGroup>
-
   <ItemGroup>
-    <None Include="Web\Modules\Common\Auth\FormLogin.cshtml" />
-    <None Include="Web\Modules\Common\Auth\FormRegister.cshtml" />
-    <Content Include="Web\Modules\Product\PurchaseOrders\FormPurchaseOrders.cshtml" />
-    <None Include="Web\Modules\Product\PurchaseOrders\js\ManagerPurchaseOrder.js" />
-    <Content Include="Web\Modules\Product\PurchaseOrders\UpdatePurchaseOrders.cshtml" />
-    <None Include="Web\Modules\Product\PurchaseOrders\js\UpdatePurchaseOrders.js" />
-    <None Include="Web\Modules\Recruitment\Candidate\FormCandidate.cshtml" />
-    <None Include="Web\Modules\Recruitment\Candidate\FormSale.cshtml" />
-    <None Include="Web\Modules\Recruitment\Candidate\FormUpdateCandidate.cshtml" />
-    <None Include="Web\Modules\Product\Products\FormCategory.cshtml" />
-    <None Include="Web\Modules\Recruitment\CompanyWorker\FormCompanyWorker.cshtml" />
-    <None Include="Web\Modules\Recruitment\CompanyWorker\FormUpdateCompanyWorker.cshtml" />
-    <None Include="Web\Modules\Common\Permission\FormPermission.cshtml" />
-    <None Include="Web\Modules\Common\User\FormUpdateUser.cshtml" />
-    <None Include="Web\Modules\Common\User\FormUser.cshtml" />
-    <None Include="Web\Modules\Recruitment\Worker\FormCheckinCheckout.cshtml" />
-    <None Include="Web\Modules\Recruitment\Worker\FormUpdateWorker.cshtml" />
-    <None Include="Web\Modules\Recruitment\Worker\FormWorker.cshtml" />
+    <Compile Include="Web\*.cs" />
+    <Content Include="Web\*.js" />
+    <Content Include="Web\*.css" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\AZERP.Data\AZERP.Data.csproj" />
     <ProjectReference Include="..\AZWeb\AZWeb.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Aspose.Cells">
       <HintPath>..\AZCore\Libs\Aspose.Cells.dll</HintPath>
     </Reference>
@@ -70,27 +29,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Web\Errors\NotFound.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Web\Errors\NotFoundModule.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Web\Modules\Home\FormHome.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Web\Themes\Admin\LayoutTheme.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Web\_ViewImports.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
+    </Content> 
   </ItemGroup>
 
   <ItemGroup>
@@ -105,5 +44,4 @@
     <Folder Include="Web\Modules\Social\Shopee\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
-
 </Project>

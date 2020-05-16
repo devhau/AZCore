@@ -16,6 +16,8 @@ namespace AZERP.Web.Permissions
         /// <summary>
         /// Quyền chỉnh sửa Area
         /// </summary>
+        /// 
+
         [Field(Display = "Sửa", OrderIndex = 5)]
         public const string Area_Edit = "10005002";
         /// <summary>

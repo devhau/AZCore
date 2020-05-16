@@ -1,4 +1,5 @@
 ﻿using AZCore.Database;
+using AZCore.Extensions;
 using AZWeb.Module.Common;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
@@ -18,6 +19,7 @@ namespace AZWeb.Module.TagHelper.Input
     }
     public abstract class AZInput: TagHelperBase
     {
+        public const string GroupInput = "az_group_input";
         [HtmlAttributeName("id")]
         public string InputId { get; set; }
         [HtmlAttributeName("name")]
@@ -50,7 +52,7 @@ namespace AZWeb.Module.TagHelper.Input
         public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
             InitData();
-            if (!string.IsNullOrEmpty(CMD))
+            if (!CMD.IsNullOrEmpty())
             {
                 this.Attr += $"  data-cmd-key='{CMD}' ";
             }
@@ -60,22 +62,26 @@ namespace AZWeb.Module.TagHelper.Input
             if (MaxLength > 0) {
                 this.Attr += $" maxlength='{MaxLength}' ";
             }
-            if (!string.IsNullOrEmpty(AddonBefore) || !string.IsNullOrEmpty(AddonAfter)) {
+            if (!AddonBefore.IsNullOrEmpty() || !AddonAfter.IsNullOrEmpty()) {
                 htmlBuild.Append("<div class=\"input-group\">");
             }
-            if (!string.IsNullOrEmpty(AddonBefore)) {
+            if (!AddonBefore.IsNullOrEmpty()) {
                 htmlBuild.AppendFormat("<div class=\"input-group-prepend\"><span class=\"input-group-text\">{0}</span></div>", AddonBefore);
             }
+            if (this.HttpContext.Items.ContainsKey(GroupInput) &&!this.HttpContext.Items[GroupInput].IsNullOrEmpty())
+            {
+                this.InputName = string.Format("{0}.{1}", this.HttpContext.Items[GroupInput],this.InputName);
+            }
             RenderHtml(htmlBuild);
-            if (!string.IsNullOrEmpty(AddonAfter))
+            if (!AddonAfter.IsNullOrEmpty())
             {
                 htmlBuild.AppendFormat("<div class=\"input-group-append\"><span class=\"input-group-text\">{0}</span></div>", AddonAfter);
             }
-            if (!string.IsNullOrEmpty(AddonBefore) || !string.IsNullOrEmpty(AddonAfter))
+            if (!AddonBefore.IsNullOrEmpty() || !AddonAfter.IsNullOrEmpty())
             {
                 htmlBuild.Append("</div>");
             }
-            if (LabelAfter == true && !string.IsNullOrEmpty(InputLabel))
+            if (LabelAfter == true && !InputLabel.IsNullOrEmpty())
             {
                     htmlBuild.AppendFormat(" <label for=\"{1}\">{0}</label> ", InputLabel, InputId);
             }

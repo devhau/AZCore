@@ -12,24 +12,26 @@ namespace AZWeb.Module.TagHelper.Module
     public class ModuleLayout : TagHelperBase
     {
         public Func<string, string> ScriptRandom { get; set; }
-        public List<ButtonInfo> Buttons { get; set; }
+        public IEnumerable<ButtonInfo> Buttons { get; set; }
+        public string Icon { get; set; } = "fas fa-home";
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
-            output.TagName = "div";
+            output.TagName = "";
             if (ScriptRandom != null)
             {
                 this.AddJS(ScriptRandom(this.TagId));
             }
-            
-            if (HttpContext.Request.Query.ContainsKey("ActionType") && HttpContext.Request.Query["ActionType"] == "popup")
-            {
-                output.Attributes.Add(new TagHelperAttribute("class", "module-popup " + this.TagId));
-                return ;
-            }
-          
+
+            //if (HttpContext.Request.Query.ContainsKey("ActionType") && HttpContext.Request.Query["ActionType"] == "popup")
+            //{
+
+            //    output.Attributes.Add(new TagHelperAttribute("class", "module-popup " + this.TagId));
+            //    return;
+            //}
+            if (string.IsNullOrEmpty(this.Html.Icon)) this.Html.Icon = Icon;
             var content = await output.GetChildContentAsync();
-            htmlBuild.AppendFormat("<div class=\"az-module-layout {0} {1}\" {2}>", this.TagId,this.TagClass,this.Attr);
-            htmlBuild.AppendFormat("<div class=\"az-module-header row\"><h4 class=\"col\" style=\"padding:2px 0px 2px 7px;;margin-bottom:0px;font-weight:700;\">{0}</h4>", this.Html.Title);
+            htmlBuild.AppendFormat("<div class=\"az-module-layout {0} \" {1}>", this.TagClass,this.Attr);
+            htmlBuild.AppendFormat("<div class=\"az-module-header row\"><div class=\"col\" ><h4 style=\"padding:2px 0px 2px 7px;;margin-bottom:0px;font-weight:700;\"><i class=\"{1}\"></i> {0}</h4></div>", this.Html.Title, Icon);
             htmlBuild.Append("<div >");
             if (Buttons != null) {
                 foreach (var item in Buttons) {

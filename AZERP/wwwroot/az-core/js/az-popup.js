@@ -32,6 +32,10 @@
 	$this.DataItem = undefined;
 	$this.Manager = undefined;
 	$this.link = "";
+	$this.eventClose = undefined;
+	$this.SetEventClose = function (callback) {
+		$this.eventClose = callback;
+	}
 	$this.setDataItem = function (DataItem) {
 		$this.DataItem = DataItem;
 		if ($this.DataItem) {
@@ -58,6 +62,7 @@
 		} else {
 			$($this.ModalBody).html($data);
 		}
+		
 	}
 	$this.setTitle = function ($data) {
 		$($this.ModalTitle).html($data);
@@ -86,7 +91,9 @@
 		if (!PopupMain.isEmpty()) {
 			PopupMain.Current().focusPopup();
 		}
+		if ($this.eventClose !== undefined) $this.eventClose();
 		HotKeyMain.Init();
+		
 	}
 	$this.focusPopup = function () {
 		$($this.Modal).focus();
@@ -107,7 +114,9 @@
 		
 		$("body").append($this.Modal);
 		$($this.ModalClose).click(function () { $this.ClosePopup(); if (callbackClose) callbackClose($this); });
-		
+		if ($($this.ModalBody).find(".az-manager").length > 0) {
+			$($this.ModalBody).addClass("has-manage");
+		}
 		HotKeyMain.Init();
 		$this.focusPopup();
 		

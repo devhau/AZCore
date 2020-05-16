@@ -1,4 +1,5 @@
-﻿using AZCore.Identity;
+﻿using AZCore.Extensions;
+using AZCore.Identity;
 using AZWeb.Extensions;
 using AZWeb.Module.Constant;
 using AZWeb.Module.View;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.FileProviders;
 using System;
 using System.IO;
 using System.Linq;
@@ -23,6 +25,8 @@ namespace AZWeb.Module.Common
         public string Attr { get; set; }
         [HtmlAttributeName("class")]
         public string TagClass { get; set; }
+        [HtmlAttributeName("style")]
+        public string TagStyle { get; set; }
         [HtmlAttributeName("for-permission")]
         public virtual string PermissionCode { get; set; }
         [HtmlAttributeName("is-show")]
@@ -40,7 +44,6 @@ namespace AZWeb.Module.Common
         protected string Keyword { get => Html.Keyword; set => Html.Keyword = value; }
         protected HtmlContent Html { get => this.HttpContext.Items[AZWebConstant.Html] as HtmlContent; }
         public Action<TagHelperBase> TagExtend { get; set; }
-
         protected string PathModule { get; private set; }
         
         protected string GetContentFile(string file) {
@@ -74,6 +77,9 @@ namespace AZWeb.Module.Common
             if (User!=null&&!User.HasPermission(PermissionCode)||!TagShow) {
                 output.SuppressOutput();
                 return;
+            }
+            if (!TagStyle.IsNullOrEmpty()) {
+                this.Attr += $" style='{TagStyle}' ";
             }
             this.TagClass += $" {TagId}";
             if (!this.TagEnable) {

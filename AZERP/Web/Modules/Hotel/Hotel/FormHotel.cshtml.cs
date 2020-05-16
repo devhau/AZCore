@@ -26,8 +26,10 @@ namespace AZERP.Web.Modules.Hotel.Hotel
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string HotelName { get; set; }
         /// <summary>
-        /// Loại phòng trọ
+        /// ID phòng trọ
         /// </summary>
+        [QuerySearch]
+        public long? HotelID { get; set; }
         [QuerySearch]
         public long? TypeOfHotelID { get; set; }
         /// <summary>

@@ -1,0 +1,18 @@
+﻿@model UserWidget
+<div class="row">
+    <div class="col-md-6 form-group">
+        <az-text-model model="Model.Setting" func="(item)=>((UsertWidgetSetting)item).Title" label="Tiêu đề" />
+    </div>
+    <div class="col-md-6  form-group">
+        <az-widget-width model="Model.Setting" func="(item)=>((UsertWidgetSetting)item).WidthClass" label="Độ rộng" />
+    </div>
+    <div class="col-md-6  form-group">
+        <az-text-model model="Model.Setting" func="(item)=>((UsertWidgetSetting)item).Icon" label="Biểu tượng" />
+    </div>
+    <div class="col-md-6  form-group">
+        <az-text-model model="Model.Setting" func="(item)=>((UsertWidgetSetting)item).Icon" label="Biểu tượng" />
+    </div>
+    <div class="col-md-6  form-group">
+        <az-widget-type-select model="Model.Setting" func="(item)=>((UsertWidgetSetting)item).Type" label="Kiểu hiển thị" />
+    </div>
+</div>

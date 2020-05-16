@@ -35,14 +35,17 @@
     padding: 2px 10px;
     z-index: 1037;
 }
+
 .az-layout .wrapper .main-header .navbar-nav .nav-link{
     color:#fff;
     font-weight:400;
 }
+.az-layout .wrapper .main-header .navbar-nav .dropdown-menu{
+    border-radius:0px;
+}
 .az-layout .wrapper .main-header .navbar-brand{
-    color:#222;
-    font-weight:700;
-
+    color:#f5f10c !important;
+    font-weight:700 !important;
 }
 .az-layout .main-sidebar {
     bottom: 0;
@@ -58,6 +61,9 @@
     position:relative;
     padding:0px;
     overflow: auto;
+}
+.az-btn *:hover{
+    cursor:pointer;
 }
 .az-btn {
     border-radius: 0px;
@@ -143,6 +149,17 @@
 .az-modal .modal-header {
     padding:5px 10px;
 }
+.az-modal .modal-body{
+}
+.az-modal .modal-body .az-module-layout{
+    position:relative;
+}
+.az-modal .modal-body.has-manage{
+    padding:0px;
+}
+.az-modal .modal-body.has-manage .az-module-header h4{
+    display:none;
+}
 .az-modal .modal-header .close {
     padding: 5px 10px;
     margin: 0;
@@ -186,7 +203,7 @@
 .az-module-layout .az-module-header .az-btn label {
     margin:0px;
     padding:0px;
-    
+    font-weight: 400;
 }
 .az-module-layout .az-module-header .az-btn label:hover ,.az-module-layout .az-module-header .az-btn:hover label{
     color:#fff !important;
@@ -285,3 +302,7 @@ table-freeze thead th {
         height:100%;
 
      }
+ .az-chartjs{
+     width:100%;
+     padding-bottom:10px;
+ }

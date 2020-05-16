@@ -128,7 +128,11 @@
                 });
             }
             popup.setHtml(item.html);
-            popup.setTitle(item.title);
+            $icon = '<i class="fas fa-edit"></i> ';
+            if (item.icon && item.icon != "") {
+                $icon = '<i class="' + item.icon + '"></i> ';
+            }
+            popup.setTitle($icon + item.title);
             popup.ModalSize = $this.FormSize;
             popup.ShowPopup();
         });

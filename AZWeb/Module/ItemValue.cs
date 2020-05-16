@@ -14,6 +14,7 @@ namespace AZWeb.Module
         public string Display { get; set; }
         public string Name { get; set; }
         public object Value { get; set; }
+        public object FieldValue { get; set; }
         [JsonIgnore]
         public object Item { get; set; }
         public string Message { get; set; }
@@ -99,6 +100,7 @@ namespace AZWeb.Module
             {
                 itemValue.Attr = field;
                 itemValue.Display = field.Display;
+                itemValue.FieldValue = field.Value;
             }
             else
             {

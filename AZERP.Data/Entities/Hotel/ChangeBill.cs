@@ -11,6 +11,7 @@ namespace AZERP.Data.Entities
     {
         public ChangeBillService(IDbConnection _connection) : base(_connection)
         {
+
         }
     }
     /// <summary>
@@ -69,7 +70,7 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Ghi chú
         /// </summary>
-        [Field]
+        [Field(Length = 500)]
         public string Note { get; set; }
     }
 }

@@ -21,22 +21,14 @@ namespace AZERP.Data.Entities
     public class AreaServiceModel : EntityModel<AreaServiceModel, long>
     {
         /// <summary>
-        /// Mã dịch vụ khu vực
-        /// </summary>
-        [FieldAutoGenCode(Key = SystemCode.AreasService)]
-        [Field]
-        public long AreaServiceID { get; set; }
-        /// <summary>
         /// Mã dịch vụ chung
         /// </summary>
         [Field]
-        [FieldDisplay]
         public long CommonServiceID { get; set; }
         /// <summary>
         /// Mã khu vực
         /// </summary>
         [Field]
-        [FieldDisplay]
         public long AreaID { get; set; }
         /// <summary>
         /// Đơn giá

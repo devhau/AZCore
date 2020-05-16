@@ -3,6 +3,7 @@
     this.DoGet = function (methodServer, data, callback, onerror, options) { return this.DoAjax("GET", methodServer, data, callback, onerror, options); };
     this.DoPost = function (methodServer, data, callback, onerror, options) { return this.DoAjax("POST", methodServer, data, callback, onerror, options); };
     this.DoPut = function (methodServer, data, callback, onerror, options) { return this.DoAjax("PUT", methodServer, data, callback, onerror, options); };
+    this.DoDelete = function (methodServer, data, callback, onerror, options) { return this.DoAjax("DELETE", methodServer, data, callback, onerror, options); };
     this.DoAjax = function (methodAjax, methodServer, data, callback, onerror, options) {
 
         urlRequest = methodServer
