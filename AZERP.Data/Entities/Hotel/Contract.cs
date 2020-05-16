@@ -26,7 +26,7 @@ namespace AZERP.Data.Entities
         /// </summary>
         [FieldAutoGenCode(Key =SystemCode.ContractCode)]
         [Field]
-        public long ContractID { get; set; }
+        public string ContractCode { get; set; }
         /// <summary>
         /// Tên hợp đồng
         /// </summary>
@@ -37,31 +37,26 @@ namespace AZERP.Data.Entities
         /// Mã chủ nhà
         /// </summary>
         [Field]
-        [FieldDisplay]
         public long BossID { get; set; }
         /// <summary>
         /// Mã người thuê nhà
         /// </summary>
         [Field]
-        [FieldDisplay]
         public long RenterID { get; set; }
         /// <summary>
         /// Mã phòng trọ
         /// </summary>
         [Field]
-        [FieldDisplay]
         public long HotelID { get; set; }
         /// <summary>
         /// Tiền đặt cọc
         /// </summary>
         [Field]
-        [FieldDisplay]
         public decimal Deposit { get; set; }
         /// <summary>
         /// Số bạn cùng phòng
         /// </summary>
         [Field]
-        [FieldDisplay]
         public int Quantity { get; set; }
         /// <summary>
         /// Loại hợp đồng
@@ -71,19 +66,16 @@ namespace AZERP.Data.Entities
         /// Theo năm
         /// </summary>
         [Field]
-        [FieldDisplay]
         public long TypeOfContract { get; set; }
         /// <summary>
         /// Thời gian bắt đầu
         /// </summary>
         [Field]
-        [FieldDisplay]
         public DateTime TimeStart { get; set; }
         /// <summary>
         /// Thời gian kết thúc
         /// </summary>
         [Field]
-        [FieldDisplay]
         public DateTime TimeEnd { get; set; }
         /// <summary>
         /// Trạng thái hợp đồng
@@ -92,7 +84,6 @@ namespace AZERP.Data.Entities
         /// Kết thúc
         /// </summary>
         [Field]
-        [FieldDisplay]
         public string ContractStatus { get; set; }
         /// <summary>
         /// Ghi chú

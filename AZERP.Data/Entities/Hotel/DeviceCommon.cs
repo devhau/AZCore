@@ -7,31 +7,31 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class AreaService : EntityService<AreaService, AreaModel>, IAZTransient
+    public class DeviceService : EntityService<DeviceService, DeviceModel>, IAZTransient
     {
-        public AreaService(IDbConnection _connection) : base(_connection)
+        public DeviceService(IDbConnection _connection) : base(_connection)
         {
         }
     }
     /// <summary>
-    /// Thông tin của khu vực
+    /// Thông tin thiết bị
     /// </summary>
 
-    [TableInfo(TableName = "az_hotel_area")]
-    public class AreaModel : EntityModel<AreaModel, long>
+    [TableInfo(TableName = "az_hotel_device_common")]
+    public class DeviceModel : EntityModel<DeviceModel, long>
     {
         /// <summary>
-        /// Mã khu vực/ tòa nhà
+        /// Mã thiết bị
         /// </summary>
         [FieldAutoGenCode(Key =SystemCode.AreaCode)]
         [Field]
-        public string AreaCode { get; set; }
+        public string DeviceCode { get; set; }
         /// <summary>
-        /// Tên khu vực/ tòa nhà
+        /// Tên thiết bị
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
-        public string AreaName { get; set; }
+        public string DeviceName { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>

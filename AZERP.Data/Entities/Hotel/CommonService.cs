@@ -25,7 +25,7 @@ namespace AZERP.Data.Entities
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.CommonServiceCode)]
         [Field]
-        public long CommonServiceID { get; set; }
+        public string CommonServiceCode { get; set; }
         /// <summary>
         /// Tên dịch vụ chung
         /// </summary>

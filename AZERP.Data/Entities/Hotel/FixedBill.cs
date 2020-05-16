@@ -17,7 +17,7 @@ namespace AZERP.Data.Entities
     /// Thông tin của hóa đơn cố định
     /// </summary>
 
-    [TableInfo(TableName = "az_hotel_fixedbill")]
+    [TableInfo(TableName = "az_hotel_fixed_bill")]
     public class FixedBillModel : EntityModel<FixedBillModel, long>
     {
         /// <summary>
@@ -25,7 +25,7 @@ namespace AZERP.Data.Entities
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.FixedBillCode)]
         [Field]
-        public long FixedBillID { get; set; }
+        public string FixedBillCode { get; set; }
         /// <summary>
         /// Mã hợp đồng
         /// </summary>

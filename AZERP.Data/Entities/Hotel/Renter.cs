@@ -25,11 +25,12 @@ namespace AZERP.Data.Entities
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.RenterCode)]
         [Field]
-        public long RenterID { get; set; }
+        public string RenterCode { get; set; }
         /// <summary>
         /// Tên người thuê nhà
         /// </summary>
         [Field(Length = 500)]
+        [FieldDisplay]
         public string RenterName { get; set; }
         /// <summary>
         /// Địa chỉ (sổ khẩu thường trú)

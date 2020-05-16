@@ -11,7 +11,7 @@ namespace AZERP.Web.Modules.Hotel.ChangeBill
         }
         protected override void IntData()
         {
-            this.Title = "Hóa đơn di động";
+            this.Title = "Hóa đơn lưu động";
         }
 
     }

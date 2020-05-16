@@ -1,33 +1,32 @@
 ﻿@model FormUpdateChangeBill
-    <div class="az-update row" id="FormUpdateArea" role="form">
-        <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).ChangeBillID" label="Mã hóa đơn" attr="autofocus" />
+    <div class="az-update row" id="FormUpdateChangeBill" role="form">
+        <div class="form-group col-md-4">
+            <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).ChangeBillCode" label="Mã hóa đơn" attr="autofocus" />
         </div>
-        <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).Month" label="Tháng" />
+        <div class="form-group col-md-4">
+            <az-month-select model="Model.Data" func="(item)=>((ChangeBillModel)item).Month" label="Tháng" />
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).Year" label="Năm" />
         </div>
-        <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).TypeOfService" label="Loại dịch vụ" />
+        <div class="form-group col-md-4">
+            <az-common-service-select model="Model.Data" func="(item)=>((ChangeBillModel)item).CommonServiceID" label="Tên dịch vụ" />
         </div>
-        <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).Price" label="Giá tiền" />
+        <div class="form-group col-md-4">
+            <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).Price" label="Giá" />
         </div>
-        <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).NumberBefore" label="Số điện trước" />
-        </div>
-        <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).NumberCurrent" label="Số điện hiện tại" />
-        </div>
-        <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).Quantity" label="Số lượng" />
-        </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).Unit" label="Đơn vị" />
         </div>
-
+        <div class="form-group col-md-4">
+            <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).NumberBefore" label="Số tháng trước" />
+        </div>
+        <div class="form-group col-md-4">
+            <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).NumberCurrent" label="Số hiện tại" />
+        </div>
+        <div class="form-group col-md-4">
+            <az-text-model model="Model.Data" func="(item)=>((ChangeBillModel)item).Quantity" label="Số lượng" />
+        </div>
         <div class="form-group col-md-12">
             <az-text-area-model model="Model.Data" func="(item)=>((ChangeBillModel)item).Note" label="Ghi chú" />
         </div>

@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.Area
 {
-    [TableColumn(Title = "Mã khu vực ", FieldName = "AreaID", Width = 100)]
+    [TableColumn(Title = "Mã khu vực ", FieldName = "AreaCode", Width = 100)]
     [TableColumn(Title = "Tên khu vực", FieldName = "AreaName", Width = 130)]
     [TableColumn(Title = "Dịch vụ", LinkFormat = "danh-sach-khu-vuc.az?h=Service&Id={AreaName}", Text = "Dịch vụ khu vực", Popup = AZWeb.Module.Enums.PopupSize.Large)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
