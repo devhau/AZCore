@@ -7,9 +7,9 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class DeviceService : EntityService<DeviceService, DeviceModel>, IAZTransient
+    public class DeviceCommonService : EntityService<DeviceCommonService, DeviceCommonModel>, IAZTransient
     {
-        public DeviceService(IDbConnection _connection) : base(_connection)
+        public DeviceCommonService(IDbConnection _connection) : base(_connection)
         {
         }
     }
@@ -18,14 +18,13 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_device_common")]
-    public class DeviceModel : EntityModel<DeviceModel, long>
+    public class DeviceCommonModel : EntityModel<DeviceModel, long>
     {
         /// <summary>
         /// Mã thiết bị
         /// </summary>
-        [FieldAutoGenCode(Key =SystemCode.AreaCode)]
         [Field]
-        public string DeviceCode { get; set; }
+        public string DeviceCommonCode { get; set; }
         /// <summary>
         /// Tên thiết bị
         /// </summary>
