@@ -15,7 +15,7 @@ namespace AZERP.Web.Modules.Hotel.ChangeBill
     [TableColumn(Title = "Tháng thuê trọ", FieldName = "Month", Width = 130)]
     [TableColumn(Title = "Năm thuê trọ", FieldName = "Year", Width = 130)]
     [TableColumn(Title = "Tên dịch vụ", FieldName = "CommonServiceID", DataType = typeof(AZERP.Data.Entities.CommonService), Width = 130)]
-    [TableColumn(Title = "Giá", FieldName = "Price", Width = 130)]
+    [TableColumn(Title = "Giá", FieldName = "Price", FormatString = "{0:#,###}", Width = 130)]
     [TableColumn(Title = "Đơn vị", FieldName = "Unit", Width = 130)]
     [TableColumn(Title = "Số tháng trước", FieldName = "NumberBefore", Width = 130)]
     [TableColumn(Title = "Số hiện tại", FieldName = "NumberCurrent", Width = 130)]
