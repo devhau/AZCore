@@ -12,24 +12,31 @@ using System.Linq;
 namespace AZERP.Web.Modules.Hotel.ChangeBill
 {
     [TableColumn(Title = "Mã hóa đơn ", FieldName = "ChangeBillCode", Width = 100)]
+    [TableColumn(Title = "Tên phòng trọ", FieldName = "HotelID", DataType =typeof(HotelService), Width = 130)]
     [TableColumn(Title = "Tháng thuê trọ", FieldName = "Month", Width = 130)]
     [TableColumn(Title = "Năm thuê trọ", FieldName = "Year", Width = 130)]
     [TableColumn(Title = "Tên dịch vụ", FieldName = "CommonServiceID", DataType = typeof(AZERP.Data.Entities.CommonService), Width = 130)]
-    [TableColumn(Title = "Giá", FieldName = "Price", FormatString = "{0:#,###}", Width = 130)]
-    [TableColumn(Title = "Đơn vị", FieldName = "Unit", Width = 130)]
-    [TableColumn(Title = "Số tháng trước", FieldName = "NumberBefore", Width = 130)]
-    [TableColumn(Title = "Số hiện tại", FieldName = "NumberCurrent", Width = 130)]
-    [TableColumn(Title = "Số lượng", FieldName = "Quantity", Width = 130)]
+    [TableColumn(Title = "Giá", FieldName = "Price", FormatString = "{0:#,###}", Width = 120)]
+    [TableColumn(Title = "Đơn vị", FieldName = "Unit", Width = 100)]
+    [TableColumn(Title = "Số tháng trước", FieldName = "NumberBefore", Width = 120)]
+    [TableColumn(Title = "Số hiện tại", FieldName = "NumberCurrent", Width = 120)]
+    [TableColumn(Title = "Số lượng", FieldName = "Quantity", Width = 100)]
+    [TableColumn(Title = "Trạng thái", FieldName = "Quantity", Width = 100)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
     public class FormChangeBill : ManageModule<ChangeBillService, ChangeBillModel, FormUpdateChangeBill>
     {
         #region -- Field Search --
         /// <summary>
-        /// Tên khu vực
+        /// Mã hóa đơn
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string ChangeBillCode { get; set; }
+        /// <summary>
+        /// Mã phòng trọ
+        /// </summary>
+        [QuerySearch]
+        public long? HotelID { get; set; }
         /// <summary>
         /// Tháng
         /// </summary>
@@ -46,17 +53,22 @@ namespace AZERP.Web.Modules.Hotel.ChangeBill
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string ServiceName { get; set; }
         /// <summary>
-        /// Năm
+        /// Giá
         /// </summary>
         [QuerySearch]
         public decimal? Price { get; set; }
+        /// <summary>
+        /// Trạng thái
+        /// </summary>
+        [QuerySearch]
+        public BillStatus? StatusBill { get; set; }
         #endregion
         public FormChangeBill(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
         protected override void IntData()
         {
-            this.Title = "Quản lý hóa đơn lưu động";
+            this.Title = "Danh sách hóa đơn lưu động";
         }
     }
 }

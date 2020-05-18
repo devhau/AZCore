@@ -27,6 +27,12 @@ namespace AZERP.Data.Entities
         [Field]
         public string FixedBillCode { get; set; }
         /// <summary>
+        /// Tên hóa đơn cố định
+        /// </summary>
+        [Field]
+        [FieldDisplay]
+        public string FixedBillName { get; set; }
+        /// <summary>
         /// Mã hợp đồng
         /// </summary>
         [Field]

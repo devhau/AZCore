@@ -1,0 +1,33 @@
+﻿@model FormUpdateTotalBill
+    <div class="az-update row" id="FormUpdateTotalBill" role="form">
+        <div class="form-group col-md-4">
+            <az-text-model model="Model.Data" func="(item)=>((TotalBillModel)item).TotalBillCode" label="Mã hóa đơn" attr="autofocus" />
+        </div>
+        <div class="form-group col-md-4">
+            <az-text-model model="Model.Data" func="(item)=>((TotalBillModel)item).TotalBillName" label="Tên hóa đơn" />
+        </div>
+        <div class="form-group col-md-4">
+            <az-fixed-bill-select model="Model.Data" func="(item)=>((TotalBillModel)item).FixedBillID" label="Hóa đơn cố định" />
+        </div>
+        <div class="form-group col-md-4">
+            <az-change-bill-select model="Model.Data" func="(item)=>((TotalBillModel)item).ChangeBillID" label="Hóa đơn lưu động" />
+        </div>
+        <div class="form-group col-md-4">
+            <az-text-model model="Model.Data" func="(item)=>((TotalBillModel)item).TotalPricess" label="Tổng tiền" />
+        </div>
+        <div class="form-group col-md-4">
+            <az-text-model model="Model.Data" func="(item)=>((TotalBillModel)item).Debt" label="Tiền nợ" />
+        </div>
+        <div class="form-group col-md-4">
+            <az-date-model model="Model.Data" func="(item)=>((TotalBillModel)item).Deadline" label="Thời hạn nộp" />
+        </div>
+        <div class="form-group col-md-4">
+            <az-bill-status-select model="Model.Data" func="(item)=>((TotalBillModel)item).StatusBill" label="Trạng thái" />
+        </div>
+        <div class="form-group col-md-12">
+            <az-text-area-model model="Model.Data" func="(item)=>((TotalBillModel)item).Note" label="Ghi chú" />
+        </div>
+    </div>
+<az-script>
+
+</az-script>
