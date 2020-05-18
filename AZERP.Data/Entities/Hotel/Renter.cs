@@ -26,7 +26,7 @@ namespace AZERP.Data.Entities
         [FieldAutoGenCode(Key = SystemCode.RenterCode)]
         [Field]
         public string RenterCode { get; set; }
-        /// <summary>
+        /// <summary>@
         /// Tên người thuê nhà
         /// </summary>
         [Field(Length = 500)]

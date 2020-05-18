@@ -71,12 +71,12 @@ namespace AZERP.Data.Entities
         /// Thời gian bắt đầu
         /// </summary>
         [Field]
-        public DateTime TimeStart { get; set; }
+        public string TimeStart { get; set; }
         /// <summary>
         /// Thời gian kết thúc
         /// </summary>
         [Field]
-        public DateTime TimeEnd { get; set; }
+        public string TimeEnd { get; set; }
         /// <summary>
         /// Trạng thái hợp đồng
         /// Chưa hoạt động
@@ -84,7 +84,7 @@ namespace AZERP.Data.Entities
         /// Kết thúc
         /// </summary>
         [Field]
-        public string ContractStatus { get; set; }
+        public int ContractStatus { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>
