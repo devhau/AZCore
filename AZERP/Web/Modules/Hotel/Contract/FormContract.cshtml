@@ -5,9 +5,6 @@
             <az-button class="btn btn-success btn-sm az-btn az-btn-add" cmd-key="f1" icon="far fa-plus-square" text="Thêm Mới (F1)" />
             <az-button class="btn btn-info btn-sm az-btn az-btn-export" cmd-key="f2" icon="fas fa-file-export" text="Xuất Excel (F2)" />
             <az-button class="btn btn-secondary btn-sm az-btn az-btn-import" cmd-key="f3" icon="fas fa-file-import" text="Nhập Excel (F3)" />
-            @*<az-button class="btn btn-success btn-sm az-btn az-btn-add" cmd-key="f1" for-permission="@PE.Contract_Add" icon="far fa-plus-square" text="Thêm Mới (F1)" />
-            <az-button class="btn btn-info btn-sm az-btn az-btn-export" cmd-key="f2" for-permission="@PE.Contract_Export" icon="fas fa-file-export" text="Xuất Excel (F2)" />
-            <az-button class="btn btn-secondary btn-sm az-btn az-btn-import" cmd-key="f3" for-permission="@PE.Contract_Import" icon="fas fa-file-import" text="Nhập Excel (F3)" />*@
         </div>
         <div class="az-search-manager">
             <div class="row">
@@ -15,7 +12,7 @@
                     <form class="az-search-form row">
                         <az-hidden-model model="Model" func="(item)=>((FormContract)item).PageSize" />
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormContract)item).ContractName" label="Tên hợp đồng" />
+                            <az-text-model model="Model" func="(item)=>((FormContract)item).ContractCode" label="Tên hợp đồng" />
                         </div>
                     </form>
                 </div>
@@ -38,7 +35,6 @@
         </div>
         <div class="az-data-table">
             <az-table data="Model.Data" FunKey="(item)=>((ContractModel)item).Id" columns="Model.Columns" pagination="Model" />
-            @*<az-table data="Model.Data" FunKey="(item)=>((ContractModel)item).Id" columns="Model.Columns" is-edit="Model.HasPermission(PE.Contract_Edit)" is-delete="Model.HasPermission(PE.Contract_Remove)" pagination="Model" />*@
         </div>
         <div class="az-bottom-manager">
             <az-pagination pagination="Model" />

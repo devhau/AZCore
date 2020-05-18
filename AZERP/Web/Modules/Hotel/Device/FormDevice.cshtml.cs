@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace AZERP.Web.Modules.Hotel.Device
 {
-    [TableColumn(Title = "Mã PHÒNG ", FieldName = "HotelID", Width = 100)]
+    [TableColumn(Title = "Mã Phòng ", FieldName = "HotelID", Width = 100)]
     [TableColumn(Title = "Mã thiết bị ", FieldName = "DeviceID", Width = 100)]
     [TableColumn(Title = "Tên thiết bị", FieldName = "DeviceName", Width = 130)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]

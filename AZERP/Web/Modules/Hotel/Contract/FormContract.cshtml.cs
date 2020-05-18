@@ -12,16 +12,16 @@ namespace AZERP.Web.Modules.Hotel.Contract
 {
     [TableColumn(Title = "Mã hợp đồng ", FieldName = "ContractCode", Width = 150)]
     [TableColumn(Title = "Tên hợp đồng", FieldName = "ContractName", Width = 150)]
-    [TableColumn(Title = "Mã chủ nhà", FieldName = "BossID",  Width = 300)]
-    [TableColumn(Title = "Mã người thuê nhà", FieldName = "RenterID", DataType = typeof(RenterService), Width = 200)]
-    [TableColumn(Title = "Mã phòng trọ", FieldName = "HotelID" , Width = 200)]
-    [TableColumn(Title = "Tiền đặt cộc", FieldName = "Deposit", Width = 200)]
+    [TableColumn(Title = "Chủ nhà", FieldName = "BossID",  Width = 150)]
+    [TableColumn(Title = "Người thuê nhà", FieldName = "RenterID", DataType = typeof(RenterService), Width = 200)]
+    [TableColumn(Title = "Phòng trọ", FieldName = "HotelID" , Width = 150)]
+    [TableColumn(Title = "Tiền đặt cọc", FieldName = "Deposit", Width = 150)]
     [TableColumn(Title = "Số bạn cùng phòng", FieldName = "Quantity", Width = 200)]
-    [TableColumn(Title = "Loại hợp đồng", FieldName = "TypeOfContract" , Width = 200)]
+    [TableColumn(Title = "Loại hợp đồng", FieldName = "TypeOfContract" , Width = 150)]
     [TableColumn(Title = "Thời gian bắt đầu", FieldName = "TimeStart", Width = 200)]
     [TableColumn(Title = "Thời gian kết thúc", FieldName = "TimeEnd", Width = 200)]
     [TableColumn(Title = "Trạng thái hợp đồng", FieldName = "ContractStatus", Width = 200)]
-    [TableColumn(Title = "Ghi chú", FieldName = "Note")]
+    [TableColumn(Title = "Ghi chú", FieldName = "Note", Width = 75)]
 
     public class FormContract : ManageModule<ContractService, ContractModel, FormUpdateContract>
     {
@@ -30,15 +30,10 @@ namespace AZERP.Web.Modules.Hotel.Contract
         /// Tên khu vực
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public string ContractName { get; set; }
+        public long ContractCode { get; set; }
         #endregion
 
-        //[BindService]
-        //public AZERP.Data.Entities.CommonService commonService;
-        //public List<AZERP.Data.Entities.RegionalServiceModel> ListDataService { get; set; }
-        //public AZERP.Data.Entities.RegionalServiceModel DataCurrent = null;
-        //private List<RegionalServiceModel> listDataOrder;
-        //public bool CanEdit = true;
+ 
         public FormContract(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }

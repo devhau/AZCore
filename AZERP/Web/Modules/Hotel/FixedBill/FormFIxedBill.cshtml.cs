@@ -21,10 +21,10 @@ namespace AZERP.Web.Modules.Hotel.FixedBill
     {
         #region -- Field Search --
         /// <summary>
-        /// Tên khu vực
+        /// Mã hóa đơn cố định
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public string FixedBillName { get; set; }
+        public long FixedBillCode { get; set; }
         #endregion
 
         public FormFixedBill(IHttpContextAccessor httpContext) : base(httpContext)
