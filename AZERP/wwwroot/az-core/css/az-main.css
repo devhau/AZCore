@@ -179,16 +179,44 @@
     max-width:1050px;
 }
 
-.az-modal-80 .modal-dialog {
-    max-width: 80%;
+.az-modal-10 .modal-dialog {
+    max-width: 10%;
+}
+
+.az-modal-20 .modal-dialog {
+    max-width: 20%;
+}
+
+.az-modal-30 .modal-dialog {
+    max-width: 30%;
+}
+
+.az-modal-40 .modal-dialog {
+    max-width: 40%;
 }
 
 .az-modal-50 .modal-dialog {
     max-width: 50%;
 }
 
-.az-modal-30 .modal-dialog {
-    max-width: 30%;
+.az-modal-60 .modal-dialog {
+    max-width: 60%;
+}
+
+.az-modal-70 .modal-dialog {
+    max-width: 70%;
+}
+
+.az-modal-80 .modal-dialog {
+    max-width: 80%;
+}
+
+.az-modal-90 .modal-dialog {
+    max-width: 90%;
+}
+
+.az-modal-100 .modal-dialog {
+    max-width: 100%;
 }
 
 .az-module-layout {

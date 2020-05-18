@@ -71,6 +71,8 @@ namespace AZERP.Web.Modules.Orders.Orders
         public long Id { get; set; }
         [BindForm]
         public List<PurchaseOrderProductModel> ListDataOrder { get; set; }
+        [BindForm]
+        public decimal Money { get; set; }
 
         public UserModel UserModel;
         public CustomersModel CustomersModel;
@@ -127,6 +129,26 @@ namespace AZERP.Web.Modules.Orders.Orders
         protected override void IntData()
         {
             this.Title = "Hóa đơn";
+        }
+
+        [OnlyAjax]
+        public IView GetPayment(string data)
+        {
+            this.Title = "Xác nhận thanh toán";
+            decimal money = 0;
+            foreach (var item in data.Split(","))
+            {
+                var orderDetail = this.purchaseOrderProductService.Select(p => p.Id == item.To<long>()).First();
+                money += (orderDetail.ImportNumber * orderDetail.ImportPrice);
+            }
+            this.Money = money;
+            return View("UpdatePayment");
+        }
+
+        [OnlyAjax]
+        public IView PostPayment()
+        {
+            return Json("Thanh cong");
         }
 
         public override IView GetUpdate(long? Id)
