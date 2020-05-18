@@ -182,6 +182,15 @@
 .az-modal-80 .modal-dialog {
     max-width: 80%;
 }
+
+.az-modal-50 .modal-dialog {
+    max-width: 50%;
+}
+
+.az-modal-30 .modal-dialog {
+    max-width: 30%;
+}
+
 .az-module-layout {
     width: 100%;
     height: 100%;
