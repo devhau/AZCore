@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace AZCore.Identity
 {
-    [TableInfo(TableName = "az_tenant_user")]
+    [TableInfo(TableName = "az_common_tenant_user")]
     public class AZTenantUser<TEntity> : IEntity
     {
         [Field(IsKey = true)]

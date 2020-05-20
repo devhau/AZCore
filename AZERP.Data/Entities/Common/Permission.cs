@@ -1,4 +1,5 @@
 ﻿using AZCore.Database;
+using AZCore.Database.Attributes;
 using AZCore.Domain;
 using AZCore.Identity;
 using System.Data;
@@ -20,5 +21,11 @@ namespace AZERP.Data.Entities
     /// </summary>
     public class PermissionModel : AZPermission<PermissionModel>
     {
+        [Field]
+        public string GroupName { get; set; }
+        [Field]
+        public int GroupIndex { get; set; }
+        [Field]
+        public int OrderIndex { get; set; }
     }
 }

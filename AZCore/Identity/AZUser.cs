@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace AZCore.Identity
 {
-    [TableInfo(TableName = "az_user")]
+    [TableInfo(TableName = "az_common_user")]
     public class AZUser<TEntity> : EntityModel<TEntity, long> where TEntity : AZUser<TEntity>
     {
         [FieldDisplay]

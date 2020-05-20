@@ -316,6 +316,7 @@ namespace AZWeb.Module
             return AZCoreExtensions.startup.GetType(type);
         }
         public static async Task<bool> RouterAsync(HttpContext httpContext) {
+            
             return await new ModuleRender(httpContext).DoRouterAsync();
         }
     }

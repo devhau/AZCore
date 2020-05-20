@@ -1,4 +1,5 @@
 ﻿using AZCore.Database;
+using AZCore.Database.Enums;
 using AZCore.Database.SQL;
 using AZCore.Excel;
 using AZCore.Extensions;
@@ -59,6 +60,8 @@ namespace AZWeb.Module.Page.Manager
         public int PageSize { get; set; } = 20;
         public long PageTotal { get; set; }
         public long PageTotalAll { get; set; }
+        public string ColumSort { get; set; }
+        public SortType Sort { get; set; }
         public ManageModule(IHttpContextAccessor httpContext) : base(httpContext)
         {
             Service = this.HttpContext.GetService<TService>();
@@ -67,6 +70,15 @@ namespace AZWeb.Module.Page.Manager
         public virtual void BindTableColumn()
         {
             this.Columns = this.GetType().GetAttributes<TableColumnAttribute>().ToList();
+        }
+        protected virtual void AddWhere(QuerySQL Q) { 
+        
+        
+        }
+        protected virtual void AddQuerySQL(QuerySQL Q)
+        {
+
+
         }
         public virtual List<TModel> GetSearchData()
         {
@@ -78,6 +90,7 @@ namespace AZWeb.Module.Page.Manager
                     if (p.Property.GetValue(this) != null)
                         T.AddWhere(p.Property.Name, p.Property.GetValue(this), p.OperatorSQL);
                 }
+                AddWhere(T);
             };
             this.PageTotalAll = Service.ExecuteNoneQuery((T) => {
 
@@ -95,7 +108,11 @@ namespace AZWeb.Module.Page.Manager
             }
             return Service.ExecuteQuery((T) => {             
                 T.Pagination(PageIndex, PageSize);
+                if (!string.IsNullOrEmpty(this.ColumSort)) {
+                    T.AddOrder(this.ColumSort, this.Sort);
+                }
                 actionWhere(T);
+                AddQuerySQL(T);
             }).ToList();
         }
         public virtual IView Get()

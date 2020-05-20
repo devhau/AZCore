@@ -4,7 +4,6 @@ using AZWeb.Module.Common;
 using AZWeb.Module.Constant;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

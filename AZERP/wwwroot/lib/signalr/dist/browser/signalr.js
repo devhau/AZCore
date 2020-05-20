@@ -2002,7 +2002,7 @@ var HubConnection = /** @class */ (function () {
                         this.logger.log(_ILogger__WEBPACK_IMPORTED_MODULE_2__["LogLevel"].Debug, "Starting HubConnection.");
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
+                        _a.trys.push([1, 3, 4]);
                         return [4 /*yield*/, this.startInternal()];
                     case 2:
                         _a.sent();
@@ -2038,7 +2038,7 @@ var HubConnection = /** @class */ (function () {
                         _a.sent();
                         _a.label = 2;
                     case 2:
-                        _a.trys.push([2, 5, , 7]);
+                        _a.trys.push([2, 5, 7]);
                         handshakeRequest = {
                             protocol: this.protocol.name,
                             version: this.protocol.version,
@@ -2100,7 +2100,7 @@ var HubConnection = /** @class */ (function () {
                         _a.sent();
                         _a.label = 2;
                     case 2:
-                        _a.trys.push([2, 4, , 5]);
+                        _a.trys.push([2, 4, 5]);
                         // Awaiting undefined continues immediately
                         return [4 /*yield*/, startPromise];
                     case 3:
@@ -2434,7 +2434,7 @@ var HubConnection = /** @class */ (function () {
                         if (!(this.connectionState === HubConnectionState.Connected)) return [3 /*break*/, 4];
                         _b.label = 1;
                     case 1:
-                        _b.trys.push([1, 3, , 4]);
+                        _b.trys.push([1, 3, 4]);
                         return [4 /*yield*/, this.sendMessage(this.cachedPingMessage)];
                     case 2:
                         _b.sent();
@@ -2578,7 +2578,7 @@ var HubConnection = /** @class */ (function () {
                         }
                         _a.label = 3;
                     case 3:
-                        _a.trys.push([3, 5, , 6]);
+                        _a.trys.push([3, 5, 6]);
                         return [4 /*yield*/, this.startInternal()];
                     case 4:
                         _a.sent();
@@ -3558,7 +3558,7 @@ var HttpConnection = /** @class */ (function () {
                         this.stopError = error;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
+                        _a.trys.push([1, 3, 4]);
                         return [4 /*yield*/, this.startInternalPromise];
                     case 2:
                         _a.sent();
@@ -3570,7 +3570,7 @@ var HttpConnection = /** @class */ (function () {
                         if (!this.sendQueue) return [3 /*break*/, 9];
                         _a.label = 5;
                     case 5:
-                        _a.trys.push([5, 7, , 8]);
+                        _a.trys.push([5, 7, 8]);
                         return [4 /*yield*/, this.sendQueue.stop()];
                     case 6:
                         _a.sent();
@@ -3586,7 +3586,7 @@ var HttpConnection = /** @class */ (function () {
                         if (!this.transport) return [3 /*break*/, 14];
                         _a.label = 10;
                     case 10:
-                        _a.trys.push([10, 12, , 13]);
+                        _a.trys.push([10, 12, 13]);
                         return [4 /*yield*/, this.transport.stop()];
                     case 11:
                         _a.sent();
@@ -3618,7 +3618,7 @@ var HttpConnection = /** @class */ (function () {
                         this.accessTokenFactory = this.options.accessTokenFactory;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 12, , 13]);
+                        _a.trys.push([1, 12, 13]);
                         if (!this.options.skipNegotiation) return [3 /*break*/, 5];
                         if (!(this.options.transport === _ITransport__WEBPACK_IMPORTED_MODULE_2__["HttpTransportType"].WebSockets)) return [3 /*break*/, 3];
                         // No need to add a connection ID in this case
@@ -3725,7 +3725,7 @@ var HttpConnection = /** @class */ (function () {
                         this.logger.log(_ILogger__WEBPACK_IMPORTED_MODULE_1__["LogLevel"].Debug, "Sending negotiation request: " + negotiateUrl + ".");
                         _b.label = 3;
                     case 3:
-                        _b.trys.push([3, 5, , 6]);
+                        _b.trys.push([3, 5, 6]);
                         return [4 /*yield*/, this.httpClient.post(negotiateUrl, {
                                 content: "",
                                 headers: headers,
@@ -3792,7 +3792,7 @@ var HttpConnection = /** @class */ (function () {
                         if (!!negotiate) return [3 /*break*/, 9];
                         _a.label = 5;
                     case 5:
-                        _a.trys.push([5, 7, , 8]);
+                        _a.trys.push([5, 7, 8]);
                         return [4 /*yield*/, this.getNegotiationResponse(url)];
                     case 6:
                         negotiate = _a.sent();
@@ -3804,7 +3804,7 @@ var HttpConnection = /** @class */ (function () {
                         connectUrl = this.createConnectUrl(url, negotiate.connectionToken);
                         _a.label = 9;
                     case 9:
-                        _a.trys.push([9, 11, , 12]);
+                        _a.trys.push([9, 11, 12]);
                         return [4 /*yield*/, this.startTransport(connectUrl, requestedTransferFormat)];
                     case 10:
                         _a.sent();
@@ -4025,7 +4025,7 @@ var TransportSendQueue = /** @class */ (function () {
                         this.buffer.length = 0;
                         _a.label = 2;
                     case 2:
-                        _a.trys.push([2, 4, , 5]);
+                        _a.trys.push([2, 4, 5]);
                         return [4 /*yield*/, this.transport.send(data)];
                     case 3:
                         _a.sent();
@@ -4263,7 +4263,7 @@ var LongPollingTransport = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, , 8, 9]);
+                        _a.trys.push([0, 8, 9]);
                         _a.label = 1;
                     case 1:
                         if (!this.running) return [3 /*break*/, 7];
@@ -4273,7 +4273,7 @@ var LongPollingTransport = /** @class */ (function () {
                         this.updateHeaderToken(pollOptions, token);
                         _a.label = 3;
                     case 3:
-                        _a.trys.push([3, 5, , 6]);
+                        _a.trys.push([3, 5, 6]);
                         pollUrl = url + "&_=" + Date.now();
                         this.logger.log(_ILogger__WEBPACK_IMPORTED_MODULE_2__["LogLevel"].Trace, "(LongPolling transport) polling: " + pollUrl + ".");
                         return [4 /*yield*/, this.httpClient.get(pollUrl, pollOptions)];
@@ -4358,7 +4358,7 @@ var LongPollingTransport = /** @class */ (function () {
                         this.pollAbort.abort();
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, , 5, 6]);
+                        _a.trys.push([1, 5, 6]);
                         return [4 /*yield*/, this.receiving];
                     case 2:
                         _a.sent();

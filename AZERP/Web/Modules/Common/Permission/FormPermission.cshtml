@@ -1,9 +1,6 @@
 ﻿@model FormPermission
 <az-script module="Permission.js" />
-<az-script>
-
-</az-script>
-<az-script link=""/>
+<az-style module="Permission.css"/>
 <az-module-layout script-random='(id)=>$"ManagerPermission(\".{id}\");"' icon="fas fa-user-shield" buttons="Model.GetButtonInfo()" class="az-manager" attr='data-form-size="az-modal-xl"'>
     <div class="az-data-table">
         <az-table data="Model.Data" FunKey="(item)=>((PermissionModel)item).Code" columns="Model.Columns" pagination="Model" is-delete="false" is-edit="false" />
