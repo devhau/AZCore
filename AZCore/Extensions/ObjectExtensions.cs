@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace AZCore.Extensions
@@ -23,7 +24,19 @@ namespace AZCore.Extensions
         public static TType To<TType>(this object obj) {
             return (TType)(obj.ToType(typeof(TType)));
         }
-        public static object ToType(this object obj,Type typeObj) {
+        /// <summary>
+        /// Fix
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="typeObj"></param>
+        /// <param name="noRemoveXss"></param>
+        /// <returns></returns>
+        public static object ToType(this object obj,Type typeObj,bool noRemoveXss=false) {
+            if (noRemoveXss)
+            {
+                Regex rRemScript = new Regex(@"<script[^>]*>[\s\S]*?</script>");
+                obj = rRemScript.Replace(obj.ToString(), "");
+            }
             var typeConvert = SqlTypeDescriptor.Inst.GetConverter(typeObj);
             return typeConvert.ConvertFrom(obj);
         }
