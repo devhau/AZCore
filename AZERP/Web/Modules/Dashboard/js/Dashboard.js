@@ -6,14 +6,15 @@
             if (item.statusCode && item.statusCode === 401) {
                 return;
             }
-            var popup = new AZPopup();
+            var popup = new AZPopup({
+                eventClose: function () {
+                    AZCore.ReLoad(true);
+                }
+            });
             popup.ClearButton();
             popup.setLink(url);
             popup.setId(widgetId);
             popup.IsForm = true;
-            popup.SetEventClose(function () {
-                AZCore.ReLoad();
-            });
             popup.AddButton({
                 value: "Xóa (F3)",
                 icon: "far fa-delete",
@@ -69,7 +70,7 @@ function AddWidget($id) {
             AjaxMain.DoPost("/?h=ViewSetting&WidgetName=" + widgetName, $($id).find(".widget-setting").AZSerializeForm(), function (item) {
                 $(widgetActive).removeClass("active");
                 $($id).find(".widget-setting").html("");
-                AZCore.ReLoad();
+                AZCore.ReLoad(true);
 
             });
         } else {
