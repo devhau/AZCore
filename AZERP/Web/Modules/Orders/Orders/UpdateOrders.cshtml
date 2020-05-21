@@ -47,7 +47,7 @@
             <div class="az-page-info-title">Sản phẩm</div>
             <div class="az-page-info-body">
                 <div class="az-data-table">
-                    <table class="table table-bordered table-hover az-table " role="grid">
+                    <table class="table table-bordered table-hover az-table" role="grid">
                         <thead>
                             <tr>
                                 <td></td>
@@ -65,10 +65,13 @@
                             {
                             <tr>
                                 <td style="width: 60px"><img style="width: 100%" src="@Model.getProduct(item.ProductId)?.Picture"></td>
-                                <td>@Model.getProduct(item.ProductId)?.Code</td>
+                                <td>
+                                    @Model.getProduct(item.ProductId)?.Code
+                                    <input type="hidden" value="@item.Id">
+                                </td>
                                 <td>@Model.getProduct(item.ProductId)?.Name</td>
-                                <td>@item.ImportNumber</td>
-                                <td>@item.ImportPrice</td>
+                                <td>@String.Format("{0:#,###}", @item.ImportNumber)</td>
+                                <td>@String.Format("{0:#,###}", @item.ImportPrice)</td>
                                 <td>@String.Format("{0:#,###}", @item.ImportNumber * @item.ImportPrice)</td>
                                 @{ valueSum += item.ImportNumber; }
                                 @{ valueMoney += (item.ImportPrice * item.ImportNumber); }
@@ -105,7 +108,8 @@
     </div>
     <div class="col-md-12 row footer">
         <az-layout is-show="@(Model.DataCurrent.PurchaseOrderPayment != OrderPayment.Paid && Model.DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)" class="col-md-10">
-            <button class="btn btn-secondary az-btn az-payment" data-cmd-key="f4"><i class="far fa-finish"></i> Xác nhận thanh toán (F4)</button>
+            <az-link href="don-hang/cap-nhat-thanh-toan.az" class="btn btn-secondary az-btn az-btn-payment" modal-size="az-modal-20" data-cmd-key="f4" text="Xác nhận thanh toán (F4)" />
+            @*<button class="btn btn-secondary az-btn az-payment" data-cmd-key="f4"><i class="far fa-finish"></i> Xác nhận thanh toán (F4)</button>*@
         </az-layout>
         <az-layout is-show="@(Model.DataCurrent.PurchaseOrderImport != PurchaseOrderImport.Export && Model.DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)" class="col-md-2">
             <button class="btn btn-primary az-btn az-export-store" data-cmd-key="f3"><i class="far fa-finish"></i> Xuất kho (F3)</button>

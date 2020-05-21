@@ -282,7 +282,7 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
         }
 
         [OnlyAjax]
-        public IView PostCommit(long commit)
+        public IView PostCommit([BindForm]long commit)
         {
             if(commit != 1 && commit != 2)
             {
