@@ -39,6 +39,10 @@ namespace AZERP.Data.Enums
         [Field(Display = "Mã nhà cung cấp", Name = "NCC", Length = 5)]
         SupplierCode,
         [Field(Display = "Mã kho", Name = "KHO", Length = 5)]
-        StoreCode
+        StoreCode,
+        [Field(Display = "Mã phiếu thu", Name = "PThu", Length = 7)]
+        CashFlowInCode,
+        [Field(Display = "Mã phiếu chi", Name = "PChi", Length = 7)]
+        CashFlowOutCode
     }
 }

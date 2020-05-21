@@ -105,7 +105,7 @@
     </div>
     <div class="col-md-12 row footer">
         <az-layout is-show="@(Model.DataCurrent.PurchaseOrderPayment != OrderPayment.Paid && Model.DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)" class="col-md-10">
-            <button class="btn btn-secondary az-btn az-payment" data-cmd-key="f4"><i class="far fa-finish"></i> Xác nhận thanh toán (F4)</button>
+            <az-link id="linkPayment" href="nhap-hang/commit-payment.az" class="btn btn-secondary az-btn az-link-popup" modal-size="az-modal-30" text="Xác nhận thanh toán (F4)" />
         </az-layout>
         <az-layout is-show="@(Model.DataCurrent.PurchaseOrderImport != PurchaseOrderImport.Import && Model.DataCurrent.PurchaseOrderStatus == OrderStatus.Waiting)" class="col-md-2">
             <button class="btn btn-primary az-btn az-import-store" data-cmd-key="f3"><i class="far fa-finish"></i> Nhập kho (F3)</button>
