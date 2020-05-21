@@ -34,13 +34,13 @@ namespace AZERP.Data.Entities
                 FROM
                   ((
                         SELECT T2.PermissionCode as Code
-                       FROM az_user_permission T2
+                       FROM az_common_user_permission T2
                        WHERE T2.UserId=@UserId
                     )
                    UNION 
                     (SELECT T4.PermissionCode as Code
-                       FROM  az_role_permission T4
-                       JOIN az_user_role T5 ON T4.RoleId = T5.RoleId
+                       FROM  az_common_role_permission T4
+                       JOIN az_common_user_role T5 ON T4.RoleId = T5.RoleId
                         WHERE T5.UserId=@UserId
                 )
                 ) T6

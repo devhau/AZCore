@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace AZCore.Extensions
@@ -23,23 +24,47 @@ namespace AZCore.Extensions
         public static TType To<TType>(this object obj) {
             return (TType)(obj.ToType(typeof(TType)));
         }
-        public static object ToType(this object obj,Type typeObj) {
+        /// <summary>
+        /// Fix
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="typeObj"></param>
+        /// <param name="noRemoveXss"></param>
+        /// <returns></returns>
+        public static object ToType(this object obj,Type typeObj,bool noRemoveXss=false) {
+            if (noRemoveXss)
+            {
+                Regex rRemScript = new Regex(@"<script[^>]*>[\s\S]*?</script>");
+                obj = rRemScript.Replace(obj.ToString(), "");
+            }
             var typeConvert = SqlTypeDescriptor.Inst.GetConverter(typeObj);
             return typeConvert.ConvertFrom(obj);
         }
-        public static TTarget CopyTo<TTarget>(this object obj) where TTarget:class,new()
+        public static object CopyTo(this object obj,Type @type)
         {
             if (obj == null) return null;
-            var obj2 = new TTarget();
-            var objType2 = typeof(TTarget);
+            var obj2 = @type.CreateInstance();
             var objType = obj.GetType();
-            foreach (var item in objType2.GetProperties()) {
-                var pro =objType.GetProperty(item.Name);
-                if (pro != null&& pro.CanRead&&item.CanWrite) {
-                    item.SetValue(obj2, pro.GetValue(obj).ToType(item.PropertyType));
+            foreach (var item in @type.GetProperties())
+            {
+                var pro = objType.GetProperty(item.Name);
+                if (pro != null && pro.CanRead && item.CanWrite)
+                {
+                    if (item.PropertyType == typeof(object) || item.PropertyType.IsEnum)
+                    {
+                        item.SetValue(obj2, pro.GetValue(obj));
+                    }
+                    else
+                    {
+                        item.SetValue(obj2, pro.GetValue(obj).ToType(item.PropertyType));
+                    }
                 }
             }
             return obj2;
+        }
+        public static TTarget CopyTo<TTarget>(this object obj)
+        {
+            return obj.CopyTo(typeof(TTarget)).As<TTarget>();
         }
         public static bool IsNull(this object obj) {
             return obj == null;

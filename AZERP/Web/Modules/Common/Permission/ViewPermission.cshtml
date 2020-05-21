@@ -10,34 +10,34 @@
         </thead>
         @if (Model.Permissions != null)
         {
-            @foreach (var item in Model.Permissions.Where(p => p.Key.IndexOf("_") < 0))
+            @foreach (var item in Model.Permissions.Where(p => p.KeyName.IndexOf("_") < 0))
             {
-                
-                var peChild = Model.Permissions.Where(p => p.Key.IndexOf("_") > 0 && p.Code.StartsWith(item.Code));
-                
+
+                var peChild = Model.Permissions.Where((Func<PermissionModel, bool>)(p => p.KeyName.IndexOf("_") > 0 && p.KeyName.StartsWith(item.KeyName)));
+
     <tr>
         <td style="font-weight:700;padding-left:10px;">@item.Name</td>
 
         <td>
             @if (peChild.Count() == 0)
             {
-                <az-checkbox id="@item.Key+'_'" name="@item.Key+'_'" class="all-permission" attr="@(Model.CheckItem(item))" />
+                <az-checkbox id="@item.KeyName+'_'" name="@item.KeyName+'_'" class="all-permission" attr="@(Model.CheckItem(item))" />
 
 
             }
             else
             {
-                <az-checkbox id="@item.Key+'_'" name="@item.Key+'_'" class="all-permission" attr="@((Model.PermissionActive!=null&&peChild.Count()>0&&peChild.All(p=>Model.PermissionActive.Contains(p.Code)))?" checked ":"")" />
+                <az-checkbox id="@item.KeyName+'_'" name="@item.KeyName+'_'" class="all-permission" attr="@((Model.PermissionActive!=null&&peChild.Count()>0&&peChild.All(p=>Model.PermissionActive.Contains(p.Code)))?" checked ":"")" />
             }
         </td>
 
 
             <td class="az-permission-child">
-                <az-checkbox label="Truy cập" value="@item.Code" attr="@Model.CheckItem(item)" id="@item.Key" name="@item.Key" />
+                <az-checkbox label="Truy cập" value="@item.Code" attr="@Model.CheckItem(item)" id="@item.KeyName" name="@item.KeyName" />
                 @foreach (var item1 in peChild)
                 {
                     <span>
-                        <az-checkbox label="@item1.Name" value="@item1.Code" id="@item1.Key" attr="@Model.CheckItem(item1)" name="@item1.Key" />
+                        <az-checkbox label="@item1.Name" value="@item1.Code" id="@item1.KeyName" attr="@Model.CheckItem(item1)" name="@item1.KeyName" />
                     </span>
                 }
             </td>

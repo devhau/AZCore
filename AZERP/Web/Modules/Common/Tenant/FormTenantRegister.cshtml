@@ -1,0 +1,25 @@
+﻿@model FormTenantRegister
+    <az-layout class="container-fluid w-80" style="max-width:800px;padding:20px;border:1px solid #0094ff;background:#eee;  margin-top:10px; border-radius:3px;">
+        <h5 class="text-center text-bold" >Đăng ký cửa hàng mới</h5>
+        <div class="az-update row" role="form">
+            <az-group-input group-name="Tenant">
+                <div class="col-md-12 form-group">
+                    <az-text-model model="Model.TenantModel" func="(item)=>((TenantModel)item).Name" label="Tên cửa hàng" />
+                </div>
+                <div class="col-md-12 form-group">
+                    <az-text-model func="(item)=>((TenantModel)item).Email" label="Email" />
+                </div>
+                <div class="col-md-12 form-group">
+                    <az-number-model model="Model.TenantModel" type="OnlyNumber" func="(item)=>((TenantModel)item).Phone" label="Số điện thoại" />
+                </div>
+                <div class="col-md-12 form-group">
+                    <az-text-model model="Model.TenantModel" func="(item)=>((TenantModel)item).CanonicalName" label="Của hàng" addon-after=".onpos.com" />
+                </div>       
+            </az-group-input>
+            <az-group-input group-name="User" is-show="!Model.IsAuth">
+                <div class="col-md-12 form-group">
+                    <az-password-model func="(item)=>((UserModel)item).Password" label="Mật khẩu" />
+                </div>
+            </az-group-input>
+        </div>
+    </az-layout>

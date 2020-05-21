@@ -3,7 +3,7 @@ using AZCore.Database.Attributes;
 
 namespace AZCore.Identity
 {
-    [TableInfo(TableName = "az_role")]
+    [TableInfo(TableName = "az_common_role")]
     public class AZRole<TEntity> : EntityModel<TEntity, long> where TEntity: AZRole<TEntity>
     {
         [FieldDisplay]

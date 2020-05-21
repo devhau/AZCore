@@ -4,7 +4,7 @@ using System;
 
 namespace AZCore.Identity
 {
-    [TableInfo(TableName = "az_tenant")]
+    [TableInfo(TableName = "az_common_tenant")]
     public class AZTenant<TEntity> : EntityModel<TEntity, long>, ITenant
         where TEntity : AZTenant<TEntity>
     {

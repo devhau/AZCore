@@ -14,7 +14,7 @@ namespace AZERP.Data.Entities
     /// <summary>
     /// Thông tin của nhóm sản phẩm
     /// </summary>
-    [TableInfo(TableName = "az_module")]
+    [TableInfo(TableName = "az_common_module")]
     public class ModuleModel : EntityModel<ModuleModel, long>
     {
         /// <summary>
@@ -29,7 +29,7 @@ namespace AZERP.Data.Entities
         [Field(Length = 500)]
         public string Code { get; set; }
     }
-    [TableInfo(TableName = "az_module_permssion")]
+    [TableInfo(TableName = "az_common_module_permssion")]
     public class ModulePermssionModel : IEntity
     {
         [Field(IsKey = true)]

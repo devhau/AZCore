@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace AZERP.Web.Modules.Hotel.CommonService
 {
-    [TableColumn(Title = "Mã dịch vụ ", FieldName = "CommonServiceID", Width = 180)]
+    [TableColumn(Title = "Mã dịch vụ ", FieldName = "CommonServiceCode", Width = 180)]
     [TableColumn(Title = "Tên dịch vụ", FieldName = "CommonServiceName", Width = 180)]
     [TableColumn(Title = "Đơn giá", FieldName = "Price", Width = 180)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]

@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<az-script module="HotelService.js"/>
+<az-layout script-random='(id)=>$"HotelService(\".{id}\");"'>
+    <h1>Tên phòng</h1>
+    <az-common-service-select null-text="Chọn dịch vụ" />
+
+    <form >
+    <table>
+        <thead>
+            <tr>
+                <th>Mã dịch vụ</th>
+                <th>tên dịch vụ</th>
+                <th>Đơn giá/th>
+            </tr>
+        </thead>>
+        <tbody>
+            <tr>
+                <td>003</td>
+                <td>Tiền mạng</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>Tiền mạng</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>Tiền mạng</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>Tiền mạng</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>Tiền mạng</td>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>Tiền mạng</td>
+                <td><input type="text" /></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+    </form>
+    <az-button text="Lưu " class="btn-luu" />
+</az-layout>

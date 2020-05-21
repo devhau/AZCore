@@ -21,12 +21,6 @@ namespace AZERP.Data.Entities
     public class TypeOfHotelModel : EntityModel<TypeOfHotelModel, long>
     {
         /// <summary>
-        /// Mã loại phòng trọ
-        /// </summary>
-        [FieldAutoGenCode(Key = SystemCode.TypeOfHotelCode)]
-        [Field(Length = 500)]
-        public string TypeOfHotelID { get; set; }
-        /// <summary>
         /// Tên loại phòng trọ
         /// Ví dụ : 15m2, 25m2, 50m2, 100m2
         /// </summary>

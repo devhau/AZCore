@@ -52,7 +52,7 @@ namespace AZERP.Data.Entities
             return GetGenCode((SystemCode)Key, TenantId);
         }
     }
-    [TableInfo(TableName = "az_system_code")]
+    [TableInfo(TableName = "az_common_system_code")]
     public class SystemCodeModel : EntityModel<SystemCodeModel,long>
     {
         /// <summary>

@@ -46,6 +46,7 @@ namespace AZWeb.Module.Common
         IHtmlContent GetContent();
         string GetName();
         string GetSetting();
+        WidgetSetting GetSettingObject();
         IWidget SetSetting(string setting);
         IWidget DoSetting(Action<IWidget> acction=null);
     }
@@ -90,7 +91,7 @@ namespace AZWeb.Module.Common
         RenderView renderView { get; }
         public string Title { get; set; } 
         public object Value { get; set; }
-        public long Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public long Id { get; set; }
 
         public WidgetBase(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
@@ -106,7 +107,7 @@ namespace AZWeb.Module.Common
         }
         public virtual string LayoutWidget(string layoutContent) {
             StringBuilder widget = new StringBuilder();
-            widget.AppendFormat("<div class=\"{0} az-widget \">", GetWidth(this.Setting.WidthClass));
+            widget.AppendFormat("<div class=\"{0} az-widget \" widget-id=\"{1}\">", GetWidth(this.Setting.WidthClass),this.Id);
             if (this.Setting.Type == WidgetType.InfoBox)
             {
                 widget.AppendFormat("<div class=\"info-box {0}\">", this.Setting.BackgroundColorClass);
@@ -122,7 +123,7 @@ namespace AZWeb.Module.Common
                     </button>
                     <div class='dropdown-menu dropdown-menu-right' role='menu' x-placement='bottom-end' style='position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(46px, 19px, 0px);'>
                       <a href='#' class='dropdown-item'>Làm mới</a>
-                      <a href='#' class='dropdown-item'>Thiết lập</a>
+                      <a href='#' class='dropdown-item az-widget-setting'>Thiết lập</a>
                     </div>
                   </div>");
                 widget.Append("</div>");
@@ -169,6 +170,9 @@ namespace AZWeb.Module.Common
         {
 
         }
+        public string getTitle() {
+            return "Thiết lập : " + this.Setting?.Title; 
+        }
         public IView GetViewSetting() {
             return View("Setting");
         }
@@ -206,6 +210,11 @@ namespace AZWeb.Module.Common
         public string GetName()
         {
             return string.Format("<i class=\"{0}\"/> {1}",this.Setting?.Icon,this.Setting?.Title);
+        }
+
+        public WidgetSetting GetSettingObject()
+        {
+            return this.Setting;
         }
 
 

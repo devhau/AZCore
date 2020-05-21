@@ -1,4 +1,6 @@
-﻿using AZCore.Database.Enums;
+﻿using AZCore.Database.Attributes;
+using AZCore.Database.Enums;
+using AZCore.Extensions;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -50,10 +52,17 @@ namespace AZCore.Database.SQL
             return new QuerySQL(_type);
         }
         #endregion
-        
+        public QuerySQL SetTable<TEntity>()
+        {
+            return SetTable(typeof(TEntity).GetAttribute<TableInfoAttribute>().TableName);
+        }
         public QuerySQL SetTable(string name) {
             this.TableName = name;
             return this;
+        }
+        public QuerySQL Join<TEntity>(Func<string, string, string> whereJoin, JoinType joinType = JoinType.InnerJoin) 
+        {
+            return Join(typeof(TEntity).GetAttribute<TableInfoAttribute>().TableName,whereJoin, joinType);
         }
         public QuerySQL Join(string nameTable, Func<string, string, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
         {
@@ -63,6 +72,10 @@ namespace AZCore.Database.SQL
                 JoinType = joinType,
             });
             return this;
+        }
+        public QuerySQL Join<TEntity, TEntity2>(Func<string, string, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
+        {
+            return Join(typeof(TEntity).GetAttribute<TableInfoAttribute>().TableName, typeof(TEntity2).GetAttribute<TableInfoAttribute>().TableName, whereJoin, joinType);
         }
         public QuerySQL Join(string nameTable, string nameTable2, Func<string, string, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
         {
@@ -92,7 +105,6 @@ namespace AZCore.Database.SQL
         }
         public QuerySQL AddHaving(string column, object value, OperatorSQL _operator = OperatorSQL.EQUAL)
         {
-
             this.SqlHaving.Add(new ColumnValue(column, value, _operator));
             return this;
 

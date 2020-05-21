@@ -1,4 +1,4 @@
-﻿function AZPopup() {
+﻿function AZPopup(options) {
 	let $this = this;
 	$this.scope = "popup"+ Math.ceil(Math.random() * 10)
 	$this.template = '<div class="az-modal modal fade show"  style="display: block;" aria-modal="true">\
@@ -87,7 +87,9 @@
 		if (!PopupMain.isEmpty()) {
 			PopupMain.Current().focusPopup();
 		}
+		if (options && options.eventClose !== undefined) options.eventClose();
 		HotKeyMain.Init();
+		
 	}
 	$this.focusPopup = function () {
 		$($this.Modal).focus();

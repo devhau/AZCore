@@ -17,17 +17,17 @@ namespace AZERP.Data.Entities
     /// Thông tin dịch vụ cho phòng
     /// </summary>
 
-    [TableInfo(TableName = "az_hotel_commonservice")]
+    [TableInfo(TableName = "az_hotel_common_service")]
     public class CommonServiceModel : EntityModel<CommonServiceModel, long>
     {
         /// <summary>
-        /// Mã dịch vụ cho khu vực
+        /// Mã dịch vụ chung
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.CommonServiceCode)]
-        [Field(Length = 500)]
-        public string CommonServiceID { get; set; }
+        [Field]
+        public string CommonServiceCode { get; set; }
         /// <summary>
-        /// Tên dịch vụ cho khu vực
+        /// Tên dịch vụ chung
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
