@@ -1,9 +1,6 @@
 ﻿using AZCore.Types;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Web;
 
 namespace AZCore.Extensions
@@ -31,12 +28,7 @@ namespace AZCore.Extensions
         /// <param name="typeObj"></param>
         /// <param name="noRemoveXss"></param>
         /// <returns></returns>
-        public static object ToType(this object obj,Type typeObj,bool noRemoveXss=false) {
-            if (noRemoveXss==false&& obj!=null)
-            {
-                Regex rRemScript = new Regex(@"<script[^>]*>[\s\S]*?</script>");
-                obj = rRemScript.Replace(obj.ToString(), "");
-            }
+        public static object ToType(this object obj,Type typeObj) {
             var typeConvert = SqlTypeDescriptor.Inst.GetConverter(typeObj);
             return typeConvert.ConvertFrom(obj);
         }
