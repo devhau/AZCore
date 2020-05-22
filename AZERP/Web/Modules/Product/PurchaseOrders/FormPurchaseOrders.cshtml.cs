@@ -8,6 +8,7 @@ using AZWeb.Module;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
+using AZWeb.Module.TagHelper.Module;
 using Microsoft.AspNetCore.Http;
 using Org.BouncyCastle.Asn1.Mozilla;
 using System;
@@ -77,6 +78,17 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
 
         public FormPurchaseOrders(IHttpContextAccessor httpContext) : base(httpContext)
         {
+        }
+
+        protected override IEnumerable<ButtonInfo> CreateButtons() {
+
+            yield return new ButtonInfo() {            
+                 ClassName= "btn btn-success btn-sm az-btn az-btn-add",
+                 CMD= "f1",
+                 PermisisonCode=this.ModuleInfo?.AddCode,
+                 Icon= "far fa-plus-square",
+                 Text= "Thêm Mới Đơn Hàng (F1)"
+            };
         }
 
         public override List<PurchaseOrderModel> GetSearchData()
@@ -269,6 +281,16 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
             }
         }
 
+        public IView GetPayment(){
+            this.Title = "Thanh toán";
+            this.Html.Icon="fas fa-dollar-sign";
+            return View("UpdatePayment");
+        }
+
+        public IView PostPayment() {
+            return Json("Thanh cong");
+        }
+
         [OnlyAjax]
         public IView GetCommit()
         {
@@ -277,12 +299,13 @@ namespace AZERP.Web.Modules.Product.PurchaseOrders
             UserModel = this.userService.Select(p => p.Id == DataCurrent.CreateBy).FirstOrDefault();
             listDataOrder = this.purchaseOrderProductService.Select(p => p.PurchaseOrderId == this.Id).ToList();
             this.Title = "Duyệt hóa đơn";
+            this.Html.Icon = "fas fa-check-double";
             return View("UpdatePurchaseOrders");
 
         }
 
         [OnlyAjax]
-        public IView PostCommit(long commit)
+        public IView PostCommit([BindForm]long commit)
         {
             if(commit != 1 && commit != 2)
             {

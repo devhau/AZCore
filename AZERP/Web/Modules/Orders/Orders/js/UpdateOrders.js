@@ -31,4 +31,34 @@
 
         })
     });
+
+    $(".az-btn-payment").on("click", function (e) {
+        if (e.stopPropagation) e.stopPropagation();
+        if (e.preventDefault) e.preventDefault();
+        let ModalSize = $(this).attr("modal-size");
+        let reload = $(this).attr("reload");
+        let LinkHref = $(this).attr("href");
+        let link = $(this).attr("href");
+        if (LinkHref.indexOf("?") > 0) {
+            LinkHref += "&ActionType=popup"
+        } else
+            LinkHref += "?ActionType=popup"
+        let listIdProduct = $(".az-commit-order .az-data-table tbody tr td input[type='hidden']").map(function () { return $(this).attr("value"); }).get();
+        AjaxMain.DoGet(LinkHref, { data: listIdProduct.join(",") }, function (item) {
+            if (item.statusCode && item.statusCode === 401) {
+                return;
+            }
+            let popup = new AZPopup();
+            popup.ClearButton();
+            popup.setHtml(item.html);
+            popup.setTitle(item.title);
+            popup.setLink(link);
+            popup.ModalSize = ModalSize;
+            popup.ShowPopup(function () {
+                if (reload && reload === 'true') {
+                    $this.loadHtml(location.href);
+                }
+            });
+        });
+    })
 }

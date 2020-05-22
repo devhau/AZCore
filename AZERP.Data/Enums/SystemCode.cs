@@ -40,6 +40,10 @@ namespace AZERP.Data.Enums
         SupplierCode,
         [Field(Display = "Mã kho", Name = "KHO", Length = 5)]
         StoreCode,
+        [Field(Display = "Mã phiếu thu", Name = "PThu", Length = 7)]
+        CashFlowInCode,
+        [Field(Display = "Mã phiếu chi", Name = "PChi", Length = 7)]
+        CashFlowOutCode,
         [Field(Display = "Hợp đồng nhà trọ", Name = "HDNT", Length = 5)]
         ContractCode,
         [Field(Display = "Hóa đơn tổng", Name = "HDT", Length = 5)]

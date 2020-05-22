@@ -71,6 +71,8 @@ namespace AZERP.Web.Modules.Orders.Orders
         public long Id { get; set; }
         [BindForm]
         public List<PurchaseOrderProductModel> ListDataOrder { get; set; }
+        [BindForm]
+        public decimal Money { get; set; }
 
         public UserModel UserModel;
         public CustomersModel CustomersModel;
@@ -127,6 +129,58 @@ namespace AZERP.Web.Modules.Orders.Orders
         protected override void IntData()
         {
             this.Title = "Hóa đơn";
+        }
+
+        [OnlyAjax]
+        public IView GetPayment(string data)
+        {
+            decimal money = 0;
+            foreach (var item in data.Split(","))
+            {
+                var orderDetail = this.purchaseOrderProductService.Select(p => p.Id == item.To<long>()).First();
+                money += (orderDetail.ImportNumber * orderDetail.ImportPrice);
+            }
+            this.Money = money;
+            this.Title = "Xác nhận thanh toán";
+            return View("UpdatePayment");
+        }
+
+        [OnlyAjax]
+        public IView PostPayment([BindForm] string money)
+        {
+            var data = this.Service.GetById(this.Id);
+            var result = entityTransaction.DoTransantion<PurchaseOrderService, CashFlowService, CashFlowOrdersService>((t, t1, t2, t3) =>
+                {
+                    var cashFlowIn = new CashFlowModel();
+                    cashFlowIn.Code = "Pthu";
+                    cashFlowIn.PartnerId = data.PartnerId;
+                    cashFlowIn.Money = money.To<decimal>();
+                    cashFlowIn.Type = OrderType.In;
+                    cashFlowIn.PartnerType = PartnerType2.Customer;
+                    cashFlowIn.CreateAt = DateTime.Now;
+                    var cashFlowId = t2.Insert(cashFlowIn);
+
+                    var cashFlowOrder = new CashFlowOrdersModel();
+                    cashFlowOrder.CashFlowId = cashFlowId;
+                    cashFlowOrder.OrderId = this.Id;
+                    cashFlowOrder.RealMoney = money.To<decimal>();
+                    cashFlowOrder.CreateDate = DateTime.Now;
+                    t3.Insert(cashFlowOrder);
+
+                    data.PurchaseOrderPayment = OrderPayment.Paid;
+                    data.UpdateAt = DateTime.Now;
+                    if (data.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.Export)
+                    {
+                        data.PurchaseOrderStatus = OrderStatus.Complete;
+                        data.CompleteOn = DateTime.Now;
+                    }
+                    t1.Update(data);
+                });
+            if (result) {
+                return Json("Thực hiện thanh toán thành công", System.Net.HttpStatusCode.OK);
+            } else {
+                return Json("Không thành công", System.Net.HttpStatusCode.BadRequest);
+            }
         }
 
         public override IView GetUpdate(long? Id)
@@ -307,13 +361,14 @@ namespace AZERP.Web.Modules.Orders.Orders
             return View("UpdateOrders");
 
         }
+        
         /// <summary>
         /// Duyệt hóa đơn
         /// </summary>
         /// <param name="commit"></param>
         /// <returns></returns>
         [OnlyAjax]
-        public IView PostCommit(long commit)
+        public IView PostCommit([BindForm]long commit)
         {
             if(commit != 1 && commit != 2)
             {
