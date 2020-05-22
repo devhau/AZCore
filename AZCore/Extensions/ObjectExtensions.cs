@@ -32,7 +32,7 @@ namespace AZCore.Extensions
         /// <param name="noRemoveXss"></param>
         /// <returns></returns>
         public static object ToType(this object obj,Type typeObj,bool noRemoveXss=false) {
-            if (noRemoveXss)
+            if (noRemoveXss==false&& obj!=null)
             {
                 Regex rRemScript = new Regex(@"<script[^>]*>[\s\S]*?</script>");
                 obj = rRemScript.Replace(obj.ToString(), "");
