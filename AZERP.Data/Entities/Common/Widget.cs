@@ -14,7 +14,7 @@ namespace AZERP.Data.Entities
     /// <summary>
     /// Thông tin của widget
     /// </summary>
-    [TableInfo(TableName = "az_widget")]
+    [TableInfo(TableName = "az_common_widget")]
     public class WidgetModel : EntityModel<WidgetModel, long>
     {
         /// <summary>

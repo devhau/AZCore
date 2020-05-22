@@ -12,15 +12,15 @@ namespace AZWeb.Module.TagHelper.Module
         public Func<string, string> ScriptRandom { get; set; }
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
-            output.TagName = "div";
             if (ScriptRandom != null)
             {
                 this.AddJS(ScriptRandom(this.TagId));
             }
-            output.Attributes.Add(new TagHelperAttribute("class", string.Format(" {0} ",this.TagClass)));
-            output.Attributes.Add(new TagHelperAttribute("class", string.Format(" {0} ", this.TagId)));
+
+            htmlBuild.AppendFormat("<div class=\"{0} \" {1}>", this.TagClass, this.Attr);
             var content = await output.GetChildContentAsync();
             htmlBuild.Append(content.GetContent());
+            htmlBuild.Append("</div>");
         }
     }
 }

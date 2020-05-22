@@ -24,8 +24,8 @@ namespace AZERP.Data.Entities
         /// Mã khu vực/ tòa nhà
         /// </summary>
         [FieldAutoGenCode(Key =SystemCode.AreaCode)]
-        [Field(Length = 500)]
-        public string AreaID { get; set; }
+        [Field]
+        public string AreaCode { get; set; }
         /// <summary>
         /// Tên khu vực/ tòa nhà
         /// </summary>

@@ -143,7 +143,7 @@ var LongPollingTransport = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, , 8, 9]);
+                        _a.trys.push([0, 8, 9]);
                         _a.label = 1;
                     case 1:
                         if (!this.running) return [3 /*break*/, 7];
@@ -153,7 +153,7 @@ var LongPollingTransport = /** @class */ (function () {
                         this.updateHeaderToken(pollOptions, token);
                         _a.label = 3;
                     case 3:
-                        _a.trys.push([3, 5, , 6]);
+                        _a.trys.push([3, 5, 6]);
                         pollUrl = url + "&_=" + Date.now();
                         this.logger.log(LogLevel.Trace, "(LongPolling transport) polling: " + pollUrl + ".");
                         return [4 /*yield*/, this.httpClient.get(pollUrl, pollOptions)];
@@ -238,7 +238,7 @@ var LongPollingTransport = /** @class */ (function () {
                         this.pollAbort.abort();
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, , 5, 6]);
+                        _a.trys.push([1, 5, 6]);
                         return [4 /*yield*/, this.receiving];
                     case 2:
                         _a.sent();

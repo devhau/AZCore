@@ -3,7 +3,7 @@ using AZCore.Database.Attributes;
 
 namespace AZCore.Identity
 {
-    [TableInfo(TableName = "az_role_permission")]
+    [TableInfo(TableName = "az_common_role_permission")]
     public class AZRolePermission<TEntity> : IEntity
     {
         [Field(IsKey =true)]

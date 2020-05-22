@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace AZCore.Database.Attributes
 {
@@ -11,6 +9,8 @@ namespace AZCore.Database.Attributes
         public bool IsAutoIncrement { get; set; } = false;
         public bool IsKey { get; set; } = false;
         public string Name { get; set; }
+        public string GroupName { get; set; }
+        public int GroupIndex { get; set; }
         public string Display { get; set; }
         public SqlDbType? FieldType { get; set; }
         public bool IsNull { get; set; } = true;

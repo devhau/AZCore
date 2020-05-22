@@ -1,14 +1,15 @@
 ﻿function ViewPermission($id, callback) {
     var flgCheck = false;
-    $($id).find(".all-permission").off("change")
-    $($id).find(".all-permission").on("change", function () {
+    $($id).find(".az-module-perssion h3 input").off("change")
+    $($id).find(".az-module-perssion h3 input").on("change", function () {
         if (flgCheck) return;
         flgCheck = true;
         var ck = $(this).is(":checked");
-        $(this).parents("tr").find(".az-permission-child input").prop('checked', ck);
-        var codes=""
-        $(this).parents("tr").find(".az-permission-child input").each(function (i, el) {
-            codes += $(this).val()+ ","
+        $(this).parents(".az-module-perssion").find("ul input").prop('checked', ck);
+        $(this).parents(".az-module-perssion").find("ul input").prop('disabled', ck === false);
+        var codes = $(this).val();
+        $(this).parents(".az-module-perssion").find("ul input").each(function (i, el) {
+            codes += "," + $(this).val()
         })
         UrlMain.DoPost(PopupMain.Current().link, { Codes: codes, flg: ck }, function (item) {
             if (item.statusCode == 200)
@@ -18,8 +19,8 @@
         });
         flgCheck = false;
     });
-    $($id).find(".az-permission-child input").off("change");
-    $($id).find(".az-permission-child input").on("change", function () {
+    $($id).find(".az-module-perssion ul input").off("change");
+    $($id).find(".az-module-perssion ul input").on("change", function () {
        
         if (flgCheck) return;
         flgCheck = true;

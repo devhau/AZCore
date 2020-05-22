@@ -17,28 +17,32 @@ namespace AZERP.Data.Entities
     /// Thông tin của hóa đơn cố định
     /// </summary>
 
-    [TableInfo(TableName = "az_hotel_fixedbill")]
+    [TableInfo(TableName = "az_hotel_fixed_bill")]
     public class FixedBillModel : EntityModel<FixedBillModel, long>
     {
         /// <summary>
-        /// Mã hóa đơn
+        /// Mã hóa đơn cố định
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.FixedBillCode)]
-        [Field(Length = 500)]
-        public string FixedBillID { get; set; }
+        [Field]
+        public string FixedBillCode { get; set; }
         /// <summary>
-        /// Tên hóa đơn
-        /// ví dụ: tháng 3-2020
+        /// Mã hợp đồng
         /// </summary>
-        [Field(Length = 500)]
-        public string FixedBillName { get; set; }
+        [Field]
+        public long ContractID { get; set; }
+        /// <summary>
+        /// Mã chủ nhà
+        /// </summary>
+        [Field]
+        public long BossID { get; set; }
         /// <summary>
         /// Mã người thuê trọ
         /// </summary>
         [Field]
         public long RenterID { get; set; }
         /// <summary>
-        /// Mã chi phí
+        /// Tiền phòng
         /// </summary>
         [Field]
         public decimal RoomCharge { get; set; }

@@ -15,7 +15,7 @@ namespace AZERP.Data.Enums
         [Field(Display = "Phòng trọ", Name = "PT", Length = 5)]
         HotelCode,
         [Field(Display = "Dịch vụ của khu vực", Name = "DVKH", Length = 5)]
-        RegionalService,
+        AreasService,
         [Field(Display = "Người thuê trọ", Name = "NTT", Length = 5)]
         RenterCode,
         [Field(Display = "Dịch vụ phòng", Name = "DVP", Length = 5)]
@@ -43,6 +43,12 @@ namespace AZERP.Data.Enums
         [Field(Display = "Mã phiếu thu", Name = "PThu", Length = 7)]
         CashFlowInCode,
         [Field(Display = "Mã phiếu chi", Name = "PChi", Length = 7)]
-        CashFlowOutCode
+        CashFlowOutCode,
+        [Field(Display = "Hợp đồng nhà trọ", Name = "HDNT", Length = 5)]
+        ContractCode,
+        [Field(Display = "Hóa đơn tổng", Name = "HDT", Length = 5)]
+        TotalBillCode,
+        [Field(Display = "Thanh toán", Name = "TT", Length = 5)]
+        PaymentCode
     }
 }

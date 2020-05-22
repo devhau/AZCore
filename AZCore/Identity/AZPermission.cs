@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace AZCore.Identity
 {
-    [TableInfo(TableName ="az_permission")]
+    [TableInfo(TableName = "az_common_permission")]
     public class AZPermission<TEntity> : IEntity
     {
         [Field]
-        public string Key { get; set; }
+        public string KeyName { get; set; }
         [Field(IsKey =true,Length =50)]
         public string Code { get; set; }
         [Field(Length =128)]

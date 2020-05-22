@@ -1,7 +1,7 @@
 ﻿@model FormUpdateHotel
     <div class="az-update row" id="FormUpdateHotel" role="form">
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((HotelModel)item).HotelID" label="Mã phòng trọ" attr="autofocus" />
+            <az-text-model model="Model.Data" func="(item)=>((HotelModel)item).HotelCode" label="Mã phòng trọ" attr="autofocus" />
         </div>
         <div class="form-group col-md-6">
             <az-text-model model="Model.Data" func="(item)=>((HotelModel)item).HotelName" label="Tên phòng trọ" />
@@ -19,7 +19,7 @@
             <az-text-model model="Model.Data" func="(item)=>((HotelModel)item).RoomCharge" label="Tiền phòng" />
         </div>
         <div class="form-group col-md-12">
-            <az-text-area-model model="Model.Data" func="(item)=>((HotelModel)item).HotelStatus" label="Ghi chú" />
+            <az-text-area-model model="Model.Data" func="(item)=>((HotelModel)item).Note" label="Ghi chú" />
         </div>
     </div>
 <az-script>
