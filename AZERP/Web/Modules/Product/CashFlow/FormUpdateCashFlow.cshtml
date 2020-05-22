@@ -1,0 +1,128 @@
+﻿@model FormCashFlow
+<az-script module="CashFlow.js" />
+<az-layout class="az-update row az-update-cashFlow">
+
+    <div class="az-update row" id="FormUpdateCashFlow" role="form">
+        <div class="row">
+            <div class="form-group col-md-12">
+                <div class="card" style="height: 100%">
+                    <div class="card-header">Thông tin Phiếu Thu</div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <az-text-model is-enable="Model.DataCurrent == null" model="Model.DataCurrent" func="(item)=>((CashFlowModel)item).Code" label="Mã đơn nhập hàng" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                @*<az-date-model is-enable="Model.DataCurrent == null" model="Model.DataCurrent" func="(item)=>((CashFlowModel)item).PaymentDate" label="Ngày Thu " />*@
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <az-number-model is-enable="Model.DataCurrent == null" model="Model.DataCurrent" func="(item)=>((CashFlowModel)item).Money" label="Số Tiền Thu" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="card" style="height: 100%">
+                    <div class="card-header">Khách hàng</div>
+                    <div class="card-body">
+                        <az-customer-select is-show="@(Model.CanEdit)" model="Model.DataCurrent" func="(item)=>((CashFlowModel)item).PartnerId" where-func="(item)=>((CustomersModel)item).CustomersStatus == true" class="customerClass" null-text="Chọn khách hàng" />
+                        <div class="list-info-customer">
+                            <div class="list-info-header">
+                                @(Model.DataCurrent == null ? "" : Model.CustomersModel.FullName)
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="list-info-item">
+                                        <div class="list-info-item-header">ĐỊA CHỈ NHẬN HÀNG</div>
+                                        <div class="list-info-item-content">@(Model.DataCurrent == null ? "" : Model.CustomersModel.Address)</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="list-info-item">
+                                        <div class="list-info-item-header">SỐ ĐIỆN THOẠI LIÊN HỆ</div>
+                                        <div class="list-info-item-content">@(Model.DataCurrent == null ? "" : Model.CustomersModel.PhoneNumber)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        Chi Tiết Phiếu Thu
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <az-date-model ID="InputCreateAt" label="Ngày Thu " />
+                            </div>
+                            <div class="col-md-4">
+                                <az-number-model ID="InputRealMoney" label="Số Tiền Thực Thu" />
+                            </div>
+                            <div class="col-md-4">
+                                <az-button class="btn btn-success az-btn az-btn-update btnUpdateDetail" text="Thêm Chi Tiết" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" style="margin-top: 1rem">
+                                <div class="az-data-table">
+                                    <table class="table table-bordered table-hover az-table " role="grid">
+                                        <thead>
+                                            <tr>
+                                                <td>Ngày Thực Thu</td>
+                                                <td>Số Tiền Thực Thu</td>
+                                                @if (Model.CanEdit)
+                                                {
+                                                    <td></td>
+                                                }
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.DataCurrent != null)
+                                            {
+                                                @foreach (var item in Model.ListCashDetailModel)
+                                                {
+                                                    var input = "<input type='hidden' name='ListDataOrder[].ProductId' value='" + item.Id + "' />";
+                                                    <tr>
+                                                        <td>
+
+                                                            @*<label name="ListCashDetailModel[].RealPaymentDate">@item.CreateAt</label>*@
+
+                                                        </td>
+                                                        <td><label name="ListCashDetailModel[].RealMoney">@String.Format("{0:#,###}", @item.RealMoney)</label></td>
+                                                        @if (Model.CanEdit)
+                                                        {
+                                                            <td><a href='javascript:'><i class='fa fa-minus-circle'></i></a></td>
+                                                        }
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <span>Tổng Tiền:</span><label class="lbTotalMoney">@String.Format("{0:#,###}", Model.totalMoney)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</az-layout>
+
