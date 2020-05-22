@@ -53,6 +53,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Web\Modules\Product\PurchaseOrders\UpdatePurchaseOrders.cshtml" />
+    <Content Include="Web\Modules\Product\PurchaseOrders\UpdatePayment.cshtml" />
     <None Include="Web\Modules\Product\PurchaseOrders\js\UpdatePurchaseOrders.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
