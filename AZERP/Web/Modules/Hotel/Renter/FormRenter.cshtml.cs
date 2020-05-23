@@ -7,12 +7,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AZERP.Web.Modules.Hotel.Renter
 {
-    [TableColumn(Title = "Mã người thuê ", FieldName = "RenterCode", Width = 150)]
-    [TableColumn(Title = "Tên người thuê", FieldName = "RenterName", Width = 150)]
-    [TableColumn(Title = "Địa chỉ", FieldName = "Address", Width = 300)]
+    [TableColumn(Title = "Mã Người Thuê ", FieldName = "RenterCode", Width = 150)]
+    [TableColumn(Title = "Tên Người Thuê", FieldName = "RenterName", Width = 150)]
+    [TableColumn(Title = "Địa Chỉ", FieldName = "Address", Width = 300)]
     [TableColumn(Title = "Số CMND/CCCD", FieldName = "CMND", Width = 200)]
-    [TableColumn(Title = "Số điện thoại", FieldName = "Tel", Width = 200)]
-    [TableColumn(Title = "Ghi chú", FieldName = "Note")]
+    [TableColumn(Title = "Số Điện Thoại", FieldName = "Tel", Width = 200)]
+    [TableColumn(Title = "Ghi Chú", FieldName = "Note")]
 
     public class FormRenter : ManageModule<RenterService, RenterModel, FormUpdateRenter>
     {
@@ -28,12 +28,7 @@ namespace AZERP.Web.Modules.Hotel.Renter
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string Address { get; set; }
         /// <summary>
-        /// Địa chỉ
-        /// </summary>
-        [QuerySearch]
-        public int? CMND { get; set; }
-        /// <summary>
-        /// Địa chỉ
+        /// Số điện thoại
         /// </summary>
         [QuerySearch]
         public int? Tel { get; set; }
@@ -44,7 +39,7 @@ namespace AZERP.Web.Modules.Hotel.Renter
         }
         protected override void IntData()
         {
-            this.Title = "Quản lý người thuê trọ";
+            this.Title = "Danh Sách Người Thuê Trọ";
         }
     }
 }

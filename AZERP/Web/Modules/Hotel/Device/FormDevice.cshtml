@@ -12,7 +12,10 @@
                     <form class="az-search-form row">
                         <az-hidden-model model="Model" func="(item)=>((FormDevice)item).PageSize" />
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormDevice)item).DeviceName" label="Tên Thiết Bị" />
+                            <az-hotel-select model="Model" func="(item)=>((FormDevice)item).HotelID" label="Phòng" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-device-common-select model="Model" func="(item)=>((FormDevice)item).DeviceName" label="Thiết Bị" />
                         </div>
                     </form>
                 </div>

@@ -1,6 +1,7 @@
 ﻿using AZCore.Database.Enums;
 using AZCore.Extensions;
 using AZERP.Data.Entities;
+using AZERP.Data.Enums;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
@@ -10,30 +11,46 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.Contract
 {
-    [TableColumn(Title = "Mã hợp đồng ", FieldName = "ContractCode", Width = 150)]
-    [TableColumn(Title = "Tên hợp đồng", FieldName = "ContractName", Width = 150)]
-    [TableColumn(Title = "Chủ nhà", FieldName = "BossID",  Width = 150)]
-    [TableColumn(Title = "Người thuê nhà", FieldName = "RenterID", DataType = typeof(RenterService), Width = 200)]
-    [TableColumn(Title = "Phòng trọ", FieldName = "HotelID" , Width = 150)]
-    [TableColumn(Title = "Tiền đặt cọc", FieldName = "Deposit", Width = 150)]
-    [TableColumn(Title = "Số bạn cùng phòng", FieldName = "Quantity", Width = 200)]
-    [TableColumn(Title = "Loại hợp đồng", FieldName = "TypeOfContract" , Width = 150)]
-    [TableColumn(Title = "Thời gian bắt đầu", FieldName = "TimeStart", Width = 200)]
-    [TableColumn(Title = "Thời gian kết thúc", FieldName = "TimeEnd", Width = 200)]
-    [TableColumn(Title = "Trạng thái hợp đồng", FieldName = "ContractStatus", Width = 200)]
-    [TableColumn(Title = "Ghi chú", FieldName = "Note", Width = 75)]
+    [TableColumn(Title = "Mã Hợp Đồng ", FieldName = "ContractCode", Width = 150)]
+    [TableColumn(Title = "Tên Hợp Đồng", FieldName = "ContractName", Width = 150)]
+    [TableColumn(Title = "Chủ Nhà", FieldName = "BossID",  Width = 150)]
+    [TableColumn(Title = "Người Thuê Nhà", FieldName = "RenterID", DataType = typeof(RenterService), Width = 200)]
+    [TableColumn(Title = "Phòng Trọ", FieldName = "HotelID" , DataType = typeof(HotelService), Width = 150)]
+    [TableColumn(Title = "Tiền Đặt Cọc", FieldName = "Deposit", Width = 150)]
+    [TableColumn(Title = "Số Bạn Cùng Phòng", FieldName = "Quantity", Width = 200)]
+    [TableColumn(Title = "Loại Hợp Đồng", FieldName = "TypeOfContract" , DataType = typeof(TypeOfContract), Width = 150)]
+    [TableColumn(Title = "Thời Gian Bắt Đầu", FieldName = "TimeStart", Width = 200)]
+    [TableColumn(Title = "Thời Gian Kết Thúc", FieldName = "TimeEnd", Width = 200)]
+    [TableColumn(Title = "Trạng Thái Hợp Đồng", FieldName = "ContractStatus", DataType = typeof(TypeOfContractStatus), Width = 200)]
+    [TableColumn(Title = "Ghi Chú", FieldName = "Note", Width = 75)]
 
     public class FormContract : ManageModule<ContractService, ContractModel, FormUpdateContract>
     {
         #region -- Field Search --
         /// <summary>
-        /// Tên khu vực
+        /// Mã Hợp Đồng
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public long ContractCode { get; set; }
+        public long? ContractCode { get; set; }
+        /// <summary>
+        /// Tên Hợp Đồng
+        /// </summary>
+        [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
+        public string ContractName { get; set; }
+        /// <summary>
+        /// Phòng Trọ
+        /// </summary>
+        [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
+        public long? HotelID { get; set; }
+        /// <summary>
+        /// Người Thuê Nhà
+        /// </summary>
+        [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
+        public long? RenterID { get; set; }
+
         #endregion
 
- 
+
         public FormContract(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }

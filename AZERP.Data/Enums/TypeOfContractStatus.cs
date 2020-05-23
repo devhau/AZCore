@@ -7,8 +7,7 @@ namespace AZERP.Data.Enums
 {
     public enum TypeOfContractStatus : int
     {
-        [Field(Display = "Chưa hoạt động")] chuaHD = 0,//Default
-        [Field(Display = "Đang hoạt động")] dangHD = 1,
-        [Field(Display = "Kết thúc")] ketthuc = 2,
+        [Field(Display = "Đang hoạt động")] dangHD = 0,
+        [Field(Display = "Kết thúc")] ketthuc = 1,
     }
 }

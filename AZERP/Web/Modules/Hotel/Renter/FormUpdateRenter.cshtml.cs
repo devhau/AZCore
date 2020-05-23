@@ -11,7 +11,7 @@ namespace AZERP.Web.Modules.Hotel.Renter
         }
         protected override void IntData()
         {
-            this.Title = "Người thuê trọ";
+            this.Title = "Người Thuê Trọ";
         }
 
     }

@@ -66,7 +66,7 @@ namespace AZERP.Data.Entities
         /// Theo năm
         /// </summary>
         [Field]
-        public long TypeOfContract { get; set; }
+        public TypeOfContract? TypeOfContract { get; set; }
         /// <summary>
         /// Thời gian bắt đầu
         /// </summary>
@@ -84,7 +84,7 @@ namespace AZERP.Data.Entities
         /// Kết thúc
         /// </summary>
         [Field]
-        public int ContractStatus { get; set; }
+        public TypeOfContractStatus? ContractStatus { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>

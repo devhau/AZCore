@@ -1,24 +1,21 @@
-﻿@model FormRenter
+﻿@model FormDeviceCommon
 <az-module-layout script-random='(id)=>$"$(\".{id}\").AZManager();"'>
     <div class="az-manager"  data-form-size="az-modal-xl">
         <div class="az-toolbar">
             <az-button class="btn btn-success btn-sm az-btn az-btn-add" cmd-key="f1" icon="far fa-plus-square" text="Thêm Mới (F1)" />
-            <az-button class="btn btn-info btn-sm az-btn az-btn-export" cmd-key="f2" icon="fas fa-file-export" text="Xuất Excel (F2)" />
-            <az-button class="btn btn-secondary btn-sm az-btn az-btn-import" cmd-key="f3" icon="fas fa-file-import" text="Nhập Excel (F3)" />
+            <az-button class="btn btn-info btn-sm az-btn az-btn-export" cmd-key="f2"  icon="fas fa-file-export" text="Xuất Excel (F2)" />
+            <az-button class="btn btn-secondary btn-sm az-btn az-btn-import" cmd-key="f3"  icon="fas fa-file-import" text="Nhập Excel (F3)" />
         </div>
         <div class="az-search-manager">
             <div class="row">
                 <div class="col-md-10">
                     <form class="az-search-form row">
-                        <az-hidden-model model="Model" func="(item)=>((FormRenter)item).PageSize" />
+                        <az-hidden-model model="Model" func="(item)=>((FormDeviceCommon)item).PageSize" />
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormRenter)item).RenterName" label="Tên Người Thuê" />
+                            <az-text-model model="Model" func="(item)=>((FormDeviceCommon)item).DeviceCommonCode" label="Mã Thiết Bị Chung" />
                         </div>
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormRenter)item).Address" label="Địa Chỉ" />
-                        </div>
-                        <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormRenter)item).Tel" label="Số Điện Thoại" />
+                            <az-text-model model="Model" func="(item)=>((FormDeviceCommon)item).DeviceName" label="Tên Thiết Bị Chung" />
                         </div>
                     </form>
                 </div>
@@ -40,7 +37,7 @@
             </div>
         </div>
         <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((RenterModel)item).Id" columns="Model.Columns" pagination="Model" />
+            <az-table data="Model.Data" FunKey="(item)=>((DeviceCommonModel)item).Id" columns="Model.Columns" pagination="Model" />
         </div>
         <div class="az-bottom-manager">
             <az-pagination pagination="Model" />

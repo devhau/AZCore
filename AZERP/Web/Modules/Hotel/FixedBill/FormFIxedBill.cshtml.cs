@@ -10,11 +10,11 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.FixedBill
 {
-    [TableColumn(Title = "Mã hóa đơn", FieldName = "FixedBillCode", Width = 100)]
-    [TableColumn(Title = "Hợp đồng", FieldName = "ContractID", Width = 100)]
-    [TableColumn(Title = "Chủ nhà", FieldName = "BossID", Width = 100)]
-    [TableColumn(Title = "Người thuê trọ", FieldName = "RenterID", Width = 200)]
-    [TableColumn(Title = "Tiền phòng", FieldName = "RoomCharge", Width = 100)]
+    [TableColumn(Title = "Mã Hóa Đơn", FieldName = "FixedBillCode", Width = 100)]
+    [TableColumn(Title = "Hợp Đồng", FieldName = "ContractID", Width = 100, DataType = typeof(ContractService))]
+    [TableColumn(Title = "Chủ Nhà", FieldName = "BossID", Width = 100)]
+    [TableColumn(Title = "Người Thuê Trọ", FieldName = "RenterID", Width = 200, DataType = typeof(RenterService))]
+    [TableColumn(Title = "Tiền Phòng", FieldName = "RoomCharge", FormatString = "{0:#,###}", Width = 100)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
     public class FormFixedBill : ManageModule<FixedBillService, FixedBillModel, FormUpdateFixedBill>
@@ -24,15 +24,36 @@ namespace AZERP.Web.Modules.Hotel.FixedBill
         /// Mã hóa đơn cố định
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public long FixedBillCode { get; set; }
+        public long? FixedBillCode { get; set; }
+        /// <summary>
+        /// Hợp Đồng
+        /// </summary>
+        [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
+        public long? ContractID { get; set; }
+        /// <summary>
+        /// Chủ Nhà
+        /// </summary>
+        [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
+        public long? BossID { get; set; }
+        /// <summary>
+        /// Người Thuê Trọ
+        /// </summary>
+        [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
+        public long? RenterID { get; set; }
+        /// <summary>
+        /// Tiền Phòng
+        /// </summary>
+        [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
+        public decimal? RoomCharge { get; set; }
         #endregion
+
 
         public FormFixedBill(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
         protected override void IntData()
         {
-            this.Title = "Danh sách hóa đơn cố định";
+            this.Title = "Danh Sách Hóa Đơn Cố Định";
         }
     }
 }
