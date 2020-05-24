@@ -115,7 +115,7 @@ namespace AZWeb.Module.Common
                 widget.AppendFormat("<span class=\"info-box-icon {1}\"><i class=\"{0}\"></i></span>", this.Setting.Icon, this.Setting.IconColorClass);
                 widget.Append("<div class=\"info-box-content\">");
                 widget.AppendFormat("<span class=\"info-box-text\">{0}</span>", this.Title.IsNullOrEmpty() ? this.Setting.Title : this.Title);
-                widget.AppendFormat("<span class=\"info-box-number\">{0}</span>", this.Setting.Value);
+                widget.AppendFormat("<span class=\"info-box-number\">{0}</span>", this.Value);
                 widget.Append("</div>");
                 widget.Append(@"<div class='btn-group'>
                     <button type='button' class='btn btn-tool dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>

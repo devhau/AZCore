@@ -152,7 +152,7 @@ namespace AZERP.Web.Modules.Orders.Orders
             var result = entityTransaction.DoTransantion<PurchaseOrderService, CashFlowService, CashFlowOrdersService>((t, t1, t2, t3) =>
                 {
                     var cashFlowIn = new CashFlowModel();
-                    cashFlowIn.Code = "Pthu";
+                    cashFlowIn.Code = this.genCodeService.GetGenCode(SystemCode.CashFlowInCode, null, false);
                     cashFlowIn.PartnerId = data.PartnerId;
                     cashFlowIn.Money = money.To<decimal>();
                     cashFlowIn.Type = OrderType.In;
