@@ -21,6 +21,8 @@ namespace AZWeb.Configs
         public string Badge { get; set; } = "New";
         [XmlAttribute("cmd")]
         public string CMD { get; set; }
+        [XmlAttribute("permission")]
+        public string PermissionKey { get; set; }
         [XmlElement("sub-item")]
         public List<MenuItemTag> Menus { get; set; }
     }
