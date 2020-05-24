@@ -10,10 +10,10 @@ namespace AZERP.Web.Modules.Hotel.Hotel
 {
     [TableColumn(Title = "Mã phòng", FieldName = "HotelCode", Width = 100)]
     [TableColumn(Title = "Tên phòng", FieldName = "HotelName", Width = 100)]
-    [TableColumn(Title = "Tên khu vực", FieldName = "AreaID", Width = 150, DataType = typeof(AreaService))]
+    [TableColumn(Title = "Khu vực/ tòa nhà", FieldName = "AreaID", Width = 250, DataType = typeof(AreaService))]
     [TableColumn(Title = "Loại phòng trọ", FieldName = "TypeOfHotelID", Width = 150, DataType = typeof(TypeOfHotelService))]
-    [TableColumn(Title = "Trạng thái", FieldName = "HotelStatus", Width = 200, DataType = typeof(HotelStatus))]
-    [TableColumn(Title = "Tiền phòng", FieldName = "RoomCharge", FormatString = "{0:#,###}", Width = 200)]
+    [TableColumn(Title = "Trạng thái phòng", FieldName = "HotelStatus", Width = 200, DataType = typeof(HotelStatus))]
+    [TableColumn(Title = "Tiền phòng", FieldName = "RoomCharge", FormatString = "{0:#,###}", Width = 150)]
     [TableColumn(Title = "Dịch vụ", LinkFormat = "danh-sach-phong-tro.az?h=Service&Id={Id}", Text = "Dịch vụ phòng", Popup = AZWeb.Module.Enums.PopupSize.Popup)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
@@ -51,7 +51,7 @@ namespace AZERP.Web.Modules.Hotel.Hotel
         }
         protected override void IntData()
         {
-            this.Title = "Quản lý phòng trọ";
+            this.Title = "Danh sách phòng trọ";
         }
         public IView GetService(long Id)
         {

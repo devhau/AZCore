@@ -8,7 +8,6 @@ namespace AZERP.Web.Modules.Hotel.CommonService
 {
     [TableColumn(Title = "Mã dịch vụ ", FieldName = "CommonServiceCode", Width = 180)]
     [TableColumn(Title = "Tên dịch vụ", FieldName = "CommonServiceName", Width = 180)]
-    [TableColumn(Title = "Đơn giá", FieldName = "Price", Width = 180)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
     public class FormCommonService : ManageModule<AZERP.Data.Entities.CommonService, CommonServiceModel, FormUpdateCommonService>
@@ -19,8 +18,6 @@ namespace AZERP.Web.Modules.Hotel.CommonService
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string CommonServiceName { get; set; }
-        [QuerySearch]
-        public decimal? Price { get; set; }
         #endregion
 
         public FormCommonService(IHttpContextAccessor httpContext) : base(httpContext)

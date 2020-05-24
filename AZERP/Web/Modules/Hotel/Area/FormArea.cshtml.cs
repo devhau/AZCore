@@ -36,7 +36,7 @@ namespace AZERP.Web.Modules.Hotel.Area
         }
         protected override void IntData()
         {
-            this.Title = "Quản lý khu vực";
+            this.Title = "Danh sách khu vực / tòa nhà";
         }
         public IView GetService(string Id)
         {
