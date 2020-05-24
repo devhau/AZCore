@@ -19,7 +19,7 @@ namespace AZERP.Web.Modules.Hotel.TotalBill
     [TableColumn(Title = "Tổng tiền", FieldName = "TotalPricess", FormatString = "{0:#,###}", Width = 130)]
     [TableColumn(Title = "Tiền nợ", FieldName = "Debt", FormatString = "{0:#,###}", Width = 130)]
     [TableColumn(Title = "Thời hạn nộp", FieldName = "Deadline", Width = 130)]
-    [TableColumn(Title = "Trạng thái", FieldName = "BillStatus", Width = 130)]
+    [TableColumn(Title = "Trạng thái", FieldName = "StatusBill", DataType = typeof(BillStatus), Width = 130)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
     public class FormTotalBill : ManageModule<TotalBillService, TotalBillModel, FormUpdateTotalBill>

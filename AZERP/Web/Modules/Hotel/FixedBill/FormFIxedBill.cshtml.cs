@@ -10,11 +10,12 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.FixedBill
 {
-    [TableColumn(Title = "Mã hóa đơn", FieldName = "FixedBillCode", Width = 100)]
-    [TableColumn(Title = "Hợp đồng", FieldName = "ContractID", Width = 100, DataType = typeof(ContractService))]
-    [TableColumn(Title = "Chủ nhà", FieldName = "BossID", Width = 100)]
-    [TableColumn(Title = "Người thuê trọ", FieldName = "RenterID", Width = 200, DataType = typeof(RenterService))]
-    [TableColumn(Title = "Tiền phòng", FieldName = "RoomCharge", FormatString = "{0:#,###}", Width = 100)]
+    [TableColumn(Title = "Mã hóa đơn", FieldName = "FixedBillCode", Width = 150)]
+    [TableColumn(Title = "Tên hóa đơn", FieldName = "FixedBillName", Width = 150)]
+    [TableColumn(Title = "Hợp đồng", FieldName = "ContractID", Width = 150, DataType = typeof(ContractService))]
+    [TableColumn(Title = "Chủ nhà", FieldName = "BossID", Width = 150)]
+    [TableColumn(Title = "Người thuê trọ", FieldName = "RenterID", Width = 150, DataType = typeof(RenterService))]
+    [TableColumn(Title = "Tiền phòng", FieldName = "RoomCharge", FormatString = "{0:#,###}", Width = 150)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
     public class FormFixedBill : ManageModule<FixedBillService, FixedBillModel, FormUpdateFixedBill>
@@ -46,7 +47,6 @@ namespace AZERP.Web.Modules.Hotel.FixedBill
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public decimal? RoomCharge { get; set; }
         #endregion
-
 
         public FormFixedBill(IHttpContextAccessor httpContext) : base(httpContext)
         {

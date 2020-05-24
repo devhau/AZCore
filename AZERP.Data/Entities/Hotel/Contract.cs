@@ -71,12 +71,12 @@ namespace AZERP.Data.Entities
         /// Thời gian bắt đầu
         /// </summary>
         [Field]
-        public string TimeStart { get; set; }
+        public DateTime TimeStart { get; set; }
         /// <summary>
         /// Thời gian kết thúc
         /// </summary>
         [Field]
-        public string TimeEnd { get; set; }
+        public DateTime TimeEnd { get; set; }
         /// <summary>
         /// Trạng thái hợp đồng
         /// Chưa hoạt động
