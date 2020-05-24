@@ -58,11 +58,16 @@
 		} else {
 			$($this.ModalBody).html($data);
 		}
-		
 	}
 	$this.setTitle = function ($data) {
 		$($this.ModalTitle).html($data);
 	}
+	$this.ReLoad = function (callback) {  
+		AjaxMain.DoGet($this.link, {}, function (itemData) {
+			$($this.ModalBody).html(itemData.html);
+			if (callback) callback(true);
+		}, function (e) { if (callback) callback(false); });
+    }
 	$this.ClearButton = function () {
 		$this.Buttons = [];
 	}

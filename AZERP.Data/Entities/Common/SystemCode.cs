@@ -14,9 +14,10 @@ namespace AZERP.Data.Entities
         public SystemCodeService(IDbConnection _connection) : base(_connection)
         {
         }
-        public string GetGenCode(SystemCode Key, long? TenantId=null) {
+
+        public string GetGenCode(SystemCode Key, long? TenantId=null, bool isTran = true) {
             string strCode = string.Empty;
-            this.BeginTransaction();
+            if(isTran) this.BeginTransaction();
             try
             {
                 if (TenantId == null)
@@ -39,17 +40,17 @@ namespace AZERP.Data.Entities
                         strCode = systemCode.GenCode;
                     }
                 }
-                this.Commit();
+                if(isTran) this.Commit();
             }
             catch (Exception) {
-                this.Rollback();
+                if(isTran) this.Rollback();
             }
             return strCode;
         }
 
-        public string GetGenCode(object Key, long? TenantId = null)
+        public string GetGenCode(object Key, long? TenantId = null, bool isTran =true)
         {
-            return GetGenCode((SystemCode)Key, TenantId);
+            return GetGenCode((SystemCode)Key, TenantId, isTran);
         }
     }
     [TableInfo(TableName = "az_common_system_code")]

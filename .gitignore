@@ -358,3 +358,5 @@ MigrationBackup/
 *.cache
 *.dgspec.json
 *.csproj.user
+AZERP/appsettings.json
+AZERP/AZERP.csproj
