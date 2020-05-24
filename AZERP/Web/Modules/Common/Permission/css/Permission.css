@@ -1,0 +1,6 @@
+﻿.az-view-permission{}
+.az-view-permission .az-group-permission{}
+.az-view-permission .az-group-permission .card{}
+.az-view-permission .az-group-permission .card .card-header{ padding:10px;}
+.az-view-permission .az-group-permission .card .card-body{ padding:10px;height:150px;overflow:auto;}
+.az-view-permission .az-group-permission .card .card-body ul{ padding:10px;list-style:none; position:relative;}

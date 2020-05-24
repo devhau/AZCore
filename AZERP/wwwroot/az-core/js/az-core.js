@@ -12,8 +12,8 @@ AZCore.newGuid = function () {
         return v.toString(16);
     });
 }
-AZCore.ReLoad = function () {
-    if (PopupMain.isEmpty() && ManagerMain.isEmpty())
+AZCore.ReLoad = function (flgBackground) {
+    if ((PopupMain.isEmpty() && ManagerMain.isEmpty()) || ( flgBackground && flgBackground===true ))
         UrlMain.loadHtml(Location.href);
     else if (ManagerMain.isEmpty() == false)
     {

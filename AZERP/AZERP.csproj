@@ -33,14 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Web\Modules\Common\Widget\" />
-    <Folder Include="Web\Modules\Hotel\Device\" />
-    <Folder Include="Web\Modules\Orders\Returns\" />
-    <Folder Include="Web\Modules\Orders\Shippers\" />
-    <Folder Include="Web\Modules\Orders\Shipments\" />
-    <Folder Include="Web\Modules\Product\StockTransfers\" />
-    <Folder Include="Web\Modules\Social\Facebook\" />
-    <Folder Include="Web\Modules\Social\Shopee\" />
-    <Folder Include="wwwroot\uploads\" />
+    <Folder Include="Web\*" />   
   </ItemGroup>
 </Project>

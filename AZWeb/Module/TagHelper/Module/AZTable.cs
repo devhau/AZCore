@@ -1,4 +1,5 @@
-﻿using AZWeb.Module.Attributes;
+﻿using AZWeb.Extensions;
+using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Enums;
 using AZWeb.Module.Page.Manager;
@@ -248,7 +249,7 @@ namespace AZWeb.Module.TagHelper.Module
                             }
                             if (col.Display == DisplayColumn.Text || col.Display == DisplayColumn.TextIcon || col.Display == DisplayColumn.IconText)
                             {
-                                htmlTable.AppendFormat("<span>{0}</span>", TextDisplay);
+                                htmlTable.AppendFormat("<span>{0}</span>", TextDisplay.HtmlEncode());
                             }
                             if (col.Display == DisplayColumn.TextIcon)
                             {

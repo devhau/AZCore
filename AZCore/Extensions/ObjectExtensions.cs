@@ -1,8 +1,6 @@
 ﻿using AZCore.Types;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web;
 
 namespace AZCore.Extensions
@@ -23,6 +21,13 @@ namespace AZCore.Extensions
         public static TType To<TType>(this object obj) {
             return (TType)(obj.ToType(typeof(TType)));
         }
+        /// <summary>
+        /// Fix
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="typeObj"></param>
+        /// <param name="noRemoveXss"></param>
+        /// <returns></returns>
         public static object ToType(this object obj,Type typeObj) {
             var typeConvert = SqlTypeDescriptor.Inst.GetConverter(typeObj);
             return typeConvert.ConvertFrom(obj);

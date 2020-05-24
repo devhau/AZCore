@@ -1,4 +1,5 @@
 ﻿using AZCore.Database.Attributes;
+using AZCore.Database.SQL;
 using AZCore.Extensions;
 using AZERP.Data.Entities;
 using AZWeb.Module.Attributes;
@@ -12,8 +13,8 @@ using System.Threading.Tasks;
 using Pe = AZERP.Web.Permissions.Permission;
 namespace AZERP.Web.Modules.Common.Permission
 {
-    [TableColumn(Title = "Key", FieldName = "Key", Width = 200)]
-    [TableColumn(Title = "Mã quyền", FieldName = "Code", Width = 150)]
+    [TableColumn(Title = "Group", FieldName = "GroupName", Width = 150)]
+    [TableColumn(Title = "Name", FieldName = "KeyName", Width = 200)]
     [TableColumn(Title = "Quyền", FieldName = "Name")]
     public class FormPermission : ManageModule<PermissionService, PermissionModel>
     {
@@ -70,8 +71,16 @@ namespace AZERP.Web.Modules.Common.Permission
         public FormPermission(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
+        protected override void AddQuerySQL(QuerySQL Q)
+        {
+            Q.AddOrder("GroupName",AZCore.Database.Enums.SortType.ASC);
+            Q.AddOrder("KeyName", AZCore.Database.Enums.SortType.ASC);
+            Q.AddOrder("OrderIndex", AZCore.Database.Enums.SortType.ASC);
+        }
         protected override void IntData()
         {
+            this.ColumSort = "GroupIndex";
+            this.Sort = AZCore.Database.Enums.SortType.ASC;
             this.Title = "Danh sách quyền hệ thống";
         }
         [BindQuery]
@@ -215,15 +224,18 @@ namespace AZERP.Web.Modules.Common.Permission
         public async Task<IView> PostPermission() {
            await this.Service.DeleteAll();
             var files=typeof(Pe).GetFields();
-            foreach (var item in typeof(Pe).GetFields().OrderBy(p=>p.GetAttribute<FieldAttribute>().OrderIndex).ToList()) {
+            foreach (var item in typeof(Pe).GetFields().ToList()) {
                 var dis = item.GetAttribute<FieldAttribute>();
                 this.Service.Insert(
                     new PermissionModel()
                     {
-                        Key = item.Name,
+                        KeyName = item.Name,
                         Code = string.Format("{0}", item.GetRawConstantValue()),
+                        GroupName = dis.GroupName,
+                        GroupIndex=dis.GroupIndex,
+                        OrderIndex = dis.OrderIndex,
                         Name = dis.Display
-                    });
+                    }) ;
             }
             return Json("cập nhật danh sách quyền thành công");
         }

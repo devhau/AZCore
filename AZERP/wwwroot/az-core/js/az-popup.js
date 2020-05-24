@@ -1,4 +1,4 @@
-﻿function AZPopup() {
+﻿function AZPopup(options) {
 	let $this = this;
 	$this.scope = "popup"+ Math.ceil(Math.random() * 10)
 	$this.template = '<div class="az-modal modal fade show"  style="display: block;" aria-modal="true">\
@@ -32,10 +32,6 @@
 	$this.DataItem = undefined;
 	$this.Manager = undefined;
 	$this.link = "";
-	$this.eventClose = undefined;
-	$this.SetEventClose = function (callback) {
-		$this.eventClose = callback;
-	}
 	$this.setDataItem = function (DataItem) {
 		$this.DataItem = DataItem;
 		if ($this.DataItem) {
@@ -91,7 +87,7 @@
 		if (!PopupMain.isEmpty()) {
 			PopupMain.Current().focusPopup();
 		}
-		if ($this.eventClose !== undefined) $this.eventClose();
+		if (options && options.eventClose !== undefined) options.eventClose();
 		HotKeyMain.Init();
 		
 	}

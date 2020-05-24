@@ -69,9 +69,10 @@
         if (itemData.js) itemData.js.forEach(function (item) { if (item.code) { CodeJS = CodeJS + " " + item.code; } if (item.link) { $.cachedScript(item.link); } });
         var CodeCss = "";
         if (itemData.css) itemData.css.forEach(function (item) {
-            if (item.code) { CodeCss = CodeCss + " " + item.code; } if (item.link) {
+            if (item.code && $("html head").html().indexOf(item.code) < 0) { CodeCss = CodeCss + " " + item.code; } if (item.link) {
                 var link = $("<link rel='stylesheet' type='text/css' href=''>"); $(link).attr("href", item.link);
-                $("html head").append(link); }
+                if ($("html head").html().indexOf(link)<0)
+                    $("html head").append(link); }
         });
         if (CodeCss && CodeCss !="") {
             var style = $("<style></style>");

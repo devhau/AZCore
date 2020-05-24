@@ -1,0 +1,38 @@
+﻿@model ViewPermission
+<az-layout class="az-view-permission">
+
+        @if (Model.Permissions != null)
+        {
+            foreach (var itemGroup in Model.Permissions.OrderBy(p => p.GroupIndex).GroupBy(p => p.GroupName)) {
+                <div class="az-group-permission">
+                   <div><h3><i class="fas fa-angle-double-right"></i> @itemGroup.Key</h3></div> 
+                    <div class="row">
+                        @foreach (var item in itemGroup.Where(p => p.KeyName.IndexOf("_") < 0))
+                        {
+                            var peChild = itemGroup.Where(p => p.KeyName.IndexOf("_") > 0 && p.KeyName.StartsWith(string.Format("{0}_", item.KeyName))).OrderBy(p=>p.KeyName).ThenBy(p=>p.OrderIndex);
+                            <div class="col-md-3">
+                                <div class="card border-primary az-module-perssion">
+                                    <div class="card-header" >
+                                        <h3 class="card-title"><az-checkbox label="@item.Name" value="@item.Code" attr="@Model.CheckItem(item)" id="@item.KeyName" name="@item.KeyName" />
+                                        </h3>
+                                    </div>
+                                    <div class="card-body" >
+                                        <ul>
+                                            @foreach (var item1 in peChild)
+                                            {
+                                                <li>
+                                                    <az-checkbox label="@item1.Name" value="@item1.Code" id="@item1.KeyName" attr="@Model.CheckItem(item1,item)" d name="@item1.KeyName" />
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+          
+        }
+
+</az-layout>

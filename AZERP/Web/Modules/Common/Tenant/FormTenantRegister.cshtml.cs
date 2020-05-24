@@ -1,4 +1,5 @@
-﻿using AZERP.Data.Entities;
+﻿using AZCore.Database;
+using AZERP.Data.Entities;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page;
@@ -10,6 +11,8 @@ namespace AZERP.Web.Modules.Common.Tenant
         public FormTenantRegister(Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
         }
+        [BindService]
+        public EntityTransaction EntityTransaction { get; set; }
         public TenantModel TenantModel;
         public IView Get() {
             if (!this.IsAjax && !this.IsAuth)
@@ -24,6 +27,27 @@ namespace AZERP.Web.Modules.Common.Tenant
             return View();
         }
         public IView Post([BindForm]UserModel User, [BindForm]TenantModel Tenant) {
+            if (User == null&&this.IsAuth)
+            {
+                EntityTransaction.DoTransantion<TenantService, TenantUserService>((p, p1, p2) =>
+                {
+
+                    
+
+
+                });
+            }
+            else {
+
+                EntityTransaction.DoTransantion<TenantService, UserService, TenantUserService>((p, p1, p2, p3) => {
+
+                    User.FullName = Tenant.Name;
+                    User.Email = Tenant.Email;
+                    User.PhoneNumber = Tenant.Phone;
+
+
+                });
+            }
             return Json("Thành công");
         }
     }

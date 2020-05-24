@@ -35,7 +35,7 @@ namespace AZERP.Data.Entities
                 FROM `az_purchase_order`
 	                LEFT JOIN `az_purchase_order_product` on `az_purchase_order`.Id = `az_purchase_order_product`.PurchaseOrderId
                     LEFT JOIN `az_store_product`  on `az_purchase_order`.StoreId = `az_store_product`.StoreId AND `az_purchase_order_product`.ProductId = `az_store_product`.ProductId
-                {0} GROUP BY `az_purchase_order`.StoreId ,`az_purchase_order_product`.ProductId
+                {0} GROUP BY `az_purchase_order`.StoreId ,`az_purchase_order_product`.ProductId, `az_store_product`.Available
                 ", strWhere);
             return this.ExecuteQuery<VariantData>(sql);
         }
