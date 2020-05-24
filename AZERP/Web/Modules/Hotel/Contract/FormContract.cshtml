@@ -12,10 +12,22 @@
                     <form class="az-search-form row">
                         <az-hidden-model model="Model" func="(item)=>((FormContract)item).PageSize" />
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormContract)item).ContractCode" label="Mã Hợp Đồng" />
+                            <az-text-model model="Model" func="(item)=>((FormContract)item).ContractCode" label="Mã hợp đồng" />
                         </div>
                         <div class="form-group col-md-2">
-                            <az-hotel-select model="Model" func="(item)=>((FormContract)item).HotelID" label="Phòng Trọ" />
+                            <az-text-model model="Model" func="(item)=>((FormContract)item).ContractName" label="Tên hợp đồng" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-renter-select model="Model" func="(item)=>((FormContract)item).RenterID" label="Người thuê" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-hotel-select model="Model" func="(item)=>((FormContract)item).HotelID" label="Phòng trọ" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-TypeOfContract-select model="Model" func="(item)=>((FormContract)item).TypeOfContract" label="Loại phòng" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-contract-status-select model="Model" func="(item)=>((FormContract)item).TypeOfContractStatus" label="Trạng thái" />
                         </div>
                     </form>
                 </div>

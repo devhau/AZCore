@@ -6,20 +6,20 @@ using Microsoft.AspNetCore.Http;
 
 namespace AZERP.Web.Modules.Hotel.DeviceCommon
 {
-    [TableColumn(Title = "Mã Thiết Bị Chung", FieldName = "DeviceCommonCode", DataType = typeof(HotelService), Width = 150)]
-    [TableColumn(Title = "Tên Thiết Bị Chung", FieldName = "DeviceName", Width = 150)]
-    [TableColumn(Title = "Ghi Chú", FieldName = "Note")]
+    [TableColumn(Title = "Mã thiết bị", FieldName = "DeviceCommonCode", Width = 150)]
+    [TableColumn(Title = "Tên thiết bị", FieldName = "DeviceName", Width = 150)]
+    [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
     public class FormDeviceCommon : ManageModule<DeviceCommonService, DeviceCommonModel, FormUpdateDeviceCommon>
     {
         #region -- Field Search --
         /// <summary>
-        /// Mã Thiết Bị Chung
+        /// Mã thiết bị
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string DeviceCommonCode { get; set; }
         /// <summary>
-        /// Tên Thiết Bị Chung
+        /// Tên thiết bị
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string DeviceName { get; set; }
@@ -30,7 +30,7 @@ namespace AZERP.Web.Modules.Hotel.DeviceCommon
         }
         protected override void IntData()
         {
-            this.Title = "Danh Sách Thiết Bị Chung";
+            this.Title = "Danh sách thiết bị";
         }
     }
 }

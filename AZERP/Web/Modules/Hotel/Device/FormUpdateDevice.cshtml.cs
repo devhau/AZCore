@@ -11,7 +11,7 @@ namespace AZERP.Web.Modules.Hotel.Device
         }
         protected override void IntData()
         {
-            this.Title = "Thiết Bị";
+            this.Title = "Thiết bị";
         }
 
     }

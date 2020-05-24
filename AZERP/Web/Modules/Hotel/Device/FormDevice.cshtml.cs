@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace AZERP.Web.Modules.Hotel.Device
 {
-    [TableColumn(Title = "Mã Phòng ", FieldName = "HotelID", DataType = typeof(HotelService), Width = 100)]
-    [TableColumn(Title = "Thiết Bị ", FieldName = "DeviceID", DataType = typeof(DeviceCommonService), Width = 100)]
-    [TableColumn(Title = "Ghi Chú", FieldName = "Note")]
+    [TableColumn(Title = "Tên phòng ", FieldName = "HotelID", DataType = typeof(HotelService), Width = 100)]
+    [TableColumn(Title = "Thiết bị ", FieldName = "DeviceID", DataType = typeof(DeviceCommonService), Width = 100)]
+    [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
     public class FormDevice : ManageModule<DeviceService, DeviceModel, FormUpdateDevice>
     {
@@ -30,7 +30,7 @@ namespace AZERP.Web.Modules.Hotel.Device
         }
         protected override void IntData()
         {
-            this.Title = "Danh Sách Thiết Bị";
+            this.Title = "Danh sách thiết bị";
         }
     }
 }

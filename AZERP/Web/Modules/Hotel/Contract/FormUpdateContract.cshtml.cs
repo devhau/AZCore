@@ -10,7 +10,7 @@ namespace AZERP.Web.Modules.Hotel.Contract {
         }
         protected override void IntData()
         {
-            this.Title = "Hợp Đồng Phòng Trọ";
+            this.Title = "Hợp đồng";
         }
 
     }

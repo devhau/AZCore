@@ -12,13 +12,19 @@
                     <form class="az-search-form row">
                         <az-hidden-model model="Model" func="(item)=>((FormFixedBill)item).PageSize" />
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormFixedBill)item).FixedBillCode" label="Mã Hóa Đơn Cố Định" />
+                            <az-text-model model="Model" func="(item)=>((FormFixedBill)item).FixedBillCode" label="Mã hóa đơn" />
                         </div>
                         <div class="form-group col-md-2">
-                            <az-contract-select model="Model" func="(item)=>((FormFixedBill)item).ContractID" label="Hợp Đồng" />
+                            <az-contract-select model="Model" func="(item)=>((FormFixedBill)item).ContractID" label="Hợp đồng" />
                         </div>
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormFixedBill)item).RoomCharge" label="Tiền Phòng" />
+                            <az-text-model model="Model" func="(item)=>((FormFixedBill)item).BossID" label="Chủ nhà" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-renter-select model="Model" func="(item)=>((FormFixedBill)item).RenterID" label="Người thuê trọ" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-text-model model="Model" func="(item)=>((FormFixedBill)item).RoomCharge" label="Tiền phòng" />
                         </div>
                     </form>
                 </div>

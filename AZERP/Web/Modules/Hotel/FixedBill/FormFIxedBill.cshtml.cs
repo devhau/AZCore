@@ -10,38 +10,38 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.FixedBill
 {
-    [TableColumn(Title = "Mã Hóa Đơn", FieldName = "FixedBillCode", Width = 100)]
-    [TableColumn(Title = "Hợp Đồng", FieldName = "ContractID", Width = 100, DataType = typeof(ContractService))]
-    [TableColumn(Title = "Chủ Nhà", FieldName = "BossID", Width = 100)]
-    [TableColumn(Title = "Người Thuê Trọ", FieldName = "RenterID", Width = 200, DataType = typeof(RenterService))]
-    [TableColumn(Title = "Tiền Phòng", FieldName = "RoomCharge", FormatString = "{0:#,###}", Width = 100)]
+    [TableColumn(Title = "Mã hóa đơn", FieldName = "FixedBillCode", Width = 100)]
+    [TableColumn(Title = "Hợp đồng", FieldName = "ContractID", Width = 100, DataType = typeof(ContractService))]
+    [TableColumn(Title = "Chủ nhà", FieldName = "BossID", Width = 100)]
+    [TableColumn(Title = "Người thuê trọ", FieldName = "RenterID", Width = 200, DataType = typeof(RenterService))]
+    [TableColumn(Title = "Tiền phòng", FieldName = "RoomCharge", FormatString = "{0:#,###}", Width = 100)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
     public class FormFixedBill : ManageModule<FixedBillService, FixedBillModel, FormUpdateFixedBill>
     {
         #region -- Field Search --
         /// <summary>
-        /// Mã hóa đơn cố định
+        /// Mã hóa đơn
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public long? FixedBillCode { get; set; }
         /// <summary>
-        /// Hợp Đồng
+        /// Hợp đồng
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public long? ContractID { get; set; }
         /// <summary>
-        /// Chủ Nhà
+        /// Chủ nhà
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public long? BossID { get; set; }
         /// <summary>
-        /// Người Thuê Trọ
+        /// Người thuê trọ
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public long? RenterID { get; set; }
         /// <summary>
-        /// Tiền Phòng
+        /// Tiền phòng
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public decimal? RoomCharge { get; set; }
@@ -53,7 +53,7 @@ namespace AZERP.Web.Modules.Hotel.FixedBill
         }
         protected override void IntData()
         {
-            this.Title = "Danh Sách Hóa Đơn Cố Định";
+            this.Title = "Danh sách hóa đơn cố định";
         }
     }
 }
