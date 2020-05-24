@@ -1,4 +1,4 @@
-﻿@model FormRenter
+﻿@model FormContract
 <az-module-layout script-random='(id)=>$"$(\".{id}\").AZManager();"'>
     <div class="az-manager"  data-form-size="az-modal-xl">
         <div class="az-toolbar">
@@ -10,15 +10,24 @@
             <div class="row">
                 <div class="col-md-10">
                     <form class="az-search-form row">
-                        <az-hidden-model model="Model" func="(item)=>((FormRenter)item).PageSize" />
+                        <az-hidden-model model="Model" func="(item)=>((FormContract)item).PageSize" />
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormRenter)item).RenterName" label="Tên người thuê" />
+                            <az-text-model model="Model" func="(item)=>((FormContract)item).ContractCode" label="Mã hợp đồng" />
                         </div>
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormRenter)item).Address" label="Địa chỉ" />
+                            <az-text-model model="Model" func="(item)=>((FormContract)item).ContractName" label="Tên hợp đồng" />
                         </div>
                         <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormRenter)item).Tel" label="Số điện thoại" />
+                            <az-renter-select model="Model" func="(item)=>((FormContract)item).RenterID" label="Người thuê" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-hotel-select model="Model" func="(item)=>((FormContract)item).HotelID" label="Phòng trọ" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-TypeOfContract-select model="Model" func="(item)=>((FormContract)item).TypeOfContract" label="Loại phòng" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <az-contract-status-select model="Model" func="(item)=>((FormContract)item).TypeOfContractStatus" label="Trạng thái" />
                         </div>
                     </form>
                 </div>
@@ -40,7 +49,7 @@
             </div>
         </div>
         <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((RenterModel)item).Id" columns="Model.Columns" pagination="Model" />
+            <az-table data="Model.Data" FunKey="(item)=>((ContractModel)item).Id" columns="Model.Columns" pagination="Model" />
         </div>
         <div class="az-bottom-manager">
             <az-pagination pagination="Model" />

@@ -2,11 +2,11 @@
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.Hotel.Device
+namespace AZERP.Web.Modules.Hotel.DeviceCommon
 {
-    public class FormUpdateDevice : UpdateModule<DeviceService, DeviceModel>
+    public class FormUpdateDeviceCommon : UpdateModule<DeviceCommonService, DeviceCommonModel>
     {
-        public FormUpdateDevice(IHttpContextAccessor httpContext) : base(httpContext)
+        public FormUpdateDeviceCommon(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
         protected override void IntData()
