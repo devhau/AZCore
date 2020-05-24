@@ -14,19 +14,19 @@ namespace AZERP.Data.Entities
         }
     }
     /// <summary>
-    /// Thông tin thiết bị
+    /// Thông Tin Thiết Bị Chung
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_device_common")]
-    public class DeviceCommonModel : EntityModel<DeviceModel, long>
+    public class DeviceCommonModel : EntityModel<DeviceCommonModel, long>
     {
         /// <summary>
-        /// Mã thiết bị
+        /// Mã Thiết Bị Chung
         /// </summary>
         [Field]
         public string DeviceCommonCode { get; set; }
         /// <summary>
-        /// Tên thiết bị
+        /// Tên Thiết Bị Chung
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]

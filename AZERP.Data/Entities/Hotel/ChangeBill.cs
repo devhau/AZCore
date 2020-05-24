@@ -28,6 +28,11 @@ namespace AZERP.Data.Entities
         [Field]
         public string ChangeBillCode { get; set; }
         /// <summary>
+        /// Mã phòng trọ
+        /// </summary>
+        [Field]
+        public long HotelID { get; set; }
+        /// <summary>
         /// Tháng thuê trọ
         /// </summary>
         [Field]
@@ -68,9 +73,14 @@ namespace AZERP.Data.Entities
         [Field(Length = 500)]
         public string Unit { get; set; }
         /// <summary>
+        /// Trạng thái
+        /// </summary>
+        [Field]
+        public BillStatus? StatusBill { get; set; }
+        /// <summary>
         /// Ghi chú
         /// </summary>
-        [Field(Length = 500)]
+        [Field]
         public string Note { get; set; }
     }
 }

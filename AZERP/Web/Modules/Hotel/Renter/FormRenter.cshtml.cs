@@ -28,12 +28,7 @@ namespace AZERP.Web.Modules.Hotel.Renter
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public string Address { get; set; }
         /// <summary>
-        /// Địa chỉ
-        /// </summary>
-        [QuerySearch]
-        public int? CMND { get; set; }
-        /// <summary>
-        /// Địa chỉ
+        /// Số điện thoại
         /// </summary>
         [QuerySearch]
         public int? Tel { get; set; }
@@ -44,7 +39,7 @@ namespace AZERP.Web.Modules.Hotel.Renter
         }
         protected override void IntData()
         {
-            this.Title = "Quản lý người thuê trọ";
+            this.Title = "Danh Sách người thuê trọ";
         }
     }
 }

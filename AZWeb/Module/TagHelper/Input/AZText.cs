@@ -1,5 +1,6 @@
 ﻿using AZCore.Database;
 using AZCore.Extensions;
+using AZWeb.Extensions;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Linq.Expressions;
@@ -30,7 +31,7 @@ namespace AZWeb.Module.TagHelper.Input
 
             if (IsOnlyLetter)
                 this.Attr += " onkeypress=\"return /[a-zA-Z]/i.test(event.key)\" ";
-            htmlBuild.AppendFormat("<input type=\"{0}\" class=\"{1}\" id=\"{2}\" placeholder=\"{3}\" {4} {5} name=\"{6}\">", "text", TagClass, InputId, InputPlaceholder, Attr, InputValue.IsNullOrEmpty() ? "" : string.Format("value =\"{0}\"", InputValue), InputName);
+            htmlBuild.AppendFormat("<input type=\"{0}\" class=\"{1}\" id=\"{2}\" placeholder=\"{3}\" {4} {5} name=\"{6}\">", "text", TagClass, InputId, InputPlaceholder, Attr, InputValue.IsNullOrEmpty() ? "" : string.Format("value =\"{0}\"", InputValue.HtmlEncode2()), InputName);
         }
     }
 }

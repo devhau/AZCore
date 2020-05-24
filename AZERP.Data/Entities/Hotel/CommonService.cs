@@ -33,11 +33,6 @@ namespace AZERP.Data.Entities
         [FieldDisplay]
         public string CommonServiceName { get; set; }
         /// <summary>
-        /// Đơn giá
-        /// </summary>
-        [Field]
-        public decimal Price { get; set; }
-        /// <summary>
         /// Ghi chú
         /// </summary>
         [Field]

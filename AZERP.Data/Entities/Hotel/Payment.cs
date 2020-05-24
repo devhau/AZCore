@@ -36,7 +36,7 @@ namespace AZERP.Data.Entities
         /// Tiền thanh toán
         /// </summary>
         [Field]
-        public decimal Pricess { get; set; }
+        public decimal Price { get; set; }
         /// <summary>
         /// Ngày thanh toán
         /// </summary>

@@ -23,15 +23,13 @@ namespace AZERP.Data.Entities
         /// <summary>
         /// Mã thiết bị
         /// </summary>
-        [FieldAutoGenCode(Key =SystemCode.AreaCode)]
         [Field]
         public long DeviceID { get; set; }
         /// <summary>
-        /// Tên thiết bị
+        /// Mã phòng trọ
         /// </summary>
-        [Field(Length = 500)]
-        [FieldDisplay]
-        public string DeviceName { get; set; }
+        [Field]
+        public long HotelID { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>
