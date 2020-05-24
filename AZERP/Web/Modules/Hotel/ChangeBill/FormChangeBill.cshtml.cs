@@ -21,7 +21,7 @@ namespace AZERP.Web.Modules.Hotel.ChangeBill
     [TableColumn(Title = "Số tháng trước", FieldName = "NumberBefore", Width = 120)]
     [TableColumn(Title = "Số hiện tại", FieldName = "NumberCurrent", Width = 120)]
     [TableColumn(Title = "Số lượng", FieldName = "Quantity", Width = 100)]
-    [TableColumn(Title = "Trạng thái", FieldName = "Quantity", Width = 100)]
+    [TableColumn(Title = "Trạng thái", FieldName = "StatusBill",DataType =typeof(BillStatus), Width = 150)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
     public class FormChangeBill : ManageModule<ChangeBillService, ChangeBillModel, FormUpdateChangeBill>

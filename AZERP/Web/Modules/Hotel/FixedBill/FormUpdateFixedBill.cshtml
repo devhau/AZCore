@@ -4,6 +4,9 @@
             <az-text-model model="Model.Data" func="(item)=>((FixedBillModel)item).FixedBillCode" label="Mã hóa đơn" attr="autofocus" />
         </div>
         <div class="form-group col-md-6">
+            <az-text-model model="Model.Data" func="(item)=>((FixedBillModel)item).FixedBillName" label="Tên hóa đơn" />
+        </div>
+        <div class="form-group col-md-6">
             <az-contract-select model="Model.Data" func="(item)=>((FixedBillModel)item).ContractID" label="Hợp đồng" />
         </div>
         <div class="form-group col-md-6">
