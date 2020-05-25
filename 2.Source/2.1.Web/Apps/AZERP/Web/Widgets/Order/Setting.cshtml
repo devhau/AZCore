@@ -13,6 +13,6 @@
         <az-select-model data="Model.listFilterDate" model="Model.Setting" func="(item)=>((OrderWidgetSetting)item).FilterOrder" label="Báo cáo theo" />
     </div>
     <div class="col-md-6  form-group">
-        <az-widget-type-select model="Model.Setting" func="(item)=>((OrderWidgetSetting)item).Type" label="Kiểu hiển thị" />
+        <az-widget-type-select model="Model.Setting" func="(item)=>((OrderWidgetSetting)item).Type" label="Kiểu hiển thị" is-null-first="false" />
     </div>
 </div>
