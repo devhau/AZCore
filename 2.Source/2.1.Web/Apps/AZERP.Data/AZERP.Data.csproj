@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AZWeb\AZWeb.csproj" />
+    <ProjectReference Include="..\..\Libs\AZWeb\AZWeb.csproj" />
   </ItemGroup>
 
 </Project>
