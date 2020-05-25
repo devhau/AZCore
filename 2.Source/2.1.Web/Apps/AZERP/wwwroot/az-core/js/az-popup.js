@@ -1,6 +1,6 @@
 ﻿function AZPopup(options) {
 	let $this = this;
-	$this.scope = "popup"+ Math.ceil(Math.random() * 10)
+	$this.PopupId = "popup" + new Date().getTime();
 	$this.template = '<div class="az-modal modal fade show"  style="display: block;" aria-modal="true">\
 						<div class="modal-dialog">\
 							<div class="modal-content">\
@@ -32,6 +32,7 @@
 	$this.DataItem = undefined;
 	$this.Manager = undefined;
 	$this.link = "";
+	$($this.Modal).addClass(this.PopupId);
 	$this.setDataItem = function (DataItem) {
 		$this.DataItem = DataItem;
 		if ($this.DataItem) {
@@ -126,7 +127,7 @@
 		return $($this.ModalForm).AZSerializeForm();
 	}
 	$this.destroy = function () {
-		if ($this.Manager) ManagerMain.Remove();
+		if ($this.Manager === ManagerMain.Current()) ManagerMain.Remove();
 		$($this.Modal).remove();
 		delete $this;
 		delete this;

@@ -309,7 +309,8 @@
         delete this;
         $this = undefined;
     }
-    if (!PopupMain.isEmpty()) PopupMain.Current().Manager = $this;
+    // Kiểm tra xem manager có phải là con của poup hay không?
+    if (!PopupMain.isEmpty() && $($this).parents("." + PopupMain.Current().PopupId).length>0) PopupMain.Current().Manager = $this;
     ManagerMain.Push($this);
    
 }
