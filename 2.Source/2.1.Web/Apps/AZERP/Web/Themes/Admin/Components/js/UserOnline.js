@@ -56,9 +56,9 @@
                 $.each(users, function (e, el) {
                     if (el.id === AZCore.UserId) {
                         $this.meName = el.fullName;
-                        $($id).find(".user-list").prepend("<li class='item-user me' id=\"user" + el.id + "\" user-id=\"" + el.id + "\">" + el.fullName + " (Tôi)</li>");
+                        $($id).find(".user-list").prepend("<li class='item-user me' id=\"user" + el.id + "\" user-id=\"" + el.id + "\">" + azhtml.encode(el.fullName) + " (Tôi)</li>");
                     } else {
-                        $($id).find(".user-list").append("<li class='item-user' id=\"user" + el.id + "\" user-id=\"" + el.id + "\">" + el.fullName + "</li>");
+                        $($id).find(".user-list").append("<li class='item-user' id=\"user" + el.id + "\" user-id=\"" + el.id + "\">" + azhtml.encode(el.fullName) + "</li>");
                     }
                 });
                 $this.reload();
@@ -67,7 +67,7 @@
                 if ($this.userId != sender) {
                     $("#user" + sender).click();
                 }
-                $($this.ChatMessage).append("<div class='sender box-chat'><h5>" + $this.userName + "</h5><div class='box-message'>" + message+"</div></div>");
+                $($this.ChatMessage).append("<div class='sender box-chat'><h5>" + azhtml.encode($this.userName) + "</h5><div class='box-message'>" + azhtml.encode(message)+"</div></div>");
             });
         }
 

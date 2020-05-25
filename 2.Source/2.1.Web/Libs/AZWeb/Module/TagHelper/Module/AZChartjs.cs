@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace AZWeb.Module.TagHelper.Module
 {
-    public class ChartBase {
-
+    public class ChartOption
+    {
         public string type {get;set;}
         public dynamic data { get; set; } = new { };
         public dynamic options { get; set; } = new { };
-        
     }
     public class AZChartjs : TagHelperBase
     {
         public string Heigth { get; set; } = "300px";
         public string Width { get; set; } = "100%";
-        public ChartBase Option { get; set; }
+        public ChartOption Option { get; set; }
         public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
             htmlBuild.Append("<div class=\"az-chartjs\">");

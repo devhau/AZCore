@@ -45,6 +45,8 @@ namespace AZWeb.Module.Common
         IView GetViewSetting();
         IHtmlContent GetContent();
         string GetName();
+        string GetIcon();
+        string GetTitle();
         string GetSetting();
         WidgetSetting GetSettingObject();
         IWidget SetSetting(string setting);
@@ -99,13 +101,12 @@ namespace AZWeb.Module.Common
             this.IntData();
         }
         public async Task<IHtmlContent> GetContentAsync() {
-            var rs= await renderView.GetContentHtmlFromView(View() as HtmlView);
-            return rs;
+            return await renderView.GetContentHtmlFromView(View() as HtmlView);
         }
         protected string GetWidth(WidgetWidth _widthClass) {
             return string.Format("{0}  ", _widthClass.GetItemValueByEnum()?.FieldValue);
         }
-        public virtual string LayoutWidget(string layoutContent) {
+        protected virtual string LayoutWidget() {
             StringBuilder widget = new StringBuilder();
             widget.AppendFormat("<div class=\"{0} az-widget \" widget-id=\"{1}\">", GetWidth(this.Setting.WidthClass),this.Id);
             if (this.Setting.Type == WidgetType.InfoBox)
@@ -114,9 +115,27 @@ namespace AZWeb.Module.Common
                
                 widget.AppendFormat("<span class=\"info-box-icon {1}\"><i class=\"{0}\"></i></span>", this.Setting.Icon, this.Setting.IconColorClass);
                 widget.Append("<div class=\"info-box-content\">");
-                widget.AppendFormat("<span class=\"info-box-text\">{0}</span>", this.Title.IsNullOrEmpty() ? this.Setting.Title : this.Title);
+                widget.AppendFormat("<span class=\"info-box-text\">{0}</span>", this.Setting.Title.IsNullOrEmpty() ? this.Title: this.Setting.Title);
                 widget.AppendFormat("<span class=\"info-box-number\">{0}</span>", this.Value);
                 widget.Append("</div>");
+                widget.Append(@"<div class='btn-group'>
+                    <button type='button' class='btn btn-tool dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
+                      <i class='fas fa-cog'></i>
+                    </button>
+                    <div class='dropdown-menu dropdown-menu-right' role='menu' x-placement='bottom-end' style='position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(46px, 19px, 0px);'>
+                      <a class='dropdown-item'>Làm mới</a>
+                      <a class='dropdown-item az-widget-setting'>Thiết lập</a>
+                    </div>
+                  </div>");
+                widget.Append("</div>");
+            }
+            else if(this.Setting.Type == WidgetType.PanelBox)
+            {
+                widget.AppendFormat("<div class=\"card {0}\">", this.Setting.BackgroundColorClass);
+                widget.Append("<div class=\"card-header\">");
+                widget.AppendFormat("<h3 class=\"card-title\"><i class=\"{0}\"></i> {1}</h3>", this.Setting.Icon, this.Setting.Title.IsNullOrEmpty()?this.Title: this.Setting.Title);
+                widget.Append("<div class=\"card-tools\">");
+                widget.Append("<button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"collapse\"> <i class=\"fas fa-minus\"></i></button>");
                 widget.Append(@"<div class='btn-group'>
                     <button type='button' class='btn btn-tool dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
                       <i class='fas fa-cog'></i>
@@ -127,50 +146,29 @@ namespace AZWeb.Module.Common
                     </div>
                   </div>");
                 widget.Append("</div>");
-            }
-            else if(this.Setting.Type == WidgetType.PanelBox)
-            {
-                widget.AppendFormat("<div class=\"card {0}\">", this.Setting.BackgroundColorClass);
-                widget.Append("<div class=\"card-header\">");
-                widget.AppendFormat("<h3 class=\"card-title\">{0}</h3>", this.Title.IsNullOrEmpty()?this.Setting.Title:this.Title);
-                widget.Append("<div class=\"card-tools\">");
-                widget.Append("<button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"collapse\"> <i class=\"fas fa-minus\"></i></button>");
-                widget.Append(@"<div class='btn-group'>
-                    <button type='button' class='btn btn-tool dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
-                      <i class='fas fa-cog'></i>
-                    </button>
-                    <div class='dropdown-menu dropdown-menu-right' role='menu' x-placement='bottom-end' style='position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(46px, 19px, 0px);'>
-                      <a href='#' class='dropdown-item'>Làm mới</a>
-                      <a href='#' class='dropdown-item'>Thiết lập</a>
-                    </div>
-                  </div>");
-                widget.Append("</div>");
                 widget.Append("</div>");
                 widget.Append("<div class=\"card-body p-0\">");
-                widget.Append(layoutContent);
+                widget.Append(GetContentAsync().ConfigureAwait(false).GetAwaiter().GetResult().GetString());
                 widget.Append("</div>");
                 widget.Append("</div>");
             }
             else
             {
-                widget.Append(layoutContent);
+                widget.Append(GetContentAsync().ConfigureAwait(false).GetAwaiter().GetResult().GetString());
 
-            };
+            }
             widget.Append("</div>");
             return widget.ToString();
         }
         public IHtmlContent GetContent()
         {
-            return new Microsoft.AspNetCore.Html.HtmlString(LayoutWidget(GetContentAsync().ConfigureAwait(false).GetAwaiter().GetResult().GetString()));
+            return new HtmlString(LayoutWidget());
         }
-        public IView PostData() {
+        public virtual IView PostData() {
             return null;
         }
-        public void Save()
-        {
-
-        }
-        public string getTitle() {
+       
+        public string GetTitle() {
             return "Thiết lập : " + this.Setting?.Title; 
         }
         public IView GetViewSetting() {
@@ -215,6 +213,11 @@ namespace AZWeb.Module.Common
         public WidgetSetting GetSettingObject()
         {
             return this.Setting;
+        }
+
+        public string GetIcon()
+        {
+            return this.Setting?.Icon;
         }
 
 

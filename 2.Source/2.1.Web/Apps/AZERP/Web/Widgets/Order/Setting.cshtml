@@ -7,10 +7,7 @@
         <az-widget-width model="Model.Setting" func="(item)=>((OrderWidgetSetting)item).WidthClass" label="Độ rộng" />
     </div>
     <div class="col-md-6  form-group">
-        <az-text-model model="Model.Setting" func="(item)=>((OrderWidgetSetting)item).Icon" label="Biểu tượng" />
-    </div>
-    <div class="col-md-6  form-group">
-        <az-text-model model="Model.Setting" func="(item)=>((OrderWidgetSetting)item).Icon" label="Biểu tượng" />
+        <az-text-model model="Model.Setting" func="(item)=>((OrderWidgetSetting)item).Icon" label="Biểu tượng" addon-after="<button type='button' class='btn btn-info btn-flat'><i class='fas fa-icons'></i></button>" is-button-for-addon-after="true" />
     </div>
     <div class="col-md-6  form-group">
         <az-select-model data="Model.listFilterDate" model="Model.Setting" func="(item)=>((OrderWidgetSetting)item).FilterOrder" label="Báo cáo theo" />

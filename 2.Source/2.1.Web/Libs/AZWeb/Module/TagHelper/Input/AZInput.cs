@@ -40,6 +40,8 @@ namespace AZWeb.Module.TagHelper.Input
         public Func<string, string> ScriptInput { get; set; }
         public string AddonBefore { get; set; }
         public string AddonAfter { get; set; }
+        public bool IsButtonForAddonBefore { get; set; }
+        public bool IsButtonForAddonAfter { get; set; }
         protected bool? LabelAfter=false;
         public override void Init(TagHelperContext context)
         {
@@ -66,7 +68,14 @@ namespace AZWeb.Module.TagHelper.Input
                 htmlBuild.Append("<div class=\"input-group\">");
             }
             if (!AddonBefore.IsNullOrEmpty()) {
-                htmlBuild.AppendFormat("<div class=\"input-group-prepend\"><span class=\"input-group-text\">{0}</span></div>", AddonBefore);
+                if (IsButtonForAddonBefore)
+                {
+                    htmlBuild.AppendFormat("<div class=\"input-group-prepend\">{0}</div>", AddonBefore);
+                }
+                else
+                {
+                    htmlBuild.AppendFormat("<div class=\"input-group-prepend\"><span class=\"input-group-text\">{0}</span></div>", AddonBefore);
+                }
             }
             if (this.HttpContext.Items.ContainsKey(GroupInput) &&!this.HttpContext.Items[GroupInput].IsNullOrEmpty())
             {
@@ -75,7 +84,13 @@ namespace AZWeb.Module.TagHelper.Input
             RenderHtml(htmlBuild);
             if (!AddonAfter.IsNullOrEmpty())
             {
-                htmlBuild.AppendFormat("<div class=\"input-group-append\"><span class=\"input-group-text\">{0}</span></div>", AddonAfter);
+                if (IsButtonForAddonAfter)
+                {
+                    htmlBuild.AppendFormat("<div class=\"input-group-append\">{0}</div>", AddonAfter);
+                }
+                else {
+                    htmlBuild.AppendFormat("<div class=\"input-group-append\"><span class=\"input-group-text\">{0}</span></div>", AddonAfter);
+                }
             }
             if (!AddonBefore.IsNullOrEmpty() || !AddonAfter.IsNullOrEmpty())
             {

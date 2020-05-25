@@ -84,10 +84,11 @@ namespace AZERP.Web.Modules.Dashboard
             }
             else {
                 var widgetModel = widgetService.GetById(Id);
-                var widget = getWidget(widgetModel.Widget);
+                var widget = getWidget(widgetModel.Widget).SetSetting(widgetModel.Setting);
 
-                this.Title = widget.GetName();
-                return widget.SetSetting(widgetModel.Setting).GetViewSetting();
+                this.Title = widget.GetTitle();
+                this.Html.Icon = widget.GetIcon();
+                return widget.GetViewSetting();
             }
         }
         public IView GetAddWidget()
