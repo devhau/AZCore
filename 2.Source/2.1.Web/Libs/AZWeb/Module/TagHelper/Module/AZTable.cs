@@ -181,7 +181,7 @@ namespace AZWeb.Module.TagHelper.Module
                                 }
                                 else 
                                 {
-                                    TextDisplay = string.IsNullOrEmpty(col.FormatString) ? string.Format("{0}", ItemDisplay) : string.Format(col.FormatString, ItemDisplay);
+                                    TextDisplay = string.IsNullOrEmpty(col.FormatString) ? string.Format("{0}", ItemDisplay).HtmlEncode() : string.Format(col.FormatString, (ItemDisplay?.GetType()==typeof(string)?ItemDisplay?.ToString().HtmlEncode():ItemDisplay));
                                     foreach (Match match in regex.Matches(TextDisplay))
                                     {
                                         foreach (Group m in match.Groups)
@@ -189,7 +189,7 @@ namespace AZWeb.Module.TagHelper.Module
                                             var pro = m.Value.TrimStart('{').TrimEnd('}');
                                             if (d.GetProperty(pro) != null)
                                             {
-                                                TextDisplay = TextDisplay.Replace(m.Value, string.Format("{0}", d.GetProperty(pro).GetValue(item)));
+                                                TextDisplay = TextDisplay.Replace(m.Value, string.Format("{0}", d.GetProperty(pro).GetValue(item)).HtmlEncode());
                                             }
                                         }
                                     }
@@ -249,7 +249,7 @@ namespace AZWeb.Module.TagHelper.Module
                             }
                             if (col.Display == DisplayColumn.Text || col.Display == DisplayColumn.TextIcon || col.Display == DisplayColumn.IconText)
                             {
-                                htmlTable.AppendFormat("<span>{0}</span>", TextDisplay.HtmlEncode());
+                                htmlTable.AppendFormat("<span>{0}</span>", TextDisplay);
                             }
                             if (col.Display == DisplayColumn.TextIcon)
                             {

@@ -33,6 +33,7 @@ namespace AZWeb.Module.Common
         public virtual bool TagShow { get; set; } = true;
         [HtmlAttributeName("is-enable")]
         public virtual bool TagEnable { get; set; } = true;
+        public Func<string, string> ScriptRandom { get; set; }
         public bool HasPermission(string permission) {
             return User != null && User.HasPermission(permission);
         }
@@ -88,6 +89,10 @@ namespace AZWeb.Module.Common
             StringBuilder htmlBuild = new StringBuilder();
             await ProcessAsync(context, output,htmlBuild);
             if (htmlBuild.Length > 0) {
+                if (ScriptRandom != null)
+                {
+                    this.AddJS(ScriptRandom(this.TagId));
+                }
                 output.Content.SetHtmlContent(htmlBuild.ToString());
             }
         }

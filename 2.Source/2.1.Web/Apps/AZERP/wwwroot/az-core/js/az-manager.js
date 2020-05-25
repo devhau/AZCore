@@ -1,4 +1,5 @@
-﻿function AZManager(option,$callback) {
+﻿/// <reference path="az-url.js" />
+function AZManager(option,$callback) {
     let $this = $(this).hasClass("az-manager") ? this : $(this).find(".az-manager");
     $.extend($this, new AZAjax());
     $optiondefault = {

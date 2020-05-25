@@ -151,13 +151,13 @@
 }
 .az-modal .modal-body{
 }
-.az-modal .modal-body .az-module-layout{
+.az-modal .modal-body .az-module-layout,.az-modal .modal-body.has-manage,.az-modal .modal-body.has-manage .az-manager{
     position:relative;
 }
 .az-modal .modal-body.has-manage{
     padding:0px;
 }
-.az-modal .modal-body.has-manage .az-module-header h4{
+.az-modal .modal-body.has-manage .az-module-header h4.title{
     display:none;
 }
 .az-modal .modal-header .close {
