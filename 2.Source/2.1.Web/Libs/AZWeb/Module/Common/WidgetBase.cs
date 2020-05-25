@@ -119,19 +119,9 @@ namespace AZWeb.Module.Common
         protected string GetWidth(WidgetWidth _widthClass) {
             return string.Format("{0}  ", _widthClass.GetItemValueByEnum()?.FieldValue);
         }
-        protected virtual string LayoutWidget() {
-            StringBuilder widget = new StringBuilder();
-            widget.AppendFormat("<div class=\"{0} az-widget \" widget-id=\"{1}\">", GetWidth(this.Setting.WidthClass),this.Id);
-            if (this.Setting.Type == WidgetType.InfoBox)
-            {
-                widget.AppendFormat("<div class=\"info-box {0}\">", this.Setting.BackgroundColorClass);
-               
-                widget.AppendFormat("<span class=\"info-box-icon {1}\"><i class=\"{0}\"></i></span>", this.Setting.Icon, this.Setting.IconColorClass);
-                widget.Append("<div class=\"info-box-content\">");
-                widget.AppendFormat("<span class=\"info-box-text\">{0}</span>", this.Setting.Title.IsNullOrEmpty() ? this.Title: this.Setting.Title);
-                widget.AppendFormat("<span class=\"info-box-number\">{0}</span>", this.Value);
-                widget.Append("</div>");
-                widget.Append(@"<div class='btn-group'>
+        protected virtual void AddSettingButton(StringBuilder widget)
+        {
+            widget.Append(@"<div class='btn-group az-widget-button-setting'>
                     <button type='button' class='btn btn-tool dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
                       <i class='fas fa-cog'></i>
                     </button>
@@ -140,24 +130,29 @@ namespace AZWeb.Module.Common
                       <a class='dropdown-item az-widget-setting'>Thiết lập</a>
                     </div>
                   </div>");
+        }
+        protected virtual string LayoutWidget() {
+            StringBuilder widget = new StringBuilder();
+            widget.AppendFormat("<div class=\"{0} az-widget \" widget-id=\"{1}\">", GetWidth(this.Setting.WidthClass),this.Id);
+            if (this.Setting.Type == WidgetType.InfoBox)
+            {
+                widget.AppendFormat("<div class=\"az-info-box info-box {0}\">", this.Setting.BackgroundColorClass);               
+                widget.AppendFormat("<span class=\"info-box-icon {1}\"><i class=\"{0}\"></i></span>", this.Setting.Icon, this.Setting.IconColorClass);
+                widget.Append("<div class=\"info-box-content\">");
+                widget.AppendFormat("<span class=\"info-box-text\">{0}</span>", this.Setting.Title.IsNullOrEmpty() ? this.Title: this.Setting.Title);
+                widget.AppendFormat("<span class=\"info-box-number\">{0}</span>", this.Value);
+                widget.Append("</div>");
+                AddSettingButton(widget);
                 widget.Append("</div>");
             }
             else if(this.Setting.Type == WidgetType.PanelBox)
             {
-                widget.AppendFormat("<div class=\"card {0}\">", this.Setting.BackgroundColorClass);
+                widget.AppendFormat("<div class=\"az-card-box card {0}\">", this.Setting.BackgroundColorClass);
                 widget.Append("<div class=\"card-header\">");
                 widget.AppendFormat("<h3 class=\"card-title\"><i class=\"{0}\"></i> {1}</h3>", this.Setting.Icon, this.Setting.Title.IsNullOrEmpty()?this.Title: this.Setting.Title);
                 widget.Append("<div class=\"card-tools\">");
                 widget.Append("<button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"collapse\"> <i class=\"fas fa-minus\"></i></button>");
-                widget.Append(@"<div class='btn-group'>
-                    <button type='button' class='btn btn-tool dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
-                      <i class='fas fa-cog'></i>
-                    </button>
-                    <div class='dropdown-menu dropdown-menu-right' role='menu' x-placement='bottom-end' style='position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(46px, 19px, 0px);'>
-                      <a href='#' class='dropdown-item'>Làm mới</a>
-                      <a href='#' class='dropdown-item az-widget-setting'>Thiết lập</a>
-                    </div>
-                  </div>");
+                AddSettingButton(widget);
                 widget.Append("</div>");
                 widget.Append("</div>");
                 widget.Append("<div class=\"card-body p-0\">");
@@ -167,16 +162,10 @@ namespace AZWeb.Module.Common
             }
             else
             {
-                widget.Append(@"<div class='btn-group'>
-                    <button type='button' class='btn btn-tool dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
-                      <i class='fas fa-cog'></i>
-                    </button>
-                    <div class='dropdown-menu dropdown-menu-right' role='menu' x-placement='bottom-end' style='position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(46px, 19px, 0px);'>
-                      <a class='dropdown-item'>Làm mới</a>
-                      <a class='dropdown-item az-widget-setting'>Thiết lập</a>
-                    </div>
-                  </div>");
+                widget.AppendFormat("<div class=\"az-full-box {0}\">", this.Setting.BackgroundColorClass);
+                AddSettingButton(widget);
                 widget.Append(GetContentAsync().ConfigureAwait(false).GetAwaiter().GetResult().GetString());
+                widget.Append("</div>");
 
             }
             widget.Append("</div>");

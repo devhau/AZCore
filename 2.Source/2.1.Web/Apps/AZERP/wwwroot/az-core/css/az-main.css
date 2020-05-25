@@ -343,3 +343,21 @@ table-freeze thead th {
      width:100%;
      padding-bottom:10px;
  }
+ /*Widget */
+  .az-dashboard .az-widget{
+      position:relative;
+  }
+ .az-dashboard .az-widget .az-full-box,.az-dashboard .az-widget .az-card-box,.az-dashboard .az-widget .az-info-box{
+     border-radius:0px;
+     
+ }
+ .az-dashboard .az-widget .az-full-box{
+     border: 1px solid #0069d9;
+
+ }
+ .az-dashboard .az-widget .az-full-box .az-widget-button-setting{
+     position:absolute;
+     right:5px;
+     top:15px;
+     z-index:100;
+ }
