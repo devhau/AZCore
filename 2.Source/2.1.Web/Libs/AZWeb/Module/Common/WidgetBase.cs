@@ -48,16 +48,18 @@ namespace AZWeb.Module.Common
         string GetIcon();
         string GetTitle();
         string GetSetting();
+        bool CheckPermission();
         WidgetSetting GetSettingObject();
         IWidget SetSetting(string setting);
         IWidget DoSetting(Action<IWidget> acction=null);
     }
     public enum WidgetType {
-        None,
         [Field(Display = "Thông tin")]
         InfoBox,
         [Field(Display = "Biểu đồ hoặc báo cáo")]
-        PanelBox
+        PanelBox,
+        [Field(Display = "Hiển thị fullbox")]
+        FulBox
     }
     public class WidgetSetting:IEntity {
         public string Icon { get; set; } = "fas fa-cog";
@@ -68,16 +70,21 @@ namespace AZWeb.Module.Common
         public WidgetWidth WidthClass { get; set; } = WidgetWidth.Col3;
         public WidgetType Type { get; set; } = WidgetType.PanelBox;
     }
-    public class WidgetBase : WidgetBase<WidgetSetting>
+    public abstract class WidgetBase : WidgetBase<WidgetSetting>
     {
         public WidgetBase(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
         }
     }
     
-    public class WidgetBase<TSetting> : ModuleBase, IWidget
+    public abstract class WidgetBase<TSetting> : ModuleBase, IWidget
         where TSetting:WidgetSetting,new()
     {
+        protected WidgetInfoAttribute info { get; set; }
+        public virtual bool CheckPermission() {
+            return this.HasPermission(info?.Permission);
+        }
+        protected abstract void DoProcessData();
         public IWidget DoSetting(Action<IWidget> acction = null) {
             if (acction != null) acction(this);
             return this;
@@ -99,6 +106,12 @@ namespace AZWeb.Module.Common
         {
             this.renderView = new RenderView(this.HttpContext);
             this.IntData();
+            info = this.GetType().GetAttribute<WidgetInfoAttribute>();
+            this.Title = this.info?.Name;
+            this.Setting.Icon = this.info?.Icon;
+            this.Setting.BackgroundColorClass = this.info?.BackgroundColorClass;
+            this.Setting.WidthClass = info?.WidthClass ?? WidgetWidth.Col1;
+            this.Setting.IconColorClass = this.info?.IconColorClass;
         }
         public async Task<IHtmlContent> GetContentAsync() {
             return await renderView.GetContentHtmlFromView(View() as HtmlView);
@@ -154,6 +167,15 @@ namespace AZWeb.Module.Common
             }
             else
             {
+                widget.Append(@"<div class='btn-group'>
+                    <button type='button' class='btn btn-tool dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
+                      <i class='fas fa-cog'></i>
+                    </button>
+                    <div class='dropdown-menu dropdown-menu-right' role='menu' x-placement='bottom-end' style='position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(46px, 19px, 0px);'>
+                      <a class='dropdown-item'>Làm mới</a>
+                      <a class='dropdown-item az-widget-setting'>Thiết lập</a>
+                    </div>
+                  </div>");
                 widget.Append(GetContentAsync().ConfigureAwait(false).GetAwaiter().GetResult().GetString());
 
             }
@@ -162,6 +184,7 @@ namespace AZWeb.Module.Common
         }
         public IHtmlContent GetContent()
         {
+            this.DoProcessData();
             return new HtmlString(LayoutWidget());
         }
         public virtual IView PostData() {
@@ -207,7 +230,7 @@ namespace AZWeb.Module.Common
 
         public string GetName()
         {
-            return string.Format("<i class=\"{0}\"/> {1}",this.Setting?.Icon,this.Setting?.Title);
+            return string.Format("<i class=\"{0}\"/> {1}",this.Setting?.Icon,this.Title);
         }
 
         public WidgetSetting GetSettingObject()

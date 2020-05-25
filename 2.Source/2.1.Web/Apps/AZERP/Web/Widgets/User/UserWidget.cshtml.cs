@@ -7,7 +7,7 @@ namespace AZERP.Web.Widgets.User
     public class UsertWidgetSetting : WidgetSetting
     {
     }
-    [WidgetInfo(Name = "Tài khoản")]
+    [WidgetInfo(Name = "Tài khoản",Icon = "fas fa-users",Type = WidgetType.InfoBox)]
     public class UserWidget : WidgetBase<UsertWidgetSetting>
     {
         [BindService]
@@ -15,13 +15,9 @@ namespace AZERP.Web.Widgets.User
         public UserWidget(Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
         }
-        protected override void IntData()
+        protected override void DoProcessData()
         {
-            this.Setting.Title = "Số lượng tài khoản";            
-            this.Setting.Type = WidgetType.InfoBox;
-            this.Setting.Value = UserService.ExecuteNoneQuery((T) =>T.SetColumn("count(0)"));
-            this.Setting.Icon = "fas fa-users";
-            base.IntData();
+            this.Setting.Value = UserService.ExecuteNoneQuery((T) => T.SetColumn("count(0)"));
         }
     }
 }

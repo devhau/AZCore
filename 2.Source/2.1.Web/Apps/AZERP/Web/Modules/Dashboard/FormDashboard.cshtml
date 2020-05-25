@@ -6,7 +6,10 @@
         <div class="row">
             @foreach (var item in Model.Widgets())
             {
-                @item.GetContent();
+                @if (item.CheckPermission())
+                {
+                    @item.GetContent();
+                }
             }
         </div>
     </div>

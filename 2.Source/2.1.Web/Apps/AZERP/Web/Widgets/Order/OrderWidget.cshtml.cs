@@ -10,7 +10,7 @@ namespace AZERP.Web.Widgets.Order
     public class OrderWidgetSetting : WidgetSetting { 
         public FilterDate FilterOrder { get; set; } = FilterDate.Day;
     }
-    [WidgetInfo(Name ="Đơn hàng")]
+    [WidgetInfo(Name ="Đơn hàng", Icon = "fas fa-shopping-cart",IconColorClass = "bg-success")]
     public class OrderWidget : WidgetBase<OrderWidgetSetting>
     {
         public List<ItemValue> listFilterDate=null;
@@ -18,23 +18,33 @@ namespace AZERP.Web.Widgets.Order
         {
         }
         public ChartOption ChartOption = new ChartOption();
+        /// <summary>
+        /// Cấu hình quyền hiển thị theo từng FilterOrder
+        /// </summary>
+        /// <returns></returns>
+        public override bool CheckPermission()
+        {
+            return base.CheckPermission();
+        }
         protected override void IntData()
         {
-            listFilterDate = typeof(FilterDate).GetListDataByDataType(null);
-            
+            listFilterDate = typeof(FilterDate).GetListDataByDataType(null);            
+            base.IntData();
+        }
+
+        protected override void DoProcessData()
+        {
             this.Value = System.DateTime.Now.ToLongTimeString();
-            this.Setting.Icon = "fas fa-shopping-cart";
-            this.Setting.IconColorClass = "bg-success";
             // thiết lập Chart
             ChartOption.type = "bar";
             ChartOption.data = new
             {
-                labels = new [] { "Sản phẩm 1", "Sản phẩm 2", "Sản phẩm 3", "Green", "Purple", "Orange" },
-                datasets = new [] {
+                labels = new[] { "Sản phẩm 1", "Sản phẩm 2", "Sản phẩm 3", "Green", "Purple", "Orange" },
+                datasets = new[] {
                     new {
                         label = "Doanh số trong ngày",
                         data = new []{ 12, 19, 3, 5, 2, 3 },
-                        backgroundColor = new []{ 
+                        backgroundColor = new []{
                             "rgba(255, 99, 132, 0.2)",
                             "rgba(54, 162, 235, 0.2)",
                             "rgba(255, 206, 86, 0.2)",
@@ -55,7 +65,6 @@ namespace AZERP.Web.Widgets.Order
                 }
 
             };
-            base.IntData();
         }
     }
 }

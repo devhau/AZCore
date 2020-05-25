@@ -43,6 +43,7 @@ namespace AZWeb.Module.TagHelper.Input
         public bool IsButtonForAddonBefore { get; set; }
         public bool IsButtonForAddonAfter { get; set; }
         protected bool? LabelAfter=false;
+        public bool IsCheckDefaultInputNull { get; set; }
         public override void Init(TagHelperContext context)
         {
             if (string.IsNullOrEmpty(TagClass))
@@ -54,6 +55,10 @@ namespace AZWeb.Module.TagHelper.Input
         public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
             InitData();
+            if (this.InputValue == null && IsCheckDefaultInputNull)
+            {
+                this.InputValue = this.InputValueDefault;
+            }
             if (!CMD.IsNullOrEmpty())
             {
                 this.Attr += $"  data-cmd-key='{CMD}' ";
