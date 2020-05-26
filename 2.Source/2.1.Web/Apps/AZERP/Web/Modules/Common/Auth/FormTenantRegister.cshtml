@@ -18,7 +18,7 @@
                             <az-text-model model="Model.TenantModel" func="(item)=>((TenantModel)item).Name" label="Tên cửa hàng" />
                         </div>
                         <div class="col-md-12 form-group">
-                            <az-text-model func="(item)=>((TenantModel)item).Email" label="Email" />
+                            <az-text-model model="Model.TenantModel" func="(item)=>((TenantModel)item).Email" label="Email" />
                         </div>
                         <div class="col-md-12 form-group">
                             <az-number-model model="Model.TenantModel" type="OnlyNumber" func="(item)=>((TenantModel)item).Phone" label="Số điện thoại" />

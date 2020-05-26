@@ -16,15 +16,21 @@ namespace AZERP.Web.Modules.Common.Auth
         public FormTenantRegister(Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
         }
+        protected override void IntData()
+        {
+            this.LayoutTheme = "Fullscreen";
+            this.Title = "Thiết lập cửa hàng mới";
+            base.IntData();
+        }
         [BindService]
         public EntityTransaction EntityTransaction { get; set; }
         [BindForm(FromName = "Tenant")]
-        public TenantModel TenantModel{get;set;}
-        public IView Get() {
-            if (!this.IsAjax && !this.IsAuth)
-                this.LayoutTheme = "Fullscreen";
-            this.Title = "Thiết lập cửa hàng mới";
-            if (this.IsAuth) {
+        public TenantModel TenantModel { get; set; }
+        public IView Get()
+        {
+
+            if (this.IsAuth)
+            {
                 TenantModel = new TenantModel();
                 TenantModel.Name = this.User.FullName;
                 TenantModel.Email = this.User.Email;
@@ -32,7 +38,8 @@ namespace AZERP.Web.Modules.Common.Auth
             }
             return View();
         }
-        public IView Post([BindForm]UserModel User) {
+        public IView Post([BindForm] UserModel User)
+        {
             var rs = false;
             if (User == null && this.IsAuth)
             {
@@ -70,7 +77,7 @@ namespace AZERP.Web.Modules.Common.Auth
                     var CanonicalName = TenantModel.CanonicalName.ToUrlSlug().ToLower();
                     if (p1.Select(p => p.CanonicalName == CanonicalName).Count() > 0)
                     {
-                        throw new Exception(string.Format("{0} đã tồn tại rồi", TenantModel.CanonicalName ));
+                        throw new Exception(string.Format("Cửa hàng {0} đã được đăng ký rồi", TenantModel.CanonicalName));
                     }
                     if (p2.ExecuteNoneQuery(p => { p.AddWhere("Email", TenantModel.Email); p.SetColumn("count(0)"); }) > 0)
                     {
@@ -103,8 +110,8 @@ namespace AZERP.Web.Modules.Common.Auth
                     });
                 });
             }
-            if(rs)
-                    return GoToRedirect(string.Format("https://{0}.{1}", TenantModel.CanonicalName,this.HttpContext.Request.Host.Value));
+            if (rs)
+                return GoToRedirect(string.Format("https://{0}.{1}", TenantModel.CanonicalName, this.HttpContext.Request.Host.Value));
             this.Error = this.EntityTransaction.ErrorMessge;
             return View();
         }
