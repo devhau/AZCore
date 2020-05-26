@@ -10,6 +10,7 @@ using AZWeb.Module.View;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +64,7 @@ namespace AZWeb.Module
                 string subdomain = host.Split('.')[0].ToLower();
                 if (tenantService != null) {
                     this.httpContext.Items[AZWebConstant.KeyTenant] = tenantService.GetTenantByCanonicalName(subdomain);
+                    //this.httpContext.RequestServices.CreateScope();
                     //Khởi tạo Scope cho service ở đây
                 }
             }

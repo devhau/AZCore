@@ -1,16 +1,13 @@
 ﻿using AZCore.Extensions;
 using AZCore.Identity;
-using AZWeb.Extensions;
 using AZWeb.Module.Constant;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Extensions.FileProviders;
 using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +16,8 @@ namespace AZWeb.Module.Common
     public abstract class TagHelperBase : Microsoft.AspNetCore.Razor.TagHelpers.TagHelper
     {
         public UserInfo User { get; private set; }
+        public ITenant Tenant { get; private set; }
+        public long? TenantId { get => this.Tenant?.Id; }
         public string TagId { get; private set; }
         [HtmlAttributeName("attr")]
         public string Attr { get; set; }
@@ -67,6 +66,7 @@ namespace AZWeb.Module.Common
             {
                 this.User = HttpContext.Items[AZWebConstant.KeyUser] as UserInfo;
             }
+            this.Tenant = HttpContext.Items[AZWebConstant.KeyTenant] as ITenant;
             this.TagId = string.Format("az{0}", Guid.NewGuid().ToString().Replace("-", ""));
             PathModule = Path.GetDirectoryName(string.Format("{0}/{1}", Directory.GetCurrentDirectory(),this.ViewContext.ExecutingFilePath));
             base.Init(context);

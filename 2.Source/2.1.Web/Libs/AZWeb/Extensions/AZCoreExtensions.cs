@@ -29,7 +29,8 @@ namespace AZWeb.Extensions
     {
         internal static string key = "123456789@abcxyz";
         internal static IStartupAZ startup;
-        public static void AddMySQL(this IServiceCollection services,string connectString="") {
+        public static void AddMySQL(this IServiceCollection services,string connectString="")
+        {
             services.AddScoped<IDbConnection>((_) => new MySql.Data.MySqlClient.MySqlConnection(connectString));
         }
         public static void AddAZCore(this IServiceCollection services, IStartupAZ startup)
