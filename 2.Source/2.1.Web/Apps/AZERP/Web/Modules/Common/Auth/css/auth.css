@@ -1,5 +1,6 @@
 ﻿.auth-box {
-    width:350px;
+    width:90%;
+    max-width:350px;
     margin:150px auto 0px auto;
 }
 .auth-logo h3 {

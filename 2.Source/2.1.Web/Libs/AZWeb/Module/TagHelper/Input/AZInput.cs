@@ -36,13 +36,19 @@ namespace AZWeb.Module.TagHelper.Input
         public string CMD { get; set; }
         [HtmlAttributeName("max-length")]
         public int MaxLength { get; set; }
+        [HtmlAttributeName("add-js")]
         public bool AddJs { get; set; } = true;
         public Func<string, string> ScriptInput { get; set; }
+        [HtmlAttributeName("addon-before")]
         public string AddonBefore { get; set; }
+        [HtmlAttributeName("addon-after")]
         public string AddonAfter { get; set; }
+        [HtmlAttributeName("is-button-for-addon-before")]
         public bool IsButtonForAddonBefore { get; set; }
+        [HtmlAttributeName("is-button-for-addon-after")]
         public bool IsButtonForAddonAfter { get; set; }
         protected bool? LabelAfter=false;
+        [HtmlAttributeName("is-check-default-input-null")]
         public bool IsCheckDefaultInputNull { get; set; }
         public override void Init(TagHelperContext context)
         {

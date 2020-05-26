@@ -18,7 +18,6 @@ namespace AZWeb.Module.Common
 {
     public abstract class TagHelperBase : Microsoft.AspNetCore.Razor.TagHelpers.TagHelper
     {
-        public static string KeyUser = "UserIdentity";
         public UserInfo User { get; private set; }
         public string TagId { get; private set; }
         [HtmlAttributeName("attr")]
@@ -66,7 +65,7 @@ namespace AZWeb.Module.Common
         {
             if (this.HttpContext.User.Identity.IsAuthenticated)
             {
-                this.User = this.HttpContext.Items[KeyUser] as UserInfo;
+                this.User = HttpContext.Items[AZWebConstant.KeyUser] as UserInfo;
             }
             this.TagId = string.Format("az{0}", Guid.NewGuid().ToString().Replace("-", ""));
             PathModule = Path.GetDirectoryName(string.Format("{0}/{1}", Directory.GetCurrentDirectory(),this.ViewContext.ExecutingFilePath));

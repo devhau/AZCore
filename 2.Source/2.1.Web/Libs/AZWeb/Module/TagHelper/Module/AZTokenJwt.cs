@@ -16,18 +16,21 @@ namespace AZWeb.Module.TagHelper.Module
         public TokenJwtType Type = TokenJwtType.Javascript;
         public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(AZCoreExtensions.key);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            if (this.User != null)
             {
-                Subject = (ClaimsIdentity)this.HttpContext.User.Identity,
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(AZCoreExtensions.key);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = (ClaimsIdentity)this.HttpContext.User.Identity,
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
 
-            // AZCore.UserId
-            var token = tokenHandler.CreateEncodedJwt(tokenDescriptor);
-            this.AddJS(string.Format("AZCore.Token= \"{0}\"; AZCore.UserId={1};", token,this.User.Id));
+                // AZCore.UserId
+                var token = tokenHandler.CreateEncodedJwt(tokenDescriptor);
+                this.AddJS(string.Format("AZCore.Token= \"{0}\"; AZCore.UserId={1};", token, this.User.Id));
+            }
             output.SuppressOutput();
             return Task.CompletedTask;
         }

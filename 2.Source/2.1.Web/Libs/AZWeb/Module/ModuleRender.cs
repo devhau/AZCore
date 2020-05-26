@@ -4,13 +4,13 @@ using AZWeb.Configs;
 using AZWeb.Extensions;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
+using AZWeb.Module.Constant;
 using AZWeb.Module.Page;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -39,11 +39,13 @@ namespace AZWeb.Module
         bool IsAjax { get; }
         readonly string urlPath;
         IPermissionService permissionService = null;
+        ITenantService tenantService = null;
         ModuleRender(HttpContext _httpContext)
         {
             httpContext = _httpContext;
             renderView = new RenderView(httpContext);
             permissionService = httpContext.GetService<IPermissionService>();
+            tenantService = httpContext.GetService<ITenantService>();
             this.PageConfigs = this.httpContext.GetService<IPagesConfig>();
             this.IsAjax = httpContext.IsAjax();
             urlPath = this.httpContext.Request.Path.Value;
@@ -51,6 +53,33 @@ namespace AZWeb.Module
                 _hostingEnvironment = _httpContext.GetService<IHostingEnvironment>();
             }
         }
+
+        private void CheckTenant()
+        {
+            string host = httpContext.Request.Host.Host;
+            // Check if the host is subdomain.domain.com or subdomain.localhost for debugging
+            if (host.IsSubdomain())
+            {
+                string subdomain = host.Split('.')[0].ToLower();
+                if (tenantService != null) {
+                    this.httpContext.Items[AZWebConstant.KeyTenant] = tenantService.GetTenantByCanonicalName(subdomain);
+                    //Khởi tạo Scope cho service ở đây
+                }
+            }
+        }
+        private void CheckIdentity()
+        {
+            if (this.httpContext.User.Identity.IsAuthenticated)
+            {
+                var User = this.httpContext.User.GetUserInfo();
+                if (permissionService != null)
+                {
+                    User.PermissionActive = permissionService.GetPermissionByUserId(User.Id).ToList();
+                }
+                this.httpContext.Items[AZWebConstant.KeyUser] = User;
+            }
+        }
+
         /// <summary>
         /// Get Path Real
         /// </summary>
@@ -85,6 +114,7 @@ namespace AZWeb.Module
             }
             return null;
         }
+
         /// <summary>
         /// Load Module
         /// </summary>
@@ -127,6 +157,11 @@ namespace AZWeb.Module
             if (query.ContainsKey("gm") && !string.IsNullOrEmpty(query["gm"].ToString()))
                 gm = "."+query["gm"].ToString();
             string typeModuleString = string.Format("Web.Modules{2}.{0}.Form{1}", moduleName, viewName, gm);
+            // Kiểm tra subdomain của đơn vị nào.
+            this.CheckTenant();
+            //Kiểm tra xem hệ thống đã đăng nhập chưa.
+            this.CheckIdentity();
+
             var ModuleCurrent = LoadModule(typeModuleString);
             
 
@@ -140,7 +175,7 @@ namespace AZWeb.Module
             var methodFunction = ModuleCurrent.GetType().GetMethods().FirstOrDefault(p=> string.Equals(p.Name, methodName, StringComparison.OrdinalIgnoreCase));
             if (methodFunction == null || (methodFunction.GetAttribute<OnlyAjaxAttribute>() != null && !IsAjax))
                 return RenderError.NotFoundMethod;
-
+           
             ModuleCurrent.BeforeRequest();
             var isModuleAuth= ModuleCurrent.GetType().GetAttribute<AuthAttribute>()!=null;
             var isMethodAuth = methodFunction.GetAttribute<AuthAttribute>() != null;
@@ -238,6 +273,7 @@ namespace AZWeb.Module
 
             return RenderError.OK;
         }
+
         private async Task<bool> GetError(RenderError error)
         {
             var ErrorString = "NotFound";
@@ -315,6 +351,7 @@ namespace AZWeb.Module
         {
             return AZCoreExtensions.startup.GetType(type);
         }
+
         public static async Task<bool> RouterAsync(HttpContext httpContext) {
             
             return await new ModuleRender(httpContext).DoRouterAsync();

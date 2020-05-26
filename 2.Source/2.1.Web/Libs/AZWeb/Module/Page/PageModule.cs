@@ -13,7 +13,7 @@ using System.Security.Claims;
 
 namespace AZWeb.Module.Page
 {
-    public class PageModule : ModuleBase
+    public class PageModule : PageBase
     {
         #region --- Init ----
         public bool IsTheme { get; set; } = true;

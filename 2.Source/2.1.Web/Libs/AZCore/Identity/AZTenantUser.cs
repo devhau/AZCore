@@ -14,6 +14,8 @@ namespace AZCore.Identity
         public long UserId { get; set; }
         [Field]
         public TenantUserStatus Status { get; set; }
+        [Field]
+        public bool IsAdmin { get; set; }
         [JsonIgnore]
         [Field]
         public bool IsDelete { get; set; }

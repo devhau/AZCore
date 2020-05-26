@@ -112,6 +112,10 @@ namespace AZWeb.Extensions
                 {
                     services.AddTransient(typeof(IGetGenCodeService), item);
                 }
+                if (item.IsTypeFromInterface<ITenantService>())
+                {
+                    services.AddTransient(typeof(ITenantService), item);
+                }
             }
             // Add EntityTransaction
             services.AddScoped(typeof(EntityTransaction));

@@ -1,6 +1,7 @@
 ﻿using AZCore.Extensions;
 using AZCore.Identity;
 using AZERP.Data.Entities;
+using AZWeb.Extensions;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page;
@@ -13,10 +14,12 @@ namespace AZERP.Web.Modules.Common.Auth
     public class FormLogin:PageModule
     {
         public string Error { get; set; }
-        UserService userService;
-        public FormLogin(IHttpContextAccessor httpContext, UserService _userService) : base(httpContext)
+        [BindService]
+        public UserService userService;
+        [BindService]
+        public TenantUserService tenantUserService;
+        public FormLogin(IHttpContextAccessor httpContext) : base(httpContext)
         {
-            this.userService = _userService;
         }
         protected override void IntData()
         {
@@ -24,15 +27,24 @@ namespace AZERP.Web.Modules.Common.Auth
             this.LayoutTheme = "Fullscreen";
         }
 
-        public  IView Get()
+        public IView Get()
         {
+            if (this.HttpContext.IsSubdomain() && this.Tenant == null) 
+            {
+                return View("StoreNotFound");
+            }
+            if (this.Tenant == null) {
+                return View("LoginStore");
+            }
             return View();
         }
         public async Task<IView> GetLogout() {
             await this.LogoutAsync();
             return GoToHome();
         }
-        
+        public IView PostStore([BindForm] string subdomain) {
+            return GoToRedirect(string.Format("https://{0}.{1}", subdomain, this.HttpContext.Request.Host.Value));
+        }
         public async  Task<IView> Post([BindForm]string azemail, [BindForm]string azpassword, [BindForm]bool azremember) {
             var usr = this.userService.GetEmailOrUsername(azemail);
             if (usr != null) {
@@ -48,8 +60,13 @@ namespace AZERP.Web.Modules.Common.Auth
                         Error = "Tài khoản đã bị khóa";
                         return View();
                     }
+                    
+                    if (tenantUserService.Select(p => p.TenantId == this.TenantId && p.UserId == usr.Id && p.Status == TenantUserStatus.Active).Count()!=1) {
+                        Error = "Tài khoản chưa đăng ký với cửa hàng hoặc bị khóa";
+                        return View();
+                    }
                     var ulogin = usr.CopyTo<UserInfo>();
-                   await this.LoginAsync(ulogin, azremember);
+                    await this.LoginAsync(ulogin, azremember);
                     return this.GoToHome();
                 }
             }

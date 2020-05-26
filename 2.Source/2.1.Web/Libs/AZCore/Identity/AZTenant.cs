@@ -4,6 +4,10 @@ using System;
 
 namespace AZCore.Identity
 {
+    public interface ITenantService {
+        ITenant GetTenantByCanonicalName(string name);
+        ITenant GetTenantById(long id);
+    }
     [TableInfo(TableName = "az_common_tenant")]
     public class AZTenant<TEntity> : EntityModel<TEntity, long>, ITenant
         where TEntity : AZTenant<TEntity>
@@ -55,6 +59,7 @@ namespace AZCore.Identity
         public string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
     }
     public interface ITenant {
+        string Name { get; set; }
         long Id { get; set; }
         /// <summary>
         /// Gets or sets the canonical name for this tenant.
@@ -74,5 +79,9 @@ namespace AZCore.Identity
         /// A random value that must change whenever a tenant is persisted to the store.
         /// </summary>
         string ConcurrencyStamp { get; set; }
+        /// <summary>
+        /// Status
+        /// </summary>
+        EntityStatus? Status { get; set; }
     }
 }

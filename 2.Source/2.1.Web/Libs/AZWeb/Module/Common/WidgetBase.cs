@@ -77,7 +77,7 @@ namespace AZWeb.Module.Common
         }
     }
     
-    public abstract class WidgetBase<TSetting> : ModuleBase, IWidget
+    public abstract class WidgetBase<TSetting> : PageBase, IWidget
         where TSetting:WidgetSetting,new()
     {
         protected WidgetInfoAttribute info { get; set; }

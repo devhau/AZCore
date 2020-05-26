@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace AZWeb.Module.Common
 {
-    public class ThemeBase : ModuleBase
+    public class ThemeBase : PageBase
     {
         RenderView renderView { get; }
         public ThemeBase(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)

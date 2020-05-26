@@ -1,5 +1,5 @@
 ﻿@model FormLogin
-<az-style module="auth.css"/>
+<az-style module="auth.css" />
 <div class="auth-box">
     <div class="auth-logo">
         <h3>Đăng nhập</h3>
@@ -16,35 +16,19 @@
 
                 <h5 style="text-align:center;">Chào mừng đến cửa hàng <p style="color:rebeccapurple;font-weight:700;">@Model.Tenant.Name</p> </h5>
             }
-            <form action="" method="post" name="user-login">
-                <div class="input-group mb-3">
-                    <input type="email" name="azemail" class="form-control" placeholder="Email" />
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="password" name="azpassword" class="form-control" placeholder="Password" />
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                    </div>
-                </div>
+            <form action="?h=Store" method="post" name="user-login">
                 <div class="row">
-                    <div class="col-12">
-                        <div class="icheck-primary">
-                            <input type="checkbox" name="azremember" id="remember" value="true" />
-                            <label for="remember">
-                                Nhớ lần sau đăng nhập
-                            </label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="subdomain" class="form-control" placeholder="Cửa hàng" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                .onsof.vn
+                            </div>
                         </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary btn-block az-btn">Đăng nhập</button>
+                        <button type="submit" class="btn btn-primary btn-block az-btn">Đến cửa hàng</button>
                     </div>
                     <!-- /.col -->
                 </div>
@@ -79,5 +63,5 @@
         </div>
         <!-- /.login-card-body -->
     </div>
-        </div>
+</div>
 <!-- /.login-box -->

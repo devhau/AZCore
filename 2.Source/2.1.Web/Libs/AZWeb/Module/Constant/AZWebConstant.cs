@@ -1,7 +1,10 @@
 ﻿namespace AZWeb.Module.Constant
 {
-    static class AZWebConstant
+    sealed class AZWebConstant
     {
-        public static readonly string Html = "AZWeb_Html";
+        public const string ScopeService = "az_scope_service";
+        public const string Html = "AZWeb_Html";
+        public const string KeyUser = "UserIdentity";
+        public const string KeyTenant = "TenantIdentity";
     }
 }

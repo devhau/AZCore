@@ -8,6 +8,7 @@ using AZWeb.Module.Attributes;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace AZWeb.Extensions
 {
@@ -487,6 +488,14 @@ namespace AZWeb.Extensions
         }
         public static IReadOnlyList<IFormFile> GetListFiles(this IFormFileCollection files, string name) {
             return files.Where(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+
+        public static bool IsSubdomain(this HttpContext httpContext)
+        {
+            return httpContext?.Request.Host.Host.IsSubdomain()??false;
+        }
+            public static bool IsSubdomain(this string host) {
+            return Regex.IsMatch(host, @"^[A-Za-z\d]+\.(?:[A-Za-z\d]+\.[A-Za-z\d]+|localhost)$");
         }
     }
 }
