@@ -37,7 +37,7 @@ namespace AZERP.Web.Modules.Product.CashFlow
         [BindService]
         public EntityTransaction entityTransaction;
         [BindService]
-        public IGetGenCodeService genCodeService;
+        public IGenCodeService genCodeService;
 
         [BindQuery]
         public long Id { get; set; }

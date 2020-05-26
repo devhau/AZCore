@@ -4,10 +4,15 @@ using System.Text.Json.Serialization;
 
 namespace AZCore.Database
 {
-    public interface IEntity 
-    { 
+    public interface IEntity
+    {
+       
     }
-    public interface IEntityModel: IEntity
+    public interface ITenantEntity: IEntity
+    { 
+        long? TenantId { get; set; }
+    }
+    public interface IEntityModel: ITenantEntity
     {
         EntityStatus? Status { get; set; }
         bool IsDelete { get; set; }
@@ -21,6 +26,8 @@ namespace AZCore.Database
 
     public class EntityModel<TModel>: IEntityModel where TModel: IEntityModel
     {
+        [Field]
+        public long? TenantId { get; set; }
         [JsonIgnore]
         [Field]
         public EntityStatus? Status { get; set; }

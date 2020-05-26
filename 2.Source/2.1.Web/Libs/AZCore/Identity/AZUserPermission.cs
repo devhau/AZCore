@@ -4,8 +4,10 @@ using AZCore.Database.Attributes;
 namespace AZCore.Identity
 {
     [TableInfo(TableName = "az_common_user_permission")]
-    public class AZUserPermission<TEntity> : IEntity
+    public class AZUserPermission<TEntity> : ITenantEntity
     {
+        [Field]
+        public long? TenantId { get; set; }
         [Field(IsKey = true)]
         public long UserId { get; set; }
         [Field(IsKey = true, Length = 50)]

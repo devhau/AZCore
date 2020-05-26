@@ -36,5 +36,6 @@ namespace AZERP.Data.Entities
         public long ModuleId { get; set; }
         [Field(IsKey = true, Length = 50)]
         public string PermissionCode { get; set; }
+        public long TenantId { get; set; }
     }
 }

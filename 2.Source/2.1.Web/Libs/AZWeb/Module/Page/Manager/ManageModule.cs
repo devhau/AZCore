@@ -71,9 +71,10 @@ namespace AZWeb.Module.Page.Manager
         {
             this.Columns = this.GetType().GetAttributes<TableColumnAttribute>().ToList();
         }
-        protected virtual void AddWhere(QuerySQL Q) { 
-        
-        
+        protected virtual void AddWhere(QuerySQL Q) {
+            if (this.TenantId != null) {
+                Q.AddWhere("TenantId", this.TenantId);
+            }
         }
         protected virtual void AddQuerySQL(QuerySQL Q)
         {

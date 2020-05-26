@@ -18,11 +18,6 @@ namespace AZERP.Data.Entities
     public class WidgetModel : EntityModel<WidgetModel, long>
     {
         /// <summary>
-        /// Cấu hình cho đơn vị nào
-        /// </summary>
-        [Field]
-        public long? TenantId { get; set; }
-        /// <summary>
         /// Cấu hình theo từng người
         /// </summary>
         [Field]

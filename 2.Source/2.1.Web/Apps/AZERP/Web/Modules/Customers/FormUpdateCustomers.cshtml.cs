@@ -10,7 +10,7 @@ namespace AZERP.Web.Modules.Customers
     public class FormUpdateCustomers : UpdateModule<CustomersService, CustomersModel>
     {
         [BindService]
-        public IGetGenCodeService getGenCode;
+        public IGenCodeService getGenCode;
 
         public FormUpdateCustomers(IHttpContextAccessor httpContext) : base(httpContext)
         {

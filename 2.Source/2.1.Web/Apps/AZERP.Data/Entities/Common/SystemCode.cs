@@ -9,13 +9,13 @@ using System.Linq;
 
 namespace AZERP.Data.Entities
 {
-    public class SystemCodeService : EntityService<SystemCodeService, SystemCodeModel>, IAZTransient, IGetGenCodeService<SystemCode>
+    public class SystemCodeService : EntityService<SystemCodeService, SystemCodeModel>, IAZTransient, IGenCodeService<SystemCode>
     {
         public SystemCodeService(IDbConnection _connection) : base(_connection)
         {
         }
 
-        public string GetGenCode(SystemCode Key, long? TenantId=null, bool isTran = true) {
+        public string GetGenCode(SystemCode Key, long? TenantId = null, bool isTran = true) {
             string strCode = string.Empty;
             if(isTran) this.BeginTransaction();
             try
@@ -83,11 +83,6 @@ namespace AZERP.Data.Entities
         /// </summary>
         [Field]
         public long PrefixIndex { get; set; } = 0;
-        /// <summary>
-        /// Đối tác
-        /// </summary>
-        [Field]
-        public long? TenantId { get; set; }
         /// <summary>
         /// Có dùng mã đối tác không?
         /// </summary>

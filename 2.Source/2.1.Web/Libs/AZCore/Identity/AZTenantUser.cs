@@ -6,10 +6,10 @@ using System.Text.Json.Serialization;
 namespace AZCore.Identity
 {
     [TableInfo(TableName = "az_common_tenant_user")]
-    public class AZTenantUser<TEntity> : IEntity
+    public class AZTenantUser<TEntity> : ITenantEntity
     {
         [Field(IsKey = true)]
-        public long TenantId { get; set; }
+        public long? TenantId { get; set; }
         [Field(IsKey = true)]
         public long UserId { get; set; }
         [Field]

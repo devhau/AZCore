@@ -1,9 +1,9 @@
 ﻿namespace AZWeb.Module
 {
-    public interface IGetGenCodeService {
+    public interface IGenCodeService {
         string GetGenCode(object Key, long? TenantId = null, bool isTran = true);
     }
-    public interface IGetGenCodeService<TEnum>: IGetGenCodeService
+    public interface IGenCodeService<TEnum>: IGenCodeService
     {
         string GetGenCode(TEnum Key, long? TenantId = null, bool isTran = true);
     }

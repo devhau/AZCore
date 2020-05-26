@@ -21,7 +21,7 @@ namespace AZWeb.Module.Page.Manager
         public List<ItemValue> Errors = new List<ItemValue>();
         public List<TableColumnAttribute> Columns { get; set; }
         [BindService]
-        public IGetGenCodeService getGenCodeService;
+        public IGenCodeService getGenCodeService;
         public virtual IView Validate(TModel model, bool isNew) {
             return null;
         }
@@ -92,6 +92,9 @@ namespace AZWeb.Module.Page.Manager
                 DataFormToData(DataForm);
                 (DataForm as IEntityModel).CreateAt = DateTime.Now;
                 (DataForm as IEntityModel).CreateBy = User.Id;
+                if (this.TenantId != null) {
+                    (DataForm as IEntityModel).TenantId = this.TenantId;
+                }
                 var rs = Validate(DataForm,true);
                 if (rs == null)
                 {

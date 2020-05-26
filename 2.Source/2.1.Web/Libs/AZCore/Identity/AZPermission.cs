@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace AZCore.Identity
 {
     [TableInfo(TableName = "az_common_permission")]
-    public class AZPermission<TEntity> : IEntity
+    public class AZPermission<TEntity> : ITenantEntity
     {
         [Field]
         public string KeyName { get; set; }
@@ -13,6 +13,8 @@ namespace AZCore.Identity
         public string Code { get; set; }
         [Field(Length =128)]
         public string Name { get; set; }
+        [Field]
+        public long? TenantId { get; set; }
     }
     public interface IPermissionService {
         IEnumerable<string> GetPermissionByUserId(long UserId);

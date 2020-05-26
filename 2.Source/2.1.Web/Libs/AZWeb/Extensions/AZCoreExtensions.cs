@@ -109,9 +109,9 @@ namespace AZWeb.Extensions
                 {
                     services.AddTransient(typeof(IPermissionService), item);
                 }
-                if (item.IsTypeFromInterface<IGetGenCodeService>())
+                if (item.IsTypeFromInterface<IGenCodeService>())
                 {
-                    services.AddTransient(typeof(IGetGenCodeService), item);
+                    services.AddTransient(typeof(IGenCodeService), item);
                 }
                 if (item.IsTypeFromInterface<ITenantService>())
                 {

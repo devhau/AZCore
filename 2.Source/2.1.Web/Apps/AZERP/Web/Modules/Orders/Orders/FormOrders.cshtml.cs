@@ -66,7 +66,7 @@ namespace AZERP.Web.Modules.Orders.Orders
         [BindService]
         public EntityTransaction entityTransaction;
         [BindService]
-        public IGetGenCodeService genCodeService;
+        public IGenCodeService genCodeService;
         [BindQuery]
         public long Id { get; set; }
         [BindForm]
