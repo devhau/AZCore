@@ -24,7 +24,7 @@ namespace AZERP.Data.Entities
     public class PurchaseOrderModel : EntityModel<PurchaseOrderModel, long>
     {
         /// <summary>
-        /// Mã đơn nhập
+        /// Mã đơn nhập / xuất
         /// </summary>
         [Field(Length = 500)]
         public string Code { get; set; }

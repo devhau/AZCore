@@ -2,16 +2,22 @@
     <az-script module="Payment.js" />
     <az-layout class="az-update row" script-random='(id)=>$"UpdateOrders(\".{id}\");"'>
         <div class="form-group col-md-6">
-            <label>Tiền cần thanh toán:</label>
+            <label>Tổng tiền thanh toán:</label>
         </div>
         <div class="form-group col-md-6">
             <label>@String.Format("{0:#,###}", @Model.Money)</label>
         </div>
         <div class="form-group col-md-6">
+            <label>Số tiền đã trả:</label>
+        </div>
+        <div class="form-group col-md-6">
+            <label>@String.Format("{0:#,###}", @Model.MoneyPay)</label>
+        </div>
+        <div class="form-group col-md-6">
             <label>Thanh toán:</label>
         </div>
         <div class="form-group col-md-6">
-            <az-number-model id="txtMoney" value="Model.Money" />
+            <az-number-model id="txtMoney" value="Model.MoneyInput" /> 
         </div>
         <div class="form-group col-md-12">
             <button class="btn btn-secondary az-btn float-right btn-update-payment" >Thanh toán</button>

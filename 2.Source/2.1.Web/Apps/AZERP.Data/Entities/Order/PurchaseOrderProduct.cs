@@ -24,22 +24,22 @@ namespace AZERP.Data.Entities
     public class PurchaseOrderProductModel : EntityModel<PurchaseOrderProductModel, long>
     {
         /// <summary>
-        /// Mã đơn nhập/ xuất
+        /// ID đơn nhập/ xuất
         /// </summary>
         [Field]
         public long PurchaseOrderId { get; set; }
         /// <summary>
-        /// Mã Sản phẩm (SKU)
+        /// ID Sản phẩm
         /// </summary>
         [Field]
         public long ProductId { get; set; }
         /// <summary>
-        /// Giá nhập sản phẩm
+        /// Giá nhập / xuất sản phẩm
         /// </summary>
         [Field]
         public long ImportPrice { get; set; }
         /// <summary>
-        /// Số lượng nhập
+        /// Số lượng nhập / xuất
         /// </summary>
         [Field]
         public long ImportNumber{ get; set; }

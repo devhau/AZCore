@@ -64,7 +64,11 @@ namespace AZERP.Web.Modules.Orders.Orders
         [BindService]
         public UserService userService;
         [BindService]
+        public StoreProductService StoreProductService;
+        [BindService]
         public EntityTransaction entityTransaction;
+        [BindService]
+        public CashFlowOrdersService CashFlowOrdersService;
         [BindService]
         public IGenCodeService genCodeService;
         [BindQuery]
@@ -73,6 +77,10 @@ namespace AZERP.Web.Modules.Orders.Orders
         public List<PurchaseOrderProductModel> ListDataOrder { get; set; }
         [BindForm]
         public decimal Money { get; set; }
+        [BindForm]
+        public decimal MoneyPay { get; set; }
+        [BindForm]
+        public decimal MoneyInput { get; set; }
 
         public UserModel UserModel;
         public CustomersModel CustomersModel;
@@ -135,12 +143,21 @@ namespace AZERP.Web.Modules.Orders.Orders
         public IView GetPayment(string data)
         {
             decimal money = 0;
+            decimal sumMoneyPay = 0;
             foreach (var item in data.Split(","))
             {
                 var orderDetail = this.purchaseOrderProductService.Select(p => p.Id == item.To<long>()).First();
                 money += (orderDetail.ImportNumber * orderDetail.ImportPrice);
             }
+
+            var listOrderCashflow = CashFlowOrdersService.Select(p=>p.OrderId == this.Id).ToList();
+            foreach(var item in listOrderCashflow)
+            {
+                sumMoneyPay += item.RealMoney;
+            }
+            this.MoneyPay = sumMoneyPay;
             this.Money = money;
+            this.MoneyInput = money - sumMoneyPay;
             this.Title = "Xác nhận thanh toán";
             return View("UpdatePayment");
         }
@@ -149,24 +166,61 @@ namespace AZERP.Web.Modules.Orders.Orders
         public IView PostPayment([BindForm] string money)
         {
             var data = this.Service.GetById(this.Id);
-            var result = entityTransaction.DoTransantion<PurchaseOrderService, CashFlowService, CashFlowOrdersService>((t, t1, t2, t3) =>
+            
+            // Lay so tien can thanh toan
+            decimal sumRealMoney = 0;
+            var listOrderCashflow = CashFlowOrdersService.Select(p=>p.OrderId == this.Id).ToList();
+            foreach(var item in listOrderCashflow)
+            {
+                sumRealMoney += item.RealMoney;
+            }
+            decimal sumMoneyPay = this.Money - sumRealMoney;
+
+            // Kiem tra tien nhap vao voi tien phai tra
+            decimal moneyInput = money.To<decimal>();
+            
+            if (moneyInput > sumMoneyPay)
+            {
+                var result = entityTransaction.DoTransantion<PurchaseOrderService, CashFlowService, CashFlowOrdersService>((t, t1, t2, t3) =>
                 {
+                    // Tao phieu thu voi so tien phai tra
                     var cashFlowIn = new CashFlowModel();
-                    cashFlowIn.Code = this.genCodeService.GetGenCode(SystemCode.CashFlowInCode, null, false);
+                    cashFlowIn.Code = this.genCodeService.GetGenCode(SystemCode.CashFlowInCode, this.TenantId, false);
                     cashFlowIn.PartnerId = data.PartnerId;
-                    cashFlowIn.Money = money.To<decimal>();
+                    cashFlowIn.Money = sumMoneyPay;
                     cashFlowIn.Type = OrderType.In;
                     cashFlowIn.PartnerType = PartnerType2.Customer;
+                    cashFlowIn.TenantId = this.TenantId;
                     cashFlowIn.CreateAt = DateTime.Now;
+                    cashFlowIn.CreateBy = User.Id;
                     var cashFlowId = t2.Insert(cashFlowIn);
 
                     var cashFlowOrder = new CashFlowOrdersModel();
                     cashFlowOrder.CashFlowId = cashFlowId;
                     cashFlowOrder.OrderId = this.Id;
-                    cashFlowOrder.RealMoney = money.To<decimal>();
+                    cashFlowOrder.RealMoney = sumMoneyPay;
                     cashFlowOrder.CreateDate = DateTime.Now;
                     t3.Insert(cashFlowOrder);
 
+                    // Tao phieu thu voi so tien du
+                    var cashFlowIn2 = new CashFlowModel();
+                    cashFlowIn2.Code = this.genCodeService.GetGenCode(SystemCode.CashFlowInCode, this.TenantId, false);
+                    cashFlowIn2.PartnerId = data.PartnerId;
+                    cashFlowIn2.Money = moneyInput - sumMoneyPay;
+                    cashFlowIn2.Type = OrderType.In;
+                    cashFlowIn2.PartnerType = PartnerType2.Customer;
+                    cashFlowIn2.TenantId = this.TenantId;
+                    cashFlowIn2.CreateAt = DateTime.Now;
+                    cashFlowIn2.CreateBy = User.Id;
+                    var cashFlowId2 = t2.Insert(cashFlowIn2);
+
+                    var cashFlowOrder2 = new CashFlowOrdersModel();
+                    cashFlowOrder2.CashFlowId = cashFlowId2;
+                    cashFlowOrder2.RealMoney = moneyInput - sumMoneyPay;
+                    cashFlowOrder2.CreateDate = DateTime.Now;
+                    t3.Insert(cashFlowOrder2);
+
+                    // cap nhat trang thai hoa don
                     data.PurchaseOrderPayment = OrderPayment.Paid;
                     data.UpdateAt = DateTime.Now;
                     if (data.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.Export)
@@ -176,10 +230,78 @@ namespace AZERP.Web.Modules.Orders.Orders
                     }
                     t1.Update(data);
                 });
-            if (result) {
-                return Json("Thực hiện thanh toán thành công", System.Net.HttpStatusCode.OK);
-            } else {
-                return Json("Không thành công", System.Net.HttpStatusCode.BadRequest);
+                if (result) {
+                    return Json("Thực hiện thanh toán thành công", System.Net.HttpStatusCode.OK);
+                } else {
+                    return Json("Không thành công", System.Net.HttpStatusCode.BadRequest);
+                }
+            } else if (moneyInput == sumMoneyPay)
+            {
+                var result = entityTransaction.DoTransantion<PurchaseOrderService, CashFlowService, CashFlowOrdersService>((t, t1, t2, t3) =>
+                {
+                    // Tao phieu thu voi so tien phai tra
+                    var cashFlowIn = new CashFlowModel();
+                    cashFlowIn.Code = this.genCodeService.GetGenCode(SystemCode.CashFlowInCode, this.TenantId, false);
+                    cashFlowIn.PartnerId = data.PartnerId;
+                    cashFlowIn.Money = sumMoneyPay;
+                    cashFlowIn.Type = OrderType.In;
+                    cashFlowIn.PartnerType = PartnerType2.Customer;
+                    cashFlowIn.TenantId = this.TenantId;
+                    cashFlowIn.CreateAt = DateTime.Now;
+                    cashFlowIn.CreateBy = User.Id;
+                    var cashFlowId = t2.Insert(cashFlowIn);
+
+                    var cashFlowOrder = new CashFlowOrdersModel();
+                    cashFlowOrder.CashFlowId = cashFlowId;
+                    cashFlowOrder.OrderId = this.Id;
+                    cashFlowOrder.RealMoney = sumMoneyPay;
+                    cashFlowOrder.CreateDate = DateTime.Now;
+                    t3.Insert(cashFlowOrder);
+
+                    // cap nhat trang thai hoa don
+                    data.PurchaseOrderPayment = OrderPayment.Paid;
+                    data.UpdateAt = DateTime.Now;
+                    if (data.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.Export)
+                    {
+                        data.PurchaseOrderStatus = OrderStatus.Complete;
+                        data.CompleteOn = DateTime.Now;
+                    }
+                    t1.Update(data);
+                });
+                if (result) {
+                    return Json("Thực hiện thanh toán thành công", System.Net.HttpStatusCode.OK);
+                } else {
+                    return Json("Không thành công", System.Net.HttpStatusCode.BadRequest);
+                }
+            } 
+            else
+            {
+                var result = entityTransaction.DoTransantion<PurchaseOrderService, CashFlowService, CashFlowOrdersService>((t, t1, t2, t3) =>
+                {
+                    // Tao phieu thu voi so tien phai tra
+                    var cashFlowIn = new CashFlowModel();
+                    cashFlowIn.Code = this.genCodeService.GetGenCode(SystemCode.CashFlowInCode, this.TenantId, false);
+                    cashFlowIn.PartnerId = data.PartnerId;
+                    cashFlowIn.Money = moneyInput;
+                    cashFlowIn.Type = OrderType.In;
+                    cashFlowIn.PartnerType = PartnerType2.Customer;
+                    cashFlowIn.TenantId = this.TenantId;
+                    cashFlowIn.CreateAt = DateTime.Now;
+                    cashFlowIn.CreateBy = User.Id;
+                    var cashFlowId = t2.Insert(cashFlowIn);
+
+                    var cashFlowOrder = new CashFlowOrdersModel();
+                    cashFlowOrder.CashFlowId = cashFlowId;
+                    cashFlowOrder.OrderId = this.Id;
+                    cashFlowOrder.RealMoney = moneyInput;
+                    cashFlowOrder.CreateDate = DateTime.Now;
+                    t3.Insert(cashFlowOrder);
+                });
+                if (result) {
+                    return Json("Thực hiện thanh toán thành công", System.Net.HttpStatusCode.OK);
+                } else {
+                    return Json("Không thành công", System.Net.HttpStatusCode.BadRequest);
+                }
             }
         }
 
@@ -227,6 +349,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                 dataForm.PurchaseOrderPayment = OrderPayment.Unpaid;
                 dataForm.PurchaseOrderImport = AZERP.Data.Enums.PurchaseOrderImport.WaitingExport;
                 dataForm.Type = OrderType.Out;
+                dataForm.TenantId = this.TenantId;
 
                 if (dataForm.Code == "" || dataForm.Code == null)
                 {
@@ -240,6 +363,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                     {
                         item.PurchaseOrderId = orderId;
                         item.CreateAt = DateTime.Now;
+                        item.TenantId = this.TenantId;
                     }
                     t2.InsertRange(this.ListDataOrder);
                 });
@@ -281,6 +405,7 @@ namespace AZERP.Web.Modules.Orders.Orders
                             {
                                 item.PurchaseOrderId = Id.GetValueOrDefault();
                                 item.CreateAt = DateTime.Now;
+                                item.TenantId = this.TenantId;
                             }
                             t2.InsertRange(this.ListDataOrder);
 
@@ -363,25 +488,29 @@ namespace AZERP.Web.Modules.Orders.Orders
         }
         
         /// <summary>
-        /// Duyệt hóa đơn
+        /// Xuất kho
         /// </summary>
         /// <param name="commit"></param>
         /// <returns></returns>
         [OnlyAjax]
         public IView PostCommit([BindForm]long commit)
         {
-            if(commit != 1 && commit != 2)
-            {
-                return Json("Thao tác không thành công", System.Net.HttpStatusCode.BadRequest);
-            }
-
-            var data = this.Service.GetById(this.Id);
-            
             if(commit == 1) // Xuất kho
             {
+                var data = this.Service.GetById(this.Id);
+                // Check sản phẩm tồn kho
+                var listDetail = purchaseOrderProductService.Select(p => p.PurchaseOrderId == this.Id).ToList();
+                foreach (var item in listDetail)
+                {
+                    var storeProduct = StoreProductService.Select(p => p.ProductId == item.ProductId && p.StoreId == data.StoreId).FirstOrDefault();
+                    if (storeProduct == null)
+                    {
+                        return Json("'" + productService.Select(p => p.Id == item.ProductId).First().Name + "' không có trong kho!", System.Net.HttpStatusCode.BadRequest);
+                    }
+                }
+
                 var result = entityTransaction.DoTransantion<PurchaseOrderProductService, PurchaseOrderService, StoreProductService>((t, t1, t2, t3) =>
                 {
-                    var listDetail = t1.Select(p => p.PurchaseOrderId == this.Id).ToList();
                     foreach (var item in listDetail)
                     {
                         // Sản phẩm đã có trong kho
@@ -401,7 +530,6 @@ namespace AZERP.Web.Modules.Orders.Orders
                         data.PurchaseOrderStatus = OrderStatus.Complete;
                         data.CompleteOn = DateTime.Now;
                     }
-
                     t2.Update(data);
                 });
                 if(result)
@@ -410,26 +538,6 @@ namespace AZERP.Web.Modules.Orders.Orders
                 } else
                 {
                     return Json("Xuất kho thất bại", System.Net.HttpStatusCode.BadRequest);
-                }
-            } else if (commit == 2) // Xác nhận thanh toán
-            {
-                var result = entityTransaction.DoTransantion<PurchaseOrderService>((t, t1) =>
-                {
-                    data.PurchaseOrderPayment = OrderPayment.Paid;
-                    data.UpdateAt = DateTime.Now;
-                    if (data.PurchaseOrderImport == AZERP.Data.Enums.PurchaseOrderImport.Export)
-                    {
-                        data.PurchaseOrderStatus = OrderStatus.Complete;
-                        data.CompleteOn = DateTime.Now;
-                    }
-                    t1.Update(data);
-                });
-                if (result)
-                {
-                    return Json("Thanh toán thành công", System.Net.HttpStatusCode.OK);
-                } else
-                {
-                    return Json("Thanh toán thất bại", System.Net.HttpStatusCode.BadRequest);
                 }
             }
             return Json("Thao tác không thành công", System.Net.HttpStatusCode.BadRequest);
