@@ -29,8 +29,8 @@ namespace AZCore.Identity
         public virtual string Avatar { get; set; }
         public void SetPassword(string pass) 
         {
-            this.Salt = AzPassword.CreateSalt();
-            this.Password = AzPassword.Create(pass, this.Salt);
+            this.Salt = AzHash.CreateSalt();
+            this.Password = AzHash.CreatePassword(pass, this.Salt);
         }
         /// <summary>
         /// Kiểm tra mật khẩu xem có đúng không.
@@ -40,7 +40,7 @@ namespace AZCore.Identity
         /// <returns></returns>
         public bool HasPassword(string pass)
         {
-            return AzPassword.Validate(pass, this.Salt, this.Password);
+            return AzHash.ValidatePassword(pass, this.Salt, this.Password);
         }
     }
 }

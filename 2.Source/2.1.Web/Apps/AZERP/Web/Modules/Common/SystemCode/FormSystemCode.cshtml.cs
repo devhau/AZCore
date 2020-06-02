@@ -8,7 +8,6 @@ using AZWeb.Module.TagHelper.Module;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using Yahoo.Yui.Compressor;
 
 namespace AZERP.Web.Modules.Common.SystemCode
 {
