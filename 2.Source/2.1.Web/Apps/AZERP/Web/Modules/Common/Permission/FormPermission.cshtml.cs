@@ -229,6 +229,7 @@ namespace AZERP.Web.Modules.Common.Permission
                 this.Service.Insert(
                     new PermissionModel()
                     {
+                        TenantId = this.TenantId,
                         KeyName = item.Name,
                         Code = string.Format("{0}", item.GetRawConstantValue()),
                         GroupName = dis.GroupName,
