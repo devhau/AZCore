@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System;
-using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -42,7 +41,7 @@ namespace AZCore.Utility
 		public static string ToSHA256HexHash(this string StringIn)
 		{
 			string hashString;
-			using (var sha256 = System.Security.Cryptography.SHA256Managed.Create())
+			using (var sha256 = SHA256.Create())
 			{
 				var hash = sha256.ComputeHash(Encoding.Default.GetBytes(StringIn));
 				hashString = hash.ToHex();
@@ -53,7 +52,7 @@ namespace AZCore.Utility
 		public static string ToHMACSHA256HexHash(this string StringIn, string secret)
 		{
 			string hashString;
-			using (var sha256 = new System.Security.Cryptography.HMACSHA256(Encoding.UTF8.GetBytes(secret)))
+			using (var sha256 = new HMACSHA256(Encoding.UTF8.GetBytes(secret)))
 			{
 				var hash = sha256.ComputeHash(Encoding.Default.GetBytes(StringIn));
 				hashString = hash.ToHex();
