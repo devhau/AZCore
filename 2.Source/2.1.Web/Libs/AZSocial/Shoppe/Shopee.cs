@@ -1,14 +1,9 @@
 ﻿using AZCore.Utility;
 using AZSocial.Base;
-using AZSocial.Shoppe.Model;
+using AZSocial.Shoppe.Request;
+using AZSocial.Shoppe.Response;
 using System;
-using System.Collections.Generic;
-using System.Dynamic;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AZSocial.Shoppe
 {
@@ -40,20 +35,25 @@ namespace AZSocial.Shoppe
         protected string Key { get; set; }
         protected string Version { get; set; } = "v1";
         protected long ShopId { get; set; }
+        public void SetShopId(long _shopId) => this.ShopId = _shopId;
         protected string GetUrlApi() => string.Format("{0}/api/{1}/", Url,this.Version);
 
-        public override void BeforeSendRequest(WebRequest request, MethodHttp method, string url, string Data = null)
+        public override void BeforeSendRequest(WebRequest request, MethodHttp method, string url, string dataJson = null)
         {
-            string Signature = string.Format("{0}|{1}", url, Data).ToHMACSHA256HexHash(this.Key);
+            string Signature = string.Format("{0}|{1}", url, dataJson).ToHMACSHA256HexHash(this.Key);
             request.Headers.Add(HttpRequestHeader.Authorization, Signature);
-            base.BeforeSendRequest(request, method, url, Data);
+            base.BeforeSendRequest(request, method, url, dataJson);
         }
         public string GetLinkAuth(string redirectUrl = "") 
         {
             return string.Format("{0}shop/auth_partner?id={1}&token={2}&redirect={3}", GetUrlApi(), PartnerID, (Key + redirectUrl).ToSHA256HexHash(), redirectUrl);
         }
         public ResponseData<ShopInfoResponse> GetInfo(long ShopId=0) {
-            return this.DoPost<ShopInfoResponse>(string.Format("{0}shop/get", GetUrlApi()),new ShopeeRequestBase() { partner_id=this.PartnerID,shopid= ShopId>0? ShopId:this.ShopId});
+            return this.DoPost<ShopInfoResponse, RequestBase>(string.Format("{0}shop/get", GetUrlApi()),p => { p.partner_id = this.PartnerID;p.shopid = ShopId > 0 ? ShopId : this.ShopId; });
+        }
+        public ResponseData<ShopInfoResponse> UpdateInfo(Action<ShopInfoRequest> acRequest, long ShopId = 0)
+        {
+            return this.DoPost<ShopInfoResponse, ShopInfoRequest>(string.Format("{0}shop/update", GetUrlApi()), p => { acRequest?.Invoke(p); p.partner_id = this.PartnerID; p.shopid = ShopId > 0 ? ShopId : this.ShopId; });
         }
     }
 }

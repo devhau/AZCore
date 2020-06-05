@@ -20,6 +20,8 @@ namespace AZSocial.Test
         {
           //var link=  shopee.GetLinkAuth("https://k.localhost:5001/ket-noi-social.az?url=https");
             var test = shopee.GetInfo(305492);
+            shopee.UpdateInfo(p => { p.shop_description = "Thông tin được thay đổi bằng hệ thống"; }, 305492);
+            var test2 = shopee.GetInfo(305492);
             Assert.Pass();
         }
     }

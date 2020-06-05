@@ -25,13 +25,21 @@ namespace AZSocial.Base
         #region -- Common --
 
         private const int timeout = 90000;
-        public virtual void BeforeRequest(WebRequest request, MethodHttp method, string url, dynamic Data = null) { }
-        public virtual void BeforeSendRequest(WebRequest request, MethodHttp method, string url, string Data = null) { }
+        public virtual void BeforeRequest(WebRequest request, MethodHttp method, string url, dynamic data = null) { }
+        public virtual void BeforeSendRequest(WebRequest request, MethodHttp method, string url, string dataJson = null) { }
+        protected virtual string GetDataJson(MethodHttp method, string url, dynamic data)
+        {
+            return JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.None,
+                                new JsonSerializerSettings
+                                {
+                                    NullValueHandling = NullValueHandling.Ignore
+                                });
+        }
         protected virtual HttpWebResponse CreateRequest(string url, MethodHttp method, dynamic data = null, Action<WebRequest> acRequest = null)
         {
             WebRequest request = WebRequest.Create(url);
             BeforeRequest(request, method, url, data);
-            string dataJson = JsonConvert.SerializeObject(data);
+            string dataJson = GetDataJson(method, url, data);
             byte[] postdatabyte = Encoding.UTF8.GetBytes(dataJson);
             request.Method = method.ToString();
             request.ContentType = "application/json";
@@ -44,25 +52,25 @@ namespace AZSocial.Base
             BeforeSendRequest(request, method, url, dataJson);
             return (HttpWebResponse)request.GetResponse();
         }
-        public virtual HttpWebResponse DoGet(string url)
+        public virtual HttpWebResponse DoGet(string url, Action<WebRequest> acRequest = null)
         {
-            return CreateRequest(url,MethodHttp.GET);
+            return CreateRequest(url,MethodHttp.GET, null, acRequest);
         }
-        public virtual HttpWebResponse DoPost(string url, dynamic Data)
+        public virtual HttpWebResponse DoPost(string url, dynamic Data, Action<WebRequest> acRequest = null)
         {
-            return CreateRequest(url, MethodHttp.POST, Data);
+            return CreateRequest(url, MethodHttp.POST, Data, acRequest);
         }
-        public virtual HttpWebResponse DoPut(string url, dynamic Data)
+        public virtual HttpWebResponse DoPut(string url, dynamic Data, Action<WebRequest> acRequest = null)
         {
-            return CreateRequest(url, MethodHttp.PUT, Data);
+            return CreateRequest(url, MethodHttp.PUT, Data, acRequest);
         }
-        public virtual HttpWebResponse DoDelete(string url)
+        public virtual HttpWebResponse DoDelete(string url, Action<WebRequest> acRequest = null)
         {
-            return CreateRequest(url, MethodHttp.DELETE);
+            return CreateRequest(url, MethodHttp.DELETE,null, acRequest);
         }
-        public virtual HttpWebResponse DoPatch(string url, dynamic Data)
+        public virtual HttpWebResponse DoPatch(string url, dynamic Data, Action<WebRequest> acRequest = null)
         {
-            return CreateRequest(url, MethodHttp.PATCH, Data);
+            return CreateRequest(url, MethodHttp.PATCH, Data, acRequest);
         }
         #endregion
     }
@@ -96,25 +104,30 @@ namespace AZSocial.Base
                 var response = fnSocial(this as TSocial);
                 Encoding encoding = Encoding.GetEncoding(response.CharacterSet);
                 result.StatusCode = response.StatusCode;
-                var rs = GetResponseAsString(response, encoding);
-                result.Data = rs.ToObject<TDataResponse>();
-                
+                var rsData = GetResponseAsString(response, encoding); 
+                Console.WriteLine(rsData);
+                result.Data = rsData.ToObject<TDataResponse>();
+
             }
             catch (Exception ex) {
                 Console.WriteLine(ex.Message);
             }
             return result;
         }
+        //TDataResponse
+        public virtual ResponseData<TDataResponse> DoGet<TDataResponse>(string url, Action<WebRequest> acRequest = null) where TDataResponse : IDataResponse => this.DoAction<TDataResponse>(p => p.DoGet(url, acRequest));
+        public virtual ResponseData<TDataResponse> DoPatch<TDataResponse>(string url, dynamic Data, Action<WebRequest> acRequest = null) where TDataResponse : IDataResponse => this.DoAction<TDataResponse>(p => p.DoPatch(url, Data, acRequest));
+        public virtual ResponseData<TDataResponse> DoPost<TDataResponse>(string url, dynamic Data, Action<WebRequest> acRequest = null) where TDataResponse : IDataResponse => this.DoAction<TDataResponse>(p => p.DoPost(url, Data, acRequest));
+        public virtual ResponseData<TDataResponse> DoPut<TDataResponse>(string url, dynamic Data, Action<WebRequest> acRequest = null) where TDataResponse : IDataResponse => this.DoAction<TDataResponse>(p => p.DoPut(url, Data, acRequest));
+        public virtual ResponseData<TDataResponse> DoDelete<TDataResponse>(string url, Action<WebRequest> acRequest = null) where TDataResponse : IDataResponse => this.DoAction<TDataResponse>(p => p.DoDelete(url, acRequest));
+        // TDataRequest - TDataResponse
+        public virtual ResponseData<TDataResponse> DoPatch<TDataResponse, TDataRequest>(string url, TDataRequest Data, Action<WebRequest> acRequest = null) where TDataResponse : IDataResponse where TDataRequest : IDataRequest => this.DoAction<TDataResponse>(p => p.DoPatch(url, Data, acRequest));
+        public virtual ResponseData<TDataResponse> DoPost<TDataResponse, TDataRequest>(string url, TDataRequest Data, Action<WebRequest> acRequest = null) where TDataResponse : IDataResponse where TDataRequest : IDataRequest => this.DoAction<TDataResponse>(p => p.DoPost(url, Data, acRequest));
+        public virtual ResponseData<TDataResponse> DoPut<TDataResponse, TDataRequest>(string url, TDataRequest Data, Action<WebRequest> acRequest = null) where TDataResponse : IDataResponse where TDataRequest : IDataRequest => this.DoAction<TDataResponse>(p => p.DoPut(url, Data, acRequest));
 
-        public virtual ResponseData<TDataResponse> DoGet<TDataResponse>(string url) where TDataResponse : IDataResponse => this.DoAction<TDataResponse>(p =>p.DoGet(url));
-        public virtual ResponseData<TDataResponse> DoPatch<TDataResponse>(string url, dynamic Data) where TDataResponse : IDataResponse =>  this.DoAction<TDataResponse>( p =>  p.DoPatch(url, Data));
-        public virtual ResponseData<TDataResponse> DoPost<TDataResponse>(string url, dynamic Data) where TDataResponse : IDataResponse =>  this.DoAction<TDataResponse>( p =>  p.DoPost(url, Data));
-        public virtual ResponseData<TDataResponse> DoPut<TDataResponse>(string url, dynamic Data) where TDataResponse : IDataResponse =>  this.DoAction<TDataResponse>( p =>  p.DoPut(url, Data));
-        public virtual ResponseData<TDataResponse> DoDelete<TDataResponse>(string url) where TDataResponse : IDataResponse =>  this.DoAction<TDataResponse>( p =>  p.DoDelete(url));
-
-        public virtual ResponseData<TDataResponse> DoPatch<TDataResponse, TDataRequest>(string url, TDataRequest Data) where TDataResponse : IDataResponse where TDataRequest : IDataResponse =>  this.DoAction<TDataResponse>( p =>  p.DoPatch(url, Data));
-        public virtual ResponseData<TDataResponse> DoPost<TDataResponse, TDataRequest>(string url, dynamic Data) where TDataResponse : IDataResponse where TDataRequest : IDataResponse =>  this.DoAction<TDataResponse>( p =>  p.DoPost(url, Data));
-        public virtual ResponseData<TDataResponse> DoPut<TDataResponse, TDataRequest>(string url, dynamic Data) where TDataResponse : IDataResponse where TDataRequest : IDataResponse =>  this.DoAction<TDataResponse>( p =>  p.DoPut(url, Data));
+        public virtual ResponseData<TDataResponse> DoPatch<TDataResponse, TDataRequest>(string url, Action<TDataRequest> acData, Action<WebRequest> acRequest = null) where TDataResponse : IDataResponse where TDataRequest : IDataRequest,new() => this.DoAction<TDataResponse>(p => { var Data = new TDataRequest();acData?.Invoke(Data); return p.DoPatch(url, Data, acRequest); });
+        public virtual ResponseData<TDataResponse> DoPost<TDataResponse, TDataRequest>(string url, Action<TDataRequest> acData, Action<WebRequest> acRequest = null) where TDataResponse : IDataResponse where TDataRequest : IDataRequest, new() =>  this.DoAction<TDataResponse>( p => { var Data = new TDataRequest(); acData?.Invoke(Data); return p.DoPost(url, Data, acRequest); });
+        public virtual ResponseData<TDataResponse> DoPut<TDataResponse, TDataRequest>(string url, Action<TDataRequest> acData, Action<WebRequest> acRequest = null) where TDataResponse : IDataResponse where TDataRequest : IDataRequest, new() =>  this.DoAction<TDataResponse>( p => { var Data = new TDataRequest(); acData?.Invoke(Data); return p.DoPut(url, Data, acRequest); });
     
         #endregion
 
