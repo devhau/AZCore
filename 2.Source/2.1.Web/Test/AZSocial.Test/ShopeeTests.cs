@@ -18,7 +18,8 @@ namespace AZSocial.Test
         [Test]
         public void Test1()
         {
-          var link=  shopee.GetLinkAuth("https://k.localhost:5001/ket-noi-social.az?url=https");
+          //var link=  shopee.GetLinkAuth("https://k.localhost:5001/ket-noi-social.az?url=https");
+            var test = shopee.GetInfo(305492);
             Assert.Pass();
         }
     }

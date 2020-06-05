@@ -15,7 +15,7 @@ namespace AZSocial.Test
         [Test]
         public void Test1()
         {
-         var rs=   scBase.DoGet("https://www.google.com/").ConfigureAwait(false).GetAwaiter().GetResult();
+         var rs=   scBase.DoGet("https://www.google.com/");
             Assert.Pass();
         }
     }
