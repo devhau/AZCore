@@ -4,6 +4,7 @@ using AZSocial.Base;
 using AZSocial.Shoppe.Request;
 using AZSocial.Shoppe.Response;
 using System;
+using System.Diagnostics;
 using System.Net;
 
 namespace AZSocial.Shoppe
@@ -37,23 +38,42 @@ namespace AZSocial.Shoppe
         protected string Version { get; set; } = "v1";
         protected long ShopId { get; set; }
         public void SetShopId(long _shopId) => this.ShopId = _shopId;
-        protected string urlApi=> "{0}/api/{1}/".Frmat(Url,this.Version);
-        public override void BeforeSendRequest(WebRequest request, MethodHttp method, string url, string dataJson = null)
+        protected string urlApiBase=> "{0}/api/{1}/".Frmat(Url,this.Version);
+        protected override void BeforeSendRequest(WebRequest request, MethodHttp method, string url, string dataJson = null)
         {
             string Signature = "{0}|{1}".Frmat(url, dataJson).ToHMACSHA256HexHash(this.Key);
             request.Headers.Add(HttpRequestHeader.Authorization, Signature);
             base.BeforeSendRequest(request, method, url, dataJson);
         }
+        public override string GetUrlBase(string url)
+        {
+            return "{0}{1}".Frmat(this.urlApiBase, url); ;
+        }
         public string GetLinkAuth(string redirectUrl = "")
         {
-            return string.Format("{0}shop/auth_partner?id={1}&token={2}&redirect={3}", urlApi, PartnerID, (Key + redirectUrl).ToSHA256HexHash(), redirectUrl);
+            return string.Format("{0}shop/auth_partner?id={1}&token={2}&redirect={3}", urlApiBase, PartnerID, (Key + redirectUrl).ToSHA256HexHash(), redirectUrl);
         }
-        public ResponseData<ShopInfoResponse> GetInfo(long ShopId=0) {
-            return this.DoPost<ShopInfoResponse, RequestBase>("{0}shop/get".Frmat(urlApi),p => { p.partner_id = this.PartnerID;p.shopid = ShopId > 0 ? ShopId : this.ShopId; });
+        public ResponseData<ShopInfoResponse> GetInfo(long ShopId = 0)
+        {
+            return this.DoPost<ShopInfoResponse, RequestBase>("shop/get",
+                p =>
+                {
+                    p.partner_id = this.PartnerID;
+                    p.shopid = ShopId > 0 ? ShopId : this.ShopId;
+                }
+                , null,
+                (_, response) =>
+                {
+
+                    foreach (var key in response.Headers.AllKeys)
+                    {
+                        Debug.WriteLine("Key={0};Value={1}".Frmat(key, response.Headers[key]));
+                    }
+                });
         }
         public ResponseData<ShopInfoResponse> UpdateInfo(Action<ShopInfoRequest> acRequest, long ShopId = 0)
         {
-            return this.DoPost<ShopInfoResponse, ShopInfoRequest>("{0}shop/update".Frmat(urlApi), p => { acRequest?.Invoke(p); p.partner_id = this.PartnerID; p.shopid = ShopId > 0 ? ShopId : this.ShopId; });
+            return this.DoPost<ShopInfoResponse, ShopInfoRequest>("shop/update", p => { acRequest?.Invoke(p); p.partner_id = this.PartnerID; p.shopid = ShopId > 0 ? ShopId : this.ShopId; });
         }
     }
 }
