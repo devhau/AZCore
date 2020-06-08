@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -122,14 +123,50 @@ namespace AZWeb.Module
         /// </summary>
         /// <param name="AssemblyModule"></param>
         /// <returns></returns>
-        private PageModule LoadModule(string AssemblyModule)
+        private ModuleBase LoadModule(string AssemblyModule)
         {
             var typeModule = this.GetType(AssemblyModule);
             if (typeModule != null)
             {
-                return httpContext.RequestServices.GetService(typeModule) as PageModule;
+                return httpContext.RequestServices.GetService(typeModule) as ModuleBase;
             }
             return null;
+        }
+        private KeyValuePair<string, string> GetModuleAndHandle() {
+            string ModuleStr = string.Empty;
+            string methodName = string.Empty;
+
+            if (urlPath == "/" || urlPath.EndsWith(PageConfigs.extenstion))
+            {
+                #region --- Get Path & Merge Path ---
+                var pathReal = GetPathReal();
+                if (string.IsNullOrEmpty(pathReal)) return default;
+                foreach (var key in httpContext.Request.Query.Keys)
+                {
+                    pathReal = string.Format("{0}&{1}={2}", pathReal, key, httpContext.Request.Query[key]);
+                }
+                #endregion
+                var query = QueryHelpers.ParseQuery(pathReal);
+                if (!query.ContainsKey("m") || string.IsNullOrEmpty(query["m"].ToString())) return default;
+                string moduleName = query["m"].ToString();
+                string viewName = moduleName;
+                if (query.ContainsKey("v") && !string.IsNullOrEmpty(query["v"].ToString()))
+                    viewName = query["v"].ToString();
+                string gm = "";
+                if (query.ContainsKey("gm") && !string.IsNullOrEmpty(query["gm"].ToString()))
+                    gm = "." + query["gm"].ToString();
+                ModuleStr = string.Format("Web.Modules{2}.{0}.Form{1}", moduleName, viewName, gm);
+                methodName = httpContext.Request.Method;
+                if (query.ContainsKey("h") && !string.IsNullOrEmpty(query["h"].ToString()))
+                    methodName = string.Format("{0}{1}", methodName, query["h"].ToString());
+                httpContext.Request.QueryString = new QueryString(string.Format("?{0}", pathReal));
+            }
+            else if(urlPath.StartsWith("/api/")) {
+                var methodNameIndex = urlPath.LastIndexOf("/");
+                methodName = "{0}{1}".Frmat(httpContext.Request.Method, urlPath.Substring(methodNameIndex + 1));
+                ModuleStr = "Web.Api.{0}Controller".Frmat(urlPath.Substring(5, methodNameIndex - 5).Replace("/","."));
+            }
+            return new KeyValuePair<string, string>(ModuleStr, methodName);
         }
         /// <summary>
         /// Get Module
@@ -137,41 +174,22 @@ namespace AZWeb.Module
         /// <returns></returns>
         private async Task<RenderError> GetModule()
         {
-            if (urlPath != "/" && !urlPath.EndsWith(PageConfigs.extenstion)) return RenderError.OK;
-            #region --- Get Path & Merge Path ---
-            var pathReal = GetPathReal();
-            if (string.IsNullOrEmpty(pathReal)) return RenderError.NotFoundPath;
-            foreach (var key in httpContext.Request.Query.Keys)
-            {
-                pathReal = string.Format("{0}&{1}={2}", pathReal, key, httpContext.Request.Query[key]);
-            }
-            #endregion
-
             #region --- Get Module & Process Module ----
-            var query = QueryHelpers.ParseQuery(pathReal);
-
-            if (!query.ContainsKey("m") || string.IsNullOrEmpty(query["m"].ToString())) return RenderError.NotFoundPath;
-            string moduleName = query["m"].ToString();
-            string viewName = moduleName;
-            if (query.ContainsKey("v") && !string.IsNullOrEmpty(query["v"].ToString()))
-                viewName = query["v"].ToString();
-            string gm = "";
-            if (query.ContainsKey("gm") && !string.IsNullOrEmpty(query["gm"].ToString()))
-                gm = "."+query["gm"].ToString();
-            string typeModuleString = string.Format("Web.Modules{2}.{0}.Form{1}", moduleName, viewName, gm);
+          
             // Kiểm tra subdomain của đơn vị nào.
             this.CheckTenant();
             //Kiểm tra xem hệ thống đã đăng nhập chưa.
             this.CheckIdentity();
+            //
+            var moduleInfo = GetModuleAndHandle();
+            //
+            var methodName = moduleInfo.Value;
+            //
+            var moduleName = moduleInfo.Key;
+            //
+            var ModuleCurrent = LoadModule(moduleName);
 
-            var ModuleCurrent = LoadModule(typeModuleString);
-            
-
-            var methodName = httpContext.Request.Method.ToUpperFirstChart();
-            if (query.ContainsKey("h") && !string.IsNullOrEmpty(query["h"].ToString()))
-                methodName = string.Format("{0}{1}", methodName, query["h"].ToString());
-
-            if (ModuleCurrent == null|| (ModuleCurrent.GetType().GetAttribute<OnlyAjaxAttribute>() != null&&!IsAjax))
+            if (ModuleCurrent == null|| (ModuleCurrent.GetType().GetAttribute<OnlyAjaxAttribute>() != null && !IsAjax))
                 return RenderError.NotFoundModule;
 
             var methodFunction = ModuleCurrent.GetType().GetMethods().FirstOrDefault(p=> string.Equals(p.Name, methodName, StringComparison.OrdinalIgnoreCase));
@@ -194,7 +212,6 @@ namespace AZWeb.Module
                 }
                 return RenderError.OK;
             }
-            httpContext.Request.QueryString = new QueryString(string.Format("?{0}", pathReal));
 
             #region Bind Param action
             List<object> paraValues = new List<object>();
@@ -243,33 +260,35 @@ namespace AZWeb.Module
             #endregion
 
             #region --- Get Theme && Process Theme ---
+            if (ModuleCurrent is PageModule) {
+                var PageCurrent = ModuleCurrent as PageModule;
+                if (PageCurrent.IsTheme & !IsAjax)
+                {
+                    string typeThemeString = string.Format("Web.Themes.{0}.LayoutTheme", PageConfigs.Theme);
+                    var typeTheme = this.GetType(typeThemeString);
+                    if (typeTheme == null)
+                        return RenderError.NotFoundTheme;
+                    var theme = httpContext.GetService<ThemeBase>(typeTheme);
 
-            if (ModuleCurrent.IsTheme & !IsAjax)
-            {
-                string typeThemeString = string.Format("Web.Themes.{0}.LayoutTheme", PageConfigs.Theme);
-                var typeTheme = this.GetType(typeThemeString);
-                if (typeTheme == null)
-                    return RenderError.NotFoundTheme;
-                var theme = httpContext.GetService<ThemeBase>(typeTheme);
-
-                if (theme == null)
-                    return RenderError.NotFoundTheme;
-                theme.BeforeRequest();
-                theme.LayoutTheme = ModuleCurrent.LayoutTheme;
-                theme.BodyContent = await renderView.GetContentHtmlFromView(rsView as HtmlView);
-                await renderView.RenderHtml(theme.GetTheme());
-                theme.AfterRequest();
-            }
-            else if (!IsAjax)
-            {
-                await renderView.RenderHtml(rsView as HtmlView);
-            }
-            else
-            {
-                var BodyContent = await renderView.GetContentHtmlFromView(rsView as HtmlView);
-                var htmlContent = ModuleCurrent.Html;
-                htmlContent.Html = BodyContent.GetString();
-               await renderView.RenderJson(htmlContent);
+                    if (theme == null)
+                        return RenderError.NotFoundTheme;
+                    theme.BeforeRequest();
+                    theme.LayoutTheme = PageCurrent.LayoutTheme;
+                    theme.BodyContent = await renderView.GetContentHtmlFromView(rsView as HtmlView);
+                    await renderView.RenderHtml(theme.GetTheme());
+                    theme.AfterRequest();
+                }
+                else if (!IsAjax)
+                {
+                    await renderView.RenderHtml(rsView as HtmlView);
+                }
+                else
+                {
+                    var BodyContent = await renderView.GetContentHtmlFromView(rsView as HtmlView);
+                    var htmlContent = PageCurrent.Html;
+                    htmlContent.Html = BodyContent.GetString();
+                    await renderView.RenderJson(htmlContent);
+                }
             }
             #endregion
 
@@ -328,7 +347,7 @@ namespace AZWeb.Module
                 var rsFN = methodFunction.Invoke(errorModule, paraValues.ToArray());
                 if (rsFN is Task)
                 {
-                    rsView = await (Task<Common.IView>)rsFN;
+                    rsView = await (Task<IView>)rsFN;
                 }
                 else
                 {

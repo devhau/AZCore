@@ -8,5 +8,8 @@ namespace AZERP.Web.Api.v1
         public HelloController(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
         }
+        public IView GetIndex() {
+            return Json("Xin Chào");
+        }
     }
 }

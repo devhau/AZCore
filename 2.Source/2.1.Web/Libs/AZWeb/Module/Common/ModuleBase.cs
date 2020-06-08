@@ -3,6 +3,7 @@ using AZCore.Identity;
 using AZWeb.Extensions;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Constant;
+using AZWeb.Module.View;
 using Microsoft.AspNetCore.Http;
 using System;
 
@@ -58,6 +59,18 @@ namespace AZWeb.Module.Common
 
             this.Tenant = HttpContext.Items[AZWebConstant.KeyTenant] as ITenant;
 
+        }
+        public virtual IView GoToAuth()
+        {
+            return GoToRedirect("/dang-nhap.az");
+        }
+        public virtual IView GoToHome()
+        {
+            return GoToRedirect("/");
+        }
+        public virtual IView GoToRedirect(string url)
+        {
+            return new RedirectView() { Module = this, RedirectToUrl = url };
         }
         public virtual void BeforeRequest() { IntData(); }
         public virtual void AfterRequest() { }
