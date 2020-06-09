@@ -17,6 +17,7 @@
     <Content Include="Web\*.css" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Libs\AZSocial\AZSocial.csproj" />
     <ProjectReference Include="..\..\Libs\AZWeb\AZWeb.csproj" />
     <ProjectReference Include="..\AZERP.Data\AZERP.Data.csproj" />
   </ItemGroup>

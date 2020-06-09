@@ -2,7 +2,7 @@
 
 namespace AZWeb.Module.Common
 {
-    public class PageBase : ModuleBase
+    public class PageBase : ApiController
     {
         private string path { get; }
         public PageBase(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)

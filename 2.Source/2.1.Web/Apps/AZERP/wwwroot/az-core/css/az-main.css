@@ -361,3 +361,12 @@ table-freeze thead th {
      top:15px;
      z-index:100;
  }
+ .power-chat-menu{
+     background:red;
+     color:#fff;
+     border-radius:5px;
+ }
+ .power-chat-menu:hover{     
+     background:#0069d9;
+    
+ }

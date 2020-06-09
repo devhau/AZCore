@@ -47,15 +47,7 @@ namespace AZWeb.Module.Page
         }
 
         #region --- Auth ---
-        public virtual IView GoToAuth() {
-            return GoToRedirect("/dang-nhap.az");
-        }
-        public virtual IView GoToHome() {
-            return GoToRedirect("/");
-        }
-        public virtual IView GoToRedirect(string url) {
-            return new RedirectView() {Module=this,RedirectToUrl=url };
-        }
+      
         public async System.Threading.Tasks.Task LoginAsync(UserInfo user, bool rememberMe = false)
         {
             var claimIdenties = new ClaimsIdentity(user.CreateClaim(), IdentityConstants.ApplicationScheme);
@@ -107,22 +99,6 @@ namespace AZWeb.Module.Page
         }
         #endregion
 
-        #region --- Json ----
-        public virtual IView Json(string Message)
-        {
-            return Json(Message, string.Empty, HttpStatusCode.OK);
-        }
-        public virtual IView Json(string Message, HttpStatusCode status)
-        {
-            return Json(Message, string.Empty, status);
-        }
-        public virtual IView Json(string Message, object data) {
-            return Json(Message,data, HttpStatusCode.OK);        
-        }
-        public virtual IView Json(string Message, object data, HttpStatusCode status) {         
-            return new JsonView() { Module=this,Data=data,StatusCode=status, Message=Message };
-        }
-        #endregion
 
         [OnlyAjax]
         public IView PostUpload() {

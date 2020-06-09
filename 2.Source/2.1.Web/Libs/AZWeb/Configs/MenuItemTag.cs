@@ -9,6 +9,8 @@ namespace AZWeb.Configs
     [Serializable]
     public class MenuItemTag
     {
+        [XmlAttribute("class")]
+        public string MenuClass { get; set; }
         [XmlAttribute("icon")]
         public string Icon { get; set; }
         [XmlAttribute("tilte")]

@@ -1,0 +1,34 @@
+﻿@model AZERP.Web.Modules.Common.PowerChat.FormPowerChat
+<az-script module="PowerChat.js"/>
+<az-style module="PowerChat.css" />
+<az-layout script-random='p=>$"PowerChat(\".{p}\")"' class="PowerChat">
+    <div class="row" style="height:100%;">
+        <ul class="PowerChat-platforms col-1">
+            <li><i class="fab fa-facebook-square"></i> Facebook</li>
+            <li><i class="fab fa-facebook-square"></i> Facebook</li>
+            <li><i class="fab fa-facebook-square"></i> Facebook</li>
+            <li><i class="fab fa-facebook-square"></i> Facebook</li>
+        </ul>
+        <ul class="PowerChat-user-chat col-2">
+            <li><i class="fab fa-facebook-square"></i> Facebook</li>
+            <li><i class="fab fa-facebook-square"></i> Facebook</li>
+            <li><i class="fab fa-facebook-square"></i> Facebook</li>
+            <li><i class="fab fa-facebook-square"></i> Facebook</li>
+        </ul>
+        <div class="PowerChat-panel-chat col-7">
+            <div class="PowerChat-panel-content"></div>
+            <div class="PowerChat-panel-input">
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-lg  input-message" placeholder="gõ enter để gửi tin nhắn">
+                    <div class="input-group-append">
+                        <button class="btn btn-success btn-send-messge" type="submit">Gửi tin nhắn(Enter)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="PowerChat-panel-order col-2">
+            Khu tạo đơn hàng và tìm đơn hàng
+        </div>
+    </div>
+    
+</az-layout>
