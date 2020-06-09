@@ -1,10 +1,10 @@
 ﻿@model FormUpdateFixedBill
     <div class="az-update row" id="FormUpdateRenter" role="form">
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((FixedBillModel)item).FixedBillCode" label="Mã hóa đơn" attr="autofocus" />
+            <az-text-model model="Model.Data" func="(item)=>((FixedBillModel)item).Code" label="Mã hóa đơn" attr="autofocus" />
         </div>
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((FixedBillModel)item).FixedBillName" label="Tên hóa đơn" />
+            <az-text-model model="Model.Data" func="(item)=>((FixedBillModel)item).Name" label="Tên hóa đơn" />
         </div>
         <div class="form-group col-md-6">
             <az-contract-select model="Model.Data" func="(item)=>((FixedBillModel)item).ContractID" label="Hợp đồng" />
@@ -16,7 +16,7 @@
             <az-renter-select model="Model.Data" func="(item)=>((FixedBillModel)item).RenterID" label="Người thuê trọ" />
         </div>
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((FixedBillModel)item).RoomCharge" label="Tiền phòng" />
+            <az-number-model model="Model.Data" func="(item)=>((FixedBillModel)item).RoomCharge" label="Tiền phòng" />
         </div>
         <div class="form-group col-md-12">
             <az-text-area-model model="Model.Data" func="(item)=>((FixedBillModel)item).Note" label="Ghi chú" />

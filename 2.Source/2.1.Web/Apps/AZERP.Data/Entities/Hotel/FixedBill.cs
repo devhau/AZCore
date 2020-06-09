@@ -25,13 +25,13 @@ namespace AZERP.Data.Entities
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.FixedBillCode)]
         [Field]
-        public long FixedBillCode { get; set; }
+        public long Code { get; set; }
         /// <summary>
         /// Tên hóa đơn cố định
         /// </summary>
         [Field]
         [FieldDisplay]
-        public string FixedBillName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Mã hợp đồng
         /// </summary>

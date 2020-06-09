@@ -7,8 +7,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AZERP.Web.Modules.Hotel.Renter
 {
-    [TableColumn(Title = "Mã người thuê ", FieldName = "RenterCode", Width = 150)]
-    [TableColumn(Title = "Tên người thuê", FieldName = "RenterName", Width = 150)]
+    [TableColumn(Title = "Mã người thuê ", FieldName = "Code", Width = 150)]
+    [TableColumn(Title = "Tên người thuê", FieldName = "Name", Width = 150)]
     [TableColumn(Title = "Địa chỉ", FieldName = "Address", Width = 300)]
     [TableColumn(Title = "Số CMND/CCCD", FieldName = "CMND", Width = 200)]
     [TableColumn(Title = "Số điện thoại", FieldName = "Tel", Width = 200)]
@@ -21,7 +21,7 @@ namespace AZERP.Web.Modules.Hotel.Renter
         /// Tên người thuê
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public string RenterName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Địa chỉ
         /// </summary>

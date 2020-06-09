@@ -1,0 +1,15 @@
+﻿@model FormUpdateHotelDevice
+    <div class="az-update row" id="FormUpdateArea" role="form">
+        <div class="form-group col-md-6">
+            <az-hotel-select model="Model.Data" func="(item)=>((HotelDeviceModel)item).HotelID" label="Tên phòng" attr="autofocus"/>
+        </div>
+        <div class="form-group col-md-6">
+            <az-HotelDevice-common-select model="Model.Data" func="(item)=>((HotelDeviceModel)item).HotelDeviceID" label="Tên thiết bị"  />
+        </div>
+        <div class="form-group col-md-12">
+            <az-text-area-model model="Model.Data" func="(item)=>((HotelDeviceModel)item).Note" label="Ghi chú" />
+        </div>
+    </div>
+<az-script>
+
+</az-script>

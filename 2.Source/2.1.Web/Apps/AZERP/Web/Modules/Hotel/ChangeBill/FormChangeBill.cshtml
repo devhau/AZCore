@@ -1,61 +1,54 @@
 ﻿@model FormChangeBill
-<az-module-layout script-random='(id)=>$"$(\".{id}\").AZManager();"'>
-    <div class="az-manager"  data-form-size="az-modal-xl">
-        <div class="az-toolbar">
-            <az-button class="btn btn-success btn-sm az-btn az-btn-add" cmd-key="f1" icon="far fa-plus-square" text="Thêm Mới (F1)" />
-            <az-button class="btn btn-info btn-sm az-btn az-btn-export" cmd-key="f2" icon="fas fa-file-export" text="Xuất Excel (F2)" />
-            <az-button class="btn btn-secondary btn-sm az-btn az-btn-import" cmd-key="f3" icon="fas fa-file-import" text="Nhập Excel (F3)" />
-        </div>
-        <div class="az-search-manager">
-            <div class="row">
-                <div class="col-md-10">
-                    <form class="az-search-form row">
-                        <az-hidden-model model="Model" func="(item)=>((FormChangeBill)item).PageSize" />
-                        <div class="form-group col-md-2">
-                            <az-text-model model="Model" func="(item)=>((FormChangeBill)item).ChangeBillCode" label="Mã hóa đơn" />
-                        </div>
-                        <div class="form-group col-md-2">
-                            <az-hotel-select model="Model" func="(item)=>((FormChangeBill)item).HotelID" label="Tên phòng trọ" />
-                        </div>
-                        <div class="form-group col-md-2">
-                            <az-common-service-select model="Model" func="(item)=>((FormChangeBill)item).ServiceName" label="Tên dịch vụ" />
-                        </div>
-                        <div class="form-group col-md-2">
-                            <az-month-select model="Model" func="(item)=>((FormChangeBill)item).Month" label="Tháng" />
-                        </div>
-                        <div class="form-group col-md-1">
-                            <az-text-model model="Model" func="(item)=>((FormChangeBill)item).Year" label="Năm" />
-                        </div>
-                        <div class="form-group col-md-1">
-                            <az-text-model model="Model" func="(item)=>((FormChangeBill)item).Price" label="Đơn giá" />
-                        </div>
-                        <div class="form-group col-md-2">
-                            <az-bill-status-select model="Model" func="(item)=>((FormChangeBill)item).StatusBill" label="Trạng thái" />
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-2 align-self-center">
-                    <div class="btn-group float-right ">
-                        <button type="button" class="btn btn-warning  az-btn az-btn-search"><i class="fas fa-search"></i> Tìm kiếm</button>
-                        <button type="button" class="btn btn-warning  dropdown-toggle dropdown-icon az-btn" data-toggle="dropdown">
-                            <span class="sr-only">Tìm kiếm nâng cao</span>
-                            <div class="dropdown-menu" role="menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
-                        </button>
+<az-module-layout script-random='(id)=>$"$(\".{id}\").AZManager();"' buttons="Model.GetButtonInfo()" class="az-manager" attr='data-form-size="az-modal-xl"' icon="fas fa-money-bill">
+    <div class="az-search-manager">
+        <div class="row">
+            <div class="col-md-10">
+                <form class="az-search-form row">
+                    <az-hidden-model model="Model" func="(item)=>((FormChangeBill)item).PageSize" />
+                    <div class="form-group col-md-2">
+                        <az-text-model model="Model" func="(item)=>((FormChangeBill)item).Code" label="Mã hóa đơn" />
                     </div>
+                    <div class="form-group col-md-2">
+                        <az-hotel-select model="Model" func="(item)=>((FormChangeBill)item).HotelID" label="Tên phòng trọ" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <az-common-service-select model="Model" func="(item)=>((FormChangeBill)item).ServiceName" label="Tên dịch vụ" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <az-month-select model="Model" func="(item)=>((FormChangeBill)item).Month" label="Tháng" />
+                    </div>
+                    <div class="form-group col-md-1">
+                        <az-text-model model="Model" func="(item)=>((FormChangeBill)item).Year" label="Năm" />
+                    </div>
+                    <div class="form-group col-md-1">
+                        <az-text-model model="Model" func="(item)=>((FormChangeBill)item).Price" label="Đơn giá" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <az-bill-status-select model="Model" func="(item)=>((FormChangeBill)item).StatusBill" label="Trạng thái" />
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2 align-self-center">
+                <div class="btn-group float-right ">
+                    <button type="button" class="btn btn-warning  az-btn az-btn-search"><i class="fas fa-search"></i> Tìm kiếm</button>
+                    <button type="button" class="btn btn-warning  dropdown-toggle dropdown-icon az-btn" data-toggle="dropdown">
+                        <span class="sr-only">Tìm kiếm nâng cao</span>
+                        <div class="dropdown-menu" role="menu">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="az-data-table">
-            <az-table data="Model.Data" FunKey="(item)=>((ChangeBillModel)item).Id" columns="Model.Columns" pagination="Model" />
-        </div>
-        <div class="az-bottom-manager">
-            <az-pagination pagination="Model" />
-        </div>
+    </div>
+    <div class="az-data-table">
+        <az-table data="Model.Data" FunKey="(item)=>((ChangeBillModel)item).Id" columns="Model.Columns" pagination="Model" />
+    </div>
+    <div class="az-bottom-manager">
+        <az-pagination pagination="Model" />
     </div>
 </az-module-layout>

@@ -10,9 +10,10 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.Area
 {
-    [TableColumn(Title = "Mã khu vực ", FieldName = "AreaCode", Width = 100)]
-    [TableColumn(Title = "Tên khu vực", FieldName = "AreaName", Width = 130)]
-    [TableColumn(Title = "Dịch vụ", LinkFormat = "danh-sach-khu-vuc.az?h=Service&Id={AreaName}", Text = "Dịch vụ khu vực", Popup = AZWeb.Module.Enums.PopupSize.Large)]
+    [TableColumn(Title = "Mã khu vực ", FieldName = "Code", Width = 100)]
+    [TableColumn(Title = "Tên khu vực", FieldName = "Name", Width = 130)]
+    //[TableColumn(Title = "Dịch vụ", LinkFormat = "danh-sach-khu-vuc.az?h=Service&Id={AreaName}", Text = "Dịch vụ khu vực", Popup = AZWeb.Module.Enums.PopupSize.Large)]
+    [TableColumn(Title = "Số tầng", FieldName = "Quantity", Width = 130)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
     public class FormArea : ManageModule<AreaService, AreaModel, FormUpdateArea>
@@ -22,7 +23,7 @@ namespace AZERP.Web.Modules.Hotel.Area
         /// Tên khu vực
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public string AreaName { get; set; }
+        public string Name { get; set; }
         #endregion
 
         //[BindService]
@@ -56,10 +57,5 @@ namespace AZERP.Web.Modules.Hotel.Area
             this.Title = "Dịch vụ khu vực " + Id;
             return View("RegionalService");
         }
-
-        //public CommonServiceModel getService(long Id)
-        //{
-        ////    return this.commonService.Select(p => p.Id == Id).FirstOrDefault();
-        //}
     }
 }

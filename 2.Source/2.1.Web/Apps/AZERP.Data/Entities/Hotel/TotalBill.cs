@@ -26,14 +26,14 @@ namespace AZERP.Data.Entities
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.TotalBillCode)]
         [Field]
-        public string TotalBillCode { get; set; }
+        public string Code { get; set; }
         /// <summary>
         /// Tên hóa đơn
         /// ví dụ: tháng 3-2020
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
-        public string TotalBillName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Mã đơn cố định
         /// </summary>

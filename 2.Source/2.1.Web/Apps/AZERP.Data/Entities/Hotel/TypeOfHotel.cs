@@ -26,7 +26,7 @@ namespace AZERP.Data.Entities
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
-        public string TypeOfHotelName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>

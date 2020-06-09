@@ -25,13 +25,13 @@ namespace AZERP.Data.Entities
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.HotelCode)]
         [Field]
-        public string HotelCode { get; set; }
+        public string Code { get; set; }
         /// <summary>
         /// Tên phòng trọ
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
-        public string HotelName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Mã loại phòng trọ
         /// </summary>
@@ -39,9 +39,14 @@ namespace AZERP.Data.Entities
         public long TypeOfHotelID { get; set; }
         /// <summary>
         /// Mã khu vực
-        /// </summary>xóa
+        /// </summary>
         [Field]
         public long AreaID { get; set; }
+        /// <summary>
+        /// Mã tầng
+        /// </summary>
+        [Field]
+        public long FloorId { get; set; }
         /// <summary>
         /// Trạng thái sử dụng của nhà trọ
         /// 1. Chưa hoạt động

@@ -26,13 +26,13 @@ namespace AZERP.Data.Entities
         /// </summary>
         [FieldAutoGenCode(Key =SystemCode.ContractCode)]
         [Field]
-        public string ContractCode { get; set; }
+        public string Code { get; set; }
         /// <summary>
         /// Tên hợp đồng
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
-        public string ContractName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Mã chủ nhà
         /// </summary>

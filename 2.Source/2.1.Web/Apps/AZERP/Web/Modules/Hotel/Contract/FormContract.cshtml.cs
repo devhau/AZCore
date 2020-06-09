@@ -11,8 +11,8 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.Contract
 {
-    [TableColumn(Title = "Mã hợp đồng ", FieldName = "ContractCode", Width = 150)]
-    [TableColumn(Title = "Tên hợp đồng", FieldName = "ContractName", Width = 150)]
+    [TableColumn(Title = "Mã hợp đồng ", FieldName = "Code", Width = 150)]
+    [TableColumn(Title = "Tên hợp đồng", FieldName = "Name", Width = 150)]
     [TableColumn(Title = "Chủ nhà", FieldName = "BossID", Width = 130)]
     [TableColumn(Title = "Người thuê", FieldName = "RenterID", DataType = typeof(RenterService), Width = 130)]
     [TableColumn(Title = "Phòng trọ", FieldName = "HotelID" , DataType = typeof(HotelService), Width = 150)]
@@ -31,12 +31,12 @@ namespace AZERP.Web.Modules.Hotel.Contract
         /// Mã hợp đồng
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public long? ContractCode { get; set; }
+        public long? Code { get; set; }
         /// <summary>
         /// Tên hợp đồng
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public string ContractName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Phòng trọ
         /// </summary>
@@ -64,7 +64,7 @@ namespace AZERP.Web.Modules.Hotel.Contract
         }
         protected override void IntData()
         {
-            this.Title = "Hợp đồng";
+            this.Title = "Danh sách hợp đồng";
         }
     }
 }

@@ -24,13 +24,13 @@ namespace AZERP.Data.Entities
         /// Mã Thiết Bị Chung
         /// </summary>
         [Field]
-        public string DeviceCommonCode { get; set; }
+        public string Code { get; set; }
         /// <summary>
         /// Tên Thiết Bị Chung
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
-        public string DeviceName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>

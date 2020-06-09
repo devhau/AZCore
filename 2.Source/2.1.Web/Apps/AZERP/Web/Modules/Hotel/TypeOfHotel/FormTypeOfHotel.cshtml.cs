@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace AZERP.Web.Modules.Hotel.TypeOfHotel
 {
-    [TableColumn(Title = "Loại phòng trọ", FieldName = "TypeOfHotelName", Width = 180)]
+    [TableColumn(Title = "Loại phòng trọ", FieldName = "Name", Width = 180)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
     public class FormTypeOfHotel : ManageModule<TypeOfHotelService, TypeOfHotelModel, FormUpdateTypeOfHotel>
@@ -16,7 +16,7 @@ namespace AZERP.Web.Modules.Hotel.TypeOfHotel
         /// Tên khu vực
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public string TypeOfHotelName { get; set; }
+        public string Name { get; set; }
         #endregion
 
         public FormTypeOfHotel(IHttpContextAccessor httpContext) : base(httpContext)
@@ -24,7 +24,7 @@ namespace AZERP.Web.Modules.Hotel.TypeOfHotel
         }
         protected override void IntData()
         {
-            this.Title = "Quản lý loại phòng trọ";
+            this.Title = "Danh sách loại phòng trọ";
         }
     }
 }

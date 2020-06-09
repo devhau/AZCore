@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.ChangeBill
 {
-    [TableColumn(Title = "Mã hóa đơn ", FieldName = "ChangeBillCode", Width = 100)]
+    [TableColumn(Title = "Mã hóa đơn ", FieldName = "Code", Width = 100)]
     [TableColumn(Title = "Tên phòng trọ", FieldName = "HotelID", DataType =typeof(HotelService), Width = 130)]
     [TableColumn(Title = "Tháng thuê trọ", FieldName = "Month", Width = 130)]
     [TableColumn(Title = "Năm thuê trọ", FieldName = "Year", Width = 130)]
@@ -21,7 +21,7 @@ namespace AZERP.Web.Modules.Hotel.ChangeBill
     [TableColumn(Title = "Số tháng trước", FieldName = "NumberBefore", Width = 120)]
     [TableColumn(Title = "Số hiện tại", FieldName = "NumberCurrent", Width = 120)]
     [TableColumn(Title = "Số lượng", FieldName = "Quantity", Width = 100)]
-    [TableColumn(Title = "Trạng thái", FieldName = "StatusBill",DataType =typeof(BillStatus), Width = 150)]
+    [TableColumn(Title = "Trạng thái", FieldName = "StatusBill",DataType =typeof(BillStatus), Width = 100)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
     public class FormChangeBill : ManageModule<ChangeBillService, ChangeBillModel, FormUpdateChangeBill>
@@ -31,7 +31,7 @@ namespace AZERP.Web.Modules.Hotel.ChangeBill
         /// Mã hóa đơn
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public string ChangeBillCode { get; set; }
+        public string Code { get; set; }
         /// <summary>
         /// Mã phòng trọ
         /// </summary>

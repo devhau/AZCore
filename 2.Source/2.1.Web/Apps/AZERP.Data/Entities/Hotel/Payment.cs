@@ -26,7 +26,7 @@ namespace AZERP.Data.Entities
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.PaymentCode)]
         [Field]
-        public string PaymentCode { get; set; }
+        public string Code { get; set; }
         /// <summary>
         /// Mã hóa đơn
         /// </summary>

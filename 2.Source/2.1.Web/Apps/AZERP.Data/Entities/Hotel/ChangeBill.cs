@@ -27,7 +27,7 @@ namespace AZERP.Data.Entities
         [FieldAutoGenCode(Key = SystemCode.ChangeBillCode)]
         [Field]
         [FieldDisplay]
-        public string ChangeBillCode { get; set; }
+        public string Code { get; set; }
         /// <summary>
         /// Mã phòng trọ
         /// </summary>

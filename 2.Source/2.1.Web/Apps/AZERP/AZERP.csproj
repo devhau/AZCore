@@ -33,4 +33,8 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content> 
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Web\Modules\Hotel\Hotel\css\" />
+  </ItemGroup>
 </Project>

@@ -1,13 +1,16 @@
 ﻿@model FormUpdateHotel
     <div class="az-update row" id="FormUpdateHotel" role="form">
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((HotelModel)item).HotelCode" label="Mã phòng trọ" attr="autofocus" />
+            <az-text-model model="Model.Data" func="(item)=>((HotelModel)item).Code" label="Mã phòng trọ" attr="autofocus" />
         </div>
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((HotelModel)item).HotelName" label="Tên phòng trọ" />
+            <az-text-model model="Model.Data" func="(item)=>((HotelModel)item).Name" label="Tên phòng trọ" />
         </div>
         <div class="form-group col-md-6">
             <az-area-select model="Model.Data" func="(item)=>((HotelModel)item).AreaID" label="Khu vực/ tòa nhà" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-number-model model="Model.Data" func="(item)=>((HotelModel)item).FloorId" label="Tầng" />
         </div>
         <div class="form-group col-md-6">
             <az-typeOfHotel-select model="Model.Data" func="(item)=>((HotelModel)item).TypeOfHotelID" label="Loại phòng trọ" />
@@ -16,7 +19,7 @@
             <az-hotel-status-select model="Model.Data" func="(item)=>((HotelModel)item).HotelStatus" label="Trạng thái phòng" />
         </div>
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((HotelModel)item).RoomCharge" label="Tiền phòng" />
+            <az-number-model model="Model.Data" func="(item)=>((HotelModel)item).RoomCharge" label="Tiền phòng" />
         </div>
         <div class="form-group col-md-12">
             <az-text-area-model model="Model.Data" func="(item)=>((HotelModel)item).Note" label="Ghi chú" />

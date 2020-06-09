@@ -25,13 +25,18 @@ namespace AZERP.Data.Entities
         /// </summary>
         [FieldAutoGenCode(Key =SystemCode.AreaCode)]
         [Field]
-        public string AreaCode { get; set; }
+        public string Code { get; set; }
         /// <summary>
         /// Tên khu vực/ tòa nhà
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
-        public string AreaName { get; set; }
+        public string Name { get; set; }
+        /// <summary>
+        /// Số lượng tầng
+        /// </summary>
+        [Field]
+        public int Quantity { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>

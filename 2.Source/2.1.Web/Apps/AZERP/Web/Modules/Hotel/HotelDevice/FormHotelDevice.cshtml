@@ -1,12 +1,15 @@
-﻿@model FormArea
-<az-module-layout script-random='(id)=>$"$(\".{id}\").AZManager();"' buttons="Model.GetButtonInfo()" class="az-manager" attr='data-form-size="az-modal-xl"' icon="fas fa-city">
+﻿@model FormHotelDevice
+<az-module-layout script-random='(id)=>$"$(\".{id}\").AZManager();"' buttons="Model.GetButtonInfo()" class="az-manager" attr='data-form-size="az-modal-xl"' icon="fas fa-desktop">
     <div class="az-search-manager">
         <div class="row">
             <div class="col-md-10">
                 <form class="az-search-form row">
-                    <az-hidden-model model="Model" func="(item)=>((FormArea)item).PageSize" />
+                    <az-hidden-model model="Model" func="(item)=>((FormHotelDevice)item).PageSize" />
                     <div class="form-group col-md-2">
-                        <az-text-model model="Model" func="(item)=>((FormArea)item).Name" label="Tên khu vực" />
+                        <az-hotel-select model="Model" func="(item)=>((FormHotelDevice)item).HotelID" label="Tên phòng" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <az-HotelDevice-common-select model="Model" func="(item)=>((FormHotelDevice)item).HotelDeviceName" label="Thiết bị" />
                     </div>
                 </form>
             </div>
@@ -28,7 +31,7 @@
         </div>
     </div>
     <div class="az-data-table">
-        <az-table data="Model.Data" FunKey="(item)=>((AreaModel)item).Id" columns="Model.Columns" pagination="Model" />
+        <az-table data="Model.Data" FunKey="(item)=>((HotelDeviceModel)item).Id" columns="Model.Columns" pagination="Model" />
     </div>
     <div class="az-bottom-manager">
         <az-pagination pagination="Model" />

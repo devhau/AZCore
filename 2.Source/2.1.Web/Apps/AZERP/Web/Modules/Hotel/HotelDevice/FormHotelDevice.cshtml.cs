@@ -4,17 +4,17 @@ using AZWeb.Module.Attributes;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 
-namespace AZERP.Web.Modules.Hotel.Device
+namespace AZERP.Web.Modules.Hotel.HotelDevice
 {
     [TableColumn(Title = "Tên phòng ", FieldName = "HotelID", DataType = typeof(HotelService), Width = 100)]
-    [TableColumn(Title = "Thiết bị ", FieldName = "DeviceID", DataType = typeof(DeviceCommonService), Width = 100)]
+    [TableColumn(Title = "Thiết bị ", FieldName = "HotelDeviceID", DataType = typeof(DeviceCommonService), Width = 100)]
     [TableColumn(Title = "Ghi chú", FieldName = "Note")]
 
-    public class FormDevice : ManageModule<DeviceService, DeviceModel, FormUpdateDevice>
+    public class FormHotelDevice : ManageModule<HotelDeviceService, HotelDeviceModel, FormUpdateHotelDevice>
     {
         #region -- Field Search --
         /// <summary>
-        /// Mã Phòng
+        /// Tên phòng
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
         public long? HotelID { get; set; }
@@ -22,10 +22,10 @@ namespace AZERP.Web.Modules.Hotel.Device
         /// Tên thiết bị
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public string DeviceName { get; set; }
+        public string HotelDeviceName { get; set; }
         #endregion
 
-        public FormDevice(IHttpContextAccessor httpContext) : base(httpContext)
+        public FormHotelDevice(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
         protected override void IntData()

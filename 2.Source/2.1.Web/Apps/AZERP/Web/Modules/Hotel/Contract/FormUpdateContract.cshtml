@@ -1,10 +1,10 @@
 ﻿@model FormUpdateContract
     <div class="az-update row" id="FormUpdateRenter" role="form">
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ContractModel)item).ContractCode" label="Mã hợp đồng" attr="autofocus" />
+            <az-text-model model="Model.Data" func="(item)=>((ContractModel)item).Code" label="Mã hợp đồng" attr="autofocus" />
         </div>
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ContractModel)item).ContractName" label="Tên hợp đồng" />
+            <az-text-model model="Model.Data" func="(item)=>((ContractModel)item).Code" label="Tên hợp đồng" />
         </div>
         <div class="form-group col-md-6">
             <az-text-model model="Model.Data" func="(item)=>((ContractModel)item).BossID" label="Chủ nhà" />
@@ -16,10 +16,10 @@
             <az-hotel-select model="Model.Data" func="(item)=>((ContractModel)item).HotelID" label=" Phòng trọ" />
         </div>
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ContractModel)item).Deposit" label="Tiền đặt cọc" />
+            <az-number-model model="Model.Data" func="(item)=>((ContractModel)item).Deposit" label="Tiền đặt cọc" />
         </div>
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((ContractModel)item).Quantity" label="Số bạn cùng phòng" />
+            <az-number-model model="Model.Data" func="(item)=>((ContractModel)item).Quantity" label="Số bạn cùng phòng" />
         </div>
         <div class="form-group col-md-6">
             <az-TypeOfContract-select model="Model.Data" func="(item)=>((ContractModel)item).TypeOfContract" label="Loại hợp đồng" />

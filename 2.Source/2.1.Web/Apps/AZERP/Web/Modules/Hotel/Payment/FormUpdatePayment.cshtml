@@ -1,13 +1,13 @@
 ﻿@model FormUpdatePayment
     <div class="az-update row" id="FormUpdatePayment" role="form">
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((PaymentModel)item).PaymentCode" label="Mã thanh toán" attr="autofocus" />
+            <az-text-model model="Model.Data" func="(item)=>((PaymentModel)item).Code" label="Mã thanh toán" attr="autofocus" />
         </div>
         <div class="form-group col-md-6">
             <az-total-bill-select model="Model.Data" func="(item)=>((PaymentModel)item).TotalBillID" label="Tên hóa đơn" />
         </div>
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((PaymentModel)item).Price" label="Tiền nộp" />
+            <az-number-model model="Model.Data" func="(item)=>((PaymentModel)item).Price" label="Tiền nộp" />
         </div>
         <div class="form-group col-md-6">
             <az-date-model model="Model.Data" func="(item)=>((PaymentModel)item).PaymentDate" label="Thời hạn nộp" />

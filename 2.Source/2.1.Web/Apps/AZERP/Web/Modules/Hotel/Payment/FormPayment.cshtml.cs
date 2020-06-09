@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.Payment
 {
-    [TableColumn(Title = "Mã thanh toán ", FieldName = "PaymentCode", Width = 150)]
+    [TableColumn(Title = "Mã thanh toán ", FieldName = "Code", Width = 150)]
     [TableColumn(Title = "Hóa đơn tổng", FieldName = "TotalBillID", DataType =typeof(TotalBillService), Width = 150)]
     [TableColumn(Title = "Tiền nộp", FieldName = "Price", FormatString = "{0:#,###}", Width = 150)]
     [TableColumn(Title = "Thời gian nộp", FieldName = "PaymentDate", Width = 150)]
@@ -25,7 +25,7 @@ namespace AZERP.Web.Modules.Hotel.Payment
         /// Mã thanh toán
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public string PaymentCode { get; set; }
+        public string Code { get; set; }
         /// <summary>
         /// Hóa đơn tổng
         /// </summary>

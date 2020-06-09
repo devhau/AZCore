@@ -5,13 +5,14 @@ using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.FixedBill
 {
-    [TableColumn(Title = "Mã hóa đơn", FieldName = "FixedBillCode", Width = 150)]
-    [TableColumn(Title = "Tên hóa đơn", FieldName = "FixedBillName", Width = 150)]
+    [TableColumn(Title = "Mã hóa đơn", FieldName = "Code", Width = 150)]
+    [TableColumn(Title = "Tên hóa đơn", FieldName = "Name", Width = 150)]
     [TableColumn(Title = "Hợp đồng", FieldName = "ContractID", Width = 150, DataType = typeof(ContractService))]
     [TableColumn(Title = "Chủ nhà", FieldName = "BossID", Width = 150)]
     [TableColumn(Title = "Người thuê trọ", FieldName = "RenterID", Width = 150, DataType = typeof(RenterService))]
@@ -22,10 +23,10 @@ namespace AZERP.Web.Modules.Hotel.FixedBill
     {
         #region -- Field Search --
         /// <summary>
-        /// Mã hóa đơn
+        /// Tên hóa đơn
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public long? FixedBillCode { get; set; }
+        public String Name { get; set; }
         /// <summary>
         /// Hợp đồng
         /// </summary>

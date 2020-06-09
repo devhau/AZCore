@@ -25,13 +25,13 @@ namespace AZERP.Data.Entities
         /// </summary>
         [FieldAutoGenCode(Key = SystemCode.CommonServiceCode)]
         [Field]
-        public string CommonServiceCode { get; set; }
+        public string Code { get; set; }
         /// <summary>
         /// Tên dịch vụ chung
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
-        public string CommonServiceName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Ghi chú
         /// </summary>

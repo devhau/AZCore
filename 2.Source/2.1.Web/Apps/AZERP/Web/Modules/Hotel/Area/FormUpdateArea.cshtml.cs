@@ -11,7 +11,7 @@ namespace AZERP.Web.Modules.Hotel.Area
         }
         protected override void IntData()
         {
-            this.Title = "Khu vực";
+            this.Title = "Khu vực / tòa nhà";
         }
 
     }

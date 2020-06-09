@@ -1,10 +1,13 @@
 ﻿@model FormUpdateArea
     <div class="az-update row" id="FormUpdateArea" role="form">
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((AreaModel)item).AreaCode" label="Mã khu vực" attr="autofocus" />
+            <az-text-model model="Model.Data" func="(item)=>((AreaModel)item).Code" label="Mã khu vực" attr="autofocus" />
         </div>
         <div class="form-group col-md-6">
-            <az-text-model model="Model.Data" func="(item)=>((AreaModel)item).AreaName" label="Tên khu vực" />
+            <az-text-model model="Model.Data" func="(item)=>((AreaModel)item).Name" label="Tên khu vực" />
+        </div>
+        <div class="form-group col-md-6">
+            <az-number-model model="Model.Data" func="(item)=>((AreaModel)item).Quantity" label="Số tầng" />
         </div>
         <div class="form-group col-md-12">
             <az-text-area-model model="Model.Data" func="(item)=>((AreaModel)item).Note" label="Ghi chú" />

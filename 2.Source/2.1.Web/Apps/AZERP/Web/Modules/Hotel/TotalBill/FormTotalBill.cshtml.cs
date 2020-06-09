@@ -12,8 +12,8 @@ using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.TotalBill
 {
-    [TableColumn(Title = "Mã hóa đơn ", FieldName = "TotalBillCode", Width = 100)]
-    [TableColumn(Title = "Tên hóa đơn ", FieldName = "TotalBillName", Width = 100)]
+    [TableColumn(Title = "Mã hóa đơn ", FieldName = "Code", Width = 100)]
+    [TableColumn(Title = "Tên hóa đơn ", FieldName = "Name", Width = 100)]
     [TableColumn(Title = "Mã đơn cố định", FieldName = "FixedBillID", DataType = typeof(FixedBillService), Width = 130)]
     [TableColumn(Title = "Mã đơn lưu động", FieldName = "ChangeBillID", DataType = typeof(ChangeBillService), Width = 130)]
     [TableColumn(Title = "Tổng tiền", FieldName = "TotalPricess", FormatString = "{0:#,###}", Width = 130)]
@@ -29,7 +29,7 @@ namespace AZERP.Web.Modules.Hotel.TotalBill
         /// Tên hóa đơn
         /// </summary>
         [QuerySearch(OperatorSQL = OperatorSQL.LIKE)]
-        public string TotalBillName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Thời hạn nộp
         /// </summary>
