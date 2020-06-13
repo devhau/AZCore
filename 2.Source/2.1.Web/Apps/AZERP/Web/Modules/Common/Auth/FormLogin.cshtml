@@ -1,55 +1,62 @@
 ﻿@model FormLogin
-<az-style module="auth.css"/>
-<div class="auth-box">
-    <div class="auth-logo">
-        <h3>Đăng nhập</h3>
-    </div>
-    <!-- /.login-logo -->
-    <div class="card">
-        <div class="card-body login-card-body">
-            @if (!String.IsNullOrEmpty(Model.Error))
+
+    <az-style link="/lib//fontawesome-free/css/all.min.css" />
+    <az-style link="/jobf/css/bootstrap.min.css" />
+    <az-style link="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <az-style link="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" />
+    <az-script link="/lib/jquery/jquery.min.js" />
+    <az-script link="/jobf/js/bootstrap.min.js" />
+    <az-style module="auth.css" />
+    <div class="auth-box">
+        <div class="auth-logo">
+            <h3>Đăng nhập</h3>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                @if (!String.IsNullOrEmpty(Model.Error))
             {
                 <span style="color:red;font-weight:700;">@Model.Error</span>
             }
-            @if (Model.TenantId != null)
+                @if (Model.TenantId != null)
             {
 
                 <h5 style="text-align:center;">Chào mừng đến cửa hàng <p style="color:rebeccapurple;font-weight:700;">@Model.Tenant.Name</p> </h5>
             }
-            <form action="" method="post" name="user-login">
-                <div class="input-group mb-3">
-                    <input type="email" name="azemail" class="form-control" placeholder="Email" />
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
+                <form action="" method="post" name="user-login">
+                    <div class="input-group mb-3">
+                        <input type="email" name="azemail" class="form-control" placeholder="Email" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="password" name="azpassword" class="form-control" placeholder="Password" />
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
+                    <div class="input-group mb-3">
+                        <input type="password" name="azpassword" class="form-control" placeholder="Password" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="icheck-primary">
-                            <input type="checkbox" name="azremember" id="remember" value="true" />
-                            <label for="remember">
-                                Nhớ lần sau đăng nhập
-                            </label>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="icheck-primary">
+                                <input type="checkbox" name="azremember" id="remember" value="true" />
+                                <label for="remember">
+                                    Nhớ lần sau đăng nhập
+                                </label>
+                            </div>
                         </div>
+                        <!-- /.col -->
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary btn-block az-btn">Đăng nhập</button>
+                        </div>
+                        <!-- /.col -->
                     </div>
-                    <!-- /.col -->
-                    <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary btn-block az-btn">Đăng nhập</button>
-                    </div>
-                    <!-- /.col -->
-                </div>
-            </form>
-            @if (Model.TenantId == null)
+                </form>
+                @if (Model.TenantId == null)
             {
                 <div class="social-auth-links text-center mb-3" style="display:none;">
                     <p>- OR -</p>
@@ -66,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.social-auth-links -->
+ <!-- /.social-auth-links -->
                 <div class="row text-center">
                     <div class="col-12">
                         <p>- OR -</p>
@@ -76,8 +83,8 @@
                     </div>
                 </div>
             }
+            </div>
+            <!-- /.login-card-body -->
         </div>
-        <!-- /.login-card-body -->
     </div>
-        </div>
-<!-- /.login-box -->
+    <!-- /.login-box -->

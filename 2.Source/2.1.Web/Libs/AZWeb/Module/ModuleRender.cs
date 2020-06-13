@@ -99,18 +99,12 @@ namespace AZWeb.Module
                 {
                     foreach (var item2 in item1.Tags)
                     {
+                        // /^\/product\/(\d+)/
                         var RegexPath = new Regex(string.Format("/{0}", item2.ViturlPath));
                         if (RegexPath.IsMatch(urlPath))
                         {
-                            var mPath = RegexPath.Match(urlPath);
-                            List<object> paraObject = new List<object>();
-                            for (var i = 1; i < mPath.Groups.Count - 1; i++)
-                            {
-                                paraObject.Add(mPath.Groups[i].Value);
-                            }
-                            if (string.IsNullOrEmpty(item2.Group))
-                            return string.Format(item2.Real, paraObject.ToArray());
-                            return string.Format("{0}&gm={1}", string.Format(item2.Real, paraObject.ToArray()), item2.Group);
+                            var rs = RegexPath.Replace(urlPath, item2.Real);
+                            return !item2.Group.IsNullOrEmpty() ? string.Format("{0}&gm={1}", rs, item2.Group) : rs;
                         }
                     }
                 }
@@ -264,7 +258,7 @@ namespace AZWeb.Module
                 var PageCurrent = ModuleCurrent as PageModule;
                 if (PageCurrent.IsTheme & !IsAjax)
                 {
-                    string typeThemeString = string.Format("Web.Themes.{0}.LayoutTheme", PageConfigs.Theme);
+                    string typeThemeString = string.Format("Web.Themes.{0}.LayoutTheme", PageCurrent.ThemeName??PageConfigs.Theme);
                     var typeTheme = this.GetType(typeThemeString);
                     if (typeTheme == null)
                         return RenderError.NotFoundTheme;

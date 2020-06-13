@@ -94,6 +94,7 @@ namespace AZWeb.Module.Common
                 }
                 output.Content.SetHtmlContent(htmlBuild.ToString());
             }
+            await Task.CompletedTask;
         }
         public abstract Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild);
     }

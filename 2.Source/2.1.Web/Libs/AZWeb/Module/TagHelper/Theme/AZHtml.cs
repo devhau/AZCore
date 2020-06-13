@@ -108,7 +108,6 @@ namespace AZWeb.Module.TagHelper.Theme
             var htmlDoc = content.GetContent().LoadHtml();
             var headHtml = htmlDoc.DocumentNode.Descendants("head");
             var bodyHtml = htmlDoc.DocumentNode.Descendants("body");
-            var config = HttpContext.GetService<IPagesConfig>();
             htmlBuild.Append("<!DOCTYPE html>");
             htmlBuild.Append($"<html lang=\"{LangHtml}\" >");
             htmlBuild.Append("<head>");
@@ -126,8 +125,6 @@ namespace AZWeb.Module.TagHelper.Theme
             {
                 htmlBuild.Append(item.InnerHtml.ToString());
             }
-            //Css Base
-            RenderCss(htmlBuild, config.Head.Stypes);
             //Css in function
             RenderCss(htmlBuild, this.Html.CSS);
             htmlBuild.Append("</head>");
@@ -136,10 +133,10 @@ namespace AZWeb.Module.TagHelper.Theme
             {
                 htmlBuild.Append(item.InnerHtml.ToString());
             }
-            RenderJS(htmlBuild, config.Head.Scripts);
             RenderJS(htmlBuild, this.Html.JS);
             htmlBuild.Append("</body>");
             htmlBuild.Append("</html>");
+           await Task.CompletedTask;
         }
     }
 }

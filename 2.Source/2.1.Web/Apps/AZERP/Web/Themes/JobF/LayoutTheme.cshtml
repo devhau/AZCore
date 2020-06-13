@@ -1,0 +1,65 @@
+﻿@model LayoutTheme
+
+    <az-html class="az-layout layout-top-nav accent-primary">
+        <head>
+            <!-- CSS here -->
+            <az-style link="/jobf/css/bootstrap.min.css" />
+            <az-style link="/jobf/css/owl.carousel.min.css" />
+            <az-style link="/jobf/css/magnific-popup.css" />
+            <az-style link="/jobf/css/font-awesome.min.css" />
+            <az-style link="/jobf/css/themify-icons.css" />
+            <az-style link="/jobf/css/nice-select.css" />
+            <az-style link="/jobf/css/flaticon.css" />
+            <az-style link="/jobf/css/gijgo.css" />
+            <az-style link="/jobf/css/animate.min.css" />
+            <az-style link="/jobf/css/slicknav.css" />
+            <az-style link="/jobf/css/style.css" />
+            <!-- js here -->
+            <az-script link="/jobf/js/vendor/modernizr-3.5.0.min.js" />
+            <az-script link="/jobf/js/vendor/jquery-1.12.4.min.js" />
+            <az-script link="/jobf/js/popper.min.js" />
+            <az-script link="/jobf/js/bootstrap.min.js" />
+            <az-script link="/jobf/js/owl.carousel.min.js" />
+            <az-script link="/jobf/js/isotope.pkgd.min.js" />
+            <az-script link="/jobf/js/ajax-form.js" />
+            <az-script link="/jobf/js/waypoints.min.js" />
+            <az-script link="/jobf/js/jquery.counterup.min.js" />
+            <az-script link="/jobf/js/imagesloaded.pkgd.min.js" />
+            <az-script link="/jobf/js/scrollIt.js" />
+            <az-script link="/jobf/js/jquery.scrollUp.min.js" />
+            <az-script link="/jobf/js/wow.min.js" />
+            <az-script link="/jobf/js/nice-select.min.js" />
+            <az-script link="/jobf/js/jquery.slicknav.min.js" />
+            <az-script link="/jobf/js/jquery.magnific-popup.min.js" />
+            <az-script link="/jobf/js/plugins.js" />
+            <az-script link="/jobf/js/gijgo.min.js" />
+            <!--contact js-->
+            <az-script link="/jobf/js/contact.js" />
+            <az-script link="/jobf/js/jquery.ajaxchimp.min.js" />
+            <az-script link="/jobf/js/jquery.form.js" />
+            <az-script link="/jobf/js/jquery.validate.min.js" />
+            <az-script link="/jobf/js/mail-script.js" />
+            <az-script link="/jobf/js/main.js" />
+            <az-script>
+                $(function () {
+                    $("#slider-range").slider({
+                        range: true,
+                        min: 0,
+                        max: 24600,
+                        values: [750, 24600],
+                        slide: function (event, ui) {
+                            $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1] + "/ Year");
+                        }
+                    });
+                    $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+                        " - $" + $("#slider-range").slider("values", 1) + "/ Year");
+                });
+            </az-script>
+
+        </head>
+        <body>
+            @Model.ViewChild("Components/Header")
+            @Model.BodyContent
+            @Model.ViewChild("Components/Footer")
+        </body>
+    </az-html>

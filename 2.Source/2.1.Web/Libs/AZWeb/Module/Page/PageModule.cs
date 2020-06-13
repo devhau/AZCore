@@ -18,6 +18,7 @@ namespace AZWeb.Module.Page
         #region --- Init ----
         public bool IsTheme { get; set; } = true;
         public string LayoutTheme { get; set; } = "";
+        public string ThemeName { get; set; }
         public string Title { get => Html.Title; set => Html.Title = value; }
         public string Description { get => Html.Description; set => Html.Description = value; }
         public string Keyword { get => Html.Keyword; set => Html.Keyword = value; }

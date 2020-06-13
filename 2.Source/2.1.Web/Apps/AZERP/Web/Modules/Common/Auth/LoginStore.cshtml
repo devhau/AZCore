@@ -1,5 +1,11 @@
 ﻿@model FormLogin
-<az-style module="auth.css" />
+    <az-style link="/lib//fontawesome-free/css/all.min.css" />
+    <az-style link="/jobf/css/bootstrap.min.css" />
+    <az-style link="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <az-style link="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" />
+    <az-script link="/lib/jquery/jquery.min.js" />
+    <az-script link="/jobf/js/bootstrap.min.js" />
+    <az-style module="auth.css" />
 <div class="auth-box">
     <div class="auth-logo">
         <h3>Đăng nhập</h3>
@@ -9,12 +15,12 @@
         <div class="card-body login-card-body">
             @if (!String.IsNullOrEmpty(Model.Error))
             {
-                <span style="color:red;font-weight:700;">@Model.Error</span>
+            <span style="color:red;font-weight:700;">@Model.Error</span>
             }
             @if (Model.TenantId != null)
             {
 
-                <h5 style="text-align:center;">Chào mừng đến cửa hàng <p style="color:rebeccapurple;font-weight:700;">@Model.Tenant.Name</p> </h5>
+            <h5 style="text-align:center;">Chào mừng đến cửa hàng <p style="color:rebeccapurple;font-weight:700;">@Model.Tenant.Name</p> </h5>
             }
             <form action="?h=Store" method="post" name="user-login">
                 <div class="row">
@@ -35,30 +41,30 @@
             </form>
             @if (Model.TenantId == null)
             {
-                <div class="social-auth-links text-center mb-3" style="display:none;">
+            <div class="social-auth-links text-center mb-3" style="display:none;">
+                <p>- OR -</p>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="/dang-nhap-bang-facebook.az" class="btn btn-block btn-primary az-btn">
+                            <i class="fab fa-facebook mr-2"></i>Facebook
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="/dang-nhap-bang-google.az" class="btn btn-block btn-danger az-btn">
+                            <i class="fab fa-google-plus mr-2"></i>Google+
+                        </a>
+                    </div>
+                </div>
+            </div>
+ <!-- /.social-auth-links -->
+            <div class="row text-center">
+                <div class="col-12">
                     <p>- OR -</p>
-                    <div class="row">
-                        <div class="col-6">
-                            <a href="/dang-nhap-bang-facebook.az" class="btn btn-block btn-primary az-btn">
-                                <i class="fab fa-facebook mr-2"></i>Facebook
-                            </a>
-                        </div>
-                        <div class="col-6">
-                            <a href="/dang-nhap-bang-google.az" class="btn btn-block btn-danger az-btn">
-                                <i class="fab fa-google-plus mr-2"></i>Google+
-                            </a>
-                        </div>
-                    </div>
                 </div>
-                <!-- /.social-auth-links -->
-                <div class="row text-center">
-                    <div class="col-12">
-                        <p>- OR -</p>
-                    </div>
-                    <div class="col-12">
-                        <a href="/dang-ky-doi-tac.az" class="btn az-btn btn-danger  text-center form-control">Đăng ký tài khoản mới</a>
-                    </div>
+                <div class="col-12">
+                    <a href="/dang-ky-doi-tac.az" class="btn az-btn btn-danger  text-center form-control">Đăng ký tài khoản mới</a>
                 </div>
+            </div>
             }
         </div>
         <!-- /.login-card-body -->

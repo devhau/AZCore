@@ -1,85 +1,91 @@
 ﻿@model FormRegister
-<az-style module="auth.css" />
-<div class="auth-box">
-    <div class="auth-logo">
-        <h3>Đăng ký tài khoản</h3>
-    </div>
-    <div class="card">
-        <div class="card-body register-card-body">
-            @if (!String.IsNullOrEmpty(Model.Error))
+    <az-style link="/lib//fontawesome-free/css/all.min.css" />
+    <az-style link="/jobf/css/bootstrap.min.css" />
+    <az-style link="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <az-style link="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" />
+    <az-script link="/lib/jquery/jquery.min.js" />
+    <az-script link="/jobf/js/bootstrap.min.js" />
+    <az-style module="auth.css" />
+    <div class="auth-box">
+        <div class="auth-logo">
+            <h3>Đăng ký tài khoản</h3>
+        </div>
+        <div class="card">
+            <div class="card-body register-card-body">
+                @if (!String.IsNullOrEmpty(Model.Error))
             {
                 <span style="color:red;font-weight:700;">@Model.Error</span>
             }
-            <form action="" method="post" name="user-register">
-                <div class="input-group mb-3">
-                    <input type="text" required name="fullname" class="form-control" placeholder="Họ tên" />
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-user"></span>
+                <form action="" method="post" name="user-register">
+                    <div class="input-group mb-3">
+                        <input type="text" required name="fullname" class="form-control" placeholder="Họ tên" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="email" required name="email" class="form-control" placeholder="Email" />
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
+                    <div class="input-group mb-3">
+                        <input type="email" required name="email" class="form-control" placeholder="Email" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="tel" required name="phone" class="form-control" placeholder="Số điện thoại" />
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-phone"></span>
+                    <div class="input-group mb-3">
+                        <input type="tel" required name="phone" class="form-control" placeholder="Số điện thoại" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-phone"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="password" name="password" class="form-control" placeholder="Mật khẩu" />
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Mật khẩu" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="agreeTerms" name="terms" value="agree" />
-                            <label for="agreeTerms">
-                                Tôi đồng ý các <a href="#">điều khoản</a>
-                            </label>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="agreeTerms" name="terms" value="agree" />
+                                <label for="agreeTerms">
+                                    Tôi đồng ý các <a href="#">điều khoản</a>
+                                </label>
+                            </div>
                         </div>
+                        <!-- /.col -->
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
+                        </div>
+                        <!-- /.col -->
                     </div>
-                    <!-- /.col -->
-                    <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
-                    </div>
-                    <!-- /.col -->
-                </div>
-            </form>
+                </form>
 
-            <div class="social-auth-links text-center" style="display:none;">
-                <p>- OR -</p>
-                <a href="#" class="btn btn-block btn-primary">
-                    <i class="fab fa-facebook mr-2"></i>
-                    Đăng ký bằng facebook
-                </a>
-                <a href="#" class="btn btn-block btn-danger">
-                    <i class="fab fa-google-plus mr-2"></i>
-                    Đăng ký bằng google
-                </a>
-            </div>
-            <div class="row text-center">
-                <div class="col-12">
+                <div class="social-auth-links text-center" style="display:none;">
                     <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i>
+                        Đăng ký bằng facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-danger">
+                        <i class="fab fa-google-plus mr-2"></i>
+                        Đăng ký bằng google
+                    </a>
                 </div>
-                <div class="col-12">
-                    <a href="/dang-nhap.az" class="btn az-btn btn-danger  text-center form-control">Đăng nhập</a>
+                <div class="row text-center">
+                    <div class="col-12">
+                        <p>- OR -</p>
+                    </div>
+                    <div class="col-12">
+                        <a href="/dang-nhap.az" class="btn az-btn btn-danger  text-center form-control">Đăng nhập</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- /.form-box -->
-    </div><!-- /.card -->
-</div>
+            <!-- /.form-box -->
+        </div><!-- /.card -->
+    </div>

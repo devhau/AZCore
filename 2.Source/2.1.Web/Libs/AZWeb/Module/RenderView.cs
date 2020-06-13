@@ -68,7 +68,6 @@ namespace AZWeb.Module
         }
         public async Task<IHtmlContent> GetContentHtmlFromView(HtmlView htmlView)
         {
-
             var response = httpContext.Response;
             var viewResult = GetView(htmlView);
             if (viewResult.View == null)

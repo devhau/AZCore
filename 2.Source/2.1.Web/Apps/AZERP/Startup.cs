@@ -92,6 +92,7 @@ namespace AZERP
 
         public Type GetType(string type)
         {
+            if (type.IsNullOrEmpty()) return null;
             type = type.ToLower().Trim();
             if (dicType.ContainsKey(type)) return dicType[type];
             return null;
