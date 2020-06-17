@@ -43,22 +43,44 @@
         </div>
     </div>
     <div class="az-data-table">
-        @*<ul>
-
-                <li> <a href="/danh-sach-phong.az?tang=1"> Tầng 1</a></li>
-                <li> <a href="/danh-sach-phong.az?tang=1"> Tầng 1</a></li>
-                <li> <a href="/danh-sach-phong.az?tang=1"> Tầng 1</a></li>
             </ul>
-            <div class="hotel">
-                @foreach (var item in Model.Data)
-                {
-                    <div class="hotel-box">
-                        @item.HotelName
-                    </div>
+        @foreach (var item in Model.Data)
+        {
+            <div style="width: 19%; display:inline-block;">
+                <table>
+                    <tr>
+                        <td>Mã nhà trọ: </td>
+                        <td>@item.Code</td>
+                    </tr>
+                    <tr>
+                        <td>Tên phòng trọ: </td>
+                        <td>@item.Name</td>
+                    </tr>
+                    <tr>
+                        <td>Loại phòng trọ: </td>
+                        <td>@item.TypeOfHotelID</td>
+                    </tr>
+                    <tr>
+                        <td>Tên khu vực: </td>
+                        <td>@item.AreaID</td>
+                    </tr>
+                    <tr>
+                        <td>Tầng: </td>
+                        <td>@item.FloorId</td>
+                    </tr>
+                    <tr>
+                        <td>Trạng thái: </td>
+                        <td>@item.HotelStatus</td>
+                    </tr>
+                    <tr>
+                        <td>Tiền phòng: </td>
+                        <td>@item.RoomCharge</td>
+                    </tr>
+                </table>
+            </div>
+        }
+        @*<az-table data="Model.Data" FunKey="(item)=>((HotelModel)item).Id" columns="Model.Columns" pagination="Model" />*@
 
-                }
-            </div>*@
-        <az-table data="Model.Data" FunKey="(item)=>((HotelModel)item).Id" columns="Model.Columns" pagination="Model" />
     </div>
     <div class="az-bottom-manager">
         <az-pagination pagination="Model" />

@@ -7,6 +7,7 @@ using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AZERP.Web.Modules.Hotel.Hotel
 {
@@ -22,6 +23,7 @@ namespace AZERP.Web.Modules.Hotel.Hotel
 
     public class FormHotel : ManageModule<HotelService, HotelModel, FormUpdateHotel>
     {
+       
         #region -- Field Search --
         /// <summary>
         /// Tên phòng trọ
@@ -57,8 +59,6 @@ namespace AZERP.Web.Modules.Hotel.Hotel
 
         public override List<HotelModel> GetSearchData()
         {
-            //Tangs
-
             return base.GetSearchData();
         }
         // ?tang=12
@@ -70,8 +70,8 @@ namespace AZERP.Web.Modules.Hotel.Hotel
         {
         }
         protected override void IntData()
-        { 
-           //this.TenantId
+        {
+            //this.TenantId
             this.Title = "Danh sách phòng trọ";
 
         }
@@ -85,5 +85,7 @@ namespace AZERP.Web.Modules.Hotel.Hotel
             this.Title = "Dịch vụ của phòng " + Id;
             return View("HotelService");
         }
+
+
     }
 }
