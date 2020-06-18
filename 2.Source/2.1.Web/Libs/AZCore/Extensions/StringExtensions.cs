@@ -36,5 +36,9 @@ namespace AZCore.Extensions
             return regex.Replace(temp, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D').Replace(" ","-");
 
         }
+        public static string StripHTML(this string value)
+        {
+            return Regex.Replace(value, "<.*?>", String.Empty);
+        }
     }
 }

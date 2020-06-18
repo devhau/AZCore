@@ -51,6 +51,7 @@ namespace AZWeb.Module
             this.PageConfigs = this.httpContext.GetService<IPagesConfig>();
             this.IsAjax = httpContext.IsAjax();
             urlPath = this.httpContext.Request.Path.Value;
+            this.httpContext.Items[AZWebConstant.KeyUrlCurrent] = string.Format("{0}{1}", urlPath, this.httpContext.Request.QueryString.Value);
             if (_hostingEnvironment == null) {
                 _hostingEnvironment = _httpContext.GetService<IHostingEnvironment>();
             }
@@ -132,33 +133,42 @@ namespace AZWeb.Module
 
             if (urlPath == "/" || urlPath.EndsWith(PageConfigs.extenstion))
             {
-                #region --- Get Path & Merge Path ---
                 var pathReal = GetPathReal();
-                if (string.IsNullOrEmpty(pathReal)) return default;
-                foreach (var key in httpContext.Request.Query.Keys)
+                if (string.IsNullOrEmpty(pathReal))
                 {
-                    pathReal = string.Format("{0}&{1}={2}", pathReal, key, httpContext.Request.Query[key]);
+                    methodName = "Get";
+                    ModuleStr = string.Format("Web.Errors.NotFound");
                 }
-                #endregion
-                var query = QueryHelpers.ParseQuery(pathReal);
-                if (!query.ContainsKey("m") || string.IsNullOrEmpty(query["m"].ToString())) return default;
-                string moduleName = query["m"].ToString();
-                string viewName = moduleName;
-                if (query.ContainsKey("v") && !string.IsNullOrEmpty(query["v"].ToString()))
-                    viewName = query["v"].ToString();
-                string gm = "";
-                if (query.ContainsKey("gm") && !string.IsNullOrEmpty(query["gm"].ToString()))
-                    gm = "." + query["gm"].ToString();
-                ModuleStr = string.Format("Web.Modules{2}.{0}.Form{1}", moduleName, viewName, gm);
-                methodName = httpContext.Request.Method;
-                if (query.ContainsKey("h") && !string.IsNullOrEmpty(query["h"].ToString()))
-                    methodName = string.Format("{0}{1}", methodName, query["h"].ToString());
-                httpContext.Request.QueryString = new QueryString(string.Format("?{0}", pathReal));
+                else
+                {
+                    foreach (var key in httpContext.Request.Query.Keys)
+                    {
+                        pathReal = string.Format("{0}&{1}={2}", pathReal, key, httpContext.Request.Query[key]);
+                    }
+                    var query = QueryHelpers.ParseQuery(pathReal);
+                    if (!query.ContainsKey("m") || string.IsNullOrEmpty(query["m"].ToString())) return default;
+                    string moduleName = query["m"].ToString();
+                    string viewName = moduleName;
+                    if (query.ContainsKey("v") && !string.IsNullOrEmpty(query["v"].ToString()))
+                        viewName = query["v"].ToString();
+                    string gm = "";
+                    if (query.ContainsKey("gm") && !string.IsNullOrEmpty(query["gm"].ToString()))
+                        gm = "." + query["gm"].ToString();
+                    ModuleStr = string.Format("Web.Modules{2}.{0}.Form{1}", moduleName, viewName, gm);
+                    methodName = httpContext.Request.Method;
+                    if (query.ContainsKey("h") && !string.IsNullOrEmpty(query["h"].ToString()))
+                        methodName = string.Format("{0}{1}", methodName, query["h"].ToString());
+                    httpContext.Request.QueryString = new QueryString(string.Format("?{0}", pathReal));
+                } 
             }
-            else if(urlPath.StartsWith("/api/")) {
+            else if (urlPath.StartsWith("/api/"))
+            {
                 var methodNameIndex = urlPath.LastIndexOf("/");
                 methodName = "{0}{1}".Frmat(httpContext.Request.Method, urlPath.Substring(methodNameIndex + 1));
-                ModuleStr = "Web.Api.{0}Controller".Frmat(urlPath.Substring(5, methodNameIndex - 5).Replace("/","."));
+                ModuleStr = "Web.Api.{0}Controller".Frmat(urlPath.Substring(5, methodNameIndex - 5).Replace("/", "."));
+            }
+            else if (urlPath.EndsWith(".az")) {
+               
             }
             return new KeyValuePair<string, string>(ModuleStr, methodName);
         }

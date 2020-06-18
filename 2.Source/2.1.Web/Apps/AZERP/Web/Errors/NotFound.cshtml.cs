@@ -12,6 +12,7 @@ namespace AZERP.Web.Errors
         }
 
         public IView Get() {
+            this.LayoutTheme = "Fullscreen";
             return View();
         }
     }
