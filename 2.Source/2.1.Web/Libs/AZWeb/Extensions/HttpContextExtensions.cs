@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using AZWeb.Module.Constant;
 
 namespace AZWeb.Extensions
 {
@@ -311,7 +312,6 @@ namespace AZWeb.Extensions
             if (httpContext == null)
                 throw new ArgumentNullException(nameof(httpContext));
             return httpContext.Request.IsAjax();
-
         }
         /// <summary>
         /// Determines whether the specified HTTP request is an AJAX request.
@@ -494,8 +494,14 @@ namespace AZWeb.Extensions
         {
             return httpContext?.Request.Host.Host.IsSubdomain()??false;
         }
-            public static bool IsSubdomain(this string host) {
+        public static bool IsSubdomain(this string host)
+        {
             return Regex.IsMatch(host, @"^[A-Za-z\d]+\.(?:[A-Za-z\d]+\.[A-Za-z\d]+|localhost)$");
         }
+        public static string UrlCurrent(this HttpContext httpContext)
+        {
+            return (string)httpContext.Items[AZWebConstant.KeyUrlCurrent];
+        }
+        
     }
 }

@@ -46,6 +46,8 @@ namespace AZERP.Web.Modules.Common.Auth
         public IView PostStore([BindForm] string subdomain) {
             return GoToRedirect(string.Format("https://{0}.{1}", subdomain, this.HttpContext.Request.Host.Value));
         }
+        [BindQuery(FromName = "ref")]
+        public string UrlRef { get; set; }
         public async  Task<IView> Post([BindForm]string azemail, [BindForm]string azpassword, [BindForm]bool azremember) {
             var usr = this.userService.GetEmailOrUsername(azemail);
             if (usr != null) {
@@ -68,7 +70,8 @@ namespace AZERP.Web.Modules.Common.Auth
                     }
                     var ulogin = usr.CopyTo<UserInfo>();
                     await this.LoginAsync(ulogin, azremember);
-                    return this.GoToHome();
+                    
+                    return UrlRef.IsNullOrEmpty()? this.GoToHome():this.GoToRedirect(this.UrlRef.UrlDecode());
                 }
             }
             Error = "Tài khoản hoặc mật khẩu không đúng";

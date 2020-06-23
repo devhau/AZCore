@@ -10,7 +10,7 @@ namespace AZERP.Data.Entities
     [TableInfo(TableName = "az_job_professions")]
     public class JobProfessions : EntityModel<JobProfessions, long>
     {
-        [Field(Length =255)]
+        [Field(Length = 255)]
         public string Name {get;set;}
     }
 }

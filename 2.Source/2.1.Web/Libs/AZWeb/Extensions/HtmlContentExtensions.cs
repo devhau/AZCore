@@ -21,16 +21,20 @@ namespace AZWeb.Extensions
 			htmlDoc.LoadHtml(content);
 			return htmlDoc;
 		}
-		public static string HtmlEncode2(this object html)
-		{
-			return HttpUtility.HtmlEncode(html);
-		}
 		public static string HtmlEncode(this string html) {
 			return HttpUtility.HtmlEncode(html);
 		}
 		public static string HtmlDecode(this string html)
 		{
 			return HttpUtility.HtmlDecode(html);
+		}
+		public static string UrlEncode(this string url)
+		{
+			return HttpUtility.UrlEncodeUnicode(url);
+		}
+		public static string UrlDecode(this string url)
+		{
+			return HttpUtility.UrlDecode(url);
 		}
 	}
 }

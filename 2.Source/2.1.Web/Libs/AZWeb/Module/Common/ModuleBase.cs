@@ -62,7 +62,7 @@ namespace AZWeb.Module.Common
         }
         public virtual IView GoToAuth()
         {
-            return GoToRedirect("/dang-nhap.az");
+            return GoToRedirect(string.Format("/dang-nhap.az?ref={0}",this.HttpContext.UrlCurrent().UrlEncode()));
         }
         public virtual IView GoToHome()
         {
