@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// Cộng tác viên
     /// </summary>
 
-    [TableInfo(TableName = "az_collaborator")]
+    [TableInfo(TableName = "az_recruitment_collaborator")]
     public class CollaboratorModel : EntityModel<CollaboratorModel, long>
     {
         /// <summary>

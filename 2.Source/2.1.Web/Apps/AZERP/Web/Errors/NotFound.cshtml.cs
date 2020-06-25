@@ -12,6 +12,7 @@ namespace AZERP.Web.Errors
         }
 
         public IView Get() {
+            this.Title = "404 - not found page";
             this.LayoutTheme = "Fullscreen";
             return View();
         }

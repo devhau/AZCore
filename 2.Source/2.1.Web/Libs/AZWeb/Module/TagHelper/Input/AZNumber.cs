@@ -8,14 +8,8 @@ using System.Text;
 namespace AZWeb.Module.TagHelper.Input
 {
     [HtmlTargetElement("az-number-model")]
-    public class AZNumberModel : AZNumber, IAZModelInput
+    public class AZNumberModel : AZNumber
     {
-        public IEntity Model { get; set; }
-        public Expression<Func<IEntity, object>> Func { get; set; }
-        protected override void InitData()
-        {
-            this.BindModel();
-        }
     }
   
     [HtmlTargetElement("az-number")]

@@ -10,12 +10,9 @@ namespace AZWeb.Module.TagHelper.Input
     [HtmlTargetElement("az-switch-model")]
     public class AZSwitchModel : AZSwitch, IAZModelInput
     {
-        public IEntity Model { get; set; }
-        public Expression<Func<IEntity, object>> Func { get; set; }
         protected override void InitData()
         {
-            
-            this.BindModel();
+            base.InitData();
             if (true.Equals(this.InputValue))
             {
                 this.Attr += " checked='true'";

@@ -9,14 +9,8 @@ using System.Text;
 namespace AZWeb.Module.TagHelper.Input
 {
     [HtmlTargetElement("az-text-model")]
-    public class AZTextModel : AZText, IAZModelInput
+    public class AZTextModel : AZText
     {
-        public IEntity Model { get; set; }
-        public Expression<Func<IEntity, object>> Func { get; set; }
-        protected override void InitData()
-        {
-            this.BindModel();
-        }
     }
 
     [HtmlTargetElement("az-text")]

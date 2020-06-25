@@ -1,0 +1,9 @@
+﻿@model FormJob
+<az-module-layout class="az-manager" attr='data-form-size="az-modal-xl"' script-random='(id)=>$"$(\".{id}\").AZManager();"' buttons="Model.GetButtonInfo()">
+    <div class="az-data-table">
+        <az-table data="Model.Data" FunKey="(item)=>item.Id" columns="Model.Columns" pagination="Model" />
+    </div>
+    <div class="az-bottom-manager">
+        <az-pagination pagination="Model" />
+    </div>
+</az-module-layout>

@@ -9,11 +9,9 @@ using System.Web;
 
 namespace AZWeb.Module.TagHelper.Input
 {
-    public class AZSelect<TService> : AZSelect,IAZModelInput        
+    public class AZSelect<TService> : AZSelect        
     {
         public Expression<Func<object, bool>> WhereFunc { get; set; }
-        public IEntity Model { get; set; }
-        public Expression<Func<IEntity, object>> Func { get; set; }
         public Expression<Func<Type>> FuncType { get; set; }
         protected override void InitData()
         {
@@ -22,12 +20,11 @@ namespace AZWeb.Module.TagHelper.Input
                 DataType = typeof(TService);
             else
                 DataType = FuncType.Compile().Invoke();
-            this.BindModel();
+            base.InitData();
             if (DataType != null&& DataType!= this.GetType())
             {
                 this.Data = DataType.GetListDataByDataType(this.ViewContext.HttpContext, NullText.IsNullOrEmpty()&& !this.InputLabel.IsNullOrEmpty()&&IsNullFirst ? "Chọn " + this.InputLabel.ToLower():"", WhereFunc);
             }
-            base.InitData();
             if (this.InputValue != null  && DataType.IsEnum && !(this.InputValue is TService)) {
                 this.InputValue=(TService)this.InputValue;
             }

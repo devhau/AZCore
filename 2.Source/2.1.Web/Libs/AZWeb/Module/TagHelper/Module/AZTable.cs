@@ -21,7 +21,7 @@ namespace AZWeb.Module.TagHelper.Module
     public class AZTable : TagHelperBase
     {
         [HtmlAttributeName("FunKey")]
-        public Func<dynamic, object> FunKey { get; set; }
+        public Func<dynamic, object> FunKey { get; set; } = (item) => item.Id;
         [HtmlAttributeName("fun-where-edit")]
         public Func<dynamic, bool> FunEdit { get; set; }
         [HtmlAttributeName("fun-where-remove")]

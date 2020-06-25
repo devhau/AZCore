@@ -16,6 +16,7 @@ namespace AZWeb.Module.Page.Manager
         where TModel: IEntity, new()
         where TService:EntityService<TService,TModel>
     {
+        public bool IsNew => this.Data == null;
         protected TService Service;
         public TModel Data;
         public List<ItemValue> Errors = new List<ItemValue>();

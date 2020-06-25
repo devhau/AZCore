@@ -149,12 +149,12 @@ namespace AZERP.Web.Modules.Recruitment.Candidate
         public IView GetCopy() {
 
 
-            var data =this.GetSearchData();
-            var WorkerData = data.Select(p => p.CopyTo<WorkerModel>()).ToList();
-            var workderService = this.HttpContext.GetService<WorkerService>();
-            foreach (var item in WorkerData) {
-                workderService.Insert(item);
-            }
+            //var data =this.GetSearchData();
+            //var WorkerData = data.Select(p => p.CopyTo<WorkerModel>()).ToList();
+            //var workderService = this.HttpContext.GetService<WorkerService>();
+            //foreach (var item in WorkerData) {
+            //    workderService.Insert(item);
+            //}
             return View();
         }
     }

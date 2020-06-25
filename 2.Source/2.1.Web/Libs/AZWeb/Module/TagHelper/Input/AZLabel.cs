@@ -10,11 +10,9 @@ using System.Web;
 
 namespace AZWeb.Module.TagHelper.Input
 {
-    public class AZLabel<TService> : AZLabel, IAZModelInput        
+    public class AZLabel<TService> : AZLabel        
     {
         public Expression<Func<object, bool>> WhereFunc { get; set; }
-        public IEntity Model { get; set; }
-        public Expression<Func<IEntity, object>> Func { get; set; }
         public Expression<Func<Type>> FuncType { get; set; }
         protected override void InitData()
         {
@@ -52,6 +50,7 @@ namespace AZWeb.Module.TagHelper.Input
         public bool IsUseLable { get; set; } = true;
         protected override void InitData()
         {
+            this.TagClass = this.TagClass.Replace(" form-control ", " ");
             if (Data == null && ListObject != null&& ListObject is IList)
             {
                 Data = new System.Collections.Generic.List<ItemValue>();

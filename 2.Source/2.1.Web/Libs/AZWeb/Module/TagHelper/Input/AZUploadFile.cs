@@ -8,14 +8,11 @@ using System.Text;
 namespace AZWeb.Module.TagHelper.Input
 {
     [HtmlTargetElement("az-upload-file-model")]
-    public class AZUploadFileModel : AZUploadFile, IAZModelInput
+    public class AZUploadFileModel : AZUploadFile
     {
-        public IEntity Model { get; set; }
-        public Expression<Func<IEntity, object>> Func { get; set; }
         protected override void InitData()
         {
             base.InitData();
-            this.BindModel();
         }
     }
 

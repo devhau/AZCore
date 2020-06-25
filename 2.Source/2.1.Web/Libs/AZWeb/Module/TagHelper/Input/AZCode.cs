@@ -11,19 +11,16 @@ using System.Threading.Tasks;
 namespace AZWeb.Module.TagHelper.Input
 {
     [HtmlTargetElement("az-code-model")]
-    public class AZCodeModel : AZCode, IAZModelInput
+    public class AZCodeModel : AZCode
     {
-        public IEntity Model { get; set; }
-        public Expression<Func<IEntity, object>> Func { get; set; }
 
         protected override void InitData()
         {
-            this.BindModel();
+            base.InitData();
             if (this.Model != null)
             {
                 this.Attr += " disabled ";
             }
-            base.InitData();
         }
     }
 
@@ -37,6 +34,7 @@ namespace AZWeb.Module.TagHelper.Input
                 InputValue = Guid.NewGuid().ToString();
             }
             this.Attr += " readonly ";
+            base.InitData();
         }
         protected override void RenderHtml(StringBuilder htmlBuild)
         {

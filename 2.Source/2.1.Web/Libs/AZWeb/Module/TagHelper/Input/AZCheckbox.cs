@@ -1,21 +1,15 @@
-﻿using AZCore.Database;
-using AZCore.Extensions;
+﻿using AZCore.Extensions;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Linq.Expressions;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AZWeb.Module.TagHelper.Input
 {
     [HtmlTargetElement("az-checkbox-model")]
-    public class AZCheckboxModel : AZCheckbox, IAZModelInput
+    public class AZCheckboxModel : AZCheckbox
     {
-        public IEntity Model { get; set; }
-        public Expression<Func<IEntity, object>> Func { get; set; }
         protected override void InitData()
         {
-            this.BindModel();
+            this.InitData();
             if (true.Equals(this.InputValue))
             {
                 this.Attr += " checked";

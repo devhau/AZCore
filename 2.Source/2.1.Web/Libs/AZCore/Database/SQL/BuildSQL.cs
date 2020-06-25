@@ -10,7 +10,7 @@ using static Dapper.SqlMapper;
 
 namespace AZCore.Database.SQL
 {
-    public sealed class BuildSQL
+    public sealed class BuildSQL : IDisposable
     {
         public TypeSQL typeSQL;
         public static BuildSQL NewSQL(Type typeEntity)
@@ -438,6 +438,29 @@ namespace AZCore.Database.SQL
                 Param = parameter,
                 SQL = SQL.ToString()
             };
+        }
+        public void Dispose()
+        {
+            if (this.Fields != null)
+            {
+                this.Fields = null;
+            }
+            if (this.FieldKeys != null)
+            {
+                this.FieldKeys = null;
+            }
+            if (this.FieldAutoIncrements != null)
+            {
+                this.FieldAutoIncrements = null;
+            }
+            if (this.typeEntity != null)
+            {
+                this.typeEntity = null;
+            }
+            if (this.TableName != null)
+            {
+                this.TableName = null;
+            }
         }
         #endregion
     }

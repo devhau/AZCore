@@ -93,15 +93,17 @@ namespace AZCore.Database
             return query.ToResult();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             if (this.Connection != null) {
                 this.Connection.Dispose();
+                this.Connection = null;
             }
-            this.Connection = null;
             if (Transaction != null)
+            {
                 Transaction.Dispose();
-            Transaction = null;
+                Transaction = null;
+            }
         }
     }
     public partial class EntityService<TService, TModel> : EntityService
@@ -211,6 +213,15 @@ namespace AZCore.Database
             rs.SQL = rs.SQL + " where `Id` = @Id";
             rs.Param.Add("@Id",id);
             return ExecuteQuery(rs).FirstOrDefault(); 
+        }
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            if (this.buildSQL != null)
+            {
+                this.buildSQL.Dispose();
+            }
         }
     }
     public partial class EntityService<TService, TModel> {

@@ -8,14 +8,9 @@ using System.Text;
 namespace AZWeb.Module.TagHelper.Input
 {
     [HtmlTargetElement("az-hidden-model")]
-    public class AZHiddenModel : AZHidden, IAZModelInput
+    public class AZHiddenModel : AZHidden
     {
-        public IEntity Model { get; set; }
-        public Expression<Func<IEntity, object>> Func { get; set; }
-        protected override void InitData()
-        {
-            this.BindModel();
-        }
+        
     }
 
     [HtmlTargetElement("az-hidden")]

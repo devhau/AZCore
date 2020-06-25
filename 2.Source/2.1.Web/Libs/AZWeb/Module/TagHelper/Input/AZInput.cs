@@ -17,7 +17,7 @@ namespace AZWeb.Module.TagHelper.Input
         string InputId { get; set; }
         object InputValue { get; set; }
     }
-    public abstract class AZInput: TagHelperBase
+    public abstract class AZInput: TagHelperBase, IAZModelInput
     {
         public const string GroupInput = "az_group_input";
         [HtmlAttributeName("id")]
@@ -50,11 +50,14 @@ namespace AZWeb.Module.TagHelper.Input
         protected bool? LabelAfter=false;
         [HtmlAttributeName("is-check-default-input-null")]
         public bool IsCheckDefaultInputNull { get; set; }
+        public IEntity Model { get; set; }
+        public Expression<Func<IEntity, object>> Func  { get; set; }
+
         public override void Init(TagHelperContext context)
         {
             if (string.IsNullOrEmpty(TagClass))
             {
-                TagClass += " form-control";
+                TagClass += " form-control ";
             }
             base.Init(context);
         }
@@ -117,7 +120,9 @@ namespace AZWeb.Module.TagHelper.Input
             return Task.CompletedTask;
         }
        
-        protected virtual void InitData() { }
+        protected virtual void InitData() {
+            this.BindModel();
+        }
         protected abstract void RenderHtml(StringBuilder htmlBuild);
     }
     public static class AZModelInputEx {

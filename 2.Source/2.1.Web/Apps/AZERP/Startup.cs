@@ -76,7 +76,7 @@ namespace AZERP
                     {
                         return async ctx =>
                         {
-                            ctx.RequestServices.GetRequiredService<DBCreateEntities>()?.CheckDatabase();
+                            ctx.RequestServices.GetRequiredService<DBCreateEntities>()?.CheckEmptyAndCreateDatabase();
                             await next(ctx);
                         };
                     });

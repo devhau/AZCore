@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
-                        <h3>Software Engineer</h3>
+                        <h3>@Model.jobInfo.Title</h3>
                     </div>
                 </div>
             </div>
@@ -24,13 +24,13 @@
                                     <img src="/jobf/img/svg_icon/@(Model.JobId).svg" alt="">
                                 </div>
                                 <div class="jobs_conetent">
-                                    <a href="#"><h4>Software Engineer</h4></a>
+                                    <a href="#"><h4>@Model.jobInfo.Title</h4></a>
                                     <div class="links_locat d-flex align-items-center">
                                         <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
+                                            <p> <i class="fa fa-map-marker"></i> @Model.jobInfo.Address</p>
                                         </div>
                                         <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> Part-time</p>
+                                            <p> <i class="fa fa-clock-o"></i> <az-job-type-label value="@Model.jobInfo.JobType" /></p>
                                         </div>
                                     </div>
                                 </div>
@@ -124,15 +124,15 @@
                 <div class="col-lg-4">
                     <div class="job_sumary">
                         <div class="summery_header">
-                            <h3>Job Summery</h3>
+                            <h3>Tóm tác công việc</h3>
                         </div>
                         <div class="job_content">
                             <ul>
-                                <li>Published on: <span>12 Nov, 2019</span></li>
-                                <li>Vacancy: <span>2 Position</span></li>
-                                <li>Salary: <span>50k - 120k/y</span></li>
-                                <li>Location: <span>California, USA</span></li>
-                                <li>Job Nature: <span> Full-time</span></li>
+                                <li>Đăng tuyển lúc: <span>@Model.jobInfo.CreateAt.ToString("HH:mm dd/MM/yyyy")</span></li>
+                                <li>Vị trí tuyển dụng: <span>1 vị trí</span></li>
+                                <li>Lương: <span>@Model.jobInfo.SalaryFrom - @Model.jobInfo.SalaryTo</span></li>
+                                <li>Địa điểm làm việc: <span> @Model.jobInfo.Address</span></li>
+                                <li>Tính chất công việc: <span> <az-job-nature-label value="@Model.jobInfo.JobType" /></span></li>
                             </ul>
                         </div>
                     </div>

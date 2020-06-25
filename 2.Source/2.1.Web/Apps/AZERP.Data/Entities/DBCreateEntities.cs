@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
         {
         }
 
-        public void CheckDatabase()
+        public void CheckEmptyAndCreateDatabase()
         {
         //    this.BeginTransaction();
             foreach (var item in this.GetType().GetTypeFromInterface<IEntity>()) {

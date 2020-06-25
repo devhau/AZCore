@@ -9,14 +9,8 @@ using System.Text;
 namespace AZWeb.Module.TagHelper.Input
 {
     [HtmlTargetElement("az-password-model")]
-    public class AZPasswordModel : AZPassword, IAZModelInput
+    public class AZPasswordModel : AZPassword
     {
-        public IEntity Model { get; set; }
-        public Expression<Func<IEntity, object>> Func { get; set; }
-        protected override void InitData()
-        {
-            this.BindModel();
-        }
     }
 
     [HtmlTargetElement("az-password")]

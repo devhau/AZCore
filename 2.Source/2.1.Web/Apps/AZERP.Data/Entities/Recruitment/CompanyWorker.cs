@@ -1,11 +1,8 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
 using AZCore.Domain;
-using AZERP.Data.Enums;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace AZERP.Data.Entities
 {
@@ -16,42 +13,92 @@ namespace AZERP.Data.Entities
         }
     }
     /// <summary>
-    /// Thông tin công ty thuê công nhân
+    /// Thông tin các công ty cần sử dụng lao động
+    /// //Phần này sẽ dùng chung cho các đối tác tuyển dụng
     /// </summary>
-
-    [TableInfo(TableName = "az_company_worker")]
+    [TableInfo(TableName = "az_recruitment_company")]
     public class CompanyWorkerModel : EntityModel<CompanyWorkerModel, long>
     {
         /// <summary>
         /// Tên công ty
+        /// vd: Samsung Bắc Ninh
         /// </summary>
         [Field(Length = 500)]
         [FieldDisplay]
         public string Name { get; set; }
         /// <summary>
-        /// Tên viết tắt
+        /// đường dẫn tới công ty.
+        /// vd: jobf.vn/cong-ty/samsung-bac-ninh.az
         /// </summary>
         [Field(Length = 500)]
-        public string AbbreviatedName { get; set; }
+        public string Slug { get; set; }
         /// <summary>
-        /// Số điện thoại
+        /// Thời gian thay đổi đường dẫn gần đây nhất.
+        /// vd: 20:25:00 15/06/2016
         /// </summary>
-        [Field(Length = 50)]
-        public string PhoneNumber { get; set; }
+        [Field]
+        public DateTime UpdateSlug { get; set; }
         /// <summary>
-        /// Địa chỉ
+        /// Mã code
+        /// </summary>
+        [Field(Length = 500)]
+        public string Code { get; set; }
+        /// <summary>
+        /// Địa chỉ:
+        /// vd: Yên Phong - Bắc Ninh
         /// </summary>
         [Field(Length = 500)]
         public string Address { get; set; }
         /// <summary>
-        /// Công ty ở khu vực nào
+        /// Bài viết giới thiệu
         /// </summary>
         [Field]
-        public AddressWorker? AtAddress { get; set; }
+        public string PostInfo { get; set; }
         /// <summary>
-        /// Mô tả công ty
+        /// Từ khóa giúp SEO tốt hơn.
+        /// vd: Công ty samsung,samsung bắc ninh,.....
+        /// </summary>
+        [Field(Length = 1000)]
+        public string Keyword { get; set; }
+        /// <summary>
+        /// Giới thiệu qua công ty.
+        /// vd:....
+        /// </summary>
+        [Field(Length = 1000)]
+        public string ShortInfo { get; set; }
+        /// <summary>
+        /// Địa chỉ page facebook: 
+        /// vd: facebook.com//jobf.samsung.bacninh
+        /// </summary>
+        [Field(Length = 500)]
+        public string PageCompany { get; set; }
+        /// <summary>
+        /// Địa chỉ youtube
+        /// vd: youtube.com//jobf.samsung.bacninh
+        /// </summary>
+        [Field(Length = 500)]
+        public string YoutubeCompany { get; set; }
+        /// <summary>
+        /// Địa chỉ website
+        /// vd: samsung-bacninh.jobf.vn
+        /// </summary>
+        [Field(Length = 500)]
+        public string WebsiteCompany { get; set; }
+        /// <summary>
+        /// Là công ty cho phép đối tác khác tuyển dụng cho công ty
         /// </summary>
         [Field]
-        public string Description { get; set; }
+        public bool IsCommon {get;set; }
+        /// <summary>
+        /// Là các đơn vị tuyển dụng.
+        /// ví dụ: JobF là hệ thống tuyển dụng cho các công ty như samsung
+        /// </summary>
+        [Field]
+        public bool IsPartner { get; set; }
+        /// <summary>
+        /// Cho phép tìm kiếm được ngoài trang chủ.
+        /// </summary>
+        [Field]
+        public bool IsPublic { get; set; }
     }
 }

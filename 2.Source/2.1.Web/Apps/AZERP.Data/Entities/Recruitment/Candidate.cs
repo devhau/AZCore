@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// Thông tin của ứng viên
     /// </summary>
 
-    [TableInfo(TableName = "az_candidate")]
+    [TableInfo(TableName = "az_recruitment_candidate")]
     public class CandidateModel : EntityModel<CandidateModel, long>
     {
         [FieldAutoGenCode(Key =SystemCode.CandidateCode )]

@@ -1,0 +1,58 @@
+﻿@model FormUpdateJob
+    <div class="az-update row" role="form">
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-text-model model="Model.Data" func="(item)=>((JobInfoModel)item).Title" label="Tiêu đề" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <az-company-worker-select model="Model.Data" func="(item)=>((JobInfoModel)item).CompanyId" null-text="Chọn công ty" label="Tuyển dụng cho công ty" />
+            </div>
+        </div> <div class="col-md-6">
+            <div class="form-group">
+                <az-job-nature-select model="Model.Data" func="(item)=>((JobInfoModel)item).JobType" null-text="Chọn tính chất công việc" label="Tính chất công việc" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-text-area-model is-summer-note="true" model="Model.Data" func="(item)=>((JobInfoModel)item).Content" label="Bài viết" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-text-model model="Model.Data" func="(item)=>((JobInfoModel)item).Address" label="Địa chỉ làm việc" />
+            </div>
+        </div>
+
+
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <az-number-model model="Model.Data" func="(item)=>((JobInfoModel)item).SalaryFrom" label="Lương từ" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <az-number-model model="Model.Data" func="(item)=>((JobInfoModel)item).SalaryTo" label="Lương đến" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <az-date-model model="Model.Data" func="(item)=>((JobInfoModel)item).JobFrom" label="Áp dùng từ ngày" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <az-date-model model="Model.Data" func="(item)=>((JobInfoModel)item).JobTo" label="Áp dụng đến ngày" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-status-select model="Model.Data" func="(item)=>((JobInfoModel)item).Status" label="Trạng thái" />
+            </div>
+        </div>
+    </div>
+<az-script>
+
+</az-script>

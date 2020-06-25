@@ -6,6 +6,6 @@ namespace AZCore.Database
 {
     public interface IDBCreate
     {
-        void CheckDatabase();
+        void CheckEmptyAndCreateDatabase();
     }
 }

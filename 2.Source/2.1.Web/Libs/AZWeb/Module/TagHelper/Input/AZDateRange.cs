@@ -8,14 +8,8 @@ using System.Text;
 namespace AZWeb.Module.TagHelper.Input
 {
     [HtmlTargetElement("az-date-range-model")]
-    public class AZDateRangeModel : AZDateRange, IAZModelInput
+    public class AZDateRangeModel : AZDateRange
     {
-        public IEntity Model { get; set; }
-        public Expression<Func<IEntity, object>> Func { get; set; }
-        protected override void InitData()
-        {
-            this.BindModel();
-        }
     }
 
     [HtmlTargetElement("az-date-range")]
