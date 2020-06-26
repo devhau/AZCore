@@ -1,5 +1,7 @@
-﻿using AZWeb.Configs;
+﻿using AZCore.Extensions;
+using AZWeb.Configs;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AZWeb.Module.View
 {
@@ -18,11 +20,17 @@ namespace AZWeb.Module.View
             this.Meta.Add(new MetaContent() { Name=name,Content=content});
         }
         public void AddJS(string Code, string link, string CDN)
-        {
+        { 
+            if (!Code.IsNullOrEmpty() && this.JS.Any(p => p.Code == Code)) return;
+            if (!link.IsNullOrEmpty() && this.JS.Any(p => p.Link == link)) return;
+            if (!CDN.IsNullOrEmpty() && this.JS.Any(p => p.CDN == CDN)) return;
             this.JS.Add(new ContentTag() { Link = link, CDN = CDN , Code = Code });
         }
         public void AddCSS(string Code, string link, string CDN)
         {
+            if (!Code.IsNullOrEmpty() && this.CSS.Any(p => p.Code == Code)) return;
+            if (!link.IsNullOrEmpty() && this.CSS.Any(p => p.Link == link)) return;
+            if (!CDN.IsNullOrEmpty() && this.CSS.Any(p => p.CDN == CDN)) return;
             this.CSS.Add(new ContentTag() { Link = link, CDN = CDN, Code = Code });
         }
     }

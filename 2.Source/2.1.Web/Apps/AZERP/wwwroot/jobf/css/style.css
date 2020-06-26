@@ -888,12 +888,13 @@ h3 {
 
 /* line 1, ../../Arafath/CL/December/235. Job board/HTML/scss/_header.scss */
 .header-area {
-  left: 0;
-  right: 0;
-  width: 100%;
-  top: 0;
-  z-index: 9;
-  position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    top: 0;
+    z-index: 9;
+    background: blueviolet;
+    position: absolute;
 }
 
 @media (max-width: 767px) {

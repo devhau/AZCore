@@ -20,11 +20,14 @@
         <div class="jobs_right">
             <div class="apply_now">
                 <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                <a href="thong-tin-viec-lam/@Model.Id-@(Model.Title.ToUrlSlug()).az" class="boxed-btn3">Apply Now</a>
+                <az-component component="ApplyJobButton" model="Model"/>
             </div>
             <div class="date">
-                <p>Date line: 31 Jan 2020</p>
+                <p>Hạn đến hết: @Model.JobTo.ToString("dd/MM/yyyy")</p>
             </div>
         </div>
     </div>
 </div>
+<az-style>
+    .single_jobs .jobs_right .apply_now .apply_job{ float:right;}
+</az-style>

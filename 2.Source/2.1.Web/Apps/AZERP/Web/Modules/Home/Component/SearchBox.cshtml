@@ -1,0 +1,51 @@
+﻿@model JobInfoModel
+<az-style module="SearchBox.css"/>
+<div class="catagory_area search_box">
+    <div class="container">
+        <az-tab-control>
+            <az-tab-page name="Tìm việc làm" link="#tim-viec">
+                <div class="row m-0">
+                    <div class="col-lg-3 col-md-4">
+                        <div class="single_input">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4">
+                        <div class="single_input">
+                            <select class="wide">
+                                <option data-display="Địa phương">Địa phương</option>
+                                <option value="1">Quế võ 1 - Bắc Ninh</option>
+                                <option value="2">Quế võ 2 - Bắc Ninh</option>
+                                <option value="4">Quế võ 3 - Bắc Ninh</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4">
+                        <div class="single_input">
+                            <select class="wide">
+                                <option data-display="Công việc">Công việc</option>
+                                <option value="1">Công nhân</option>
+                                <option value="2">Quản lý</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="job_btn">
+                            <a href="#" class="boxed-btn3">Tìm kiếm</a>
+                        </div>
+                    </div>
+                </div>
+            </az-tab-page>
+            <az-tab-page name="Tìm ứng viên" link="#tim-cong-ty">
+                <h3>Khung hiển thị form tìm công ty</h3>
+            </az-tab-page>
+            <az-tab-page name="Tìm nhà trọ" link="#tim-nha-tro">
+                <h3>Khung hiển thị form tìm nhà trọ</h3>
+            </az-tab-page>
+            <az-tab-page name="Tìm công ty" link="#tim-cong-ty">
+                <h3>Khung hiển thị form tìm công ty</h3>
+            </az-tab-page>
+        </az-tab-control>
+    </div>
+</div>
+ 

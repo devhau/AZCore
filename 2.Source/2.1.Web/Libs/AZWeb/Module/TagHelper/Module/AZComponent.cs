@@ -2,6 +2,7 @@
 using AZWeb.Module.Common;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace AZWeb.Module.TagHelper.Module
         [HtmlAttributeName("component")]
         public string PathComponent { get; set; }
         [HtmlAttributeName("model")]
-        public object ModelComponent { get; set; } = "";
+        public object ModelComponent { get; set; } = null;
         RenderView renderView { get; set; }
         public override void Init(TagHelperContext context)
         {
@@ -23,11 +24,12 @@ namespace AZWeb.Module.TagHelper.Module
         }
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
+            var pathView = string.Format("{0}\\{1}", Path.GetDirectoryName(this.ViewContext.ExecutingFilePath), PathComponent);
             var rs = await this.renderView.GetContentHtmlFromView(new HtmlView()
             {
                 Model = ModelComponent,
-                ViewName = PathComponent,
-                Path = this.PathModule,
+                ViewName = Path.GetFileName(pathView),
+                Path = Path.GetDirectoryName(pathView),
             });
             htmlBuild.Append(rs.GetString());
             await Task.CompletedTask;

@@ -1,0 +1,33 @@
+﻿.search_box {
+    padding-top: 150px;
+    background: rgba(0,0,0,0.7);
+}
+    .search_box .tab-content {
+        background: rgba(255, 255, 255, 0.3);
+        padding: 25px 5px 25px 5px;
+        border-radius: 0 3px 3px 3px;
+    }
+    .search_box .nav-tabs {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .search_box .nav-tabs .nav-item {
+        padding: 0px 5px;
+        margin-left: -5px;
+    }
+    .search_box .nav-tabs .nav-link {
+        background: rgba(255, 255, 255,1);
+        font-weight: 700;
+        color: #777;
+        font-size: 15px;
+        padding: 1.1rem 1.5rem;
+    }
+        .search_box .nav-tabs .nav-link.active, .search_box .nav-tabs .nav-link:hover{
+            border: none;
+            margin-bottom: -1px !important;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px 3px 0px 0px;
+            color: #FFB701;
+        }
+    .search_box .boxed-btn3 {
+        padding: 9px 29px 9px 29px;
+    }

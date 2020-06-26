@@ -105,7 +105,7 @@ namespace AZWeb.Module.Page
         public IView PostUpload() {
             return Json("");
         }
-        public virtual IHtmlContent ViewChild(string viewName, object model)
+        public virtual IHtmlContent ViewChild(string viewName, object model=null)
         {
             return this.renderView.GetContentHtmlFromView(new HtmlView()
             {
