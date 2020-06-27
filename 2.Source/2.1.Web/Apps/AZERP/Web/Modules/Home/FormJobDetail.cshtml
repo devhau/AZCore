@@ -20,7 +20,7 @@
                                         <p> <i class="fa fa-map-marker"></i> @Model.jobInfo.Address</p>
                                     </div>
                                     <div class="location">
-                                        <p> <i class="fa fa-clock-o"></i> <az-job-type-label value="@Model.jobInfo.JobType" /></p>
+                                        <p> <i class="fa fa-clock-o"></i> <az-job-nature-label value="@Model.jobInfo.JobType" /></p>
                                     </div>
                                 </div>
                             </div>
@@ -30,12 +30,12 @@
                                 <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
                             </div>
                         </div>
-                        @Model.ViewChild("Component/ApplyJobButton", Model.jobInfo)
+                        <az-component component="Component/ApplyJobButton", model="Model.jobInfo"/>
                     </div>
                 </div>
                 <div class="descript_wrap white-bg">
                     @Html.Raw(Model.jobInfo.Content)
-                    @Model.ViewChild("Component/ApplyJobButton", Model.jobInfo)
+                    <az-component component="Component/ApplyJobButton" , model="Model.jobInfo" />
                 </div>
 
             </div>
@@ -48,7 +48,7 @@
                         <ul>
                             <li>Đăng tuyển lúc: <span>@Model.jobInfo.CreateAt.ToString("HH:mm dd/MM/yyyy")</span></li>
                             <li>Vị trí tuyển dụng: <span>1 vị trí</span></li>
-                            <li>Lương: <span>@Model.jobInfo.SalaryFrom - @Model.jobInfo.SalaryTo</span></li>
+                            <li>Lương: <span>@Model.jobInfo.SalaryFrom.ToString("n0") - @Model.jobInfo.SalaryTo.ToString("n0")</span></li>
                             <li>Địa điểm làm việc: <span> @Model.jobInfo.Address</span></li>
                             <li>Tính chất công việc: <span> <az-job-nature-label value="@Model.jobInfo.JobType" /></span></li>
                         </ul>

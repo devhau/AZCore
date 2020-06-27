@@ -8,7 +8,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="section_title">
-                    <h3>Danh sách việc làm</h3>
+                    <h4>Danh sách việc làm</h4>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -41,7 +41,7 @@
         <div class="row">
             @for (var i = 1; i < 20; i++)
             {
-                @Model.ViewChild("Component/CatagoryJobInfo", i)
+                <az-component component="Component/CatagoryJobInfo" model="i" />
             }
         </div>
     </div>
@@ -53,7 +53,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section_title text-center mb-40">
-                    <h3>Featured Candidates</h3>
+                    <h4>Featured Candidates</h4>
                 </div>
             </div>
         </div>
@@ -163,12 +163,12 @@
         <div class="row align-items-center mb-40">
             <div class="col-lg-6 col-md-6">
                 <div class="section_title">
-                    <h3>Top Companies</h3>
+                    <h4>Công ty đang tuyển nhiều nhất</h4>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="brouse_job text-right">
-                    <a href="jobs.html" class="boxed-btn4">Browse More Job</a>
+                    <a href="/tim-cong-ty.az" class="boxed-btn4">Tìm công ty</a>
                 </div>
             </div>
         </div>

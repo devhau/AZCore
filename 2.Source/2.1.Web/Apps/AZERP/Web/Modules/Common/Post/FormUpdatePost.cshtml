@@ -1,0 +1,46 @@
+﻿@model FormUpdatePost
+    <div class="az-update row" role="form">
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-text-model model="Model.Data" func="(item)=>((PostModel)item).Title" label="Tên bài viết" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-catalog-select model="Model.Data" func="(item)=>((PostModel)item).CatalogId" label="Nhóm bài" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-text-area-model is-summer-note="true" model="Model.Data" func="(item)=>((PostModel)item).Content" label="Bài viết" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-text-area-model model="Model.Data" func="(item)=>((PostModel)item).Description" label="Mô tả" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-tags-model model="Model.Data" func="(item)=>((PostModel)item).Keyword" label="Từ khóa" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <az-switch-model model="Model.Data" func="(item)=>((PostModel)item).IsHot" label="Hot" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <az-switch-model model="Model.Data" func="(item)=>((PostModel)item).IsPin" label="Ghim Nhóm" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-status-select model="Model.Data" func="(item)=>((PostModel)item).Status" value-default="AZCore.Database.EntityStatus.Active" label="Trạng thái" />
+            </div>
+        </div>
+    </div>
+<az-script>
+
+</az-script>

@@ -1,4 +1,5 @@
-﻿using AZWeb.Module.Constant;
+﻿using AZWeb.Extensions;
+using AZWeb.Module.Constant;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +11,7 @@ namespace AZWeb.Module.Common
         RenderView renderView { get; }
         public ThemeBase(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
-            this.renderView = new RenderView(this.HttpContext);
+            this.renderView = this.HttpContext.GetRenderView();
         }
         public IHtmlContent BodyContent { get; set; }
         public string Title { get => Html.Title; set => Html.Title = value; }

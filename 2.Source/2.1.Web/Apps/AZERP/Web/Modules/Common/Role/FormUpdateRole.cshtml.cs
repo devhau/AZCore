@@ -10,9 +10,9 @@ namespace AZERP.Web.Modules.Common.Role
         public FormUpdateRole(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
-        protected override void IntData()
+        protected override void AfterGet()
         {
-            this.Title = "Quản lý ứng viên";
+            this.Title = IsNew ?"Thêm vai trò":"Cập nhật vai trò";
         }
 
     }

@@ -372,3 +372,8 @@ table-freeze thead th {
      background:#0069d9;
     
  }
+/*fix tagsinput*/
+.bootstrap-tagsinput .badge {
+    margin: 2px 5px 2px 0px;
+    padding: 8px 10px;
+}

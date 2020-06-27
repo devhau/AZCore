@@ -10,6 +10,7 @@ using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using AZWeb.Module.Constant;
+using AZWeb.Module;
 
 namespace AZWeb.Extensions
 {
@@ -68,7 +69,7 @@ namespace AZWeb.Extensions
                         foreach (var pro in pros)
                         {
                             var key = keys.FirstOrDefault(p => p.EndsWith(string.Format("[].{0}", pro.Name), StringComparison.OrdinalIgnoreCase));
-                            if (key != null) pro.SetValue(objValue, httpContext.Request.Query[key][i].ToType(pro.PropertyType));
+                            if (key != null) pro.SetValue(objValue, httpContext.Request.Query[key][i].GetValueData(pro.PropertyType));
                         }
                         objValues.SetValue(objValue, i);
                     }
@@ -77,7 +78,7 @@ namespace AZWeb.Extensions
                 {
                     for (var i = 0; i < len; i++)
                     {
-                        objValues.SetValue(httpContext.Request.Query[keys[0]][i].ToType(typeOfElementOnObject), i);
+                        objValues.SetValue(httpContext.Request.Query[keys[0]][i].GetValueData(typeOfElementOnObject), i);
                     }
                 }
                 return objValues;
@@ -100,7 +101,7 @@ namespace AZWeb.Extensions
                         foreach (var pro in pros)
                         {
                             var key = keys.FirstOrDefault(p => p.EndsWith(string.Format("[].{0}", pro.Name), StringComparison.OrdinalIgnoreCase));
-                            if (key != null) pro.SetValue(objValue, httpContext.Request.Query[key][i].ToType(pro.PropertyType));
+                            if (key != null) pro.SetValue(objValue, httpContext.Request.Query[key][i].GetValueData(pro.PropertyType));
                         }
                         objValues.Add(objValue);
                     }
@@ -109,7 +110,7 @@ namespace AZWeb.Extensions
                 {
                     for (var i = 0; i < len; i++)
                     {
-                        objValues.Add(httpContext.Request.Query[keys[0]][i].ToType(typeOfElementOnObject));
+                        objValues.Add(httpContext.Request.Query[keys[0]][i].GetValueData(typeOfElementOnObject));
                     }
                 }
                 return objValues;
@@ -121,7 +122,7 @@ namespace AZWeb.Extensions
                 var key = httpContext.Request.Query.Keys.FirstOrDefault(p => p.Equals(string.Format("{0}", name), StringComparison.OrdinalIgnoreCase));
                 if (key == null)
                     return null;
-                return httpContext.Request.Query[key][0].ToType(objType);
+                return httpContext.Request.Query[key][0].GetValueData(objType);
             }
             else
             {
@@ -135,7 +136,7 @@ namespace AZWeb.Extensions
                 foreach (var pro in pros)
                 {
                     var key = keys.FirstOrDefault(p => p.EndsWith(string.Format(".{0}", pro.Name), StringComparison.OrdinalIgnoreCase) || p.Equals(string.Format("{0}", pro.Name), StringComparison.OrdinalIgnoreCase));
-                    if (key != null) pro.SetValue(objValue, httpContext.Request.Query[key][0].ToType(pro.PropertyType));
+                    if (key != null) pro.SetValue(objValue, httpContext.Request.Query[key][0].GetValueData(pro.PropertyType));
                 }
                 return objValue;
             }
@@ -172,7 +173,7 @@ namespace AZWeb.Extensions
                             else
                             {
                                 var key = keys.FirstOrDefault(p => p.EndsWith(string.Format("[].{0}", pro.Name), StringComparison.OrdinalIgnoreCase));
-                                if (key != null) pro.SetValue(objValue, httpContext.Request.Form[key][i].ToType(pro.PropertyType));
+                                if (key != null) pro.SetValue(objValue, httpContext.Request.Form[key][i].GetValueData(pro.PropertyType));
                             }
                         }
                         objValues.SetValue(objValue, i);
@@ -182,7 +183,7 @@ namespace AZWeb.Extensions
                 {
                     for (var i = 0; i < len; i++)
                     {
-                        objValues.SetValue(httpContext.Request.Form[keys[0]][i].ToType(typeOfElementOnObject), i);
+                        objValues.SetValue(httpContext.Request.Form[keys[0]][i].GetValueData(typeOfElementOnObject), i);
                     }
                 }
                 return objValues;
@@ -213,7 +214,7 @@ namespace AZWeb.Extensions
                             else
                             {
                                 var key = keys.FirstOrDefault(p => p.EndsWith(string.Format("[].{0}", pro.Name), StringComparison.OrdinalIgnoreCase));
-                                if(key!=null) pro.SetValue(objValue, httpContext.Request.Form[key][i].ToType(pro.PropertyType));
+                                if(key!=null) pro.SetValue(objValue, httpContext.Request.Form[key][i].GetValueData(pro.PropertyType));
                             }
                         }
                         objValues.Add(objValue);
@@ -223,7 +224,7 @@ namespace AZWeb.Extensions
                 {
                     for (var i = 0; i < len; i++)
                     {
-                        objValues.Add(httpContext.Request.Form[keys[0]][i].ToType(typeOfElementOnObject));
+                        objValues.Add(httpContext.Request.Form[keys[0]][i].GetValueData(typeOfElementOnObject));
                     }
                 }
                 return objValues;
@@ -239,7 +240,7 @@ namespace AZWeb.Extensions
                 var key = httpContext.Request.Form.Keys.FirstOrDefault(p => p.Equals(string.Format("{0}", name), StringComparison.OrdinalIgnoreCase));
                 if (key == null)
                     return null;
-                return httpContext.Request.Form[key][0].ToType(objType);
+                return httpContext.Request.Form[key][0].GetValueData(objType);
             }
             else
             {
@@ -261,7 +262,7 @@ namespace AZWeb.Extensions
                     else
                     {
                         var key = keys.FirstOrDefault(p => p.EndsWith(string.Format(".{0}", pro.Name), StringComparison.OrdinalIgnoreCase) || p.Equals(string.Format("{0}", pro.Name), StringComparison.OrdinalIgnoreCase));
-                        if (key != null) pro.SetValue(objValue, httpContext.Request.Form[key][0].ToType(pro.PropertyType));
+                        if (key != null) pro.SetValue(objValue, httpContext.Request.Form[key][0].GetValueData(pro.PropertyType));
                     }
                 }
                 return objValue;
@@ -279,7 +280,7 @@ namespace AZWeb.Extensions
             foreach (var pro in pros)
             {               
                     var key = keys.FirstOrDefault(p => p.Equals(string.Format("{0}{1}", name, pro.Name), StringComparison.OrdinalIgnoreCase));
-                    if (key != null) pro.SetValue(obj, httpContext.Request.Form[key][0].ToType(pro.PropertyType));
+                    if (key != null) pro.SetValue(obj, httpContext.Request.Form[key][0].GetValueData(pro.PropertyType));
             }
         }
         public static void BindFormTo(this HttpContext httpContext, object obj,string name="")
@@ -304,7 +305,7 @@ namespace AZWeb.Extensions
                 else
                 {
                     var key = keys.FirstOrDefault(p => p.Equals(string.Format("{0}{1}", name, pro.Name), StringComparison.OrdinalIgnoreCase));
-                    if (key != null) pro.SetValue(obj, httpContext.Request.Form[key][0].ToType(pro.PropertyType));
+                    if (key != null) pro.SetValue(obj, httpContext.Request.Form[key][0].GetValueData(pro.PropertyType));
                 }
             }
         }
@@ -490,6 +491,12 @@ namespace AZWeb.Extensions
             return files.Where(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
+        public static object GetValueData(this object value,Type objType)
+        {
+            if(objType == typeof(string))
+                return value.ToType(objType).ToString()?.StripScript();
+            return value.ToType(objType);
+        }
         public static bool IsSubdomain(this HttpContext httpContext)
         {
             return httpContext?.Request.Host.Host.IsSubdomain()??false;
@@ -502,6 +509,10 @@ namespace AZWeb.Extensions
         {
             return (string)httpContext.Items[AZWebConstant.KeyUrlCurrent];
         }
-        
+        public static RenderView GetRenderView(this HttpContext httpContext)
+        {
+            return (RenderView)(httpContext.Items[RenderView.Key] ?? (httpContext.Items[RenderView.Key] = new RenderView(httpContext)));
+        }
+
     }
 }

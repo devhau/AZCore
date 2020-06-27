@@ -45,7 +45,7 @@ namespace AZWeb.Module
         ModuleRender(HttpContext _httpContext)
         {
             httpContext = _httpContext;
-            renderView = new RenderView(httpContext);
+            renderView = httpContext.GetRenderView();
             permissionService = httpContext.GetService<IPermissionService>();
             tenantService = httpContext.GetService<ITenantService>();
             this.PageConfigs = this.httpContext.GetService<IPagesConfig>();

@@ -1,0 +1,36 @@
+﻿@model FormUpdateCatalog
+    <div class="az-update row" role="form">
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-text-model model="Model.Data" func="(item)=>((CatalogModel)item).Title" label="Tên nhóm bài viết" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-text-model model="Model.Data" func="(item)=>((CatalogModel)item).Description" label="Mô tả" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-tags-model model="Model.Data" func="(item)=>((CatalogModel)item).Keyword" label="Từ khóa" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <az-switch-model model="Model.Data" func="(item)=>((CatalogModel)item).IsHot" label="Hot" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <az-switch-model model="Model.Data" func="(item)=>((CatalogModel)item).IsPin" label="Ghim Nhóm" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <az-status-select model="Model.Data" func="(item)=>((CatalogModel)item).Status" value-default="AZCore.Database.EntityStatus.Active" label="Trạng thái" />
+            </div>
+        </div>
+    </div>
+<az-script>
+
+</az-script>

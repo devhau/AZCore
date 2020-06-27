@@ -1,0 +1,9 @@
+﻿@model FormPost
+<az-module-layout class="az-manager" attr='data-form-size="az-modal-xl"' script-random='(id)=>$"$(\".{id}\").AZManager({{ButtonEditValue:\"Test thu\"}});"' buttons="Model.GetButtonInfo()">
+    <div class="az-data-table">
+        <az-table data="Model.Data" FunKey="(item)=>((RoleModel)item).Id" columns="Model.Columns" pagination="Model" is-edit="Model.HasPermission(PE.Role_Edit)" is-delete="Model.HasPermission(PE.Role_Remove)"></az-table>
+    </div>
+    <div class="az-bottom-manager">
+        <az-pagination pagination="Model" />
+    </div>
+</az-module-layout>

@@ -40,5 +40,10 @@ namespace AZCore.Extensions
         {
             return Regex.Replace(value, "<.*?>", String.Empty);
         }
+        public static string StripScript(this string value)
+        {
+            return Regex.Replace(value, @"<script[^>]*>[\s\S]*?</script>|<style[^>]*>[\s\S]*?</style>|<iframe [^>]*>[\s\S]*?</iframe >|<iframe [^>]*/><script [^>]*/>", String.Empty);
+        }
+       
     }
 }

@@ -84,4 +84,8 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content> 
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\typeahead\" />
+  </ItemGroup>
 </Project>

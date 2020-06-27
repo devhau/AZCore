@@ -104,7 +104,7 @@ namespace AZWeb.Module.Common
 
         public WidgetBase(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
-            this.renderView = new RenderView(this.HttpContext);
+            this.renderView = this.HttpContext.GetRenderView();
             this.IntData();
             info = this.GetType().GetAttribute<WidgetInfoAttribute>();
             this.Title = this.info?.Name;

@@ -18,8 +18,7 @@ namespace AZWeb.Module.TagHelper.Module
         RenderView renderView { get; set; }
         public override void Init(TagHelperContext context)
         {
-
-            this.renderView = new RenderView(this.HttpContext);
+            this.renderView = this.HttpContext.GetRenderView();
             base.Init(context);
         }
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)

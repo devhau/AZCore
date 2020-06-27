@@ -1,4 +1,5 @@
 ﻿using AZCore.Identity;
+using AZWeb.Extensions;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Constant;
@@ -44,7 +45,7 @@ namespace AZWeb.Module.Page
             if (this.HttpContext.Items[AZWebConstant.Html] == null) {
                 this.HttpContext.Items[AZWebConstant.Html] = new HtmlContent();
             }           
-            this.renderView = new RenderView(this.HttpContext);
+            this.renderView = this.HttpContext.GetRenderView();
         }
 
         #region --- Auth ---

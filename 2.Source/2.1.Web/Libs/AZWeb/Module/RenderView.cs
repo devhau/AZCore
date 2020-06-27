@@ -21,8 +21,9 @@ using System.Threading.Tasks;
 
 namespace AZWeb.Module
 {
-    sealed class RenderView
+    public class RenderView
     {
+        public const string Key = "az_render_view";
         const string DefaultContentType = "text/html; charset=utf-8";
         const string extends = ".cshtml";
 

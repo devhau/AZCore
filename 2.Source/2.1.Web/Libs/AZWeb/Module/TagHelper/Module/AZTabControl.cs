@@ -22,6 +22,7 @@ namespace AZWeb.Module.TagHelper.Module
     [HtmlTargetElement("az-tab-control")]
     public class AZTabControl : TagHelperBase
     {
+        public bool IsLink { get; set; } = false;
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
             HttpContext.Items[TabPageContent.Key] = new List<TabPageContent>();
@@ -34,15 +35,31 @@ namespace AZWeb.Module.TagHelper.Module
             foreach(var item in pages)
             {
                 htmlBuild.Append("<li class='nav-item' role='presentation'>");
-                if (!isFlgs && (!isActive || item.IsActive))
+                if (IsLink)
                 {
-                    isFlgs = true; 
-                    htmlBuild.AppendFormat("<a class='nav-link active show' id='{1}-tab' data-toggle='tab' href='#{1}' role='tab' aria-controls='{1}' aria-selected='false'>{0}</a>", item.Title, item.Id, item.Link);
+                    if (!isFlgs && (!isActive || item.IsActive))
+                    {
+                        isFlgs = true;
+                        htmlBuild.AppendFormat("<a class='nav-link active show' id='{1}-tab'  href='{2}' role='tab' aria-controls='{1}' aria-selected='false'>{0}</a>", item.Title, item.Id, item.Link);
+                    }
+                    else
+                    {
+                        htmlBuild.AppendFormat("<a class='nav-link' id='{1}-tab'  href='{2}' role='tab' aria-controls='{1}' aria-selected='false'>{0}</a>", item.Title, item.Id, item.Link);
+                    }
                 }
                 else
                 {
-                    htmlBuild.AppendFormat("<a class='nav-link' id='{1}-tab' data-toggle='tab' href='#{1}' role='tab' aria-controls='{1}' aria-selected='false'>{0}</a>", item.Title, item.Id, item.Link);
+                    if (!isFlgs && (!isActive || item.IsActive))
+                    {
+                        isFlgs = true;
+                        htmlBuild.AppendFormat("<a class='nav-link active show' id='{1}-tab' data-toggle='tab' href='#{1}' role='tab' aria-controls='{1}' aria-selected='false'>{0}</a>", item.Title, item.Id, item.Link);
+                    }
+                    else
+                    {
+                        htmlBuild.AppendFormat("<a class='nav-link' id='{1}-tab' data-toggle='tab' href='#{1}' role='tab' aria-controls='{1}' aria-selected='false'>{0}</a>", item.Title, item.Id, item.Link);
+                    }
                 }
+               
                 htmlBuild.Append("</li>");
             }
             htmlBuild.Append("</ul>");

@@ -11,9 +11,9 @@ namespace AZERP.Web.Modules.Common.SystemCode
         public FormUpdateSystemCode(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
-        protected override void IntData()
+        protected override void AfterGet()
         {
-            this.Title = "Quản lý mã code";
+            this.Title = IsNew?"Thêm mã code":"Cập nhật mã code";
         }
         public override IView Validate(SystemCodeModel model, bool isNew)
         {

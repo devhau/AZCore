@@ -45,11 +45,21 @@ namespace AZWeb.Module.Page.Manager
         {
             Service = this.HttpContext.GetService<TService>();
         }
+        protected virtual void BeforeGet()
+        {
+
+        }
+        protected virtual void AfterGet()
+        {
+
+        }
         public virtual IView Get(long? Id) {
+            BeforeGet();
             if (Id != null && 0 != Id)
             {
                 this.Data = this.Service.GetById(Id);
             }
+            AfterGet();
             return View();
         }
         public virtual void DataFormToData(TModel DataForm, Func<PropertyInfo, bool> funProper = null)

@@ -27,10 +27,9 @@ namespace AZERP.Web.Modules.Common.User
             funProper = (item) => item.Name != "Password";
             base.DataFormToData(DataForm, funProper);
         }
-        protected override void IntData()
+        protected override void AfterGet()
         {
-            this.Title = "Nhân viên";
-            this.IsTheme = true;
+            this.Title = this.IsNew?"Thêm nhân viên":"Cập nhật nhân viên";
         }
 
     }
