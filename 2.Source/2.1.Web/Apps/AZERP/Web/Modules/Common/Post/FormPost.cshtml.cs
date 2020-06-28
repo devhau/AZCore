@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace AZERP.Web.Modules.Common.Post
 {
-    [TableColumn(Title = "Tên nhóm", FieldName = "Title")]
+    [TableColumn(Title = "Tiêu đề", FieldName = "Title")]
     [TableColumn(Title = "Từ khóa", FieldName = "Keyword")]
     [TableColumn(Title = "Mô tả", FieldName = "Description")]
     [TableColumn(Title = "Hot", FieldName = "IsHot", TextTrue = "Đang Hot", TextFalse = "")]

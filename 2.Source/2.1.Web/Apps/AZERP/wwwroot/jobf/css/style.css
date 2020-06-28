@@ -1118,20 +1118,20 @@ h3 {
 .header-area .main-header-area .main-menu ul li {
   display: inline-block;
   position: relative;
-  margin: 0 25px;
+  margin: 0 21px;
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
   /* line 163, ../../Arafath/CL/December/235. Job board/HTML/scss/_header.scss */
   .header-area .main-header-area .main-menu ul li {
-    margin: 0 14px;
+    margin: 0 1px;
   }
 }
 
 @media (min-width: 1200px) and (max-width: 1500px) {
   /* line 163, ../../Arafath/CL/December/235. Job board/HTML/scss/_header.scss */
   .header-area .main-header-area .main-menu ul li {
-    margin: 0 14px;
+    margin: 0 10px;
   }
 }
 
@@ -7472,4 +7472,9 @@ h6 {
   font-size: 12px;
 }
 
+.header-area .main-header-area .main-menu ul li .az-menu-home-icon {
+    font-size: 24px !important;
+    width: 100%;
+    margin-bottom: 6px;
+}
 /*# sourceMappingURL=style.css.map */
