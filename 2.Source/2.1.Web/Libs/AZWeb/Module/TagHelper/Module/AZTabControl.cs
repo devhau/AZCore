@@ -1,4 +1,5 @@
 ﻿using AZCore.Extensions;
+using AZWeb.Extensions;
 using AZWeb.Module.Common;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Org.BouncyCastle.Crypto.Engines;
@@ -97,7 +98,8 @@ namespace AZWeb.Module.TagHelper.Module
                 Id=this.TagId,
                 Title = Name,
                 Html = html.GetContent(),
-                Link = Link
+                Link = Link,
+                IsActive = this.HttpContext.UrlCurrent().Contains(Link)
             });
             await Task.CompletedTask;
         }

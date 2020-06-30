@@ -12,7 +12,9 @@ namespace AZERP.Web.Modules.Home
     {
         [BindService]
         public JobInfoService jobInfoService { get; set; }
-        public List<JobInfoModel> jobInfos;
+        public List<JobInfoModel> jobNew;
+        public List<JobInfoModel> jobHot;
+        public List<JobInfoModel> jobPin;
         public FormHome(IHttpContextAccessor httpContext) : base(httpContext)
         {
             this.ThemeName = "JobF";
@@ -20,11 +22,19 @@ namespace AZERP.Web.Modules.Home
         protected override void IntData()
         {
             this.Title = "Trang chủ - thông tin tuyển dụng JobF";
-            jobInfos = jobInfoService.GetAll().ToList();
+            jobNew = jobInfoService.GetAll().ToList();
+            jobHot = jobInfoService.GetAll().ToList();
+            jobPin = jobInfoService.GetAll().ToList();
             base.IntData();
         }
         public IView Get(){
            return View();
+        }
+        public IView GetApplyJobForm(long JobId)
+        {
+            this.Title = "Đăng ký thông tin ứng tuyển vị trí này";
+            
+            return View("Component/ApplyJobForm", jobInfoService.GetById(JobId));
         }
     }
 }

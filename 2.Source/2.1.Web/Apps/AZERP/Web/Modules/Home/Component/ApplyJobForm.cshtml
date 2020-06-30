@@ -1,0 +1,41 @@
+﻿@model JobInfoModel
+
+<div class="apply_form">
+    <div class="row">
+        @if (Model != null)
+        {
+            <div class="col-md-12">
+                Bạn đang ứng tuyển vào vị trí: <p style="font-weight:700">@Model.Title </p>
+            </div>
+        }
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="apply_form_name">Họ tên</label>
+                <input type="text" class="form-control" id="apply_form_name" name="fullname" placeholder="Họ tên">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="apply_form_phone">Số điện thoại(Chính xác để liên lạc)</label>
+                <input type="text" class="form-control" id="apply_form_phone" name="phone" placeholder="Số điện thoại">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="apply_form_khu_vuc">Quê bạn ở đâu?</label>
+                <input type="text" class="form-control" id="apply_form_khu_vuc" name="khu_vuc" placeholder="Số điện thoại">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="apply_form_khu_vuc">Bạn muốn tìm việc khu vực nào</label>
+                <input type="text" class="form-control" id="apply_form_khu_vuc" name="khu_vuc" placeholder="Số điện thoại">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="submit_btn">
+                <button class="boxed-btn3 w-100" type="submit" onclick="PopupMain.Current().ClosePopup()">Gửi thông tin</button>
+            </div>
+        </div>
+    </div>
+    </div>

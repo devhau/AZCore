@@ -7477,4 +7477,15 @@ h6 {
     width: 100%;
     margin-bottom: 6px;
 }
+.job_listing_area .job_lists {
+    margin-top:5px;
+}
+.job_listing_area .job-group {
+    margin-top: 5px;
+}
+    .job_listing_area .job-group .section_title h4 {
+        padding-bottom: 5px;
+        display: inline-block;
+        border-bottom: 8px solid #ccc;
+    }
 /*# sourceMappingURL=style.css.map */

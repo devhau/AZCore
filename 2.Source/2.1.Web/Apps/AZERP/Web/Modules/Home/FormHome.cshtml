@@ -5,24 +5,58 @@
 <!-- job_listing_area_start  -->
 <div class="job_listing_area">
     <div class="container" style="padding-top:10px;">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="section_title">
-                    <h4>Danh sách việc làm</h4>
+        <div class="job-group">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="section_title">
+                        <h4>Việc làm nổi bật</h4>
+                    </div>
                 </div>
+                <div class="col-lg-6"></div>
             </div>
-            <div class="col-lg-6">
-                <div class="brouse_job text-right">
-                    <a href="/tim-kiem-viec-lam.az" class="boxed-btn4">Tìm kiếm nâng cao</a>
+            <div class="job_lists">
+                <div class="row">
+                    @foreach (var item in Model.jobHot)
+                    {
+                        <az-component component="Component/JobInfo" model="item" />
+                    }
                 </div>
             </div>
         </div>
-        <div class="job_lists">
-            <div class="row">
-                @foreach (var item in Model.jobInfos)
-                {
-                    <az-component component="Component/JobInfo" model="item"/>
-                }
+        <div class="job-group">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="section_title">
+                        <h4>Việc làm mới đăng tuyển</h4>
+                    </div>
+                </div>
+                <div class="col-lg-6"></div>
+            </div>
+            <div class="job_lists">
+                <div class="row">
+                    @foreach (var item in Model.jobNew)
+                    {
+                        <az-component component="Component/JobInfo" model="item" />
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="job-group">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="section_title">
+                        <h4>Việc làm đang tuyển gấp</h4>
+                    </div>
+                </div>
+                <div class="col-lg-6"></div>
+            </div>
+            <div class="job_lists">
+                <div class="row">
+                    @foreach (var item in Model.jobPin)
+                    {
+                        <az-component component="Component/JobInfo" model="item" />
+                    }
+                </div>
             </div>
         </div>
     </div>
