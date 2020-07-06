@@ -7,8 +7,8 @@ namespace AZERP.Data.Entities
     /// <summary>
     /// thông tin của công nhân
     /// </summary>
-    [TableInfo(TableName = "az_recruitment_profile")]
-    public class JobProfile : EntityModel<JobProfile, long>
+    [TableInfo(TableName = "az_recruitment_worker_profile")]
+    public class WorkerProfile : EntityModel<WorkerProfile, long>
     {
         /// <summary>
         /// Id của Tài khoản
@@ -40,7 +40,7 @@ namespace AZERP.Data.Entities
         /// Địa chỉ hiện tại
         /// </summary>
         [Field(Length = 500)]
-        public string CurrentAddress{get;set;}
+        public string CurrentAddress {get;set;}
         /// <summary>
         /// Số điện thoại
         /// </summary>

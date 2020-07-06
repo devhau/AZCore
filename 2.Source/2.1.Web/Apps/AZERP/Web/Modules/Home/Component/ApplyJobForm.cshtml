@@ -11,30 +11,42 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="apply_form_name">Họ tên</label>
-                <input type="text" class="form-control" id="apply_form_name" name="fullname" placeholder="Họ tên">
+                <input type="text" class="form-control" maxlength="50" id="apply_form_name" name="fullname" placeholder="Họ tên">
             </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <label for="apply_form_phone">Số điện thoại(Chính xác để liên lạc)</label>
-                <input type="text" class="form-control" id="apply_form_phone" name="phone" placeholder="Số điện thoại">
+                <label for="apply_form_gender">Giới tính</label>
+                <az-gender-select name="gender"/>
             </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <label for="apply_form_khu_vuc">Quê bạn ở đâu?</label>
-                <input type="text" class="form-control" id="apply_form_khu_vuc" name="khu_vuc" placeholder="Số điện thoại">
+                <label for="apply_form_phone">Số điện thoại(Chính xác để chúng tôi liên lạc)</label>
+                <input type="text" maxlength="10" class="form-control" id="apply_form_phone" name="phone" placeholder="Số điện thoại">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="apply_form_year">Bạn sinh năm nào?</label>
+                <input type="number" class="form-control" id="apply_form_year" name="year" placeholder="Bạn sinh năm nào?(ví dụ: 2001)">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="apply_form_que_quan">Quê bạn ở đâu?</label>
+                <input type="text" class="form-control" maxlength="500" id="apply_form_que_quan" name="khu_vuc" placeholder="Quê bạn ở đâu?">
             </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">
                 <label for="apply_form_khu_vuc">Bạn muốn tìm việc khu vực nào</label>
-                <input type="text" class="form-control" id="apply_form_khu_vuc" name="khu_vuc" placeholder="Số điện thoại">
+                <input type="text" class="form-control" maxlength="500" id="apply_form_khu_vuc" name="khu_vuc" placeholder="Bạn muốn tìm việc khu vực nào">
             </div>
         </div>
         <div class="col-md-12">
             <div class="submit_btn">
-                <button class="boxed-btn3 w-100" type="submit" onclick="PopupMain.Current().ClosePopup()">Gửi thông tin</button>
+                <button class="boxed-btn3 w-100" type="submit" onclick="PopupMain.Current().SumitForm()">Gửi thông tin</button>
             </div>
         </div>
     </div>

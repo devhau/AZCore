@@ -59,6 +59,7 @@ namespace AZWeb.Module
 
         private void CheckTenant()
         {
+            return;
             string host = httpContext.Request.Host.Host;
             // Check if the host is subdomain.domain.com or subdomain.localhost for debugging
             if (host.IsSubdomain())
@@ -81,6 +82,7 @@ namespace AZWeb.Module
                     User.PermissionActive = permissionService.GetPermissionByUserId(User.Id).ToList();
                 }
                 this.httpContext.Items[AZWebConstant.KeyUser] = User;
+                this.httpContext.Items[AZWebConstant.KeyTenant] = User?.TenantId;
             }
         }
 
@@ -136,8 +138,6 @@ namespace AZWeb.Module
                 var pathReal = GetPathReal();
                 if (string.IsNullOrEmpty(pathReal))
                 {
-                    methodName = "Get";
-                    ModuleStr = string.Format("Web.Errors.NotFound");
                 }
                 else
                 {
@@ -190,15 +190,31 @@ namespace AZWeb.Module
             var methodName = moduleInfo.Value;
             //
             var moduleName = moduleInfo.Key;
+            if (methodName.IsNullOrEmpty()||methodName.IsNullOrEmpty())
+            {
+
+                methodName = "Get";
+                moduleName = string.Format("Web.Errors.NotFound");
+            }
             //
             var ModuleCurrent = LoadModule(moduleName);
 
             if (ModuleCurrent == null|| (ModuleCurrent.GetType().GetAttribute<OnlyAjaxAttribute>() != null && !IsAjax))
-                return RenderError.NotFoundModule;
+            {
+
+                methodName = "Get";
+                moduleName = string.Format("Web.Errors.NotFound");
+                ModuleCurrent = LoadModule(moduleName);
+            }
 
             var methodFunction = ModuleCurrent.GetType().GetMethods().FirstOrDefault(p=> string.Equals(p.Name, methodName, StringComparison.OrdinalIgnoreCase));
             if (methodFunction == null || (methodFunction.GetAttribute<OnlyAjaxAttribute>() != null && !IsAjax))
-                return RenderError.NotFoundMethod;
+            {
+                methodName = "Get";
+                moduleName = string.Format("Web.Errors.NotFound");
+                ModuleCurrent = LoadModule(moduleName);
+                methodFunction = ModuleCurrent.GetType().GetMethods().FirstOrDefault(p => string.Equals(p.Name, methodName, StringComparison.OrdinalIgnoreCase));
+            }
            
             ModuleCurrent.BeforeRequest();
             var isModuleAuth= ModuleCurrent.GetType().GetAttribute<AuthAttribute>()!=null;

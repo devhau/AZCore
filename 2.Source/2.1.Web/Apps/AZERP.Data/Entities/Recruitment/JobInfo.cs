@@ -82,5 +82,16 @@ namespace AZERP.Data.Entities
         /// </summary>
         [Field]
         public JobNature JobType { get; set; }
+        /// <summary>
+        /// Tuổi từ
+        /// </summary>
+        [Field]
+        public long OldFrom { get; set; }
+        /// <summary>
+        /// Tuổi đến
+        /// </summary>
+        [Field]
+        public long OldTo { get; set; }
+        public JobGender Gender { get; set; }
     }
 }

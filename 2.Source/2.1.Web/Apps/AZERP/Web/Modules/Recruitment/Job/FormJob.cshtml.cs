@@ -9,7 +9,7 @@ using System;
 namespace AZERP.Web.Modules.Recruitment.Job
 {
     [TableColumn(Title = "Tiêu đề", FieldName = "Title", Width = 130)]
-    [TableColumn(Title = "Công ty", FieldName = "CompanyId", Width = 100, DataType = typeof(CompanyWorkerService))]
+    [TableColumn(Title = "Công ty", FieldName = "CompanyId", Width = 100, DataType = typeof(CompanyInfoService))]
     [TableColumn(Title = "Địa chỉ", FieldName = "Address", Width = 150)]
     [TableColumn(Title = "Lĩnh vực", FieldName = "ProfessionName", Width = 150)]
     [TableColumn(Title = "Lương từ", FieldName = "SalaryFrom", Width = 150)]

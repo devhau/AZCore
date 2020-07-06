@@ -217,6 +217,7 @@ $.fn.AZUploadFile = function () {
 $.fn.ShowLinkPopup = function () {
     let ModalSize = $(this).attr("modal-size");
     let reload = $(this).attr("reload");
+    let isForm = $(this).attr("modal-form");
     let LinkHref = $(this).attr("href");
     let link = $(this).attr("href");
     if (LinkHref.indexOf("?") > 0) {
@@ -237,6 +238,7 @@ $.fn.ShowLinkPopup = function () {
         popup.setTitle($icon + item.title);
         popup.setLink(link);
         popup.ModalSize = ModalSize;
+        popup.IsForm = isForm;
         popup.ShowPopup(function () {
             if (reload && reload === 'true') {
                 $this.loadHtml(location.href);

@@ -95,14 +95,14 @@ namespace AZCore.Database
 
         public virtual void Dispose()
         {
-            if (this.Connection != null) {
-                this.Connection.Dispose();
-                this.Connection = null;
-            }
             if (Transaction != null)
             {
                 Transaction.Dispose();
                 Transaction = null;
+            }
+            if (this.Connection != null) {
+                this.Connection.Dispose();
+                this.Connection = null;
             }
         }
     }

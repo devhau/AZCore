@@ -30,11 +30,19 @@ namespace AZERP.Web.Modules.Home
         public IView Get(){
            return View();
         }
+        [OnlyAjax]
         public IView GetApplyJobForm(long JobId)
         {
             this.Title = "Đăng ký thông tin ứng tuyển vị trí này";
             
             return View("Component/ApplyJobForm", jobInfoService.GetById(JobId));
+        }
+        [OnlyAjax]
+        public IView PostApplyJobForm(long JobId)
+        {
+            
+
+            return Json("Chúng tôi đã tiếp nhận thôn tin của bạn.<br/>Chúng tôi sẽ liên hệ sớm cho bạn");
         }
     }
 }

@@ -23,7 +23,7 @@
     "AZERP": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "https://k.localhost:5001/",
+      "launchUrl": "https://localhost:5001/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

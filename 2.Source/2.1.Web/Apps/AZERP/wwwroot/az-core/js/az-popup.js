@@ -133,6 +133,18 @@
 		delete this;
 		$this = undefined;
 	}
+	$this.SumitForm = function () {
+		AjaxMain.DoPost($this.link, $this.SerializeData(), function (item) {
+			if (item.statusCode == 200 || item.statusCode == 201) {
+				$this.ClosePopup();
+				toastr.success(item.message);
+			} else {
+				toastr.error(item.message);
+			}
+		}, function (error) {
+
+		})
+    }
 	PopupMain.Push($this);
 }
 var PopupMain = new LinkedList();

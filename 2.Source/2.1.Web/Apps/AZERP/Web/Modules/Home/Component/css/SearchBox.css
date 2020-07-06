@@ -1,6 +1,7 @@
 ﻿.search_box {
     padding-top: 150px;
     background: rgba(0,0,0,0.7);
+    padding-bottom: 40px;
 }
     .search_box .tab-content {
         background: rgba(255, 255, 255, 0.3);
@@ -30,4 +31,17 @@
         }
     .search_box .boxed-btn3 {
         padding: 9px 29px 9px 29px;
+    }
+    .search_box .fa-home-search-box {
+        width: 100%;
+        padding-top: 10px;
+        font-size: 24px;
+        color: #fff;
+    }
+    .search_box .btn-lg p {
+        width: 100%;
+        color: #fff;
+        padding-top: 5px;
+        font-weight: 700;
+        text-transform: capitalize;
     }

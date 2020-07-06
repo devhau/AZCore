@@ -30,13 +30,13 @@ namespace AZERP.Web.Modules.Common.Auth
 
         public IView Get()
         {
-            if (this.HttpContext.IsSubdomain() && this.Tenant == null) 
-            {
-                return View("StoreNotFound");
-            }
-            if (this.Tenant == null) {
-                return View("LoginStore");
-            }
+            //if (this.HttpContext.IsSubdomain() && this.Tenant == null) 
+            //{
+            //    return View("StoreNotFound");
+            //}
+            //if (this.Tenant == null) {
+            //    return View("LoginStore");
+            //}
             return View();
         }
         public async Task<IView> GetLogout() {

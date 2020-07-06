@@ -6,9 +6,9 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class CompanyWorkerService : EntityService<CompanyWorkerService, CompanyWorkerModel>, IAZTransient
+    public class CompanyInfoService : EntityService<CompanyInfoService, CompanyInfoModel>, IAZTransient
     {
-        public CompanyWorkerService(IDbConnection _connection) : base(_connection)
+        public CompanyInfoService(IDbConnection _connection) : base(_connection)
         {
         }
     }
@@ -16,8 +16,8 @@ namespace AZERP.Data.Entities
     /// Thông tin các công ty cần sử dụng lao động
     /// //Phần này sẽ dùng chung cho các đối tác tuyển dụng
     /// </summary>
-    [TableInfo(TableName = "az_recruitment_company")]
-    public class CompanyWorkerModel : EntityModel<CompanyWorkerModel, long>
+    [TableInfo(TableName = "az_recruitment_company_info")]
+    public class CompanyInfoModel : EntityModel<CompanyInfoModel, long>
     {
         /// <summary>
         /// Tên công ty

@@ -99,7 +99,7 @@ namespace AZWeb.Module.TagHelper.Module
                 Title = Name,
                 Html = html.GetContent(),
                 Link = Link,
-                IsActive = this.HttpContext.UrlCurrent().Contains(Link)
+                IsActive = !Link.IsNullOrEmpty() && this.HttpContext.UrlCurrent().Contains(Link)
             });
             await Task.CompletedTask;
         }

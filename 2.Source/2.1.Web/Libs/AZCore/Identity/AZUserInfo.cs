@@ -7,6 +7,7 @@ namespace AZCore.Identity
 {
     public class UserInfo
     {
+        public long? TenantId { get; set; }
         public long Id { get; set; }
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
@@ -23,6 +24,7 @@ namespace AZCore.Identity
         public static List<Claim> CreateClaim( this UserInfo user) {
             var claims = new List<Claim>();
             claims.Add(new Claim("az.core.UserId", user.Id.ToString()));
+            claims.Add(new Claim("az.core.TenantId", user.TenantId?.ToString()));
             claims.Add(new Claim("az.core.UserName", user.UserName));
             claims.Add(new Claim("az.core.FullName", user.FullName));
             claims.Add(new Claim("az.core.Email", user.Email));
@@ -33,6 +35,7 @@ namespace AZCore.Identity
         public static UserInfo GetUserInfo(this ClaimsPrincipal claimsPrincipal) {
             var user = new UserInfo();
             user.Id = claimsPrincipal.Identities.First().FindFirst("az.core.UserId").Value.To<long>();
+            user.TenantId = claimsPrincipal.Identities.First().FindFirst("az.core.TenantId").Value.To<long?>();
             user.UserName = claimsPrincipal.Identities.First().FindFirst("az.core.UserName").Value;
             user.FullName = claimsPrincipal.Identities.First().FindFirst("az.core.FullName").Value;
             user.Email = claimsPrincipal.Identities.First().FindFirst("az.core.Email").Value;
