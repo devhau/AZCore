@@ -170,7 +170,7 @@ var HttpConnection = /** @class */ (function () {
     };
     HttpConnection.prototype.stopInternal = function (error) {
         return __awaiter(this, void 0, void 0, function () {
-            var e_1, e_2, e_3;
+            var e_1, e_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -180,7 +180,7 @@ var HttpConnection = /** @class */ (function () {
                         this.stopError = error;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, 4]);
+                        _a.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, this.startInternalPromise];
                     case 2:
                         _a.sent();
@@ -189,50 +189,34 @@ var HttpConnection = /** @class */ (function () {
                         e_1 = _a.sent();
                         return [3 /*break*/, 4];
                     case 4:
-                        if (!this.sendQueue) return [3 /*break*/, 9];
+                        if (!this.transport) return [3 /*break*/, 9];
                         _a.label = 5;
                     case 5:
-                        _a.trys.push([5, 7, 8]);
-                        return [4 /*yield*/, this.sendQueue.stop()];
+                        _a.trys.push([5, 7, , 8]);
+                        return [4 /*yield*/, this.transport.stop()];
                     case 6:
                         _a.sent();
                         return [3 /*break*/, 8];
                     case 7:
                         e_2 = _a.sent();
-                        this.logger.log(LogLevel.Error, "TransportSendQueue.stop() threw error '" + e_2 + "'.");
+                        this.logger.log(LogLevel.Error, "HttpConnection.transport.stop() threw error '" + e_2 + "'.");
+                        this.stopConnection();
                         return [3 /*break*/, 8];
                     case 8:
-                        this.sendQueue = undefined;
-                        _a.label = 9;
-                    case 9:
-                        if (!this.transport) return [3 /*break*/, 14];
-                        _a.label = 10;
-                    case 10:
-                        _a.trys.push([10, 12, 13]);
-                        return [4 /*yield*/, this.transport.stop()];
-                    case 11:
-                        _a.sent();
-                        return [3 /*break*/, 13];
-                    case 12:
-                        e_3 = _a.sent();
-                        this.logger.log(LogLevel.Error, "HttpConnection.transport.stop() threw error '" + e_3 + "'.");
-                        this.stopConnection();
-                        return [3 /*break*/, 13];
-                    case 13:
                         this.transport = undefined;
-                        return [3 /*break*/, 15];
-                    case 14:
+                        return [3 /*break*/, 10];
+                    case 9:
                         this.logger.log(LogLevel.Debug, "HttpConnection.transport is undefined in HttpConnection.stop() because start() failed.");
                         this.stopConnection();
-                        _a.label = 15;
-                    case 15: return [2 /*return*/];
+                        _a.label = 10;
+                    case 10: return [2 /*return*/];
                 }
             });
         });
     };
     HttpConnection.prototype.startInternal = function (transferFormat) {
         return __awaiter(this, void 0, void 0, function () {
-            var url, negotiateResponse, redirects, _loop_1, this_1, e_4;
+            var url, negotiateResponse, redirects, _loop_1, this_1, e_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -240,7 +224,7 @@ var HttpConnection = /** @class */ (function () {
                         this.accessTokenFactory = this.options.accessTokenFactory;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 12, 13]);
+                        _a.trys.push([1, 12, , 13]);
                         if (!this.options.skipNegotiation) return [3 /*break*/, 5];
                         if (!(this.options.transport === HttpTransportType.WebSockets)) return [3 /*break*/, 3];
                         // No need to add a connection ID in this case
@@ -316,11 +300,11 @@ var HttpConnection = /** @class */ (function () {
                         }
                         return [3 /*break*/, 13];
                     case 12:
-                        e_4 = _a.sent();
-                        this.logger.log(LogLevel.Error, "Failed to start the connection: " + e_4);
+                        e_3 = _a.sent();
+                        this.logger.log(LogLevel.Error, "Failed to start the connection: " + e_3);
                         this.connectionState = "Disconnected" /* Disconnected */;
                         this.transport = undefined;
-                        return [2 /*return*/, Promise.reject(e_4)];
+                        return [2 /*return*/, Promise.reject(e_3)];
                     case 13: return [2 /*return*/];
                 }
             });
@@ -328,7 +312,7 @@ var HttpConnection = /** @class */ (function () {
     };
     HttpConnection.prototype.getNegotiationResponse = function (url) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, headers, token, negotiateUrl, response, negotiateResponse, e_5;
+            var _a, headers, token, negotiateUrl, response, negotiateResponse, e_4;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -347,7 +331,7 @@ var HttpConnection = /** @class */ (function () {
                         this.logger.log(LogLevel.Debug, "Sending negotiation request: " + negotiateUrl + ".");
                         _b.label = 3;
                     case 3:
-                        _b.trys.push([3, 5, 6]);
+                        _b.trys.push([3, 5, , 6]);
                         return [4 /*yield*/, this.httpClient.post(negotiateUrl, {
                                 content: "",
                                 headers: headers,
@@ -365,9 +349,9 @@ var HttpConnection = /** @class */ (function () {
                         }
                         return [2 /*return*/, negotiateResponse];
                     case 5:
-                        e_5 = _b.sent();
-                        this.logger.log(LogLevel.Error, "Failed to complete negotiation with the server: " + e_5);
-                        return [2 /*return*/, Promise.reject(e_5)];
+                        e_4 = _b.sent();
+                        this.logger.log(LogLevel.Error, "Failed to complete negotiation with the server: " + e_4);
+                        return [2 /*return*/, Promise.reject(e_4)];
                     case 6: return [2 /*return*/];
                 }
             });
@@ -414,7 +398,7 @@ var HttpConnection = /** @class */ (function () {
                         if (!!negotiate) return [3 /*break*/, 9];
                         _a.label = 5;
                     case 5:
-                        _a.trys.push([5, 7, 8]);
+                        _a.trys.push([5, 7, , 8]);
                         return [4 /*yield*/, this.getNegotiationResponse(url)];
                     case 6:
                         negotiate = _a.sent();
@@ -426,7 +410,7 @@ var HttpConnection = /** @class */ (function () {
                         connectUrl = this.createConnectUrl(url, negotiate.connectionToken);
                         _a.label = 9;
                     case 9:
-                        _a.trys.push([9, 11, 12]);
+                        _a.trys.push([9, 11, , 12]);
                         return [4 /*yield*/, this.startTransport(connectUrl, requestedTransferFormat)];
                     case 10:
                         _a.sent();
@@ -519,6 +503,7 @@ var HttpConnection = /** @class */ (function () {
         return transport && typeof (transport) === "object" && "connect" in transport;
     };
     HttpConnection.prototype.stopConnection = function (error) {
+        var _this = this;
         this.logger.log(LogLevel.Debug, "HttpConnection.stopConnection(" + error + ") called while in state " + this.connectionState + ".");
         this.transport = undefined;
         // If we have a stopError, it takes precedence over the error from the transport
@@ -543,12 +528,20 @@ var HttpConnection = /** @class */ (function () {
         else {
             this.logger.log(LogLevel.Information, "Connection disconnected.");
         }
+        if (this.sendQueue) {
+            this.sendQueue.stop().catch(function (e) {
+                _this.logger.log(LogLevel.Error, "TransportSendQueue.stop() threw error '" + e + "'.");
+            });
+            this.sendQueue = undefined;
+        }
         this.connectionId = undefined;
         this.connectionState = "Disconnected" /* Disconnected */;
-        if (this.onclose && this.connectionStarted) {
+        if (this.connectionStarted) {
             this.connectionStarted = false;
             try {
-                this.onclose(error);
+                if (this.onclose) {
+                    this.onclose(error);
+                }
             }
             catch (e) {
                 this.logger.log(LogLevel.Error, "HttpConnection.onclose(" + error + ") threw error '" + e + "'.");
@@ -647,7 +640,7 @@ var TransportSendQueue = /** @class */ (function () {
                         this.buffer.length = 0;
                         _a.label = 2;
                     case 2:
-                        _a.trys.push([2, 4, 5]);
+                        _a.trys.push([2, 4, , 5]);
                         return [4 /*yield*/, this.transport.send(data)];
                     case 3:
                         _a.sent();

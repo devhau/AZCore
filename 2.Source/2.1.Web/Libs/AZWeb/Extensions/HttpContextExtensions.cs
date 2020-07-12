@@ -331,7 +331,7 @@ namespace AZWeb.Extensions
             return false;
         }
         public static TClass GetService<TClass>(this HttpContext httpContext) {
-            return httpContext.RequestServices.GetRequiredService<TClass>();
+            return httpContext.RequestServices.GetService<TClass>();
         }
         public static TClass GetService<TClass>(this HttpContext httpContext,Type type)
         {

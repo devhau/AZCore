@@ -6,5 +6,12 @@
       "library": "@microsoft/signalr@latest",
       "destination": "wwwroot/lib/signalr"
     }
+
+  ],
+  "routers": [
+    {
+      
+    }
+
   ]
 }

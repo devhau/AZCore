@@ -56,22 +56,6 @@ namespace AZWeb.Module
                 _hostingEnvironment = _httpContext.GetService<IHostingEnvironment>();
             }
         }
-
-        private void CheckTenant()
-        {
-            return;
-            string host = httpContext.Request.Host.Host;
-            // Check if the host is subdomain.domain.com or subdomain.localhost for debugging
-            if (host.IsSubdomain())
-            {
-                string subdomain = host.Split('.')[0].ToLower();
-                if (tenantService != null) {
-                    this.httpContext.Items[AZWebConstant.KeyTenant] = tenantService.GetTenantByCanonicalName(subdomain);
-                    //this.httpContext.RequestServices.CreateScope();
-                    //Khởi tạo Scope cho service ở đây
-                }
-            }
-        }
         private void CheckIdentity()
         {
             if (this.httpContext.User.Identity.IsAuthenticated)
@@ -180,8 +164,7 @@ namespace AZWeb.Module
         {
             #region --- Get Module & Process Module ----
           
-            // Kiểm tra subdomain của đơn vị nào.
-            this.CheckTenant();
+          
             //Kiểm tra xem hệ thống đã đăng nhập chưa.
             this.CheckIdentity();
             //

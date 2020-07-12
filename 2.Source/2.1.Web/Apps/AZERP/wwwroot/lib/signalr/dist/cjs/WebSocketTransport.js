@@ -147,12 +147,6 @@ var WebSocketTransport = /** @class */ (function () {
     };
     WebSocketTransport.prototype.stop = function () {
         if (this.webSocket) {
-            // Clear websocket handlers because we are considering the socket closed now
-            this.webSocket.onclose = function () { };
-            this.webSocket.onmessage = function () { };
-            this.webSocket.onerror = function () { };
-            this.webSocket.close();
-            this.webSocket = undefined;
             // Manually invoke onclose callback inline so we know the HttpConnection was closed properly before returning
             // This also solves an issue where websocket.onclose could take 18+ seconds to trigger during network disconnects
             this.close(undefined);
@@ -161,6 +155,14 @@ var WebSocketTransport = /** @class */ (function () {
     };
     WebSocketTransport.prototype.close = function (event) {
         // webSocket will be null if the transport did not start successfully
+        if (this.webSocket) {
+            // Clear websocket handlers because we are considering the socket closed now
+            this.webSocket.onclose = function () { };
+            this.webSocket.onmessage = function () { };
+            this.webSocket.onerror = function () { };
+            this.webSocket.close();
+            this.webSocket = undefined;
+        }
         this.logger.log(ILogger_1.LogLevel.Trace, "(WebSockets transport) socket closed.");
         if (this.onclose) {
             if (event && (event.wasClean === false || event.code !== 1000)) {

@@ -4,6 +4,7 @@ using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Constant;
 using AZWeb.Module.View;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
@@ -115,6 +116,6 @@ namespace AZWeb.Module.Page
                 Path = this.GetPathMoule(),
                 Module = this
             }).ConfigureAwait(false).GetAwaiter().GetResult();
-        }
+        }       
     }
 }

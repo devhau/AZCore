@@ -19,3 +19,10 @@ body {
 .auth-job{
     background:#fff;
 }
+    .auth-job .nav-tabs .nav-item {
+        width:50%;
+    }
+    .auth-job .card {
+        border:none;
+
+    }

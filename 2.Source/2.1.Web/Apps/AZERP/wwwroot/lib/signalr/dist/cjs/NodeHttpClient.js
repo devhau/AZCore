@@ -46,6 +46,12 @@ var NodeHttpClient = /** @class */ (function (_super) {
     }
     NodeHttpClient.prototype.send = function (httpRequest) {
         var _this = this;
+        // Check that abort was not signaled before calling send
+        if (httpRequest.abortSignal) {
+            if (httpRequest.abortSignal.aborted) {
+                return Promise.reject(new Errors_1.AbortError());
+            }
+        }
         return new Promise(function (resolve, reject) {
             var requestBody;
             if (Utils_1.isArrayBuffer(httpRequest.content)) {

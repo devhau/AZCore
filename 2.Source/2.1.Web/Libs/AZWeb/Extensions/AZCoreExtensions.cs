@@ -90,9 +90,15 @@ namespace AZWeb.Extensions
             services.AddRazorPages();
             services.AddHttpContextAccessor();
             services.AddSingleton<IPagesConfig>((p)=> ReadConfig<PagesConfig>.Load(null, (t) => string.Format("{0}/{1}", p.GetRequiredService<IWebHostEnvironment>().ContentRootPath,t)));
+            services.AddAZSerivce();
+        }
+        public static void AddAZSerivce(this IServiceCollection services)
+        {
             services.AddSingleton<ISecurityStampValidator, AZSecurityStampValidator>();
-            foreach (var item in AppDomain.CurrentDomain.GetAssemblies().SelectMany(p => p.GetTypeFromInterface<IAZDomain>())) {
-                if (item.IsTypeFromInterface<IAZTransient>()) {
+            foreach (var item in AppDomain.CurrentDomain.GetAssemblies().SelectMany(p => p.GetTypeFromInterface<IAZDomain>()))
+            {
+                if (item.IsTypeFromInterface<IAZTransient>())
+                {
                     services.AddTransient(item);
                 }
                 if (item.IsTypeFromInterface<IAZSingleton>())

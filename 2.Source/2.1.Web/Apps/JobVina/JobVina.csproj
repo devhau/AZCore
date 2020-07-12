@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Configs\rewrite.configs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Configs\rewrite.configs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Web\Modules\Admin\" />
+    <Folder Include="wwwroot\" />
+    <Folder Include="WebApi\" />
+    <Folder Include="Web\Errors\" />
+    <Folder Include="Web\Widgets\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libs\AZCore\AZCore.csproj" />
+    <ProjectReference Include="..\..\Libs\AZSocial\AZSocial.csproj" />
+    <ProjectReference Include="..\..\Libs\AZWeb\AZWeb.csproj" />
+  </ItemGroup>
+
+</Project>

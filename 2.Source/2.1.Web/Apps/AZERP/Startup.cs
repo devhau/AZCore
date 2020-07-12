@@ -1,7 +1,5 @@
 using AZERP.Data.Entities;
-using AZERP.Web.HostedService;
 using AZWeb.Extensions;
-using AZWeb.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -13,8 +11,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AZCore.Extensions;
 using AZWeb.Module.Common;
-using Microsoft.AspNetCore.SignalR;
-using AZERP.Web.Hubs;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
 

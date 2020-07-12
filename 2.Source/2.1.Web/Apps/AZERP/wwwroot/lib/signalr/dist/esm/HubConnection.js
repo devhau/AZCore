@@ -152,7 +152,7 @@ var HubConnection = /** @class */ (function () {
                         this.logger.log(LogLevel.Debug, "Starting HubConnection.");
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, 4]);
+                        _a.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, this.startInternal()];
                     case 2:
                         _a.sent();
@@ -188,7 +188,7 @@ var HubConnection = /** @class */ (function () {
                         _a.sent();
                         _a.label = 2;
                     case 2:
-                        _a.trys.push([2, 5, 7]);
+                        _a.trys.push([2, 5, , 7]);
                         handshakeRequest = {
                             protocol: this.protocol.name,
                             version: this.protocol.version,
@@ -250,7 +250,7 @@ var HubConnection = /** @class */ (function () {
                         _a.sent();
                         _a.label = 2;
                     case 2:
-                        _a.trys.push([2, 4, 5]);
+                        _a.trys.push([2, 4, , 5]);
                         // Awaiting undefined continues immediately
                         return [4 /*yield*/, startPromise];
                     case 3:
@@ -584,7 +584,7 @@ var HubConnection = /** @class */ (function () {
                         if (!(this.connectionState === HubConnectionState.Connected)) return [3 /*break*/, 4];
                         _b.label = 1;
                     case 1:
-                        _b.trys.push([1, 3, 4]);
+                        _b.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, this.sendMessage(this.cachedPingMessage)];
                     case 2:
                         _b.sent();
@@ -728,7 +728,7 @@ var HubConnection = /** @class */ (function () {
                         }
                         _a.label = 3;
                     case 3:
-                        _a.trys.push([3, 5, 6]);
+                        _a.trys.push([3, 5, , 6]);
                         return [4 /*yield*/, this.startInternal()];
                     case 4:
                         _a.sent();
