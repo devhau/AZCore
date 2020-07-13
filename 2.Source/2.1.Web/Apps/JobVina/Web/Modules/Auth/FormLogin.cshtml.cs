@@ -1,3 +1,4 @@
+using AZWeb.Module.Common;
 using AZWeb.Module.Page;
 using Microsoft.AspNetCore.Http;
 
@@ -9,8 +10,10 @@ namespace JobVina.Web.Modules.Auth
         {
         }
 
-        public void Get()
+        public IView Get()
         {
+            this.IsTheme = false;
+            return View();
         }
     }
 }

@@ -13,13 +13,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Web\Modules\Admin\" />
-    <Folder Include="wwwroot\" />
     <Folder Include="WebApi\" />
     <Folder Include="Web\Errors\" />
+    <Folder Include="Web\Modules\Admin\Dashboard\" />
+    <Folder Include="Web\Modules\Admin\System\" />
+    <Folder Include="Web\Modules\Admin\User\" />
     <Folder Include="Web\Widgets\" />
+    <Folder Include="wwwroot\assets\core\" />
   </ItemGroup>
-
+	
   <ItemGroup>
     <ProjectReference Include="..\..\Libs\AZCore\AZCore.csproj" />
     <ProjectReference Include="..\..\Libs\AZSocial\AZSocial.csproj" />

@@ -89,12 +89,11 @@ namespace AZWeb.Module
 
             if (ModuleCurrent == null|| (ModuleCurrent.GetType().GetAttribute<OnlyAjaxAttribute>() != null && !IsAjax))
             {
-
                 methodName = "Get";
                 moduleName = string.Format("Web.Errors.NotFound");
                 ModuleCurrent = LoadModule(moduleName);
             }
-
+            if (ModuleCurrent == null) return false;
             var methodFunction = ModuleCurrent.GetType().GetMethods().FirstOrDefault(p=> string.Equals(p.Name, methodName, StringComparison.OrdinalIgnoreCase));
             if (methodFunction == null || (methodFunction.GetAttribute<OnlyAjaxAttribute>() != null && !IsAjax))
             {
