@@ -4,4 +4,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\" />
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libs\AZCore\AZCore.csproj" />
+    <ProjectReference Include="..\..\Libs\AZWeb\AZWeb.csproj" />
+  </ItemGroup>
+
 </Project>

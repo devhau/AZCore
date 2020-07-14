@@ -60,9 +60,13 @@ namespace AZWeb.Module.Common
             this.Tenant = HttpContext.Items[AZWebConstant.KeyTenant] as ITenant;
 
         }
-        public virtual IView GoToAuth()
+        public virtual IView GoToAuth(bool isRef = true)
         {
-            return GoToRedirect(string.Format("/dang-nhap.az?ref={0}",this.HttpContext.UrlCurrent().UrlEncode()));
+            if (isRef)
+            {
+                return GoToRedirect(string.Format("/auth/login.az?ref={0}", this.HttpContext.UrlCurrent().UrlEncode()));
+            }
+            return GoToRedirect(string.Format("/auth/login.az", this.HttpContext.UrlCurrent().UrlEncode()));
         }
         public virtual IView GoToHome()
         {

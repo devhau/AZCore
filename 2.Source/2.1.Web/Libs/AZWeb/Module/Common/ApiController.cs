@@ -10,6 +10,10 @@ namespace AZWeb.Module.Common
         {
         }
         #region --- Json ----
+        public virtual IView Json(object dataJson)
+        {
+            return Json(string.Empty, dataJson, HttpStatusCode.OK);
+        }
         public virtual IView Json(string Message)
         {
             return Json(Message, string.Empty, HttpStatusCode.OK);

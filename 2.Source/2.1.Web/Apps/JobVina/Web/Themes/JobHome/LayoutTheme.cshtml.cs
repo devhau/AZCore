@@ -1,11 +1,7 @@
-﻿
-using AZWeb.Configs;
-using AZWeb.Module.Common;
+﻿using AZWeb.Module.Common;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace JobVina.Web.Themes.Default
+namespace JobVina.Web.Themes.JobHome
 {
     public class LayoutTheme: ThemeBase
     {

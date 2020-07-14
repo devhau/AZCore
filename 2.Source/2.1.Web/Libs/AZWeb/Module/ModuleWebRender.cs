@@ -107,45 +107,41 @@ namespace AZWeb.Module
             var isModuleAuth= ModuleCurrent.GetType().GetAttribute<AuthAttribute>()!=null;
             var isMethodAuth = methodFunction.GetAttribute<AuthAttribute>() != null;
             var isMethodNotAuth = methodFunction.GetAttribute<NotAuthAttribute>() != null;
+
+            IView rsView = null;
             if (((isModuleAuth && !isMethodNotAuth) || isMethodAuth)&&!ModuleCurrent.IsAuth) {
-                var redirectView = ModuleCurrent.GoToAuth().As<RedirectView>();
-                if (IsAjax)
-                {
-                    await renderView.RenderJson(new JsonView() { Module = ModuleCurrent, StatusCode = System.Net.HttpStatusCode.Unauthorized, Data = redirectView.RedirectToUrl });
-                }
-                else
-                {
-                    httpContext.Response.Redirect(redirectView.RedirectToUrl);
-                }
-                return false;
-            }
-
-            #region Bind Param action
-            List<object> paraValues = new List<object>();
-            foreach (var param in methodFunction.GetParameters())
-            {
-                BindFormAttribute attr = null;
-                if ((attr = param.GetAttribute<BindFormAttribute>()) != null)
-                {
-                    paraValues.Add(httpContext.GetObjectValueByForm(param.ParameterType, string.IsNullOrEmpty(attr.FromName)? param.Name: attr.FromName));
-                }
-                else {
-                    var attr1 = param.GetAttribute<BindQueryAttribute>();
-                    paraValues.Add(httpContext.GetObjectValueByQuery(param.ParameterType,( attr1==null|| string.IsNullOrEmpty(attr1.FromName)) ? param.Name : attr1.FromName));
-                }
-            }
-            #endregion
-
-            Common.IView rsView = null;
-            var rsFN = methodFunction.Invoke(ModuleCurrent, paraValues.ToArray());
-            if (rsFN is Task)
-            {
-                rsView = await (Task<Common.IView>)rsFN;
+                rsView = ModuleCurrent.GoToAuth().As<RedirectView>();
             }
             else
             {
-                rsView = (Common.IView)rsFN;
+                #region Bind Param action
+                List<object> paraValues = new List<object>();
+                foreach (var param in methodFunction.GetParameters())
+                {
+                    BindFormAttribute attr = null;
+                    if ((attr = param.GetAttribute<BindFormAttribute>()) != null)
+                    {
+                        paraValues.Add(httpContext.GetObjectValueByForm(param.ParameterType, string.IsNullOrEmpty(attr.FromName) ? param.Name : attr.FromName));
+                    }
+                    else
+                    {
+                        var attr1 = param.GetAttribute<BindQueryAttribute>();
+                        paraValues.Add(httpContext.GetObjectValueByQuery(param.ParameterType, (attr1 == null || string.IsNullOrEmpty(attr1.FromName)) ? param.Name : attr1.FromName));
+                    }
+                }
+                #endregion
+                var rsFN = methodFunction.Invoke(ModuleCurrent, paraValues.ToArray());
+                if (rsFN is Task)
+                {
+                    rsView = await (Task<Common.IView>)rsFN;
+                }
+                else
+                {
+                    rsView = (Common.IView)rsFN;
+                }
             }
+
+           
             ModuleCurrent.AfterRequest();
 
             #endregion

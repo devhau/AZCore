@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>ef95b44f-a192-4126-b8fd-0bab4a23f56a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,18 +15,18 @@
 
   <ItemGroup>
     <Folder Include="WebApi\" />
-    <Folder Include="Web\Errors\" />
-    <Folder Include="Web\Modules\Admin\Dashboard\" />
     <Folder Include="Web\Modules\Admin\System\" />
     <Folder Include="Web\Modules\Admin\User\" />
     <Folder Include="Web\Widgets\" />
     <Folder Include="wwwroot\assets\core\" />
+    <Folder Include="wwwroot\upload\" />
   </ItemGroup>
 	
   <ItemGroup>
     <ProjectReference Include="..\..\Libs\AZCore\AZCore.csproj" />
     <ProjectReference Include="..\..\Libs\AZSocial\AZSocial.csproj" />
     <ProjectReference Include="..\..\Libs\AZWeb\AZWeb.csproj" />
+    <ProjectReference Include="..\JobVina.Data\JobVina.Data.csproj" />
   </ItemGroup>
 
 </Project>

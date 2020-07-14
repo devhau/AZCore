@@ -1,4 +1,4 @@
-﻿@model FormRegister
+﻿@model FormRegisterTenant
 <az-html class="hold-transition register-page">
     <head>
         <az-style link="/assets/plugins/fontawesome-free/css/all.min.css" />
@@ -28,13 +28,10 @@
             <div class="card">
                 <div class="card-body register-card-body">
                     <p class="login-box-msg">Đăng ký thành viên</p>
-                    @if (!String.IsNullOrEmpty(Model.MessageError))
-                    {
-                        <span style="color:red;font-weight:700;">@Model.MessageError</span>
-                    }
+
                     <form action="" method="post">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="InputFullName" placeholder="Họ tên">
+                            <input type="text" class="form-control" placeholder="Họ tên">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
@@ -42,7 +39,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="tel" class="form-control" name="InputPhoneNumber" placeholder="Số điện thoại">
+                            <input type="tel" class="form-control" placeholder="Số điện thoại">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -50,7 +47,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control" name="InputPassword" placeholder="Mật khẩu">
+                            <input type="password" class="form-control" placeholder="Mật khẩu">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -62,7 +59,7 @@
                                 <div class="icheck-primary">
                                     <input type="checkbox" id="agreeTerms" name="terms" value="agree">
                                     <label for="agreeTerms">
-                                        Tôi đồng ý <a href="#">điều khoản</a> này.
+                                       Tôi đồng ý <a href="#">điều khoản</a> này.
                                     </label>
                                 </div>
                             </div>
@@ -87,7 +84,7 @@
                         </a>
                     </div>
 
-                    <a href="/auth/register.az" class="text-center">Tôi đã có tài khoản.</a>
+                     <a href="/auth/register.az" class="text-center">Tôi đã có tài khoản.</a>
                 </div>
                 <!-- /.form-box -->
             </div><!-- /.card -->

@@ -1,0 +1,51 @@
+﻿<az-html class="hold-transition register-page">
+    <head>
+        <az-style link="/assets/plugins/fontawesome-free/css/all.min.css" />
+
+        <!-- Ionicons -->
+        <az-style link="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+        <!-- icheck bootstrap -->
+        <az-style link="/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
+        <!-- Theme style -->
+        <az-style link="/assets/adminlte/css/adminlte.min.css" />
+        <!-- Google Font: Source Sans Pro -->
+        <az-style link="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" />
+        <!-- jQuery -->
+        <az-script src="/assets/plugins/jquery/jquery.min.js"></az-script>
+        <!-- Bootstrap 4 -->
+        <az-script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></az-script>
+        <!-- AdminLTE App -->
+        <az-script src="/assets/adminlte/js/adminlte.min.js"></az-script>
+    </head>
+    <body>
+        <section class="content">
+            <div class="error-page">
+                <h2 class="headline text-warning"> 404</h2>
+
+                <div class="error-content">
+                    <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Không tìm thấy trang.</h3>
+
+                    <p>
+                        Chúng tôi không thể tìm thấy trang bạn đang tìm kiếm.
+                        Trong khi đó, bạn có thể <a href="/"> trở lại trang chủ </a> hoặc tìm kiếm thông tin ở dưới.
+                    </p>
+
+                    <form class="search-form" action="/home/search-job.az">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="Tìm kiếm">
+
+                            <div class="input-group-append">
+                                <button type="submit" name="submit" class="btn btn-warning">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.input-group -->
+                    </form>
+                </div>
+                <!-- /.error-content -->
+            </div>
+            <!-- /.error-page -->
+        </section>
+    </body>
+</az-html>

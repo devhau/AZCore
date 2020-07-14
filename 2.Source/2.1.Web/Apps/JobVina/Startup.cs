@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using AZWeb.Middleware;
 using AZWeb.Module;
 using AZWeb.Module.Common;
 using AZWeb.Module.Validator;
+using JobVina.Data;
 using JobVina.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -26,6 +28,8 @@ namespace JobVina
 {
     public class Startup
     {
+        IConfiguration Configuration { get; }
+        IWebHostEnvironment env;
         public Startup(
               IConfiguration configuration,
               IWebHostEnvironment env)
@@ -123,8 +127,6 @@ namespace JobVina
             services.AddHttpContextAccessor();
             services.AddAZSerivce();
         }
-        IConfiguration Configuration { get; }
-        IWebHostEnvironment env;
        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -141,6 +143,11 @@ namespace JobVina
             app.UseMiddleware<WebApiMiddleware>();
             app.UseMiddleware<WebRouterMiddleware>();
             app.UseMiddleware<ModuleWebMiddleware>();
+
+#if DEBUG
+            var createDB= new DBCreateEntities( app.ApplicationServices.GetService(typeof(IDbConnection)) as IDbConnection);
+            createDB.CheckEmptyAndCreateDatabase();
+#endif
         }
     }
 }
