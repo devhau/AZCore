@@ -24,6 +24,11 @@ namespace JobVina.Web.Modules.Auth
         {
             return View();
         }
+        public async Task<IView> GetLogout()
+        {
+            await this.LogoutAsync();
+            return GoToAuth(false);
+        }
         public async Task<IView> Post([BindForm]string InputPhoneNumberOrEmail, [BindForm] string InputPassword, [BindForm] bool CheckRemember,[BindQuery(FromName = "ref")]string linkRef)
         {
             var usr = this.userService.GetEmailOrUsernameOrPhoneNumber(InputPhoneNumberOrEmail);
@@ -33,7 +38,6 @@ namespace JobVina.Web.Modules.Auth
                 {
                     if (usr.Status == AZCore.Database.EntityStatus.NoActive || usr.Status == null)
                     {
-
                         MessageError = "Tài khoản chưa được kích hoạt";
                         return View();
                     }

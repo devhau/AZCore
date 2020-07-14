@@ -66,9 +66,14 @@ namespace JobVina.Middleware
                         }
                     }
                     var ModulePath = urlPath.Value.Substring(0, urlPath.Value.LastIndexOf(".")).Trim('/').Replace("-", "");
+                    if (httpContext.Request.Query["h"].Count > 0)
+                    {
+                        ModulePath = ModulePath + "/" + httpContext.Request.Query["h"];
+                    }
                     var ModulePaths = ModulePath.Split('/');
                     string path1 = ModulePaths.Length > 1 ? ModulePaths[^1] : string.Empty;// ~ Length-1
                     string path2 = ModulePaths.Length > 1 ? ModulePaths[^2] : ModulePaths[^1];// ~ Length-
+                   
                     ModulePath = "Web.Modules";
                     for (int i = 0; i < ModulePaths.Length - 2; i++)
                     {
