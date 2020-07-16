@@ -43,7 +43,6 @@ namespace AZWeb.Module
                     User.PermissionActive = permissionService.GetPermissionByUserId(User.Id).ToList();
                 }
                 this.httpContext.Items[AZWebConstant.KeyUser] = User;
-                this.httpContext.Items[AZWebConstant.KeyTenant] = User?.TenantId;
             }
         }
 

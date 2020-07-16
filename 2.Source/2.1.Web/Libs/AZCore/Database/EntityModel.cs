@@ -12,7 +12,7 @@ namespace AZCore.Database
     { 
         long? TenantId { get; set; }
     }
-    public interface IEntityModel: ITenantEntity
+    public interface IEntityModel: IEntity
     {
         EntityStatus? Status { get; set; }
         bool IsDelete { get; set; }
@@ -26,8 +26,6 @@ namespace AZCore.Database
 
     public class EntityModel<TModel>: IEntityModel where TModel: IEntityModel
     {
-        [Field]
-        public long? TenantId { get; set; }
         [JsonIgnore]
         [Field]
         public EntityStatus? Status { get; set; }
@@ -58,5 +56,12 @@ namespace AZCore.Database
         [Field(IsKey = true,IsAutoIncrement =true)]
         [FieldValue]
         public virtual TKey Id { get; set; }
+    }
+    public class EntityTenantModel<TModel, TKey> : EntityModel<TModel>,ITenantEntity where TModel : EntityModel<TModel>
+    {
+        [Field(IsKey = true, IsAutoIncrement = true)]
+        [FieldValue]
+        public virtual TKey Id { get; set; }
+        public long? TenantId { get; set; }
     }
 }

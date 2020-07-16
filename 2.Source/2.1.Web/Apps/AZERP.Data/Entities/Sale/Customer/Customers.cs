@@ -12,7 +12,7 @@ namespace AZERP.Data.Entities
 {
     public class CustomersService : EntityService<CustomersService, CustomersModel>, IAZTransient
     {
-        public CustomersService(IDbConnection _connection) : base(_connection)
+        public CustomersService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -21,7 +21,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_customers")]
-    public class CustomersModel : EntityModel<CustomersModel, long>
+    public class CustomersModel : EntityTenantModel<CustomersModel, long>
     {
         /// <summary>
         /// Mã khách hàng

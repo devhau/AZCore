@@ -125,7 +125,10 @@ namespace JobVina
             }).AddIdentityCookies();
             services.AddRazorPages();
             services.AddHttpContextAccessor();
-            services.AddAZSerivce();
+
+            services.AddSingleton<ISecurityStampValidator, AZSecurityStampValidator>();
+            services.AddAZSerivce(typeof(Startup).Assembly);
+            services.AddAZSerivce(typeof(DBCreateEntities).Assembly);
         }
        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -145,8 +148,7 @@ namespace JobVina
             app.UseMiddleware<ModuleWebMiddleware>();
 
 #if DEBUG
-            var createDB= new DBCreateEntities( app.ApplicationServices.GetService(typeof(IDbConnection)) as IDbConnection);
-            createDB.CheckEmptyAndCreateDatabase();
+            new DBCreateEntities( app.ApplicationServices.GetService(typeof(IDatabaseCore)) as IDatabaseCore).CheckEmptyAndCreateDatabase();
 #endif
         }
     }

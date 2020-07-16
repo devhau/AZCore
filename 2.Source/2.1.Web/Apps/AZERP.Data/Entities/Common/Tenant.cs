@@ -8,7 +8,7 @@ namespace AZERP.Data.Entities
 {
 	public class TenantService : EntityService<TenantService, TenantModel>, IAZTransient, ITenantService
 	{
-		public TenantService(IDbConnection _connection) : base(_connection)
+		public TenantService(IDatabaseCore databaseCore) : base(databaseCore)
 		{
 		}
 

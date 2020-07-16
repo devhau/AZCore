@@ -7,7 +7,7 @@ namespace AZERP.Data.Entities
 {
     public class UserRoleService : EntityService<UserRoleService, UserRoleModel>, IAZTransient
     {
-        public UserRoleService(IDbConnection _connection) : base(_connection)
+        public UserRoleService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }

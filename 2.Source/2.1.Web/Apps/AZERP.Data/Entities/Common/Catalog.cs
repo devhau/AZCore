@@ -10,12 +10,12 @@ namespace AZERP.Data.Entities
 {
     public class CatalogService : EntityService<CatalogService, CatalogModel>, IAZTransient
     {
-        public CatalogService(IDbConnection _connection) : base(_connection)
+        public CatalogService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
     [TableInfo(TableName = "az_common_catalog")]
-    public class CatalogModel : EntityModel<CatalogModel, long>
+    public class CatalogModel : EntityTenantModel<CatalogModel, long>
     {
         /// <summary>
         /// 

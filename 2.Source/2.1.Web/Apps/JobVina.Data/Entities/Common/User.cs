@@ -14,7 +14,7 @@ namespace JobVina.Data.Entities
     /// </summary>
     public class UserService : EntityService<UserService, UserModel>, IAZTransient, IPermissionService
     {
-        public UserService(IDbConnection _connection) : base(_connection)
+        public UserService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
         /// <summary>

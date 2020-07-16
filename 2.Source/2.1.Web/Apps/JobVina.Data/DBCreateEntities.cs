@@ -10,7 +10,7 @@ namespace JobVina.Data
 {
     public class DBCreateEntities : EntityService, IDBCreate, IAZTransient
     {
-        public DBCreateEntities(IDbConnection _connection) : base(_connection)
+        public DBCreateEntities(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
 

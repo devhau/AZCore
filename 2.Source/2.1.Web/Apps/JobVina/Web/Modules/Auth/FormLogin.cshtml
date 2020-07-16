@@ -11,21 +11,23 @@
         <!-- Google Font: Source Sans Pro -->
         <az-style link="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" />
         <!-- jQuery -->
-        <az-script src="/assets/plugins/jquery/jquery.min.js"></az-script>
+        <az-script link="/assets/plugins/jquery/jquery.min.js"></az-script>
         <!-- Bootstrap 4 -->
-        <az-script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></az-script>
+        <az-script link="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></az-script>
         <!-- AdminLTE App -->
-        <az-script src="/assets/adminlte/js/adminlte.min.js"></az-script>
+        <az-script link="/assets/adminlte/js/adminlte.min.js"></az-script>
     </head>
     <body>
         <div class="login-box">
             <div class="register-logo">
-                <a href="/"><b>Job</b>VINA</a>
+                <a href="/">
+                    <img src="/assets/images/logo.png" alt="Job VINA" style="opacity: .8;width: 150px;">
+                </a>
             </div>
             <!-- /.login-logo -->
             <div class="card">
                 <div class="card-body login-card-body">
-                    <p class="login-box-msg">Đăng nhập</p>
+                    <h2 class="login-box-msg">Đăng nhập</h2>
                     @if (!String.IsNullOrEmpty(Model.MessageError))
                     {
                         <span style="color:red;font-weight:700;">@Model.MessageError</span>

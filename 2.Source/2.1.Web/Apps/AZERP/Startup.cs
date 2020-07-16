@@ -58,32 +58,31 @@ namespace AZERP
             //
             services.Configure<FormOptions>(options => options.MultipartBodyLengthLimit = long.MaxValue);
 
+            services.AddAZSerivce(typeof(Startup).Assembly);
+            services.AddAZSerivce(typeof(DBCreateEntities).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            #if DEBUG
-                    if (env.IsDevelopment())
-                    {
-                        app.UseDeveloperExceptionPage();
-                    }
-                    app.Use(next =>
-                    {
-                        return async ctx =>
-                        {
-                            ctx.RequestServices.GetRequiredService<DBCreateEntities>()?.CheckEmptyAndCreateDatabase();
-                            await next(ctx);
-                        };
-                    });
-            #endif
+#if DEBUG
+            if (env.IsDevelopment())
+            {
+            app.UseDeveloperExceptionPage();
+            }
+            app.Use(next =>
+            {
+                return async ctx =>
+                {
+                    ctx.RequestServices.GetRequiredService<DBCreateEntities>()?.CheckEmptyAndCreateDatabase();
+                    await next(ctx);
+                };
+            });
+#endif
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSignalRAZCore();
             app.UseAZCore();
-          
-
-
         }
 
         public Type GetType(string type)

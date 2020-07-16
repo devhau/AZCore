@@ -22,6 +22,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using AZWeb.Databases;
+using System.Reflection;
 
 namespace AZWeb.Extensions
 {
@@ -31,7 +33,7 @@ namespace AZWeb.Extensions
         internal static IStartupAZ startup;
         public static void AddMySQL(this IServiceCollection services,string connectString="")
         {
-            services.AddTransient<IDbConnection>((_) => new MySql.Data.MySqlClient.MySqlConnection(connectString));
+            services.AddTransient<IDatabaseCore>((_) => new MySQLDatabaseCore(connectString));
         }
         public static void AddAZCore(this IServiceCollection services, IStartupAZ startup)
         {
@@ -90,13 +92,14 @@ namespace AZWeb.Extensions
             services.AddRazorPages();
             services.AddHttpContextAccessor();
             services.AddSingleton<IPagesConfig>((p)=> ReadConfig<PagesConfig>.Load(null, (t) => string.Format("{0}/{1}", p.GetRequiredService<IWebHostEnvironment>().ContentRootPath,t)));
-            services.AddAZSerivce();
-        }
-        public static void AddAZSerivce(this IServiceCollection services)
-        {
+
             services.AddSingleton<ISecurityStampValidator, AZSecurityStampValidator>();
-            foreach (var item in AppDomain.CurrentDomain.GetAssemblies().SelectMany(p => p.GetTypeFromInterface<IAZDomain>()))
+        }
+        public static void AddAZSerivce(this IServiceCollection services, Assembly assembly)
+        {
+            foreach (var item in assembly.GetTypeFromInterface<IAZDomain>())
             {
+                if (item.IsAbstract) continue;
                 if (item.IsTypeFromInterface<IAZTransient>())
                 {
                     services.AddTransient(item);

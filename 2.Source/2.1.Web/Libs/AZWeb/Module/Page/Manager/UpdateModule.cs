@@ -12,7 +12,7 @@ using System.Reflection;
 namespace AZWeb.Module.Page.Manager
 {
     [Auth]
-    public class UpdateModule<TService, TModel> : PageModule 
+    public abstract class UpdateModule<TService, TModel> : PageModule 
         where TModel: IEntity, new()
         where TService:EntityService<TService,TModel>
     {
@@ -103,8 +103,8 @@ namespace AZWeb.Module.Page.Manager
                 DataFormToData(DataForm);
                 (DataForm as IEntityModel).CreateAt = DateTime.Now;
                 (DataForm as IEntityModel).CreateBy = User.Id;
-                if (this.TenantId != null) {
-                    (DataForm as IEntityModel).TenantId = this.TenantId;
+                if (this.TenantId != null&& DataForm is ITenantEntity) {
+                    (DataForm as ITenantEntity).TenantId = this.TenantId;
                 }
                 var rs = Validate(DataForm,true);
                 if (rs == null)

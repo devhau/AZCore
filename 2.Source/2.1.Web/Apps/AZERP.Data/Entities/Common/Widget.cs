@@ -7,7 +7,7 @@ namespace AZERP.Data.Entities
 {
     public class WidgetService : EntityService<WidgetService, WidgetModel>, IAZTransient
     {
-        public WidgetService(IDbConnection _connection) : base(_connection)
+        public WidgetService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -15,7 +15,7 @@ namespace AZERP.Data.Entities
     /// Thông tin của widget
     /// </summary>
     [TableInfo(TableName = "az_common_widget")]
-    public class WidgetModel : EntityModel<WidgetModel, long>
+    public class WidgetModel : EntityTenantModel<WidgetModel, long>
     {
         /// <summary>
         /// Cấu hình theo từng người

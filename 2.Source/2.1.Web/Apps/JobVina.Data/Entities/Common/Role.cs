@@ -7,7 +7,7 @@ namespace JobVina.Data.Entities
 {
     public class RoleService : EntityService<RoleService, RoleModel>, IAZTransient
     {
-        public RoleService(IDbConnection _connection) : base(_connection)
+        public RoleService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }

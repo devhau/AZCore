@@ -8,7 +8,7 @@ namespace AZERP.Data.Entities
 {
     public class RolePermissionService : EntityService<RolePermissionService, RolePermissionModel>, IAZTransient
     {
-        public RolePermissionService(IDbConnection _connection) : base(_connection)
+        public RolePermissionService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
         public List<string> GetPermissionByRoleId(long roleId) {

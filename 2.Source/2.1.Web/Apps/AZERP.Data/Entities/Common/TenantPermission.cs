@@ -7,7 +7,7 @@ namespace AZERP.Data.Entities
 {
     public class TenantPermissionService : EntityService<TenantPermissionService, TenantPermissionModel>, IAZTransient
     {
-        public TenantPermissionService(IDbConnection _connection) : base(_connection)
+        public TenantPermissionService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }

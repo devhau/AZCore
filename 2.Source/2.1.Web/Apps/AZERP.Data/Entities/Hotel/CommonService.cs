@@ -9,7 +9,7 @@ namespace AZERP.Data.Entities
 {
     public class CommonService : EntityService<CommonService, CommonServiceModel>, IAZTransient
     {
-        public CommonService(IDbConnection _connection) : base(_connection)
+        public CommonService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_common_service")]
-    public class CommonServiceModel : EntityModel<CommonServiceModel, long>
+    public class CommonServiceModel : EntityTenantModel<CommonServiceModel, long>
     {
         /// <summary>
         /// Mã dịch vụ chung

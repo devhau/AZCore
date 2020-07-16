@@ -10,7 +10,7 @@ namespace AZERP.Data.Entities
 {
     public class CollaboratorService : EntityService<CollaboratorService, CollaboratorModel>, IAZTransient
     {
-        public CollaboratorService(IDbConnection _connection) : base(_connection)
+        public CollaboratorService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_recruitment_collaborator")]
-    public class CollaboratorModel : EntityModel<CollaboratorModel, long>
+    public class CollaboratorModel : EntityTenantModel<CollaboratorModel, long>
     {
         /// <summary>
         /// Mã code

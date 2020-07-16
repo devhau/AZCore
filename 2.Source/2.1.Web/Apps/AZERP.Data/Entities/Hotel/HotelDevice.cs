@@ -9,7 +9,7 @@ namespace AZERP.Data.Entities
 {
     public class HotelDeviceService : EntityService<HotelDeviceService, HotelDeviceModel>, IAZTransient
     {
-        public HotelDeviceService(IDbConnection _connection) : base(_connection)
+        public HotelDeviceService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_device")]
-    public class HotelDeviceModel : EntityModel<HotelDeviceModel, long>
+    public class HotelDeviceModel : EntityTenantModel<HotelDeviceModel, long>
     {
         /// <summary>
         /// Tên phòng trọ

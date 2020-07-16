@@ -12,7 +12,7 @@ namespace AZERP.Data.Entities
 {
     public class SupplierService : EntityService<SupplierService, SupplierModel>, IAZTransient
     {
-        public SupplierService(IDbConnection _connection) : base(_connection)
+        public SupplierService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -21,7 +21,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_supplier")]
-    public class SupplierModel : EntityModel<SupplierModel, long>
+    public class SupplierModel : EntityTenantModel<SupplierModel, long>
     {
         /// <summary>
         /// Mã nhà cung cấp

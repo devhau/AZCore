@@ -15,7 +15,7 @@ using System.Security.Claims;
 
 namespace AZWeb.Module.Page
 {
-    public class PageModule : PageBase
+    public abstract class PageModule : PageBase
     {
         #region --- Init ----
         public bool IsTheme { get; set; } = true;

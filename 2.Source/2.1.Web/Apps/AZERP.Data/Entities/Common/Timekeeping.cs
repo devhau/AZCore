@@ -10,12 +10,12 @@ namespace AZERP.Data.Entities
 {
     public class TimekeepingService : EntityService<TimekeepingService, TimekeepingModel>, IAZTransient
     {
-        public TimekeepingService(IDbConnection _connection) : base(_connection)
+        public TimekeepingService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
     [TableInfo(TableName = "az_common_time_keeping")]
-    public class TimekeepingModel : EntityModel<TimekeepingModel,long>
+    public class TimekeepingModel : EntityTenantModel<TimekeepingModel,long>
     {
 
     }

@@ -12,7 +12,7 @@ namespace AZERP.Data.Entities
 {
     public class StockAdjusmentService : EntityService<StockAdjusmentService, StockAdjusmentModel>, IAZTransient
     {
-        public StockAdjusmentService(IDbConnection _connection) : base(_connection)
+        public StockAdjusmentService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -21,7 +21,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_stock_adjustment")]
-    public class StockAdjusmentModel : EntityModel<StockAdjusmentModel, long>
+    public class StockAdjusmentModel : EntityTenantModel<StockAdjusmentModel, long>
     {
         /// <summary>
         /// Mã đơn kiểm

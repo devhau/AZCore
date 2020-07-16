@@ -17,7 +17,7 @@ using System.Net;
 namespace AZWeb.Module.Page.Manager
 {
     [Auth]
-    public class ManageModule<TService, TModel> :  PageModule, IEntity, IPagination
+    public abstract class ManageModule<TService, TModel> :  PageModule, IEntity, IPagination
          where TModel : IEntity, new()
         where TService : EntityService<TService, TModel>
     {

@@ -10,7 +10,7 @@ namespace AZERP.Data.Entities
 {
     public class TotalBillService : EntityService<TotalBillService, TotalBillModel>, IAZTransient
     {
-        public TotalBillService(IDbConnection _connection) : base(_connection)
+        public TotalBillService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_total_bill")]
-    public class TotalBillModel : EntityModel<TotalBillModel, long>
+    public class TotalBillModel : EntityTenantModel<TotalBillModel, long>
     {
         /// <summary>
         /// Mã hóa đơn tổng

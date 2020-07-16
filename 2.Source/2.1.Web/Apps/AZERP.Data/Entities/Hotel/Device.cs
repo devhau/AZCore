@@ -9,7 +9,7 @@ namespace AZERP.Data.Entities
 {
     public class DeviceService : EntityService<DeviceService, DeviceModel>, IAZTransient
     {
-        public DeviceService(IDbConnection _connection) : base(_connection)
+        public DeviceService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_device")]
-    public class DeviceModel : EntityModel<DeviceModel, long>
+    public class DeviceModel : EntityTenantModel<DeviceModel, long>
     {
         /// <summary>
         /// Mã thiết bị

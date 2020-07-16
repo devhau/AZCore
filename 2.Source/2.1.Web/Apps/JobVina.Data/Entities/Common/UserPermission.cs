@@ -7,7 +7,7 @@ namespace JobVina.Data.Entities
 {
     public class UserPermissionService : EntityService<UserPermissionService, UserPermissionModel>, IAZTransient
     {
-        public UserPermissionService(IDbConnection _connection) : base(_connection)
+        public UserPermissionService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
         public void DeleteByUserIdPermissionId(long UserId,long PermissionId) { 

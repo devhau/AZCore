@@ -12,7 +12,7 @@ namespace AZERP.Data.Entities
 {
     public class StoreProductService : EntityService<StoreProductService, StoreProductModel>, IAZTransient
     {
-        public StoreProductService(IDbConnection _connection) : base(_connection)
+        public StoreProductService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -21,7 +21,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_store_product")]
-    public class StoreProductModel : EntityModel<StoreProductModel, long>
+    public class StoreProductModel : EntityTenantModel<StoreProductModel, long>
     {
         /// <summary>
         /// Mã kho

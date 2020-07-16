@@ -12,7 +12,7 @@ namespace AZERP.Data.Entities
 {
     public class PurchaseOrderService : EntityService<PurchaseOrderService, PurchaseOrderModel>, IAZTransient
     {
-        public PurchaseOrderService(IDbConnection _connection) : base(_connection)
+        public PurchaseOrderService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -21,7 +21,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_purchase_order")]
-    public class PurchaseOrderModel : EntityModel<PurchaseOrderModel, long>
+    public class PurchaseOrderModel : EntityTenantModel<PurchaseOrderModel, long>
     {
         /// <summary>
         /// Mã đơn nhập

@@ -9,7 +9,7 @@ namespace AZERP.Data.Entities
 {
     public class ChangeBillService : EntityService<ChangeBillService, ChangeBillModel>, IAZTransient
     {
-        public ChangeBillService(IDbConnection _connection) : base(_connection)
+        public ChangeBillService(IDatabaseCore databaseCore) : base(databaseCore)
         {
 
         }
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_change_bill")]
-    public class ChangeBillModel : EntityModel<ChangeBillModel, long>
+    public class ChangeBillModel : EntityTenantModel<ChangeBillModel, long>
     {
         /// <summary>
         /// Mã hóa đơn

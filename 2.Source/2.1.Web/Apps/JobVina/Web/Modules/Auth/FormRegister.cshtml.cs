@@ -49,8 +49,8 @@ namespace JobVina.Web.Modules.Auth
             user.SetPassword(user.Password);
             user.CreateAt = DateTime.Now;
             user.CreateBy = 0;
+            user.IsTenant = false;
             user.Status = AZCore.Database.EntityStatus.Active;
-            user.TenantId = 0;
             userService.Insert(user);
             return GoToAuth(false);
         }

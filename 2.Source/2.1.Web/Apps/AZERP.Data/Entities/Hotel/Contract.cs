@@ -10,7 +10,7 @@ namespace AZERP.Data.Entities
 {
     public class ContractService : EntityService<ContractService, ContractModel>, IAZTransient
     {
-        public ContractService(IDbConnection _connection) : base(_connection)
+        public ContractService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_contract")]
-    public class ContractModel : EntityModel<ContractModel, long>
+    public class ContractModel : EntityTenantModel<ContractModel, long>
     {
         /// <summary>
         /// Mã hợp đồng

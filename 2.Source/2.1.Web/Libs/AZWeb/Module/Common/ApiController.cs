@@ -4,7 +4,7 @@ using System.Net;
 
 namespace AZWeb.Module.Common
 {
-    public class ApiController : ModuleBase
+    public abstract class ApiController : ModuleBase
     {
         public ApiController(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {

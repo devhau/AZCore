@@ -9,7 +9,7 @@ namespace AZERP.Data.Entities
 {
     public class CashFlowOrdersService : EntityService<CashFlowOrdersService, CashFlowOrdersModel>, IAZTransient
     {
-        public CashFlowOrdersService(IDbConnection _connection) : base(_connection)
+        public CashFlowOrdersService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }

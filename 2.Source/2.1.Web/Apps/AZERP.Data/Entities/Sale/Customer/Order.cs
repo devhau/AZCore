@@ -12,7 +12,7 @@ namespace AZERP.Data.Entities
 {
     public class OrderService : EntityService<OrderService, OrderModel>, IAZTransient
     {
-        public OrderService(IDbConnection _connection) : base(_connection)
+        public OrderService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -21,7 +21,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_order")]
-    public class OrderModel : EntityModel<OrderModel, long>
+    public class OrderModel : EntityTenantModel<OrderModel, long>
     {
         /// <summary>
         /// Mã đơn hàng

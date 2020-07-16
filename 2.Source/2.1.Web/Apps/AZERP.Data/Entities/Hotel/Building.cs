@@ -10,7 +10,7 @@ namespace AZERP.Data.Entities
 {
     public class BuildingService : EntityService<BuildingService, BuildingModel>, IAZTransient
     {
-        public BuildingService(IDbConnection _connection) : base(_connection)
+        public BuildingService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_building")]
-    public class BuildingModel : EntityModel<BuildingModel, long>
+    public class BuildingModel : EntityTenantModel<BuildingModel, long>
     {
         /// <summary>
         /// Mã code

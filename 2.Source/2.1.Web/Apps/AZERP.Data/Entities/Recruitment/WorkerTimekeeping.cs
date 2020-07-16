@@ -11,7 +11,7 @@ namespace AZERP.Data.Entities
 {
     public class WorkerTimekeepingService : EntityService<WorkerTimekeepingService, WorkerTimekeepingModel>, IAZTransient
     {
-        public WorkerTimekeepingService(IDbConnection _connection) : base(_connection)
+        public WorkerTimekeepingService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
         public void UpdateTimeOver() { 
@@ -22,7 +22,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_recruitment_worker_time_keeping")]
-    public class WorkerTimekeepingModel : EntityModel<WorkerTimekeepingModel, long>
+    public class WorkerTimekeepingModel : EntityTenantModel<WorkerTimekeepingModel, long>
     {
         /// <summary>
         /// Công nhân

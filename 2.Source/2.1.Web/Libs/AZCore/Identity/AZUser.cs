@@ -17,16 +17,22 @@ namespace AZCore.Identity
         public string Email { get; set; }
         [Field(Length =200)] 
         public string UserName { get; set; }
+        [Field(Length = 200)]
+        public string Address { get; set; }
+        [Field(Length = 1000)]
+        public virtual string Avatar { get; set; }
+        [Field]
+        public bool IsTenant { get; set; }
         [JsonIgnore]
         [Field(Length =128)] 
         public string Password { get; set; }
         [JsonIgnore]
         [Field(Length = 128)]
         public string Salt { get; set; }
-        [Field(Length = 200)]
-        public string Address { get; set; }
-        [Field(Length = 1000)]
-        public virtual string Avatar { get; set; }
+        public void SetPassword()
+        {
+            this.SetPassword(this.Password);
+        }
         public void SetPassword(string pass) 
         {
             this.Salt = AzHash.CreateSalt();

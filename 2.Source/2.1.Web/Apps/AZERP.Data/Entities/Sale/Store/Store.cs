@@ -13,7 +13,7 @@ namespace AZERP.Data.Entities
 {
     public class StoreService : EntityService<StoreService, StoreModel>, IAZTransient
     {
-        public StoreService(IDbConnection _connection) : base(_connection)
+        public StoreService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
         public IEnumerable<VariantData> GetObject(long storeId)
@@ -55,7 +55,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_store")]
-    public class StoreModel : EntityModel<StoreModel, long>
+    public class StoreModel : EntityTenantModel<StoreModel, long>
     {
         /// <summary>
         /// Mã kho

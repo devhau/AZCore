@@ -9,7 +9,7 @@ namespace AZERP.Data.Entities
 {
     public class RoomService : EntityService<RoomService, RoomServiceModel>, IAZTransient
     {
-        public RoomService(IDbConnection _connection) : base(_connection)
+        public RoomService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_room_service")]
-    public class RoomServiceModel : EntityModel<RoomServiceModel, long>
+    public class RoomServiceModel : EntityTenantModel<RoomServiceModel, long>
     {
         /// <summary>
         /// Mã phòng trọ

@@ -9,7 +9,7 @@ namespace AZERP.Data.Entities
 {
     public class FixedBillService : EntityService<FixedBillService, FixedBillModel>, IAZTransient
     {
-        public FixedBillService(IDbConnection _connection) : base(_connection)
+        public FixedBillService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_fixed_bill")]
-    public class FixedBillModel : EntityModel<FixedBillModel, long>
+    public class FixedBillModel : EntityTenantModel<FixedBillModel, long>
     {
         /// <summary>
         /// Mã hóa đơn cố định

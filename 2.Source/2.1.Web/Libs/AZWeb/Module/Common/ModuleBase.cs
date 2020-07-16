@@ -9,7 +9,7 @@ using System;
 
 namespace AZWeb.Module.Common
 {
-    public class ModuleBase : IModule, IUrlVirtual
+    public abstract class ModuleBase : IModule, IUrlVirtual
     {
         public bool HasPermission(string permissionCode)
         {

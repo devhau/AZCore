@@ -1,6 +1,7 @@
 ﻿using AZCore.Database.SQL;
 using AZCore.Extensions;
 using Dapper;
+using Org.BouncyCastle.Math.Field;
 using System;
 
 using System.Collections.Generic;
@@ -16,25 +17,14 @@ namespace AZCore.Database
     public class EntityService: IEntityService
     {
         protected TypeSQL typeSQL;
-        public IDbConnection Connection;
+        public IDbConnection Connection => _databaseCore.Connection;
+        private readonly IDatabaseCore _databaseCore;
         public IDbTransaction Transaction = null;
-        public EntityService(IDbConnection _connection)
+        public EntityService(IDatabaseCore databaseCore)
         {
-            Connection = _connection;
-            CheckTypeSQL();
+            _databaseCore = databaseCore;
         }
         protected int? commandTimeout = null;
-        private void CheckTypeSQL() {
-            string name = Connection.GetType().FullName;
-            if (name.EndsWith(".SqlConnection"))
-            {
-                typeSQL = TypeSQL.SqlServer;
-            }
-            else if (name.EndsWith(".MySqlConnection"))
-            {
-                typeSQL = TypeSQL.MySql;
-            }
-        }
         public void BeginTransaction()
         {
             if (this.Connection.State != ConnectionState.Open) {
@@ -95,14 +85,14 @@ namespace AZCore.Database
 
         public virtual void Dispose()
         {
-            if (Transaction != null)
+           if (_databaseCore!=null&&_databaseCore.IsDisposable)
             {
-                Transaction.Dispose();
-                Transaction = null;
-            }
-            if (this.Connection != null) {
-                this.Connection.Dispose();
-                this.Connection = null;
+                if (Transaction != null)
+                {
+                    Transaction.Dispose();
+                    Transaction = null;
+                }
+                this._databaseCore.Dispose();
             }
         }
     }
@@ -111,10 +101,10 @@ namespace AZCore.Database
         where TModel : IEntity
     {
         protected BuildSQL buildSQL;
-        public EntityService(IDbConnection _connection) : base(_connection)
+        public EntityService(IDatabaseCore databaseCore) : base(databaseCore)
         {
             buildSQL = BuildSQL.NewSQL(typeof(TModel));
-            buildSQL.typeSQL = this.typeSQL;
+            buildSQL.typeSQL = databaseCore.Type;
         }
         public IEnumerable<TModel1> ExecuteQuery<TModel1>(SQLResult rs)
         {

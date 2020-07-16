@@ -10,7 +10,7 @@ namespace AZERP.Data.Entities
 {
     public class CandidateService : EntityService<CandidateService, CandidateModel>, IAZTransient
     {
-        public CandidateService(IDbConnection _connection) : base(_connection)
+        public CandidateService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_recruitment_candidate")]
-    public class CandidateModel : EntityModel<CandidateModel, long>
+    public class CandidateModel : EntityTenantModel<CandidateModel, long>
     {
         [FieldAutoGenCode(Key =SystemCode.CandidateCode )]
         [Field(Length =256)]

@@ -7,7 +7,7 @@ namespace AZERP.Data.Entities
 {
     public class ModuleService : EntityService<ModuleService, ModuleModel>, IAZTransient
     {
-        public ModuleService(IDbConnection _connection) : base(_connection)
+        public ModuleService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -15,7 +15,7 @@ namespace AZERP.Data.Entities
     /// Thông tin của nhóm sản phẩm
     /// </summary>
     [TableInfo(TableName = "az_common_module")]
-    public class ModuleModel : EntityModel<ModuleModel, long>
+    public class ModuleModel : EntityTenantModel<ModuleModel, long>
     {
         /// <summary>
         /// Tên module

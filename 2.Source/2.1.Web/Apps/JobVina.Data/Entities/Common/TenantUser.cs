@@ -7,7 +7,7 @@ namespace JobVina.Data.Entities
 {
     public class TenantUserService : EntityService<TenantUserService, TenantUserModel>, IAZTransient
     {
-        public TenantUserService(IDbConnection _connection) : base(_connection)
+        public TenantUserService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }

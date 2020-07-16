@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace JobVina.Common
 {
-    public class PageHome : PageModule
+    public abstract class PageHome : PageModule
     {
         public PageHome(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {

@@ -11,7 +11,7 @@ namespace AZERP.Data.Entities
 {
     public class SystemCodeService : EntityService<SystemCodeService, SystemCodeModel>, IAZTransient, IGenCodeService<SystemCode>
     {
-        public SystemCodeService(IDbConnection _connection) : base(_connection)
+        public SystemCodeService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
 
@@ -54,7 +54,7 @@ namespace AZERP.Data.Entities
         }
     }
     [TableInfo(TableName = "az_common_system_code")]
-    public class SystemCodeModel : EntityModel<SystemCodeModel,long>
+    public class SystemCodeModel : EntityTenantModel<SystemCodeModel,long>
     {
         /// <summary>
         /// Key để sử dụng lấy ra để tạo mã cho hệ thống

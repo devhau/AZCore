@@ -1,4 +1,4 @@
-using AZWeb.Module.Common;
+﻿using AZWeb.Module.Common;
 using JobVina.Common;
 using Microsoft.AspNetCore.Http;
 
@@ -12,6 +12,7 @@ namespace JobVina.Web.Modules.Admin.Dashboard
 
         public IView Get()
         {
+            this.Title = "Bảng điều khiển cá nhân";
             return View();
         }
     }

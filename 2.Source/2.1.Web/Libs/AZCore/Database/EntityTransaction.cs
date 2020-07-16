@@ -3,14 +3,19 @@ using System.Data;
 using AZCore.Extensions;
 namespace AZCore.Database
 {
-    public class EntityTransaction
+    /// <summary>
+    /// 
+    /// </summary>
+    public class EntityTransaction:IDisposable
     {
         public string ErrorMessge { get; set; }
-        public IDbConnection Connection;
+        public IDbConnection Connection=> _databaseCore.Connection;
         public IDbTransaction Transaction = null;
-        public EntityTransaction(IDbConnection _connection)
+        IDatabaseCore _databaseCore;
+        public EntityTransaction(IDatabaseCore databaseCore)
         {
-            Connection = _connection;
+            _databaseCore = databaseCore;
+            _databaseCore.IsDisposable = false;
         }
         public void BeginTransaction()
         {
@@ -29,7 +34,11 @@ namespace AZCore.Database
         {
             if (this.Transaction != null) { this.Transaction.Rollback(); this.Transaction.Dispose(); this.Transaction = null; }
         }
-
+        public TService1 GetService<TService1>()
+                where TService1 : EntityService
+        {
+           return typeof(TService1).CreateInstance<TService1>(this._databaseCore);
+        }
         #region TService1
         public bool DoTransantion<TService1>(Action<EntityTransaction, TService1> action, bool isThrow = false)
                 where TService1 : EntityService
@@ -37,7 +46,7 @@ namespace AZCore.Database
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection));
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this._databaseCore));
                 this.Commit();return true;
             }
             catch (Exception ex)
@@ -58,7 +67,7 @@ namespace AZCore.Database
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection), typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection));
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this._databaseCore), typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this._databaseCore));
                 this.Commit();return true;
             }
             catch (Exception ex)
@@ -80,7 +89,7 @@ namespace AZCore.Database
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection), typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection), typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection));
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this._databaseCore), typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this._databaseCore), typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this._databaseCore));
                 this.Commit();return true;
             }
             catch (Exception ex)
@@ -103,10 +112,10 @@ namespace AZCore.Database
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
-                    , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
-                    , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
-                    , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                    , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                    , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                    , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this._databaseCore)
                     );
                 this.Commit();return true;
             }
@@ -131,11 +140,11 @@ namespace AZCore.Database
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this.Connection)
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this._databaseCore)
                      ); this.Commit();return true;
             }
             catch (Exception ex)
@@ -160,12 +169,12 @@ namespace AZCore.Database
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this.Connection)
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this._databaseCore)
                      ); this.Commit();return true;
             }
             catch (Exception ex)
@@ -191,13 +200,13 @@ namespace AZCore.Database
             this.BeginTransaction();
             try
             {
-                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService7).CreateInstance<TService7>((t)=>  t.Transaction = Transaction,this.Connection)
+                action?.Invoke(this, typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService7).CreateInstance<TService7>((t)=>  t.Transaction = Transaction,this._databaseCore)
                      ); this.Commit();return true;
             }
             catch (Exception ex)
@@ -225,14 +234,14 @@ namespace AZCore.Database
             try
             {
                 action?.Invoke(this
-                     , typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService7).CreateInstance<TService7>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService8).CreateInstance<TService8>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService7).CreateInstance<TService7>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService8).CreateInstance<TService8>((t)=>  t.Transaction = Transaction,this._databaseCore)
                      ); this.Commit();return true;
             }
             catch (Exception ex)
@@ -261,15 +270,15 @@ namespace AZCore.Database
             try
             {
                 action?.Invoke(this
-                     , typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService7).CreateInstance<TService7>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService8).CreateInstance<TService8>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService9).CreateInstance<TService9>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService7).CreateInstance<TService7>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService8).CreateInstance<TService8>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService9).CreateInstance<TService9>((t)=>  t.Transaction = Transaction,this._databaseCore)
                      ); this.Commit();return true;
             }
             catch (Exception ex)
@@ -299,16 +308,16 @@ namespace AZCore.Database
             try
             {
                 action?.Invoke(this
-                     , typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService7).CreateInstance<TService7>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService8).CreateInstance<TService8>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService9).CreateInstance<TService9>((t)=>  t.Transaction = Transaction,this.Connection)
-                     , typeof(TService10).CreateInstance<TService10>((t)=>  t.Transaction = Transaction,this.Connection)
+                     , typeof(TService1).CreateInstance<TService1>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService2).CreateInstance<TService2>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService3).CreateInstance<TService3>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService4).CreateInstance<TService4>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService5).CreateInstance<TService5>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService6).CreateInstance<TService6>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService7).CreateInstance<TService7>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService8).CreateInstance<TService8>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService9).CreateInstance<TService9>((t)=>  t.Transaction = Transaction,this._databaseCore)
+                     , typeof(TService10).CreateInstance<TService10>((t)=>  t.Transaction = Transaction,this._databaseCore)
                      ); this.Commit();return true;
             }
             catch (Exception ex)
@@ -320,5 +329,20 @@ namespace AZCore.Database
 
         }
         #endregion
-    }
+
+        public void Dispose()
+        {
+            if (Transaction != null)
+            {
+                Transaction.Dispose();
+                Transaction = null;
+            }
+            if (this._databaseCore != null)
+            {
+                this._databaseCore.IsDisposable = true;
+                this._databaseCore.Dispose();
+                this._databaseCore = null;
+            }
+        }
+}
 }

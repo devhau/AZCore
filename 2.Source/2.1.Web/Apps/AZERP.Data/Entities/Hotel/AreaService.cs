@@ -9,7 +9,7 @@ namespace AZERP.Data.Entities
 {
     public class AreasService : EntityService<AreasService, AreaServiceModel>, IAZTransient
     {
-        public AreasService(IDbConnection _connection) : base(_connection)
+        public AreasService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_area_service")]
-    public class AreaServiceModel : EntityModel<AreaServiceModel, long>
+    public class AreaServiceModel : EntityTenantModel<AreaServiceModel, long>
     {
         /// <summary>
         /// Mã dịch vụ chung

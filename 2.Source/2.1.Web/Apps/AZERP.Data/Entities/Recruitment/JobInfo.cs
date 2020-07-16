@@ -9,7 +9,7 @@ namespace AZERP.Data.Entities
 {
     public class JobInfoService : EntityService<JobInfoService, JobInfoModel>, IAZTransient
     {
-        public JobInfoService(IDbConnection _connection) : base(_connection)
+        public JobInfoService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -17,7 +17,7 @@ namespace AZERP.Data.Entities
     /// Thông tin tuyển dụng
     /// </summary>
     [TableInfo(TableName = "az_recruitment_job_info")]
-    public class JobInfoModel : EntityModel<JobInfoModel, long>
+    public class JobInfoModel : EntityTenantModel<JobInfoModel, long>
     {
         /// <summary>
         /// Tiêu đề của bài đăng

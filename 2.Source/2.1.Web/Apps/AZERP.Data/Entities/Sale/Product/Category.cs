@@ -7,7 +7,7 @@ namespace AZERP.Data.Entities
 {
     public class CategoryService : EntityService<CategoryService, CategoryModel>, IAZTransient
     {
-        public CategoryService(IDbConnection _connection) : base(_connection)
+        public CategoryService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
@@ -16,7 +16,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_Category")]
-    public class CategoryModel : EntityModel<CategoryModel, long>
+    public class CategoryModel : EntityTenantModel<CategoryModel, long>
     {
         /// <summary>
         /// Nhóm cha

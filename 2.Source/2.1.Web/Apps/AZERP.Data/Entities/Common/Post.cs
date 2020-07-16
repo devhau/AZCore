@@ -10,12 +10,12 @@ namespace AZERP.Data.Entities
 {
     public class PostService : EntityService<PostService, PostModel>, IAZTransient
     {
-        public PostService(IDbConnection _connection) : base(_connection)
+        public PostService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
     [TableInfo(TableName = "az_common_post")]
-    public class PostModel : EntityModel<PostModel, long>
+    public class PostModel : EntityTenantModel<PostModel, long>
     {
         /// <summary>
         /// 

@@ -9,7 +9,7 @@ namespace AZERP.Data.Entities
 {
     public class PermissionService : EntityService<PermissionService, PermissionModel>, IAZTransient
     {
-        public PermissionService(IDbConnection _connection) : base(_connection)
+        public PermissionService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
         public async Task<int> DeleteAll() {
