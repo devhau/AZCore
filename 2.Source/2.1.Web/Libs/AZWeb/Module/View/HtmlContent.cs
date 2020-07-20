@@ -19,19 +19,19 @@ namespace AZWeb.Module.View
         public void AddMeta(string name, string content) {
             this.Meta.Add(new MetaContent() { Name=name,Content=content});
         }
-        public void AddJS(string Code, string link, string CDN)
+        public void AddJS(string Code, string link, string CDN,int Order = 1)
         { 
             if (!Code.IsNullOrEmpty() && this.JS.Any(p => p.Code == Code)) return;
             if (!link.IsNullOrEmpty() && this.JS.Any(p => p.Link == link)) return;
             if (!CDN.IsNullOrEmpty() && this.JS.Any(p => p.CDN == CDN)) return;
-            this.JS.Add(new ContentTag() { Link = link, CDN = CDN , Code = Code });
+            this.JS.Add(new ContentTag() { Link = link, CDN = CDN , Code = Code,Order = Order });
         }
-        public void AddCSS(string Code, string link, string CDN)
+        public void AddCSS(string Code, string link, string CDN, int Order = 1)
         {
             if (!Code.IsNullOrEmpty() && this.CSS.Any(p => p.Code == Code)) return;
             if (!link.IsNullOrEmpty() && this.CSS.Any(p => p.Link == link)) return;
             if (!CDN.IsNullOrEmpty() && this.CSS.Any(p => p.CDN == CDN)) return;
-            this.CSS.Add(new ContentTag() { Link = link, CDN = CDN, Code = Code });
+            this.CSS.Add(new ContentTag() { Link = link, CDN = CDN, Code = Code, Order = Order });
         }
     }
     public class MetaContent

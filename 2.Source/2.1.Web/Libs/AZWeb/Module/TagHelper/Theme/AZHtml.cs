@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Org.BouncyCastle.Crypto.Tls;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yahoo.Yui.Compressor;
@@ -13,16 +14,18 @@ namespace AZWeb.Module.TagHelper.Theme
 {
     [HtmlTargetElement("az-html")]
     public class AZHtml : TagHelperBase
-    {       
+    {
+        public const string scriptContent = "az_content_order";
         [HtmlAttributeName("lang")]
         public string LangHtml { get; set; } = "en";
         public override void Init(TagHelperContext context)
         {
+            this.HttpContext.Items[scriptContent] = 0;
             if (string.IsNullOrEmpty(this.TagClass)) this.TagClass = "hold-transition sidebar-mini layout-navbar-fixed";
             base.Init(context);
         }
         static CssCompressor cssCompressor = new CssCompressor();
-        private void RenderCss(StringBuilder htmlBuilder, List<ContentTag> Css) {
+        private void RenderCss(StringBuilder htmlBuilder, IEnumerable<ContentTag> Css) {
             if (Css == null) return;
             string codeCss = string.Empty;
             foreach (var item in Css)
@@ -64,7 +67,7 @@ namespace AZWeb.Module.TagHelper.Theme
             CompressionType=CompressionType.Standard,
             IgnoreEval=true
         };
-        private void RenderJS(StringBuilder htmlBuilder, List<ContentTag> JS)
+        private void RenderJS(StringBuilder htmlBuilder, IEnumerable<ContentTag> JS)
         {
             if (JS == null) return;
             string codeJs = string.Empty;
@@ -126,14 +129,14 @@ namespace AZWeb.Module.TagHelper.Theme
                 htmlBuild.Append(item.InnerHtml.ToString());
             }
             //Css in function
-            RenderCss(htmlBuild, this.Html.CSS);
+            RenderCss(htmlBuild, this.Html.CSS.OrderBy(p=>p.Order));
             htmlBuild.Append("</head>");
             htmlBuild.Append($"<body class=\"{TagClass}\" >");
             foreach (var item in bodyHtml)
             {
                 htmlBuild.Append(item.InnerHtml.ToString());
             }
-            RenderJS(htmlBuild, this.Html.JS);
+            RenderJS(htmlBuild, this.Html.JS.OrderBy(p => p.Order));
             htmlBuild.Append("</body>");
             htmlBuild.Append("</html>");
            await Task.CompletedTask;

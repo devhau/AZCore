@@ -7,6 +7,7 @@ namespace AZWeb.Configs
          string Link { get; set; }
         string CDN { get; set; }
         string Code { get; set; }
+        int Order { get; set; }
     }
     [Serializable]
     public class ContentTag: IContentTag
@@ -17,5 +18,7 @@ namespace AZWeb.Configs
         public string CDN { get; set; }
         [XmlText]
         public string Code { get; set; }
+        [XmlText]
+        public int Order { get; set; } = 1;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AZCore.Extensions;
 using AZCore.Identity;
 using AZWeb.Module.Constant;
+using AZWeb.Module.TagHelper.Theme;
 using AZWeb.Module.View;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -54,11 +55,11 @@ namespace AZWeb.Module.Common
         }
         public void AddJS(string Code, string link= "", string CDN = "")
         {
-            this.Html.AddJS(Code, link, CDN);
+            this.Html.AddJS(Code, link, CDN, this.HttpContext.Items[AZHtml.scriptContent]==null?1: this.HttpContext.Items[AZHtml.scriptContent].To<int>());
         }
         public void AddCSS(string Code, string link = "", string CDN = "")
         {
-            this.Html.AddCSS(Code, link, CDN);
+            this.Html.AddCSS(Code, link, CDN, this.HttpContext.Items[AZHtml.scriptContent] == null ? 1 : this.HttpContext.Items[AZHtml.scriptContent].To<int>());
         }
         public override void Init(TagHelperContext context)
         {
