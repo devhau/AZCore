@@ -12,6 +12,7 @@ namespace JobVina.Web.Modules.Home
 
         public IView Get()
         {
+            this.Title = "JobVINA";
             return View();
         }
     }

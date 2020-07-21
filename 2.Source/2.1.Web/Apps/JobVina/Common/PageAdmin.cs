@@ -9,7 +9,6 @@ namespace JobVina.Common
         public PageAdmin(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             this.ThemeName = "AdminLTE";
-        }
-        
+        }        
     }
 }

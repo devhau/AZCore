@@ -48,6 +48,7 @@
 
   <ItemGroup>
     <Folder Include="Module\HostedService\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,8 @@
+﻿body, html {
+    background-color: #007bff !important;
+    height: 100%;
+}
+.login-box, .register-box{
+    position:absolute;
+    z-index:2;
+}
