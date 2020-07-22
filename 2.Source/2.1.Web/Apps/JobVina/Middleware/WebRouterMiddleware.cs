@@ -72,7 +72,7 @@ namespace JobVina.Middleware
                     }
                     var ModulePaths = ModulePath.Split('/');
                     string path1 = ModulePaths.Length > 1 ? ModulePaths[^1] : string.Empty;// ~ Length-1
-                    string path2 = ModulePaths.Length > 1 ? ModulePaths[^2] : ModulePaths[^1];// ~ Length-
+                    string path2 = ModulePaths.Length > 1 ? ModulePaths[^2] : ModulePaths[^1];// ~ Length-2
                    
                     ModulePath = "Web.Modules";
                     for (int i = 0; i < ModulePaths.Length - 2; i++)

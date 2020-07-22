@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <az-checkbox name="InputCheckTentaint" id="InputCheckTentaint" value="true" script-random='id=>ScriptHelpper.Script(id,"AuthRegisterTentaint_ChangeTentaint")' label="Đã có mã đối tác" />
+                            <az-checkbox name="InputCheckTentaint" id="InputCheckTentaint" value="true" value-default="@Model.JoinCode!=null&&Model.JoinCode!=string.Empty" script-random='id=>ScriptHelpper.Script(id,"AuthRegisterTentaint_ChangeTentaint")' label="Đã có mã đối tác" />
                         </div>
                             <div class="input-group mb-3">
                                 <input type="text" name="InputTentaintName" class="form-control" placeholder="Tên đơn vị mới">
@@ -101,7 +101,7 @@
                             <i class="fab fa-group mr-2"></i> Tôi đăng ký thành viên
                         </a>
                     </div>
-                     <a href="/auth/register.az" class="text-center">Tôi đã có tài khoản.</a>
+                     <a href="/auth/login.az" class="text-center">Tôi đã có tài khoản.</a>
                 </div>
                 <!-- /.form-box -->
             </div><!-- /.card -->

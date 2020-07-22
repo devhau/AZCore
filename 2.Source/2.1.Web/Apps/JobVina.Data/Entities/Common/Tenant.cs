@@ -1,12 +1,11 @@
 ﻿using AZCore.Database;
 using AZCore.Domain;
 using AZCore.Identity;
-using System.Data;
 using System.Linq;
 
 namespace JobVina.Data.Entities
 {
-	public class TenantService : EntityService<TenantService, TenantModel>, IAZTransient, ITenantService
+    public class TenantService : EntityService<TenantService, TenantModel>, IAZTransient, ITenantService
 	{
 		public TenantService(IDatabaseCore databaseCore) : base(databaseCore)
 		{
@@ -25,5 +24,4 @@ namespace JobVina.Data.Entities
 	public class TenantModel : AZTenant<TenantModel>
 	{
 	}
-
 }

@@ -6,6 +6,7 @@ using JobVina.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace JobVina.Web.Modules.Auth
 {
@@ -15,7 +16,8 @@ namespace JobVina.Web.Modules.Auth
         {
             this.IsTheme = false;
         }
-
+        [BindQuery]
+        public string JoinCode { get; set; }
         public string MessageError { get; set; }
         [BindService]
         public AZCore.Database.EntityTransaction entityTransaction;
@@ -50,7 +52,7 @@ namespace JobVina.Web.Modules.Auth
                 MessageError = InputCheckTentaint?"Vui lòng nhập mã đơn vị":"Vui lòng nhập tên đơn vị";
                 return View();
             }
-            entityTransaction.DoTransantion<UserService, TenantService>((T,userService, tenantService)=> {
+            entityTransaction.DoTransantion<UserService, TenantService, TenantUserService>((T,userService, tenantService, tenantUserService) => {
 
                 var user = new UserModel()
                 {
@@ -69,9 +71,41 @@ namespace JobVina.Web.Modules.Auth
                 //Đã tồn tại
                 if (InputCheckTentaint)
                 {
-
+                    var tenant = tenantService.ExecuteQuery(p => p.AddWhere("ConcurrencyStamp", InputTentaintName)).FirstOrDefault();
+                    if (tenant == null)
+                        throw new Exception("Đối tác không tồn tại");
+                    tenantUserService.Insert(new TenantUserModel()
+                    {
+                        Status = AZCore.Identity.TenantUserStatus.Join,
+                        UserId = user.Id,
+                        TenantId = tenant.Id,
+                        CreateAt = DateTime.Now,
+                        CreateBy = user.Id,
+                    });
                 }
-
+                else
+                {
+                    var tenant = new TenantModel()
+                    {
+                        Name = InputTentaintName,
+                        CanonicalName = InputTentaintName,
+                        Phone = InputPhoneNumber,
+                        Email = InputEmail,
+                        CreateBy = user.Id,
+                        CreateAt = DateTime.Now,
+                        Status = AZCore.Database.EntityStatus.Active
+                    };
+                    tenant.Id = tenantService.Insert(tenant);
+                    tenantUserService.Insert(new TenantUserModel()
+                    {
+                        Status = AZCore.Identity.TenantUserStatus.Active,
+                        IsAdmin = true,
+                        UserId = user.Id,
+                        TenantId = tenant.Id,
+                        CreateAt = DateTime.Now,
+                        CreateBy = user.Id,
+                    });
+                }
             });
             return GoToAuth(false);
         }

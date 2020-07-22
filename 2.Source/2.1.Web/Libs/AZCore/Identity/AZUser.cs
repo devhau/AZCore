@@ -5,6 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace AZCore.Identity
 {
+    public enum Gender : int
+    {
+        [Field(Display = "Nam")] Male = 1,
+        [Field(Display = "Nữ")] Female = 2,
+        [Field(Display = "Khác")] Other = 3,
+    }
     [TableInfo(TableName = "az_common_user")]
     public class AZUser<TEntity> : EntityModel<TEntity, long> where TEntity : AZUser<TEntity>
     {
@@ -15,6 +21,8 @@ namespace AZCore.Identity
         public string PhoneNumber { get; set; }
         [Field(Length =200)] 
         public string Email { get; set; }
+        [Field]
+        public Gender Gender { get; set; }
         [Field(Length =200)] 
         public string UserName { get; set; }
         [Field(Length = 200)]
