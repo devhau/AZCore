@@ -1,19 +1,15 @@
 ﻿using AZWeb.Module.Common;
 using JobVina.Common;
+using JobVina.Data.Entities;
 using Microsoft.AspNetCore.Http;
 
 namespace JobVina.Web.Modules.Admin.UserCompany
 {
-    public class FormUserCompany : PageAdmin
+    public class FormUserCompany : PageManage<UserService,UserModel, UpdateUserCompany>
     {
         public FormUserCompany(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
-        }
-
-        public IView Get()
-        {
             this.Title = "Danh sách nhân viên công ty";
-            return View();
         }
     }
 }

@@ -58,6 +58,7 @@ namespace JobVina.Web.Modules.Auth
                 {
                     FullName = InputFullName,
                     PhoneNumber = InputPhoneNumber,
+                    Email=InputEmail,
                     Password = InputPassword,
                     IsTenant = true,
                     CreateBy = 0,

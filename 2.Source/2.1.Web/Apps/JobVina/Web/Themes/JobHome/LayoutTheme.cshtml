@@ -64,7 +64,22 @@
                         <li><a href="/tim-don-vi-cung-ung.az">Đơn vị cung ứng</a></li>
                         <li><a href="/tim-cong-ty.az">Công ty sử dụng lao động</a></li>
                         <li><a href="#contact">Liên hệ</a></li>
-                        <li><a href="/auth/login.az?ref=/">Đăng nhập</a></li>
+                        @if (Model.IsAuth)
+                        {
+                        <li class="drop-down">
+                            <a href="#">Chào, @Model.User.FullName</a>
+                            <ul>
+                                <li><a href="/profile.az">Thông tin tài khoản</a></li>
+                                <li><a href="/admin.az">Trang quản lý</a></li>
+                                <li><a href="/auth/login.az?h=logout">Đăng xuất</a></li>
+                            </ul>
+                        </li>
+                        }
+                        else
+                        {
+
+                            <li><a href="/auth/login.az?ref=/">Đăng nhập</a></li>
+                        }
                     </ul>
                 </nav><!-- .nav-menu -->
 

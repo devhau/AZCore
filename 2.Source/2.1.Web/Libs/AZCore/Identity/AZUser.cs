@@ -7,6 +7,7 @@ namespace AZCore.Identity
 {
     public enum Gender : int
     {
+        [Field(Display = "Chưa chọn")] None = 0,
         [Field(Display = "Nam")] Male = 1,
         [Field(Display = "Nữ")] Female = 2,
         [Field(Display = "Khác")] Other = 3,

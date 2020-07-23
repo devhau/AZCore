@@ -25,6 +25,12 @@
     <Folder Include="Web\Widgets\" />
     <Folder Include="wwwroot\upload\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Shared\MvcGrid\_Grid.cshtml" />
+    <None Include="Views\Shared\MvcGrid\_Pager.cshtml" />
+    <None Include="wwwroot\assets\admin-core\mvc-grid\js\mvc-grid.js" />
+  </ItemGroup>
 	
   <ItemGroup>
     <ProjectReference Include="..\..\Libs\AZCore\AZCore.csproj" />
