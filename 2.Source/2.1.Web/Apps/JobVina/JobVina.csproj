@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <Content Include="Configs\rewrite.configs" />
+	  <Content Include="Configs\rewrite.configs">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Web\*.js" />
 	  <Content Include="Web\*.css" />
 	  <Compile Include="Web\*.cs" />

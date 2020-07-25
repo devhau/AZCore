@@ -1,0 +1,32 @@
+﻿@model FormCompany
+<az-script link="/assets/plugins/chart.js/Chart.min.js" />
+<az-script link="/assets/adminlte/js/demo.js" />
+<az-script link="/assets/adminlte/js/pages/dashboard3.js" />
+<az-script link="/assets/admin-core/mvc-grid/js/mvc-grid.js" />
+<az-style link="/assets/admin-core/mvc-grid/css/mvc-grid.css" />
+<az-content-header />
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        @(Html.Grid(Model.Data)
+        .Build(columns =>
+        {
+            columns.Add().RenderedAs((model, row) => row + 1).Titled("#").Css("text-center");
+            columns.Add(prop => prop.Id).Hidden();
+            columns.Add(prop => prop.FullName).Titled("Họ tên");
+            columns.Add(prop => prop.Gender).Titled("Giới tính");
+            columns.Add(prop => prop.Email).Titled("Email");
+            columns.Add(prop => prop.PhoneNumber).Titled("Số điện thoại");
+            columns.Add(prop => prop.Address).Titled("Địa chỉ");
+            columns.Add().RenderedAs((model, row) => "<a class='az-link-popup' href='?h=update&id=" + model.Id + "'>Sửa</a>").Encoded(false).Titled("Sửa").Css("text-center");
+            columns.Add().RenderedAs((model, row) => "<a href='?h=delete&id=" + model.Id + "'>Xóa</a>").Encoded(false).Titled("Xóa").Css("text-center");
+        })
+        .Filterable(AZWeb.Module.Html.Grid.GridFilterType.Multi)
+        .Sortable()
+        .Pageable((pa)=> { pa.ShowPageSizes = true;})
+        )
+
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content -->

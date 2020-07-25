@@ -138,6 +138,7 @@ namespace JobVina
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseFileServer();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();
