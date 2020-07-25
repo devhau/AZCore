@@ -37,8 +37,7 @@ namespace JobVina
             this.env = env;
             Configuration = configuration;
 
-            ;
-            using (StreamReader sr = new StreamReader(this.env.ContentRootFileProvider.GetFileInfo("Configs/rewrite.configs").CreateReadStream()))
+            using (StreamReader sr = new StreamReader(WebInfo.ReadStreamFromResource("JobVina/Configs/rewrite.configs")))
             {
                 while (sr.Peek() >= 0)
                 {
@@ -48,9 +47,9 @@ namespace JobVina
                         var paths = row.Split(" ");
                         if (paths.Length == 2)
                         {
-                            if (!ModuleWebInfo.Rewrites.ContainsKey(paths[0]))
+                            if (!WebInfo.Rewrites.ContainsKey(paths[0]))
                             {
-                                ModuleWebInfo.Rewrites[paths[0]] = paths[1];
+                                WebInfo.Rewrites[paths[0]] = paths[1];
                             }
                         }
                     }
@@ -60,8 +59,8 @@ namespace JobVina
             {
                 var indexWeb = p.FullName.IndexOf(".Web");
                 var key = p.FullName.Substring(indexWeb + 1).ToLower().Trim();
-                if(!ModuleWebInfo.dicModule.ContainsKey(key))
-                    ModuleWebInfo.dicModule[key] = p;
+                if(!WebInfo.dicModule.ContainsKey(key))
+                    WebInfo.dicModule[key] = p;
                 return false;
             });
         }
@@ -148,9 +147,7 @@ namespace JobVina
             app.UseMiddleware<WebRouterMiddleware>();
             app.UseMiddleware<ModuleWebMiddleware>();
 
-#if DEBUG
             new DBCreateEntities( app.ApplicationServices.GetService(typeof(IDatabaseCore)) as IDatabaseCore).CheckEmptyAndCreateDatabase();
-#endif
         }
     }
 }

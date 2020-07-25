@@ -6,20 +6,51 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Configs\rewrite.configs" />
-    <None Remove="Web\*.js" />
-    <None Remove="Web\*.css" />
+    <None Remove="Web\*\*.js" />
+    <None Remove="Web\*\*.css" />
+    <None Remove="Web\*\*\*.js" />
+    <None Remove="Web\*\*\*.css" />
+    <None Remove="Web\*\*\*\*.js" />
+    <None Remove="Web\*\*\*\*.css" />
+    <None Remove="Web\*\*\*\*\*.js" />
+    <None Remove="Web\*\*\*\*\*.css" />
+    <None Remove="Web\*\*\*\*\*\*.js" />
+    <None Remove="Web\*\*\*\*\*\*.css" />
+    <None Remove="Web\*\*\*\*\*\*\*.js" />
+    <None Remove="Web\*\*\*\*\*\*\*.css" />
+    <None Remove="Web\*\*\*\*\*\*\*\*.js" />
+    <None Remove="Web\*\*\*\*\*\*\*\*.css" />
+    <None Remove="Web\*\*\*\*\*\*\*\*\*.js" />
+    <None Remove="Web\*\*\*\*\*\*\*\*\*.css" />
+    <None Remove="Web\*\*\*\*\*\*\*\*\*\*.js" />
+    <None Remove="Web\*\*\*\*\*\*\*\*\*\*.css" />
   </ItemGroup>
-
   <ItemGroup>
-	  <Content Include="Configs\rewrite.configs">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="Web\*.js" />
-	  <Content Include="Web\*.css" />
-	  <Compile Include="Web\*.cs" />
+    <EmbeddedResource Include="Web\*\*.js" />
+    <EmbeddedResource Include="Web\*\*.css" />
+    <EmbeddedResource Include="Web\*\*\*.js" />
+    <EmbeddedResource Include="Web\*\*\*.css" />
+    <EmbeddedResource Include="Web\*\*\*\*.js" />
+    <EmbeddedResource Include="Web\*\*\*\*.css" />
+    <EmbeddedResource Include="Web\*\*\*\*\*.js" />
+    <EmbeddedResource Include="Web\*\*\*\*\*.css" />
+    <EmbeddedResource Include="Web\*\*\*\*\*\*.js" />
+    <EmbeddedResource Include="Web\*\*\*\*\*\*.css" />
+    <EmbeddedResource Include="Web\*\*\*\*\*\*\*.js" />
+    <EmbeddedResource Include="Web\*\*\*\*\*\*\*.css" />
+    <EmbeddedResource Include="Web\*\*\*\*\*\*\*\*.js" />
+    <EmbeddedResource Include="Web\*\*\*\*\*\*\*\*.css" />
+    <EmbeddedResource Include="Web\*\*\*\*\*\*\*\*\*.js" />
+    <EmbeddedResource Include="Web\*\*\*\*\*\*\*\*\*.css" />
+    <EmbeddedResource Include="Web\*\*\*\*\*\*\*\*\*\*.js" />
+    <EmbeddedResource Include="Web\*\*\*\*\*\*\*\*\*\*.css" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Remove="Configs\*.configs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Configs\*.configs" />
+  </ItemGroup>
   <ItemGroup>
     <Folder Include="WebApi\" />
     <Folder Include="Web\Modules\Admin\System\" />

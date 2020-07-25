@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,10 +46,13 @@ namespace AZWeb.Module.Common
         protected HtmlContent Html { get => this.HttpContext.Items[AZWebConstant.Html] as HtmlContent; }
         public Action<TagHelperBase> TagExtend { get; set; }
         protected string PathModule { get; private set; }
-        
-        protected string GetContentFile(string file) {
-            return File.ReadAllText(string.Format("{0}/{1}",PathModule,file));
-        }
+
+        protected string GetContentFile(string file)
+        {
+            return WebInfo.ReadAllTextFromResource(string.Format("{2}{0}/{1}", PathModule, file, WebInfo.Namepace));
+        } 
+            
+            
         public void AddMeta(string name, string content)
         {
             this.Html.AddMeta(name, content);
@@ -69,7 +73,7 @@ namespace AZWeb.Module.Common
             }
             this.Tenant = HttpContext.Items[AZWebConstant.KeyTenant] as ITenant;
             this.TagId = string.Format("az{0}", Guid.NewGuid().ToString().Replace("-", ""));
-            PathModule = Path.GetDirectoryName(string.Format("{0}/{1}", Directory.GetCurrentDirectory(),this.ViewContext.ExecutingFilePath));
+            PathModule = Path.GetDirectoryName(this.ViewContext.ExecutingFilePath);
             base.Init(context);
         }
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output) {

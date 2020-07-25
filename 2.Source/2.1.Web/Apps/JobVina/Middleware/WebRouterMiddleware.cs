@@ -18,12 +18,12 @@ namespace JobVina.Middleware
 
         protected override async Task<bool> DoMiddleware(HttpContext httpContext)
         {
-            if (httpContext.Items[ModuleWebInfo.Key] == null)
+            if (httpContext.Items[WebInfo.Key] == null)
             {
                 var urlPath = (httpContext.Request.Path);
                 if (urlPath == "/")
                 {
-                    httpContext.Items[ModuleWebInfo.Key] = new ModuleWebInfo()
+                    httpContext.Items[WebInfo.Key] = new WebInfo()
                     {
                         ModulePath = "Web.Modules.Home.FormHome",
                         MethodName = "Get"
@@ -31,9 +31,9 @@ namespace JobVina.Middleware
                 }
                 else if (urlPath.Value.EndsWith(".az"))
                 {
-                    if (ModuleWebInfo.Rewrites != null && ModuleWebInfo.Rewrites.Count > 0)
+                    if (WebInfo.Rewrites != null && WebInfo.Rewrites.Count > 0)
                     {
-                        foreach (var item in ModuleWebInfo.Rewrites)
+                        foreach (var item in WebInfo.Rewrites)
                         {
                             var RegexPath = new Regex(string.Format("/{0}", item.Key));
                             if (RegexPath.IsMatch(urlPath))
@@ -56,7 +56,7 @@ namespace JobVina.Middleware
                                 string methodName = httpContext.Request.Method;
                                 if (query.ContainsKey("h") && !string.IsNullOrEmpty(query["h"].ToString()))
                                     methodName = string.Format("{0}{1}", methodName, query["h"].ToString());
-                                httpContext.Items[ModuleWebInfo.Key] = new ModuleWebInfo()
+                                httpContext.Items[WebInfo.Key] = new WebInfo()
                                 {
                                     ModulePath = ModuleStr,
                                     MethodName = methodName
@@ -79,36 +79,36 @@ namespace JobVina.Middleware
                     {
                         ModulePath = ModulePath + "." + ModulePaths[i];
                     }
-                    if (ModuleWebInfo.dicModule.ContainsKey(string.Format("{0}.{1}.Form{2}", ModulePath, path2, path1).ToLower()))
+                    if (WebInfo.dicModule.ContainsKey(string.Format("{0}.{1}.Form{2}", ModulePath, path2, path1).ToLower()))
                     {
-                        httpContext.Items[ModuleWebInfo.Key] = new ModuleWebInfo()
+                        httpContext.Items[WebInfo.Key] = new WebInfo()
                         {
                             ModulePath = string.Format("{0}.{1}.Form{2}", ModulePath, path2, path1),
                             MethodName = string.Format("{0}", httpContext.Request.Method),
                             IsAuto = true
                         };
                     }
-                    else if (ModuleWebInfo.dicModule.ContainsKey(string.Format("{0}.{1}.{2}.Form{2}", ModulePath, path2, path1).ToLower()))
+                    else if (WebInfo.dicModule.ContainsKey(string.Format("{0}.{1}.{2}.Form{2}", ModulePath, path2, path1).ToLower()))
                     {
-                        httpContext.Items[ModuleWebInfo.Key] = new ModuleWebInfo()
+                        httpContext.Items[WebInfo.Key] = new WebInfo()
                         {
                             ModulePath = string.Format("{0}.{1}.{2}.Form{2}", ModulePath, path2, path1),
                             MethodName = string.Format("{0}", httpContext.Request.Method),
                             IsAuto = true
                         };
                     }
-                    else if (ModuleWebInfo.dicModule.ContainsKey(string.Format("{0}.Form{1}", ModulePath, path2).ToLower()))
+                    else if (WebInfo.dicModule.ContainsKey(string.Format("{0}.Form{1}", ModulePath, path2).ToLower()))
                     {
-                        httpContext.Items[ModuleWebInfo.Key] = new ModuleWebInfo()
+                        httpContext.Items[WebInfo.Key] = new WebInfo()
                         {
                             ModulePath = string.Format("{0}.Form{1}", ModulePath, path2),
                             MethodName = string.Format("{0}{1}", httpContext.Request.Method, path1),
                             IsAuto = true
                         };
                     }
-                    else if (ModuleWebInfo.dicModule.ContainsKey(string.Format("{0}.{1}.Form{1}", ModulePath, path2).ToLower()))
+                    else if (WebInfo.dicModule.ContainsKey(string.Format("{0}.{1}.Form{1}", ModulePath, path2).ToLower()))
                     {
-                        httpContext.Items[ModuleWebInfo.Key] = new ModuleWebInfo()
+                        httpContext.Items[WebInfo.Key] = new WebInfo()
                         {
                             ModulePath = string.Format("{0}.{1}.Form{1}", ModulePath, path2),
                             MethodName = string.Format("{0}{1}", httpContext.Request.Method, path1),

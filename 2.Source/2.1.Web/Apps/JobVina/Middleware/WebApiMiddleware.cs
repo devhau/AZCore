@@ -17,7 +17,7 @@ namespace JobVina.Middleware
         protected override async Task<bool> DoMiddleware(HttpContext httpContext)
         {
             await Task.CompletedTask;
-            if (httpContext.Items[ModuleWebInfo.Key] == null)
+            if (httpContext.Items[WebInfo.Key] == null)
             {
 
             }

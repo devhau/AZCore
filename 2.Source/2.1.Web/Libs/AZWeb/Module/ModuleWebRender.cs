@@ -54,9 +54,9 @@ namespace AZWeb.Module
         private ModuleBase LoadModule(string AssemblyModule)
         {
             var key = AssemblyModule.ToLower().Trim();
-            if (ModuleWebInfo.dicModule.ContainsKey(key))
+            if (WebInfo.dicModule.ContainsKey(key))
             {
-                return httpContext.RequestServices.GetService(ModuleWebInfo.dicModule[key]) as ModuleBase;
+                return httpContext.RequestServices.GetService(WebInfo.dicModule[key]) as ModuleBase;
             }
             return null;
         }
@@ -72,7 +72,7 @@ namespace AZWeb.Module
             //Kiểm tra xem hệ thống đã đăng nhập chưa.
             this.CheckIdentity();
             //
-            if (!(httpContext.Items[ModuleWebInfo.Key] is ModuleWebInfo moduleInfo)) return false;
+            if (!(httpContext.Items[WebInfo.Key] is WebInfo moduleInfo)) return false;
             //
             var methodName = moduleInfo.MethodName;
             //
@@ -166,9 +166,9 @@ namespace AZWeb.Module
                 if (PageCurrent.IsTheme & !IsAjax)
                 {
                     string typeThemeString = string.Format("Web.Themes.{0}.LayoutTheme", PageCurrent.ThemeName??"Default").ToLower();
-                    if (!ModuleWebInfo.dicModule.ContainsKey(typeThemeString))
+                    if (!WebInfo.dicModule.ContainsKey(typeThemeString))
                         return false;
-                    var theme = httpContext.GetService<ThemeBase>(ModuleWebInfo.dicModule[typeThemeString]);
+                    var theme = httpContext.GetService<ThemeBase>(WebInfo.dicModule[typeThemeString]);
 
                     if (theme == null)
                         return false;
