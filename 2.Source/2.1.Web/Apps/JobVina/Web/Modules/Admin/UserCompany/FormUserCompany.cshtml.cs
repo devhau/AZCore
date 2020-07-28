@@ -1,5 +1,4 @@
-﻿using AZWeb.Module.Common;
-using JobVina.Common;
+﻿using JobVina.Common;
 using JobVina.Data.Entities;
 using Microsoft.AspNetCore.Http;
 

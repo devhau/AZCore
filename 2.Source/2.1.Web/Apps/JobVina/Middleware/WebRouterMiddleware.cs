@@ -18,6 +18,12 @@ namespace JobVina.Middleware
 
         protected override async Task<bool> DoMiddleware(HttpContext httpContext)
         {
+#if !DEBUG
+            if (!httpContext.Request.Host.Host.Contains("jobvina.vn")) {
+                httpContext.Response.Redirect("http://jobvina.vn/");
+                return true;
+            }
+#endif
             if (httpContext.Items[WebInfo.Key] == null)
             {
                 var urlPath = (httpContext.Request.Path);

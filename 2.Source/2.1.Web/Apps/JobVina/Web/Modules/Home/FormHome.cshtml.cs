@@ -1,7 +1,5 @@
-﻿using AZCore.Database;
-using AZWeb.Module.Common;
+﻿using AZWeb.Module.Common;
 using JobVina.Common;
-using JobVina.Data;
 using Microsoft.AspNetCore.Http;
 
 namespace JobVina.Web.Modules.Home
@@ -14,12 +12,8 @@ namespace JobVina.Web.Modules.Home
 
         public IView Get()
         {
-            this.Title = "JobVINA";
+            this.Title = "JobVINA - Thông tin tuyển dụng và đối tác cung ứng lao động uy tín";
             return View();
-        }
-        public IView GetCreateDatabase() {
-            new DBCreateEntities(HttpContext.RequestServices.GetService(typeof(IDatabaseCore)) as IDatabaseCore).CheckEmptyAndCreateDatabase();
-            return Json("Tạo database thành công");
         }
     }
 }
