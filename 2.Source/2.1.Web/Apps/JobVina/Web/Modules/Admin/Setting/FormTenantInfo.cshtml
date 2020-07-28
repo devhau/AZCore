@@ -1,0 +1,44 @@
+﻿@model TenantModel
+<az-style link="/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css"/>
+<az-content-header />
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <form method="post">
+            <div class="row">
+                <div class="col-12 form-group">
+                    @Html.LabelFor(p => p.Name, "Tên đơn vị cung ứng")
+                    @Html.TextBoxFor(p => p.Name, new { Class = "form-control" })
+                </div>
+                <div class="col-4 form-group">
+                    @Html.LabelFor(p => p.Phone, "Số điện thoại")
+                    @Html.TextBoxFor(p => p.Phone, new { Class = "form-control" })
+                </div>
+                <div class="col-4 form-group">
+                    @Html.LabelFor(p => p.Email, "Email")
+                    @Html.TextBoxFor(p => p.Email, new { Class = "form-control" })
+                </div>
+                <div class="col-4 form-group">
+                    @Html.LabelFor(p => p.Website, "Website")
+                    @Html.TextBoxFor(p => p.Website, new { Class = "form-control" })
+                </div>
+                <div class="col-12 form-group">
+                    @Html.LabelFor(p => p.Description, "Mô tả")
+                    @Html.TextAreaFor(p => p.Description, new { Class = "form-control" })
+                </div>
+                <div class="col-12 form-group">
+                    <div class="icheck-primary">
+                        @Html.LabelFor(p => p.IsShowHome, "Cho phép hiển thị trên trang chủ")
+                        @Html.CheckBoxFor(p => p.IsShowHome, new { Class = "" })
+                    </div>
+
+                </div>
+                <div class="col-12 form-group">
+                    <input class="btn btn-success" type="submit" value="Lưu" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content -->

@@ -22,12 +22,12 @@ namespace AZWeb.Module
         HttpContext httpContext;
         bool IsAjax { get; }
         readonly string urlPath;
-        IPermissionService permissionService = null;
+        IIdentityService permissionService = null;
         ModuleWebRender(HttpContext _httpContext)
         {
             httpContext = _httpContext;
             renderView = httpContext.GetRenderView();
-            permissionService = httpContext.GetService<IPermissionService>();
+            permissionService = httpContext.GetService<IIdentityService>();
             this.IsAjax = httpContext.IsAjax();
             urlPath = this.httpContext.Request.Path.Value;
             this.httpContext.Items[AZWebConstant.KeyUrlCurrent] = string.Format("{0}{1}", urlPath, this.httpContext.Request.QueryString.Value);
@@ -41,6 +41,7 @@ namespace AZWeb.Module
                 if (permissionService != null)
                 {
                     User.PermissionActive = permissionService.GetPermissionByUserId(User.Id).ToList();
+                    User.TenantId = permissionService.GetTenantByUserId(User.Id);
                 }
                 this.httpContext.Items[AZWebConstant.KeyUser] = User;
             }

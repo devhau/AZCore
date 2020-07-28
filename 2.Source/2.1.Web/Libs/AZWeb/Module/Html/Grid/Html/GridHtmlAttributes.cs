@@ -13,7 +13,7 @@ namespace AZWeb.Module.Html.Grid
         {
         }
         public GridHtmlAttributes(Object? attributes)
-            : base(HtmlHelper.AnonymousObjectToHtmlAttributes(attributes))
+            : base(Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper.AnonymousObjectToHtmlAttributes(attributes))
         {
         }
 

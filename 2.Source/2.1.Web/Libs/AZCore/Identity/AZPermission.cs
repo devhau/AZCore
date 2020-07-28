@@ -1,6 +1,5 @@
 ﻿using AZCore.Database;
 using AZCore.Database.Attributes;
-using System.Collections.Generic;
 
 namespace AZCore.Identity
 {
@@ -15,8 +14,5 @@ namespace AZCore.Identity
         public string Name { get; set; }
         [Field]
         public long? TenantId { get; set; }
-    }
-    public interface IPermissionService {
-        IEnumerable<string> GetPermissionByUserId(long UserId);
     }
 }

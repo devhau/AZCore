@@ -1,7 +1,6 @@
 ﻿using AZCore.Database;
 using AZCore.Domain;
 using AZCore.Identity;
-using System.Data;
 
 namespace JobVina.Data.Entities
 {

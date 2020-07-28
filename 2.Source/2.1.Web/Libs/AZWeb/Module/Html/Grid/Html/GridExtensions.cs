@@ -21,7 +21,7 @@ namespace AZWeb.Module.Html
         public static IHtmlContent AjaxGrid(this IHtmlHelper _, String url, Object? htmlAttributes = null)
         {
             TagBuilder grid = new TagBuilder("div");
-            grid.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            grid.MergeAttributes(Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
             grid.Attributes["data-url"] = url;
             grid.AddCssClass("mvc-grid");
 

@@ -12,7 +12,7 @@ namespace JobVina.Data.Entities
     /// <summary>
     /// Serivce của Tài khoản
     /// </summary>
-    public class UserService : EntityService<UserService, UserModel>, IAZTransient, IPermissionService
+    public class UserService : EntityService<UserService, UserModel>, IAZTransient, IIdentityService
     {
         public UserService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -50,6 +50,11 @@ namespace JobVina.Data.Entities
             que.Param = new Dapper.DynamicParameters();
             que.Param.Add("@UserId", UserId);
             return ExecuteQuery<PermissionModel>(que).Select(p=>p.Code);
+        }
+
+        public long GetTenantByUserId(long UserId)
+        {
+            return new TenantUserService(this._databaseCore).Select(p=>p.UserId==UserId&& p.IsDelete==false&&p.Status==TenantUserStatus.Active).FirstOrDefault()?.TenantId??-1;
         }
     }
     /// <summary>

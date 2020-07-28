@@ -4,13 +4,12 @@ using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using AZWeb.Module.Constant;
 using AZWeb.Module.View;
-using Google.Protobuf.WellKnownTypes;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.IO;
-using System.Net;
 using System.Security.Claims;
 
 namespace AZWeb.Module.Page
@@ -31,11 +30,11 @@ namespace AZWeb.Module.Page
         {
             this.Html.AddMeta(name, content);
         }
-        public void AddJS(string Code, string link, string CDN)
+        public void AddJS(string Code, string link= "", string CDN = "")
         {
             this.Html.AddJS(Code, link, CDN);
         }
-        public void AddCSS(string Code, string link, string CDN)
+        public void AddCSS(string Code, string link = "", string CDN = "")
         {
             this.Html.AddCSS(Code, link, CDN);
         }

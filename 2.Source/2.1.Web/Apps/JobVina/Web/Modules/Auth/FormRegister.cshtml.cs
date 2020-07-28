@@ -16,6 +16,7 @@ namespace JobVina.Web.Modules.Auth
         public FormRegister(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             this.IsTheme = false;
+            this.Title = "Đăng ký thành viên hệ thống tuyển dụng JobVINA";
         }
 
         public IView Get()

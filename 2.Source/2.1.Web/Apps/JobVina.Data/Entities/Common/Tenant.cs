@@ -1,4 +1,5 @@
 ﻿using AZCore.Database;
+using AZCore.Database.Attributes;
 using AZCore.Domain;
 using AZCore.Identity;
 using System.Linq;
@@ -23,5 +24,7 @@ namespace JobVina.Data.Entities
     }
 	public class TenantModel : AZTenant<TenantModel>
 	{
+        [Field]
+        public bool IsShowHome { get; set; }
 	}
 }

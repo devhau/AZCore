@@ -12,7 +12,7 @@ namespace AZERP.Data.Entities
     /// <summary>
     /// Serivce của Tài khoản
     /// </summary>
-    public class UserService : EntityService<UserService, UserModel>, IAZTransient, IPermissionService
+    public class UserService : EntityService<UserService, UserModel>, IAZTransient, IIdentityService
     {
         public UserService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -49,6 +49,11 @@ namespace AZERP.Data.Entities
             que.Param = new Dapper.DynamicParameters();
             que.Param.Add("@UserId", UserId);
             return ExecuteQuery<PermissionModel>(que).Select(p=>p.Code);
+        }
+
+        public long GetTenantByUserId(long UserId)
+        {
+            throw new System.NotImplementedException();
         }
     }
     /// <summary>

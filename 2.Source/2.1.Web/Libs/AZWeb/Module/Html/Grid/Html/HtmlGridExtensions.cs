@@ -59,7 +59,7 @@ namespace AZWeb.Module.Html
         }
         public static IHtmlGrid<T> Attributed<T>(this IHtmlGrid<T> html, Object htmlAttributes)
         {
-            foreach (KeyValuePair<String, Object> attribute in HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes))
+            foreach (KeyValuePair<string, object> attribute in Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes))
                 html.Grid.Attributes[attribute.Key] = attribute.Value;
 
             return html;

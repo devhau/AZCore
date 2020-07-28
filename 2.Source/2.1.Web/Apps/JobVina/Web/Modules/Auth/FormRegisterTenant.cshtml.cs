@@ -4,7 +4,6 @@ using AZWeb.Module.Common;
 using JobVina.Common;
 using JobVina.Data.Entities;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 
@@ -15,6 +14,7 @@ namespace JobVina.Web.Modules.Auth
         public FormRegisterTenant(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             this.IsTheme = false;
+            this.Title = "Đăng ký thông tin đối tác cung ứng lao động trên hệ thống JobVINA";
         }
         [BindQuery]
         public string JoinCode { get; set; }

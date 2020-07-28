@@ -18,10 +18,12 @@ namespace JobVina.Web.Modules.Auth
         public FormLogin(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             this.IsTheme = false;
+            this.Title = "Đăng nhập hệ thống JobVINA";
         }
 
         public IView Get()
         {
+
             return View();
         }
         public async Task<IView> GetLogout()

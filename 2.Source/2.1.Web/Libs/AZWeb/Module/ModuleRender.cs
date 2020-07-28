@@ -40,13 +40,13 @@ namespace AZWeb.Module
         readonly IPagesConfig PageConfigs = null;
         bool IsAjax { get; }
         readonly string urlPath;
-        IPermissionService permissionService = null;
+        IIdentityService permissionService = null;
         ITenantService tenantService = null;
         ModuleRender(HttpContext _httpContext)
         {
             httpContext = _httpContext;
             renderView = httpContext.GetRenderView();
-            permissionService = httpContext.GetService<IPermissionService>();
+            permissionService = httpContext.GetService<IIdentityService>();
             tenantService = httpContext.GetService<ITenantService>();
             this.PageConfigs = this.httpContext.GetService<IPagesConfig>();
             this.IsAjax = httpContext.IsAjax();

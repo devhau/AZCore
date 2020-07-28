@@ -18,7 +18,7 @@ namespace AZCore.Database
     {
         protected TypeSQL typeSQL;
         public IDbConnection Connection => _databaseCore.Connection;
-        private readonly IDatabaseCore _databaseCore;
+        protected readonly IDatabaseCore _databaseCore;
         public IDbTransaction Transaction = null;
         public EntityService(IDatabaseCore databaseCore)
         {
