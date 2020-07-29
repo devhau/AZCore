@@ -1,5 +1,9 @@
 ﻿@model TenantModel
-<az-style link="/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css"/>
+    <az-script>
+        $(function(){
+        $('[name=Description]').summernote({ height: 150 });
+        });
+    </az-script>
 <az-content-header />
 <!-- Main content -->
 <div class="content">
@@ -9,6 +13,21 @@
                 <div class="col-12 form-group">
                     @Html.LabelFor(p => p.Name, "Tên đơn vị cung ứng")
                     @Html.TextBoxFor(p => p.Name, new { Class = "form-control" })
+                </div>
+                <div class="col-12 form-group">
+                    @Html.LabelFor(p => p.CanonicalName, "Tên thương hiệu")
+                    @Html.TextBoxFor(p => p.CanonicalName, new { Class = "form-control" })
+                </div>
+                <div class="col-12 form-group">
+                    @Html.LabelFor(p => p.NormalizedCanonicalName, "Slug")
+                    @Html.TextBoxFor(p => p.NormalizedCanonicalName, new { Class = "form-control" })
+                </div>
+                <div class="col-6 form-group">
+                    @Html.LabelFor(p => p.ConcurrencyStamp, "Code đơn vị")
+                    @Html.TextBoxFor(p => p.ConcurrencyStamp, new { Class = "form-control" })
+                </div>
+                <div class="col-6 form-group">
+                    <a href="/auth/register-tenant.az?ref-code=@Model?.ConcurrencyStamp">Đường dẫn đăng ký thành viên của đơn vị.</a>
                 </div>
                 <div class="col-4 form-group">
                     @Html.LabelFor(p => p.Phone, "Số điện thoại")
@@ -31,10 +50,9 @@
                         @Html.LabelFor(p => p.IsShowHome, "Cho phép hiển thị trên trang chủ")
                         @Html.CheckBoxFor(p => p.IsShowHome, new { Class = "" })
                     </div>
-
                 </div>
                 <div class="col-12 form-group">
-                    <input class="btn btn-success" type="submit" value="Lưu" />
+                    <input class="btn btn-success" type="submit" value="Lưu thiết lập" />
                 </div>
             </div>
         </form>

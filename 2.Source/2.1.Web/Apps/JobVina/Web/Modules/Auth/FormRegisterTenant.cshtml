@@ -68,16 +68,31 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <az-checkbox name="InputCheckTentaint" id="InputCheckTentaint" value="true" value-default="@Model.JoinCode!=null&&Model.JoinCode!=string.Empty" script-random='id=>ScriptHelpper.Script(id,"AuthRegisterTentaint_ChangeTentaint")' label="Đã có mã đối tác" />
-                        </div>
-                            <div class="input-group mb-3">
+                            @if (Model.JoinCode == null || Model.JoinCode == string.Empty)
+                            {
+                                <az-checkbox name="InputCheckTentaint" id="InputCheckTentaint" value="true" is-enable="@Model.JoinCode!= null && Model.JoinCode != string.Empty" value-default="@Model.JoinCode!= null && Model.JoinCode != string.Empty" script-random='id => ScriptHelpper.Script(id, "AuthRegisterTentaint_ChangeTentaint")' label="Đã có mã đối tác" />
+                            }
+                            else { 
+                                <input type="hidden" name="InputCheckTentaint" value="true"/>
+                                <label>Đã có mã đối tác</label>
+                            }
+                            </div>
+                        <div class="input-group mb-3">
+                            @if (Model.JoinCode != null)
+                            {
+                                <input type="text" name="InputTentaintName" class="form-control" readonly placeholder="Tên đơn vị mới" value="@Model.JoinCode">
+                            }
+                            else
+                            {
                                 <input type="text" name="InputTentaintName" class="form-control" placeholder="Tên đơn vị mới">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-user-friends"></span>
-                                    </div>
+
+                            }
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user-friends"></span>
                                 </div>
                             </div>
+                        </div>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="icheck-primary">

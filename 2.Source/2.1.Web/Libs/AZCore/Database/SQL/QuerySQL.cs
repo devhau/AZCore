@@ -11,7 +11,7 @@ namespace AZCore.Database.SQL
 
     public class QuerySQL
     {
-
+        public List<string> Tables = new List<string>();
         private class JoinTable
         {
             public string TableName { get; set; }
@@ -29,6 +29,26 @@ namespace AZCore.Database.SQL
             public SortType Sort { get; set; }
             public OperatorSQL Operator { get; set; }
             public List<ColumnValue> Sub { get; set; }
+            public string ToWhere(DynamicParameters parameter,int indexParam) {
+                bool isTable = Column.IndexOf('.')>0;
+                string nameColumn = isTable ? Column : "`{0}`".Frmat(Column);
+                string nameParam = "@{0}{1}".Frmat(Column.Replace('.','_'),indexParam);
+                switch (this.Operator)
+                {
+                    case OperatorSQL.LIKE:
+                        parameter.Add(nameParam, string.Format("%{0}%", this.Value));
+                        return " {0} like {1} ".Frmat(nameColumn, nameParam);
+                    case OperatorSQL.NotLIKE:
+                        parameter.Add(nameParam, string.Format("%{0}%", this.Value));
+                        return " {0} not like {1} ".Frmat(nameColumn, nameParam);
+                    case OperatorSQL.IN:
+                        parameter.Add(nameParam, string.Format("{0}", this.Value));
+                        return " {0} in ({1}) ".Frmat(nameColumn, nameParam);
+                    default:
+                        parameter.Add(nameParam, this.Value);
+                        return " {0} = {1} ".Frmat(nameColumn, nameParam);
+                }
+            }
         }
         #region -- Init
         private TypeSQL type;
@@ -57,6 +77,7 @@ namespace AZCore.Database.SQL
             return SetTable(typeof(TEntity).GetAttribute<TableInfoAttribute>().TableName);
         }
         public QuerySQL SetTable(string name) {
+            Tables.Add(name);
             this.TableName = name;
             return this;
         }
@@ -66,6 +87,7 @@ namespace AZCore.Database.SQL
         }
         public QuerySQL Join(string nameTable, Func<string, string, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
         {
+            Tables.Add(nameTable);
             joinTable.Add(new JoinTable() {
                 TableName= nameTable,
                 WhereJoin = whereJoin,
@@ -91,6 +113,11 @@ namespace AZCore.Database.SQL
         public QuerySQL SetColumn(string name)
         {
             this.Column = name;
+            return this;
+        }
+        public QuerySQL AddWhere(Func<QuerySQL, string> whereColumn, object value, OperatorSQL _operator = OperatorSQL.EQUAL)
+        {
+            this.SqlWhere.Add(new ColumnValue(whereColumn(this), value, _operator));
             return this;
         }
         public QuerySQL AddWhere(string column, object value, OperatorSQL _operator=OperatorSQL.EQUAL)
@@ -149,21 +176,7 @@ namespace AZCore.Database.SQL
                     if (flg)
                         sql.Append(" AND ");
                     flg = true;
-                    switch (item.Operator) {
-                        case OperatorSQL.LIKE:
-                            sql.AppendFormat(" `{0}` like @{0}{1} ", item.Column.Trim(), indexParam);
-                            parameter.Add(string.Format("@{0}{1}", item.Column.Trim(), indexParam), string.Format("%{0}%", item.Value));
-                            break;
-                        case OperatorSQL.IN:
-                            sql.AppendFormat(" `{0}` in (@{0}{1}) ", item.Column.Trim(), indexParam);
-                            parameter.Add(string.Format("@{0}{1}", item.Column.Trim(), indexParam), item.Value);
-                            break;
-
-                        default:
-                            sql.AppendFormat(" `{0}` = @{0}{1} ", item.Column.Trim(), indexParam);
-                            parameter.Add(string.Format("@{0}{1}", item.Column.Trim(), indexParam), item.Value);
-                            break;
-                    }
+                    sql.Append(item.ToWhere(parameter,indexParam));
                     indexParam++;
                 }
             }
@@ -188,22 +201,7 @@ namespace AZCore.Database.SQL
                     if (flg)
                         sql.Append(" AND ");
                     flg = true;
-                    switch (item.Operator)
-                    {
-                        case OperatorSQL.LIKE:
-                            sql.AppendFormat(" `{0}` like @{0}{1} ", item.Column.Trim(), indexParam);
-                            parameter.Add(string.Format("@{0}{1}", item.Column.Trim(), indexParam), string.Format("%{0}%", item.Value));
-                            break;
-                        case OperatorSQL.IN:
-                            sql.AppendFormat(" `{0}` in (@{0}{1}) ", item.Column.Trim(), indexParam);
-                            parameter.Add(string.Format("@{0}{1}", item.Column.Trim(), indexParam), item.Value);
-                            break;
-
-                        default:
-                            sql.AppendFormat(" `{0}` = @{0}{1} ", item.Column.Trim(), indexParam);
-                            parameter.Add(string.Format("@{0}{1}", item.Column.Trim(), indexParam), item.Value);
-                            break;
-                    }
+                    sql.Append(item.ToWhere(parameter, indexParam));
                     indexParam++;
                 }
             }

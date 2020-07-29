@@ -56,16 +56,29 @@ namespace AZWeb.Module.Page.Manager
         [BindQuery]
         public int PageIndex { get; set; }
         public int PageMax { get; set; }
-        [BindQuery]
+        [BindQuery(FromName = "rows")]
         public int PageSize { get; set; } = 20;
         public long PageTotal { get; set; }
         public long PageTotalAll { get; set; }
+        [BindQuery] 
+        public string sort { get; set; }
         public string ColumSort { get; set; }
         public SortType Sort { get; set; }
         public ManageModule(IHttpContextAccessor httpContext) : base(httpContext)
         {
             Service = this.HttpContext.GetService<TService>();
             ModuleInfo = this.GetType().GetAttribute<ModuleInfoAttribute>();
+        }
+        protected override void IntData()
+        {
+            if (!sort.IsNullOrEmpty()) {
+                var cols = sort.Split(' ');
+                if (cols.Length == 2) {
+                    ColumSort = cols[0];
+                    Sort = cols[1] == "asc"?SortType.ASC:(cols[1] == "desc"?SortType.DESC:SortType.None);
+                }
+            }
+            base.IntData();
         }
         public virtual void BindTableColumn()
         {

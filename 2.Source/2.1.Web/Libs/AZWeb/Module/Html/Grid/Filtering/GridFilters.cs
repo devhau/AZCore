@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using AZCore.Extensions;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
 using System;
@@ -153,7 +154,11 @@ namespace AZWeb.Module.Html.Grid
             else if (type.IsEnum)
             {
                 options.Add(new SelectListItem());
-
+                foreach (var item in Enum.GetValues(type)) {
+                    var itemValue = item.GetItemValueByEnum();
+                    options.Add(new SelectListItem { Value = ((int)itemValue.Value).ToString(), Text = itemValue.Display});
+                }
+                /*
                 IEnumerable<SelectListItem>? items = column.Grid
                     .ViewContext?
                     .HttpContext
@@ -161,9 +166,9 @@ namespace AZWeb.Module.Html.Grid
                     .GetRequiredService<IHtmlHelper>()
                     .GetEnumSelectList(type)
                     .OrderBy(item => item.Text);
-
                 if (items != null)
                     options.AddRange(items);
+                */
             }
 
             return options;

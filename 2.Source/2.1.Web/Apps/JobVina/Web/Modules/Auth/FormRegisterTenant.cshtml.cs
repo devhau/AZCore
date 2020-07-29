@@ -16,7 +16,7 @@ namespace JobVina.Web.Modules.Auth
             this.IsTheme = false;
             this.Title = "Đăng ký thông tin đối tác cung ứng lao động trên hệ thống JobVINA";
         }
-        [BindQuery]
+        [BindQuery(FromName ="ref-code")]
         public string JoinCode { get; set; }
         public string MessageError { get; set; }
         [BindService]
@@ -67,14 +67,12 @@ namespace JobVina.Web.Modules.Auth
                 };
                 user.SetPassword();
                 user.Id = userService.Insert(user);
-
-
                 //Đã tồn tại
                 if (InputCheckTentaint)
                 {
                     var tenant = tenantService.ExecuteQuery(p => p.AddWhere("ConcurrencyStamp", InputTentaintName)).FirstOrDefault();
                     if (tenant == null)
-                        throw new Exception("Đối tác không tồn tại");
+                        throw new Exception("Mã đơn vị cung ứng không tồn tại");
                     tenantUserService.Insert(new TenantUserModel()
                     {
                         Status = AZCore.Identity.TenantUserStatus.Join,

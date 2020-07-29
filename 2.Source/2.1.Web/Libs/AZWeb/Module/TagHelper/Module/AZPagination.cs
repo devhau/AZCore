@@ -29,15 +29,21 @@ namespace AZWeb.Module.TagHelper.Module
             string pathReal = "";
             foreach (var key in query.Keys)
             {
-                if (key != "PageSize" && key != "PageIndex" && key != "time")
+                if (key != "PageSize" && key != "PageIndex" && key != "rows" && key != "time")
                     pathReal = string.Format("{0}&{1}={2}", pathReal, key, HttpUtility.UrlEncode(query[key]));
             }
             pathReal = this.ViewContext.HttpContext.Request.Path.ToString() + "?" + pathReal;
             htmlBuild.Append("<div class=\"az-pagination\">");
             htmlBuild.AppendFormat("<ul class=\"pagination {0} {1}\">", this.TagId, InputClass);
             htmlBuild.Append("<li style=\"padding:0px 5px;\">");
-            htmlBuild.AppendFormat("<select class=\"form-control select2 az-change-ajax\" style=\"width: 100% \" name=\"PageSize\" az-href=\"{0}\">", pathReal);
-
+            htmlBuild.Append("<form>");
+            foreach (var key in query.Keys)
+            {
+                if (key != "PageSize" && key != "PageIndex" && key!= "rows" && key != "time")
+                    htmlBuild.AppendFormat("<input type='hidden' name='{0}' value='{1}'/>", key, query[key]);
+            //    pathReal = string.Format("{0}&{1}={2}", pathReal, key, HttpUtility.UrlEncode(query[key]));
+            }
+            htmlBuild.AppendFormat("<select class=\"form-control select2\" onchange=\"this.form.submit()\" style=\"width: 100% \" name=\"rows\" az-href=\"{0}\">", pathReal);
             foreach (var item in ListPageSize.Split(","))
             {
                 int PageSize = 0;
@@ -48,8 +54,9 @@ namespace AZWeb.Module.TagHelper.Module
                 }
             }
             htmlBuild.Append("</select>");
+            htmlBuild.Append("</form>");
             htmlBuild.Append("</li>");
-            htmlBuild.AppendFormat("<li class=\"paginate_button page-item previous {3}\"><a href=\"{0}&PageSize={2}&PageIndex={1}\" tabindex=\"0\" class=\"page-link  az-link\"><<</a></li>", pathReal, this.Pagination.PageIndex - 1, this.Pagination.PageSize, this.Pagination.PageIndex <= 1 ? "disabled" : "");
+            htmlBuild.AppendFormat("<li class=\"paginate_button page-item previous {3}\"><a href=\"{0}&rows={2}&PageIndex={1}\" tabindex=\"0\" class=\"page-link  az-link\"><<</a></li>", pathReal, this.Pagination.PageIndex - 1, this.Pagination.PageSize, this.Pagination.PageIndex <= 1 ? "disabled" : "");
 
             int startIndex = 0;
             int endIndex = 0;
@@ -75,9 +82,9 @@ namespace AZWeb.Module.TagHelper.Module
             }
             for (var i = startIndex; i <= endIndex; i++)
             {
-                htmlBuild.AppendFormat("<li class=\"paginate_button page-item {3}\"><a href=\"{0}&PageSize={2}&PageIndex={1}\"  tabindex=\"0\" class=\"page-link az-link\">{1}</a></li>", pathReal, i + 1, this.Pagination.PageSize, this.Pagination.PageIndex == i + 1 ? "active" : "");
+                htmlBuild.AppendFormat("<li class=\"paginate_button page-item {3}\"><a href=\"{0}&rows={2}&PageIndex={1}\"  tabindex=\"0\" class=\"page-link az-link\">{1}</a></li>", pathReal, i + 1, this.Pagination.PageSize, this.Pagination.PageIndex == i + 1 ? "active" : "");
             }
-            htmlBuild.AppendFormat("<li class=\"paginate_button page-item next {3}\"><a href=\"{0}&PageSize={2}&PageIndex={1}\"  tabindex=\"0\" class=\"page-link  az-link\">>></a></li>", pathReal, this.Pagination.PageIndex + 1, this.Pagination.PageSize, this.Pagination.PageIndex >= this.Pagination.PageMax ? "disabled" : "");
+            htmlBuild.AppendFormat("<li class=\"paginate_button page-item next {3}\"><a href=\"{0}&rows={2}&PageIndex={1}\"  tabindex=\"0\" class=\"page-link  az-link\">>></a></li>", pathReal, this.Pagination.PageIndex + 1, this.Pagination.PageSize, this.Pagination.PageIndex >= this.Pagination.PageMax ? "disabled" : "");
             htmlBuild.Append("<li style=\"padding: 3px; font-size: 20px; font-weight: 700;\">");
             htmlBuild.AppendFormat("Trang {0}/{1} Tổng {2}({3})", this.Pagination.PageIndex, this.Pagination.PageMax, this.Pagination.PageTotal, this.Pagination.PageTotalAll);
             htmlBuild.Append("</li>");

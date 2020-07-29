@@ -67,5 +67,6 @@ namespace JobVina.Data.Entities
         [Field(Length = 1000)]
         [FieldUploadFile(IsGenAutoNamFile =true)]
         public override string Avatar { get; set; }
+        public TenantUserStatus UserStatus { get; set; }
     }
 }

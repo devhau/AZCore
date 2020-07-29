@@ -9,6 +9,7 @@
 <div class="content">
     <div class="container-fluid">
         @(Html.Grid(Model.Data)
+        .Using(AZWeb.Module.Html.Grid.GridProcessingMode.Manual)
         .Build(columns =>
         {
             columns.Add().RenderedAs((model, row) => row + 1).Titled("#").Css("text-center");
@@ -25,7 +26,7 @@
         .Sortable()
         .Pageable((pa)=> { pa.ShowPageSizes = true;})
         )
-
+        <az-pagination pagination="Model"/>
     </div>
     <!-- /.container-fluid -->
 </div>

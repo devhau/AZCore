@@ -16,7 +16,7 @@ namespace AZCore.Database
     { }
     public class EntityService: IEntityService
     {
-        protected TypeSQL typeSQL;
+        protected TypeSQL typeSQL => _databaseCore.Type;
         public IDbConnection Connection => _databaseCore.Connection;
         protected readonly IDatabaseCore _databaseCore;
         public IDbTransaction Transaction = null;
