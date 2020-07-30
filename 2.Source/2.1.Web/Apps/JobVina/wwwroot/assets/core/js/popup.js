@@ -132,6 +132,18 @@ function Popup(options) {
 	$this.SerializeData = function () {
 		return $($this.ModalForm).SerializeForm();
 	}
+	$this.SumitForm = function () {
+		AjaxMain.DoPost($this.link, $this.SerializeData(), function (item) {
+			if (item.statusCode == 200 || item.statusCode == 201) {
+				$this.ClosePopup();
+				toastr.success(item.message);
+			} else {
+				toastr.error(item.message);
+			}
+		}, function (error) {
+
+		})
+	}
 	$this.destroy = function () {
 		if (options && options.eventClose !== undefined) options.eventClose();
 		$($this.Modal).remove();

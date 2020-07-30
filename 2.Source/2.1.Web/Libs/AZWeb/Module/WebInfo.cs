@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -7,6 +8,7 @@ namespace AZWeb.Module
 {
     public class WebInfo
     {
+        public static IWebHostEnvironment env;
         public static readonly string Namepace = Assembly.GetEntryAssembly().GetName().Name;
         public static Stream ReadStreamFromResource(string path, Assembly target = null) {
             if (target == null) target = Assembly.GetEntryAssembly();

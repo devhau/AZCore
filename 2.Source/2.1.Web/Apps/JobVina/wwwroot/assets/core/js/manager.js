@@ -19,7 +19,8 @@ $.fn.Manager =  function(option) {
                     Key: "f2",
                     Class: "btn btn-success az-btn az-btn-update",
                     Icon: "far fa-save",
-                    func: function (elem, scope,self) {
+                    func: function (elem, scope, self) {
+                        scope.SumitForm();
                     }
                 }
             ]
@@ -32,6 +33,7 @@ $.fn.Manager =  function(option) {
                     Class: "btn btn-success az-btn az-btn-update",
                     Icon: "far fa-save",
                     func: function (elem, scope, self) {
+                        scope.SumitForm();
                     }
                 }
             ]

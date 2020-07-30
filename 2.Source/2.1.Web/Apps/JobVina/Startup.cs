@@ -35,6 +35,7 @@ namespace JobVina
               IWebHostEnvironment env)
         {
             this.env = env;
+            WebInfo.env = env;
             Configuration = configuration;
 
             using (StreamReader sr = new StreamReader(WebInfo.ReadStreamFromResource("JobVina/Configs/rewrite.configs")))

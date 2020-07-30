@@ -148,7 +148,7 @@ namespace AZWeb.Extensions
         }
         //params string[] paths
         public static string MapWebRootPath(this string path) {
-           return Path.Combine(ModuleRender._hostingEnvironment.WebRootPath, path);
+           return Path.Combine(WebInfo.env.WebRootPath, path);
 
         }
         public static string MapWebRootPath(this object obj, params string[] paths)
