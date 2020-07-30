@@ -33,21 +33,9 @@ namespace AZCore.Database.SQL
                 bool isTable = Column.IndexOf('.')>0;
                 string nameColumn = isTable ? Column : "`{0}`".Frmat(Column);
                 string nameParam = "@{0}{1}".Frmat(Column.Replace('.','_'),indexParam);
-                switch (this.Operator)
-                {
-                    case OperatorSQL.LIKE:
-                        parameter.Add(nameParam, string.Format("%{0}%", this.Value));
-                        return " {0} like {1} ".Frmat(nameColumn, nameParam);
-                    case OperatorSQL.NotLIKE:
-                        parameter.Add(nameParam, string.Format("%{0}%", this.Value));
-                        return " {0} not like {1} ".Frmat(nameColumn, nameParam);
-                    case OperatorSQL.IN:
-                        parameter.Add(nameParam, string.Format("{0}", this.Value));
-                        return " {0} in ({1}) ".Frmat(nameColumn, nameParam);
-                    default:
-                        parameter.Add(nameParam, this.Value);
-                        return " {0} = {1} ".Frmat(nameColumn, nameParam);
-                }
+                var itemOpera = this.Operator.GetAttributeByEnum<FieldAttribute>();
+                parameter.Add(nameParam, itemOpera.GroupName.Frmat(this.Value));
+                return itemOpera.Display.Frmat( nameParam, nameColumn);
             }
         }
         #region -- Init

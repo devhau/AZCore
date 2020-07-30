@@ -220,7 +220,7 @@ $.fn.ShowLinkPopup = function () {
     let isForm = $(this).attr("modal-form");
     let LinkHref = $(this).attr("href");
     let link = $(this).attr("href");
-    if (LinkHref.indexOf("?") > 0) {
+    if (LinkHref.indexOf("?") >=0) {
         LinkHref += "&ActionType=popup"
     } else
         LinkHref += "?ActionType=popup"
@@ -246,3 +246,51 @@ $.fn.ShowLinkPopup = function () {
         });
     });
 }
+
+$.fn.ShowLinkFormUpdate = function () {
+    let ModalSize = $(this).attr("modal-size");
+    let reload = $(this).attr("reload");
+    let isForm = $(this).attr("modal-form");
+    let LinkHref = $(this).attr("href");
+    let link = $(this).attr("href");
+    if (LinkHref.indexOf("?") >= 0) {
+        LinkHref += "&ActionType=popup"
+    } else
+        LinkHref += "?ActionType=popup"
+    AjaxMain.DoGet(LinkHref, null, function (item) {
+        if (item.statusCode && item.statusCode === 401) {
+            return;
+        }
+        let popup = new AZPopup();
+        popup.ClearButton();
+        popup.setHtml(item.html);
+        $icon = '<i class="fas fa-edit"></i> ';
+        if (item.icon && item.icon != "") {
+            $icon = '<i class="' + item.icon + '"></i> ';
+        }
+        popup.setTitle($icon + item.title);
+        popup.setLink(link);
+        popup.ModalSize = ModalSize;
+        popup.IsForm = true;
+        popup.AddButton({
+            value: "Lưu lại (F2)",
+            icon: "far fa-save",
+            cls: "btn btn-success az-btn az-btn-update",
+            cmd: "f2",
+            func: function (elem, scope) {
+                AjaxMain.DoPost(scope.link, scope.SerializeData(), function (item) {
+                    if (item.statusCode == 200 || item.statusCode == 201) {
+                        location.reload();
+                        scope.ClosePopup();
+                        toastr.success(item.message);
+                    } else {
+                        toastr.error(item.message);
+                    }
+                }, function (error) {
+
+                })
+            }
+        });
+        popup.ShowPopup();
+    });
+ }

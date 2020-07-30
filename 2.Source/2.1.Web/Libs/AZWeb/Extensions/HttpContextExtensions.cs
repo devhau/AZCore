@@ -285,6 +285,7 @@ namespace AZWeb.Extensions
         }
         public static void BindFormTo(this HttpContext httpContext, object obj,string name="")
         {
+            if (!httpContext.Request.HasFormContentType) return;
             FieldUploadFileAttribute fieldFile = null;
             IReadOnlyList<IFormFile> fileValues = null;
             var files=httpContext.Request.Form.Files;

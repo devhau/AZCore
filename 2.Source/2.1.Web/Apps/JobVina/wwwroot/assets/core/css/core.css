@@ -1,0 +1,6 @@
+﻿body {
+}
+.az-modal-none .modal-dialog {
+    width:80%;
+    min-width:800px;
+}

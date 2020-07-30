@@ -60,7 +60,7 @@ namespace AZWeb.Module.Page.Manager
                 this.Data = this.Service.GetById(Id);
             }
             AfterGet();
-            return View();
+            return View(this.Data);
         }
         public virtual void DataFormToData(TModel DataForm, Func<PropertyInfo, bool> funProper = null)
         {
@@ -73,6 +73,7 @@ namespace AZWeb.Module.Page.Manager
                 }
                 return;
             }
+            if (!this.HttpContext.Request.HasFormContentType) return;
             var ModelType = typeof(TModel);
             foreach (var item in ModelType.GetProperties()) {
                 if ((this.HttpContext.Request.Form.ContainsKey(item.Name)||(this.HttpContext.Request.Form.Files.GetListFiles(item.Name).Count>0&&item.GetAttribute<FieldUploadFileAttribute>()!=null)) && (funProper==null||funProper(item))) 

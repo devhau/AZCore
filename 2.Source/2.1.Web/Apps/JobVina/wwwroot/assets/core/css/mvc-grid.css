@@ -1,14 +1,4 @@
-﻿/*!
- * Mvc.Grid 6.2.0
- * https://github.com/NonFactors/AspNetCore.Grid
- *
- * Copyright © NonFactors
- *
- * Licensed under the terms of the MIT License
- * http://www.opensource.org/licenses/mit-license.php
- */
-
-@font-face {
+﻿@font-face {
     src: url("fonts/grid-glyphs.woff") format("woff");
     font-family: GridGlyphs;
 }

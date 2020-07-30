@@ -21,6 +21,7 @@ AZUrl.prototype.Init = function () {
     let $this = this;
     $("a.az-link").off("click");
     $("a.az-link-popup").off("click");
+    $("a.az-link-form-update").off("click");
     $(window).off('popstate');
     $(".az-bind-data-item").off("change");
     $("a.az-link").on("click", function (e) {
@@ -30,6 +31,10 @@ AZUrl.prototype.Init = function () {
     $("a.az-link-popup").on("click", function (e) {
         e.preventDefault();
         $(this).ShowLinkPopup();
+    });
+    $("a.az-link-form-update").on("click", function (e) {
+        e.preventDefault();
+        $(this).ShowLinkFormUpdate();
     });
     $(".az-change-ajax").on("change", function (e) {
         if ($(this).parents(".az-manager") === undefined) {

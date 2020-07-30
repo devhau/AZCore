@@ -85,14 +85,22 @@ namespace AZWeb.Module.Page.Manager
             this.Columns = this.GetType().GetAttributes<TableColumnAttribute>().ToList();
         }
         protected virtual void AddWhere(QuerySQL Q) {
-            if (this.TenantId != null) {
+            if (this.TenantId != null)
+            {
                 Q.AddWhere("TenantId", this.TenantId);
+            }
+        }
+        protected virtual void AddOperatorWhere(QuerySQL Q) {
+            foreach (var key in this.HttpContext.Request.Query.Keys) {
+                var item = ItemOperator.Parse(key, this.HttpContext.Request.Query[key][0]);
+                if (item != null) {
+                    Q.AddWhere(item.Item, item.Value,item.Operator);
+                }
             }
         }
         protected virtual void AddQuerySQL(QuerySQL Q)
         {
-
-
+            
         }
         public virtual List<TModel> GetSearchData()
         {
@@ -105,6 +113,7 @@ namespace AZWeb.Module.Page.Manager
                         T.AddWhere(p.Property.Name, p.Property.GetValue(this), p.OperatorSQL);
                 }
                 AddWhere(T);
+                AddOperatorWhere(T);
             };
             this.PageTotalAll = Service.ExecuteNoneQuery((T) => {
 

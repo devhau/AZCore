@@ -16,6 +16,10 @@ namespace AZCore.Extensions
         {
             return type.GetAttributes<TAttribute>().FirstOrDefault();
         }
+        public static TAttribute GetAttributeByEnum<TAttribute>(this object obj)
+        {
+            return obj.GetType().GetMember(obj.ToString())[0].GetAttributes<TAttribute>().FirstOrDefault();
+        }
         public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this Type type)
         {
             return type.GetCustomAttributes(true).OfType<TAttribute>();

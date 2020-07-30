@@ -1,12 +1,3 @@
-/*!
- * Mvc.Grid 6.2.0
- * https://github.com/NonFactors/AspNetCore.Grid
- *
- * Copyright © NonFactors
- *
- * Licensed under the terms of the MIT License
- * http://www.opensource.org/licenses/mit-license.php
- */
 class MvcGrid {
     constructor(container, options = {}) {
         const grid = this;
@@ -1029,6 +1020,3 @@ class MvcGridGuidFilter extends MvcGridFilter {
         return !value || /^[0-9A-F]{8}[-]?([0-9A-F]{4}[-]?){3}[0-9A-F]{12}$/i.test(value);
     }
 }
-$(function () {
-    document.querySelectorAll(".mvc-grid").forEach(element => new MvcGrid(element));
-})

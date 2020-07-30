@@ -60,7 +60,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\assets\admin-core\mvc-grid\js\mvc-grid.js" />
+    <None Include="wwwroot\assets\core\js\mvc-grid.js" />
   </ItemGroup>
 	
   <ItemGroup>
