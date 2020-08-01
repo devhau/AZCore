@@ -54,7 +54,6 @@
   <ItemGroup>
     <Folder Include="WebApi\" />
     <Folder Include="Web\Modules\Admin\System\" />
-    <Folder Include="Web\Modules\Admin\User\" />
     <Folder Include="Web\Widgets\" />
     <Folder Include="wwwroot\upload\" />
   </ItemGroup>

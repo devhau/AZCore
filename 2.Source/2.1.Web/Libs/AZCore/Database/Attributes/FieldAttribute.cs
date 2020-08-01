@@ -18,6 +18,6 @@ namespace AZCore.Database.Attributes
         public int OrderIndex { get; set; }
         public Object Value { get; set; }
         public Object ValueDefault { get; set; }
-        
+        public Type TargetService { get; set; }
     }
 }

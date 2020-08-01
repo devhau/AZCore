@@ -1,13 +1,9 @@
-﻿@model FormUserCompany
+﻿@model FormUser
 <az-content-header />
 <!-- Main content -->
 <div class="content">
     <div class="container-fluid">
         <az-layout class="az-manager" script-random="id=>ScriptHelpper.FormManager(id,string.Empty)">
-            <div class="row">
-                <div class="col-3"><button class='btn btn-primary btn-sm btn-add' data-id=''><i class='far fa-edit'></i> Thêm mới</button></div>
-            </div>
-            
             @(Html.Grid(Model.Data)
                 .Using(AZWeb.Module.Html.Grid.GridProcessingMode.Manual)
                 .Id("IdUserCompany")

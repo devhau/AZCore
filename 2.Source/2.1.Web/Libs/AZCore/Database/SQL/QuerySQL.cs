@@ -11,12 +11,24 @@ namespace AZCore.Database.SQL
 
     public class QuerySQL
     {
-        public List<string> Tables = new List<string>();
+        public List<TableInfo> Tables = new List<TableInfo>();
+        public class TableInfo {
+            public TableInfo(string TableName,int Index) {
+                this.TableName = TableName;
+                this.Index = Index;
+            }
+            public string TableName { get;  }
+            public int Index { get; }
+            public string TIndex => "T{0}".Frmat(Index);
+            public string GetColumn(string column) => column.Equals("*")? "{0}.{1}".Frmat(TIndex, column) : "{0}.`{1}`".Frmat(TIndex, column);
+            public string GetColumn(string column,string asName) => "{0}.`{1}` as {2}".Frmat(TIndex, column, asName);
+            public override string ToString()=> "`{0}` as {1}".Frmat(TableName, TIndex);
+        }
         private class JoinTable
         {
-            public string TableName { get; set; }
-            public string TableName2 { get; set; }
-            public Func<string, string, string> WhereJoin { get; set; }
+            public TableInfo TableName { get; set; }
+            public TableInfo TableName2 { get; set; }
+            public Func<TableInfo, TableInfo, string> WhereJoin { get; set; }
             public JoinType JoinType { get; set; } = JoinType.InnerJoin;
         }
         private class ColumnValue {
@@ -24,14 +36,14 @@ namespace AZCore.Database.SQL
             public ColumnValue(string column, object value) { this.Column = column; this.Value = value; }
             public ColumnValue(string column, object value, OperatorSQL _operator) { this.Column = column; this.Value = value; this.Operator = _operator; }
             public ColumnValue(string column, SortType sort) { this.Column = column;this.Sort = sort; }
+            public TableInfo Table { get; set; }
             public string Column { get; set; }
             public object Value { get; set; }
             public SortType Sort { get; set; }
             public OperatorSQL Operator { get; set; }
             public List<ColumnValue> Sub { get; set; }
             public string ToWhere(DynamicParameters parameter,int indexParam) {
-                bool isTable = Column.IndexOf('.')>0;
-                string nameColumn = isTable ? Column : "`{0}`".Frmat(Column);
+                string nameColumn = Table.GetColumn(Column);
                 string nameParam = "@{0}{1}".Frmat(Column.Replace('.','_'),indexParam);
                 var itemOpera = this.Operator.GetAttributeByEnum<FieldAttribute>();
                 parameter.Add(nameParam, itemOpera.GroupName.Frmat(this.Value));
@@ -40,7 +52,7 @@ namespace AZCore.Database.SQL
         }
         #region -- Init
         private TypeSQL type;
-        private string TableName = "";
+        private TableInfo TableName = null;
         private string Column = " * ";
         private List<JoinTable> joinTable = new List<JoinTable>();
         private List<ColumnValue> SqlWhere = new List<ColumnValue>();
@@ -65,34 +77,40 @@ namespace AZCore.Database.SQL
             return SetTable(typeof(TEntity).GetAttribute<TableInfoAttribute>().TableName);
         }
         public QuerySQL SetTable(string name) {
-            Tables.Add(name);
-            this.TableName = name;
+            var tb = new TableInfo(name, Tables.Count);
+            Tables.Add(tb);
+            this.TableName = tb;
             return this;
         }
-        public QuerySQL Join<TEntity>(Func<string, string, string> whereJoin, JoinType joinType = JoinType.InnerJoin) 
+        public QuerySQL Join<TEntity>(Func<TableInfo, TableInfo, string> whereJoin, JoinType joinType = JoinType.InnerJoin) 
         {
             return Join(typeof(TEntity).GetAttribute<TableInfoAttribute>().TableName,whereJoin, joinType);
         }
-        public QuerySQL Join(string nameTable, Func<string, string, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
+        public QuerySQL Join(string nameTable, Func<TableInfo, TableInfo, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
         {
-            Tables.Add(nameTable);
+            var tb = new TableInfo(nameTable, Tables.Count);
+            Tables.Add(tb);
             joinTable.Add(new JoinTable() {
-                TableName= nameTable,
+                TableName= tb,
                 WhereJoin = whereJoin,
                 JoinType = joinType,
             });
             return this;
         }
-        public QuerySQL Join<TEntity, TEntity2>(Func<string, string, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
+        public QuerySQL Join<TEntity, TEntity2>(Func<TableInfo, TableInfo, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
         {
             return Join(typeof(TEntity).GetAttribute<TableInfoAttribute>().TableName, typeof(TEntity2).GetAttribute<TableInfoAttribute>().TableName, whereJoin, joinType);
         }
-        public QuerySQL Join(string nameTable, string nameTable2, Func<string, string, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
+        public QuerySQL Join(string nameTable, string nameTable2, Func<TableInfo, TableInfo, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
         {
+            var tb = new TableInfo(nameTable, Tables.Count);
+            Tables.Add(tb);
+            var tb2 = new TableInfo(nameTable2, Tables.Count);
+            Tables.Add(tb);
             joinTable.Add(new JoinTable()
             {
-                TableName2=nameTable2,
-                TableName = nameTable,
+                TableName2= tb2,
+                TableName = tb,
                 WhereJoin = whereJoin,
                 JoinType = joinType,
             });
@@ -103,30 +121,38 @@ namespace AZCore.Database.SQL
             this.Column = name;
             return this;
         }
-        public QuerySQL AddWhere(Func<QuerySQL, string> whereColumn, object value, OperatorSQL _operator = OperatorSQL.EQUAL)
+        public QuerySQL AddColumn(string name)
         {
-            this.SqlWhere.Add(new ColumnValue(whereColumn(this), value, _operator));
+            if (this.Column.IsNullOrEmpty())
+                this.Column = name;
+            else
+                this.Column += ", " + name;
             return this;
         }
-        public QuerySQL AddWhere(string column, object value, OperatorSQL _operator=OperatorSQL.EQUAL)
+        public QuerySQL AddWhere(Func<QuerySQL, string> whereColumn, object value, OperatorSQL _operator = OperatorSQL.EQUAL,TableInfo table=null)
         {
-            this.SqlWhere.Add(new ColumnValue(column,value, _operator));
+            this.SqlWhere.Add(new ColumnValue(whereColumn(this), value, _operator) { Table = table ?? this.TableName });
             return this;
         }
-        public QuerySQL AddOrder(string column, SortType sort)
+        public QuerySQL AddWhere(string column, object value, OperatorSQL _operator=OperatorSQL.EQUAL, TableInfo table = null)
         {
-            this.SqlOrder.Add(new ColumnValue(column, sort));
+            this.SqlWhere.Add(new ColumnValue(column,value, _operator) { Table = table ?? this.TableName });
             return this;
         }
-        public QuerySQL AddHaving(string column, object value, OperatorSQL _operator = OperatorSQL.EQUAL)
+        public QuerySQL AddOrder(string column, SortType sort, TableInfo table = null)
         {
-            this.SqlHaving.Add(new ColumnValue(column, value, _operator));
+            this.SqlOrder.Add(new ColumnValue(column, sort) { Table = table ?? this.TableName });
+            return this;
+        }
+        public QuerySQL AddHaving(string column, object value, OperatorSQL _operator = OperatorSQL.EQUAL, TableInfo table = null)
+        {
+            this.SqlHaving.Add(new ColumnValue(column, value, _operator) {  Table = table ?? this.TableName });
             return this;
 
         }
-        public QuerySQL AddGroup(string column)
+        public QuerySQL AddGroup(string column, TableInfo table = null)
         {
-            this.SqlGroup.Add(new ColumnValue() { Column= column });
+            this.SqlGroup.Add(new ColumnValue() { Column = column, Table = table ?? this.TableName }) ;
             return this;
         }
         public QuerySQL Pagination(int pageIndex = 1, int pageSize = 20)
@@ -140,7 +166,7 @@ namespace AZCore.Database.SQL
             StringBuilder sql = new StringBuilder();
             DynamicParameters parameter = new DynamicParameters();
             int indexParam = 0;
-            sql.AppendFormat("SELECT {0} FROM `{1}` ",this.Column,this.TableName);
+            sql.AppendFormat("SELECT {0} FROM {1}",this.Column,this.TableName);
             foreach (var item in this.joinTable) {
                 string joinStr = " JOIN ";
                 if (item.JoinType == JoinType.LeftOuterJoin) {
@@ -152,10 +178,10 @@ namespace AZCore.Database.SQL
                 if (item.JoinType == JoinType.RightOuterJoin){
                     joinStr = " FULL OUTER JOIN ";
                 }
-                if (string.IsNullOrEmpty(item.TableName2))
-                    sql.AppendFormat(" {0} `{1}`  on {2}", joinStr, item.TableName, item.WhereJoin(this.TableName, item.TableName));
+                if (item.TableName2.IsNull())
+                    sql.AppendFormat(" {0} {1}  on {2}", joinStr, item.TableName, item.WhereJoin(this.TableName, item.TableName));
                 else
-                    sql.AppendFormat(" {0} `{1}`  on {2}", joinStr, item.TableName2, item.WhereJoin(item.TableName, item.TableName2));
+                    sql.AppendFormat(" {0} {1}  on {2}", joinStr, item.TableName2, item.WhereJoin(item.TableName, item.TableName2));
             }
             if (SqlWhere.Count > 0) {
                 sql.Append(" WHERE ");

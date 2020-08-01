@@ -55,9 +55,40 @@ $.fn.Manager =  function(option) {
         $this.InitEvent();
     }
     $this.InitEvent = function () {
+        $($this).find('.btn-add').off("click");
+        $($this).find('.btn-add').on("click", function () {
+            $this.FormEdit();
+        });
         $($this).find('.btn-edit').off("click");
         $($this).find('.btn-edit').on("click", function () {
-            $this.FormEdit($(this).data("id"));
+            $this.FormEdit($(this).data("id"), $(this).parents("tr").attr("data-item"));
+        });
+        $($this).find('.btn-remove').off("click");
+        $($this).find('.btn-remove').on("click", function () {
+            let url = $this.location.pathname + "?h=delete&id=" + $(this).data("id");
+            toastr.info(url);
+            StateMain.Confirm("Bạn có muốn xóa bảng ghi này không?",
+                function (el, scope) {
+                    //Yes
+                    AjaxMain.DoPost(url, {}, function (item) {
+                        if (item.statusCode && item.statusCode === 401) {
+                            return;
+                        }
+                        if (item.statusCode == 200 || item.statusCode == 201) {
+                            scope.ClosePopup();
+                            toastr.info(item.message);
+                        } else {
+                            toastr.error(item.message);
+                        }
+                    })
+
+                }, function (el, scope) {
+                    //No
+                    scope.ClosePopup();
+                })
+        });
+        $($this).find("table tbody tr").on("dblclick", function () {
+            $(this).find(".btn-edit").click();
         });
     }
     $this.FormEdit = function ($Id, $DataItem) {

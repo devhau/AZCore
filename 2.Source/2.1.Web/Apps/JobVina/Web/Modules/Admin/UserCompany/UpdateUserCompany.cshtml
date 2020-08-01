@@ -2,17 +2,12 @@
 
 <div class="form-row">
     <div class="form-group col-md-6">
-        @Html.LabelFor(p=>p.FullName)
-        @Html.TextBoxFor(p => p.FullName,new {
-            Class="form-control",
-        })
+        @Html.ZHtml().LabelFor(p=>p.FullName)
+        @Html.ZHtml().TextboxFor(p => p.FullName)
     </div>
     <div class="form-group col-md-6">
-        @Html.LabelFor(p => p.Address)
-        @Html.TextBoxFor(p => p.Address, new
-   {
-       Class = "form-control",
-   })
+        @Html.ZHtml().LabelFor(p => p.Address)
+        @Html.ZHtml().TextboxFor(p => p.Address)
     </div>
 </div>
 <div class="form-group">
