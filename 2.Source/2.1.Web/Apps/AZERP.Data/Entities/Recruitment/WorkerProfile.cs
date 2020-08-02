@@ -8,7 +8,7 @@ namespace AZERP.Data.Entities
     /// thông tin của công nhân
     /// </summary>
     [TableInfo(TableName = "az_recruitment_worker_profile")]
-    public class WorkerProfile : EntityTenantModel<WorkerProfile, long>
+    public class WorkerProfile : EntityTenantModel< long>
     {
         /// <summary>
         /// Id của Tài khoản

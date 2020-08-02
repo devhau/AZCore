@@ -8,7 +8,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class PaymentService : EntityService<PaymentService, PaymentModel>, IAZTransient
+    public class PaymentService : EntityService< PaymentModel>, IAZTransient
     {
         public PaymentService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_payment")]
-    public class PaymentModel : EntityTenantModel<PaymentModel, long>
+    public class PaymentModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã thanh toán

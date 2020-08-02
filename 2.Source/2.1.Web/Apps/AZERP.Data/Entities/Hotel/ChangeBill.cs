@@ -7,7 +7,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class ChangeBillService : EntityService<ChangeBillService, ChangeBillModel>, IAZTransient
+    public class ChangeBillService : EntityService<ChangeBillModel>, IAZTransient
     {
         public ChangeBillService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_change_bill")]
-    public class ChangeBillModel : EntityTenantModel<ChangeBillModel, long>
+    public class ChangeBillModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã hóa đơn

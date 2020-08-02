@@ -1,7 +1,6 @@
 ﻿using AZCore.Database.SQL;
 using AZCore.Extensions;
 using Dapper;
-using Org.BouncyCastle.Math.Field;
 using System;
 
 using System.Collections.Generic;
@@ -96,8 +95,7 @@ namespace AZCore.Database
             }
         }
     }
-    public partial class EntityService<TService, TModel> : EntityService
-        where TService : EntityService<TService, TModel>
+    public partial class EntityService<TModel> : EntityService
         where TModel : IEntity
     {
         protected BuildSQL buildSQL;
@@ -214,7 +212,7 @@ namespace AZCore.Database
             }
         }
     }
-    public partial class EntityService<TService, TModel> {
+    public partial class EntityService<TModel> {
         public IEnumerable<TModel> SelectObject(Expression<Func<Object, bool>> funcWhere)
         {
             return this.Select(funcWhere.ConvertTo<object,TModel>());

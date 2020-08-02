@@ -6,7 +6,7 @@ using System.Data;
 
 namespace JobVina.Data.Entities
 {
-    public class RolePermissionService : EntityService<RolePermissionService, RolePermissionModel>, IAZTransient
+    public class RolePermissionService : EntityService< RolePermissionModel>, IAZTransient
     {
         public RolePermissionService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -16,7 +16,7 @@ namespace JobVina.Data.Entities
             return null;
         }
     }
-    public class RolePermissionModel : AZRolePermission<RolePermissionModel>
+    public class RolePermissionModel : AZRolePermission
     {
     }
 }

@@ -8,7 +8,7 @@ namespace AZERP.Data.Entities
     /// vd: Lắp giáp linh kiện điện tử
     /// </summary>
     [TableInfo(TableName = "az_recruitment_professions")]
-    public class JobProfessions : EntityTenantModel<JobProfessions, long>
+    public class JobProfessions : EntityTenantModel< long>
     {
         [Field(Length = 255)]
         public string Name {get;set;}

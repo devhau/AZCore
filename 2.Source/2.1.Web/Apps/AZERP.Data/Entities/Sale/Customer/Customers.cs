@@ -10,7 +10,7 @@ using System.Text;
 
 namespace AZERP.Data.Entities
 {
-    public class CustomersService : EntityService<CustomersService, CustomersModel>, IAZTransient
+    public class CustomersService : EntityService<CustomersModel>, IAZTransient
     {
         public CustomersService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -21,7 +21,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_customers")]
-    public class CustomersModel : EntityTenantModel<CustomersModel, long>
+    public class CustomersModel : EntityTenantModel<long>
     {
         /// <summary>
         /// Mã khách hàng

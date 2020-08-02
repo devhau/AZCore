@@ -21,10 +21,7 @@ namespace AZERP.Web.Modules.Customers
             this.Title = "Khách hàng";
         }
 
-        public override IView Validate(CustomersModel model, bool isNew)
-        {
-            return null;
-        }
+       
 
     }
 }

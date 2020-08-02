@@ -5,7 +5,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class WidgetService : EntityService<WidgetService, WidgetModel>, IAZTransient
+    public class WidgetService : EntityService< WidgetModel>, IAZTransient
     {
         public WidgetService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -15,7 +15,7 @@ namespace AZERP.Data.Entities
     /// Thông tin của widget
     /// </summary>
     [TableInfo(TableName = "az_common_widget")]
-    public class WidgetModel : EntityTenantModel<WidgetModel, long>
+    public class WidgetModel : EntityTenantModel<long>
     {
         /// <summary>
         /// Cấu hình theo từng người

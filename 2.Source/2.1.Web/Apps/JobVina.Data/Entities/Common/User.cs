@@ -12,7 +12,7 @@ namespace JobVina.Data.Entities
     /// <summary>
     /// Serivce của Tài khoản
     /// </summary>
-    public class UserService : EntityService<UserService, UserModel>, IAZTransient, IIdentityService
+    public class UserService : EntityService< UserModel>, IAZTransient, IIdentityService
     {
         public UserService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -61,7 +61,7 @@ namespace JobVina.Data.Entities
     /// Thông tin tài khoản
     /// Thằng nào tìm được thông tin của tao thì tao cũng cặn lời
     /// </summary>
-    public class UserModel : AZUser<UserModel>
+    public class UserModel : AZUser
     {
 
         [Field(Length = 1000)]

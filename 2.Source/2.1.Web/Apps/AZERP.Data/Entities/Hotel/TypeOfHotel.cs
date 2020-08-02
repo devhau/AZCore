@@ -7,7 +7,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class TypeOfHotelService : EntityService<TypeOfHotelService, TypeOfHotelModel>, IAZTransient
+    public class TypeOfHotelService : EntityService< TypeOfHotelModel>, IAZTransient
     {
         public TypeOfHotelService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_typeofhotel")]
-    public class TypeOfHotelModel : EntityTenantModel<TypeOfHotelModel, long>
+    public class TypeOfHotelModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Tên loại phòng trọ

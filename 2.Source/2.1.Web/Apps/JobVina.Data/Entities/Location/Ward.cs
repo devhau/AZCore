@@ -7,7 +7,7 @@ using System.Text;
 
 namespace JobVina.Data.Entities.Location
 {
-    public class WardService : EntityService<WardService, WardModel>, IAZTransient
+    public class WardService : EntityService<WardModel>, IAZTransient
     {
         public WardService(IDatabaseCore databaseCore) : base(databaseCore)
         {

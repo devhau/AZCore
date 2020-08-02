@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AZERP.Data.Entities
 {
-    public class OrderService : EntityService<OrderService, OrderModel>, IAZTransient
+    public class OrderService : EntityService< OrderModel>, IAZTransient
     {
         public OrderService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -21,7 +21,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_order")]
-    public class OrderModel : EntityTenantModel<OrderModel, long>
+    public class OrderModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã đơn hàng

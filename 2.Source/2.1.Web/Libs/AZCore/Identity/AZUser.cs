@@ -13,7 +13,7 @@ namespace AZCore.Identity
         [Field(Display = "Khác")] Other = 3,
     }
     [TableInfo(TableName = "az_common_user")]
-    public class AZUser<TEntity> : EntityModel<TEntity, long> where TEntity : AZUser<TEntity>
+    public class AZUser : EntityModel<long>
     {
         [FieldDisplay]
         [Field(Length =200, Display = "Họ tên")]

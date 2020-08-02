@@ -5,7 +5,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class UserPermissionService : EntityService<UserPermissionService, UserPermissionModel>, IAZTransient
+    public class UserPermissionService : EntityService< UserPermissionModel>, IAZTransient
     {
         public UserPermissionService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -15,7 +15,7 @@ namespace AZERP.Data.Entities
             
         }
     }
-    public class UserPermissionModel : AZUserPermission<UserPermissionModel>
+    public class UserPermissionModel : AZUserPermission
     {
     }
 }

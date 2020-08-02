@@ -4,7 +4,7 @@ using AZCore.Database.Attributes;
 namespace AZCore.Identity
 {
     [TableInfo(TableName = "az_common_role")]
-    public class AZRole<TEntity> : EntityModel<TEntity, long> where TEntity: AZRole<TEntity>
+    public class AZRole : EntityModel<long>
     {
         [FieldDisplay]
         [Field(Length = 200)]

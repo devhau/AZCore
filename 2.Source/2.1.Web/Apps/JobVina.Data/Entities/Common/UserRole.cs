@@ -5,13 +5,13 @@ using System.Data;
 
 namespace JobVina.Data.Entities
 {
-    public class UserRoleService : EntityService<UserRoleService, UserRoleModel>, IAZTransient
+    public class UserRoleService : EntityService< UserRoleModel>, IAZTransient
     {
         public UserRoleService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
-    public class UserRoleModel : AZUserRole<UserRoleModel>
+    public class UserRoleModel : AZUserRole
     {
     }
 }

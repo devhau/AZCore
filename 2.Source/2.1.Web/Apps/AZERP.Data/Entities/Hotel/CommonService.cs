@@ -7,7 +7,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class CommonService : EntityService<CommonService, CommonServiceModel>, IAZTransient
+    public class CommonService : EntityService< CommonServiceModel>, IAZTransient
     {
         public CommonService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_common_service")]
-    public class CommonServiceModel : EntityTenantModel<CommonServiceModel, long>
+    public class CommonServiceModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã dịch vụ chung

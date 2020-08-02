@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JobVina.Data.Entities
 {
-    public class ProvinceService : EntityService<ProvinceService, ProvinceModel>, IAZTransient
+    public class ProvinceService : EntityService< ProvinceModel>, IAZTransient
     {
         public ProvinceService(IDatabaseCore databaseCore) : base(databaseCore)
         {

@@ -7,7 +7,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class DeviceCommonService : EntityService<DeviceCommonService, DeviceCommonModel>, IAZTransient
+    public class DeviceCommonService : EntityService< DeviceCommonModel>, IAZTransient
     {
         public DeviceCommonService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_device_common")]
-    public class DeviceCommonModel : EntityTenantModel<DeviceCommonModel, long>
+    public class DeviceCommonModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã Thiết Bị Chung

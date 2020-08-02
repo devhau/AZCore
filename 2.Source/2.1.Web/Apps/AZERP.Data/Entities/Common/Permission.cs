@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AZERP.Data.Entities
 {
-    public class PermissionService : EntityService<PermissionService, PermissionModel>, IAZTransient
+    public class PermissionService : EntityService<PermissionModel>, IAZTransient
     {
         public PermissionService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// <summary>
     /// Thông tin của quyền
     /// </summary>
-    public class PermissionModel : AZPermission<PermissionModel>
+    public class PermissionModel : AZPermission
     {
         [Field]
         public string GroupName { get; set; }

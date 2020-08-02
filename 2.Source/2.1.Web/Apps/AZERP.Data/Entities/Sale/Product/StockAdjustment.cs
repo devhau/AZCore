@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AZERP.Data.Entities
 {
-    public class StockAdjusmentService : EntityService<StockAdjusmentService, StockAdjusmentModel>, IAZTransient
+    public class StockAdjusmentService : EntityService< StockAdjusmentModel>, IAZTransient
     {
         public StockAdjusmentService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -21,7 +21,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_stock_adjustment")]
-    public class StockAdjusmentModel : EntityTenantModel<StockAdjusmentModel, long>
+    public class StockAdjusmentModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã đơn kiểm

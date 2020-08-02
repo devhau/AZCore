@@ -8,7 +8,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class CandidateService : EntityService<CandidateService, CandidateModel>, IAZTransient
+    public class CandidateService : EntityService< CandidateModel>, IAZTransient
     {
         public CandidateService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_recruitment_candidate")]
-    public class CandidateModel : EntityTenantModel<CandidateModel, long>
+    public class CandidateModel : EntityTenantModel< long>
     {
         [FieldAutoGenCode(Key =SystemCode.CandidateCode )]
         [Field(Length =256)]

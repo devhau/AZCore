@@ -19,7 +19,7 @@ namespace AZWeb.Module.Page.Manager
     [Auth]
     public abstract class ManageModule<TService, TModel> :  PageModule, IEntity, IPagination
          where TModel : IEntity, new()
-        where TService : EntityService<TService, TModel>
+        where TService : EntityService<TModel>
     {
         public List<ButtonInfo> GetButtonInfo() => this.CreateButtons().ToList();
         protected virtual IEnumerable<ButtonInfo> CreateButtons() {
@@ -188,7 +188,7 @@ namespace AZWeb.Module.Page.Manager
     }
     public class ManageModule<TService, TModel, TForm> : ManageModule<TService,TModel>
         where TModel : IEntity, new()
-        where TService : EntityService<TService, TModel>
+        where TService : EntityService<TModel>
         where TForm : UpdateModule<TService, TModel>
     {
         protected TForm FormUpdate;

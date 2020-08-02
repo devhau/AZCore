@@ -6,7 +6,7 @@ namespace JobVina.Common
 {
     public class PageUpdate<TService, TModel> : UpdateModule<TService, TModel>
         where TModel : IEntity, new()
-        where TService : EntityService<TService, TModel>
+        where TService : EntityService<TModel>
     {
         public PageUpdate(IHttpContextAccessor httpContext) : base(httpContext)
         {

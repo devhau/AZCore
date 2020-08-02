@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AZERP.Data.Entities
 {
-    public class PurchaseOrderProductService : EntityService<PurchaseOrderProductService, PurchaseOrderProductModel>, IAZTransient
+    public class PurchaseOrderProductService : EntityService< PurchaseOrderProductModel>, IAZTransient
     {
         public PurchaseOrderProductService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -21,7 +21,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_purchase_order_product")]
-    public class PurchaseOrderProductModel : EntityTenantModel<PurchaseOrderProductModel, long>
+    public class PurchaseOrderProductModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã đơn nhập/ xuất

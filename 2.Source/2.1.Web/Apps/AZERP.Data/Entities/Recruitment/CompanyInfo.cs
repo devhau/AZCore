@@ -6,7 +6,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class CompanyInfoService : EntityService<CompanyInfoService, CompanyInfoModel>, IAZTransient
+    public class CompanyInfoService : EntityService< CompanyInfoModel>, IAZTransient
     {
         public CompanyInfoService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -17,7 +17,7 @@ namespace AZERP.Data.Entities
     /// //Phần này sẽ dùng chung cho các đối tác tuyển dụng
     /// </summary>
     [TableInfo(TableName = "az_recruitment_company_info")]
-    public class CompanyInfoModel : EntityTenantModel<CompanyInfoModel, long>
+    public class CompanyInfoModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Tên công ty

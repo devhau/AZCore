@@ -10,7 +10,7 @@ using System.Text;
 
 namespace AZERP.Data.Entities
 {
-    public class SupplierService : EntityService<SupplierService, SupplierModel>, IAZTransient
+    public class SupplierService : EntityService<SupplierModel>, IAZTransient
     {
         public SupplierService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -21,7 +21,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_supplier")]
-    public class SupplierModel : EntityTenantModel<SupplierModel, long>
+    public class SupplierModel : EntityTenantModel<long>
     {
         /// <summary>
         /// Mã nhà cung cấp

@@ -15,7 +15,7 @@ namespace AZWeb.Module.Page.Manager
     [Auth]
     public abstract class UpdateModule<TService, TModel> : PageModule
         where TModel : IEntity, new()
-        where TService : EntityService<TService, TModel>
+        where TService : EntityService<TModel>
     {
         public bool IsNew => this.Data == null;
         protected TService Service;
@@ -127,7 +127,7 @@ namespace AZWeb.Module.Page.Manager
 
     public class UpdateModule<TService, TModel, TManager> : UpdateModule<TService, TModel>
         where TModel : IEntity, new()
-        where TService : EntityService<TService, TModel>
+        where TService : EntityService<TModel>
         where TManager: ManageModule<TService, TModel>
     {
         public UpdateModule(IHttpContextAccessor httpContext) : base(httpContext)

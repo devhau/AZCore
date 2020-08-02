@@ -8,7 +8,7 @@ using System.Text;
 
 namespace AZERP.Data.Entities
 {
-    public class CollaboratorService : EntityService<CollaboratorService, CollaboratorModel>, IAZTransient
+    public class CollaboratorService : EntityService< CollaboratorModel>, IAZTransient
     {
         public CollaboratorService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_recruitment_collaborator")]
-    public class CollaboratorModel : EntityTenantModel<CollaboratorModel, long>
+    public class CollaboratorModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã code

@@ -5,13 +5,13 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class TenantUserService : EntityService<TenantUserService, TenantUserModel>, IAZTransient
+    public class TenantUserService : EntityService< TenantUserModel>, IAZTransient
     {
         public TenantUserService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
-    public class TenantUserModel : AZTenantUser<TenantUserModel>
+    public class TenantUserModel : AZTenantUser
     {
     }
     

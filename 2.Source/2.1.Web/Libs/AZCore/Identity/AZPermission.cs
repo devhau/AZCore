@@ -4,7 +4,7 @@ using AZCore.Database.Attributes;
 namespace AZCore.Identity
 {
     [TableInfo(TableName = "az_common_permission")]
-    public class AZPermission<TEntity> : ITenantEntity
+    public class AZPermission : ITenantEntity
     {
         [Field]
         public string KeyName { get; set; }

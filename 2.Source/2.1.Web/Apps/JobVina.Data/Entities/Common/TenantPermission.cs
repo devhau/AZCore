@@ -5,13 +5,13 @@ using System.Data;
 
 namespace JobVina.Data.Entities
 {
-    public class TenantPermissionService : EntityService<TenantPermissionService, TenantPermissionModel>, IAZTransient
+    public class TenantPermissionService : EntityService< TenantPermissionModel>, IAZTransient
     {
         public TenantPermissionService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
-    public class TenantPermissionModel : AZTenantPermission<TenantPermissionModel>
+    public class TenantPermissionModel : AZTenantPermission
     {
     }
 }

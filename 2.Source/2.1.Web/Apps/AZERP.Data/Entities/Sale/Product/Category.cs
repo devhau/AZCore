@@ -5,7 +5,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class CategoryService : EntityService<CategoryService, CategoryModel>, IAZTransient
+    public class CategoryService : EntityService< CategoryModel>, IAZTransient
     {
         public CategoryService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -16,7 +16,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_Category")]
-    public class CategoryModel : EntityTenantModel<CategoryModel, long>
+    public class CategoryModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Nhóm cha

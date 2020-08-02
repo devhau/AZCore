@@ -8,14 +8,14 @@ using System.Text;
 
 namespace AZERP.Data.Entities
 {
-    public class CatalogService : EntityService<CatalogService, CatalogModel>, IAZTransient
+    public class CatalogService : EntityService< CatalogModel>, IAZTransient
     {
         public CatalogService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
     [TableInfo(TableName = "az_common_catalog")]
-    public class CatalogModel : EntityTenantModel<CatalogModel, long>
+    public class CatalogModel : EntityTenantModel<long>
     {
         /// <summary>
         /// 

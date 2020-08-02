@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace AZERP.Data.Entities
 {
-    public class SystemCodeService : EntityService<SystemCodeService, SystemCodeModel>, IAZTransient, IGenCodeService<SystemCode>
+    public class SystemCodeService : EntityService<SystemCodeModel>, IAZTransient, IGenCodeService<SystemCode>
     {
         public SystemCodeService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -54,7 +54,7 @@ namespace AZERP.Data.Entities
         }
     }
     [TableInfo(TableName = "az_common_system_code")]
-    public class SystemCodeModel : EntityTenantModel<SystemCodeModel,long>
+    public class SystemCodeModel : EntityTenantModel<long>
     {
         /// <summary>
         /// Key để sử dụng lấy ra để tạo mã cho hệ thống

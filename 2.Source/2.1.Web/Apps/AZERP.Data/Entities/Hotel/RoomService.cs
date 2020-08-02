@@ -7,7 +7,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class RoomService : EntityService<RoomService, RoomServiceModel>, IAZTransient
+    public class RoomService : EntityService< RoomServiceModel>, IAZTransient
     {
         public RoomService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_room_service")]
-    public class RoomServiceModel : EntityTenantModel<RoomServiceModel, long>
+    public class RoomServiceModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã phòng trọ

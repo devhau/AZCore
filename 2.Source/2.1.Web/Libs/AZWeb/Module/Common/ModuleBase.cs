@@ -26,7 +26,11 @@ namespace AZWeb.Module.Common
         public IServiceProvider RequestServices { get => HttpContext.RequestServices; }
         public IServiceProvider RequestScopeServices { get => HttpContext.Items[AZWebConstant.ScopeService] as IServiceProvider; }
         public bool IsAjax { get; }
-
+        /// <summary>
+        ///  throw new System.Exception(mess);
+        /// </summary>
+        /// <param name="mess"></param>
+        protected void ThrowException(string mess) => throw new System.Exception(mess);
         public ModuleBase(IHttpContextAccessor httpContextAccessor)
         {
             HttpContext = httpContextAccessor.HttpContext;

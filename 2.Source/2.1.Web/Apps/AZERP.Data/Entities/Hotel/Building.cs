@@ -8,7 +8,7 @@ using System.Text;
 
 namespace AZERP.Data.Entities
 {
-    public class BuildingService : EntityService<BuildingService, BuildingModel>, IAZTransient
+    public class BuildingService : EntityService< BuildingModel>, IAZTransient
     {
         public BuildingService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_building")]
-    public class BuildingModel : EntityTenantModel<BuildingModel, long>
+    public class BuildingModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã code

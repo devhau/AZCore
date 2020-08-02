@@ -9,8 +9,7 @@ namespace AZCore.Identity
         ITenant GetTenantById(long id);
     }
     [TableInfo(TableName = "az_common_tenant")]
-    public class AZTenant<TEntity> : EntityModel<TEntity, long>, ITenant
-        where TEntity : AZTenant<TEntity>
+    public class AZTenant : EntityModel<long>, ITenant
     {
         /// <summary>
         /// Tên đối tác

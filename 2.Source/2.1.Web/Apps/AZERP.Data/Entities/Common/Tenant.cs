@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace AZERP.Data.Entities
 {
-	public class TenantService : EntityService<TenantService, TenantModel>, IAZTransient, ITenantService
+	public class TenantService : EntityService< TenantModel>, IAZTransient, ITenantService
 	{
 		public TenantService(IDatabaseCore databaseCore) : base(databaseCore)
 		{
@@ -22,7 +22,7 @@ namespace AZERP.Data.Entities
             return this.Select(p => p.Id == id).FirstOrDefault();
         }
     }
-	public class TenantModel : AZTenant<TenantModel>
+	public class TenantModel : AZTenant
 	{
 	}
 

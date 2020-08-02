@@ -5,13 +5,13 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class TenantRoleService : EntityService<TenantRoleService, TenantRoleModel>, IAZTransient
+    public class TenantRoleService : EntityService< TenantRoleModel>, IAZTransient
     {
         public TenantRoleService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
-    public class TenantRoleModel : AZTenantRole<TenantRoleModel>
+    public class TenantRoleModel : AZTenantRole
     {
     }
 }

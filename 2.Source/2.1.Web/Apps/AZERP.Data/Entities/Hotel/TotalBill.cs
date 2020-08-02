@@ -8,7 +8,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class TotalBillService : EntityService<TotalBillService, TotalBillModel>, IAZTransient
+    public class TotalBillService : EntityService< TotalBillModel>, IAZTransient
     {
         public TotalBillService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_total_bill")]
-    public class TotalBillModel : EntityTenantModel<TotalBillModel, long>
+    public class TotalBillModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã hóa đơn tổng

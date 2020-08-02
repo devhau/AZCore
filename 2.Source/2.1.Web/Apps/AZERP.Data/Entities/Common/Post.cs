@@ -8,14 +8,14 @@ using System.Text;
 
 namespace AZERP.Data.Entities
 {
-    public class PostService : EntityService<PostService, PostModel>, IAZTransient
+    public class PostService : EntityService< PostModel>, IAZTransient
     {
         public PostService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
     [TableInfo(TableName = "az_common_post")]
-    public class PostModel : EntityTenantModel<PostModel, long>
+    public class PostModel : EntityTenantModel<long>
     {
         /// <summary>
         /// 

@@ -8,7 +8,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class ContractService : EntityService<ContractService, ContractModel>, IAZTransient
+    public class ContractService : EntityService< ContractModel>, IAZTransient
     {
         public ContractService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -19,7 +19,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_contract")]
-    public class ContractModel : EntityTenantModel<ContractModel, long>
+    public class ContractModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã hợp đồng

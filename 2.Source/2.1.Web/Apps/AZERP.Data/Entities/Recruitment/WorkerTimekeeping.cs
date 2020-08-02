@@ -9,7 +9,7 @@ using System.Text;
 
 namespace AZERP.Data.Entities
 {
-    public class WorkerTimekeepingService : EntityService<WorkerTimekeepingService, WorkerTimekeepingModel>, IAZTransient
+    public class WorkerTimekeepingService : EntityService< WorkerTimekeepingModel>, IAZTransient
     {
         public WorkerTimekeepingService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -22,7 +22,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_recruitment_worker_time_keeping")]
-    public class WorkerTimekeepingModel : EntityTenantModel<WorkerTimekeepingModel, long>
+    public class WorkerTimekeepingModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Công nhân

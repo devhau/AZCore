@@ -11,7 +11,7 @@ using System.Text;
 
 namespace AZERP.Data.Entities
 {
-    public class StoreService : EntityService<StoreService, StoreModel>, IAZTransient
+    public class StoreService : EntityService< StoreModel>, IAZTransient
     {
         public StoreService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -55,7 +55,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_store")]
-    public class StoreModel : EntityTenantModel<StoreModel, long>
+    public class StoreModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã kho

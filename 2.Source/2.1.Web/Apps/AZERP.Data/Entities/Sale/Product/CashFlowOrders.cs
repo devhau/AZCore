@@ -7,7 +7,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class CashFlowOrdersService : EntityService<CashFlowOrdersService, CashFlowOrdersModel>, IAZTransient
+    public class CashFlowOrdersService : EntityService< CashFlowOrdersModel>, IAZTransient
     {
         public CashFlowOrdersService(IDatabaseCore databaseCore) : base(databaseCore)
         {

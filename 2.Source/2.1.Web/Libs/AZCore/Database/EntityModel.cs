@@ -24,7 +24,7 @@ namespace AZCore.Database
         DateTime? DeleteAt { get; set; }
     }
 
-    public class EntityModel<TModel>: IEntityModel where TModel: IEntityModel
+    public class EntityModel: IEntityModel
     {
         [JsonIgnore]
         [Field]
@@ -51,13 +51,13 @@ namespace AZCore.Database
         [Field]
         public DateTime? DeleteAt { get; set; }
     }
-    public class EntityModel<TModel,TKey>: EntityModel<TModel> where TModel: EntityModel<TModel>
+    public class EntityModel<TKey>: EntityModel
     {
         [Field(IsKey = true,IsAutoIncrement =true)]
         [FieldValue]
         public virtual TKey Id { get; set; }
     }
-    public class EntityTenantModel<TModel, TKey> : EntityModel<TModel>,ITenantEntity where TModel : EntityModel<TModel>
+    public class EntityTenantModel<TKey> : EntityModel,ITenantEntity 
     {
         [Field(IsKey = true, IsAutoIncrement = true)]
         [FieldValue]

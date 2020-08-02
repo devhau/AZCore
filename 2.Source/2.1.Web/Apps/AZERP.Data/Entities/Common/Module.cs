@@ -5,7 +5,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class ModuleService : EntityService<ModuleService, ModuleModel>, IAZTransient
+    public class ModuleService : EntityService< ModuleModel>, IAZTransient
     {
         public ModuleService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -15,7 +15,7 @@ namespace AZERP.Data.Entities
     /// Thông tin của nhóm sản phẩm
     /// </summary>
     [TableInfo(TableName = "az_common_module")]
-    public class ModuleModel : EntityTenantModel<ModuleModel, long>
+    public class ModuleModel : EntityTenantModel<long>
     {
         /// <summary>
         /// Tên module

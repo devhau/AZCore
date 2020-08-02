@@ -8,14 +8,14 @@ using System.Text;
 
 namespace AZERP.Data.Entities
 {
-    public class TimekeepingService : EntityService<TimekeepingService, TimekeepingModel>, IAZTransient
+    public class TimekeepingService : EntityService< TimekeepingModel>, IAZTransient
     {
         public TimekeepingService(IDatabaseCore databaseCore) : base(databaseCore)
         {
         }
     }
     [TableInfo(TableName = "az_common_time_keeping")]
-    public class TimekeepingModel : EntityTenantModel<TimekeepingModel,long>
+    public class TimekeepingModel : EntityTenantModel<long>
     {
 
     }

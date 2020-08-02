@@ -7,7 +7,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class JobInfoService : EntityService<JobInfoService, JobInfoModel>, IAZTransient
+    public class JobInfoService : EntityService< JobInfoModel>, IAZTransient
     {
         public JobInfoService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -17,7 +17,7 @@ namespace AZERP.Data.Entities
     /// Thông tin tuyển dụng
     /// </summary>
     [TableInfo(TableName = "az_recruitment_job_info")]
-    public class JobInfoModel : EntityTenantModel<JobInfoModel, long>
+    public class JobInfoModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Tiêu đề của bài đăng

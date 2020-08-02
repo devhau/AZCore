@@ -7,7 +7,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class AreaService : EntityService<AreaService, AreaModel>, IAZTransient
+    public class AreaService : EntityService<AreaModel>, IAZTransient
     {
         public AreaService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_area")]
-    public class AreaModel : EntityTenantModel<AreaModel, long>
+    public class AreaModel : EntityTenantModel<long>
     {
         /// <summary>
         /// Mã khu vực/ tòa nhà

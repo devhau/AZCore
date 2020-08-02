@@ -2,6 +2,7 @@
 using AZWeb.Module.Common;
 using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Linq;
 
 namespace AZERP.Web.Modules.Common.SystemCode
@@ -15,24 +16,23 @@ namespace AZERP.Web.Modules.Common.SystemCode
         {
             this.Title = IsNew?"Thêm mã code":"Cập nhật mã code";
         }
-        public override IView Validate(SystemCodeModel model, bool isNew)
+        public override void Validate(SystemCodeModel model, bool isNew)
         {
             if (isNew) {
                 if (this.TenantId == null)
                 {
                     if (this.Service.Select(p => p.Name == model.Name).Count() > 0)
                     {
-                        return Json("Đã tồn tại key này rồi.<br/>vui lòng chọn key khác.", System.Net.HttpStatusCode.BadRequest);
+                        throw new Exception("Đã tồn tại key này rồi.<br/>vui lòng chọn key khác.");
                     }
                 }
                 else {
-                    if (this.Service.Select(p => p.Name == model.Name && p.TenantId==this.TenantId).Count() > 0)
+                    if (this.Service.Select(p => p.Name == model.Name ).Count() > 0)
                     {
-                        return Json("Đã tồn tại key này rồi.<br/>vui lòng chọn key khác.", System.Net.HttpStatusCode.BadRequest);
+                        throw new Exception("Đã tồn tại key này rồi.<br/>vui lòng chọn key khác.");
                     }
                 }
             }
-            return null;
         }
 
     }

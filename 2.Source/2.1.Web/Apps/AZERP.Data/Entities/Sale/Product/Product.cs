@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AZERP.Data.Entities
 {
-    public class ProductService : EntityService<ProductService, ProductModel>, IAZTransient
+    public class ProductService : EntityService< ProductModel>, IAZTransient
     {
         public ProductService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -22,7 +22,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_sale_product")]
-    public class ProductModel : EntityTenantModel<ProductModel, long>
+    public class ProductModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã SP/ SKU

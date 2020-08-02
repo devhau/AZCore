@@ -7,7 +7,7 @@ using System.Data;
 
 namespace AZERP.Data.Entities
 {
-    public class FixedBillService : EntityService<FixedBillService, FixedBillModel>, IAZTransient
+    public class FixedBillService : EntityService< FixedBillModel>, IAZTransient
     {
         public FixedBillService(IDatabaseCore databaseCore) : base(databaseCore)
         {
@@ -18,7 +18,7 @@ namespace AZERP.Data.Entities
     /// </summary>
 
     [TableInfo(TableName = "az_hotel_fixed_bill")]
-    public class FixedBillModel : EntityTenantModel<FixedBillModel, long>
+    public class FixedBillModel : EntityTenantModel< long>
     {
         /// <summary>
         /// Mã hóa đơn cố định
