@@ -132,15 +132,19 @@ function Popup(options) {
 	$this.SerializeData = function () {
 		return $($this.ModalForm).SerializeForm();
 	}
-	$this.SumitForm = function () {
+	$this.SumitForm = function (callback) {
 		AjaxMain.DoPost($this.link, $this.SerializeData(), function (item) {
 			if (item.statusCode == 200 || item.statusCode == 201) {
 				$this.ClosePopup();
 				toastr.success(item.message);
+				if (callback) callback(true);
 			} else {
 				toastr.error(item.message);
+				if (callback) callback(false);
 			}
 		}, function (error) {
+				toastr.error(error.message);
+			if (callback) callback(false);
 
 		})
 	}

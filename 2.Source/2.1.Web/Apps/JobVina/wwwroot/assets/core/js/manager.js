@@ -20,7 +20,10 @@ $.fn.Manager =  function(option) {
                     Class: "btn btn-success az-btn az-btn-update",
                     Icon: "far fa-save",
                     func: function (elem, scope, self) {
-                        scope.SumitForm();
+                        scope.SumitForm(function (flg) {
+                            if (flg)
+                                self.Reload();
+                        });
                     }
                 }
             ]
@@ -33,13 +36,19 @@ $.fn.Manager =  function(option) {
                     Class: "btn btn-success az-btn az-btn-update",
                     Icon: "far fa-save",
                     func: function (elem, scope, self) {
-                        scope.SumitForm();
+                        scope.SumitForm(function (flg) {
+                            if (flg)
+                                self.Reload();
+                        });
                     }
                 }
             ]
         }
     }
     $.extend($this.option, option);
+    $this.Reload = function () {
+        location.reload();
+    }
     // Init
     $this.Init = function () {
         $this.MvcGrid = new MvcGrid($($this).find(".mvc-grid")[0]);
@@ -66,7 +75,6 @@ $.fn.Manager =  function(option) {
         $($this).find('.btn-remove').off("click");
         $($this).find('.btn-remove').on("click", function () {
             let url = $this.location.pathname + "?h=delete&id=" + $(this).data("id");
-            toastr.info(url);
             StateMain.Confirm("Bạn có muốn xóa bảng ghi này không?",
                 function (el, scope) {
                     //Yes
@@ -77,6 +85,7 @@ $.fn.Manager =  function(option) {
                         if (item.statusCode == 200 || item.statusCode == 201) {
                             scope.ClosePopup();
                             toastr.info(item.message);
+                            $this.Reload();
                         } else {
                             toastr.error(item.message);
                         }
@@ -113,7 +122,6 @@ $.fn.Manager =  function(option) {
                                 el.func(elem, scope, $this);
                         }
                     });
-
                 });
             } else {
                 $.each($this.option.Add.Buttons, function (index, el) {

@@ -12,9 +12,9 @@ using System.Reflection;
 namespace AZWeb.Module.Page.Manager
 {
     [Auth]
-    public abstract class UpdateModule<TService, TModel> : PageModule 
-        where TModel: IEntity, new()
-        where TService:EntityService<TService,TModel>
+    public abstract class UpdateModule<TService, TModel> : PageModule
+        where TModel : IEntity, new()
+        where TService : EntityService<TService, TModel>
     {
         public bool IsNew => this.Data == null;
         protected TService Service;
@@ -65,9 +65,9 @@ namespace AZWeb.Module.Page.Manager
         public virtual void DataFormToData(TModel DataForm, Func<PropertyInfo, bool> funProper = null)
         {
             if (this.Data == null) {
-                foreach(var item in typeof(TModel).GetProperties()){
+                foreach (var item in typeof(TModel).GetProperties()) {
                     var attr = item.GetAttribute<FieldAutoGenCodeAttribute>();
-                    if (attr != null&& item.GetValue(DataForm).IsNullOrEmpty()) {
+                    if (attr != null && item.GetValue(DataForm).IsNullOrEmpty()) {
                         item.SetValue(DataForm, getGenCodeService.GetGenCode(attr.Key, this.TenantId));
                     }
                 }
@@ -76,12 +76,15 @@ namespace AZWeb.Module.Page.Manager
             if (!this.HttpContext.Request.HasFormContentType) return;
             var ModelType = typeof(TModel);
             foreach (var item in ModelType.GetProperties()) {
-                if ((this.HttpContext.Request.Form.ContainsKey(item.Name)||(this.HttpContext.Request.Form.Files.GetListFiles(item.Name).Count>0&&item.GetAttribute<FieldUploadFileAttribute>()!=null)) && (funProper==null||funProper(item))) 
+                if ((this.HttpContext.Request.Form.ContainsKey(item.Name) || (this.HttpContext.Request.Form.Files.GetListFiles(item.Name).Count > 0 && item.GetAttribute<FieldUploadFileAttribute>() != null)) && (funProper == null || funProper(item)))
                 {
                     item.SetValue(this.Data, item.GetValue(DataForm));
                 }
             }
         }
+        public virtual void BeforeInsert(TModel DataForm) { }
+        public virtual void AfterInsert(TModel DataForm) { }
+        public virtual void BeforeUpdate(TModel DataForm, TModel DataBeforeSave) { }
         public virtual IView Post(long? Id)
         {
             var DataForm = new TModel();
@@ -95,6 +98,7 @@ namespace AZWeb.Module.Page.Manager
                 var rs = Validate(this.Data,false);
                 if (rs==null)
                 {
+                    BeforeUpdate(this.Data, DataForm);
                     Service.Update(this.Data);
                     return Json("Cập nhật dữ liệu thành công");
                 }
@@ -110,7 +114,10 @@ namespace AZWeb.Module.Page.Manager
                 var rs = Validate(DataForm,true);
                 if (rs == null)
                 {
-                    Service.Insert(DataForm);
+                    BeforeInsert(DataForm);
+                    var id=Service.Insert(DataForm);
+                    typeof(TModel).GetProperty("Id").SetValue(DataForm, id);
+                    AfterInsert(DataForm);
                     return Json("Thêm mới dữ liệu thành công");
                 }
                 return rs;

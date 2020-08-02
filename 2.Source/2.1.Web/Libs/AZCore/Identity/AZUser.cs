@@ -16,19 +16,19 @@ namespace AZCore.Identity
     public class AZUser<TEntity> : EntityModel<TEntity, long> where TEntity : AZUser<TEntity>
     {
         [FieldDisplay]
-        [Field(Length =200)]
+        [Field(Length =200, Display = "Họ tên")]
         public string FullName { get; set; }
-        [Field(Length = 15)] 
+        [Field(Length = 15,Display ="Số điện thoại")] 
         public string PhoneNumber { get; set; }
         [Field(Length =200)] 
         public string Email { get; set; }
-        [Field]
+        [Field(Display ="Giới tính")]
         public Gender Gender { get; set; }
-        [Field(Length =200)] 
+        [Field(Length =200,Display ="Tài khoản")] 
         public string UserName { get; set; }
-        [Field(Length = 200)]
+        [Field(Length = 200,Display ="Địa chỉ")]
         public string Address { get; set; }
-        [Field(Length = 1000)]
+        [Field(Length = 1000,Display ="Ảnh đại diện")]
         public virtual string Avatar { get; set; }
         [Field]
         public bool IsTenant { get; set; }

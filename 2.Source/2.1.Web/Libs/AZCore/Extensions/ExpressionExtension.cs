@@ -36,6 +36,10 @@ namespace AZCore.Extensions
             var me = propertyLamda.GetMemberInfo();
             return me.IsNull() ? string.Empty : me.Name;
         }
+        public static TAttribute GetAttribute<TAttribute>(this LambdaExpression propertyLamda)
+        {
+            return propertyLamda.GetMemberInfo().GetAttribute<TAttribute>();
+        }
 
         /// <summary>
         /// Lấy thông tin member

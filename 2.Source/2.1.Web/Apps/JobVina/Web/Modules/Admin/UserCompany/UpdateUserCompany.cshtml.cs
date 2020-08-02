@@ -19,5 +19,9 @@ namespace JobVina.Web.Modules.Admin.UserCompany
             else
                 this.Title = "Cập nhật nhân viên: " + this.Data.FullName;
         }
+        public override void AfterInsert(UserModel DataForm)
+        {
+            base.AfterInsert(DataForm);
+        }
     }
 }

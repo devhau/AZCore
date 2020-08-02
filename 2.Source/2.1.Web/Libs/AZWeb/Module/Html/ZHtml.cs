@@ -1,12 +1,17 @@
-﻿using AZCore.Extensions;
+﻿using AZCore.Database.Attributes;
+using AZCore.Extensions;
+using AZWeb.Module.Constant;
+using AZWeb.Module.TagHelper.Theme;
+using AZWeb.Module.View;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
+using System.Reflection;
 
 namespace AZWeb.Module.Html
 {
@@ -34,17 +39,40 @@ namespace AZWeb.Module.Html
         Url,
         Week,
     }
-    
+    public static class ZHtmlExtension
+    {
+        public static TagBuilder AddJS(this ZHtml html,TagBuilder tag,Func<string,string> funcJS)
+        {
+            if (tag.Attributes["id"] != null)
+            {
+                html.AddJS(funcJS("#{0}".Frmat(tag.Attributes["id"])));
+            }
+            else if (tag.Attributes["class"] != null && tag.Attributes["class"].Contains("az_id_")) { html.AddJS(funcJS(".{0}".Frmat(tag.Attributes["class"].Split(' ').First(p => p.Contains("az_id_"))))); }
+            else {
+                html.AddJS(funcJS("[name='{0}']".Frmat(tag.Attributes["name"])));
+            }
+            return tag;
+        }
+    }
     public class ZHtml
     {
+        protected HtmlContent HtmlSite { get => HttpContext.Items[AZWebConstant.Html] as HtmlContent; }
         private readonly IHtmlHelper html;
-
+        protected HttpContext HttpContext { get; }
+        public void AddJS(string Code, string link = "", string CDN = "")
+        {
+            this.HtmlSite.AddJS(Code, link, CDN, this.HttpContext.Items[AZHtml.scriptContent] == null ? 1 : this.HttpContext.Items[AZHtml.scriptContent].To<int>());
+        }
+        public void AddCSS(string Code, string link = "", string CDN = "")
+        {
+            this.HtmlSite.AddCSS(Code, link, CDN, this.HttpContext.Items[AZHtml.scriptContent] == null ? 1 : this.HttpContext.Items[AZHtml.scriptContent].To<int>());
+        }
         private IHtmlHelper GetHtml()
         {
             return html;
         }
 
-        public ZHtml(IHtmlHelper _html) { html = _html; }
+        public ZHtml(IHtmlHelper _html) { html = _html; HttpContext = _html.ViewContext.HttpContext; }
         public IDictionary<string, object> AnonymousObjectToHtmlAttributes(object htmlAttributes)
         {
             return (htmlAttributes == null ? new Dictionary<string, object>() : HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
@@ -76,8 +104,9 @@ namespace AZWeb.Module.Html
         }
         public IHtmlContent LabelFor<TResult>(Expression<Func<TModel, TResult>> expression, string labelText, object htmlAttributes = null)
         {
+            var fileInfo = expression.GetAttribute<FieldAttribute>();
 
-            string resolvedLabelText = labelText ?? expression.GetName();
+            string resolvedLabelText = labelText ?? fileInfo.Display?? expression.GetName();
             if (String.IsNullOrEmpty(resolvedLabelText))
             {
                 return HtmlString.Empty;
@@ -86,9 +115,10 @@ namespace AZWeb.Module.Html
             var tagBuilder = new TagBuilder("label");
             tagBuilder.Attributes["for"] = expression.GetName();
             tagBuilder.InnerHtml.AppendHtml(resolvedLabelText);
+            tagBuilder.MergeAttributes(dicAttribute);
             return tagBuilder;
         }
-        public IHtmlContent InputFor<TResult>(InputType type, Expression<Func<TModel, TResult>> expression, object htmlAttributes = null)
+        public TagBuilder InputFor<TResult>(InputType type, Expression<Func<TModel, TResult>> expression, object htmlAttributes = null)
         {
             var tagBuilder = new TagBuilder("Input");
             IDictionary<string, object> dicAttribute = AnonymousObjectToHtmlAttributes(htmlAttributes);
@@ -117,11 +147,11 @@ namespace AZWeb.Module.Html
         }
         public IHtmlContent DateTimeFor<TResult>(Expression<Func<TModel, TResult>> expression,object htmlAttributes = null)
         {
-            return InputFor(InputType.Datetime, expression, htmlAttributes);
+            return this.AddJS(InputFor(InputType.Datetime, expression, htmlAttributes), id => "$('{0}').daterangepicker();".Frmat(id));
         }
         public IHtmlContent DateFor<TResult>(Expression<Func<TModel, TResult>> expression,object htmlAttributes = null)
         {
-            return InputFor(InputType.Date, expression, htmlAttributes);
+            return this.AddJS(InputFor(InputType.Date, expression, htmlAttributes),id=> "$('{0}').singleDatePicker();".Frmat(id));
         }
         public IHtmlContent PasswordFor<TResult>(Expression<Func<TModel, TResult>> expression, object htmlAttributes = null)
         {
