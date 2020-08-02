@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 
 namespace AZWeb.Module.Page.Manager
@@ -23,8 +24,7 @@ namespace AZWeb.Module.Page.Manager
         public List<TableColumnAttribute> Columns { get; set; }
         [BindService]
         public IGenCodeService getGenCodeService;
-        public virtual IView Validate(TModel model, bool isNew) {
-            return null;
+        public virtual void Validate(TModel model, bool isNew) {
         }
         public virtual void BindTableColumn()
         {
@@ -87,41 +87,41 @@ namespace AZWeb.Module.Page.Manager
         public virtual void BeforeUpdate(TModel DataForm, TModel DataBeforeSave) { }
         public virtual IView Post(long? Id)
         {
+            var trans = this.HttpContext.GetService<EntityTransaction>();
+            string messageOK = "";
             var DataForm = new TModel();
             this.HttpContext.BindFormTo(DataForm);
-            if (Id != null&& 0!=Id)
+            trans.DoTransantion<TService>((t, t1) =>
             {
-                this.Data = this.Service.GetById(Id);
-                DataFormToData(DataForm);
-                (this.Data as IEntityModel).UpdateAt = DateTime.Now;
-                (this.Data as IEntityModel).UpdateBy = User.Id;
-                var rs = Validate(this.Data,false);
-                if (rs==null)
+                if (Id != null && 0 != Id)
                 {
+                    this.Data = t1.GetById(Id);
+                    DataFormToData(DataForm);
+                    (this.Data as IEntityModel).UpdateAt = DateTime.Now;
+                    (this.Data as IEntityModel).UpdateBy = User.Id;
+                    Validate(this.Data, false);
                     BeforeUpdate(this.Data, DataForm);
-                    Service.Update(this.Data);
-                    return Json("Cập nhật dữ liệu thành công");
+                    t1.Update(this.Data);
+                    messageOK = "Cập nhật dữ liệu thành công";
                 }
-                return rs;
-            }
-            else {
-                DataFormToData(DataForm);
-                (DataForm as IEntityModel).CreateAt = DateTime.Now;
-                (DataForm as IEntityModel).CreateBy = User.Id;
-                if (this.TenantId != null&& DataForm is ITenantEntity) {
-                    (DataForm as ITenantEntity).TenantId = this.TenantId;
-                }
-                var rs = Validate(DataForm,true);
-                if (rs == null)
+                else
                 {
+                    DataFormToData(DataForm);
+                    (DataForm as IEntityModel).CreateAt = DateTime.Now;
+                    (DataForm as IEntityModel).CreateBy = User.Id;
+                    if (this.TenantId != null && DataForm is ITenantEntity)
+                    {
+                        (DataForm as ITenantEntity).TenantId = this.TenantId;
+                    }
+                    Validate(DataForm, true);
                     BeforeInsert(DataForm);
-                    var id=Service.Insert(DataForm);
+                    var id = t1.Insert(DataForm);
                     typeof(TModel).GetProperty("Id").SetValue(DataForm, id);
                     AfterInsert(DataForm);
-                    return Json("Thêm mới dữ liệu thành công");
+                    messageOK = "Thêm mới dữ liệu thành công";
                 }
-                return rs;
-            }
+            });
+            return trans.ErrorMessge.IsNullOrEmpty() ? Json(messageOK) : Json(trans.ErrorMessge, HttpStatusCode.BadRequest);
         }
     }
 

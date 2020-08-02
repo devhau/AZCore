@@ -1,4 +1,6 @@
-﻿using JobVina.Common;
+﻿using AZCore.Database.SQL;
+using AZCore.Extensions;
+using JobVina.Common;
 using JobVina.Data.Entities;
 using Microsoft.AspNetCore.Http;
 
@@ -10,15 +12,17 @@ namespace JobVina.Web.Modules.Admin.User
         {
             this.Title = "Danh sách tài khoản";
         }
-        //protected override void AddWhere(QuerySQL Q)
-        //{
-        //    Q.Join<TenantUserModel>((t1, t2) => "{0}.Id={1}.UserId".Frmat(t1, t2));
-        //    Q.AddWhere((t) => "{0}.TenantId".Frmat(t.Tables[1]),this.User.TenantId);
-        //    //base.AddWhere(Q);
-        //}
-        //protected override void AddQuerySQL(QuerySQL Q)
-        //{
-        //    Q.SetColumn("{0}.*,{1}.Status as UserStatus".Frmat(Q.Tables[0],Q.Tables[1]));
-        //}
+        protected override void AddWhere(QuerySQL Q)
+        {
+            Q.Join<TenantUserModel>((t1, t2) => "{0}={1}".Frmat(t1.GetColumn("Id"), t2.GetColumn("UserId")),AZCore.Database.Enums.JoinType.LeftOuterJoin);
+            Q.JoinOnly<TenantUserModel, TenantModel>((t1, t2) => "{0}={1}".Frmat(t1.GetColumn("TenantId"), t2.GetColumn("Id")),AZCore.Database.Enums.JoinType.LeftOuterJoin);
+            //base.AddWhere(Q);
+        }
+        protected override void AddQuerySQL(QuerySQL Q)
+        {
+            Q.SetColumn(Q.Tables[0].GetColumn("*"));
+            Q.AddColumn(Q.Tables[1].GetColumn("Status", "UserStatus"));
+            Q.AddColumn(Q.Tables[2].GetColumn("Name", "TenantName"));
+        }
     }
 }

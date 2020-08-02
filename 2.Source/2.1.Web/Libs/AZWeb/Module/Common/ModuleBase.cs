@@ -16,7 +16,7 @@ namespace AZWeb.Module.Common
             return User != null && User.HasPermission(permissionCode);
         }
         public ITenant Tenant { get; }
-        public long? TenantId { get => this.Tenant?.Id; }
+        public long? TenantId { get => this.User?.TenantId; }
         public UserInfo User { get; }
         public bool IsAuth { get => User != null; }
         public QueryString UrlVirtual { get; }

@@ -18,7 +18,9 @@ StateMain.init = function () {
 StateMain.PushPopup = function (popup) {
     StateMain._popups.Push(popup);
 }
-
+StateMain.IsPopoup = function () {
+    return !StateMain._popups.isEmpty();
+}
 StateMain.ClosePopup = function () {
     if (!StateMain._popups.isEmpty()) {
         StateMain._popups.Remove();
@@ -34,7 +36,12 @@ StateMain.InitHotkey = function () {
     StateMain._hotkey.Init();
 }
 StateMain.ReLoad = function (callback) {
-    
+    if (StateMain.IsPopoup()) {
+
+    } else {
+        UrlMain.LoadHtml(location.href + "?" + location.search);
+    }
+    if (callback) callback();
 }
 StateMain.Confirm = function (message, callYes, callNo) {
         new Popup()

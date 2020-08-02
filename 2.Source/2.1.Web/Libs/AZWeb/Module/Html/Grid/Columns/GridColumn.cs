@@ -71,9 +71,9 @@ namespace AZWeb.Module.Html.Grid
         private String TitleFor(Expression<Func<T, TValue>> expression)
         {
             MemberExpression? body = expression.Body as MemberExpression;
-            DisplayAttribute? display = body?.Member.GetCustomAttribute<DisplayAttribute>();
+            FieldTitleAttribute? display = body?.Member.GetCustomAttribute<FieldTitleAttribute>();
 
-            return display?.GetShortName() ?? "";
+            return display?.Display ?? NameFor(expression);
         }
         private String NameFor(Expression<Func<T, TValue>> expression)
         {

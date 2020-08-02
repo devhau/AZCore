@@ -169,8 +169,9 @@ namespace AZWeb.Module.Html
                 dicAttribute["name"] = expression.GetName();
             }
             dicAttribute["rows"] = rows;
-            dicAttribute["columns"] = columns;
-            tagBuilder.InnerHtml.AppendHtml("{0}".Frmat(expression.Compile()(GetHtml().ViewData.Model)));
+            dicAttribute["columns"] = columns; 
+            if (!isModelNull)
+                tagBuilder.InnerHtml.AppendHtml("{0}".Frmat(expression.Compile()(GetHtml().ViewData.Model)));
             tagBuilder.MergeAttributes(dicAttribute);
             tagBuilder.AddCssClass("form-control");
             return tagBuilder;

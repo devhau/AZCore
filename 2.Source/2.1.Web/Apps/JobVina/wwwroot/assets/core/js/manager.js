@@ -47,7 +47,7 @@ $.fn.Manager =  function(option) {
     }
     $.extend($this.option, option);
     $this.Reload = function () {
-        location.reload();
+        StateMain.ReLoad();
     }
     // Init
     $this.Init = function () {

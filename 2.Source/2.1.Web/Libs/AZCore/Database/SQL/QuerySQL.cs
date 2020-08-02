@@ -4,6 +4,7 @@ using AZCore.Extensions;
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AZCore.Database.SQL
@@ -26,6 +27,7 @@ namespace AZCore.Database.SQL
         }
         private class JoinTable
         {
+            public bool IsOnly { get; set; }
             public TableInfo TableName { get; set; }
             public TableInfo TableName2 { get; set; }
             public Func<TableInfo, TableInfo, string> WhereJoin { get; set; }
@@ -106,10 +108,33 @@ namespace AZCore.Database.SQL
             var tb = new TableInfo(nameTable, Tables.Count);
             Tables.Add(tb);
             var tb2 = new TableInfo(nameTable2, Tables.Count);
-            Tables.Add(tb);
+            Tables.Add(tb2);
             joinTable.Add(new JoinTable()
             {
                 TableName2= tb2,
+                TableName = tb,
+                WhereJoin = whereJoin,
+                JoinType = joinType,
+            });
+            return this;
+        }
+        public QuerySQL JoinOnly<TEntity, TEntity2>(Func<TableInfo, TableInfo, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
+        {
+            return JoinOnly(typeof(TEntity).GetAttribute<TableInfoAttribute>().TableName, typeof(TEntity2).GetAttribute<TableInfoAttribute>().TableName, whereJoin, joinType);
+        }
+        public QuerySQL JoinOnly(string nameTable, string nameTable2, Func<TableInfo, TableInfo, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
+        {
+            var tb = Tables.FirstOrDefault(p=>p.TableName==nameTable);
+            if (tb == null)
+            {
+                tb = new TableInfo(nameTable, Tables.Count);
+                Tables.Add(tb);
+            }
+            var tb2 = new TableInfo(nameTable2, Tables.Count);
+            Tables.Add(tb2);
+            joinTable.Add(new JoinTable()
+            {
+                TableName2 = tb2,
                 TableName = tb,
                 WhereJoin = whereJoin,
                 JoinType = joinType,

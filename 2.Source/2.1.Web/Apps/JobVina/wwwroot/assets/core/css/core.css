@@ -1,10 +1,14 @@
-﻿body {
+﻿.az-pagination{
+    padding-top:10px;
+    padding-bottom:10px;
 }
+
+.az-modal {
+    background: rgba(0, 0, 0, 0.75);
+    overflow: auto;
+}
+
 .az-modal-none .modal-dialog {
     width:80%;
     min-width:800px;
-}
-.az-pagination{
-    padding-top:10px;
-    padding-bottom:10px;
 }

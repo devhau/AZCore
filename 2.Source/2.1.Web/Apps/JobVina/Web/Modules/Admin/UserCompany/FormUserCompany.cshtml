@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <az-layout class="az-manager" script-random="id=>ScriptHelpper.FormManager(id,string.Empty)">
             <div class="row">
-                <div class="col-3 form-group"><button class='btn btn-success btn-sm btn-add' data-id=''><i class='far fa-edit'></i> Thêm mới</button></div>
+                <div class="col-3 form-group"><button class='btn btn-success btn-sm btn-add' data-id=''><i class='far fa-plus-square'></i> Thêm mới</button></div>
             </div>
             
             @(Html.Grid(Model.Data)
@@ -15,11 +15,12 @@
                 {
                     columns.Add().RenderedAs((model, row) => row + 1+(Model.PageIndex-1)*Model.PageSize).Titled("#").Css("text-center");
                     columns.Add(prop => prop.Id).Hidden();
-                    columns.Add(prop => prop.FullName).Titled("Họ tên");
-                    columns.Add(prop => prop.Gender).Titled("Giới tính");
-                    columns.Add(prop => prop.Email).Titled("Email");
-                    columns.Add(prop => prop.PhoneNumber).Titled("Số điện thoại");
-                    columns.Add(prop => prop.Address).Titled("Địa chỉ");
+                    columns.Add(prop => prop.FullName);
+                    columns.Add(prop => prop.Gender);
+                    columns.Add(prop => prop.Email);
+                    columns.Add(prop => prop.PhoneNumber);
+                    columns.Add(prop => prop.Address);
+                    columns.Add(prop => prop.UserStatus);
                     columns.Add().RenderedAs((model, row) => "<button class='btn btn-primary btn-sm btn-edit' data-id='{0}'><i class='far fa-edit'></i> Sửa</button>".Frmat(model.Id)).Encoded(false).Titled("Sửa").Css("text-center");
                     columns.Add().RenderedAs((model, row) => "<button class='btn btn-warning btn-sm btn-remove' data-id='{0}'><i class='fa fa-trash'></i> Xóa</button>".Frmat(model.Id)).Encoded(false).Titled("Xóa").Css("text-center");
                 })

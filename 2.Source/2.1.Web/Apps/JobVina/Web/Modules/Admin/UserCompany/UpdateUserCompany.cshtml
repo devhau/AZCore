@@ -16,4 +16,15 @@
             @Html.ZHtml().LabelFor(p => p.Gender)
             @Html.ZHtml().DropDownListFor(p => p.Gender)
         </div>
+        <div class="form-group col-md-12">
+            @Html.ZHtml().LabelFor(p => p.Address)
+            @Html.ZHtml().TextAreaFor(p => p.Address,3)
+        </div> 
+        @if (Model == null)
+        {
+            <div class="form-group col-md-12">
+                @Html.ZHtml().LabelFor(p => p.Password)
+                @Html.ZHtml().PasswordFor(p => p.Password)
+            </div>
+        }
     </div>
