@@ -14,7 +14,7 @@ namespace AZCore.Identity
         /// <summary>
         /// Tên đối tác
         /// </summary>
-        [Field(Length = 200)]
+        [Field(Length = 200,Display ="Tên đối tác")]
         public string Name { get; set; }
         /// <summary>
         /// Email đối tác
@@ -29,17 +29,22 @@ namespace AZCore.Identity
         /// <summary>
         /// Số điện thoại
         /// </summary>
-        [Field(Length = 20)]
-        public string Phone { get; set; }
+        [Field(Length = 20,Display ="Số điện thoại")]
+        public string PhoneNumber { get; set; }
         /// <summary>
         /// Mô tả
         /// </summary>
-        [Field(Length = 1000)]
+        [Field(Length = 1000,Display ="Mô tả")]
         public string Description { get; set; }
+        /// <summary>
+        /// Địa chỉ
+        /// </summary>
+        [Field(Length = 500,Display ="Địa chỉ")]
+        public string Address { get; set; }
         /// <summary>
         /// Gets or sets the canonical name for this tenant.
         /// </summary>
-        [Field(Length = 200)]
+        [Field(Length = 200,Display ="Tên thương hiệu")]
         public string CanonicalName { get; set; }
         /// <summary>
         /// Gets or sets the normalized canonical name for this tenant.
@@ -49,13 +54,13 @@ namespace AZCore.Identity
         /// <summary>
         /// Gets or sets the domain name for this tenant.
         /// </summary>
-        [Field(Length = 200)] 
+        [Field(Length = 200,Display ="Tên miền")] 
         public string DomainName { get; set; }
         /// <summary>
         /// A random value that must change whenever a tenant is persisted to the store.
         /// </summary>
-        [Field(Length = 200)]
-        public string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
+        [Field(Length = 200,Display ="Code")]
+        public string TenantCode { get; set; } = Guid.NewGuid().ToString();
     }
     public interface ITenant {
         string Name { get; set; }
@@ -77,7 +82,7 @@ namespace AZCore.Identity
         /// <summary>
         /// A random value that must change whenever a tenant is persisted to the store.
         /// </summary>
-        string ConcurrencyStamp { get; set; }
+        string TenantCode { get; set; }
         /// <summary>
         /// Status
         /// </summary>

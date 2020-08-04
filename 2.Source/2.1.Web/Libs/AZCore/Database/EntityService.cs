@@ -72,6 +72,17 @@ namespace AZCore.Database
         {
             return await this.Connection.ExecuteAsync(sql, param, this.Transaction, commandTimeout, commandType);
         }
+        public SQLResult Query<TModel2>(Action<QuerySQL> action)
+        {
+
+            var query = QuerySQL.NewQuery(this.typeSQL);
+            query.SetTable<TModel2>();
+            if (action != null)
+            {
+                action(query);
+            }
+            return query.ToResult();
+        }
         public SQLResult Query(string tablename, Action<QuerySQL> action) {
 
             var query = QuerySQL.NewQuery(this.typeSQL);
@@ -149,7 +160,7 @@ namespace AZCore.Database
         }
         public SQLResult Query(Action<QuerySQL> action)
         {
-            return Query(this.buildSQL.TableName, action);
+            return Query<TModel>(action);
         }
         public virtual IEnumerable<TModel> GetAll()
         {

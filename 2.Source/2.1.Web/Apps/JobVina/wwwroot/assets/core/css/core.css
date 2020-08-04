@@ -1,6 +1,5 @@
-﻿.az-pagination{
-    padding-top:10px;
-    padding-bottom:10px;
+﻿.az-pagination .pagination{
+    float:right;
 }
 
 .az-modal {

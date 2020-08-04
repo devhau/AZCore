@@ -11,44 +11,44 @@
         <form method="post">
             <div class="row">
                 <div class="col-12 form-group">
-                    @Html.LabelFor(p => p.Name, "Tên đơn vị cung ứng")
-                    @Html.TextBoxFor(p => p.Name, new { Class = "form-control" })
+                    @Html.ZHtml().LabelFor(p => p.Name)
+                    @Html.ZHtml().TextBoxFor(p => p.Name)
                 </div>
                 <div class="col-12 form-group">
-                    @Html.LabelFor(p => p.CanonicalName, "Tên thương hiệu")
-                    @Html.TextBoxFor(p => p.CanonicalName, new { Class = "form-control" })
+                    @Html.ZHtml().LabelFor(p => p.CanonicalName)
+                    @Html.ZHtml().TextBoxFor(p => p.CanonicalName)
                 </div>
                 <div class="col-12 form-group">
-                    @Html.LabelFor(p => p.NormalizedCanonicalName, "Slug")
-                    @Html.TextBoxFor(p => p.NormalizedCanonicalName, new { Class = "form-control" })
+                    @Html.ZHtml().LabelFor(p => p.NormalizedCanonicalName, "Slug")
+                    @Html.ZHtml().TextBoxFor(p => p.NormalizedCanonicalName)
                 </div>
                 <div class="col-6 form-group">
-                    @Html.LabelFor(p => p.ConcurrencyStamp, "Code đơn vị")
-                    @Html.TextBoxFor(p => p.ConcurrencyStamp, new { Class = "form-control" })
+                    @Html.ZHtml().LabelFor(p => p.TenantCode)
+                    @Html.ZHtml().TextBoxFor(p => p.TenantCode)
                 </div>
                 <div class="col-6 form-group">
-                    <a href="/auth/register-tenant.az?ref-code=@Model?.ConcurrencyStamp">Đường dẫn đăng ký thành viên của đơn vị.</a>
+                    <a href="/auth/register-tenant.az?ref-code=@Model?.TenantCode">Đường dẫn đăng ký thành viên của đơn vị.</a>
                 </div>
                 <div class="col-4 form-group">
-                    @Html.LabelFor(p => p.Phone, "Số điện thoại")
-                    @Html.TextBoxFor(p => p.Phone, new { Class = "form-control" })
+                    @Html.ZHtml().LabelFor(p => p.PhoneNumber)
+                    @Html.ZHtml().TextBoxFor(p => p.PhoneNumber)
                 </div>
                 <div class="col-4 form-group">
-                    @Html.LabelFor(p => p.Email, "Email")
-                    @Html.TextBoxFor(p => p.Email, new { Class = "form-control" })
+                    @Html.ZHtml().LabelFor(p => p.Email)
+                    @Html.ZHtml().TextBoxFor(p => p.Email)
                 </div>
                 <div class="col-4 form-group">
-                    @Html.LabelFor(p => p.Website, "Website")
-                    @Html.TextBoxFor(p => p.Website, new { Class = "form-control" })
+                    @Html.ZHtml().LabelFor(p => p.Website)
+                    @Html.ZHtml().TextBoxFor(p => p.Website)
                 </div>
                 <div class="col-12 form-group">
-                    @Html.LabelFor(p => p.Description, "Mô tả")
-                    @Html.TextAreaFor(p => p.Description, new { Class = "form-control" })
+                    @Html.ZHtml().LabelFor(p => p.Description)
+                    @Html.ZHtml().TextAreaFor(p => p.Description)
                 </div>
                 <div class="col-12 form-group">
                     <div class="icheck-primary">
-                        @Html.LabelFor(p => p.IsShowHome, "Cho phép hiển thị trên trang chủ")
-                        @Html.CheckBoxFor(p => p.IsShowHome, new { Class = "" })
+                        @Html.ZHtml().LabelFor(p => p.IsShowHome)
+                        @Html.ZHtml().CheckBoxFor(p => p.IsShowHome)
                     </div>
                 </div>
                 <div class="col-12 form-group">

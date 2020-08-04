@@ -124,6 +124,14 @@ namespace AZWeb.Module.Html
             IDictionary<string, object> dicAttribute = AnonymousObjectToHtmlAttributes(htmlAttributes);
             if(!isModelNull)
                 dicAttribute["value"] = expression.Compile()(GetHtml().ViewData.Model);
+            if (type == InputType.Checkbox) {
+                if (true.Equals(dicAttribute["value"]))
+                {
+                    dicAttribute["checked"] = true;
+                }
+                dicAttribute["value"] = 1;
+            }
+           
             if (!dicAttribute.ContainsKey("id"))
             {
                 dicAttribute["id"] = expression.GetName();
@@ -137,7 +145,7 @@ namespace AZWeb.Module.Html
             tagBuilder.Attributes["type"] = type.ToString().ToLower();
             return tagBuilder;
         }
-        public IHtmlContent TextboxFor<TResult>(Expression<Func<TModel, TResult>> expression,object htmlAttributes = null)
+        public IHtmlContent TextBoxFor<TResult>(Expression<Func<TModel, TResult>> expression,object htmlAttributes = null)
         {
             return InputFor(InputType.Text, expression, htmlAttributes);
         }
@@ -190,6 +198,9 @@ namespace AZWeb.Module.Html
             }
             builder.InnerHtml.AppendHtml(item.Text);
             return builder;
+        }
+        public IHtmlContent CheckBoxFor<TResult>(Expression<Func<TModel, TResult>> expression, object htmlAttributes = null) {
+            return InputFor(InputType.Checkbox, expression, htmlAttributes);
         }
         public IHtmlContent DropDownListFor<TResult>( Expression<Func<TModel, TResult>> expression, string optionLabel=null, object htmlAttributes=null)
         {

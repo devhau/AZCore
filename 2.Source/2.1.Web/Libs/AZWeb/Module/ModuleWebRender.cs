@@ -21,7 +21,6 @@ namespace AZWeb.Module
         RenderView renderView;
         HttpContext httpContext;
         bool IsAjax { get; }
-        readonly string urlPath;
         IIdentityService permissionService = null;
         ModuleWebRender(HttpContext _httpContext)
         {
@@ -29,8 +28,6 @@ namespace AZWeb.Module
             renderView = httpContext.GetRenderView();
             permissionService = httpContext.GetService<IIdentityService>();
             this.IsAjax = httpContext.IsAjax();
-            urlPath = this.httpContext.Request.Path.Value;
-            this.httpContext.Items[AZWebConstant.KeyUrlCurrent] = string.Format("{0}{1}", urlPath, this.httpContext.Request.QueryString.Value);
           
         }
         private void CheckIdentity()

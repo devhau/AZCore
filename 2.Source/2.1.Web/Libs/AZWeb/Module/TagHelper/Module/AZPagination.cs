@@ -11,7 +11,7 @@ using System.Web;
 namespace AZWeb.Module.TagHelper.Module
 {
     [HtmlTargetElement("az-pagination")]
-    public class AZPagination: TagHelperBase
+    public class AZPagination : TagHelperBase
     {
         [HtmlAttributeName("class")]
         public string InputClass { get; set; } = "";
@@ -20,8 +20,10 @@ namespace AZWeb.Module.TagHelper.Module
         [HtmlAttributeName("page-show")]
         public int PageShow { get; set; } = 7;
         [HtmlAttributeName("list-page-size")]
-        public string ListPageSize { get; set; } = "5,10,20,50,100,200,500,1000";
-     
+        public string ListPageSize { get; set; } = "10,20,50,100,200,500,1000";
+        public string FormatPage { get; set; } = "{0}/{1}/{2}({3})";
+        public string LinkClass { get; set; } = "link-ajax";
+
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
@@ -56,7 +58,7 @@ namespace AZWeb.Module.TagHelper.Module
             htmlBuild.Append("</select>");
             htmlBuild.Append("</form>");
             htmlBuild.Append("</li>");
-            htmlBuild.AppendFormat("<li class=\"paginate_button page-item previous {3}\"><a href=\"{0}&rows={2}&PageIndex={1}\" tabindex=\"0\" class=\"page-link  az-link\"><<</a></li>", pathReal, this.Pagination.PageIndex - 1, this.Pagination.PageSize, this.Pagination.PageIndex <= 1 ? "disabled" : "");
+            htmlBuild.AppendFormat("<li class=\"paginate_button page-item previous {3}\"><a href=\"{0}&rows={2}&PageIndex={1}\" tabindex=\"0\" class=\"page-link {4}\"><<</a></li>", pathReal, this.Pagination.PageIndex - 1, this.Pagination.PageSize, this.Pagination.PageIndex <= 1 ? "disabled" : "", LinkClass);
 
             int startIndex = 0;
             int endIndex = 0;
@@ -82,11 +84,11 @@ namespace AZWeb.Module.TagHelper.Module
             }
             for (var i = startIndex; i <= endIndex; i++)
             {
-                htmlBuild.AppendFormat("<li class=\"paginate_button page-item {3}\"><a href=\"{0}&rows={2}&PageIndex={1}\"  tabindex=\"0\" class=\"page-link az-link\">{1}</a></li>", pathReal, i + 1, this.Pagination.PageSize, this.Pagination.PageIndex == i + 1 ? "active" : "");
+                htmlBuild.AppendFormat("<li class=\"paginate_button page-item {3}\"><a href=\"{0}&rows={2}&PageIndex={1}\"  tabindex=\"0\" class=\"page-link {4}\">{1}</a></li>", pathReal, i + 1, this.Pagination.PageSize, this.Pagination.PageIndex == i + 1 ? "active" : "", LinkClass);
             }
-            htmlBuild.AppendFormat("<li class=\"paginate_button page-item next {3}\"><a href=\"{0}&rows={2}&PageIndex={1}\"  tabindex=\"0\" class=\"page-link  az-link\">>></a></li>", pathReal, this.Pagination.PageIndex + 1, this.Pagination.PageSize, this.Pagination.PageIndex >= this.Pagination.PageMax ? "disabled" : "");
-            htmlBuild.Append("<li style=\"padding: 3px; font-size: 20px; font-weight: 700;\">");
-            htmlBuild.AppendFormat("Trang {0}/{1} Tổng {2}({3})", this.Pagination.PageIndex, this.Pagination.PageMax, this.Pagination.PageTotal, this.Pagination.PageTotalAll);
+            htmlBuild.AppendFormat("<li class=\"paginate_button page-item next {3}\"><a href=\"{0}&rows={2}&PageIndex={1}\"  tabindex=\"0\" class=\"page-link  {4}\">>></a></li>", pathReal, this.Pagination.PageIndex + 1, this.Pagination.PageSize, this.Pagination.PageIndex >= this.Pagination.PageMax ? "disabled" : "", LinkClass);
+            htmlBuild.Append("<li style=\"padding: 3px; font-size: 18px; font-weight: 500;\">");
+            htmlBuild.AppendFormat(FormatPage, this.Pagination.PageIndex, this.Pagination.PageMax, this.Pagination.PageTotal, this.Pagination.PageTotalAll);
             htmlBuild.Append("</li>");
             htmlBuild.Append("</ul>");
             htmlBuild.Append("</div>");

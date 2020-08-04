@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -8,9 +7,9 @@ using System.Threading.Tasks;
 using AZCore.Database;
 using AZCore.Extensions;
 using AZWeb.Extensions;
-using AZWeb.Middleware;
 using AZWeb.Module;
 using AZWeb.Module.Common;
+using AZWeb.Module.Middleware;
 using AZWeb.Module.Validator;
 using JobVina.Data;
 using JobVina.Middleware;
@@ -157,6 +156,7 @@ namespace JobVina
             app.UseSession();
             app.UseAuthentication();
             app.UseRouting();
+            app.UseMiddleware<UrlCurrentMiddleware>();
             app.UseMiddleware<WebApiMiddleware>();
             app.UseMiddleware<WebRouterMiddleware>();
             app.UseMiddleware<ModuleWebMiddleware>();

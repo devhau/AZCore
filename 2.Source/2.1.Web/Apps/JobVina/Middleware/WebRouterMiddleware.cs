@@ -45,29 +45,36 @@ namespace JobVina.Middleware
                             if (RegexPath.IsMatch(urlPath))
                             {
                                 var pathReal = RegexPath.Replace(urlPath, item.Value);
-                                foreach (var key in httpContext.Request.Query.Keys)
+                                if (!pathReal.Contains(".az"))
                                 {
-                                    pathReal = string.Format("{0}&{1}={2}", pathReal, key, httpContext.Request.Query[key]);
+                                    foreach (var key in httpContext.Request.Query.Keys)
+                                    {
+                                        pathReal = string.Format("{0}&{1}={2}", pathReal, key, httpContext.Request.Query[key]);
+                                    }
+                                    var query = QueryHelpers.ParseQuery(pathReal);
+                                    if (!query.ContainsKey("m") || string.IsNullOrEmpty(query["m"].ToString())) return default;
+                                    string moduleName = query["m"].ToString();
+                                    string viewName = moduleName;
+                                    if (query.ContainsKey("v") && !string.IsNullOrEmpty(query["v"].ToString()))
+                                        viewName = query["v"].ToString();
+                                    string gm = "";
+                                    if (query.ContainsKey("gm") && !string.IsNullOrEmpty(query["gm"].ToString()))
+                                        gm = "." + query["gm"].ToString();
+                                    string ModuleStr = string.Format("Web.Modules{2}.{0}.Form{1}", moduleName, viewName, gm);
+                                    string methodName = httpContext.Request.Method;
+                                    if (query.ContainsKey("h") && !string.IsNullOrEmpty(query["h"].ToString()))
+                                        methodName = string.Format("{0}{1}", methodName, query["h"].ToString());
+                                    httpContext.Items[WebInfo.Key] = new WebInfo()
+                                    {
+                                        ModulePath = ModuleStr,
+                                        MethodName = methodName
+                                    };
+                                    return false;
                                 }
-                                var query = QueryHelpers.ParseQuery(pathReal);
-                                if (!query.ContainsKey("m") || string.IsNullOrEmpty(query["m"].ToString())) return default;
-                                string moduleName = query["m"].ToString();
-                                string viewName = moduleName;
-                                if (query.ContainsKey("v") && !string.IsNullOrEmpty(query["v"].ToString()))
-                                    viewName = query["v"].ToString();
-                                string gm = "";
-                                if (query.ContainsKey("gm") && !string.IsNullOrEmpty(query["gm"].ToString()))
-                                    gm = "." + query["gm"].ToString();
-                                string ModuleStr = string.Format("Web.Modules{2}.{0}.Form{1}", moduleName, viewName, gm);
-                                string methodName = httpContext.Request.Method;
-                                if (query.ContainsKey("h") && !string.IsNullOrEmpty(query["h"].ToString()))
-                                    methodName = string.Format("{0}{1}", methodName, query["h"].ToString());
-                                httpContext.Items[WebInfo.Key] = new WebInfo()
-                                {
-                                    ModulePath = ModuleStr,
-                                    MethodName = methodName
-                                };
-                                return false;
+                                else {
+                                    urlPath = new PathString(pathReal);
+                                    break;
+                                }
                             }
                         }
                     }

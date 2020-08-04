@@ -10,7 +10,7 @@
             <az-text-model model="Model.Data" func="(item)=>((TenantModel)item).Website" label="Website" />
         </div>
         <div class="col-md-6 form-group">
-            <az-number-model type="OnlyNumber" model="Model.Data" func="(item)=>((TenantModel)item).Phone" label="Số điện thoại" />
+            <az-number-model type="OnlyNumber" model="Model.Data" func="(item)=>((TenantModel)item).PhoneNumber" label="Số điện thoại" />
         </div>
         <div class="col-md-6 form-group">
             <az-text-model model="Model.Data" func="(item)=>((TenantModel)item).CanonicalName" label="Viết tắt" addon-after="Model" />
@@ -19,7 +19,7 @@
             <az-text-model model="Model.Data" func="(item)=>((TenantModel)item).DomainName" label="Domain"/>
         </div>
         <div class="col-md-6 form-group">
-            <az-text-model model="Model.Data" func="(item)=>((TenantModel)item).ConcurrencyStamp" label="Mã code" is-enable="false" />
+            <az-text-model model="Model.Data" func="(item)=>((TenantModel)item).TenantCode" label="Mã code" is-enable="false" />
         </div>
         <div class="col-md-6 form-group">
             <az-status-select model="Model.Data" func="(item)=>((TenantModel)item).Status" label="Trạng thái" />

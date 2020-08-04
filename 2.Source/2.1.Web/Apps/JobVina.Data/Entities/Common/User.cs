@@ -67,9 +67,9 @@ namespace JobVina.Data.Entities
         [Field(Length = 1000)]
         [FieldUploadFile(IsGenAutoNamFile =true)]
         public override string Avatar { get; set; }
-        [FieldTitle(Display ="Trạng thái")]
+        [FieldTitle(Display ="Trạng thái",TargetType = typeof(TenantUserModel),TargetColumn = "Status")]
         public TenantUserStatus UserStatus { get; set; }
-        [FieldTitle(Display = "Tên đối tác")]
+        [FieldTitle(Display = "Tên đối tác", TargetType = typeof(TenantModel), TargetColumn = "Name")]
         public string TenantName { get; set; }
     }
 }

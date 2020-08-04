@@ -5,6 +5,7 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace AZCore.Database.SQL
@@ -14,14 +15,44 @@ namespace AZCore.Database.SQL
     {
         public List<TableInfo> Tables = new List<TableInfo>();
         public class TableInfo {
-            public TableInfo(string TableName,int Index) {
+            public TableInfo(string TableName, List<TableInfo> Tables) {
                 this.TableName = TableName;
-                this.Index = Index;
+                this.Tables = Tables;
+                this.Index = this.Tables.Count;
             }
+            public TableInfo(Type _modelType,  List<TableInfo> Tables)
+            {
+                this.ModelType = _modelType;
+                this.TableName = _modelType.GetAttribute<TableInfoAttribute>().TableName;
+                this.Tables = Tables;
+                this.Index = this.Tables.Count;
+            }
+            public TableInfo AddToTables()
+            {
+                Tables.Add(this);
+                return this;
+            }
+            public List<TableInfo> Tables { get; }
+            public Type ModelType { get; set; }
             public string TableName { get;  }
             public int Index { get; }
             public string TIndex => "T{0}".Frmat(Index);
-            public string GetColumn(string column) => column.Equals("*")? "{0}.{1}".Frmat(TIndex, column) : "{0}.`{1}`".Frmat(TIndex, column);
+            public string GetColumn(string column)
+            {
+                if (column.Equals("*"))
+                    return "{0}.{1}".Frmat(TIndex, column);
+                PropertyInfo pro;
+                if (ModelType != null && (pro = ModelType.GetProperty(column)) != null)
+                {
+                    var field = pro.GetAttribute<FieldTitleAttribute>();
+                    if (field != null && field.TargetType != null && field.TargetColumn != null)
+                    {
+                        var table = this.Tables.FirstOrDefault(p => p.ModelType == field.TargetType);
+                        return table.GetColumn(field.TargetColumn);
+                    }
+                }
+                return "{0}.`{1}`".Frmat(TIndex, column);
+            }
             public string GetColumn(string column,string asName) => "{0}.`{1}` as {2}".Frmat(TIndex, column, asName);
             public override string ToString()=> "`{0}` as {1}".Frmat(TableName, TIndex);
         }
@@ -68,7 +99,7 @@ namespace AZCore.Database.SQL
         }
         public static QuerySQL NewQuery()
         {
-            return new QuerySQL(TypeSQL.MySql);
+            return NewQuery(TypeSQL.MySql);
         }
         public static QuerySQL NewQuery(TypeSQL _type) {
             return new QuerySQL(_type);
@@ -76,21 +107,26 @@ namespace AZCore.Database.SQL
         #endregion
         public QuerySQL SetTable<TEntity>()
         {
-            return SetTable(typeof(TEntity).GetAttribute<TableInfoAttribute>().TableName);
-        }
-        public QuerySQL SetTable(string name) {
-            var tb = new TableInfo(name, Tables.Count);
-            Tables.Add(tb);
-            this.TableName = tb;
+            this.TableName = new TableInfo(typeof(TEntity), Tables).AddToTables();
             return this;
         }
-        public QuerySQL Join<TEntity>(Func<TableInfo, TableInfo, string> whereJoin, JoinType joinType = JoinType.InnerJoin) 
+        public QuerySQL SetTable(string name) {
+            this.TableName = new TableInfo(name, Tables).AddToTables();
+            return this;
+        }
+        public QuerySQL Join<TEntity>(Func<TableInfo, TableInfo, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
         {
-            return Join(typeof(TEntity).GetAttribute<TableInfoAttribute>().TableName,whereJoin, joinType);
+            joinTable.Add(new JoinTable()
+            {
+                TableName = new TableInfo(typeof(TEntity), Tables).AddToTables(),
+                WhereJoin = whereJoin,
+                JoinType = joinType,
+            });
+            return this;
         }
         public QuerySQL Join(string nameTable, Func<TableInfo, TableInfo, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
         {
-            var tb = new TableInfo(nameTable, Tables.Count);
+            var tb = new TableInfo(nameTable, Tables);
             Tables.Add(tb);
             joinTable.Add(new JoinTable() {
                 TableName= tb,
@@ -101,18 +137,21 @@ namespace AZCore.Database.SQL
         }
         public QuerySQL Join<TEntity, TEntity2>(Func<TableInfo, TableInfo, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
         {
-            return Join(typeof(TEntity).GetAttribute<TableInfoAttribute>().TableName, typeof(TEntity2).GetAttribute<TableInfoAttribute>().TableName, whereJoin, joinType);
+            joinTable.Add(new JoinTable()
+            {
+                TableName = new TableInfo(typeof(TEntity), Tables).AddToTables(),
+                TableName2 = new TableInfo(typeof(TEntity2), Tables).AddToTables(),
+                WhereJoin = whereJoin,
+                JoinType = joinType,
+            });
+            return this;
         }
         public QuerySQL Join(string nameTable, string nameTable2, Func<TableInfo, TableInfo, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
         {
-            var tb = new TableInfo(nameTable, Tables.Count);
-            Tables.Add(tb);
-            var tb2 = new TableInfo(nameTable2, Tables.Count);
-            Tables.Add(tb2);
             joinTable.Add(new JoinTable()
             {
-                TableName2= tb2,
-                TableName = tb,
+                TableName = new TableInfo(nameTable, Tables).AddToTables(),
+                TableName2 = new TableInfo(nameTable2, Tables).AddToTables(),
                 WhereJoin = whereJoin,
                 JoinType = joinType,
             });
@@ -120,25 +159,55 @@ namespace AZCore.Database.SQL
         }
         public QuerySQL JoinOnly<TEntity, TEntity2>(Func<TableInfo, TableInfo, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
         {
-            return JoinOnly(typeof(TEntity).GetAttribute<TableInfoAttribute>().TableName, typeof(TEntity2).GetAttribute<TableInfoAttribute>().TableName, whereJoin, joinType);
+            var tb = Tables.FirstOrDefault(p => p.TableName == typeof(TEntity).GetAttribute<TableInfoAttribute>().TableName);
+            if (tb == null)
+            {
+                tb = new TableInfo(typeof(TEntity), Tables).AddToTables();
+                Tables.Add(tb);
+            }
+            joinTable.Add(new JoinTable()
+            {
+                TableName = tb,
+                TableName2 = new TableInfo(typeof(TEntity2), Tables).AddToTables(),
+                WhereJoin = whereJoin,
+                JoinType = joinType,
+            });
+            return this;
         }
         public QuerySQL JoinOnly(string nameTable, string nameTable2, Func<TableInfo, TableInfo, string> whereJoin, JoinType joinType = JoinType.InnerJoin)
         {
             var tb = Tables.FirstOrDefault(p=>p.TableName==nameTable);
             if (tb == null)
             {
-                tb = new TableInfo(nameTable, Tables.Count);
-                Tables.Add(tb);
+                tb = new TableInfo(nameTable, Tables).AddToTables();
             }
-            var tb2 = new TableInfo(nameTable2, Tables.Count);
-            Tables.Add(tb2);
             joinTable.Add(new JoinTable()
             {
-                TableName2 = tb2,
                 TableName = tb,
+                TableName2 = new TableInfo(nameTable2, Tables).AddToTables(),
                 WhereJoin = whereJoin,
                 JoinType = joinType,
             });
+            return this;
+        }
+        public TableInfo GetTableInfo<TModel2>() {
+            return this.Tables.FirstOrDefault(p => p.ModelType == typeof(TModel2));
+        }
+        public TableInfo GetTableInfo(string tableName)
+        {
+            return this.Tables.FirstOrDefault(p => p.TableName == tableName);
+        }
+        public QuerySQL SetColumn<TModel2>(Func<TableInfo,string> func)
+        {
+            this.Column = func(GetTableInfo<TModel2>());
+            return this;
+        }
+        public QuerySQL AddColumn<TModel2>(Func<TableInfo, string> func)
+        {
+            if (this.Column.IsNullOrEmpty())
+                this.Column = func(GetTableInfo<TModel2>());
+            else
+                this.Column += ", " + func(GetTableInfo<TModel2>());
             return this;
         }
         public QuerySQL SetColumn(string name)
@@ -152,6 +221,16 @@ namespace AZCore.Database.SQL
                 this.Column = name;
             else
                 this.Column += ", " + name;
+            return this;
+        }
+        public QuerySQL AddWhere<TModel2>(Func<QuerySQL, string> whereColumn, object value, OperatorSQL _operator = OperatorSQL.EQUAL)
+        {
+            this.SqlWhere.Add(new ColumnValue(whereColumn(this), value, _operator) { Table = GetTableInfo<TModel2>() ?? this.TableName });
+            return this;
+        }
+        public QuerySQL AddWhere<TModel2>(string column, object value, OperatorSQL _operator = OperatorSQL.EQUAL)
+        {
+            this.SqlWhere.Add(new ColumnValue(column, value, _operator) { Table = GetTableInfo<TModel2>() ?? this.TableName });
             return this;
         }
         public QuerySQL AddWhere(Func<QuerySQL, string> whereColumn, object value, OperatorSQL _operator = OperatorSQL.EQUAL,TableInfo table=null)
@@ -193,16 +272,7 @@ namespace AZCore.Database.SQL
             int indexParam = 0;
             sql.AppendFormat("SELECT {0} FROM {1}",this.Column,this.TableName);
             foreach (var item in this.joinTable) {
-                string joinStr = " JOIN ";
-                if (item.JoinType == JoinType.LeftOuterJoin) {
-                    joinStr = " LEFT JOIN ";
-                }
-                if (item.JoinType == JoinType.RightOuterJoin){
-                    joinStr = " RIGHT JOIN ";
-                }
-                if (item.JoinType == JoinType.RightOuterJoin){
-                    joinStr = " FULL OUTER JOIN ";
-                }
+                string joinStr = " {0} ".Frmat(item.JoinType.GetAttributeByEnum<FieldAttribute>().Display);             
                 if (item.TableName2.IsNull())
                     sql.AppendFormat(" {0} {1}  on {2}", joinStr, item.TableName, item.WhereJoin(this.TableName, item.TableName));
                 else

@@ -1,4 +1,4 @@
-﻿@model FormUserCompany
+﻿@model FormTenant
 <az-content-header />
 <!-- Main content -->
 <div class="content">
@@ -11,7 +11,6 @@
                     <az-pagination pagination="Model" />
                 </div>
             </div>
-
             @(Html.Grid(Model.Data)
                 .Using(AZWeb.Module.Html.Grid.GridProcessingMode.Manual)
                 .Id("IdUserCompany")
@@ -19,12 +18,14 @@
                 {
                     columns.Add().RenderedAs((model, row) => row + 1+(Model.PageIndex-1)*Model.PageSize).Titled("#").Css("text-center");
                     columns.Add(prop => prop.Id).Hidden();
-                    columns.Add(prop => prop.FullName);
-                    columns.Add(prop => prop.Gender);
+                    columns.Add(prop => prop.TenantCode);
+                    columns.Add(prop => prop.Name);
+                    columns.Add(prop => prop.CanonicalName);
                     columns.Add(prop => prop.Email);
                     columns.Add(prop => prop.PhoneNumber);
                     columns.Add(prop => prop.Address);
-                    columns.Add(prop => prop.UserStatus);
+                    columns.Add(prop => prop.Website);
+                    columns.Add(prop => prop.DomainName);
                     columns.Add().RenderedAs((model, row) => "<button class='btn btn-primary btn-sm btn-edit' data-id='{0}'><i class='far fa-edit'></i> Sửa</button>".Frmat(model.Id)).Encoded(false).Titled("Sửa").Css("text-center");
                     columns.Add().RenderedAs((model, row) => "<button class='btn btn-warning btn-sm btn-remove' data-id='{0}'><i class='fa fa-trash'></i> Xóa</button>".Frmat(model.Id)).Encoded(false).Titled("Xóa").Css("text-center");
                 })

@@ -24,7 +24,7 @@ namespace JobVina.Data.Entities
     }
 	public class TenantModel : AZTenant
 	{
-        [Field]
+        [Field(Display ="Cho phép hiển thị trên trang chủ")]
         public bool IsShowHome { get; set; }
 	}
 }

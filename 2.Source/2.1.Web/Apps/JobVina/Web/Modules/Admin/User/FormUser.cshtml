@@ -5,7 +5,11 @@
     <div class="container-fluid">
         <az-layout class="az-manager" script-random="id=>ScriptHelpper.FormManager(id,string.Empty)">
             <div class="row">
-                <div class="col-3 form-group"><button class='btn btn-success btn-sm btn-add' data-id=''><i class='far fa-plus-square'></i> Thêm mới</button></div>
+                <div class="col-3"><button class='btn btn-success btn-sm btn-add' data-id=''><i class='far fa-plus-square'></i> Thêm mới</button></div>
+                <div class="col-4"></div>
+                <div class="col-5">
+                    <az-pagination pagination="Model" />
+                </div>
             </div>
             @(Html.Grid(Model.Data)
                 .Using(AZWeb.Module.Html.Grid.GridProcessingMode.Manual)
@@ -27,7 +31,6 @@
                 .Filterable(AZWeb.Module.Html.Grid.GridFilterType.Multi)
                 .Sortable()
                 )
-            <az-pagination pagination="Model" />
         </az-layout>
     </div>
     <!-- /.container-fluid -->

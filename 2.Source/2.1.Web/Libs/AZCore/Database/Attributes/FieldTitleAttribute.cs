@@ -10,5 +10,7 @@ namespace AZCore.Database.Attributes
         public string GroupName { get; set; }
         public int GroupIndex { get; set; }
         public string Display { get; set; }
+        public Type TargetType { get; set; }
+        public string TargetColumn { get; set; }
     }
 }

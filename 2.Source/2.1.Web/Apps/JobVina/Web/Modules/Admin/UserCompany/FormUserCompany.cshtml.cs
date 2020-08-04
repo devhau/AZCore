@@ -16,14 +16,14 @@ namespace JobVina.Web.Modules.Admin.UserCompany
         {
             Q.Join<TenantUserModel>((t1, t2) => "{0}={1}".Frmat(t1.GetColumn("Id"), t2.GetColumn("UserId")));
             Q.JoinOnly<TenantUserModel,TenantModel>((t1, t2) => "{0}={1}".Frmat(t1.GetColumn("TenantId"), t2.GetColumn("Id")));
-            Q.AddWhere((t) => "TenantId",this.User.TenantId,AZCore.Database.Enums.OperatorSQL.EQUAL, Q.Tables[1]);
+            Q.AddWhere<TenantUserModel>((t) => "TenantId",this.User.TenantId);
             //base.AddWhere(Q);
         }
         protected override void AddQuerySQL(QuerySQL Q)
         {
-            Q.SetColumn(Q.Tables[0].GetColumn("*"));
-            Q.AddColumn(Q.Tables[1].GetColumn("Status", "UserStatus"));
-            Q.AddColumn(Q.Tables[2].GetColumn("Name", "TenantName"));
+            Q.SetColumn<UserModel>(p=>p.GetColumn("*"));
+            Q.AddColumn<TenantUserModel>(p => p.GetColumn("Status", "UserStatus"));
+            Q.AddColumn<TenantModel>(p => p.GetColumn("Name", "TenantName"));
         }
     }
 }

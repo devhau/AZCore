@@ -138,53 +138,36 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-header">Hệ thống</li>
-            <li class="nav-item">
-                <az-link check-link="true"
-                         class="nav-link link-ajax"
-                         text="Thiết lập thông tin"
-                         icon="far fa-circle nav-icon"
-                         tag-text="p"
-                         href="/admin/setting/tenant-info.az" />
-            </li>
-            <li class="nav-item">
-                <az-link check-link="true"
-                         class="nav-link link-ajax"
-                         text="Thiết lập chi nhánh"
-                         icon="far fa-circle nav-icon"
-                         tag-text="p"
-                         href="/admin/setting/tenant-breank.az" />
-            </li>
+            <li class="nav-header">Hệ thống</li>           
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link link-ajax">
-                    <i class="nav-icon far fa-envelope"></i>
+                    <i class="nav-icon far fa-cogs"></i>
                     <p>
-                        Phân quyền nhân viên
+                        Thiết lập
                         <i class="fas fa-angle-left right"></i>
+                        <span class="badge badge-info right">2</span>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="pages/mailbox/mailbox.html" class="nav-link link-ajax">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Inbox</p>
-                        </a>
+                        <az-link check-link="true"
+                                 class="nav-link link-ajax"
+                                 text="Thiết lập thông tin"
+                                 icon="far fa-circle nav-icon"
+                                 tag-text="p"
+                                 href="/admin/setting/tenant-info.az" />
                     </li>
                     <li class="nav-item">
-                        <a href="pages/mailbox/compose.html" class="nav-link link-ajax">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Compose</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="pages/mailbox/read-mail.html" class="nav-link link-ajax">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Read</p>
-                        </a>
+                        <az-link check-link="true"
+                                 class="nav-link link-ajax"
+                                 text="Thiết lập chi nhánh"
+                                 icon="far fa-circle nav-icon"
+                                 tag-text="p"
+                                 href="/admin/setting/tenant-breank.az" />
                     </li>
                 </ul>
             </li>
-            <li class="nav-header">Quản trị hệ thống JobVINA</li>
+            <li class="nav-header">Hệ thống JobVINA</li>
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link link-ajax">
                     <i class="nav-icon fas fa-circle"></i>
@@ -195,38 +178,47 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link link-ajax">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Danh sách</p>
-                        </a>
+                        <az-link check-link="true"
+                                 class="nav-link link-ajax"
+                                 text="Danh sách"
+                                 icon="far fa-circle nav-icon"
+                                 tag-text="p"
+                                 href="/admin/tenant.az" />
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link link-ajax">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>
-                                Đơn nâng cấp dịch vụ
-                            </p>
-                        </a>
+                        <az-link check-link="true"
+                                 class="nav-link link-ajax"
+                                 text="Đơn nâng cấp dịch vụ"
+                                 icon="far fa-circle nav-icon"
+                                 tag-text="p"
+                                 href="/admin/tenant/request-update.az" />
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link link-ajax">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Quản lý đề xuất góp ý của đơn vị cung ứng</p>
-                        </a>
-                    </li>
+
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="/admin/user.az" class="nav-link link-ajax">
-                    <i class="fas fa-circle nav-icon"></i>
-                    <p>Tài khoản hệ thống</p>
-                </a>
+                <az-link check-link="true"
+                         class="nav-link link-ajax"
+                         text="Tài khoản hệ thống"
+                         icon="far fa-circle nav-icon"
+                         tag-text="p"
+                         href="/admin/user.az" />
             </li>
             <li class="nav-item">
-                <a href="/admin/company.az" class="nav-link link-ajax">
-                    <i class="fas fa-circle nav-icon"></i>
-                    <p>Danh sách công ty</p>
-                </a>
+                <az-link check-link="true"
+                         class="nav-link link-ajax"
+                         text="Danh sách công ty"
+                         icon="far fa-circle nav-icon"
+                         tag-text="p"
+                         href="/admin/company.az" />
+            </li>
+            <li class="nav-item">
+                <az-link check-link="true"
+                         class="nav-link link-ajax"
+                         text="Đóng góp từ người dùng"
+                         icon="far fa-circle nav-icon"
+                         tag-text="p"
+                         href="/admin/request-feedback.az" />
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link link-ajax">

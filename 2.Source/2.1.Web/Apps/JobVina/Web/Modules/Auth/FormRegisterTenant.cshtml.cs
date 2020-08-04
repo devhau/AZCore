@@ -88,7 +88,7 @@ namespace JobVina.Web.Modules.Auth
                     {
                         Name = InputTentaintName,
                         CanonicalName = InputTentaintName,
-                        Phone = InputPhoneNumber,
+                        PhoneNumber = InputPhoneNumber,
                         Email = InputEmail,
                         CreateBy = user.Id,
                         CreateAt = DateTime.Now,

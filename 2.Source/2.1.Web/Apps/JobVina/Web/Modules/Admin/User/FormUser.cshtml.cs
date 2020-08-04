@@ -20,9 +20,9 @@ namespace JobVina.Web.Modules.Admin.User
         }
         protected override void AddQuerySQL(QuerySQL Q)
         {
-            Q.SetColumn(Q.Tables[0].GetColumn("*"));
-            Q.AddColumn(Q.Tables[1].GetColumn("Status", "UserStatus"));
-            Q.AddColumn(Q.Tables[2].GetColumn("Name", "TenantName"));
+            Q.SetColumn<UserModel>(p=>p.GetColumn("*"));
+            Q.AddColumn<TenantUserModel>(p=>p.GetColumn("Status", "UserStatus"));
+            Q.AddColumn<TenantModel>(p => p.GetColumn("Name", "TenantName"));
         }
     }
 }

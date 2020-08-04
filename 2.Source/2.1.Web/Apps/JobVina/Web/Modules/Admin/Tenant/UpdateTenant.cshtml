@@ -1,0 +1,35 @@
+﻿@model TenantModel
+
+<div class="form-row">
+    <div class="form-group col-md-6">
+        @Html.ZHtml().LabelFor(p => p.Name)
+        @Html.ZHtml().TextBoxFor(p => p.Name)
+    </div>
+    <div class="form-group col-md-6">
+        @Html.ZHtml().LabelFor(p => p.CanonicalName)
+        @Html.ZHtml().TextBoxFor(p => p.CanonicalName)
+    </div><div class="form-group col-md-6">
+        @Html.ZHtml().LabelFor(p => p.IsShowHome)
+        @Html.ZHtml().CheckBoxFor(p => p.IsShowHome)
+    </div>
+    <div class="form-group col-md-6">
+        @Html.ZHtml().LabelFor(p => p.Website)
+        @Html.ZHtml().TextBoxFor(p => p.Website)
+    </div>
+    <div class="form-group col-md-6">
+        @Html.ZHtml().LabelFor(p => p.Email)
+        @Html.ZHtml().TextBoxFor(p => p.Email)
+    </div>
+    <div class="form-group col-md-6">
+        @Html.ZHtml().LabelFor(p => p.PhoneNumber)
+        @Html.ZHtml().TextBoxFor(p => p.PhoneNumber)
+    </div>
+    <div class="form-group col-md-6">
+        @Html.ZHtml().LabelFor(p => p.Address)
+        @Html.ZHtml().TextBoxFor(p => p.Address)
+    </div>
+    <div class="form-group col-md-12">
+        @Html.ZHtml().LabelFor(p => p.Description)
+        @Html.ZHtml().TextAreaFor(p => p.Description, 3)
+    </div>
+</div>
