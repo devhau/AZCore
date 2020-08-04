@@ -2,7 +2,7 @@
 
 namespace AZWeb.Module.Page.Manager
 {
-    public interface IPagination: IUrlVirtual
+    public interface IPagination
     {
         public int PageIndex { get; set; }
         public int PageMax { get; set; }

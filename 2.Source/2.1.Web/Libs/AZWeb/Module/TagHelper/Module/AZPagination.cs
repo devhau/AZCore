@@ -3,7 +3,9 @@ using AZWeb.Module.Page.Manager;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Primitives;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -27,23 +29,36 @@ namespace AZWeb.Module.TagHelper.Module
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output, StringBuilder htmlBuild)
         {
-            var query = QueryHelpers.ParseQuery(Pagination.UrlVirtual.Value);
+            PathString urlPath;
             string pathReal = "";
-            foreach (var key in query.Keys)
+            var index = this.UrlCurrent.IndexOf("?");
+            Dictionary<string, StringValues> query;
+            if (index > 0)
             {
-                if (key != "PageSize" && key != "PageIndex" && key != "rows" && key != "time")
-                    pathReal = string.Format("{0}&{1}={2}", pathReal, key, HttpUtility.UrlEncode(query[key]));
+                urlPath = new PathString(this.UrlCurrent.Substring(0, index));
+                query = QueryHelpers.ParseQuery(this.UrlCurrent.Substring(index + 1));
+
+                foreach (var key in query.Keys)
+                {
+                    if (key != "PageSize" && key != "PageIndex" && key != "rows" && key != "time")
+                        pathReal = string.Format("{0}&{1}={2}", pathReal, key, HttpUtility.UrlEncode(query[key]));
+                }
             }
-            pathReal = this.ViewContext.HttpContext.Request.Path.ToString() + "?" + pathReal;
+            else
+            {
+                query = new Dictionary<string, StringValues>();
+                urlPath = new PathString(this.UrlCurrent);
+            }
+
+            pathReal = urlPath.ToString() + "?" + pathReal;
             htmlBuild.Append("<div class=\"az-pagination\">");
             htmlBuild.AppendFormat("<ul class=\"pagination {0} {1}\">", this.TagId, InputClass);
             htmlBuild.Append("<li style=\"padding:0px 5px;\">");
             htmlBuild.Append("<form>");
             foreach (var key in query.Keys)
             {
-                if (key != "PageSize" && key != "PageIndex" && key!= "rows" && key != "time")
+                if (key != "PageSize" && key != "PageIndex" && key != "rows" && key != "time")
                     htmlBuild.AppendFormat("<input type='hidden' name='{0}' value='{1}'/>", key, query[key]);
-            //    pathReal = string.Format("{0}&{1}={2}", pathReal, key, HttpUtility.UrlEncode(query[key]));
             }
             htmlBuild.AppendFormat("<select class=\"form-control select2\" onchange=\"this.form.submit()\" style=\"width: 100% \" name=\"rows\" az-href=\"{0}\">", pathReal);
             foreach (var item in ListPageSize.Split(","))

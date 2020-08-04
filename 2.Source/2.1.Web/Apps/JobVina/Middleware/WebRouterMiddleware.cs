@@ -52,6 +52,8 @@ namespace JobVina.Middleware
                                         pathReal = string.Format("{0}&{1}={2}", pathReal, key, httpContext.Request.Query[key]);
                                     }
                                     var query = QueryHelpers.ParseQuery(pathReal);
+                                    httpContext.Request.QueryString = QueryString.Create(query);
+
                                     if (!query.ContainsKey("m") || string.IsNullOrEmpty(query["m"].ToString())) return default;
                                     string moduleName = query["m"].ToString();
                                     string viewName = moduleName;
@@ -72,7 +74,20 @@ namespace JobVina.Middleware
                                     return false;
                                 }
                                 else {
-                                    urlPath = new PathString(pathReal);
+                                    var index = pathReal.IndexOf("?");
+                                    if (index > 0)
+                                    {
+                                        urlPath = httpContext.Request.Path = new PathString(pathReal.Substring(0, index));
+                                        pathReal = pathReal.Substring(index + 1);
+                                        foreach (var key in httpContext.Request.Query.Keys)
+                                        {
+                                            pathReal = string.Format("{0}&{1}={2}", pathReal, key, httpContext.Request.Query[key]);
+                                        }
+                                        httpContext.Request.QueryString = QueryString.Create(QueryHelpers.ParseQuery(pathReal));
+                                    }
+                                    else {
+                                        urlPath = httpContext.Request.Path = new PathString(pathReal);
+                                    }
                                     break;
                                 }
                             }

@@ -1,5 +1,7 @@
-﻿using AZCore.Database.Attributes;
+﻿using AZCore.Database;
+using AZCore.Database.Attributes;
 using AZCore.Extensions;
+using AZWeb.Extensions;
 using AZWeb.Module.Constant;
 using AZWeb.Module.TagHelper.Theme;
 using AZWeb.Module.View;
@@ -56,6 +58,8 @@ namespace AZWeb.Module.Html
     }
     public class ZHtml
     {
+        string _urlCurrent;
+        public string UrlCurrent => _urlCurrent ?? (_urlCurrent = HttpContext.Items[AZWebConstant.KeyUrlCurrent] as string);
         protected HtmlContent HtmlSite { get => HttpContext.Items[AZWebConstant.Html] as HtmlContent; }
         private readonly IHtmlHelper html;
         protected HttpContext HttpContext { get; }
@@ -201,6 +205,25 @@ namespace AZWeb.Module.Html
         }
         public IHtmlContent CheckBoxFor<TResult>(Expression<Func<TModel, TResult>> expression, object htmlAttributes = null) {
             return InputFor(InputType.Checkbox, expression, htmlAttributes);
+        }
+        public IHtmlContent DropDownListFor<TService, TModel2, TResult>(Expression<Func<TModel, TResult>> expression, Expression<Func<TModel2, bool>> funcWhere, string optionLabel = null, object htmlAttributes = null)
+            where TService : EntityService<TModel2>
+            where TModel2 : IEntity
+        {
+            IEnumerable<SelectListItem> selectList = null;
+            var sv = this.html.ViewContext.HttpContext.GetService<TService>();
+            if (sv != null)
+            {
+                if (funcWhere != null)
+                {
+                    selectList = sv.Select(funcWhere).Select(p => { var item = p.GetItemValue(); return new SelectListItem() { Text = item.Display, Value = "{0}".Frmat(item.Value) }; });
+                }
+                else
+                {
+                    selectList = sv.GetAll().Select(p => { var item = p.GetItemValue(); return new SelectListItem() { Text = item.Display, Value = "{0}".Frmat(item.Value) }; });
+                }
+            }
+            return DropDownListFor(expression, optionLabel, selectList, htmlAttributes);
         }
         public IHtmlContent DropDownListFor<TResult>( Expression<Func<TModel, TResult>> expression, string optionLabel=null, object htmlAttributes=null)
         {

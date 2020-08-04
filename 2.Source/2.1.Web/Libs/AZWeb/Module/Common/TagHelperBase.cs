@@ -39,12 +39,15 @@ namespace AZWeb.Module.Common
         }
         [ViewContext]
         public ViewContext ViewContext { get; set; }
-        protected HttpContext HttpContext => ViewContext?.HttpContext;
+        HttpContext _httpContext;
+        protected HttpContext HttpContext => _httpContext??( _httpContext=ViewContext?.HttpContext);
         protected string Title { get => Html.Title; set => Html.Title = value; }
         protected string Description { get => Html.Description; set => Html.Description = value; }
         protected string Keyword { get => Html.Keyword; set => Html.Keyword = value; }
         protected HtmlContent Html { get => this.HttpContext.Items[AZWebConstant.Html] as HtmlContent; }
         public Action<TagHelperBase> TagExtend { get; set; }
+        string _urlCurrent;
+        public  string UrlCurrent => _urlCurrent ??(_urlCurrent= HttpContext.Items[AZWebConstant.KeyUrlCurrent] as string);
         protected string PathModule { get; private set; }
 
         protected string GetContentFile(string file)

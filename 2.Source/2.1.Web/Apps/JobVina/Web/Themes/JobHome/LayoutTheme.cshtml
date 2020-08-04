@@ -15,6 +15,7 @@
         <az-style link="assets/plugins/aos/aos.css" />
         <!-- Template Main CSS File -->
         <az-style link="assets/jobhome/css/style.css" />
+        <az-style module="custom-style.css" />
         <!-- Vendor JS Files -->
         <az-script link="assets/plugins/jquery/jquery.min.js" />
         <az-script link="assets/plugins/bootstrap/js/bootstrap.bundle.min.js" />
@@ -66,14 +67,14 @@
                         <li><a href="#contact">Liên hệ</a></li>
                         @if (Model.IsAuth)
                         {
-                        <li class="drop-down">
-                            <a href="#">Chào, @Model.User.FullName</a>
-                            <ul>
-                                <li><a href="/profile.az">Thông tin tài khoản</a></li>
-                                <li><a href="/admin.az">Quản lý</a></li>
-                                <li><a href="/auth/login.az?h=logout">Đăng xuất</a></li>
-                            </ul>
-                        </li>
+                            <li class="drop-down">
+                                <a href="#">Chào, @Model.User.FullName</a>
+                                <ul>
+                                    <li><a href="/profile.az">Thông tin tài khoản</a></li>
+                                    <li><a href="/admin.az">Quản lý</a></li>
+                                    <li><a href="/auth/login.az?h=logout">Đăng xuất</a></li>
+                                </ul>
+                            </li>
                         }
                         else
                         {
@@ -85,8 +86,9 @@
             </div>
         </header><!-- End Header -->
 
-        @Model.BodyContent
-
+        <main id="main-home">
+            @Model.BodyContent
+        </main>
         <footer id="footer">
 
             <div class="footer-newsletter">
@@ -161,7 +163,7 @@
                     &copy; Copyright <strong><span>JobVINA</span></strong>. All Rights Reserved
                 </div>
                 <div class="credits">
-                    Website đang chạy thử nghiệm.<br/>Đang chờ cấp phép sử dụng.
+                    Website đang chạy thử nghiệm.<br />Đang chờ cấp phép sử dụng.
                 </div>
             </div>
         </footer><!-- End Footer -->

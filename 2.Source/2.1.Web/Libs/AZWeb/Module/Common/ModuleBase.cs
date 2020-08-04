@@ -9,7 +9,7 @@ using System;
 
 namespace AZWeb.Module.Common
 {
-    public abstract class ModuleBase : IModule, IUrlVirtual
+    public abstract class ModuleBase : IModule
     {
         public bool HasPermission(string permissionCode)
         {
@@ -19,12 +19,13 @@ namespace AZWeb.Module.Common
         public long? TenantId { get => this.User?.TenantId; }
         public UserInfo User { get; }
         public bool IsAuth { get => User != null; }
-        public QueryString UrlVirtual { get; }
         public HttpContext HttpContext { get; }
         public HttpRequest Request { get => HttpContext.Request; }
         public HttpResponse Response { get => HttpContext.Response; }
         public IServiceProvider RequestServices { get => HttpContext.RequestServices; }
         public IServiceProvider RequestScopeServices { get => HttpContext.Items[AZWebConstant.ScopeService] as IServiceProvider; }
+        string _urlCurrent;
+        public string UrlCurrent => _urlCurrent ?? (_urlCurrent = HttpContext.Items[AZWebConstant.KeyUrlCurrent] as string);
         public bool IsAjax { get; }
         /// <summary>
         ///  throw new System.Exception(mess);
@@ -35,7 +36,6 @@ namespace AZWeb.Module.Common
         {
             HttpContext = httpContextAccessor.HttpContext;
             this.IsAjax = HttpContext.IsAjax();
-            UrlVirtual = HttpContext.Request.QueryString;
 
             this.HttpContext.BindFormAttributeTo(this);
             this.HttpContext.BindQueryAttributeTo(this); 
