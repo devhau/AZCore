@@ -35,9 +35,6 @@
   }
 }
 .form-search{
-    margin:30px auto 10px auto;
-    padding:5px;
-    width:80%;
 }
 @media (max-width: 768px) {
     
@@ -51,4 +48,11 @@
     .form-search{
         width:95%;
     }
+}
+#header{
+    padding: 5px 0;
+}
+#header .logo img{
+    max-height: 80px;
+    
 }

@@ -25,14 +25,15 @@
     <body>
 
         <div class="register-box">
-            <div class="register-logo">
-                <a href="/">
-                    <img src="/assets/images/logo.png" alt="Job VINA"  style="opacity: .8;width:150px;">
-                </a>
-            </div>
+           
 
             <div class="card">
                 <div class="card-body register-card-body">
+                    <div class="register-logo">
+                        <a href="/">
+                            <img src="/assets/images/logo2.png" alt="Tìm việc nhanh" style="opacity: 1;width: 90%;">
+                        </a>
+                    </div>
                     <h2 class="login-box-msg">Đăng ký đơn vị mới</h2>
                     <form action="" method="post">
                         <div class="input-group mb-3">
@@ -72,11 +73,12 @@
                             {
                                 <az-checkbox name="InputCheckTentaint" id="InputCheckTentaint" value="true" is-enable="@Model.JoinCode!= null && Model.JoinCode != string.Empty" value-default="@Model.JoinCode!= null && Model.JoinCode != string.Empty" script-random='id => ScriptHelpper.Script(id, "AuthRegisterTentaint_ChangeTentaint")' label="Đã có mã đối tác" />
                             }
-                            else { 
-                                <input type="hidden" name="InputCheckTentaint" value="true"/>
+                            else
+                            {
+                                <input type="hidden" name="InputCheckTentaint" value="true" />
                                 <label>Đã có mã đối tác</label>
                             }
-                            </div>
+                        </div>
                         <div class="input-group mb-3">
                             @if (Model.JoinCode != null)
                             {
@@ -93,21 +95,21 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="icheck-primary">
-                                        <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                                        <label for="agreeTerms">
-                                            Tôi đồng ý <a href="#">điều khoản</a> này.
-                                        </label>
-                                    </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                    <label for="agreeTerms">
+                                        Tôi đồng ý <a href="#">điều khoản</a> này.
+                                    </label>
                                 </div>
-                                <!-- /.col -->
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-primary btn-block">Đăng ký thành viên</button>
-                                </div>
-                                <!-- /.col -->
                             </div>
+                            <!-- /.col -->
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block">Đăng ký thành viên</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
                     </form>
 
                     <div class="social-auth-links text-center mb-3">
@@ -116,7 +118,7 @@
                             <i class="fab fa-group mr-2"></i> Tôi đăng ký thành viên
                         </a>
                     </div>
-                     <a href="/auth/login.az" class="text-center">Tôi đã có tài khoản.</a>
+                    <a href="/auth/login.az" class="text-center">Tôi đã có tài khoản.</a>
                 </div>
                 <!-- /.form-box -->
             </div><!-- /.card -->

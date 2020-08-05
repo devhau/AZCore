@@ -26,5 +26,9 @@ namespace JobVina.Data.Entities
 	{
         [Field(Display ="Cho phép hiển thị trên trang chủ")]
         public bool IsShowHome { get; set; }
-	}
+        [Field(Display = "Pin Top")]
+        public bool IsPin { get; set; }
+        [Field(Display = "Nổi bật")]
+        public bool IsHot { get; set; }
+    }
 }

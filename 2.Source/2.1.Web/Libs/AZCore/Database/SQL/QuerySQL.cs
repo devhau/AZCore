@@ -70,11 +70,32 @@ namespace AZCore.Database.SQL
             public ColumnValue(string column, object value, OperatorSQL _operator) { this.Column = column; this.Value = value; this.Operator = _operator; }
             public ColumnValue(string column, SortType sort) { this.Column = column;this.Sort = sort; }
             public TableInfo Table { get; set; }
+            public TableInfo Table2 { get; set; }
             public string Column { get; set; }
             public object Value { get; set; }
             public SortType Sort { get; set; }
             public OperatorSQL Operator { get; set; }
             public List<ColumnValue> Sub { get; set; }
+            public ColumnValue AddWhere<TModel2>(Func<QuerySQL, string> whereColumn, object value, OperatorSQL _operator = OperatorSQL.EQUAL)
+            {
+              //  this.SqlWhere.Add(new ColumnValue(whereColumn(this), value, _operator) { Table = GetTableInfo<TModel2>() ?? this.TableName });
+                return this;
+            }
+            public ColumnValue AddWhere<TModel2>(string column, object value, OperatorSQL _operator = OperatorSQL.EQUAL)
+            {
+               // this.SqlWhere.Add(new ColumnValue(column, value, _operator) { Table = GetTableInfo<TModel2>() ?? this.TableName });
+                return this;
+            }
+            public ColumnValue AddWhere(Func<QuerySQL, string> whereColumn, object value, OperatorSQL _operator = OperatorSQL.EQUAL, TableInfo table = null)
+            {
+               // this.SqlWhere.Add(new ColumnValue(whereColumn(this), value, _operator) { Table = table ?? this.TableName });
+                return this;
+            }
+            public ColumnValue AddWhere(string column, object value, OperatorSQL _operator = OperatorSQL.EQUAL, TableInfo table = null)
+            {
+                //this.SqlWhere.Add(new ColumnValue(column, value, _operator) { Table = table ?? this.TableName });
+                return this;
+            }
             public string ToWhere(DynamicParameters parameter,int indexParam) {
                 string nameColumn = Table.GetColumn(Column);
                 string nameParam = "@{0}{1}".Frmat(Column.Replace('.','_'),indexParam);

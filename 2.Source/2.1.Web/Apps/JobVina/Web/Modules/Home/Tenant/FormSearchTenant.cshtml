@@ -1,22 +1,52 @@
 ﻿@model FormSearchTenant
-<!--== Form Search==-->
-    <div class="form-search">
-        <div class="row">
-            <div class="col-12 form-group">
-                <h3>Tìm kiếm các đối tác cung ứng nguồn lao động cho công ty</h3>
-                <h5>
-                    Giải pháp kết nối đối tác cung ứng nguồn lao động với các công ty sử dụng lao động.<br />
-                    Đánh mức độ uy tin của từng đối tác cung ứng nguồn lao với lao động và công ty sử dụng lao động.<br />
-                    Uy tín - trách nhiệm - nhánh chóng - tiết kiệm.
-                </h5>
-            </div>
-            <form>
+<az-style module="formsearch_tenant.css"/>
+    <div class="container">
+        <!--== Form Search==-->
+            <div class="row">
                 <div class="col-12 form-group">
-                    @Html.ZHtml().TextBoxFor(p => p.TextSearch, new
-                                                {
-                                                    placeholder = "Tìm kiếm thông tin đối tác"
-                                                })
+                    <h3>Tìm kiếm đơn vị cung ứng nguồn lao động cho công ty</h3>
+                    <p>
+                        Giải pháp kết nối đối tác cung ứng nguồn lao động với các công ty sử dụng lao động.<br />
+                        Đánh mức độ uy tin của từng đối tác cung ứng nguồn lao với lao động và công ty sử dụng lao động.<br />
+                        Uy tín - trách nhiệm - nhánh chóng - tiết kiệm.
+                    </p>
                 </div>
-            </form>
+                <form>
+                    <div class="col-12 form-group">
+                        @Html.ZHtml().TextBoxFor(p => p.TextSearch, new
+                   {
+                       placeholder = "Tìm kiếm thông tin đối tác"
+                    
+                   })
+                    </div>
+                </form>
+            </div>
+        <div >
+            @foreach (var tentant in Model.Data)
+            {
+
+            <article class="tentant-post">
+               
+                <div class="row">
+                    <div class="col-3">
+                        <img class="logo" src="~/assets/images/logo.png" />
+                    </div>
+                    <div class="col-9">
+                        <a href="/don-vi-cung-ung/@("{0}-{1}.az".Frmat(tentant.Name.ToUrlSlug().ToLower(),tentant.Id))" title="@(tentant.Name)"><h3>@(tentant.Name)</h3></a>
+                        <div class="row">
+                            <div class="col-6">Khu vực: KCN Quế võ 1- Bắc Ninh</div>
+                            <div class="col-6"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                @tentant.Description
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            }
+            <az-pagination pagination="Model"/>
         </div>
-        </div>
+    </div>

@@ -1,0 +1,13 @@
+﻿.tentant-post{
+    margin-top:10px;
+    margin-bottom:10px;
+    border:1px solid #4cff00;
+    padding:10px;
+    border-radius:5px;
+}
+.tentant-post .logo{
+    width:80%;
+    border:1px solid #808080;
+    border-radius:3px;
+    box-shadow:#808080 3px 3px;
+}
