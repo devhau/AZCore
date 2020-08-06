@@ -1,8 +1,5 @@
-﻿using Org.BouncyCastle.Math.Field;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
-using System.Text;
 
 namespace AZCore.Database
 {
@@ -12,6 +9,7 @@ namespace AZCore.Database
         TypeSQL Type { get; set; }
         IDbConnection Connection { get; }
         IDbConnection CreateConnection();
+        IDatabaseCore Clone();
     }
     public abstract class DatabaseCore : IDatabaseCore
     {
@@ -35,5 +33,8 @@ namespace AZCore.Database
         }
 
         public IDbConnection Connection => _connection ??= CreateConnection();
+        public virtual IDatabaseCore Clone() {
+            return (IDatabaseCore)Activator.CreateInstance(this.GetType(), this._connectString);
+        }
     }
 }

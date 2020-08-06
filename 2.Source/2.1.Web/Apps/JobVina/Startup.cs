@@ -161,7 +161,7 @@ namespace JobVina
             app.UseMiddleware<WebRouterMiddleware>();
             app.UseMiddleware<ModuleWebMiddleware>();
 
-            new DBCreateEntities( app.ApplicationServices.GetService(typeof(IDatabaseCore)) as IDatabaseCore).CheckEmptyAndCreateDatabase();
+            new DBCreateEntities( app.ApplicationServices.GetService(typeof(IDatabaseCore)) as IDatabaseCore, Configuration.GetValue<bool>("DropTable")).CheckEmptyAndCreateDatabase();
         }
     }
 }

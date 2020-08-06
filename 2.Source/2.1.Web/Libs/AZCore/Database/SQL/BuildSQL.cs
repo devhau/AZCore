@@ -182,6 +182,14 @@ namespace AZCore.Database.SQL
                 SQL = SQL.ToString()
             };
         }
+        public SQLResult DropTable()
+        {
+            return new SQLResult()
+            {
+                Param = new DynamicParameters(),
+                SQL = " DROP TABLE `{0}`".Frmat(this.TableName)
+            };
+        }
         public SQLResult CreateTableIfNotExit()
         {
             StringBuilder SQL = new StringBuilder();

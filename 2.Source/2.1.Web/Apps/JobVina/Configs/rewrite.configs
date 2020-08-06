@@ -1,3 +1,4 @@
 ﻿dang-nhap.az Auth/Login.az
 dang-ky.az Auth/Register.az
 tim-don-vi-cung-ung.az /home/Tenant/SearchTenant.az
+don-vi-cung-ung/(.*?)-(\d+).az /home/Tenant/TenantDetail.az?id=$2

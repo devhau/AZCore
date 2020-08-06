@@ -37,6 +37,11 @@ namespace AZCore.Identity
         [Field(Length = 1000,Display ="Mô tả")]
         public string Description { get; set; }
         /// <summary>
+        /// Mô tả
+        /// </summary>
+        [Field(Length = 10000, Display = "Bài viết")]
+        public string PostContent { get; set; }
+        /// <summary>
         /// Địa chỉ
         /// </summary>
         [Field(Length = 500,Display ="Địa chỉ")]

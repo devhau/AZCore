@@ -26,7 +26,7 @@ namespace JobVina.Web.Modules.Admin.Setting
             this.HttpContext.BindFormTo(model);
             model.UpdateAt = DateTime.Now;
             model.UpdateBy = this.User.Id;
-            model.NormalizedCanonicalName = model.NormalizedCanonicalName.ToLower().ToUrlSlug();
+           // model.NormalizedCanonicalName = model.NormalizedCanonicalName.ToLower().ToUrlSlug();
             this.TenantService.Update(model);
             this.AddJS("alert('Cập nhật thành công')");
             return View(model);
