@@ -12,10 +12,22 @@ namespace JobVina.Middleware
     /// </summary>
     public class WebRouterMiddleware : DoMiddlewareBase
     {
+        /// <summary>
+        /// Web.Modules
+        /// </summary>
+        private const string pathModule = "Web.Modules";
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="next"></param>
         public WebRouterMiddleware(RequestDelegate next) : base(next)
         {
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
         protected override async Task<bool> DoMiddleware(HttpContext httpContext)
         {
 #if !DEBUG
@@ -102,7 +114,7 @@ namespace JobVina.Middleware
                     string path1 = ModulePaths.Length > 1 ? ModulePaths[^1] : string.Empty;// ~ Length-1
                     string path2 = ModulePaths.Length > 1 ? ModulePaths[^2] : ModulePaths[^1];// ~ Length-2
                    
-                    ModulePath = "Web.Modules";
+                    ModulePath = pathModule;
                     for (int i = 0; i < ModulePaths.Length - 2; i++)
                     {
                         ModulePath = ModulePath + "." + ModulePaths[i];
@@ -142,6 +154,9 @@ namespace JobVina.Middleware
                             MethodName = string.Format("{0}{1}", httpContext.Request.Method, path1),
                             IsAuto = true
                         };
+                    }
+                    else{
+                        httpContext.Items[WebInfo.Key] = WebInfo.NotFound;
                     }
 
                 }

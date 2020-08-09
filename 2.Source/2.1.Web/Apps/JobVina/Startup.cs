@@ -28,6 +28,7 @@ namespace JobVina
 {
     public class Startup
     {
+        const string checkModule = ".Web"; 
         IConfiguration Configuration { get; }
         IWebHostEnvironment env;
         public Startup(
@@ -56,9 +57,9 @@ namespace JobVina
                     }
                 }
             }
-            this.GetType().Assembly.GetTypes().Where(p => p.FullName.Contains(".Web.") && p.IsTypeFromInterface<IModule>()).Any(p =>
+            this.GetType().Assembly.GetTypes().Where(p => p.FullName.IndexOf(checkModule)>0 && p.IsTypeFromInterface<IModule>()).Any(p =>
             {
-                var indexWeb = p.FullName.IndexOf(".Web");
+                var indexWeb = p.FullName.IndexOf(checkModule);
                 var key = p.FullName.Substring(indexWeb + 1).ToLower().Trim();
                 if(!WebInfo.dicModule.ContainsKey(key))
                     WebInfo.dicModule[key] = p;
@@ -105,34 +106,6 @@ namespace JobVina
                 options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-                x.Events = new JwtBearerEvents
-                {
-                    OnMessageReceived = context =>
-                    {
-                        var accessToken = context.Request.Query["access_token"];
-
-                        // If the request is for our hub...
-                        var path = context.HttpContext.Request.Path;
-                        if (!string.IsNullOrEmpty(accessToken) &&
-                            (path.StartsWithSegments("/azhub")))
-                        {
-                            // Read the token out of the query string
-                            context.Token = accessToken;
-                        }
-                        return Task.CompletedTask;
-                    }
-                };
             }).AddIdentityCookies();
 
             services.AddRazorPages();

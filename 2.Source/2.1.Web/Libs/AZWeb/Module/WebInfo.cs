@@ -8,6 +8,11 @@ namespace AZWeb.Module
 {
     public class WebInfo
     {
+        public static readonly WebInfo NotFound = new WebInfo()
+        {
+            MethodName = "Get",
+            ModulePath = "Web.Errors.NotFound"
+        };
         public static IWebHostEnvironment env;
         public static readonly string Namepace = Assembly.GetEntryAssembly().GetName().Name;
         public static Stream ReadStreamFromResource(string path, Assembly target = null) {

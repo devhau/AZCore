@@ -55,7 +55,7 @@
     <Content Include="Web\Themes\JobHome\css\custom-style.css" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="WebApi\" />
+    <Folder Include="WebApi\v1\" />
     <Folder Include="Web\Modules\Admin\System\" />
     <Folder Include="Web\Widgets\" />
     <Folder Include="wwwroot\upload\" />

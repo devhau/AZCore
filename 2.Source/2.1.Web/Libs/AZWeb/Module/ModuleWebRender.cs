@@ -41,6 +41,11 @@ namespace AZWeb.Module
                     User.TenantId = permissionService.GetTenantByUserId(User.Id);
                 }
                 this.httpContext.Items[AZWebConstant.KeyUser] = User;
+                return;
+            }
+            //check Token
+            if (this.httpContext.Request.Headers.ContainsKey("Authorization")) {
+                string Authorization = this.httpContext.Request.Headers["Authorization"];
             }
         }
 
@@ -76,26 +81,26 @@ namespace AZWeb.Module
             //
             var moduleName = moduleInfo.ModulePath;
 
-            if (methodName.IsNullOrEmpty()||methodName.IsNullOrEmpty())
+            if (methodName.IsNullOrEmpty()|| moduleName.IsNullOrEmpty())
             {
-                methodName = "Get";
-                moduleName = string.Format("Web.Errors.NotFound");
+                methodName = WebInfo.NotFound.MethodName;
+                moduleName = WebInfo.NotFound.ModulePath;
             }
             //
             var ModuleCurrent = LoadModule(moduleName);
 
             if (ModuleCurrent == null|| (ModuleCurrent.GetType().GetAttribute<OnlyAjaxAttribute>() != null && !IsAjax))
             {
-                methodName = "Get";
-                moduleName = string.Format("Web.Errors.NotFound");
+                methodName = WebInfo.NotFound.MethodName;
+                moduleName = WebInfo.NotFound.ModulePath;
                 ModuleCurrent = LoadModule(moduleName);
             }
             if (ModuleCurrent == null) return false;
             var methodFunction = ModuleCurrent.GetType().GetMethods().FirstOrDefault(p=> string.Equals(p.Name, methodName, StringComparison.OrdinalIgnoreCase));
             if (methodFunction == null || (methodFunction.GetAttribute<OnlyAjaxAttribute>() != null && !IsAjax))
             {
-                methodName = "Get";
-                moduleName = string.Format("Web.Errors.NotFound");
+                methodName = WebInfo.NotFound.MethodName;
+                moduleName = WebInfo.NotFound.ModulePath;
                 ModuleCurrent = LoadModule(moduleName);
                 methodFunction = ModuleCurrent.GetType().GetMethods().FirstOrDefault(p => string.Equals(p.Name, methodName, StringComparison.OrdinalIgnoreCase));
             }

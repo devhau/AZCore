@@ -1,7 +1,6 @@
 ﻿@model LayoutTheme
 <az-html class="az-layout az-admin layout-top-nav accent-primary">
     <head>
-        <az-token-jwt />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Google Fonts -->
         <az-style link="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" />
@@ -13,9 +12,6 @@
         <az-style link="/assets/plugins/owl.carousel/assets/owl.carousel.min.css" />
         <az-style link="/assets/plugins/venobox/venobox.css" />
         <az-style link="/assets/plugins/aos/aos.css" />
-        <!-- Template Main CSS File -->
-        <az-style link="assets/jobhome/css/style.css" />
-        <az-style module="custom-style.css" />
         <!-- Vendor JS Files -->
         <az-script link="/assets/plugins/jquery/jquery.min.js" />
         <az-script link="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js" />
@@ -28,8 +24,11 @@
         <az-script link="/assets/plugins/venobox/venobox.min.js" />
         <az-script link="/assets/plugins/aos/aos.js" />
 
+        <!-- Template Main CSS File -->
+        <az-style link="/assets/jobhome/css/style.css" />
         <!-- Template Main JS File -->
-        <az-script link="assets/jobhome/js/main.js" />
+        <az-script link="/assets/jobhome/js/main.js" />
+        <az-style module="custom-style.css" />
 
     </head>
     <body>
