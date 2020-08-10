@@ -3,13 +3,12 @@ using AZCore.Extensions;
 using AZWeb.Module.Attributes;
 using AZWeb.Module.Common;
 using JobVina.Common;
-using JobVina.Data.Entities;
 using JobVina.Data.Entities.Company;
 using Microsoft.AspNetCore.Http;
 
-namespace JobVina.Web.Modules.Company.SearchCompany
+namespace JobVina.Web.Modules.Home.Company
 {
-    public class FormSearchCompany : PageSearch<TenantService, CompanyInfoModel>
+    public class FormSearchCompany : PageSearch<CompanyInfoService, CompanyInfoModel>
     {
         [BindQuery(FromName = "TextSearch")]
         public string TextSearch { get; set; }

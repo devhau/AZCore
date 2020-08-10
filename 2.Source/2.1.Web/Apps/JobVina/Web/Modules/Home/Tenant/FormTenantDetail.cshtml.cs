@@ -9,12 +9,12 @@ namespace JobVina.Web.Modules.Home.Tenant
     public class FormTenantDetail : PageHome
     {
         [BindService]
-        public TenantService TenantService;
+        public TenantService _tenantService;
         public FormTenantDetail(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
         }
         public IView Get(long Id) {
-           var tenant= TenantService.GetById(Id);
+           var tenant= _tenantService.GetById(Id);
             if (tenant != null)
             {
                 this.Title = tenant.Name;

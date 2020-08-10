@@ -4,13 +4,13 @@ using JobVina.Common;
 using JobVina.Data.Entities;
 using Microsoft.AspNetCore.Http;
 
-namespace JobVina.Web.Modules.Home.Tenant
+namespace JobVina.Web.Modules.Home.Company
 {
-    public class FormTenantDetail : PageHome
+    public class FormCompanyDetail : PageHome
     {
         [BindService]
         public TenantService TenantService;
-        public FormTenantDetail(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+        public FormCompanyDetail(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
         }
         public IView Get(long Id) {
