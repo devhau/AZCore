@@ -183,8 +183,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button button1;
-        private UpDownButtons upDownButtons1;
-        private UpDownEdit upDownEdit1;
+        //private UpDownButtons upDownButtons1;
+        //private UpDownEdit upDownEdit1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label1;

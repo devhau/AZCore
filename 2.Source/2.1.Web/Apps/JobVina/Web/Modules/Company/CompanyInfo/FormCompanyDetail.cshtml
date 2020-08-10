@@ -1,0 +1,23 @@
+﻿@model TenantModel
+<div class="container" style="padding-top:50px;">
+    <div class="row">
+        <article class="tentant-post col-12">
+            <a href="/don-vi-cung-ung/@("{0}-{1}.az".Frmat(Model.Name.ToUrlSlug().ToLower(),Model.Id))" title="@(Model.Name)"><h3 class="tentant-title">@(Model.Name)</h3></a>
+            <div class="row">
+                <div class="col-12 tentant-address">Địa chỉ:@Model.Address</div>
+                <div class="col-lg-6 col-md-12 tentant-contact">SDT: @Model.PhoneNumber </div>
+                <div class="col-lg-6 col-md-12 tentant-contact">Email: @Model.Email </div>
+            </div>
+            <div class="row">
+                <div class="col-12 tentant-description">
+                    @Model.Description
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 tentant-description">
+                    @Model.PostContent
+                </div>
+            </div>
+        </article>
+    </div>
+</div>

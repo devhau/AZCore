@@ -1,0 +1,27 @@
+﻿.tentant-post{
+    margin-top:10px;
+    margin-bottom:10px;
+    border:1px solid #4cff00;
+    padding:10px;
+    border-radius:5px;
+}
+
+.tentant-post .tentant-logo{
+    margin:auto;
+    width:99%;
+    border:1px solid #808080;
+    border-radius:3px;
+    box-shadow:#808080 3px 3px;
+}
+
+@media (max-width: 602px) {
+    .tentant-post .tentant-title{
+        font-size:15px;
+    }
+    .tentant-post .tentant-address{
+        font-size:13px;
+    }
+    .tentant-post .tentant-contact{
+        font-size:13px;
+    }
+}

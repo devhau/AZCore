@@ -1,0 +1,53 @@
+﻿@model FormSearchCompany
+<az-style module="formsearch_tenant.css"/>
+    <div class="container">
+        <!--== Form Search==-->
+            <div class="row">
+                <div class="col-12 form-group">
+                    <h3>Tìm kiếm công ty</h3>
+                    <p>
+                        Giải pháp kết nối đối tác cung ứng nguồn lao động với các công ty sử dụng lao động.<br />
+                        Đánh mức độ uy tin của từng đối tác cung ứng nguồn lao với lao động và công ty sử dụng lao động.<br />
+                        Uy tín - trách nhiệm - nhánh chóng - tiết kiệm.
+                    </p>
+                </div>
+                <form>
+                    <div class="col-12 form-group">
+                        @Html.ZHtml().TextBoxFor(p => p.TextSearch, new
+                   {
+                       placeholder = "Tìm kiếm thông tin công ty"
+                    
+                   })
+                    </div>
+                </form>
+            </div>
+        <div >
+            @foreach (var tentant in Model.Data)
+            {
+
+            <article class="tentant-post">
+               
+                <div class="row">
+                    <div class="col-3">
+                        <img class="tentant-logo" src="~/assets/images/logo.png" />
+                    </div>
+                    <div class="col-9">
+                        <a href="/don-vi-cung-ung/@("{0}-{1}.az".Frmat(tentant.Name.ToUrlSlug().ToLower(),tentant.Id))" title="@(tentant.Name)"><h3 class="tentant-title">@(tentant.Name)</h3></a>
+                        <div class="row">
+                            <div class="col-12 tentant-address">Địa chỉ:@tentant.Address</div>
+                            <div class="col-lg-6 col-md-12 tentant-contact">SDT: @tentant.PhoneNumber </div>
+                            <div class="col-lg-6 col-md-12 tentant-contact">Email: @tentant.Email </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 tentant-description">
+                                @tentant.Description
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            }
+            <az-pagination pagination="Model"/>
+        </div>
+    </div>
