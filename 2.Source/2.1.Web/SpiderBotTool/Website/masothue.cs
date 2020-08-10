@@ -70,8 +70,8 @@ namespace SpiderBotTool.Website
         public List<string> GetPage(int page=1)
         {
             //https://masothue.vn/Search/?q=CUNG+%E1%BB%A8NG+NH%C3%82N+L%E1%BB%B0C&type=auto
-            var html = GetDoc("https://masothue.vn/Search/?q=CUNG+%E1%BB%A8NG+NH%C3%82N+L%E1%BB%B0C&type=auto&page="+ page);
-            var link = html.SelectNodes("//*[@id=\"main\"]/section/div/div[3]/div/h3/a");
+            var html = GetDoc("https://masothue.vn/Search/?q=CUNG+%E1%BB%A8NG+NH%C3%82N+L%E1%BB%B0C&type=auto&page=" + page);
+            var link = html.SelectNodes("//*[@id=\"main\"]//*[@class=\"tax-listing\"]//h3/a");
             return link.Select(p => p.GetAttributeValue("href", string.Empty)).Where(p => p != string.Empty).ToList();
         }
         public Dictionary<string, string> GetDicTable(HtmlNode html) {

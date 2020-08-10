@@ -8,7 +8,7 @@ namespace AZERP.Web.Modules.Common.Social
 
     public class FormSocial : PageModule
     {
-        Shopee shopee = new Shopee();
+        //Shopee shopee = new Shopee();
         public FormSocial(IHttpContextAccessor httpContext) : base(httpContext)
         {
         }
@@ -20,10 +20,10 @@ namespace AZERP.Web.Modules.Common.Social
         {
             return Json("");
         }
-        public IView GetConnect(string type) {
+        //public IView GetConnect(string type) {
 
 
-            return GoToRedirect(shopee.GetLinkAuth("https://k.localhost:5001/hoan-thanh-ket-noi-social.az"));
-        }
+        //    return GoToRedirect(shopee.GetLinkAuth("https://k.localhost:5001/hoan-thanh-ket-noi-social.az"));
+        //}
     }
 }

@@ -2,6 +2,9 @@
 using HtmlAgilityPack;
 using SpiderBotTool.Website;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SpiderBotTool
@@ -27,10 +30,38 @@ namespace SpiderBotTool
 
         private void button1_Click(object sender, EventArgs e)
         {
+            new thongtincongty().getLink();
+            Console.WriteLine("Done");
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            int start = 1;
+            int end = 5;
             var mst = new masothue();
-            var link = mst.GetPage();
-            var ms = mst.GetCompanyInfo("https://masothue.vn{0}".Frmat(link[0]));
-            Console.WriteLine("Text 2: ");
+            string pathData = string.Format("{0}data", Application.StartupPath);
+            if (!System.IO.Directory.Exists(pathData)) System.IO.Directory.CreateDirectory(pathData);
+
+            for (int index = start; index < end; index++)
+            {
+                var links = mst.GetPage(index);
+                foreach (string link in links)
+                {
+                    Application.DoEvents();
+                    WriteLog("Xử lý link: {0}".Frmat(link));
+                    var ms = mst.GetCompanyInfo("https://masothue.vn{0}".Frmat(link));
+                    WriteLog("Lưu file: {0}".Frmat(ms.TexCode));
+                    if (File.Exists("{0}/{1}.data".Frmat(pathData, ms.TexCode)))
+                    {
+                        WriteLog("Đã Tồn Tại File {1}.data".Frmat(pathData, ms.TexCode));
+                    }
+                    else
+                    {
+                        File.WriteAllText("{0}/{1}.data".Frmat(pathData, ms.TexCode), Newtonsoft.Json.JsonConvert.SerializeObject(ms));
+                        WriteLog("Hoàn thành: {0}".Frmat(link));
+                    }
+                }
+            };
         }
     }
 }
