@@ -16,7 +16,7 @@ namespace AZWeb.Module.Common
         }
         public virtual IView Json(string Message)
         {
-            return Json(Message, string.Empty, HttpStatusCode.OK);
+            return Json(Message, null, HttpStatusCode.OK);
         }
         public virtual IView Json(string Message, HttpStatusCode status)
         {

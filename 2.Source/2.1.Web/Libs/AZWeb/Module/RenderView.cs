@@ -46,6 +46,7 @@ namespace AZWeb.Module
         }
        JsonSerializerOptions GetHtmlSafeSerializerOptions(JsonSerializerOptions serializerOptions)
         {
+            serializerOptions.IgnoreNullValues = true;
             if (serializerOptions.Encoder is null || serializerOptions.Encoder == JavaScriptEncoder.Default)
             {
                 return serializerOptions;

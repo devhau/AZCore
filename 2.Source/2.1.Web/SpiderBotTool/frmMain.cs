@@ -1,10 +1,12 @@
 ﻿using AZCore.Extensions;
+using AZCore.Networks;
 using HtmlAgilityPack;
 using SpiderBotTool.Website;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Management;
 using System.Windows.Forms;
 
 namespace SpiderBotTool
@@ -30,8 +32,10 @@ namespace SpiderBotTool
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new thongtincongty().getLink();
-            Console.WriteLine("Done");
+            button1.Enabled = false;
+            new thongtincongty().getLink(); 
+            WriteLog("Done");
+            button1.Enabled = false;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -62,6 +66,23 @@ namespace SpiderBotTool
                     }
                 }
             };
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            NetSH.Disable("Cellular");
+            //SelectQuery wmiQuery = new SelectQuery("SELECT * FROM Win32_NetworkAdapter WHERE NetConnectionId != NULL");
+            //ManagementObjectSearcher searchProcedure = new ManagementObjectSearcher(wmiQuery);
+            //foreach (ManagementObject item in searchProcedure.Get())
+            //{
+            //    string name = (string)item["NetConnectionId"];
+            //    WriteLog(name);
+
+            //    if (name == "Cellular")
+            //    {
+            //        item.InvokeMethod("Disable", null);
+            //    }
+            //}
         }
     }
 }
